@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/home_icon"
+        android:title="Home" />
+    <item
+        android:id="@+id/searchFragment"
+        android:icon="@drawable/ic_outline_search_24"
+        android:title="Search" />
+    <item
+        android:id="@+id/standardListsFragment"
+        android:icon="@drawable/bookmark_icon"
+        android:title="To see" />
+    <item
+        android:id="@+id/moreFragment"
+        android:icon="@drawable/person_icon"
+        android:title="More" />
+</menu>

@@ -7,4 +7,27 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary color -->
+    <color name="mirage_100">#151D26</color>
+    <!-- Primary color variant-->
+    <color name="mirage_20">#33151D26</color>
+    <!-- Secondary color  -->
+    <color name="lynch_100">#1D2633</color>
+    <!-- Secondary color variant-->
+    <color name="lynch_20">#331D2633</color>
+    <!-- Other colors-->
+    <color name="blue_stone_100">#026258</color>
+    <color name="blue_stone_20">#33026258</color>
+    <color name="allports_100">#046DAE</color>
+    <color name="allports_20">#33046DAE</color>
+    <color name="vermilion_100">#D84315</color>
+    <color name="vermilion_20">#33D84315</color>
+    <color name="alabaster">#FAFAFA</color>
+    <color name="geyser">#CFD8DC</color>
+    <color name="fern_frond_100">#487B1E</color>
+    <color name="fern_frond_20">#33487B1E</color>
+    <color name="royal_blue_100">#3A55EA</color>
+    <color name="royal_blue_20">#333A55EA</color>
+    <!---->
 </resources>

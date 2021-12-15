@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.cinemates.fragment.HomeFragment"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/standardListsFragment"
+        android:name="com.example.cinemates.fragment.StandardListsFragment"
+        tools:layout="@layout/fragment_standard_lists" />
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.example.cinemates.fragment.MoreFragment"
+        tools:layout="@layout/fragment_more" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.cinemates.fragment.SearchFragment"
+        tools:layout="@layout/fragment_search" />
+</navigation>

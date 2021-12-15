@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_outline_search_24"
+        android:title="Search"
+        app:showAsAction="collapseActionView|ifRoom" />
+    <item
+        android:icon="@drawable/ic_round_view_list_24"
+        android:title="View"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
+        android:icon="@drawable/ic_round_view_module_24"
+        android:title="View"
+        android:visible="false"
+        app:showAsAction="always" />
+</menu>

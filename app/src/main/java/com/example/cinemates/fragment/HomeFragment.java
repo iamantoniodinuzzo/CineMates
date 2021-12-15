@@ -15,7 +15,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.cinemates.R;
+import com.example.cinemates.adapter.SectionRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentHomeBinding;
+import com.example.cinemates.model.Movie;
+import com.example.cinemates.model.Section;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class HomeFragment extends Fragment {
@@ -23,10 +30,16 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding mBinding;
     private NavController mNavController;
+    private List<Section> mSectionList = new ArrayList<>();
+    private SectionRecyclerViewAdapter mSectionRecyclerViewAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initData();
+
+        mSectionRecyclerViewAdapter = new SectionRecyclerViewAdapter();
+
 
     }
 
@@ -35,6 +48,9 @@ public class HomeFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = FragmentHomeBinding.inflate(inflater, container, false);
+        mSectionRecyclerViewAdapter.addItems(mSectionList);
+        mBinding.recyclerView.setAdapter(mSectionRecyclerViewAdapter);
+
         return mBinding.getRoot();
     }
 
@@ -53,6 +69,22 @@ public class HomeFragment extends Fragment {
 
         NavigationUI.setupWithNavController(toolbar, mNavController, appBarConfiguration);
 
+    }
+
+    private void initData() {
+        String sectionOneName = "Tendenze";
+        List<Movie> sectionOneItems = new ArrayList<>();
+        //addItems
+        String sectionTwoName = "Al Cinema";
+        List<Movie> sectionTwoItems = new ArrayList<>();
+        //addItems
+        String sectionThreeName = "In Arrivo";
+        List<Movie> sectionThreeItems = new ArrayList<>();
+        //addItems
+
+        mSectionList.add(new Section(sectionOneName, sectionOneItems));
+        mSectionList.add(new Section(sectionTwoName, sectionTwoItems));
+        mSectionList.add(new Section(sectionThreeName, sectionThreeItems));
     }
 
 

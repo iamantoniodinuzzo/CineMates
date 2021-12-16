@@ -59,13 +59,14 @@
             <com.example.cinemates.adapter.EmptyRecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
+                tools:listitem="@layout/list_item_media_poster"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <include
                 android:id="@+id/empty_view"
-                layout="@layout/layout_empty_view" />
+                layout="@layout/layout_empty_recycler" />
         </RelativeLayout>
 
 

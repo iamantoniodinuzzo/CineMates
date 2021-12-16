@@ -8,7 +8,11 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.cinemates.fragment.HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailedViewFragment"
+            app:destination="@id/detailedViewFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/standardListsFragment"
@@ -22,4 +26,14 @@
         android:id="@+id/searchFragment"
         android:name="com.example.cinemates.fragment.SearchFragment"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/detailedViewFragment"
+        android:name="com.example.cinemates.fragment.DetailedViewFragment"
+        android:label="Section"
+        tools:layout="@layout/fragment_detailed_view" >
+        <action
+            android:id="@+id/action_detailedViewFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"/>
+    </fragment>
 </navigation>

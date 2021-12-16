@@ -8,13 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinemates.databinding.LayoutEmptyViewBinding;
 
 /**
+ * Un recycler attento al suo contenuto.
+ * Quando non ci sono oggetti al suo interno, rende visibile lo stato di vuotezza.
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:16
  */
-public class EmptyRecyclerView  extends RecyclerView {
+public class EmptyRecyclerView extends RecyclerView {
     private View mEmptyView;
 
     public EmptyRecyclerView(@NonNull Context context) {

@@ -4,24 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:layout_centerInParent="true"
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/error_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_baseline_accessibility_24"
+        android:src="@drawable/ic_outline_error_outline_24"
         app:tint="@color/geyser" />
 
     <TextView
+        android:id="@+id/error_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nothing here"
+        android:text="Something went wrong!"
         android:textAlignment="center"
         android:textColor="@color/geyser"
-        android:textSize="28sp"
-        android:textStyle="bold" />
+        android:textSize="16sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/retry_button"
+        android:layout_width="100dp"
+        android:backgroundTint="@color/vermilion_100"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Retry"
+        app:cornerRadius="18dp" />
 
 </LinearLayout>

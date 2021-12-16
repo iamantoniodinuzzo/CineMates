@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -51,6 +52,7 @@ public class HomeFragment extends Fragment {
         mSectionRecyclerViewAdapter.addItems(mSectionList);
         mBinding.recyclerView.setAdapter(mSectionRecyclerViewAdapter);
 
+
         return mBinding.getRoot();
     }
 
@@ -65,11 +67,13 @@ public class HomeFragment extends Fragment {
         mNavController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration =
                 new AppBarConfiguration.Builder(R.id.homeFragment).build();
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        Toolbar toolbar = mBinding.toolbar;
 
         NavigationUI.setupWithNavController(toolbar, mNavController, appBarConfiguration);
 
     }
+
+
 
     private void initData() {
         String sectionOneName = "Tendenze";

@@ -1,20 +1,18 @@
 package com.example.cinemates.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -46,6 +44,7 @@ public class SearchFragment extends Fragment {
         mAdapter = new FragmentSearchAdapter(getParentFragmentManager(), getLifecycle());
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mGridLayoutManager = new GridLayoutManager(getContext(), 3);
+
 
     }
 
@@ -123,7 +122,6 @@ public class SearchFragment extends Fragment {
 
     private void switchLayout(RecyclerView.LayoutManager layoutManager) {
         //TODO implement a method to switch view of recyclerview owned by Searchable fragment
-
     }
 
 

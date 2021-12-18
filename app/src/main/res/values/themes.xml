@@ -20,6 +20,7 @@
 
     <!-- TabLayout Style-->
     <style name="Tab_Layout_Small" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabIndicator">@drawable/tab_indicator</item>
         <item name="tabIndicatorColor">@color/vermilion_100</item>
         <item name="tabSelectedTextColor">@color/vermilion_100</item>
         <item name="tabMode">auto</item>

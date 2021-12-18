@@ -4,21 +4,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinemates.adapter.SearchMovieRecyclerViewAdapter;
+import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentSearchMovieBinding;
+import com.example.cinemates.util.ChangeRvLayout;
 
-public class SearchMovieFragment extends Fragment {
+public class SearchMovieFragment extends Fragment implements ChangeRvLayout {
 
   private FragmentSearchMovieBinding mBinding;
-  private SearchMovieRecyclerViewAdapter mRecyclerViewAdapter;
+  private MovieRecyclerViewAdapter mRecyclerViewAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRecyclerViewAdapter = new SearchMovieRecyclerViewAdapter();
+        mRecyclerViewAdapter = new MovieRecyclerViewAdapter();
 
     }
 
@@ -38,5 +41,12 @@ public class SearchMovieFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
+    }
+
+    @Override
+    public void changeLayout(RecyclerView.LayoutManager layoutManager) {
+       /* mBinding.recyclerView.setLayoutManager(layoutManager);
+        mRecyclerViewAdapter.notifyItemRangeChanged(0, mRecyclerViewAdapter.getItemCount());*/
+        Toast.makeText(getContext(), "Changed", Toast.LENGTH_SHORT).show();
     }
 }

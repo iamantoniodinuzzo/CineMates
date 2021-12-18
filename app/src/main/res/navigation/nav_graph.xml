@@ -29,11 +29,16 @@
     <fragment
         android:id="@+id/detailedViewFragment"
         android:name="com.example.cinemates.fragment.DetailedViewFragment"
-        android:label="Section"
+        android:label="{section}"
         tools:layout="@layout/fragment_detailed_view" >
         <action
             android:id="@+id/action_detailedViewFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"/>
+        <argument
+            android:name="section"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="Section" />
     </fragment>
 </navigation>

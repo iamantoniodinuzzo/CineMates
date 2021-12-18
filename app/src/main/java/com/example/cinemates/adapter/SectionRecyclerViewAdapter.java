@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinemates.R;
 import com.example.cinemates.databinding.ListItemPersonInformationBinding;
 import com.example.cinemates.databinding.SectionRowBinding;
+import com.example.cinemates.fragment.HomeFragmentDirections;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Section;
 
@@ -48,7 +49,6 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
         holder.mBinding.recyclerView.setAdapter(sectionItemsRecyclerViewAdapter);
 
 
-
     }
 
     @Override
@@ -71,8 +71,11 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
             this.mBinding.actionOpenPage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO navigate to fragment section with all movies displayed into a huge recycler view
-                    Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_detailedViewFragment);
+
+                    HomeFragmentDirections.ActionHomeFragmentToDetailedViewFragment action =
+                                HomeFragmentDirections.actionHomeFragmentToDetailedViewFragment();
+                    action.setSection(mBinding.textSectionTitle.getText().toString());
+                    Navigation.findNavController(view).navigate(action);
 
                 }
             });

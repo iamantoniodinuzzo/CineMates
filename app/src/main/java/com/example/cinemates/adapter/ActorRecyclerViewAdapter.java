@@ -16,7 +16,7 @@ import info.movito.themoviedbapi.model.people.PersonCast;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-public class SearchActorRecyclerViewAdapter extends EmptyRecyclerView.Adapter<SearchActorRecyclerViewAdapter.ActorViewHolder> {
+public class ActorRecyclerViewAdapter extends EmptyRecyclerView.Adapter<ActorRecyclerViewAdapter.ActorViewHolder> {
     private List<PersonCast> dataList = new ArrayList<>();
 
     @NonNull

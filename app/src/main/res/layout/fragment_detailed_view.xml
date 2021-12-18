@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_detailed_view" />
+        app:menu="@menu/menu_change_view" />
 
     <com.example.cinemates.adapter.EmptyRecyclerView
         android:id="@+id/recyclerView"

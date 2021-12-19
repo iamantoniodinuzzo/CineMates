@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
         initData();
 
         mSectionRecyclerViewAdapter = new SectionRecyclerViewAdapter();
-
+        mSectionRecyclerViewAdapter.addItems(mSectionList);
 
     }
 
@@ -49,7 +49,6 @@ public class HomeFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = FragmentHomeBinding.inflate(inflater, container, false);
-        mSectionRecyclerViewAdapter.addItems(mSectionList);
         mBinding.recyclerView.setAdapter(mSectionRecyclerViewAdapter);
 
 

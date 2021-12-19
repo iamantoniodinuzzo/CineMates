@@ -14,7 +14,7 @@
             app:destination="@id/detailedViewFragment" />
         <action
             android:id="@+id/action_homeFragment_to_accountFragment"
-            app:destination="@id/accountFragment" />
+            app:destination="@id/accountFragment"/>
     </fragment>
 
     <fragment

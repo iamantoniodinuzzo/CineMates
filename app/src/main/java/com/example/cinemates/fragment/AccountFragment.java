@@ -29,12 +29,12 @@ public class AccountFragment extends Fragment implements ConfirmationDialogFragm
 
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = FragmentAccountBinding.inflate(inflater, container, false);
+        //merged layout
         mItemConnectServiceBinding = LayoutItemConnectServiceBinding.bind(mBinding.getRoot());
 
         return mBinding.getRoot();
@@ -55,21 +55,21 @@ public class AccountFragment extends Fragment implements ConfirmationDialogFragm
         mItemConnectServiceBinding.actionSyncAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Sync account
+                //TODO Sync account showing snack bar
             }
         });
 
         mItemConnectServiceBinding.actionDeleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog("Delete account", "Sei sicuro di voler eliminare questo account?", "Si, eliminalo!", ConfirmationDialogFragment.ConfirmationTypo.DELETE);
+                showDialog("Delete account", "Are you sure you want to delete this account?", "Yes, delete it!", ConfirmationDialogFragment.ConfirmationTypo.DELETE);
             }
         });
 
         mItemConnectServiceBinding.actionDisconnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog("Disconnection", "Sei sicuro di volerti disconnettere da questo account?", "Si, per favore!", ConfirmationDialogFragment.ConfirmationTypo.DISCONNECT);
+                showDialog("Disconnection", "Are you sure you want to log out of this account?", "Si, please!", ConfirmationDialogFragment.ConfirmationTypo.DISCONNECT);
 
             }
         });

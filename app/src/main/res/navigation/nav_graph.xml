@@ -24,7 +24,11 @@
     <fragment
         android:id="@+id/moreFragment"
         android:name="com.example.cinemates.fragment.MoreFragment"
-        tools:layout="@layout/fragment_more" />
+        tools:layout="@layout/fragment_more" >
+        <action
+            android:id="@+id/action_moreFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.cinemates.fragment.SearchFragment"

@@ -73,16 +73,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        tools:itemCount="3"
-        tools:listitem="@layout/list_item_connect_service" />
+        app:layout_constraintTop_toBottomOf="@+id/view">
+
+        <include  layout="@layout/layout_item_connect_service" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

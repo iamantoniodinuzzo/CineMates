@@ -14,7 +14,8 @@
         <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/mirage_100</item>
-
+        <!-- Apply default style for dialogs -->
+        <item name="android:dialogTheme">@style/AppDialogTheme</item>
 
     </style>
 
@@ -57,5 +58,30 @@
         <item name="android:textColor">@color/alabaster</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Define your custom dialog theme here extending from base -->
+    <style name="AppDialogTheme" parent="Theme.MaterialComponents.Dialog.Alert">
+        <!-- Define color properties as desired -->
+        <item name="colorPrimary">@color/lynch_100</item>
+        <item name="colorPrimaryDark">@color/mirage_100</item>
+        <item name="android:textColorHighlight">@color/royal_blue_100</item>
+        <item name="colorAccent">@color/vermilion_100</item>
+        <item name="colorControlNormal">@color/alabaster</item>
+        <item name="buttonBarButtonStyle">@style/DialogButtonStyle</item>
+        <item name="android:textSize">14sp</item>
+        <!-- Define window properties as desired -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@color/lynch_100</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="buttonTint">@color/vermilion_100</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <!-- Define your custom alert theme here extending from base -->
+    <style name="DialogButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/vermilion_100</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 </resources>

@@ -83,7 +83,6 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        mBinding.toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_24);
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -10,6 +10,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
+        app:navigationIcon="@drawable/ic_outline_arrow_back_24"
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"

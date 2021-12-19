@@ -44,7 +44,6 @@ public class AccountFragment extends Fragment implements ConfirmationDialogFragm
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mBinding.toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_24);
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

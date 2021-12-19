@@ -60,6 +60,13 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
         setupAppBar(view);
+
+        mBinding.imageProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_accountFragment);
+            }
+        });
     }
 
 

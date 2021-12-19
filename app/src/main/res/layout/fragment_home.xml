@@ -19,8 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:scaleType="fitCenter"
-            tools:src="@tools:sample/avatars" />
+            app:tint="@color/alabaster"
+            android:src="@drawable/ic_baseline_person_24"
+            android:scaleType="fitCenter"/>
 
         <ImageView
             android:id="@+id/imageLogo"

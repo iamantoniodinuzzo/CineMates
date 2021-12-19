@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="connectService"
+            type="com.example.cinemates.model.ConnectService" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:onClick="@{connectService::onClickItem}"
+        android:paddingBottom="10dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:cardBackgroundColor="@color/lynch_100"
+            app:cardCornerRadius="10dp">
+
+            <ImageView
+                android:id="@+id/icon"
+                app:tint="@color/alabaster"
+                android:scaleType="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:imageResource="@{connectService.drawable}"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:drawableEnd="@drawable/ic_outline_keyboard_arrow_right_24"
+            android:drawableTint="@color/alabaster"
+            android:text="@{connectService.text}"
+            android:textColor="@color/alabaster"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            tools:text="Text" />
+
+
+    </LinearLayout>
+</layout>

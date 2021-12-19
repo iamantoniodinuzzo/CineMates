@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.cinemates.fragment.HomeFragment"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailedViewFragment"
+            app:destination="@id/detailedViewFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_accountFragment"
+            app:destination="@id/accountFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/standardListsFragment"
+        android:name="com.example.cinemates.fragment.StandardListsFragment"
+        tools:layout="@layout/fragment_standard_lists" />
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.example.cinemates.fragment.MoreFragment"
+        tools:layout="@layout/fragment_more" >
+        <action
+            android:id="@+id/action_moreFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.cinemates.fragment.SearchFragment"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/detailedViewFragment"
+        android:name="com.example.cinemates.fragment.DetailedViewFragment"
+        android:label="{section}"
+        tools:layout="@layout/fragment_detailed_view" >
+        <action
+            android:id="@+id/action_detailedViewFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"/>
+        <argument
+            android:name="section"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="Section" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.cinemates.fragment.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+</navigation>

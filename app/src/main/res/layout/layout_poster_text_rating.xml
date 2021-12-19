@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignEnd="@id/imagePoster"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    app:cardBackgroundColor="@color/geyser"
+    app:cardCornerRadius="8dp"
+    tools:showIn="@layout/list_item_media_poster">
+
+    <TextView
+        android:id="@+id/textRating"
+        android:layout_width="31dp"
+        android:layout_height="18dp"
+        android:textAlignment="center"
+        android:textColor="@color/alabaster"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:text="7,0" />
+</androidx.cardview.widget.CardView>

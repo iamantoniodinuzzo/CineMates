@@ -1,5 +1,5 @@
 
-#CineMates
+# CineMates
 *CineMates20* is a mobile application for movie buffs.
 ## Purpose of the project
 The project was originally an assignment for a college exam done 6-handed with other colleagues. 

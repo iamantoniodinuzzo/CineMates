@@ -1,26 +1,48 @@
-# CineMates
-*CineMates20* è un'applicazione mobile per appassionati di cinema.
-## Scopo del progetto
-Il progetto era inizialmente un compito per un esame universitario svolto a 6 mani con altri colleghi. 
-Ho voluto riprenderlo per esercitarmi con nuovi concetti e raffinare/aggiungere delle funzionalità specificate in seguito.
-## Funzionalità previste per l'app
-*Sono presenti delle checkbox in quanto ho intenzione di spuntare le funzionalità implementate; ovviamente le funzionalità non spuntate sono in corso d'opera o non ancora iniziate.*
- - [ ] Possibilità di ricerca di film anche tramite dei filtri
- - [ ] Visualizzare i film simili ad un dato film 
- - [ ] Visualizzare informazioni aggiuntive di un film ,quali il cast, la crew e molto altro.
- - [ ] Possibilità di poter creare delle liste personalizzare ma anche di usufruire di 3 liste di base, visti, da vedere e preferiti.
- - [ ] Possibilità di visualizzare le collezioni di film inerenti ad una saga in particolare.
- - [ ] Visualizzazione dei trailer ma anche dei poster o degli sfondi inerenti ad un film in particolare.
- - [ ] Possibilità di utilizzare un sistema decisionale randomico basato su alcuni parametri in input dall'utente, per la scelta di un film nei momenti di indecisione.
 
-## Tecnologie utilizzate
-- ViewBinding
-- DataBinding
-- MVVM
-- Retrofit
-- Glide
-- ViewPager2
-- Navigation Component
-- Java
-## Contatti
-[Email](mailto:tonydinu02@gmail.com) - [Instagram](https://www.instagram.com/iamantoniodinuzzo)
+# CineMates
+
+## Project Overview
+Molte volte ci capita di voler scoprire nuovi film andando a ricercare in internet film di un genere specifico: "film da vedere", "film mind blowing", "film per piangere". Lo scopo di *CineMates* è quello di raggruppare tutte queste ricerche e questi bisogni sotto un unico tetto. Con l'aggiunta di molteplici utilità.
+
+Questa app usa l'API di  [themoviedb.org](https://www.themoviedb.org/)
+
+## API Key Note
+**Define key in build.gradle**
+
+Trova un file chiamato `local.properties` nella file`.gradle` nella home directory.
+
+Aggiungi `apiKey = "YOUR-API-KEY"` a questo file.
+
+## Why this Project
+
+Per diventare uno sviluppatore Android, devi sapere come portare particolari 
+esperienze mobili particolari alla vita. In particolare, è necessario sapere come costruire 
+interfacce utente (UI) pulite e convincenti, recuperare dati dai servizi di rete, 
+e ottimizzare l'esperienza per vari dispositivi mobili. 
+
+Costruendo questa applicazione, dimostrerete la vostra comprensione degli 
+elementi fondamentali della programmazione per Android. La vostra applicazione comunicherà con 
+Internet e fornirà un'esperienza utente reattiva e piacevole.
+
+Costruendo questa applicazione, ho imparato a comprendere gli elementi fondamentali della programmazione Android.
+
+## What I learned
+- Recuperare dati da Internet con l'API di MovieDB
+- Usare adapters e layout di lista personalizzati per popolare le viste di lista
+- Incorporare librerie per semplificare la quantità di codice da scrivere
+- Costruisci un'applicazione completa che appare e si sente naturale sull'ultimo sistema operativo Android.
+- Utilizzare il pattern MVVM
+- Incorporare il data binding e il view binding
+- Utilizzare il componente Navigation, View Pager 2 , Live Data
+
+## Image Resources
+
+
+## Libraries
+- [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/) 
+    * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
+    * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
+- [Android Data Binding](https://developer.android.com/topic/libraries/data-binding/)
+- [Retrofit](http://square.github.io/retrofit/) for REST api communication
+- [Glide](https://github.com/bumptech/glide) for image loading
+

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.DetailedViewFragment">
+    tools:context=".views.fragment.DetailedViewFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/menu_change_view" />
 
-    <com.example.cinemates.adapter.EmptyRecyclerView
+    <com.example.cinemates.util.RecyclerViewEmptySupport
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -1,4 +1,4 @@
-package com.example.cinemates;
+package com.example.cinemates.views;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -25,18 +25,17 @@ public class MainActivity extends AppCompatActivity {
         mBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-        setupBottomNav();
-
+//        setupBottomNav();
 
 
     }
 
 
-    private void setupBottomNav() {
+    /*private void setupBottomNav() {
         BottomNavigationView bottomNavigationView = mBinding.bottomNavigationView;
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, mNavController);
-    }
+    }*/
 
 
 }

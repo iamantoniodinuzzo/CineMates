@@ -6,8 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.cinemates.fragment.SeenTabFragment;
-import com.example.cinemates.fragment.ToSeeTabFragment;
+import com.example.cinemates.views.fragment.SeenTabFragment;
+import com.example.cinemates.views.fragment.ToSeeTabFragment;
 
 /**
  * @author Antonio Di Nuzzo

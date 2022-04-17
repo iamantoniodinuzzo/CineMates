@@ -1,4 +1,4 @@
-package com.example.cinemates.fragment;
+package com.example.cinemates.views.fragment;
 
 import android.os.Bundle;
 
@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.cinemates.R;
 import com.example.cinemates.databinding.FragmentAccountBinding;
 import com.example.cinemates.databinding.LayoutItemConnectServiceBinding;
 

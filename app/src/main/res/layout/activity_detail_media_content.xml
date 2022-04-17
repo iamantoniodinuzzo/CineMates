@@ -56,24 +56,15 @@
         android:background="@color/mirage_100"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="bottom"
-        android:backgroundTint="@color/lynch_100"
-        app:fabAlignmentMode="end"
-        app:fabCradleMargin="10dp"
-        app:fabCradleRoundedCornerRadius="50dp"
-        app:menu="@menu/menu_detail_bottom_nav" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="20dp"
         android:backgroundTint="@color/vermilion_100"
-        android:src="@drawable/ic_baseline_add_24"
-        app:layout_anchor="@id/bottomAppBar" />
+        android:src="@drawable/ic_baseline_add_24" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

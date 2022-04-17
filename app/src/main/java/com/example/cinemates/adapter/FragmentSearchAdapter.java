@@ -6,8 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.cinemates.fragment.SearchActorFragment;
-import com.example.cinemates.fragment.SearchMovieFragment;
+import com.example.cinemates.views.fragment.SearchActorFragment;
+import com.example.cinemates.views.fragment.SearchMovieFragment;
 
 /**
  * @author Antonio Di Nuzzo

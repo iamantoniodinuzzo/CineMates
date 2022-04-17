@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import com.example.cinemates.DetailMediaContentActivity;
 import com.example.cinemates.databinding.ListItemMediaBinding;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.util.RecyclerViewEmptySupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-public class MovieRecyclerViewAdapter extends EmptyRecyclerView.Adapter<MovieRecyclerViewAdapter.MovieViewHolder> {
+public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<MovieRecyclerViewAdapter.MovieViewHolder> {
     private List<Movie> dataList = new ArrayList<>();
 
     @NonNull
@@ -55,7 +56,7 @@ public class MovieRecyclerViewAdapter extends EmptyRecyclerView.Adapter<MovieRec
         notifyDataSetChanged();
     }
 
-    static class MovieViewHolder extends EmptyRecyclerView.ViewHolder {
+    static class MovieViewHolder extends RecyclerViewEmptySupport.ViewHolder {
         private static final String TAG = "MovieViewHolder";
         ListItemMediaBinding mBinding;
 

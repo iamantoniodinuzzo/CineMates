@@ -1,4 +1,4 @@
-package com.example.cinemates.fragment;
+package com.example.cinemates.views.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

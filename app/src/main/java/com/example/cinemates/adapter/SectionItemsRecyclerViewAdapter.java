@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinemates.databinding.ListItemMediaPosterBinding;
 import com.example.cinemates.databinding.ListItemPersonInformationBinding;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.util.RecyclerViewEmptySupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import info.movito.themoviedbapi.model.people.PersonCast;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-public class SectionItemsRecyclerViewAdapter extends EmptyRecyclerView.Adapter<SectionItemsRecyclerViewAdapter.SectionItemViewHolder> {
+public class SectionItemsRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<SectionItemsRecyclerViewAdapter.SectionItemViewHolder> {
     private List<Movie> dataList = new ArrayList<>();
 
     @NonNull
@@ -49,7 +50,7 @@ public class SectionItemsRecyclerViewAdapter extends EmptyRecyclerView.Adapter<S
         notifyDataSetChanged();
     }
 
-    static class SectionItemViewHolder extends EmptyRecyclerView.ViewHolder {
+    static class SectionItemViewHolder extends RecyclerViewEmptySupport.ViewHolder {
         ListItemMediaPosterBinding mBinding;
 
         SectionItemViewHolder(@NonNull ListItemMediaPosterBinding listItemMediaPosterBinding) {

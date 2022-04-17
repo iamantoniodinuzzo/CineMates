@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.example.cinemates.databinding.ListItemPersonInformationBinding;
+import com.example.cinemates.util.RecyclerViewEmptySupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import info.movito.themoviedbapi.model.people.PersonCast;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-public class ActorRecyclerViewAdapter extends EmptyRecyclerView.Adapter<ActorRecyclerViewAdapter.ActorViewHolder> {
+public class ActorRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<ActorRecyclerViewAdapter.ActorViewHolder> {
     private List<PersonCast> dataList = new ArrayList<>();
 
     @NonNull
@@ -45,7 +46,7 @@ public class ActorRecyclerViewAdapter extends EmptyRecyclerView.Adapter<ActorRec
         notifyDataSetChanged();
     }
 
-    static class ActorViewHolder extends EmptyRecyclerView.ViewHolder {
+    static class ActorViewHolder extends RecyclerViewEmptySupport.ViewHolder {
         ListItemPersonInformationBinding mBinding;
 
         ActorViewHolder(@NonNull ListItemPersonInformationBinding listItemPersonInformationBinding) {

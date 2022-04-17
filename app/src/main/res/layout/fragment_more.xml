@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".fragment.MoreFragment">
+        tools:context=".views.fragment.MoreFragment">
 
         <include
             android:id="@+id/view_profile"

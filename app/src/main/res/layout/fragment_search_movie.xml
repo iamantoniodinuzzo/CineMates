@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.cinemates.adapter.EmptyRecyclerView
+    <com.example.cinemates.util.RecyclerViewEmptySupport
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

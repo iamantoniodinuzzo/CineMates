@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    tools:context=".fragment.MediaInfoFragment">
+    tools:context=".views.fragment.MediaInfoFragment">
 
     <com.borjabravo.readmoretextview.ReadMoreTextView
         android:id="@+id/readMoreTextV"

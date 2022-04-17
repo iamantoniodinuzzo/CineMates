@@ -1,4 +1,4 @@
-package com.example.cinemates.fragment;
+package com.example.cinemates.views.fragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;

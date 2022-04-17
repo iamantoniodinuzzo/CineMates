@@ -1,11 +1,9 @@
-package com.example.cinemates.fragment;
+package com.example.cinemates.views.fragment;
 
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -103,6 +101,8 @@ public class DetailedViewFragment extends Fragment {
 
     private void switchLayout(RecyclerView.LayoutManager layoutManager) {
         //TODO switch layout into recycler view
+        mBinding.recyclerView.setLayoutManager(layoutManager);
+        Toast.makeText(getContext(), "Layout cambiato", Toast.LENGTH_SHORT).show();
 
     }
 

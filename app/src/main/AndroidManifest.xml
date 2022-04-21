@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetailMediaContentActivity"
+            android:name=".views.DetailMediaContentActivity"
             android:exported="false"
             android:label="@string/title_activity_detail_media_content" />
     </application>

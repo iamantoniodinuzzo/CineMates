@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinemates.databinding.SectionRowBinding;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 import com.example.cinemates.views.fragment.HomeFragmentDirections;
-import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Section;
 
 import java.util.ArrayList;

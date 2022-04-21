@@ -1,106 +1,151 @@
 package com.example.cinemates.model;
 
-import android.net.Uri;
-import android.widget.ImageView;
-import android.widget.TextView;
+import com.google.gson.JsonObject;
 
-import androidx.databinding.BindingAdapter;
-
-import com.bumptech.glide.Glide;
-
-import java.util.List;
-
-import info.movito.themoviedbapi.model.Genre;
-import info.movito.themoviedbapi.model.ProductionCountry;
-import info.movito.themoviedbapi.model.people.PersonCast;
-import info.movito.themoviedbapi.model.people.PersonCrew;
+import java.util.ArrayList;
 
 /**
  * @author Antonio Di Nuzzo
- * Created 15/12/2021 at 17:06
+ * Created 21/04/2022 at 15:38
  */
 public class Movie {
 
-    private final int movieID;
+    private String poster_path, overview, release_date, title, backdrop_path;
+    private Integer id, vote_count, runtime;
+    private Number popularity, vote_average;
+    private ArrayList<Integer> genre_ids;
+    private ArrayList<String> genre_names;
+    private ArrayList<Genre> genres;
+    private JsonObject videos;
 
-    private final String title;
-    private final String years;
-    private final Integer duration;
-    private final String plot;
-    private final List<ProductionCountry> productionCountry;
-    private final List<PersonCrew> crew;
-    private final List<Genre> genres;
-    private final List<PersonCast> cast;
-    private final Uri posterUri;
-
-    public Movie(int movieID, String title, List<PersonCrew> crew, String years, Integer duration, String plot, List<ProductionCountry> productionCountry, List<Genre> genres, List<PersonCast> cast, Uri posterUri) {
-        this.movieID = movieID;
+    public Movie(String poster_path, String overview, String release_date, String title,
+                 Integer id, Integer vote_count, Number popularity, Number vote_average,
+                 ArrayList<Integer> genre_ids, Integer runtime, ArrayList<Genre> genres,
+                 String backdrop_path, JsonObject videos) {
+        this.poster_path = poster_path;
+        this.overview = overview;
+        this.release_date = release_date;
         this.title = title;
-        this.crew = crew;
-        this.years = years;
-        this.duration = duration;
-        this.plot = plot;
-        this.productionCountry = productionCountry;
-        this.cast = cast;
+        this.id = id;
+        this.vote_count = vote_count;
+        this.popularity = popularity;
+        this.vote_average = vote_average;
+        this.genre_ids = genre_ids;
+        this.runtime = runtime;
         this.genres = genres;
-        this.posterUri = posterUri;
+        this.backdrop_path = backdrop_path;
+        this.videos = videos;
     }
 
-    public int getMovieID() {
-        return movieID;
+    public JsonObject getVideos() {
+        return videos;
+    }
+
+    public void setVideos(JsonObject videos) {
+        this.videos = videos;
+    }
+
+    public String getBackdrop_path() {
+        return backdrop_path;
+    }
+
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
+    }
+
+    public String getPoster_path() {
+        return poster_path;
+    }
+
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getRelease_date() {
+        return release_date;
+    }
+
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getYears() {
-        return years;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Integer getDuration() {
-        return duration;
+    public Integer getId() {
+        return id;
     }
 
-    public String getPlot() {
-        return plot;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public List<ProductionCountry> getProductionCountry() {
-        return productionCountry;
+    public Integer getVote_count() {
+        return vote_count;
     }
 
-    public List<PersonCrew> getCrew() {
-        return crew;
+    public void setVote_count(Integer vote_count) {
+        this.vote_count = vote_count;
     }
 
-    public List<PersonCast> getCast() {
-        return cast;
+    public Number getPopularity() {
+        return popularity;
     }
 
-    public List<Genre> getGenres() {
+    public void setPopularity(Number popularity) {
+        this.popularity = popularity;
+    }
+
+    public Number getVote_average() {
+        return vote_average;
+    }
+
+    public void setVote_average(Number vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public ArrayList<Integer> getGenre_ids() {
+        return genre_ids;
+    }
+
+    public void setGenre_ids(ArrayList<Integer> genre_ids) {
+        this.genre_ids = genre_ids;
+    }
+
+    public ArrayList<String> getGenre_names() {
+        return genre_names;
+    }
+
+    public void setGenre_names(ArrayList<String> genre_names) {
+        this.genre_names = genre_names;
+    }
+
+    public Integer getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(Integer runtime) {
+        this.runtime = runtime;
+    }
+
+    public ArrayList<Genre> getGenres() {
         return genres;
     }
 
-    public Uri getPosterUri() {
-        return posterUri;
-    }
-
-
-    @BindingAdapter("android:loadImage")
-    public static void loadImage(ImageView imageView, String imageUri) {
-        Glide.with(imageView)
-                .load(imageUri)
-                .into(imageView);
-
-    }
-
-    @BindingAdapter({"android:loadGenres"})
-    public static void loadGenres(TextView textView, List<Genre> genres_list) {
-        String genres = "";
-        for (Genre genre : genres_list) {
-            genres.concat(genre.getName() + " ");
-        }
-        textView.setText(genres);
+    public void setGenres(ArrayList<Genre> genres) {
+        this.genres = genres;
     }
 }

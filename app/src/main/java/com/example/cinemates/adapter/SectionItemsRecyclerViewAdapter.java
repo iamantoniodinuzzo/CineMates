@@ -5,11 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.databinding.ListItemMediaPosterBinding;
-import com.example.cinemates.databinding.ListItemPersonInformationBinding;
-import com.example.cinemates.model.Movie;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 
 import java.util.ArrayList;

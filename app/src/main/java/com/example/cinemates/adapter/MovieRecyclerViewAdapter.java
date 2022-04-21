@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 
 import com.example.cinemates.views.DetailMediaContentActivity;
 import com.example.cinemates.databinding.ListItemMediaBinding;
-import com.example.cinemates.model.Movie;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 
 import java.util.ArrayList;

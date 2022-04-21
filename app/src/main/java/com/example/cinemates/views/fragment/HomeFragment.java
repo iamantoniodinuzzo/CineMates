@@ -2,8 +2,6 @@ package com.example.cinemates.views.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.cinemates.R;
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentHomeBinding;
-import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Section;
 
 import java.util.ArrayList;

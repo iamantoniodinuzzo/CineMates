@@ -57,6 +57,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     def nav_version = "2.4.2"
+    def room_version = "2.2.5"
 
     // Java language implementation
     implementation "androidx.navigation:navigation-fragment:$nav_version"
@@ -74,18 +75,39 @@ dependencies {
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
     // Jetpack Compose Integration
-    implementation "androidx.navigation:navigation-compose:2.4.0-beta02"
+    implementation "androidx.navigation:navigation-compose:2.5.0-alpha04"
 
     //Read More textView
     implementation 'com.borjabravo:readmoretextview:2.1.0'
 
-    implementation('com.github.holgerbrandl:themoviedbapi:1.12'){
-        exclude group:'commons-logging', module: 'commons-logging'
-    }
+    // Hilt
+    implementation "com.google.dagger:hilt-android:2.31-alpha"
+    annotationProcessor 'com.google.dagger:hilt-android-compiler:2.28-alpha'
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
+    annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0'
 
-    implementation ('com.github.bumptech.glide:glide:4.12.0') {
-        exclude group: "com.android.support"
-    }
-    implementation 'org.jetbrains:annotations:15.0'
+    //RxJava
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+
+    // ViewModel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.4.1'
+
+    // LiveData
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.4.1'
+
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
 }

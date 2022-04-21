@@ -148,4 +148,23 @@ public class Movie {
     public void setGenres(ArrayList<Genre> genres) {
         this.genres = genres;
     }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "title='" + title + '\'' +
+                ", overview='" + overview + '\'' +
+                ", release_date='" + release_date + '\'' +
+                ", backdrop_path='" + backdrop_path + '\'' +
+                ", id=" + id +
+                ", vote_count=" + vote_count +
+                ", runtime=" + runtime +
+                ", popularity=" + popularity +
+                ", vote_average=" + vote_average +
+                ", genre_ids=" + genre_ids +
+                ", genre_names=" + genre_names +
+                ", genres=" + genres +
+                ", videos=" + videos +
+                '}';
+    }
 }

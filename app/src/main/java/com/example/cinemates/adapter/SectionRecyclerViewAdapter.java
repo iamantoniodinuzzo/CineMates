@@ -1,5 +1,6 @@
 package com.example.cinemates.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.databinding.SectionRowBinding;
+import com.example.cinemates.model.Movie;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 import com.example.cinemates.views.fragment.HomeFragmentDirections;
 import com.example.cinemates.model.Section;
@@ -38,9 +40,11 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
         holder.mBinding.executePendingBindings();
         List<Movie> movies_of_section = section.getSectionItems();
 
+        System.out.println("FILMS " + movies_of_section.toString());
         SectionItemsRecyclerViewAdapter sectionItemsRecyclerViewAdapter = new SectionItemsRecyclerViewAdapter();
         sectionItemsRecyclerViewAdapter.addItems(movies_of_section);
         holder.mBinding.recyclerView.setAdapter(sectionItemsRecyclerViewAdapter);
+        holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
 
 
     }
@@ -52,6 +56,11 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
 
     public void addItems(List<Section> dataList) {
         this.dataList.addAll(dataList);
+        notifyDataSetChanged();
+    }
+
+    public void addItems(Section section) {
+        this.dataList.add(section);
         notifyDataSetChanged();
     }
 
@@ -67,7 +76,7 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
                 public void onClick(View view) {
 
                     HomeFragmentDirections.ActionHomeFragmentToDetailedViewFragment action =
-                                HomeFragmentDirections.actionHomeFragmentToDetailedViewFragment();
+                            HomeFragmentDirections.actionHomeFragmentToDetailedViewFragment();
                     action.setSection(mBinding.textSectionTitle.getText().toString());
                     Navigation.findNavController(view).navigate(action);
 

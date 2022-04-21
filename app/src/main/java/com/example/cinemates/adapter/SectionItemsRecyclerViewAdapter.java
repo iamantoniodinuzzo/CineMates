@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.example.cinemates.databinding.ListItemMediaPosterBinding;
+import com.example.cinemates.model.Movie;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import info.movito.themoviedbapi.model.people.PersonCast;
 
 /**
  * @author Antonio Di Nuzzo
@@ -31,9 +31,9 @@ public class SectionItemsRecyclerViewAdapter extends RecyclerViewEmptySupport.Ad
 
     @Override
     public void onBindViewHolder(SectionItemViewHolder holder, int position) {
-        Movie movie = dataList.get(position);/*
+        Movie movie = dataList.get(position);
         holder.mBinding.setMovie(movie);
-        holder.mBinding.executePendingBindings();*/
+        holder.mBinding.executePendingBindings();
 
     }
 

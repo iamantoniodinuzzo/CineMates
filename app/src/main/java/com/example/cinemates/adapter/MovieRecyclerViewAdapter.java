@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
+import com.example.cinemates.model.Movie;
 import com.example.cinemates.views.DetailMediaContentActivity;
 import com.example.cinemates.databinding.ListItemMediaBinding;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
@@ -55,7 +56,7 @@ public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<M
     }
 
     static class MovieViewHolder extends RecyclerViewEmptySupport.ViewHolder {
-        private static final String TAG = "MovieViewHolder";
+        private static final String TAG = MovieViewHolder.class.getSimpleName();
         ListItemMediaBinding mBinding;
 
         MovieViewHolder(@NonNull ListItemMediaBinding listItemMediaBinding) {

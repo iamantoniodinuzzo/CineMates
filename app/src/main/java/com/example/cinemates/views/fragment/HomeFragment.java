@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,7 +42,28 @@ public class HomeFragment extends Fragment {
     private Toolbar mToolbar;
     private MovieViewModel mViewModel;
     private ArrayList<Movie> mCurrentMovies, mPopularMovies, mTopRatedMovies, mUpcomingMovies;
+    private Section mSectionCurrent, mSectionTopRated, mSectionPopular, mSectionUpcoming;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mSectionRecyclerViewAdapter = new SectionRecyclerViewAdapter();
+        mCurrentMovies = new ArrayList<>();
+        mPopularMovies = new ArrayList<>();
+        mTopRatedMovies = new ArrayList<>();
+        mUpcomingMovies = new ArrayList<>();
+        mSectionList = new ArrayList<>();
+        mViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
+        mSectionCurrent = new Section("Al Cinema", mCurrentMovies);
+        mSectionTopRated = new Section("Top Rated", mTopRatedMovies);
+        mSectionPopular = new Section("Popolari", mPopularMovies);
+        mSectionUpcoming = new Section("Prossimamente", mUpcomingMovies);
+        mSectionList.add(mSectionCurrent);
+        mSectionList.add(mSectionPopular);
+        mSectionList.add(mSectionTopRated);
+        mSectionList.add(mSectionUpcoming);
+        mSectionRecyclerViewAdapter.addItems(mSectionList);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -64,25 +84,20 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
-        mSectionRecyclerViewAdapter = new SectionRecyclerViewAdapter();
-        mCurrentMovies = new ArrayList<>();
-        mPopularMovies = new ArrayList<>();
-        mTopRatedMovies = new ArrayList<>();
-        mUpcomingMovies = new ArrayList<>();
-        mViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
+
 
         mBinding.recyclerView.setAdapter(mSectionRecyclerViewAdapter);
 
         HashMap<String, String> map = new HashMap<>();
         map.put("api_key", Constants.API_KEY);
         map.put("page", "1");
+
         observeData();
         mViewModel.getCurrentlyShowingMovies(map);
         mViewModel.getUpcomingMovies(map);
         mViewModel.getTopRatedMovies(map);
         mViewModel.getPopularMovies(map);
 
-//        initSections();
 
         mBinding.imageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +122,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(ArrayList<Movie> movies) {
                 mSectionRecyclerViewAdapter.addItems(new Section("Al cinema", movies));
+
+
             }
         });
         mViewModel.getUpcomingMoviesList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
@@ -114,22 +131,27 @@ public class HomeFragment extends Fragment {
             public void onChanged(ArrayList<Movie> movies) {
                 mSectionRecyclerViewAdapter.addItems(new Section("Prossimamente", movies));
 
+
             }
         });
         mViewModel.getTopRatedMoviesList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
             @Override
             public void onChanged(ArrayList<Movie> movies) {
                 mSectionRecyclerViewAdapter.addItems(new Section("Top Rated", movies));
+
+
             }
         });
         mViewModel.getPopularMoviesList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
             @Override
             public void onChanged(ArrayList<Movie> movies) {
                 mSectionRecyclerViewAdapter.addItems(new Section("Popolari", movies));
+
+
             }
         });
-    }
 
+    }
 
 
     @Override

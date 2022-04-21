@@ -1,10 +1,12 @@
 package com.example.cinemates.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cinemates.databinding.ListItemMediaPosterBinding;
 import com.example.cinemates.model.Movie;
@@ -19,7 +21,8 @@ import java.util.List;
  * Created 15/12/2021 at 16:36
  */
 public class SectionItemsRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<SectionItemsRecyclerViewAdapter.SectionItemViewHolder> {
-    private List<Movie> dataList = new ArrayList<>();
+    private static List<Movie> dataList = new ArrayList<>();
+
 
     @NonNull
     @Override
@@ -53,12 +56,14 @@ public class SectionItemsRecyclerViewAdapter extends RecyclerViewEmptySupport.Ad
         SectionItemViewHolder(@NonNull ListItemMediaPosterBinding listItemMediaPosterBinding) {
             super(listItemMediaPosterBinding.getRoot());
             this.mBinding = listItemMediaPosterBinding;
-            
+
 
             this.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO open bottom sheet rapid details
+                    //TODO open details fragment
+                    Movie movieSelected = dataList.get(getAdapterPosition());
+
                 }
             });
 

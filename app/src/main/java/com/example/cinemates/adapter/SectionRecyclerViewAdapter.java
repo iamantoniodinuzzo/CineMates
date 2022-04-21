@@ -1,5 +1,6 @@
 package com.example.cinemates.adapter;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.example.cinemates.views.fragment.HomeFragmentDirections;
 import com.example.cinemates.model.Section;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 /**
@@ -40,7 +42,6 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
         holder.mBinding.executePendingBindings();
         List<Movie> movies_of_section = section.getSectionItems();
 
-        System.out.println("FILMS " + movies_of_section.toString());
         SectionItemsRecyclerViewAdapter sectionItemsRecyclerViewAdapter = new SectionItemsRecyclerViewAdapter();
         sectionItemsRecyclerViewAdapter.addItems(movies_of_section);
         holder.mBinding.recyclerView.setAdapter(sectionItemsRecyclerViewAdapter);

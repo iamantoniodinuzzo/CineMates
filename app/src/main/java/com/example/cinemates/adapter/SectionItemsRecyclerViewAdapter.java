@@ -56,13 +56,7 @@ public class SectionItemsRecyclerViewAdapter extends RecyclerViewEmptySupport.Ad
         SectionItemViewHolder(@NonNull ListItemMediaPosterBinding listItemMediaPosterBinding) {
             super(listItemMediaPosterBinding.getRoot());
             this.mBinding = listItemMediaPosterBinding;
-
-            this.mBinding.iconMore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //TODO open bottom sheet
-                }
-            });
+            
 
             this.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override

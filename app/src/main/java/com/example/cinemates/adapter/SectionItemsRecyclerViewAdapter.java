@@ -58,7 +58,7 @@ public class SectionItemsRecyclerViewAdapter extends RecyclerViewEmptySupport.Ad
             this.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO open detail activity
+                    //TODO open bottom sheet rapid details
                 }
             });
 

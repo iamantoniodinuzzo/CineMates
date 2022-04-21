@@ -1,5 +1,12 @@
 package com.example.cinemates.model;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+import com.example.cinemates.R;
+import com.example.cinemates.util.Constants;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -149,22 +156,18 @@ public class Movie {
         this.genres = genres;
     }
 
+    @BindingAdapter("imageUrl")
+    public static void loadImage(ImageView imageView, String url) {
+        Glide.with(imageView.getContext())
+                .load(Constants.ImageBaseURL+url).centerCrop()
+                .into(imageView);
+
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
-                "title='" + title + '\'' +
-                ", overview='" + overview + '\'' +
-                ", release_date='" + release_date + '\'' +
-                ", backdrop_path='" + backdrop_path + '\'' +
-                ", id=" + id +
-                ", vote_count=" + vote_count +
-                ", runtime=" + runtime +
-                ", popularity=" + popularity +
-                ", vote_average=" + vote_average +
-                ", genre_ids=" + genre_ids +
-                ", genre_names=" + genre_names +
-                ", genres=" + genres +
-                ", videos=" + videos +
+                "title='" + title +
                 '}';
     }
 }

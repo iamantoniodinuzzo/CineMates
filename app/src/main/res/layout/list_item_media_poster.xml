@@ -26,7 +26,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/layout_movie_poster" />
+                <include layout="@layout/layout_movie_poster"
+                    app:movie="@{movie}"/>
 
 
                 <LinearLayout

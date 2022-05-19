@@ -13,6 +13,9 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.cinemates.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding mBinding;

@@ -1,6 +1,7 @@
 package com.example.cinemates.model;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Antonio Di Nuzzo
@@ -29,6 +30,20 @@ public class Section {
     }
 
     public void setSectionItems(List<Movie> sectionItems) {
+        sectionItems.clear();
         this.sectionItems = sectionItems;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Section)) return false;
+        Section section = (Section) o;
+        return getSectionName().equals(section.getSectionName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSectionName());
     }
 }

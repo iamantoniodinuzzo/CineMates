@@ -1,28 +1,28 @@
 package com.example.cinemates.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cinemates.databinding.ListItemMediaPosterBinding;
-import com.example.cinemates.databinding.ListItemPersonInformationBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import info.movito.themoviedbapi.model.people.PersonCast;
 
 /**
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
 public class SectionItemsRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<SectionItemsRecyclerViewAdapter.SectionItemViewHolder> {
-    private List<Movie> dataList = new ArrayList<>();
+    private static List<Movie> dataList = new ArrayList<>();
+
 
     @NonNull
     @Override
@@ -34,9 +34,9 @@ public class SectionItemsRecyclerViewAdapter extends RecyclerViewEmptySupport.Ad
 
     @Override
     public void onBindViewHolder(SectionItemViewHolder holder, int position) {
-        Movie movie = dataList.get(position);/*
+        Movie movie = dataList.get(position);
         holder.mBinding.setMovie(movie);
-        holder.mBinding.executePendingBindings();*/
+        holder.mBinding.executePendingBindings();
 
     }
 
@@ -56,12 +56,14 @@ public class SectionItemsRecyclerViewAdapter extends RecyclerViewEmptySupport.Ad
         SectionItemViewHolder(@NonNull ListItemMediaPosterBinding listItemMediaPosterBinding) {
             super(listItemMediaPosterBinding.getRoot());
             this.mBinding = listItemMediaPosterBinding;
-            
+
 
             this.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO open detail activity
+                    //TODO open details fragment
+                    Movie movieSelected = dataList.get(getAdapterPosition());
+
                 }
             });
 

@@ -1,4 +1,4 @@
-package com.example.cinemates;
+package com.example.cinemates.views;
 
 import android.os.Bundle;
 

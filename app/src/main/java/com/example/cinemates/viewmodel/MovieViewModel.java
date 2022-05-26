@@ -142,14 +142,13 @@ public class MovieViewModel extends ViewModel {
     }
 
     public void getMovieDetails(int movieId, HashMap<String, String> map) {
-        disposables.add(repository.getMovieDetails(movieId, map)
+      /*  disposables.add(repository.getMovieDetails(movieId, map)
                 .subscribeOn(Schedulers.io())
                 .map(new Function<Movie, Movie>() {
                     @Override
                     public Movie apply(Movie movie) throws Throwable {
                         ArrayList<String> genreNames = new ArrayList<>();
                         // MovieResponse gives list of genre(object) so we will map each id to it genre name here.a
-
                         for (Genre genre : movie.getGenres()) {
                             genreNames.add(genre.getName());
                         }
@@ -160,7 +159,15 @@ public class MovieViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> movieDetails.setValue(result),
                         error -> Log.e(TAG, "getMovieDetails: " + error.getMessage()))
+        );*/
+
+        disposables.add(repository.getMovieDetails(movieId, map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> movieDetails.setValue(result),
+                        error -> Log.e(TAG, "getMovieDetails: " + error.getMessage()))
         );
+
     }
 
     public void getCast(int movieId, HashMap<String, String> map) {

@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 
+import com.example.cinemates.R;
+import com.example.cinemates.databinding.ListItemMediaPosterBinding;
 import com.example.cinemates.model.Movie;
-import com.example.cinemates.views.DetailMediaContentActivity;
-import com.example.cinemates.databinding.ListItemMediaBinding;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
+import com.example.cinemates.views.fragment.HomeFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,7 @@ public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<M
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        ListItemMediaBinding mediaBinding = ListItemMediaBinding.inflate(layoutInflater, parent, false);
+        ListItemMediaPosterBinding mediaBinding = ListItemMediaPosterBinding.inflate(layoutInflater, parent, false);
         return new MovieViewHolder(mediaBinding);
     }
 
@@ -38,8 +40,10 @@ public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<M
         holder.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), DetailMediaContentActivity.class);
-                view.getContext().startActivity(intent);
+                //TODO move to fragment details
+                HomeFragmentDirections.ActionHomeFragmentToDetailMediaContentFragment action =
+                        HomeFragmentDirections.actionHomeFragmentToDetailMediaContentFragment(movie);
+                Navigation.findNavController(view).navigate(action);
             }
         });
 
@@ -57,35 +61,11 @@ public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<M
 
     static class MovieViewHolder extends RecyclerViewEmptySupport.ViewHolder {
         private static final String TAG = MovieViewHolder.class.getSimpleName();
-        ListItemMediaBinding mBinding;
+        ListItemMediaPosterBinding mBinding;
 
-        MovieViewHolder(@NonNull ListItemMediaBinding listItemMediaBinding) {
-            super(listItemMediaBinding.getRoot());
-            this.mBinding = listItemMediaBinding;
-
-            //Click on add watched
-            this.mBinding.iconAddWatched.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // TODO add to watched movie list
-                }
-            });
-
-            //Click on add watch list
-            this.mBinding.iconAddWatchlist.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //TODO add to movie list
-                }
-            });
-
-            //Click on icon more
-            this.mBinding.iconMore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // TODO open bottom sheet dialog
-                }
-            });
+        MovieViewHolder(@NonNull ListItemMediaPosterBinding listItemMediaPosterBinding) {
+            super(listItemMediaPosterBinding.getRoot());
+            this.mBinding = listItemMediaPosterBinding;
 
         }
 

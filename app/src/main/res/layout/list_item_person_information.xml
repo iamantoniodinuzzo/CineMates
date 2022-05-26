@@ -27,6 +27,7 @@
 
             <ImageView
                 android:id="@+id/ivAvatar"
+                app:imageUrl="@{actor.profile_path}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:src="@tools:sample/avatars" />
@@ -52,8 +53,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
-            android:text="@{actor.character}"
             android:layout_marginEnd="20dp"
+            android:text="@{actor.character}"
             android:textColor="@color/geyser"
             android:textSize="14sp"
             android:textStyle="bold"

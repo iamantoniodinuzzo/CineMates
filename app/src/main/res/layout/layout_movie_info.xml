@@ -1,212 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 
+    <data>
 
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/chipGroupReleaseDates"
-    tools:showIn="@layout/fragment_media_info">
+        <variable
+            name="movie"
+            type="com.example.cinemates.model.Movie" />
+    </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroupReleaseDates"
+        tools:showIn="@layout/fragment_media_info">
 
-        <TextView
-            android:id="@+id/textTitleOriginalTitle"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:text="Original title"
-            android:textColor="@color/geyser"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
 
-        <TextView
-            android:id="@+id/textOriginalTitle"
+            <TextView
+                android:id="@+id/textTitleOriginalTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Original title"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textOriginalTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="@{movie.original_title}"
+                android:textColor="@color/alabaster"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="Original title" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:textColor="@color/alabaster"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            tools:text="Original title" />
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/textTitleStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Status"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="@{movie.status}"
+                android:textColor="@color/alabaster"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="Status" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/textTitleRuntime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Runtime"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textRuntime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:textColor="@color/alabaster"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:runtime="@{movie.runtime}"
+                tools:text="2 hour 32 min" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/textTitleOriginalLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Original language"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textOriginalLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="@{movie.original_language}"
+                android:textColor="@color/alabaster"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="Original language" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/textTitleProductionCountries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Production countries"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textProductionCountries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:textColor="@color/alabaster"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="Production countries\nProduction countries" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/textTitleProductionCompanies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Production companies"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textProductionCompanies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:textColor="@color/alabaster"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="Production companies\nProduction companies" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/textTitleBudget"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Budget"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textBudget"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:textColor="@color/alabaster"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:budget="@{movie.budget}"
+                tools:text="100.000.000 USD" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <TextView
-            android:id="@+id/textTitleStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:text="Status"
-            android:textColor="@color/geyser"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:textColor="@color/alabaster"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            tools:text="Status" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <TextView
-            android:id="@+id/textTitleRuntime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:text="Runtime"
-            android:textColor="@color/geyser"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textRuntime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:textColor="@color/alabaster"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            tools:text="2 hour 32 min" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <TextView
-            android:id="@+id/textTitleOriginalLanguage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:text="Original language"
-            android:textColor="@color/geyser"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textOriginalLanguage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:textColor="@color/alabaster"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            tools:text="Original language" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <TextView
-            android:id="@+id/textTitleProductionCountries"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:text="Production countries"
-            android:textColor="@color/geyser"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textProductionCountries"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:textColor="@color/alabaster"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            tools:text="Production countries\nProduction countries" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <TextView
-            android:id="@+id/textTitleProductionCompanies"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:text="Production companies"
-            android:textColor="@color/geyser"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textProductionCompanies"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:textColor="@color/alabaster"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            tools:text="Production companies\nProduction companies" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <TextView
-            android:id="@+id/textTitleBudget"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:text="Budget"
-            android:textColor="@color/geyser"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textBudget"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:textColor="@color/alabaster"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            tools:text="100.000.000 USD" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

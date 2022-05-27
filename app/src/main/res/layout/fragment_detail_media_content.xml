@@ -25,26 +25,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
                 android:fitsSystemWindows="true"
+                app:contentScrim="@color/lynch_100"
                 app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Small"
-                app:contentScrim="@color/blue_stone_100"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:titleEnabled="false">
 
                 <ImageView
                     android:id="@+id/imageView"
-                    app:imageUrlLong="@{movie.backdrop_path}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
+                    app:imageUrlLong="@{movie.backdrop_path}"
                     tools:src="@tools:sample/backgrounds/scenic" />
 
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
+                    app:titleTextColor="@color/white"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_marginBottom="48dp"
-                    app:layout_collapseMode="pin" />
+                    app:layout_collapseMode="pin"
+                    app:title="@{movie.title}" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
@@ -52,6 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
+                    android:background="@drawable/shadow_details_image"
                     app:layout_collapseMode="pin" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>

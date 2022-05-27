@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
@@ -47,6 +48,8 @@ public class BindingAdapters {
                 .centerCrop()
                 .into(view);
     }
+
+
 
     @BindingAdapter({"description"})
     public static void loadDescription(TextView view, String text) {
@@ -102,7 +105,7 @@ public class BindingAdapters {
     public static void setProductionCompanies(TextView view, ArrayList<ProductionCompany> productionCompanies) {
         if (productionCompanies != null) {
             ArrayList<String> result = new ArrayList<>();
-            for (ProductionCompany pc:productionCompanies) {
+            for (ProductionCompany pc : productionCompanies) {
                 result.add(pc.getName());
             }
             view.setText(result.toString());

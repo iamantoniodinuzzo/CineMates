@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -71,9 +72,9 @@ public class MediaInfoFragment extends Fragment {
         mBinding.collectionName.collectionName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* DetailMediaContentFragmentDirections.ActionDetailMediaContentFragmentToMoviesListFragment action =
-                        DetailMediaContentFragmentDirections.actionDetailMediaContentFragmentToMoviesListFragment(mMovie.getBelongs_to_collection());
-                Navigation.findNavController(view).navigate(action);*/
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                CollectionDialogFragment collectionDialogFragment = CollectionDialogFragment.newInstance(mMovie.getBelongs_to_collection());
+                collectionDialogFragment.show(fm, "fragment_show_collection");
             }
         });
     }

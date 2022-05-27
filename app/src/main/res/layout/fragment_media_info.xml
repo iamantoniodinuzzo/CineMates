@@ -10,121 +10,129 @@
             type="com.example.cinemates.model.Movie" />
     </data>
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".views.fragment.MediaInfoFragment">
+        android:layout_height="match_parent">
 
-        <com.borjabravo.readmoretextview.ReadMoreTextView
-            android:id="@+id/readMoreTextV"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textColor="@color/alabaster"
-            android:textSize="14sp"
-            app:colorClickableText="@color/vermilion_100"
-            app:description="@{movie.overview}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:trimLength="200"
-            app:trimMode="trimModeLength"
-            tools:text="@tools:sample/lorem/random" />
+            android:layout_height="match_parent"
+            tools:context=".views.fragment.MediaInfoFragment">
 
-        <TextView
-            android:id="@+id/textTitleGenres"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/readMoreTextV"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="Genres"
-            android:textColor="@color/geyser"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            <com.borjabravo.readmoretextview.ReadMoreTextView
+                android:id="@+id/readMoreTextV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/alabaster"
+                android:textSize="14sp"
+                app:colorClickableText="@color/vermilion_100"
+                app:description="@{movie.overview}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:trimLength="200"
+                app:trimMode="trimModeLength"
+                tools:text="@tools:sample/lorem/random" />
 
-        <HorizontalScrollView
-            android:id="@+id/chip_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textTitleGenres">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroupGenres"
+            <TextView
+                android:id="@+id/textTitleGenres"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:genres="@{movie.genres}"
-                app:singleLine="true"
-                app:singleSelection="true" />
-        </HorizontalScrollView>
+                android:layout_below="@id/readMoreTextV"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Genres"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-        <!--     <TextView
-                 android:id="@+id/textTitleCrew"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="20dp"
-                 android:text="Crew"
-                 android:layout_marginStart="20dp"
-                 android:textColor="@color/alabaster"
-                 android:textSize="18sp"
-                 android:textStyle="bold"
-                 android:layout_below="@id/chip_group"/>
+            <HorizontalScrollView
+                android:id="@+id/chip_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textTitleGenres"
+                android:padding="10dp">
 
-             <GridView
-                 android:id="@+id/listCrew"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_below="@id/textTitleCrew"/>-->
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupGenres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:genres="@{movie.genres}"
+                    app:singleLine="true"
+                    app:singleSelection="true" />
+            </HorizontalScrollView>
 
-        <TextView
-            android:id="@+id/textTitleInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/chip_group"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="Info"
-            android:textColor="@color/alabaster"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <!--     <TextView
+                     android:id="@+id/textTitleCrew"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="20dp"
+                     android:text="Crew"
+                     android:layout_marginStart="20dp"
+                     android:textColor="@color/alabaster"
+                     android:textSize="18sp"
+                     android:textStyle="bold"
+                     android:layout_below="@id/chip_group"/>
 
-        <TextView
-            android:id="@+id/textReleaseInformationTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textTitleInfo"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:text="Release information"
-            android:textColor="@color/geyser"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+                 <GridView
+                     android:id="@+id/listCrew"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_below="@id/textTitleCrew"/>-->
+
+            <TextView
+                android:id="@+id/textTitleInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/chip_group"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Info"
+                android:textColor="@color/alabaster"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textReleaseInformationTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textTitleInfo"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="16dp"
+                android:text="Release information"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
 
-        <!--<com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroupReleaseDates"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textReleaseInformationTitle" />-->
+            <!--<com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupReleaseDates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textReleaseInformationTitle" />-->
 
-        <include
-            android:id="@+id/movie_info"
-            layout="@layout/layout_movie_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textReleaseInformationTitle"
-            app:movie="@{movie}" />
+            <include
+                android:id="@+id/movie_info"
+                layout="@layout/layout_movie_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textReleaseInformationTitle"
+                app:movie="@{movie}" />
 
-        <include
-            android:id="@+id/collectionName"
-            layout="@layout/layout_item_collection"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@id/movie_info"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:collection="@{movie.belongs_to_collection}" />
-    </RelativeLayout>
+            <include
+                android:id="@+id/collectionName"
+                layout="@layout/layout_item_collection"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@id/movie_info"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:collection="@{movie.belongs_to_collection}" />
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

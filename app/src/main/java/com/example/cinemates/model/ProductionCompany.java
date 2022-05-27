@@ -49,8 +49,6 @@ public class ProductionCompany {
 
     @Override
     public String toString() {
-        return "ProductionCompany{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

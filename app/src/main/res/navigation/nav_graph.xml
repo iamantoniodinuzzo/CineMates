@@ -78,5 +78,16 @@
         <argument
             android:name="movie"
             app:argType="com.example.cinemates.model.Movie" />
+        <action
+            android:id="@+id/action_detailMediaContentFragment_to_moviesListFragment"
+            app:destination="@id/moviesListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moviesListFragment"
+        android:name="com.example.cinemates.views.fragment.MoviesListFragment"
+        android:label="MoviesListFragment" >
+        <argument
+            android:name="collection"
+            app:argType="com.example.cinemates.model.Collection" />
     </fragment>
 </navigation>

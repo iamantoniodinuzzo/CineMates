@@ -10,16 +10,16 @@
             type="com.example.cinemates.model.Movie" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
         tools:context=".views.fragment.MediaInfoFragment">
 
         <com.borjabravo.readmoretextview.ReadMoreTextView
             android:id="@+id/readMoreTextV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:textColor="@color/alabaster"
             android:textSize="14sp"
             app:colorClickableText="@color/vermilion_100"
@@ -35,21 +35,19 @@
             android:id="@+id/textTitleGenres"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/readMoreTextV"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:text="Genres"
             android:textColor="@color/geyser"
             android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/readMoreTextV" />
+            android:textStyle="bold" />
 
         <HorizontalScrollView
             android:id="@+id/chip_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textTitleGenres">
+            android:layout_below="@id/textTitleGenres">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroupGenres"
@@ -60,70 +58,73 @@
                 app:singleSelection="true" />
         </HorizontalScrollView>
 
-        <TextView
-            android:id="@+id/textTitleCrew"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Crew"
-            android:textColor="@color/alabaster"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chip_group" />
+        <!--     <TextView
+                 android:id="@+id/textTitleCrew"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="20dp"
+                 android:text="Crew"
+                 android:layout_marginStart="20dp"
+                 android:textColor="@color/alabaster"
+                 android:textSize="18sp"
+                 android:textStyle="bold"
+                 android:layout_below="@id/chip_group"/>
 
-        <GridView
-            android:id="@+id/listCrew"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textTitleCrew" />
+             <GridView
+                 android:id="@+id/listCrew"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@id/textTitleCrew"/>-->
 
         <TextView
             android:id="@+id/textTitleInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/chip_group"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:text="Info"
             android:textColor="@color/alabaster"
             android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listCrew" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textReleaseInformationTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/textTitleInfo"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:text="Release information"
             android:textColor="@color/geyser"
             android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textTitleInfo" />
+            android:textStyle="bold" />
 
 
-        <com.google.android.material.chip.ChipGroup
+        <!--<com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroupReleaseDates"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textReleaseInformationTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/textReleaseInformationTitle" />-->
 
         <include
+            android:id="@+id/movie_info"
             layout="@layout/layout_movie_info"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chipGroupReleaseDates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textReleaseInformationTitle"
             app:movie="@{movie}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/collectionName"
+            layout="@layout/layout_item_collection"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/movie_info"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:collection="@{movie.belongs_to_collection}" />
+    </RelativeLayout>
 </layout>

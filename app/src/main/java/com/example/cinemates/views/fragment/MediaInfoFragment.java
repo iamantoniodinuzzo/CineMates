@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.cinemates.R;
 import com.example.cinemates.databinding.FragmentMediaInfoBinding;
@@ -63,10 +64,18 @@ public class MediaInfoFragment extends Fragment {
             public void onChanged(Movie movie) {
                 mBinding.setMovie(movie);
                 mMovie = movie;
-                System.out.println(movie);
             }
         });
         mViewModel.getMovieDetails(mMovie.getId(), map);
+
+        mBinding.collectionName.collectionName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DetailMediaContentFragmentDirections.ActionDetailMediaContentFragmentToMoviesListFragment action =
+                        DetailMediaContentFragmentDirections.actionDetailMediaContentFragmentToMoviesListFragment(mMovie.getBelongs_to_collection());
+                Navigation.findNavController(view).navigate(action);
+            }
+        });
     }
 
     private void setGenresChip() {

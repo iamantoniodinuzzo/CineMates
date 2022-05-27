@@ -3,6 +3,7 @@ package com.example.cinemates.repository;
 import android.util.Log;
 
 import com.example.cinemates.model.Actor;
+import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.MovieResponse;
 import com.example.cinemates.network.MovieApiService;
@@ -55,6 +56,10 @@ public class Repository {
 
     public Observable<Actor> getActorDetails(int personId, HashMap<String, String> map) {
         return apiService.getActorDetails(personId, map);
+    }
+
+    public Observable<Collection> getCollection(int collectionId, HashMap<String, String> map) {
+        return apiService.getCollection(collectionId, map);
     }
 
     public Observable<JsonObject> getMoviesBySearch(HashMap<String, String> map) {

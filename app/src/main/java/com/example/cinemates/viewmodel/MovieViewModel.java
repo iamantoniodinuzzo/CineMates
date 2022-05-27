@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Cast;
+import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.MovieResponse;
@@ -43,6 +44,7 @@ public class MovieViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Movie>> queriesMovies = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Cast>> movieCastList = new MutableLiveData<>();
     private MutableLiveData<Movie> movieDetails = new MutableLiveData<>();
+    private MutableLiveData<Collection> collection = new MutableLiveData<>();
     private MutableLiveData<Actor> actorDetails = new MutableLiveData<>();
 
     private final io.reactivex.rxjava3.disposables.CompositeDisposable disposables = new CompositeDisposable();
@@ -84,6 +86,9 @@ public class MovieViewModel extends ViewModel {
         return queriesMovies;
     }
 
+    public MutableLiveData<Collection> getCollection() {
+        return collection;
+    }
 
     public void getCurrentlyShowingMovies(HashMap<String, String> map) {
         disposables.add(repository.getCurrentlyShowing(map)
@@ -183,6 +188,15 @@ public class MovieViewModel extends ViewModel {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> movieCastList.setValue(result),
+                        error -> Log.e(TAG, "getCastList: " + error.getMessage()))
+        );
+    }
+
+    public void getCollection(int collectionId, HashMap<String, String> map) {
+        disposables.add(repository.getCollection(collectionId, map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> collection.setValue(result),
                         error -> Log.e(TAG, "getCastList: " + error.getMessage()))
         );
     }

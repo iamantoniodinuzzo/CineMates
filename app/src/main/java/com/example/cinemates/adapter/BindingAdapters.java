@@ -12,6 +12,7 @@ import androidx.databinding.BindingAdapter;
 import com.bumptech.glide.Glide;
 import com.example.cinemates.R;
 import com.example.cinemates.model.Genre;
+import com.example.cinemates.model.ProductionCompany;
 import com.example.cinemates.util.Constants;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
@@ -60,10 +61,10 @@ public class BindingAdapters {
     public static void loadRuntime(TextView view, long runtime) {
         int hours = (int) (runtime / 60); //since both are ints, you get an int
         int minutes = (int) (runtime % 60);
-        view.setText(String.format("%d hour %02d minutes", hours, minutes));
+        view.setText(String.format("%d h %02d min", hours, minutes));
     }
 
-    @BindingAdapter({"budget"})
+    @BindingAdapter({"currency"})
     public static void loadBudget(TextView view, long budget) {
         Locale current = Locale.getDefault();
         NumberFormat format = NumberFormat.getCurrencyInstance();
@@ -94,6 +95,17 @@ public class BindingAdapters {
                 });
                 chipGroup.addView(chip);
             }
+        }
+    }
+
+    @BindingAdapter({"production_companies"})
+    public static void setProductionCompanies(TextView view, ArrayList<ProductionCompany> productionCompanies) {
+        if (productionCompanies != null) {
+            ArrayList<String> result = new ArrayList<>();
+            for (ProductionCompany pc:productionCompanies) {
+                result.add(pc.getName());
+            }
+            view.setText(result.toString());
         }
     }
 

@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingStart="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chipGroupReleaseDates"
@@ -135,62 +136,63 @@
                 tools:text="Original language" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal"
-            android:weightSum="100">
+        <!--   <androidx.appcompat.widget.LinearLayoutCompat
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="20dp"
+               android:orientation="horizontal"
+               android:weightSum="100">
 
-            <TextView
-                android:id="@+id/textTitleProductionCountries"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:text="Production countries"
-                android:textColor="@color/geyser"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+               <TextView
+                   android:id="@+id/textTitleProductionCountries"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="50"
+                   android:text="Production countries"
+                   android:textColor="@color/geyser"
+                   android:textSize="14sp"
+                   android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textProductionCountries"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:textColor="@color/alabaster"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:text="Production countries\nProduction countries" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+               <TextView
+                   android:id="@+id/textProductionCountries"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="50"
+                   android:textColor="@color/alabaster"
+                   android:textSize="14sp"
+                   android:textStyle="bold"
+                   tools:text="Production countries\nProduction countries" />
+           </androidx.appcompat.widget.LinearLayoutCompat>-->
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal"
-            android:weightSum="100">
+        <!--  <androidx.appcompat.widget.LinearLayoutCompat
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="20dp"
+              android:orientation="horizontal"
+              android:weightSum="100">
 
-            <TextView
-                android:id="@+id/textTitleProductionCompanies"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:text="Production companies"
-                android:textColor="@color/geyser"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+              <TextView
+                  android:id="@+id/textTitleProductionCompanies"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="50"
+                  android:text="Production companies"
+                  android:textColor="@color/geyser"
+                  android:textSize="14sp"
+                  android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textProductionCompanies"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:textColor="@color/alabaster"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:text="Production companies\nProduction companies" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
+              <TextView
+                  android:id="@+id/textProductionCompanies"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="50"
+                  android:textColor="@color/alabaster"
+                  android:textSize="14sp"
+                  android:textStyle="bold"
+                  app:production_companies="@{movie.production_companies}"
+                  tools:text="Production companies\nProduction companies" />
+          </androidx.appcompat.widget.LinearLayoutCompat>
+  -->
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -216,7 +218,36 @@
                 android:textColor="@color/alabaster"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:budget="@{movie.budget}"
+                app:currency="@{movie.budget}"
+                tools:text="100.000.000 USD" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/textTitleRevenue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Revenue"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textRevenue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:textColor="@color/alabaster"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:currency="@{movie.revenue}"
                 tools:text="100.000.000 USD" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 

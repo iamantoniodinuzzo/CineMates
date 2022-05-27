@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movie_details_nav_graph"
+    app:startDestination="@id/detailMediaContentFragment">
+
+    <fragment
+        android:id="@+id/detailMediaContentFragment"
+        android:name="com.example.cinemates.views.fragment.DetailMediaContentFragment"
+        android:label="DetailMediaContentFragment"
+        tools:layout="@layout/fragment_detail_media_content">
+        <argument
+            android:name="movie"
+            app:argType="com.example.cinemates.model.Movie" />
+    </fragment>
+</navigation>

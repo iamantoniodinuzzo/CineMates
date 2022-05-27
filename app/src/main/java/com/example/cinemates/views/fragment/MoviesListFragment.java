@@ -48,7 +48,7 @@ public class MoviesListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mBinding.recyclerviewMovies.setAdapter(mAdapter);
-        mCollection = MoviesListFragmentArgs.fromBundle(getArguments()).getCollection();
+//        mCollection = MoviesListFragmentArgs.fromBundle(getArguments()).getCollection();
         mBinding.setCollection(mCollection);
 
         HashMap<String, String> map = new HashMap<>();

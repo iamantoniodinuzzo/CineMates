@@ -27,14 +27,15 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class DetailMediaContentFragment extends Fragment {
     public static FragmentManager fragmentManager;
     private FragmentDetailMediaContentBinding mBinding;
+    private DetailMediaContentFragmentArgs args;
     private Movie mMovie;
-    private int indicatorWidth;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fragmentManager = getActivity().getSupportFragmentManager();
+        args = DetailMediaContentFragmentArgs.fromBundle(requireArguments());
 
     }
 
@@ -49,13 +50,12 @@ public class DetailMediaContentFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mMovie = DetailMediaContentFragmentArgs.fromBundle(getArguments()).getMovie();
+        mMovie = args.getMovie();
+        System.out.println(mMovie);
         mBinding.setMovie(mMovie);
-
 
         bindViewPagerAdapter(mBinding.viewPager);
         bindViewPagerTabs(mBinding.tabLayout, mBinding.viewPager);
-        tabSettings();
     }
 
 
@@ -69,34 +69,6 @@ public class DetailMediaContentFragment extends Fragment {
 
     }
 
-    private void tabSettings() {
-        mBinding.tabLayout.post(() -> {
-            indicatorWidth = mBinding.tabLayout.getWidth() / mBinding.tabLayout.getTabCount();/*
-            FrameLayout.LayoutParams indicatorParams = (FrameLayout.LayoutParams) mBinding.indicator.getLayoutParams();
-            indicatorParams.width = indicatorWidth;
-            binding.indicator.setLayoutParams(indicatorParams);*/
-        });
-
-        mBinding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetP) {
-               /* FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) binding.indicator.getLayoutParams();
-                float translationOffset = (positionOffset + position) * indicatorWidth;
-                params.leftMargin = (int) translationOffset;
-                binding.indicator.setLayoutParams(params);*/
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
-    }
 
     @Override
     public void onDestroyView() {

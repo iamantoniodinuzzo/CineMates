@@ -1,6 +1,7 @@
 package com.example.cinemates.network;
 
 import com.example.cinemates.model.Actor;
+import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.MovieResponse;
 import com.google.gson.JsonObject;
@@ -41,6 +42,9 @@ public interface MovieApiService {
 
     @GET("person/{person_id}/images")
     Observable<JsonObject> getActorImages(@Path("person_id") int id, @Query("api_key") String api);
+
+    @GET("collection/{collection_id}")
+    Observable<Collection> getCollection(@Path("collection_id") int id, @QueryMap HashMap<String, String> queries);
 
     @GET("search/movie")
     Observable<JsonObject> getMoviesBySearch(@QueryMap HashMap<String, String> queries);

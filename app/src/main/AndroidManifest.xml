@@ -23,10 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".views.DetailMediaContentActivity"
-            android:exported="false"
-            android:label="@string/title_activity_detail_media_content" />
     </application>
 
 </manifest>

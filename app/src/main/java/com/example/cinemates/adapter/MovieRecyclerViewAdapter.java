@@ -13,6 +13,7 @@ import com.example.cinemates.R;
 import com.example.cinemates.databinding.ListItemMediaPosterBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
+import com.example.cinemates.views.MovieDetailsActivity;
 import com.example.cinemates.views.fragment.HomeFragmentDirections;
 
 import java.util.ArrayList;
@@ -41,14 +42,9 @@ public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<M
         holder.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    HomeFragmentDirections.ActionHomeFragmentToDetailMediaContentFragment action =
-                            HomeFragmentDirections.actionHomeFragmentToDetailMediaContentFragment(movie);
-                    Navigation.findNavController(view).navigate(action);
-
-                }catch (IllegalArgumentException exception){
-                    Toast.makeText(view.getContext(), "Impossibile per adesso", Toast.LENGTH_SHORT).show();
-                }
+                HomeFragmentDirections.ActionHomeFragmentToMovieDetailsActivity action =
+                        HomeFragmentDirections.actionHomeFragmentToMovieDetailsActivity(movie);
+                Navigation.findNavController(view).navigate(action);
             }
         });
 

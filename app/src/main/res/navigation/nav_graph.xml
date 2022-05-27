@@ -19,8 +19,8 @@
             android:id="@+id/action_homeFragment_to_discoverFragment"
             app:destination="@id/discoverFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_detailMediaContentFragment"
-            app:destination="@id/detailMediaContentFragment" />
+            android:id="@+id/action_homeFragment_to_movieDetailsActivity"
+            app:destination="@id/movieDetailsActivity" />
     </fragment>
 
     <fragment
@@ -71,23 +71,13 @@
             android:id="@+id/action_discoverFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/detailMediaContentFragment"
-        android:name="com.example.cinemates.views.fragment.DetailMediaContentFragment"
-        android:label="DetailMediaContentFragment" >
+    <activity
+        android:id="@+id/movieDetailsActivity"
+        android:name="com.example.cinemates.views.MovieDetailsActivity"
+        android:label="activity_movie_details"
+        tools:layout="@layout/activity_movie_details" >
         <argument
             android:name="movie"
             app:argType="com.example.cinemates.model.Movie" />
-        <action
-            android:id="@+id/action_detailMediaContentFragment_to_moviesListFragment"
-            app:destination="@id/moviesListFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/moviesListFragment"
-        android:name="com.example.cinemates.views.fragment.MoviesListFragment"
-        android:label="MoviesListFragment" >
-        <argument
-            android:name="collection"
-            app:argType="com.example.cinemates.model.Collection" />
-    </fragment>
+    </activity>
 </navigation>

@@ -71,9 +71,9 @@ public class MediaInfoFragment extends Fragment {
         mBinding.collectionName.collectionName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DetailMediaContentFragmentDirections.ActionDetailMediaContentFragmentToMoviesListFragment action =
+               /* DetailMediaContentFragmentDirections.ActionDetailMediaContentFragmentToMoviesListFragment action =
                         DetailMediaContentFragmentDirections.actionDetailMediaContentFragmentToMoviesListFragment(mMovie.getBelongs_to_collection());
-                Navigation.findNavController(view).navigate(action);
+                Navigation.findNavController(view).navigate(action);*/
             }
         });
     }

@@ -1,7 +1,9 @@
 package com.example.cinemates.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -33,6 +35,12 @@ public class ActorRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<A
         Cast personCast = dataList.get(position);
         holder.mBinding.setActor(personCast);
         holder.mBinding.executePendingBindings();
+        holder.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "In fase di sviluppo", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

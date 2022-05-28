@@ -39,6 +39,9 @@ public interface MovieApiService {
     @GET("movie/{movie_id}/credits")
     Observable<JsonObject> getCast(@Path("movie_id") int id, @QueryMap HashMap<String, String> queries);
 
+    @GET("movie/{movie_id}/recommendations")
+    Observable<MovieResponse> getRecommendations(@Path("movie_id") int movie_id, @QueryMap HashMap<String, String> queries);
+
     @GET("person/{person_id}")
     Observable<Actor> getActorDetails(@Path("person_id") int id, @QueryMap HashMap<String, String> queries);
 

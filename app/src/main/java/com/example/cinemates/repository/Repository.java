@@ -58,6 +58,10 @@ public class Repository {
         return apiService.getMovieDetails(movieId, map);
     }
 
+    public Observable<MovieResponse> getRecommendations(int movieId, HashMap<String, String> map) {
+        return apiService.getRecommendations(movieId, map);
+    }
+
     public Observable<JsonObject> getCast(int movieId, HashMap<String, String> map) {
         return apiService.getCast(movieId, map);
     }

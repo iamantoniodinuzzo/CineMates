@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.cinemates.R;
+import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentMediaInfoBinding;
 import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Movie;
@@ -35,11 +36,13 @@ public class MediaInfoFragment extends Fragment {
 
     private FragmentMediaInfoBinding mBinding;
     private MovieViewModel mViewModel;
+    private MovieRecyclerViewAdapter mAdapter;
     private Movie mMovie;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAdapter = new MovieRecyclerViewAdapter();
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
     }
 
@@ -55,19 +58,16 @@ public class MediaInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mMovie = (Movie) getArguments().getSerializable("movie");
+        mBinding.recommendedRecyclerView.setAdapter(mAdapter);
+
 
         HashMap<String, String> map = new HashMap<>();
         map.put("api_key", Constants.API_KEY);
         map.put("page", "1");
 
-        mViewModel.getMovie().observe(getViewLifecycleOwner(), new Observer<Movie>() {
-            @Override
-            public void onChanged(Movie movie) {
-                mBinding.setMovie(movie);
-                mMovie = movie;
-            }
-        });
+        observe();
         mViewModel.getMovieDetails(mMovie.getId(), map);
+        mViewModel.getRecommendations(mMovie.getId(), map);
 
         mBinding.collectionName.collectionName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +75,22 @@ public class MediaInfoFragment extends Fragment {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 CollectionDialogFragment collectionDialogFragment = CollectionDialogFragment.newInstance(mMovie.getBelongs_to_collection());
                 collectionDialogFragment.show(fm, "fragment_show_collection");
+            }
+        });
+    }
+
+    private void observe() {
+        mViewModel.getMovie().observe(getViewLifecycleOwner(), new Observer<Movie>() {
+            @Override
+            public void onChanged(Movie movie) {
+                mBinding.setMovie(movie);
+                mMovie = movie;
+            }
+        });
+        mViewModel.getMovieRecommendedList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
+            @Override
+            public void onChanged(ArrayList<Movie> movies) {
+                mAdapter.addItems(movies);
             }
         });
     }

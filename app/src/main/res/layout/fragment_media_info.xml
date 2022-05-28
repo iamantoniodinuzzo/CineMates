@@ -133,6 +133,31 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 app:collection="@{movie.belongs_to_collection}" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/collectionName"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:text="Recommended"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.example.cinemates.util.RecyclerViewEmptySupport
+                    android:id="@+id/recommended_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/list_item_media_poster" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

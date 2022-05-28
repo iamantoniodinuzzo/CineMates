@@ -42,6 +42,7 @@ public class MovieViewModel extends ViewModel {
     private Repository repository;
     private MutableLiveData<ArrayList<Movie>> currentMoviesList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> trendingMovieList = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Movie>> movieRecommendedList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> popularMoviesList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> topRatedMoviesList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> upcomingMoviesList = new MutableLiveData<>();
@@ -80,6 +81,10 @@ public class MovieViewModel extends ViewModel {
 
     public MutableLiveData<Actor> getActor() {
         return actorDetails;
+    }
+
+    public MutableLiveData<ArrayList<Movie>> getMovieRecommendedList() {
+        return movieRecommendedList;
     }
 
     public MutableLiveData<ArrayList<Cast>> getMovieCastList() {
@@ -127,39 +132,25 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
-    public void getTrendingMovies(@NonNull MediaType mediaType,@NonNull TimeWindow timeWindow, HashMap<String, String> map) {
-      /*  disposables.add(repository.getTrendingMovies(map)
-                .subscribeOn(Schedulers.io())
-                .map(new Function<MovieResponse, ArrayList<Movie>>() {
-                    @Override
-                    public ArrayList<Movie> apply(MovieResponse movieResponse) throws Throwable {
-                        return movieResponse.getResults();
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<ArrayList<Movie>>() {
-                    @Override
-                    public void onNext(@NonNull ArrayList<Movie> movies) {
-                        trendingMovieList.setValue(movies);
-                    }
+    public void getTrendingMovies(@NonNull MediaType mediaType, @NonNull TimeWindow timeWindow, HashMap<String, String> map) {
+        switch (mediaType) {
+            case ALL:
+                break;
+            case MOVIE:
+                disposables.add(repository.getTrendingMovies(mediaType.toString(), timeWindow.toString(), map)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(result -> trendingMovieList.setValue(result.getResults()),
+                                error -> Log.e(TAG, "getTrendingMovies: " + error.getMessage()))
+                );
+                break;
+            case TV:
+                break;
+            case PERSON:
+                //TODO catch trending persons
+                break;
+        }
 
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                })
-        );*/
-        disposables.add(repository.getTrendingMovies(mediaType.toString(), timeWindow.toString(), map)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> trendingMovieList.setValue(result.getResults()),
-                        error -> Log.e(TAG, "getTrending: " + error.getMessage()))
-        );
     }
 
     public void getPopularMovies(HashMap<String, String> map) {
@@ -190,30 +181,21 @@ public class MovieViewModel extends ViewModel {
     }
 
     public void getMovieDetails(int movieId, HashMap<String, String> map) {
-      /*  disposables.add(repository.getMovieDetails(movieId, map)
-                .subscribeOn(Schedulers.io())
-                .map(new Function<Movie, Movie>() {
-                    @Override
-                    public Movie apply(Movie movie) throws Throwable {
-                        ArrayList<String> genreNames = new ArrayList<>();
-                        // MovieResponse gives list of genre(object) so we will map each id to it genre name here.a
-                        for (Genre genre : movie.getGenres()) {
-                            genreNames.add(genre.getName());
-                        }
-                        movie.setGenre_names(genreNames);
-                        return movie;
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> movieDetails.setValue(result),
-                        error -> Log.e(TAG, "getMovieDetails: " + error.getMessage()))
-        );*/
-
         disposables.add(repository.getMovieDetails(movieId, map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> movieDetails.setValue(result),
                         error -> Log.e(TAG, "getMovieDetails: " + error.getMessage()))
+        );
+
+    }
+
+    public void getRecommendations(int movieId, HashMap<String, String> map) {
+        disposables.add(repository.getRecommendations(movieId, map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> movieRecommendedList.setValue(result.getResults()),
+                        error -> Log.e(TAG, "getRecommendedMovies: " + error.getMessage()))
         );
 
     }

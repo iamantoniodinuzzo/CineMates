@@ -4,6 +4,7 @@ import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.MovieResponse;
+import com.example.cinemates.model.VideoResponse;
 import com.example.cinemates.util.MediaType;
 import com.example.cinemates.util.TimeWindow;
 import com.google.gson.JsonObject;
@@ -39,8 +40,11 @@ public interface MovieApiService {
     @GET("movie/{movie_id}/credits")
     Observable<JsonObject> getCast(@Path("movie_id") int id, @QueryMap HashMap<String, String> queries);
 
-    @GET("movie/{movie_id}/recommendations")
-    Observable<MovieResponse> getRecommendations(@Path("movie_id") int movie_id, @QueryMap HashMap<String, String> queries);
+    @GET("movie/{movie_id}/similar")
+    Observable<MovieResponse> getSimilar(@Path("movie_id") int movie_id, @QueryMap HashMap<String, String> queries);
+
+    @GET("movie/{movie_id}/videos")
+    Observable<VideoResponse> getVideos(@Path("movie_id") int movie_id, @QueryMap HashMap<String, String> queries);
 
     @GET("person/{person_id}")
     Observable<Actor> getActorDetails(@Path("person_id") int id, @QueryMap HashMap<String, String> queries);

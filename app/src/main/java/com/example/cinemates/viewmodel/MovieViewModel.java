@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModel;
 import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Collection;
-import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.MovieResponse;
+import com.example.cinemates.model.Video;
 import com.example.cinemates.repository.Repository;
 import com.example.cinemates.util.MediaType;
 import com.example.cinemates.util.TimeWindow;
@@ -22,8 +22,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.inject.Inject;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -42,7 +40,8 @@ public class MovieViewModel extends ViewModel {
     private Repository repository;
     private MutableLiveData<ArrayList<Movie>> currentMoviesList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> trendingMovieList = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Movie>> movieRecommendedList = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Movie>> movieSimilar = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Video>> movieVideos = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> popularMoviesList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> topRatedMoviesList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> upcomingMoviesList = new MutableLiveData<>();
@@ -79,12 +78,16 @@ public class MovieViewModel extends ViewModel {
         return movieDetails;
     }
 
+    public MutableLiveData<ArrayList<Video>> getMovieVideos() {
+        return movieVideos;
+    }
+
     public MutableLiveData<Actor> getActor() {
         return actorDetails;
     }
 
-    public MutableLiveData<ArrayList<Movie>> getMovieRecommendedList() {
-        return movieRecommendedList;
+    public MutableLiveData<ArrayList<Movie>> getMovieSimilar() {
+        return movieSimilar;
     }
 
     public MutableLiveData<ArrayList<Cast>> getMovieCastList() {
@@ -180,6 +183,15 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
+    public void getVideos(@NonNull int movie_id, HashMap<String, String> map) {
+        disposables.add(repository.getVideos(movie_id, map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> movieVideos.setValue(result.getResults()),
+                        error -> Log.e(TAG, "getVideos: " + error.getMessage()))
+        );
+    }
+
     public void getMovieDetails(int movieId, HashMap<String, String> map) {
         disposables.add(repository.getMovieDetails(movieId, map)
                 .subscribeOn(Schedulers.io())
@@ -191,10 +203,10 @@ public class MovieViewModel extends ViewModel {
     }
 
     public void getRecommendations(int movieId, HashMap<String, String> map) {
-        disposables.add(repository.getRecommendations(movieId, map)
+        disposables.add(repository.getSimilar(movieId, map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> movieRecommendedList.setValue(result.getResults()),
+                .subscribe(result -> movieSimilar.setValue(result.getResults()),
                         error -> Log.e(TAG, "getRecommendedMovies: " + error.getMessage()))
         );
 

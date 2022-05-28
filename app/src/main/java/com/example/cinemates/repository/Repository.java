@@ -1,16 +1,13 @@
 package com.example.cinemates.repository;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.MovieResponse;
+import com.example.cinemates.model.VideoResponse;
 import com.example.cinemates.network.MovieApiService;
-import com.example.cinemates.util.MediaType;
-import com.example.cinemates.util.TimeWindow;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -54,12 +51,16 @@ public class Repository {
         return apiService.getUpcoming(map);
     }
 
+    public Observable<VideoResponse> getVideos(int movie_id, HashMap<String, String> map) {
+        return apiService.getVideos(movie_id, map);
+    }
+
     public Observable<Movie> getMovieDetails(int movieId, HashMap<String, String> map) {
         return apiService.getMovieDetails(movieId, map);
     }
 
-    public Observable<MovieResponse> getRecommendations(int movieId, HashMap<String, String> map) {
-        return apiService.getRecommendations(movieId, map);
+    public Observable<MovieResponse> getSimilar(int movieId, HashMap<String, String> map) {
+        return apiService.getSimilar(movieId, map);
     }
 
     public Observable<JsonObject> getCast(int movieId, HashMap<String, String> map) {

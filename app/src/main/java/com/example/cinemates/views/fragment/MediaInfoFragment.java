@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,9 @@ import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Video;
 import com.example.cinemates.util.Constants;
 import com.example.cinemates.viewmodel.MovieViewModel;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +41,7 @@ public class MediaInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mAdapter = new MovieRecyclerViewAdapter();
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
+
     }
 
     @Override
@@ -52,7 +57,6 @@ public class MediaInfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mMovie = (Movie) getArguments().getSerializable("movie");
         mBinding.recommendedRecyclerView.setAdapter(mAdapter);
-
 
         HashMap<String, String> map = new HashMap<>();
         map.put("api_key", Constants.API_KEY);

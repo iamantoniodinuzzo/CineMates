@@ -33,7 +33,8 @@ Costruendo questa applicazione, ho imparato a comprendere gli elementi fondament
 - Costruisci un'applicazione completa che appare e si sente naturale sull'ultimo sistema operativo Android.
 - Utilizzare il pattern MVVM
 - Incorporare il data binding e il view binding
-- Utilizzare il componente Navigation, View Pager 2 , Live Data
+- Utilizzare il componente Navigation, View Pager , Live Data
+- Utilizzo di Dagger Hilt per la dependency injection
 
 ## Image Resources
 
@@ -45,4 +46,5 @@ Costruendo questa applicazione, ho imparato a comprendere gli elementi fondament
 - [Android Data Binding](https://developer.android.com/topic/libraries/data-binding/)
 - [Retrofit](http://square.github.io/retrofit/) for REST api communication
 - [Glide](https://github.com/bumptech/glide) for image loading
+- [Hilt Library](https://developer.android.com/training/dependency-injection/hilt-android) for Dependency Injection
 

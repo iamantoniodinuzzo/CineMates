@@ -4,6 +4,8 @@ import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.MovieResponse;
+import com.example.cinemates.util.MediaType;
+import com.example.cinemates.util.TimeWindow;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -48,4 +50,7 @@ public interface MovieApiService {
 
     @GET("search/movie")
     Observable<JsonObject> getMoviesBySearch(@QueryMap HashMap<String, String> queries);
+
+    @GET("trending/{media_type}/{time_window}")
+    Observable<MovieResponse> getTrendingMovies(@Path("media_type") String media_type, @Path("time_window") String time_window, @QueryMap HashMap<String, String> queries);
 }

@@ -23,6 +23,8 @@ import com.example.cinemates.databinding.FragmentHomeBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Section;
 import com.example.cinemates.util.Constants;
+import com.example.cinemates.util.MediaType;
+import com.example.cinemates.util.TimeWindow;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;
@@ -37,17 +39,16 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding mBinding;
     private NavController mNavController;
-    private MovieRecyclerViewAdapter mPopularRecyclerViewAdapter, mCurrentRecyclerViewAdapter, mUpcomingRecyclerViewAdapter, mTopRatedRecyclerViewAdapter;
+    private MovieRecyclerViewAdapter  mUpcomingRecyclerViewAdapter, mTopRatedRecyclerViewAdapter, mTrendingRecyclerViewAdapter;
     private Toolbar mToolbar;
     private MovieViewModel mViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPopularRecyclerViewAdapter = new MovieRecyclerViewAdapter();
-        mCurrentRecyclerViewAdapter = new MovieRecyclerViewAdapter();
         mUpcomingRecyclerViewAdapter = new MovieRecyclerViewAdapter();
         mTopRatedRecyclerViewAdapter = new MovieRecyclerViewAdapter();
+        mTrendingRecyclerViewAdapter = new MovieRecyclerViewAdapter();
         mViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
 
     }
@@ -72,11 +73,9 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
 
-
-        mBinding.popularRecyclerView.setAdapter(mPopularRecyclerViewAdapter);
-        mBinding.currentRecyclerView.setAdapter(mCurrentRecyclerViewAdapter);
         mBinding.topratedRecyclerView.setAdapter(mTopRatedRecyclerViewAdapter);
         mBinding.upcomingRecyclerView.setAdapter(mUpcomingRecyclerViewAdapter);
+        mBinding.trendingRecyclerView.setAdapter(mTrendingRecyclerViewAdapter);
 
         HashMap<String, String> map = new HashMap<>();
         map.put("api_key", Constants.API_KEY);
@@ -87,6 +86,7 @@ public class HomeFragment extends Fragment {
         mViewModel.getUpcomingMovies(map);
         mViewModel.getTopRatedMovies(map);
         mViewModel.getPopularMovies(map);
+        mViewModel.getTrendingMovies(MediaType.MOVIE, TimeWindow.WEEK, map);
 
 
         mBinding.imageProfile.setOnClickListener(new View.OnClickListener() {
@@ -108,12 +108,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void observeData() {
-        mViewModel.getCurrentlyShowingList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
-            @Override
-            public void onChanged(ArrayList<Movie> movies) {
-                mCurrentRecyclerViewAdapter.addItems(movies);
-            }
-        });
         mViewModel.getUpcomingMoviesList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
             @Override
             public void onChanged(ArrayList<Movie> movies) {
@@ -126,10 +120,11 @@ public class HomeFragment extends Fragment {
                 mTopRatedRecyclerViewAdapter.addItems(movies);
             }
         });
-        mViewModel.getPopularMoviesList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
+        mViewModel.getTrendingMovieList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
             @Override
             public void onChanged(ArrayList<Movie> movies) {
-                mPopularRecyclerViewAdapter.addItems(movies);
+                System.out.println(movies);
+                mTrendingRecyclerViewAdapter.addItems(movies);
             }
         });
 

@@ -13,6 +13,8 @@ import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.MovieResponse;
 import com.example.cinemates.repository.Repository;
+import com.example.cinemates.util.MediaType;
+import com.example.cinemates.util.TimeWindow;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -24,6 +26,7 @@ import java.util.HashMap;
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.observers.DisposableObserver;
@@ -38,6 +41,7 @@ public class MovieViewModel extends ViewModel {
 
     private Repository repository;
     private MutableLiveData<ArrayList<Movie>> currentMoviesList = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Movie>> trendingMovieList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> popularMoviesList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> topRatedMoviesList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> upcomingMoviesList = new MutableLiveData<>();
@@ -90,6 +94,10 @@ public class MovieViewModel extends ViewModel {
         return collection;
     }
 
+    public MutableLiveData<ArrayList<Movie>> getTrendingMovieList() {
+        return trendingMovieList;
+    }
+
     public void getCurrentlyShowingMovies(HashMap<String, String> map) {
         disposables.add(repository.getCurrentlyShowing(map)
                 .subscribeOn(Schedulers.io())
@@ -116,6 +124,41 @@ public class MovieViewModel extends ViewModel {
 
                     }
                 })
+        );
+    }
+
+    public void getTrendingMovies(@NonNull MediaType mediaType,@NonNull TimeWindow timeWindow, HashMap<String, String> map) {
+      /*  disposables.add(repository.getTrendingMovies(map)
+                .subscribeOn(Schedulers.io())
+                .map(new Function<MovieResponse, ArrayList<Movie>>() {
+                    @Override
+                    public ArrayList<Movie> apply(MovieResponse movieResponse) throws Throwable {
+                        return movieResponse.getResults();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<ArrayList<Movie>>() {
+                    @Override
+                    public void onNext(@NonNull ArrayList<Movie> movies) {
+                        trendingMovieList.setValue(movies);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                })
+        );*/
+        disposables.add(repository.getTrendingMovies(mediaType.toString(), timeWindow.toString(), map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> trendingMovieList.setValue(result.getResults()),
+                        error -> Log.e(TAG, "getTrending: " + error.getMessage()))
         );
     }
 

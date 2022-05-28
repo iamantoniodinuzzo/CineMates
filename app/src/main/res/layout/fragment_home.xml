@@ -57,39 +57,55 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_media_poster" />
 
+            <!-- <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="10dp"
+                 android:text="Popular"
+                 android:textColor="@color/white"
+                 android:textSize="24sp"
+                 android:textStyle="bold" />
+
+             <com.example.cinemates.util.RecyclerViewEmptySupport
+                 android:id="@+id/popular_recyclerView"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                 tools:listitem="@layout/list_item_media_poster" />-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Popular"
+                android:text="Trending this week"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <com.example.cinemates.util.RecyclerViewEmptySupport
-                android:id="@+id/popular_recyclerView"
+                android:id="@+id/trending_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_media_poster" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="Current"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+            <!--  <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginStart="10dp"
+                  android:text="Current"
+                  android:textColor="@color/white"
+                  android:textSize="24sp"
+                  android:textStyle="bold" />
 
-            <com.example.cinemates.util.RecyclerViewEmptySupport
-                android:id="@+id/current_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/list_item_media_poster" />
+              <com.example.cinemates.util.RecyclerViewEmptySupport
+                  android:id="@+id/current_recyclerView"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                  tools:listitem="@layout/list_item_media_poster" />-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -107,6 +123,8 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_media_poster" />
+
+
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
 </RelativeLayout>

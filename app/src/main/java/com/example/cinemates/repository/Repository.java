@@ -2,11 +2,15 @@ package com.example.cinemates.repository;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.MovieResponse;
 import com.example.cinemates.network.MovieApiService;
+import com.example.cinemates.util.MediaType;
+import com.example.cinemates.util.TimeWindow;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -32,6 +36,10 @@ public class Repository {
 
     public Observable<MovieResponse> getCurrentlyShowing(HashMap<String, String> map) {
         return apiService.getCurrentlyShowing(map);
+    }
+
+    public Observable<MovieResponse> getTrendingMovies(@NonNull String mediaType, @NonNull String timeWindow, HashMap<String, String> map) {
+        return apiService.getTrendingMovies(mediaType, timeWindow, map);
     }
 
     public Observable<MovieResponse> getPopular(HashMap<String, String> map) {

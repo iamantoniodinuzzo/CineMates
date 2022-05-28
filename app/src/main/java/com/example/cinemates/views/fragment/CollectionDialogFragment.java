@@ -51,7 +51,7 @@ public class CollectionDialogFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
-        mAdapter = new MovieRecyclerViewAdapter(getActivity());
+        mAdapter = new MovieRecyclerViewAdapter();
 
     }
 

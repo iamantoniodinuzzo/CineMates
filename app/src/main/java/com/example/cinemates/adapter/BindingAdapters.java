@@ -42,7 +42,10 @@ public class BindingAdapters {
         Glide.with(view.getContext())
                 .load(Constants.ImageBaseURL
                         + url)
+                .error(R.drawable.ic_round_error_outline_24)
+                .centerCrop()
                 .into(view);
+
     }
 
     @BindingAdapter({"imageUrlLong"})
@@ -51,6 +54,7 @@ public class BindingAdapters {
         Glide.with(view.getContext())
                 .load(Constants.ImageBaseURLw780
                         + url)
+                .error(R.drawable.ic_round_error_outline_24)
                 .centerCrop()
                 .into(view);
     }

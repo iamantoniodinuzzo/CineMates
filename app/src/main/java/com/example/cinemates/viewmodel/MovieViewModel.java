@@ -11,6 +11,7 @@ import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.MovieResponse;
+import com.example.cinemates.model.Review;
 import com.example.cinemates.model.Video;
 import com.example.cinemates.repository.Repository;
 import com.example.cinemates.util.MediaType;
@@ -41,6 +42,7 @@ public class MovieViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Movie>> currentMoviesList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> trendingMovieList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> movieSimilar = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Review>> movieReviews = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Video>> movieVideos = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> popularMoviesList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> topRatedMoviesList = new MutableLiveData<>();
@@ -51,7 +53,7 @@ public class MovieViewModel extends ViewModel {
     private MutableLiveData<Collection> collection = new MutableLiveData<>();
     private MutableLiveData<Actor> actorDetails = new MutableLiveData<>();
 
-    private final io.reactivex.rxjava3.disposables.CompositeDisposable disposables = new CompositeDisposable();
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     @ViewModelInject
     public MovieViewModel(Repository repository) {
@@ -96,6 +98,10 @@ public class MovieViewModel extends ViewModel {
 
     public MutableLiveData<ArrayList<Movie>> getQueriesMovies() {
         return queriesMovies;
+    }
+
+    public MutableLiveData<ArrayList<Review>> getMovieReviews() {
+        return movieReviews;
     }
 
     public MutableLiveData<Collection> getCollection() {
@@ -202,12 +208,22 @@ public class MovieViewModel extends ViewModel {
 
     }
 
-    public void getRecommendations(int movieId, HashMap<String, String> map) {
+    public void getSimilar(int movieId, HashMap<String, String> map) {
         disposables.add(repository.getSimilar(movieId, map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> movieSimilar.setValue(result.getResults()),
-                        error -> Log.e(TAG, "getRecommendedMovies: " + error.getMessage()))
+                        error -> Log.e(TAG, "getSimilarMovies: " + error.getMessage()))
+        );
+
+    }
+
+    public void getReviews(int movieId, HashMap<String, String> map) {
+        disposables.add(repository.getReviews(movieId, map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> movieReviews.setValue(result.getResults()),
+                        error -> Log.e(TAG, "getMovieReviews: " + error.getMessage()))
         );
 
     }

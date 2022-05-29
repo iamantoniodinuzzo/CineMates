@@ -6,6 +6,7 @@ import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.MovieResponse;
+import com.example.cinemates.model.ReviewResponse;
 import com.example.cinemates.model.VideoResponse;
 import com.example.cinemates.network.MovieApiService;
 import com.google.gson.JsonObject;
@@ -61,6 +62,10 @@ public class Repository {
 
     public Observable<MovieResponse> getSimilar(int movieId, HashMap<String, String> map) {
         return apiService.getSimilar(movieId, map);
+    }
+
+    public Observable<ReviewResponse> getReviews(int movieId, HashMap<String, String> map) {
+        return apiService.getReviews(movieId, map);
     }
 
     public Observable<JsonObject> getCast(int movieId, HashMap<String, String> map) {

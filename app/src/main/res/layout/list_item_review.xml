@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="review"
+            type="com.example.cinemates.model.Review" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        app:cardBackgroundColor="@color/lynch_100">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/author_avatar"
+                layout="@layout/layout_person_avatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                app:path="@{review.author_details != null ? review.author_details.avatar_path : null}" />
+
+            <TextView
+                android:id="@+id/author_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_toEndOf="@id/author_avatar"
+                android:text="@{review.author}"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                tools:text="Author name" />
+
+            <com.borjabravo.readmoretextview.ReadMoreTextView
+                android:id="@+id/readMoreTextV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/author_avatar"
+                android:layout_margin="10dp"
+                android:textColor="@color/alabaster"
+                android:textSize="14sp"
+                app:colorClickableText="@color/vermilion_100"
+                app:description="@{review.content}"
+                app:trimLength="200"
+                app:trimMode="trimModeLength"
+                tools:text="@tools:sample/lorem/random" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

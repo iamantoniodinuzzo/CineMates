@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
+import com.example.cinemates.adapter.YoutubeVideoAdapter;
 import com.example.cinemates.databinding.FragmentMediaInfoBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Video;
@@ -29,17 +30,19 @@ import java.util.HashMap;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MediaInfoFragment extends Fragment {
+public class MediaInfoFragment extends Fragment implements YouTubePlayer.OnInitializedListener{
 
     private FragmentMediaInfoBinding mBinding;
     private MovieViewModel mViewModel;
     private MovieRecyclerViewAdapter mAdapter;
+    private YoutubeVideoAdapter mVideoAdapter;
     private Movie mMovie;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new MovieRecyclerViewAdapter();
+        mVideoAdapter = new YoutubeVideoAdapter();
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
 
     }
@@ -57,6 +60,7 @@ public class MediaInfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mMovie = (Movie) getArguments().getSerializable("movie");
         mBinding.recommendedRecyclerView.setAdapter(mAdapter);
+        mBinding.videosRecyclerView.setAdapter(mVideoAdapter);
 
         HashMap<String, String> map = new HashMap<>();
         map.put("api_key", Constants.API_KEY);
@@ -94,15 +98,26 @@ public class MediaInfoFragment extends Fragment {
         mViewModel.getMovieVideos().observe(getViewLifecycleOwner(), new Observer<ArrayList<Video>>() {
             @Override
             public void onChanged(ArrayList<Video> videos) {
-                //TODO create recycler view for videos and implement youtube player
+                mVideoAdapter.setDataList(videos);
             }
         });
     }
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
+
+    }
+
+    @Override
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+
+    }
+
+    @Override
+    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
 
     }
 }

@@ -1,6 +1,7 @@
 package com.example.cinemates.adapter;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +19,9 @@ import com.example.cinemates.util.Constants;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubeThumbnailLoader;
+import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -29,6 +33,8 @@ import java.util.Locale;
  * Created 20/05/2022 at 11:40
  */
 public class BindingAdapters {
+
+    private static final String TAG = BindingAdapters.class.getSimpleName();
 
     @BindingAdapter({"imageUrl"})
     public static void loadImage(ImageView view, String url) {
@@ -48,7 +54,6 @@ public class BindingAdapters {
                 .centerCrop()
                 .into(view);
     }
-
 
 
     @BindingAdapter({"description"})
@@ -110,6 +115,11 @@ public class BindingAdapters {
             }
             view.setText(result.toString());
         }
+    }
+
+    @BindingAdapter({"loadOfficial"})
+    public static void setIsOfficial(TextView textView, boolean isOfficial) {
+        textView.setText(isOfficial ? "Official" : "Not Official");
     }
 
 }

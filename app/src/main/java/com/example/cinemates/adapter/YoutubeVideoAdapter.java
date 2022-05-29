@@ -86,7 +86,7 @@ public class YoutubeVideoAdapter extends RecyclerViewEmptySupport.Adapter<Youtub
                 } catch (ActivityNotFoundException ex) {
                     view.getContext().startActivity(webIntent);
                 }
-             
+
             }
         });
 

@@ -2,6 +2,7 @@ package com.example.cinemates.views;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.Navigation;
@@ -21,6 +22,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mBinding = ActivityMovieDetailsBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-        Navigation.findNavController(this,  R.id.nav_host_fragment_container).setGraph(R.navigation.movie_details_nav_graph, getIntent().getExtras());
+        Navigation.findNavController(this, R.id.nav_host_fragment_container).setGraph(R.navigation.movie_details_nav_graph, getIntent().getExtras());
     }
 }

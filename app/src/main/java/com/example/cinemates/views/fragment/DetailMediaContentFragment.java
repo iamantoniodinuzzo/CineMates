@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.cinemates.adapter.ViewPagerAdapter;
@@ -51,9 +52,13 @@ public class DetailMediaContentFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mMovie = args.getMovie();
-        System.out.println(mMovie);
         mBinding.setMovie(mMovie);
-
+        mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
         bindViewPagerAdapter(mBinding.viewPager);
         bindViewPagerTabs(mBinding.tabLayout, mBinding.viewPager);
     }

@@ -25,8 +25,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
                 android:fitsSystemWindows="true"
-                app:contentScrim="@color/lynch_100"
                 app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Small"
+                app:contentScrim="@color/lynch_100"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:titleEnabled="false">
 
@@ -42,11 +42,12 @@
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    app:titleTextColor="@color/white"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_marginBottom="48dp"
                     app:layout_collapseMode="pin"
-                    app:title="@{movie.title}" />
+                    app:navigationIcon="@drawable/ic_round_arrow_back_24"
+                    app:title="@{movie.title}"
+                    app:titleTextColor="@color/white" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"

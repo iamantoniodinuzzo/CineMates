@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +21,6 @@ import com.example.cinemates.util.Constants;
 import com.example.cinemates.viewmodel.MovieViewModel;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,7 +66,7 @@ public class MediaInfoFragment extends Fragment implements YouTubePlayer.OnIniti
 
         observe();
         mViewModel.getMovieDetails(mMovie.getId(), map);
-        mViewModel.getRecommendations(mMovie.getId(), map);
+        mViewModel.getSimilar(mMovie.getId(), map);
         mViewModel.getVideos(mMovie.getId(), map);
 
         mBinding.collectionName.collectionName.setOnClickListener(new View.OnClickListener() {

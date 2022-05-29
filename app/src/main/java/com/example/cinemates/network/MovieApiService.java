@@ -4,6 +4,7 @@ import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.MovieResponse;
+import com.example.cinemates.model.ReviewResponse;
 import com.example.cinemates.model.VideoResponse;
 import com.example.cinemates.util.MediaType;
 import com.example.cinemates.util.TimeWindow;
@@ -45,6 +46,9 @@ public interface MovieApiService {
 
     @GET("movie/{movie_id}/videos")
     Observable<VideoResponse> getVideos(@Path("movie_id") int movie_id, @QueryMap HashMap<String, String> queries);
+
+    @GET("movie/{movie_id}/reviews")
+    Observable<ReviewResponse> getReviews(@Path("movie_id") int movie_id, @QueryMap HashMap<String, String> queries);
 
     @GET("person/{person_id}")
     Observable<Actor> getActorDetails(@Path("person_id") int id, @QueryMap HashMap<String, String> queries);

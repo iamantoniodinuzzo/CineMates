@@ -14,6 +14,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.views.fragment.MediaCastFragment;
 import com.example.cinemates.views.fragment.MediaInfoFragment;
+import com.example.cinemates.views.fragment.MediaReviewsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private static final int FIRST_TAB = 0;
     private static final int SECOND_TAB = 1;
+    private static final int THIRD_TAB = 3;
     private int[] TABS;
     private Context mContext;
     private Movie mMovie;
@@ -31,7 +33,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public ViewPagerAdapter(final Context context, final FragmentManager fm, Movie movie) {
         super(fm);
         mContext = context.getApplicationContext();
-        TABS = new int[]{FIRST_TAB, SECOND_TAB};
+        TABS = new int[]{FIRST_TAB, SECOND_TAB, THIRD_TAB};
         mMovie = movie;
     }
 
@@ -60,6 +62,12 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 MediaCastFragment mediaCastFragment = new MediaCastFragment();
                 mediaCastFragment.setArguments(bundle);
                 return mediaCastFragment;
+            case THIRD_TAB:
+                bundle.putString("param1", "THIRD TAB");
+                bundle.putSerializable("movie", mMovie);
+                MediaReviewsFragment mediaReviewsFragment = new MediaReviewsFragment();
+                mediaReviewsFragment.setArguments(bundle);
+                return mediaReviewsFragment;
 
         }
         return null;
@@ -77,6 +85,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 return "Info";
             case SECOND_TAB:
                 return "Cast";
+            case THIRD_TAB:
+                return "Reviews";
         }
         return null;
     }

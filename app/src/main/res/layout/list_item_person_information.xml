@@ -14,25 +14,12 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/lynch_100"
         android:padding="10dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:cardCornerRadius="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/ivAvatar"
-                app:imageUrl="@{actor.profile_path}"
-                android:scaleType="centerCrop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:src="@tools:sample/avatars" />
-        </androidx.cardview.widget.CardView>
+        <include
+            layout="@layout/layout_person_avatar"
+            app:path="@{actor.profile_path}" />
 
         <TextView
             android:id="@+id/tvTitle"

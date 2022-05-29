@@ -1,5 +1,6 @@
 package com.example.cinemates.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.navigation.Navigation;
 import com.example.cinemates.databinding.ListItemMediaPosterBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
+import com.example.cinemates.views.MovieDetailsActivity;
 import com.example.cinemates.views.fragment.HomeFragmentDirections;
 
 import java.util.ArrayList;
@@ -24,8 +26,6 @@ import java.util.List;
  */
 public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<MovieRecyclerViewAdapter.MovieViewHolder> {
     private List<Movie> dataList = new ArrayList<>();
-
-
 
     @NonNull
     @Override
@@ -43,12 +43,9 @@ public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<M
         holder.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    HomeFragmentDirections.ActionHomeFragmentToMovieDetailsActivity action =
-                            HomeFragmentDirections.actionHomeFragmentToMovieDetailsActivity(movie);
-                    Navigation.findNavController(view).navigate(action);
-                } catch (IllegalArgumentException ignored) {
-                }
+                Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
+                intent.putExtra("movie", movie);
+                view.getContext().startActivity(intent);
 
             }
         });

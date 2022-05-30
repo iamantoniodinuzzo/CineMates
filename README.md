@@ -20,11 +20,7 @@ esperienze mobili particolari alla vita. In particolare, è necessario sapere co
 interfacce utente (UI) pulite e convincenti, recuperare dati dai servizi di rete, 
 e ottimizzare l'esperienza per vari dispositivi mobili. 
 
-Costruendo questa applicazione, dimostrerete la vostra comprensione degli 
-elementi fondamentali della programmazione per Android. La vostra applicazione comunicherà con 
-Internet e fornirà un'esperienza utente reattiva e piacevole.
-
-Costruendo questa applicazione, ho imparato a comprendere gli elementi fondamentali della programmazione Android.
+Costruendo questa applicazione, ho imparato a comprendere gli elementi fondamentali della programmazione Android, approfondendo una delle mie passioni principali ovvero il cinema.
 
 ## What I learned
 - Recuperare dati da Internet con l'**API** di TheMovieDB
@@ -38,6 +34,7 @@ Costruendo questa applicazione, ho imparato a comprendere gli elementi fondament
 
 ## Image Resources
 
+> Parte in allestimento
 
 ## Libraries
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/) 
@@ -47,5 +44,5 @@ Costruendo questa applicazione, ho imparato a comprendere gli elementi fondament
 - [Retrofit](http://square.github.io/retrofit/) per la comunicazione con l'API
 - [Glide](https://github.com/bumptech/glide) per il caricamento delle immagini
 - [Hilt Library](https://developer.android.com/training/dependency-injection/hilt-android) per la Dependency Injection
-- [Youtube Library](https://developers.google.com/youtube/android/player) per le anteprime di Youtube 
+- [YouTube Library](https://developers.google.com/youtube/android/player) per le anteprime di YouTube 
 

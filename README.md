@@ -27,14 +27,14 @@ Internet e fornirà un'esperienza utente reattiva e piacevole.
 Costruendo questa applicazione, ho imparato a comprendere gli elementi fondamentali della programmazione Android.
 
 ## What I learned
-- Recuperare dati da Internet con l'API di MovieDB
+- Recuperare dati da Internet con l'**API** di TheMovieDB
 - Usare adapters e layout di lista personalizzati per popolare le viste di lista
 - Incorporare librerie per semplificare la quantità di codice da scrivere
-- Costruisci un'applicazione completa che appare e si sente naturale sull'ultimo sistema operativo Android.
-- Utilizzare il pattern MVVM
-- Incorporare il data binding e il view binding
-- Utilizzare il componente Navigation, View Pager , Live Data
-- Utilizzo di Dagger Hilt per la dependency injection
+- Costruire un'applicazione completa che appare e si sente naturale sull'ultimo sistema operativo Android.
+- Utilizzare il pattern **MVVM**
+- Incorporare il **data binding** e il **view binding**
+- Utilizzare il componente **Navigation**, **View Pager** , **Live Data**
+- Utilizzare Dagger Hilt per la **dependency injection**
 
 ## Image Resources
 
@@ -44,7 +44,8 @@ Costruendo questa applicazione, ho imparato a comprendere gli elementi fondament
     * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
     * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
 - [Android Data Binding](https://developer.android.com/topic/libraries/data-binding/)
-- [Retrofit](http://square.github.io/retrofit/) for REST api communication
-- [Glide](https://github.com/bumptech/glide) for image loading
-- [Hilt Library](https://developer.android.com/training/dependency-injection/hilt-android) for Dependency Injection
+- [Retrofit](http://square.github.io/retrofit/) per la comunicazione con l'API
+- [Glide](https://github.com/bumptech/glide) per il caricamento delle immagini
+- [Hilt Library](https://developer.android.com/training/dependency-injection/hilt-android) per la Dependency Injection
+- [Youtube Library](https://developers.google.com/youtube/android/player) per le anteprime di Youtube 
 

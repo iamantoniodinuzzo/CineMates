@@ -24,9 +24,18 @@ import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Currency;
+import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Antonio Di Nuzzo
@@ -87,6 +96,11 @@ public class BindingAdapters {
         else
             view.setText("Non specificato");
     }
+
+   @BindingAdapter("knowAs")
+   public static void setKnownAs(TextView view, String[] names){
+      view.setText( names!= null ? Arrays.stream(names).collect(Collectors.joining(" - ")) : "Non specificato");
+   }
 
     @BindingAdapter({"genres"})
     public static void setGenresChip(ChipGroup chipGroup, @NonNull ArrayList<Genre> genres) {

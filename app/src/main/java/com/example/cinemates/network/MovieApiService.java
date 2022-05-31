@@ -60,7 +60,7 @@ public interface MovieApiService {
     Observable<Collection> getCollection(@Path("collection_id") int id, @QueryMap HashMap<String, String> queries);
 
     @GET("search/movie")
-    Observable<JsonObject> getMoviesBySearch(@QueryMap HashMap<String, String> queries);
+    Observable<MovieResponse> getMoviesBySearch(@QueryMap HashMap<String, String> queries);
 
     @GET("trending/{media_type}/{time_window}")
     Observable<MovieResponse> getTrendingMovies(@Path("media_type") String media_type, @Path("time_window") String time_window, @QueryMap HashMap<String, String> queries);

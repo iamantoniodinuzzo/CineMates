@@ -6,10 +6,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 
 import com.example.cinemates.databinding.ListItemPersonInformationBinding;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
+import com.example.cinemates.views.fragment.DetailMediaContentFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,9 @@ public class ActorRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<A
         holder.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "In fase di sviluppo", Toast.LENGTH_SHORT).show();
+                DetailMediaContentFragmentDirections.ActionDetailMediaContentFragmentToDetailActorMediaFragment action =
+                        DetailMediaContentFragmentDirections.actionDetailMediaContentFragmentToDetailActorMediaFragment(personCast);
+                Navigation.findNavController(view).navigate(action);
             }
         });
 

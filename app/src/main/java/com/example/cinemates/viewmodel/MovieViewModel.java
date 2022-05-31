@@ -88,6 +88,7 @@ public class MovieViewModel extends ViewModel {
         return actorDetails;
     }
 
+
     public MutableLiveData<ArrayList<Movie>> getMovieSimilar() {
         return movieSimilar;
     }
@@ -263,10 +264,10 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
-    public void getQueriedMovies() {
+    /*public void getQueriedMovies() {
         disposables.add(repository.getMoviesBySearch()
                 .subscribeOn(Schedulers.io())
-                .map(new Function<JsonObject, ArrayList<Movie>>() {
+                .map(new Function<MovieResponse, ArrayList<Movie>>() {
                          @Override
                          public ArrayList<Movie> apply(JsonObject jsonObject) throws Throwable {
                              JsonArray jsonArray = jsonObject.getAsJsonArray("results");
@@ -280,6 +281,15 @@ public class MovieViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> queriesMovies.setValue(result),
                         error -> Log.e(TAG, "getPopularMovies: " + error.getMessage()))
+        );
+    }*/
+
+    public void getQueriedMovies() {
+        disposables.add(repository.getUpcoming()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> queriesMovies.setValue(result.getResults()),
+                        error -> Log.e(TAG, "getQueriedMovies: " + error.getMessage()))
         );
     }
 

@@ -2,15 +2,30 @@ package com.example.cinemates.model;
 
 import com.google.gson.JsonObject;
 
+import java.io.Serializable;
+import java.util.Arrays;
+
 /**
  * @author Antonio Di Nuzzo
  * Created 21/04/2022 at 15:39
  */
-public class Actor {
-    private String birthday, name, biography, place_of_birth, profile_path, known_for_department;
-    private Number popularity;
-    private Integer id;
+public class Actor extends Person implements Serializable {
+    private String birthday, biography, place_of_birth, deathDay;
     private JsonObject movie_credits;
+    private String[] also_known_as;
+
+    public Actor(String birthday, String name, String biography, String place_of_birth,
+                 String profile_path, String known_for_department, Integer id,
+                 Number popularity, String deathday, JsonObject movie_credits, String[] also_known_as) {
+        super(name, profile_path, known_for_department, id, popularity);
+        this.birthday = birthday;
+        this.biography = biography;
+        this.place_of_birth = place_of_birth;
+        this.deathDay = deathday;
+        this.movie_credits = movie_credits;
+
+        this.also_known_as = also_known_as;
+    }
 
     public JsonObject getMovie_credits() {
         return movie_credits;
@@ -18,21 +33,6 @@ public class Actor {
 
     public void setMovie_credits(JsonObject movie_credits) {
         this.movie_credits = movie_credits;
-    }
-
-    public Actor(String birthday, String name, String biography, String place_of_birth,
-                 String profile_path, String known_for_department, Integer id,
-                 Number popularity, JsonObject movie_credits) {
-        this.birthday = birthday;
-        this.name = name;
-        this.biography = biography;
-        this.place_of_birth = place_of_birth;
-        this.profile_path = profile_path;
-        this.known_for_department = known_for_department;
-        this.id = id;
-        this.popularity = popularity;
-        this.movie_credits = movie_credits;
-
     }
 
     public String getBirthday() {
@@ -43,12 +43,20 @@ public class Actor {
         this.birthday = birthday;
     }
 
-    public String getName() {
-        return name;
+    public String getDeathDay() {
+        return deathDay;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String[] getAlso_known_as() {
+        return also_known_as;
+    }
+
+    public void setAlso_known_as(String[] also_known_as) {
+        this.also_known_as = also_known_as;
+    }
+
+    public void setDeathDay(String deathDay) {
+        this.deathDay = deathDay;
     }
 
     public String getBiography() {
@@ -67,35 +75,15 @@ public class Actor {
         this.place_of_birth = place_of_birth;
     }
 
-    public String getProfile_path() {
-        return profile_path;
-    }
-
-    public void setProfile_path(String profile_path) {
-        this.profile_path = profile_path;
-    }
-
-    public String getKnown_for_department() {
-        return known_for_department;
-    }
-
-    public void setKnown_for_department(String known_for_department) {
-        this.known_for_department = known_for_department;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Number getPopularity() {
-        return popularity;
-    }
-
-    public void setPopularity(Number popularity) {
-        this.popularity = popularity;
+    @Override
+    public String toString() {
+        return "Actor{" +
+                "birthday='" + birthday + '\'' +
+                ", biography='" + biography + '\'' +
+                ", place_of_birth='" + place_of_birth + '\'' +
+                ", deathday='" + deathDay + '\'' +
+                ", movie_credits=" + movie_credits +
+                ", also_known_as=" + Arrays.toString(also_known_as) +
+                '}';
     }
 }

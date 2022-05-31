@@ -77,16 +77,12 @@ public class HomeFragment extends Fragment {
         mBinding.upcomingRecyclerView.setAdapter(mUpcomingRecyclerViewAdapter);
         mBinding.trendingRecyclerView.setAdapter(mTrendingRecyclerViewAdapter);
 
-        HashMap<String, String> map = new HashMap<>();
-        map.put("api_key", Constants.API_KEY);
-        map.put("page", "1");
-
         observeData();
-        mViewModel.getCurrentlyShowingMovies(map);
-        mViewModel.getUpcomingMovies(map);
-        mViewModel.getTopRatedMovies(map);
-        mViewModel.getPopularMovies(map);
-        mViewModel.getTrendingMovies(MediaType.MOVIE, TimeWindow.WEEK, map);
+        mViewModel.getCurrentlyShowingMovies();
+        mViewModel.getUpcomingMovies();
+        mViewModel.getTopRatedMovies();
+        mViewModel.getPopularMovies();
+        mViewModel.getTrendingMovies(MediaType.MOVIE, TimeWindow.WEEK);
 
 
         mBinding.imageProfile.setOnClickListener(new View.OnClickListener() {

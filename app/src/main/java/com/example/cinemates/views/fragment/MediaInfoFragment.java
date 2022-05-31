@@ -60,14 +60,10 @@ public class MediaInfoFragment extends Fragment implements YouTubePlayer.OnIniti
         mBinding.recommendedRecyclerView.setAdapter(mAdapter);
         mBinding.videosRecyclerView.setAdapter(mVideoAdapter);
 
-        HashMap<String, String> map = new HashMap<>();
-        map.put("api_key", Constants.API_KEY);
-        map.put("page", "1");
-
         observe();
-        mViewModel.getMovieDetails(mMovie.getId(), map);
-        mViewModel.getSimilar(mMovie.getId(), map);
-        mViewModel.getVideos(mMovie.getId(), map);
+        mViewModel.getMovieDetails(mMovie.getId());
+        mViewModel.getSimilar(mMovie.getId());
+        mViewModel.getVideos(mMovie.getId());
 
         mBinding.collectionName.collectionName.setOnClickListener(new View.OnClickListener() {
             @Override

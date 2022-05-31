@@ -68,15 +68,12 @@ public class CollectionDialogFragment extends DialogFragment {
         Collection collection = (Collection) getArguments().getSerializable("collection");
         mBinding.moviesIntoCollection.setAdapter(mAdapter);
         mBinding.setCollection(collection);
-        HashMap<String, String> map = new HashMap<>();
-        map.put("api_key", Constants.API_KEY);
-        map.put("page", "1");
         mViewModel.getCollection().observe(getViewLifecycleOwner(), new Observer<Collection>() {
             @Override
             public void onChanged(Collection collection) {
                 mAdapter.addItems(collection.getParts());
             }
         });
-        mViewModel.getCollection(collection.getId(), map);
+        mViewModel.getCollection(collection.getId());
     }
 }

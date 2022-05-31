@@ -30,10 +30,12 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Antonio Di Nuzzo
@@ -95,14 +97,10 @@ public class BindingAdapters {
             view.setText("Non specificato");
     }
 
-    @BindingAdapter(value={"birthDay", "deathDay"})
-    public static void loadAge(TextView view, @NonNull String birthday, @NonNull String deathDay) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        LocalDate localDateBirth = LocalDate.parse(Objects.requireNonNull(birthday), formatter);
-        LocalDate localDateDeath = LocalDate.parse(Objects.requireNonNull(deathDay), formatter);
-
-        view.setText(Period.between(localDateBirth, localDateDeath!= null ? localDateDeath : LocalDate.now()).getYears());
-    }
+   @BindingAdapter("knowAs")
+   public static void setKnownAs(TextView view, String[] names){
+      view.setText( names!= null ? Arrays.stream(names).collect(Collectors.joining(" - ")) : "Non specificato");
+   }
 
     @BindingAdapter({"genres"})
     public static void setGenresChip(ChipGroup chipGroup, @NonNull ArrayList<Genre> genres) {

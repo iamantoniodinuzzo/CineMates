@@ -59,5 +59,39 @@
             app:trimMode="trimModeLength"
             tools:text="@tools:sample/lorem/random" />
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/readMoreTextV"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/textTitleOriginalTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Known as"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textOriginalTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="@color/alabaster"
+                android:textIsSelectable="true"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:knowAs="@{actor.also_known_as}"
+                tools:text="Original title" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
     </RelativeLayout>
 </layout>

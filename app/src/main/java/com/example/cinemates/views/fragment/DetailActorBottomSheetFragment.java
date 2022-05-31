@@ -19,7 +19,7 @@ import com.example.cinemates.viewmodel.MovieViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 
-public class DetailActorMediaFragment extends BottomSheetDialogFragment {
+public class DetailActorBottomSheetFragment extends BottomSheetDialogFragment {
     private FragmentDetailActorMediaBinding mBinding;
     private MovieViewModel mViewModel;
     private Person mPerson;

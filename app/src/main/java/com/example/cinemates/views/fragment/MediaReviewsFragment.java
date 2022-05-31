@@ -56,9 +56,7 @@ public class MediaReviewsFragment extends Fragment {
         mMovie = (Movie) getArguments().getSerializable("movie");
 
         mBinding.reviewsRecyclerView.setAdapter(mAdapter);
-        HashMap<String, String> map = new HashMap<>();
-        map.put("api_key", Constants.API_KEY);
-        map.put("page", "1");
+
 
         mViewModel.getMovieReviews().observe(getViewLifecycleOwner(), new Observer<ArrayList<Review>>() {
             @Override
@@ -66,7 +64,7 @@ public class MediaReviewsFragment extends Fragment {
                 mAdapter.addItems(casts);
             }
         });
-        mViewModel.getReviews(mMovie.getId(), map);
+        mViewModel.getReviews(mMovie.getId());
     }
 
     @Override

@@ -112,8 +112,8 @@ public class MovieViewModel extends ViewModel {
         return trendingMovieList;
     }
 
-    public void getCurrentlyShowingMovies(HashMap<String, String> map) {
-        disposables.add(repository.getCurrentlyShowing(map)
+    public void getCurrentlyShowingMovies() {
+        disposables.add(repository.getCurrentlyShowing()
                 .subscribeOn(Schedulers.io())
                 .map(new Function<MovieResponse, ArrayList<Movie>>() {
                     @Override
@@ -141,12 +141,12 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
-    public void getTrendingMovies(@NonNull MediaType mediaType, @NonNull TimeWindow timeWindow, HashMap<String, String> map) {
+    public void getTrendingMovies(@NonNull MediaType mediaType, @NonNull TimeWindow timeWindow) {
         switch (mediaType) {
             case ALL:
                 break;
             case MOVIE:
-                disposables.add(repository.getTrendingMovies(mediaType.toString(), timeWindow.toString(), map)
+                disposables.add(repository.getTrendingMovies(mediaType.toString(), timeWindow.toString())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(result -> trendingMovieList.setValue(result.getResults()),
@@ -162,8 +162,8 @@ public class MovieViewModel extends ViewModel {
 
     }
 
-    public void getPopularMovies(HashMap<String, String> map) {
-        disposables.add(repository.getPopular(map)
+    public void getPopularMovies() {
+        disposables.add(repository.getPopular()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> popularMoviesList.setValue(result.getResults()),
@@ -171,8 +171,8 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
-    public void getTopRatedMovies(HashMap<String, String> map) {
-        disposables.add(repository.getTopRated(map)
+    public void getTopRatedMovies() {
+        disposables.add(repository.getTopRated()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> topRatedMoviesList.setValue(result.getResults()),
@@ -180,8 +180,8 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
-    public void getUpcomingMovies(HashMap<String, String> map) {
-        disposables.add(repository.getUpcoming(map)
+    public void getUpcomingMovies() {
+        disposables.add(repository.getUpcoming()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> upcomingMoviesList.setValue(result.getResults()),
@@ -189,8 +189,8 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
-    public void getVideos(@NonNull int movie_id, HashMap<String, String> map) {
-        disposables.add(repository.getVideos(movie_id, map)
+    public void getVideos(@NonNull int movie_id) {
+        disposables.add(repository.getVideos(movie_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> movieVideos.setValue(result.getResults()),
@@ -198,8 +198,8 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
-    public void getMovieDetails(int movieId, HashMap<String, String> map) {
-        disposables.add(repository.getMovieDetails(movieId, map)
+    public void getMovieDetails(int movieId) {
+        disposables.add(repository.getMovieDetails(movieId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> movieDetails.setValue(result),
@@ -208,8 +208,8 @@ public class MovieViewModel extends ViewModel {
 
     }
 
-    public void getSimilar(int movieId, HashMap<String, String> map) {
-        disposables.add(repository.getSimilar(movieId, map)
+    public void getSimilar(int movieId) {
+        disposables.add(repository.getSimilar(movieId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> movieSimilar.setValue(result.getResults()),
@@ -218,8 +218,8 @@ public class MovieViewModel extends ViewModel {
 
     }
 
-    public void getReviews(int movieId, HashMap<String, String> map) {
-        disposables.add(repository.getReviews(movieId, map)
+    public void getReviews(int movieId) {
+        disposables.add(repository.getReviews(movieId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> movieReviews.setValue(result.getResults()),
@@ -228,8 +228,8 @@ public class MovieViewModel extends ViewModel {
 
     }
 
-    public void getCast(int movieId, HashMap<String, String> map) {
-        disposables.add(repository.getCast(movieId, map)
+    public void getCast(int movieId) {
+        disposables.add(repository.getCast(movieId)
                 .subscribeOn(Schedulers.io())
                 .map(new Function<JsonObject, ArrayList<Cast>>() {
                     @Override
@@ -245,8 +245,8 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
-    public void getCollection(int collectionId, HashMap<String, String> map) {
-        disposables.add(repository.getCollection(collectionId, map)
+    public void getCollection(int collectionId) {
+        disposables.add(repository.getCollection(collectionId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> collection.setValue(result),
@@ -254,8 +254,8 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
-    public void getActorDetails(int personId, HashMap<String, String> map) {
-        disposables.add(repository.getActorDetails(personId, map)
+    public void getActorDetails(int personId) {
+        disposables.add(repository.getActorDetails(personId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> actorDetails.setValue(result),
@@ -263,8 +263,8 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
-    public void getQueriedMovies(HashMap<String, String> map) {
-        disposables.add(repository.getMoviesBySearch(map)
+    public void getQueriedMovies() {
+        disposables.add(repository.getMoviesBySearch()
                 .subscribeOn(Schedulers.io())
                 .map(new Function<JsonObject, ArrayList<Movie>>() {
                          @Override

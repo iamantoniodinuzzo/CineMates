@@ -51,9 +51,6 @@ public class MediaCastFragment extends Fragment {
         mMovie = (Movie) getArguments().getSerializable("movie");
 
         mBinding.castRecyclerView.setAdapter(mAdapter);
-        HashMap<String, String> map = new HashMap<>();
-        map.put("api_key", Constants.API_KEY);
-        map.put("page", "1");
 
         mViewModel.getMovieCastList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Cast>>() {
             @Override
@@ -61,7 +58,7 @@ public class MediaCastFragment extends Fragment {
                 mAdapter.addItems(casts);
             }
         });
-        mViewModel.getCast(mMovie.getId(), map);
+        mViewModel.getCast(mMovie.getId());
     }
 
     @Override

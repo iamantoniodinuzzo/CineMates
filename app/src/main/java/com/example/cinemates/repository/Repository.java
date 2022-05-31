@@ -87,7 +87,7 @@ public class Repository {
         return apiService.getCollection(collectionId, sMap);
     }
 
-    public Observable<JsonObject> getMoviesBySearch() {
+    public Observable<MovieResponse> getMoviesBySearch() {
         return apiService.getMoviesBySearch(sMap);
 
     }

@@ -24,9 +24,16 @@ import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * @author Antonio Di Nuzzo
@@ -86,6 +93,15 @@ public class BindingAdapters {
             view.setText(format.format(budget));
         else
             view.setText("Non specificato");
+    }
+
+    @BindingAdapter(value={"birthDay", "deathDay"})
+    public static void loadAge(TextView view, @NonNull String birthday, @NonNull String deathDay) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate localDateBirth = LocalDate.parse(Objects.requireNonNull(birthday), formatter);
+        LocalDate localDateDeath = LocalDate.parse(Objects.requireNonNull(deathDay), formatter);
+
+        view.setText(Period.between(localDateBirth, localDateDeath!= null ? localDateDeath : LocalDate.now()).getYears());
     }
 
     @BindingAdapter({"genres"})

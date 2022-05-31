@@ -13,5 +13,17 @@
         <argument
             android:name="movie"
             app:argType="com.example.cinemates.model.Movie" />
+        <action
+            android:id="@+id/action_detailMediaContentFragment_to_detailActorMediaFragment"
+            app:destination="@id/detailActorMediaFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/detailActorMediaFragment"
+        android:name="com.example.cinemates.views.fragment.DetailActorMediaFragment"
+        tools:layout="@layout/fragment_detail_actor_media"
+        android:label="DetailActorMediaFragment" >
+        <argument
+            android:name="person"
+            app:argType="com.example.cinemates.model.Person" />
+    </dialog>
 </navigation>

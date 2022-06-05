@@ -1,10 +1,7 @@
 package com.example.cinemates.adapter;
 
 import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,15 +19,14 @@ import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Antonio Di Nuzzo
  * Created 29/05/2022 at 07:59
  */
-public class YoutubeVideoAdapter extends RecyclerViewEmptySupport.Adapter<YoutubeVideoAdapter.YoutubeViewHolder> {
+public class YoutubeVideoRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<YoutubeVideoRecyclerViewAdapter.YoutubeViewHolder> {
 
-    private static final String TAG = YoutubeVideoAdapter.class.getSimpleName();
+    private static final String TAG = YoutubeVideoRecyclerViewAdapter.class.getSimpleName();
     private ArrayList<Video> dataList;
 
     @Override

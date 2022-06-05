@@ -13,17 +13,15 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
-import com.example.cinemates.adapter.YoutubeVideoAdapter;
+import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentMediaInfoBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Video;
-import com.example.cinemates.util.Constants;
 import com.example.cinemates.viewmodel.MovieViewModel;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -33,14 +31,14 @@ public class MediaInfoFragment extends Fragment implements YouTubePlayer.OnIniti
     private FragmentMediaInfoBinding mBinding;
     private MovieViewModel mViewModel;
     private MovieRecyclerViewAdapter mAdapter;
-    private YoutubeVideoAdapter mVideoAdapter;
+    private YoutubeVideoRecyclerViewAdapter mVideoAdapter;
     private Movie mMovie;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new MovieRecyclerViewAdapter();
-        mVideoAdapter = new YoutubeVideoAdapter();
+        mVideoAdapter = new YoutubeVideoRecyclerViewAdapter();
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
 
     }

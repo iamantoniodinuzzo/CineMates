@@ -25,7 +25,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:listitem="@layout/list_item_media" />
+        tools:listitem="@layout/list_item_media_long" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

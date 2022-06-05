@@ -72,8 +72,8 @@ public class SearchMovieFragment extends Fragment implements ChangeRvLayout, Sea
 
     @Override
     public void changeLayout(RecyclerView.LayoutManager layoutManager) {
-        mBinding.recyclerView.setLayoutManager(layoutManager);
-        mRecyclerViewAdapter.notifyItemRangeChanged(0, mRecyclerViewAdapter.getItemCount());
+       /* mBinding.recyclerView.setLayoutManager(layoutManager);
+        mRecyclerViewAdapter.notifyItemRangeChanged(0, mRecyclerViewAdapter.getItemCount());*/
     }
 
     @Override

@@ -3,15 +3,17 @@ package com.example.cinemates.repository;
 import androidx.annotation.NonNull;
 
 import com.example.cinemates.model.Actor;
+import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Movie;
-import com.example.cinemates.model.MovieResponse;
-import com.example.cinemates.model.ReviewResponse;
-import com.example.cinemates.model.VideoResponse;
+import com.example.cinemates.model.Response;
+import com.example.cinemates.model.Review;
+import com.example.cinemates.model.Video;
 import com.example.cinemates.network.MovieApiService;
 import com.example.cinemates.util.Constants;
 import com.google.gson.JsonObject;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.inject.Inject;
@@ -39,27 +41,27 @@ public class Repository {
         sMap.put("page", "1");
     }
 
-    public Observable<MovieResponse> getCurrentlyShowing() {
+    public Observable<Response<Movie>> getCurrentlyShowing() {
         return apiService.getCurrentlyShowing(sMap);
     }
 
-    public Observable<MovieResponse> getTrendingMovies(@NonNull String mediaType, @NonNull String timeWindow) {
+    public Observable<Response<Movie>> getTrendingMovies(@NonNull String mediaType, @NonNull String timeWindow) {
         return apiService.getTrendingMovies(mediaType, timeWindow, sMap);
     }
 
-    public Observable<MovieResponse> getPopular() {
+    public Observable<Response<Movie>> getPopular() {
         return apiService.getPopular(sMap);
     }
 
-    public Observable<MovieResponse> getTopRated() {
+    public Observable<Response<Movie>> getTopRated() {
         return apiService.getTopRated(sMap);
     }
 
-    public Observable<MovieResponse> getUpcoming() {
+    public Observable<Response<Movie>> getUpcoming() {
         return apiService.getUpcoming(sMap);
     }
 
-    public Observable<VideoResponse> getVideos(int movie_id) {
+    public Observable<Response<Video>> getVideos(int movie_id) {
         return apiService.getVideos(movie_id, sMap);
     }
 
@@ -67,11 +69,11 @@ public class Repository {
         return apiService.getMovieDetails(movieId, sMap);
     }
 
-    public Observable<MovieResponse> getSimilar(int movieId) {
+    public Observable<Response<Movie>> getSimilar(int movieId) {
         return apiService.getSimilar(movieId, sMap);
     }
 
-    public Observable<ReviewResponse> getReviews(int movieId) {
+    public Observable<Response<Review>> getReviews(int movieId) {
         return apiService.getReviews(movieId, sMap);
     }
 
@@ -87,9 +89,15 @@ public class Repository {
         return apiService.getCollection(collectionId, sMap);
     }
 
-    public Observable<MovieResponse> getMoviesBySearch(String query) {
+    public Observable<Response<Movie>> getMoviesBySearch(String query) {
         sMap.put("query", query);
         return apiService.getMoviesBySearch(sMap);
+
+    }
+
+    public Observable<Response<Cast>> getPeoplesBySearch(String query) {
+        sMap.put("query", query);
+        return apiService.getPeoplesBySearch(sMap);
 
     }
 

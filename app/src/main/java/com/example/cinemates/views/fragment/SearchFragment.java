@@ -97,8 +97,8 @@ public class SearchFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                    searchMovieFragment.bindData(newText);
-//                searchActorsFragment.bindData(newText);
+                searchMovieFragment.bindData(newText);
+                searchActorsFragment.bindData(newText);
                 return false;
             }
         });
@@ -120,6 +120,7 @@ public class SearchFragment extends Fragment {
 
     private void switchLayout(RecyclerView.LayoutManager layoutManager) {
         searchMovieFragment.changeLayout(layoutManager);
+        searchActorsFragment.changeLayout(layoutManager);
     }
 
 

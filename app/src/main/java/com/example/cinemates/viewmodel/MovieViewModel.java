@@ -10,7 +10,7 @@ import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Movie;
-import com.example.cinemates.model.MovieResponse;
+import com.example.cinemates.model.Response;
 import com.example.cinemates.model.Review;
 import com.example.cinemates.model.Video;
 import com.example.cinemates.repository.Repository;
@@ -22,7 +22,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -48,6 +47,7 @@ public class MovieViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Movie>> topRatedMoviesList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> upcomingMoviesList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> queriesMovies = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Cast>> queriesPeoples = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Cast>> movieCastList = new MutableLiveData<>();
     private MutableLiveData<Movie> movieDetails = new MutableLiveData<>();
     private MutableLiveData<Collection> collection = new MutableLiveData<>();
@@ -88,6 +88,9 @@ public class MovieViewModel extends ViewModel {
         return actorDetails;
     }
 
+    public MutableLiveData<ArrayList<Cast>> getQueriesPeoples() {
+        return queriesPeoples;
+    }
 
     public MutableLiveData<ArrayList<Movie>> getMovieSimilar() {
         return movieSimilar;
@@ -116,9 +119,9 @@ public class MovieViewModel extends ViewModel {
     public void getCurrentlyShowingMovies() {
         disposables.add(repository.getCurrentlyShowing()
                 .subscribeOn(Schedulers.io())
-                .map(new Function<MovieResponse, ArrayList<Movie>>() {
+                .map(new Function<Response<Movie>, ArrayList<Movie>>() {
                     @Override
-                    public ArrayList<Movie> apply(MovieResponse movieResponse) throws Throwable {
+                    public ArrayList<Movie> apply(Response<Movie> movieResponse) throws Throwable {
                         return movieResponse.getResults();
                     }
                 })
@@ -290,6 +293,15 @@ public class MovieViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> queriesMovies.setValue(result.getResults()),
                         error -> Log.e(TAG, "getQueriedMovies: " + error.getMessage()))
+        );
+    }
+
+    public void getPeoplesBySearch(String query) {
+        disposables.add(repository.getPeoplesBySearch(query)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> queriesPeoples.setValue(result.getResults()),
+                        error -> Log.e(TAG, "getQueriedPeoples: " + error.getMessage()))
         );
     }
 

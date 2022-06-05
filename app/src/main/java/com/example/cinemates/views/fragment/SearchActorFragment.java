@@ -6,23 +6,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.adapter.ActorRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentSearchActorBinding;
+import com.example.cinemates.model.Cast;
+import com.example.cinemates.model.Movie;
+import com.example.cinemates.model.Person;
 import com.example.cinemates.util.ChangeRvLayout;
+import com.example.cinemates.util.SearchData;
+import com.example.cinemates.viewmodel.MovieViewModel;
+
+import java.util.ArrayList;
 
 
-public class SearchActorFragment extends Fragment implements ChangeRvLayout {
+public class SearchActorFragment extends Fragment implements ChangeRvLayout, SearchData {
 
     private FragmentSearchActorBinding mBinding;
     private ActorRecyclerViewAdapter mRecyclerViewAdapter;
+    private MovieViewModel mViewModel;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRecyclerViewAdapter = new ActorRecyclerViewAdapter();
+        mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
+
 
     }
 
@@ -38,6 +53,17 @@ public class SearchActorFragment extends Fragment implements ChangeRvLayout {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mViewModel.getQueriesPeoples().observe(getViewLifecycleOwner(), new Observer<ArrayList<Cast>>() {
+            @Override
+            public void onChanged(ArrayList<Cast> people) {
+                mRecyclerViewAdapter.addItems(people);
+            }
+        });
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         mBinding = null;
@@ -45,9 +71,14 @@ public class SearchActorFragment extends Fragment implements ChangeRvLayout {
 
     @Override
     public void changeLayout(RecyclerView.LayoutManager layoutManager) {
-       /* mBinding.recyclerView.setLayoutManager(layoutManager);
+      /*  mBinding.recyclerView.setLayoutManager(layoutManager);
         mRecyclerViewAdapter.notifyItemRangeChanged(0, mRecyclerViewAdapter.getItemCount());*/
-        Toast.makeText(getContext(), "Layout cambiato", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void bindData(String query) {
+        mViewModel.getPeoplesBySearch(query);
 
     }
 }

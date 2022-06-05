@@ -4,26 +4,17 @@ import java.util.ArrayList;
 
 /**
  * @author Antonio Di Nuzzo
- * Created 29/05/2022 at 10:12
+ * Created 21/04/2022 at 15:39
  */
-public class ReviewResponse {
-    private int id, page, total_pages, total_results;
-    private ArrayList<Review> results;
+public class Response<T> {
+    private int page, total_pages, total_results;
+    private ArrayList<T> results;
 
-    public ReviewResponse(int id, int page, int total_pages, int total_results, ArrayList<Review> results) {
-        this.id = id;
+    public Response(int page, int total_pages, int total_results, ArrayList<T> results) {
         this.page = page;
         this.total_pages = total_pages;
         this.total_results = total_results;
         this.results = results;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getPage() {
@@ -50,11 +41,11 @@ public class ReviewResponse {
         this.total_results = total_results;
     }
 
-    public ArrayList<Review> getResults() {
+    public ArrayList<T> getResults() {
         return results;
     }
 
-    public void setResults(ArrayList<Review> results) {
+    public void setResults(ArrayList<T> results) {
         this.results = results;
     }
 }

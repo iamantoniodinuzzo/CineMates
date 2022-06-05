@@ -4,16 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.cinemates.adapter.ViewPagerAdapter;
+import com.example.cinemates.adapter.MovieDetailsViewPagerAdapter;
 import com.example.cinemates.databinding.FragmentDetailMediaContentBinding;
 import com.example.cinemates.model.Movie;
 import com.google.android.material.tabs.TabLayout;
@@ -65,7 +63,7 @@ public class DetailMediaContentFragment extends Fragment {
 
 
     public void bindViewPagerAdapter(final ViewPager view) {
-        final ViewPagerAdapter adapter = new ViewPagerAdapter(view.getContext(), fragmentManager, mMovie);
+        final MovieDetailsViewPagerAdapter adapter = new MovieDetailsViewPagerAdapter(view.getContext(), fragmentManager, mMovie);
         view.setAdapter(adapter);
     }
 

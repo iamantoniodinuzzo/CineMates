@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:background="@color/lynch_100"
         android:padding="10dp"
-        tools:context=".views.fragment.DetailActorMediaFragment">
+        tools:context=".views.fragment.DetailActorBottomSheetFragment">
 
 
         <include

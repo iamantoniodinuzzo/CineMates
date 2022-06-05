@@ -1,13 +1,12 @@
 package com.example.cinemates.network;
 
 import com.example.cinemates.model.Actor;
+import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Movie;
-import com.example.cinemates.model.MovieResponse;
-import com.example.cinemates.model.ReviewResponse;
-import com.example.cinemates.model.VideoResponse;
-import com.example.cinemates.util.MediaType;
-import com.example.cinemates.util.TimeWindow;
+import com.example.cinemates.model.Response;
+import com.example.cinemates.model.Review;
+import com.example.cinemates.model.Video;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -24,16 +23,16 @@ import retrofit2.http.QueryMap;
  */
 public interface MovieApiService {
     @GET("movie/now_playing")
-    Observable<MovieResponse> getCurrentlyShowing(@QueryMap HashMap<String, String> queries);
+    Observable<Response<Movie>> getCurrentlyShowing(@QueryMap HashMap<String, String> queries);
 
     @GET("movie/popular")
-    Observable<MovieResponse> getPopular(@QueryMap HashMap<String, String> queries);
+    Observable<Response<Movie>> getPopular(@QueryMap HashMap<String, String> queries);
 
     @GET("movie/upcoming")
-    Observable<MovieResponse> getUpcoming(@QueryMap HashMap<String, String> queries);
+    Observable<Response<Movie>> getUpcoming(@QueryMap HashMap<String, String> queries);
 
     @GET("movie/top_rated")
-    Observable<MovieResponse> getTopRated(@QueryMap HashMap<String, String> queries);
+    Observable<Response<Movie>> getTopRated(@QueryMap HashMap<String, String> queries);
 
     @GET("movie/{movie_id}")
     Observable<Movie> getMovieDetails(@Path("movie_id") int id, @QueryMap HashMap<String, String> queries);
@@ -42,13 +41,13 @@ public interface MovieApiService {
     Observable<JsonObject> getCast(@Path("movie_id") int id, @QueryMap HashMap<String, String> queries);
 
     @GET("movie/{movie_id}/similar")
-    Observable<MovieResponse> getSimilar(@Path("movie_id") int movie_id, @QueryMap HashMap<String, String> queries);
+    Observable<Response<Movie>> getSimilar(@Path("movie_id") int movie_id, @QueryMap HashMap<String, String> queries);
 
     @GET("movie/{movie_id}/videos")
-    Observable<VideoResponse> getVideos(@Path("movie_id") int movie_id, @QueryMap HashMap<String, String> queries);
+    Observable<Response<Video>> getVideos(@Path("movie_id") int movie_id, @QueryMap HashMap<String, String> queries);
 
     @GET("movie/{movie_id}/reviews")
-    Observable<ReviewResponse> getReviews(@Path("movie_id") int movie_id, @QueryMap HashMap<String, String> queries);
+    Observable<Response<Review>> getReviews(@Path("movie_id") int movie_id, @QueryMap HashMap<String, String> queries);
 
     @GET("person/{person_id}")
     Observable<Actor> getActorDetails(@Path("person_id") int id, @QueryMap HashMap<String, String> queries);
@@ -60,8 +59,11 @@ public interface MovieApiService {
     Observable<Collection> getCollection(@Path("collection_id") int id, @QueryMap HashMap<String, String> queries);
 
     @GET("search/movie")
-    Observable<MovieResponse> getMoviesBySearch(@QueryMap HashMap<String, String> queries);
+    Observable<Response<Movie>> getMoviesBySearch(@QueryMap HashMap<String, String> queries);
+
+    @GET("search/person")
+    Observable<Response<Cast>> getPeoplesBySearch(@QueryMap HashMap<String, String> queries);
 
     @GET("trending/{media_type}/{time_window}")
-    Observable<MovieResponse> getTrendingMovies(@Path("media_type") String media_type, @Path("time_window") String time_window, @QueryMap HashMap<String, String> queries);
+    Observable<Response<Movie>> getTrendingMovies(@Path("media_type") String media_type, @Path("time_window") String time_window, @QueryMap HashMap<String, String> queries);
 }

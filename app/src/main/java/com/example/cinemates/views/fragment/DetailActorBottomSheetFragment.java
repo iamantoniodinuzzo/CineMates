@@ -19,7 +19,7 @@ import com.example.cinemates.viewmodel.MovieViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 
-public class DetailActorMediaFragment extends BottomSheetDialogFragment {
+public class DetailActorBottomSheetFragment extends BottomSheetDialogFragment {
     private FragmentDetailActorMediaBinding mBinding;
     private MovieViewModel mViewModel;
     private Person mPerson;
@@ -28,7 +28,7 @@ public class DetailActorMediaFragment extends BottomSheetDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
-        mPerson = DetailActorMediaFragmentArgs.fromBundle(getArguments()).getPerson();
+        mPerson = DetailActorBottomSheetFragmentArgs.fromBundle(getArguments()).getPerson();
     }
 
     @Nullable

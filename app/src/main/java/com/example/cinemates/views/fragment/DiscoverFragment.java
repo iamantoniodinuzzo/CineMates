@@ -35,14 +35,14 @@ public class DiscoverFragment extends Fragment {
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_discoverFragment_to_homeFragment);
+                getActivity().onBackPressed();
             }
         });
 
         mBinding.searchBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_discoverFragment_to_searchActivity);
+                Navigation.findNavController(view).navigate(R.id.action_discoverFragment2_to_searchFragment);
             }
         });
     }

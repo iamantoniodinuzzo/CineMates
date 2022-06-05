@@ -1,5 +1,6 @@
 package com.example.cinemates.views.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -26,6 +27,8 @@ import com.example.cinemates.util.Constants;
 import com.example.cinemates.util.MediaType;
 import com.example.cinemates.util.TimeWindow;
 import com.example.cinemates.viewmodel.MovieViewModel;
+import com.example.cinemates.views.MovieDetailsActivity;
+import com.example.cinemates.views.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +42,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding mBinding;
     private NavController mNavController;
-    private MovieRecyclerViewAdapter  mUpcomingRecyclerViewAdapter, mTopRatedRecyclerViewAdapter, mTrendingRecyclerViewAdapter;
+    private MovieRecyclerViewAdapter mUpcomingRecyclerViewAdapter, mTopRatedRecyclerViewAdapter, mTrendingRecyclerViewAdapter;
     private Toolbar mToolbar;
     private MovieViewModel mViewModel;
 
@@ -96,8 +99,11 @@ public class HomeFragment extends Fragment {
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.discoverFragment)
-                    Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_discoverFragment);
+                if (item.getItemId() == R.id.discoverFragment) {
+//                    Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_searchActivity);
+                    Intent intent = new Intent(view.getContext(), SearchActivity.class);
+                    view.getContext().startActivity(intent);
+                }
                 return false;
             }
         });

@@ -284,8 +284,8 @@ public class MovieViewModel extends ViewModel {
         );
     }*/
 
-    public void getQueriedMovies() {
-        disposables.add(repository.getUpcoming()
+    public void getQueriedMovies(String query) {
+        disposables.add(repository.getMoviesBySearch(query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> queriesMovies.setValue(result.getResults()),

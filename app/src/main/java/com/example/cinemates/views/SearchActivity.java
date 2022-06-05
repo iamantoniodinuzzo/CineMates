@@ -1,4 +1,4 @@
-package com.example.cinemates.views.fragment;
+package com.example.cinemates.views;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -21,46 +22,36 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.R;
 import com.example.cinemates.adapter.FragmentSearchAdapter;
-import com.example.cinemates.databinding.FragmentSearchBinding;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
+import com.example.cinemates.adapter.MovieDetailsViewPagerAdapter;
+import com.example.cinemates.adapter.ViewPagerAdapter;
+import com.example.cinemates.databinding.ActivitySearchBinding;
+import com.example.cinemates.views.fragment.SearchActorFragment;
+import com.example.cinemates.views.fragment.SearchMovieFragment;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
-public class SearchFragment extends Fragment {
+@AndroidEntryPoint
+public class SearchActivity extends AppCompatActivity {
 
-    private FragmentSearchBinding mBinding;
-    private FragmentSearchAdapter mAdapter;
+    private ActivitySearchBinding mBinding;
+    //    private FragmentSearchAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private GridLayoutManager mGridLayoutManager;
+    private SearchMovieFragment searchMovieFragment;
+    private SearchActorFragment searchActorsFragment;
     private boolean layoutGrid = false;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        mBinding = ActivitySearchBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mGridLayoutManager = new GridLayoutManager(this, 3);
+        searchMovieFragment = new SearchMovieFragment();
+        searchActorsFragment = new SearchActorFragment();
 
-        mAdapter = new FragmentSearchAdapter(getParentFragmentManager(), getLifecycle());
-        mLinearLayoutManager = new LinearLayoutManager(getContext());
-        mGridLayoutManager = new GridLayoutManager(getContext(), 3);
-
-
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mBinding = FragmentSearchBinding.inflate(inflater, container, false);
-        mBinding.viewPager.setAdapter(mAdapter);
-
-        return mBinding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        setupAppBar(view);
+        setupAppBar();
         setupTabLayout();
 
         // Listen menu item click and change layout into recyclerview
@@ -92,17 +83,19 @@ public class SearchFragment extends Fragment {
         mBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //TODO send this query to Search actor & Search movie fragment
+                //NOTE send this query to Search actor & Search movie fragment
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //TODO send this query to Search actor & Search movie fragment
+                searchMovieFragment.bindData(newText);
+//                searchActorsFragment.bindData(newText);
                 return false;
             }
         });
     }
+
 
     /**
      * Change menu icon in toolbar showing list or grid view
@@ -118,12 +111,12 @@ public class SearchFragment extends Fragment {
 
 
     private void switchLayout(RecyclerView.LayoutManager layoutManager) {
-        //TODO implement a method to switch view of recyclerview owned by Searchable fragment
+        searchMovieFragment.changeLayout(layoutManager);
     }
 
 
     private void setupTabLayout() {
-        TabLayout tabLayout = mBinding.tabLayout;
+      /*  TabLayout tabLayout = mBinding.tabLayout;
         new TabLayoutMediator(tabLayout, mBinding.viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
@@ -136,21 +129,27 @@ public class SearchFragment extends Fragment {
                         break;
                 }
             }
-        }).attach();
+        }).attach();*/
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 0);
+
+        viewPagerAdapter.addFragment(searchMovieFragment, "Movies");
+        viewPagerAdapter.addFragment(searchActorsFragment, "Actors");
+        mBinding.viewPager.setAdapter(viewPagerAdapter);
+
+        mBinding.tabLayout.setupWithViewPager(mBinding.viewPager);
     }
 
-    private void setupAppBar(@NonNull View view) {
-        NavController navController = Navigation.findNavController(view);
+    private void setupAppBar() {
+      /*  setSupportActionBar(mBinding.toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }*/
+       /* NavController navController = Navigation.findNavController(view);
         AppBarConfiguration appBarConfiguration =
                 new AppBarConfiguration.Builder(R.id.searchFragment).build();
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
 
-        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(mBinding.toolbar, navController, appBarConfiguration);*/
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mBinding = null;
-    }
 }

@@ -36,10 +36,6 @@
             app:destination="@id/accountFragment" />
     </fragment>
     <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.example.cinemates.views.fragment.SearchFragment"
-        tools:layout="@layout/fragment_search" />
-    <fragment
         android:id="@+id/detailedViewFragment"
         android:name="com.example.cinemates.views.fragment.DetailedViewFragment"
         android:label="{section}"
@@ -68,8 +64,8 @@
             android:id="@+id/action_discoverFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <action
-            android:id="@+id/action_discoverFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            android:id="@+id/action_discoverFragment_to_searchActivity"
+            app:destination="@id/searchActivity" />
     </fragment>
     <activity
         android:id="@+id/movieDetailsActivity"
@@ -80,4 +76,9 @@
             android:name="movie"
             app:argType="com.example.cinemates.model.Movie" />
     </activity>
+    <activity
+        android:id="@+id/searchActivity"
+        android:name="com.example.cinemates.views.SearchActivity"
+        android:label="activity_search"
+        tools:layout="@layout/activity_search" />
 </navigation>

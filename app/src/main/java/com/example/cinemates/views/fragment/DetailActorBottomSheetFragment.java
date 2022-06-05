@@ -28,7 +28,7 @@ public class DetailActorBottomSheetFragment extends BottomSheetDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
-        mPerson = DetailActorMediaFragmentArgs.fromBundle(getArguments()).getPerson();
+        mPerson = DetailActorBottomSheetFragmentArgs.fromBundle(getArguments()).getPerson();
     }
 
     @Nullable

@@ -33,7 +33,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class SearchFragment extends Fragment {
 
     private FragmentSearchBinding mBinding;
-    //    private FragmentSearchAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private GridLayoutManager mGridLayoutManager;
     private SearchMovieFragment searchMovieFragment;
@@ -60,8 +59,8 @@ public class SearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setupAppBar();
         setupTabLayout();
+        updateToolbar();
 
         // Listen menu item click and change layout into recyclerview
         // owned by SearchActor & SearchMovie fragment
@@ -84,7 +83,7 @@ public class SearchFragment extends Fragment {
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).popBackStack();
+                getActivity().onBackPressed();
             }
         });
 
@@ -98,7 +97,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchMovieFragment.bindData(newText);
+                    searchMovieFragment.bindData(newText);
 //                searchActorsFragment.bindData(newText);
                 return false;
             }
@@ -125,21 +124,6 @@ public class SearchFragment extends Fragment {
 
 
     private void setupTabLayout() {
-      /*  TabLayout tabLayout = mBinding.tabLayout;
-        new TabLayoutMediator(tabLayout, mBinding.viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                switch (position) {
-                    case 0:
-                        tab.setText("Movies");
-                        break;
-                    case 1:
-                        tab.setText("Actors");
-                        break;
-                }
-            }
-        }).attach();*/
-
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), 0);
 
         viewPagerAdapter.addFragment(searchMovieFragment, "Movies");
@@ -149,17 +133,6 @@ public class SearchFragment extends Fragment {
         mBinding.tabLayout.setupWithViewPager(mBinding.viewPager);
     }
 
-    private void setupAppBar() {
-      /*  setSupportActionBar(mBinding.toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }*/
-       /* NavController navController = Navigation.findNavController(view);
-        AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(R.id.searchFragment).build();
-
-        NavigationUI.setupWithNavController(mBinding.toolbar, navController, appBarConfiguration);*/
-    }
 
     @Override
     public void onDestroyView() {

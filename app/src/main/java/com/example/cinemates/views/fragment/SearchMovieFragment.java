@@ -59,7 +59,7 @@ public class SearchMovieFragment extends Fragment implements ChangeRvLayout, Sea
         mViewModel.getQueriesMovies().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
             @Override
             public void onChanged(ArrayList<Movie> movies) {
-                mRecyclerViewAdapter.addItems(movies);
+                    mRecyclerViewAdapter.addItems(movies);
             }
         });
     }
@@ -72,14 +72,13 @@ public class SearchMovieFragment extends Fragment implements ChangeRvLayout, Sea
 
     @Override
     public void changeLayout(RecyclerView.LayoutManager layoutManager) {
-       /* mBinding.recyclerView.setLayoutManager(layoutManager);
-        mRecyclerViewAdapter.notifyItemRangeChanged(0, mRecyclerViewAdapter.getItemCount());*/
-        Toast.makeText(getContext(), "Changed", Toast.LENGTH_SHORT).show();
+        mBinding.recyclerView.setLayoutManager(layoutManager);
+        mRecyclerViewAdapter.notifyItemRangeChanged(0, mRecyclerViewAdapter.getItemCount());
     }
 
     @Override
     public void bindData(String query) {
-        if (query!= null || !TextUtils.isEmpty(query))
             mViewModel.getQueriedMovies(query);
+
     }
 }

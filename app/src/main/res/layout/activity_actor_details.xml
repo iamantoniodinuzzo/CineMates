@@ -21,7 +21,8 @@
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_round_arrow_back_24"
             app:title="@{actor.name}"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/white"
+            tools:title="@tools:sample/full_names" />
 
         <include
             android:id="@+id/ivAvatar"
@@ -48,7 +49,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="50"
                 android:text="Birthday"
                 android:textColor="@color/geyser"
                 android:textSize="14sp"
@@ -57,7 +58,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="50"
                 android:text="@{actor.birthday}"
                 android:textColor="@color/alabaster"
                 android:textSize="14sp"
@@ -122,8 +123,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:textColor="@color/alabaster"
-                android:textSize="14sp"
                 android:textIsSelectable="true"
+                android:textSize="14sp"
                 app:colorClickableText="@color/vermilion_100"
                 app:knowAs="@{actor.also_known_as}"
                 app:trimLength="50"
@@ -158,5 +159,22 @@
             app:trimMode="trimModeLength"
             tools:text="@tools:sample/lorem/random" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/vermilion_100"
+            android:src="@drawable/ic_baseline_favorite_border_24" />
+
+        <com.example.cinemates.util.RecyclerViewEmptySupport
+            android:id="@+id/fab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/readMoreTextV"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3"
+            tools:listitem="@layout/list_item_media_poster" />
     </RelativeLayout>
 </layout>

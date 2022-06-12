@@ -61,6 +61,9 @@ public interface MovieApiService {
     @GET("search/movie")
     Observable<Response<Movie>> getMoviesBySearch(@QueryMap HashMap<String, String> queries);
 
+    @GET("discover/movie")
+    Observable<Response<Movie>> getMoviesByDiscover(@QueryMap HashMap<String, String> queries);
+
     @GET("search/person")
     Observable<Response<Cast>> getPeoplesBySearch(@QueryMap HashMap<String, String> queries);
 

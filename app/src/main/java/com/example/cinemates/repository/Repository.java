@@ -95,6 +95,12 @@ public class Repository {
 
     }
 
+    public Observable<Response<Movie>> getMoviesByActor(String with_cast) {
+        sMap.put("with_cast", with_cast);
+        return apiService.getMoviesByDiscover(sMap);
+
+    }
+
     public Observable<Response<Cast>> getPeoplesBySearch(String query) {
         sMap.put("query", query);
         return apiService.getPeoplesBySearch(sMap);

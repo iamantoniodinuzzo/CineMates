@@ -14,10 +14,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cinemates.R;
+import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
 import com.example.cinemates.databinding.ActivityActorDetailsBinding;
 import com.example.cinemates.model.Actor;
+import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Person;
 import com.example.cinemates.viewmodel.MovieViewModel;
+
+import java.util.ArrayList;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -26,6 +30,7 @@ public class ActorDetailsActivity extends AppCompatActivity {
 
     private ActivityActorDetailsBinding mBinding;
     private MovieViewModel mViewModel;
+    private MovieRecyclerViewAdapter mAdapter;
     private Person mPerson;
 
     @Override
@@ -36,12 +41,23 @@ public class ActorDetailsActivity extends AppCompatActivity {
 
         mPerson = (Person) getIntent().getExtras().getSerializable("person");
         mViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
+        mAdapter = new MovieRecyclerViewAdapter();
+        mBinding.recyclerView.setAdapter(mAdapter);
+
         mViewModel.getActor().observe(this, new Observer<Actor>() {
             @Override
             public void onChanged(Actor actor) {
                 mBinding.setActor(actor);
             }
         });
+        mViewModel.getMoviesByActor().observe(this, new Observer<ArrayList<Movie>>() {
+            @Override
+            public void onChanged(ArrayList<Movie> movies) {
+                mAdapter.addItems(movies);
+            }
+        });
+
+        mViewModel.getMoviesByActor(String.valueOf(mPerson.getId()));
         mViewModel.getActorDetails(mPerson.getId());
 
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {

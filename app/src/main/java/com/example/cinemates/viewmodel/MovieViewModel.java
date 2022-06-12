@@ -39,6 +39,7 @@ public class MovieViewModel extends ViewModel {
 
     private Repository repository;
     private MutableLiveData<ArrayList<Movie>> currentMoviesList = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Movie>> moviesByActor = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> trendingMovieList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> movieSimilar = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Review>> movieReviews = new MutableLiveData<>();
@@ -90,6 +91,10 @@ public class MovieViewModel extends ViewModel {
 
     public MutableLiveData<ArrayList<Cast>> getQueriesPeoples() {
         return queriesPeoples;
+    }
+
+    public MutableLiveData<ArrayList<Movie>> getMoviesByActor() {
+        return moviesByActor;
     }
 
     public MutableLiveData<ArrayList<Movie>> getMovieSimilar() {
@@ -258,6 +263,15 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
+    public void getMoviesByActor(String with_cast) {
+        disposables.add(repository.getMoviesByActor(with_cast)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> moviesByActor.setValue(result.getResults()),
+                        error -> Log.e(TAG, "getMoviesByActor: " + error.getMessage()))
+        );
+    }
+
     public void getActorDetails(int personId) {
         disposables.add(repository.getActorDetails(personId)
                 .subscribeOn(Schedulers.io())
@@ -267,25 +281,6 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
-    /*public void getQueriedMovies() {
-        disposables.add(repository.getMoviesBySearch()
-                .subscribeOn(Schedulers.io())
-                .map(new Function<MovieResponse, ArrayList<Movie>>() {
-                         @Override
-                         public ArrayList<Movie> apply(JsonObject jsonObject) throws Throwable {
-                             JsonArray jsonArray = jsonObject.getAsJsonArray("results");
-                             ArrayList<Movie> movieList = new Gson().fromJson(jsonArray.toString(),
-                                     new TypeToken<ArrayList<Movie>>() {
-                                     }.getType());
-                             return movieList;
-                         }
-                     }
-                )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> queriesMovies.setValue(result),
-                        error -> Log.e(TAG, "getPopularMovies: " + error.getMessage()))
-        );
-    }*/
 
     public void getQueriedMovies(String query) {
         disposables.add(repository.getMoviesBySearch(query)

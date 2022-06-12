@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="actor"
+            type="com.example.cinemates.model.Actor" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".views.ActorDetailsActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_round_arrow_back_24"
+            app:title="@{actor.name}"
+            app:titleTextColor="@color/white" />
+
+        <include
+            android:id="@+id/ivAvatar"
+            layout="@layout/layout_person_avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/toolbar"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:path="@{actor.profile_path}" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/birthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_toEndOf="@id/ivAvatar"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Birthday"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{actor.birthday}"
+                android:textColor="@color/alabaster"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="@tools:sample/date/ddmmyy" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/birthPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/birthday"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/ivAvatar"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="BirthPlace"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="@{actor.place_of_birth}"
+                android:textColor="@color/alabaster"
+                android:textIsSelectable="true"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="@tools:sample/lorem" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/knownAs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/birthPlace"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/ivAvatar"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:text="Known As"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <com.borjabravo.readmoretextview.ReadMoreTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:textColor="@color/alabaster"
+                android:textSize="14sp"
+                android:textIsSelectable="true"
+                app:colorClickableText="@color/vermilion_100"
+                app:knowAs="@{actor.also_known_as}"
+                app:trimLength="50"
+                app:trimMode="trimModeLength"
+                tools:text="@tools:sample/lorem/random" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/biographyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/knownAs"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Biography"
+            android:textColor="@color/geyser"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <com.borjabravo.readmoretextview.ReadMoreTextView
+            android:id="@+id/readMoreTextV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/biographyTitle"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/alabaster"
+            android:textSize="14sp"
+            app:colorClickableText="@color/vermilion_100"
+            app:description="@{actor.biography}"
+            app:trimLength="200"
+            app:trimMode="trimModeLength"
+            tools:text="@tools:sample/lorem/random" />
+
+    </RelativeLayout>
+</layout>

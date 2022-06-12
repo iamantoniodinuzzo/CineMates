@@ -31,6 +31,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
@@ -99,7 +100,11 @@ public class BindingAdapters {
 
    @BindingAdapter("knowAs")
    public static void setKnownAs(TextView view, String[] names){
-      view.setText( names.length==0 ? Arrays.stream(names).collect(Collectors.joining(" - ")) : "Non specificato");
+        try{
+            view.setText(Arrays.stream(names).collect(Collectors.joining(" - ")));
+        }catch (NullPointerException e){
+            view.setText("Not specified");
+        }
    }
 
     @BindingAdapter({"genres"})

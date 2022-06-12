@@ -1,7 +1,5 @@
 package com.example.cinemates.model;
 
-import com.google.gson.JsonObject;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -18,13 +16,13 @@ public class Movie implements Serializable {
     private ArrayList<String> genre_names;
     private ArrayList<Genre> genres;
     private ArrayList<ProductionCompany> production_companies;
-    private boolean video;
+    private boolean video, adult;
     private Collection belongs_to_collection;
 
     public Movie(String poster_path, String overview, String release_date, String title,
                  String original_title, String original_language, String status, Integer id, Integer vote_count, Integer budget, Integer revenue, Number popularity, Number vote_average,
                  ArrayList<Integer> genre_ids, Integer runtime, ArrayList<Genre> genres,
-                 String backdrop_path, ArrayList<ProductionCompany> production_companies, boolean video, Collection belongs_to_collection) {
+                 String backdrop_path, ArrayList<ProductionCompany> production_companies, boolean video, boolean adult, Collection belongs_to_collection) {
         this.poster_path = poster_path;
         this.overview = overview;
         this.release_date = release_date;
@@ -44,6 +42,7 @@ public class Movie implements Serializable {
         this.backdrop_path = backdrop_path;
         this.production_companies = production_companies;
         this.video = video;
+        this.adult = adult;
         this.belongs_to_collection = belongs_to_collection;
     }
 
@@ -73,6 +72,14 @@ public class Movie implements Serializable {
 
     public void setBelongs_to_collection(Collection belongs_to_collection) {
         this.belongs_to_collection = belongs_to_collection;
+    }
+
+    public boolean isAdult() {
+        return adult;
+    }
+
+    public void setAdult(boolean adult) {
+        this.adult = adult;
     }
 
     public void setVideo(boolean video) {

@@ -99,7 +99,7 @@ public class BindingAdapters {
 
    @BindingAdapter("knowAs")
    public static void setKnownAs(TextView view, String[] names){
-      view.setText( names!= null ? Arrays.stream(names).collect(Collectors.joining(" - ")) : "Non specificato");
+      view.setText( names.length==0 ? Arrays.stream(names).collect(Collectors.joining(" - ")) : "Non specificato");
    }
 
     @BindingAdapter({"genres"})

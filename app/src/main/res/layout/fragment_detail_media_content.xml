@@ -49,6 +49,8 @@
                     app:title="@{movie.title}"
                     app:titleTextColor="@color/white" />
 
+
+
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
                     style="@style/Tab_Layout_Small"

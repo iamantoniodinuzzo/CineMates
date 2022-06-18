@@ -5,8 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,8 +27,13 @@ import java.util.List;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecyclerViewAdapter.SectionViewHolder> {
-    private List<Section> dataList = new ArrayList<>();
+public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionRecyclerViewAdapter.SectionViewHolder> {
+    private final List<Section<T>> dataList = new ArrayList<>();
+    private final LifecycleOwner mLifecycleOwner;
+
+    public SectionRecyclerViewAdapter(LifecycleOwner lifecycleOwner) {
+        mLifecycleOwner = lifecycleOwner;
+    }
 
     @NonNull
     @Override
@@ -37,15 +45,20 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
 
     @Override
     public void onBindViewHolder(SectionViewHolder holder, int position) {
-        Section section = dataList.get(position);
+        Section<T> section = dataList.get(position);
         holder.mBinding.setSection(section);
         holder.mBinding.executePendingBindings();
-        List<Movie> movies_of_section = section.getSectionItems();
 
-        SectionItemsRecyclerViewAdapter sectionItemsRecyclerViewAdapter = new SectionItemsRecyclerViewAdapter();
-        sectionItemsRecyclerViewAdapter.addItems(movies_of_section);
+        SectionItemsRecyclerViewAdapter<T> sectionItemsRecyclerViewAdapter = new SectionItemsRecyclerViewAdapter<>();
         holder.mBinding.recyclerView.setAdapter(sectionItemsRecyclerViewAdapter);
         holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
+        section.getMutableLiveData().observe(mLifecycleOwner, new Observer<ArrayList<T>>() {
+            @Override
+            public void onChanged(ArrayList<T> items) {
+                sectionItemsRecyclerViewAdapter.addItems((items));
+
+            }
+        });
 
 
     }
@@ -55,12 +68,12 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
         return dataList.size();
     }
 
-    public void addItems(List<Section> dataList) {
+    public void addItems(List<Section<T>> dataList) {
         this.dataList.addAll(dataList);
         notifyDataSetChanged();
     }
 
-    public void addItems(Section section) {
+    public void addItems(Section<T> section) {
         this.dataList.add(section);
         notifyDataSetChanged();
     }
@@ -76,10 +89,11 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
                 @Override
                 public void onClick(View view) {
 
-                    HomeFragmentDirections.ActionHomeFragmentToDetailedViewFragment action =
+                  /*  HomeFragmentDirections.ActionHomeFragmentToDetailedViewFragment action =
                             HomeFragmentDirections.actionHomeFragmentToDetailedViewFragment();
                     action.setSection(mBinding.textSectionTitle.getText().toString());
-                    Navigation.findNavController(view).navigate(action);
+                    Navigation.findNavController(view).navigate(action);*/
+                    Toast.makeText(view.getContext(), "On develop", Toast.LENGTH_SHORT).show();
 
                 }
             });

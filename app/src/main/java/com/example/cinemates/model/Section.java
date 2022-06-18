@@ -1,5 +1,8 @@
 package com.example.cinemates.model;
 
+import androidx.lifecycle.MutableLiveData;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -7,43 +10,43 @@ import java.util.Objects;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 20:54
  */
-public class Section {
+public class Section<T> {
 
     private String sectionName;
-    private List<Movie> sectionItems;
+    private MutableLiveData<ArrayList<T>> mMutableLiveData;
 
-    public Section(String sectionName, List<Movie> sectionItems) {
+    public Section(String sectionName, MutableLiveData<ArrayList<T>> mutableLiveData) {
         this.sectionName = sectionName;
-        this.sectionItems = sectionItems;
+        mMutableLiveData = mutableLiveData;
     }
 
     public String getSectionName() {
         return sectionName;
     }
 
+    public MutableLiveData<ArrayList<T>> getMutableLiveData() {
+        return mMutableLiveData;
+    }
+
+    public void setMutableLiveData(MutableLiveData<ArrayList<T>> mutableLiveData) {
+        mMutableLiveData = mutableLiveData;
+    }
+
     public void setSectionName(String sectionName) {
         this.sectionName = sectionName;
     }
 
-    public List<Movie> getSectionItems() {
-        return sectionItems;
-    }
-
-    public void setSectionItems(List<Movie> sectionItems) {
-        sectionItems.clear();
-        this.sectionItems = sectionItems;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Section)) return false;
-        Section section = (Section) o;
-        return getSectionName().equals(section.getSectionName());
+        Section<?> section = (Section<?>) o;
+        return Objects.equals(getSectionName(), section.getSectionName()) && Objects.equals(getMutableLiveData(), section.getMutableLiveData());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSectionName());
+        return Objects.hash(getSectionName(), getMutableLiveData());
     }
 }

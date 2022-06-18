@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new SectionRecyclerViewAdapter<>(this);
+        mAdapter = new SectionRecyclerViewAdapter<>(this, getContext());
         upcomingSection = new Section<>("Upcoming", null);
         topRatedSection = new Section<>("Top Rated", null);
         trendingSection = new Section<>("Trending", null);

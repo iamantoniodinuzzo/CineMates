@@ -2,6 +2,8 @@ package com.example.cinemates.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,9 +37,14 @@ import java.util.List;
 public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionRecyclerViewAdapter.SectionViewHolder> implements ItemMoveCallback.ItemTouchHelperContract {
     private final List<Section<T>> dataList = new ArrayList<>();
     private final LifecycleOwner mLifecycleOwner;
+    private Vibrator vibe;
+    private VibrationEffect vibrationEffect1;
 
-    public SectionRecyclerViewAdapter(LifecycleOwner lifecycleOwner) {
+    public SectionRecyclerViewAdapter(LifecycleOwner lifecycleOwner, Context context) {
         mLifecycleOwner = lifecycleOwner;
+        vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        vibrationEffect1 = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
+
     }
 
     @NonNull
@@ -124,6 +131,10 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
     @Override
     public void onRowSelected(SectionViewHolder myViewHolder) {
         myViewHolder.itemView.setBackgroundColor(ContextCompat.getColor(myViewHolder.itemView.getContext(), R.color.geyser));
+        // it is safe to cancel other vibrations currently taking place
+        vibe.cancel();
+        vibe.vibrate(vibrationEffect1);
+
 
     }
 

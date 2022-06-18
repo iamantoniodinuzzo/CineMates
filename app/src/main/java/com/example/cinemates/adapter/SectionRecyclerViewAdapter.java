@@ -105,7 +105,7 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
                             HomeFragmentDirections.actionHomeFragmentToDetailedViewFragment();
                     action.setSection(mBinding.textSectionTitle.getText().toString());
                     Navigation.findNavController(view).navigate(action);*/
-                    Toast.makeText(view.getContext(), "On develop", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), "Soon", Toast.LENGTH_SHORT).show();
 
                 }
             });

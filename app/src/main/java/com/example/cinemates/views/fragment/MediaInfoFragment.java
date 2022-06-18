@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MediaInfoFragment extends Fragment implements YouTubePlayer.OnInitializedListener{
+public class MediaInfoFragment extends Fragment  {
 
     private FragmentMediaInfoBinding mBinding;
     private MovieViewModel mViewModel;
@@ -56,7 +56,9 @@ public class MediaInfoFragment extends Fragment implements YouTubePlayer.OnIniti
         super.onViewCreated(view, savedInstanceState);
         mMovie = (Movie) getArguments().getSerializable("movie");
         mBinding.recommendedRecyclerView.setAdapter(mAdapter);
+        mBinding.recommendedRecyclerView.setEmptyView(mBinding.emptyViewRecommended.getRoot());
         mBinding.videosRecyclerView.setAdapter(mVideoAdapter);
+        mBinding.videosRecyclerView.setEmptyView(mBinding.emptyViewVideos.getRoot());
 
         observe();
         mViewModel.getMovieDetails(mMovie.getId());
@@ -90,6 +92,7 @@ public class MediaInfoFragment extends Fragment implements YouTubePlayer.OnIniti
         mViewModel.getMovieVideos().observe(getViewLifecycleOwner(), new Observer<ArrayList<Video>>() {
             @Override
             public void onChanged(ArrayList<Video> videos) {
+                System.out.println(videos);
                 mVideoAdapter.setDataList(videos);
             }
         });
@@ -103,13 +106,5 @@ public class MediaInfoFragment extends Fragment implements YouTubePlayer.OnIniti
 
     }
 
-    @Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
 
-    }
-
-    @Override
-    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
-    }
 }

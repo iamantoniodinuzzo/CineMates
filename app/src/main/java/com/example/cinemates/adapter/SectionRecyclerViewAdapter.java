@@ -32,7 +32,7 @@ import java.util.List;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionRecyclerViewAdapter.SectionViewHolder> implements ItemMoveCallback.ItemTouchHelperContract  {
+public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionRecyclerViewAdapter.SectionViewHolder> implements ItemMoveCallback.ItemTouchHelperContract {
     private final List<Section<T>> dataList = new ArrayList<>();
     private final LifecycleOwner mLifecycleOwner;
 

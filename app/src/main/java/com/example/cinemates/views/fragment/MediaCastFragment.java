@@ -11,28 +11,25 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.cinemates.adapter.ActorRecyclerViewAdapter;
+import com.example.cinemates.adapter.PersonRecyclerViewAdapter;
 import com.example.cinemates.databinding.FargmentMediaCastBinding;
-import com.example.cinemates.databinding.FragmentMediaInfoBinding;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Movie;
-import com.example.cinemates.util.Constants;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class MediaCastFragment extends Fragment {
     private FargmentMediaCastBinding mBinding;
-    private ActorRecyclerViewAdapter mAdapter;
+    private PersonRecyclerViewAdapter mAdapter;
     private MovieViewModel mViewModel;
     private Movie mMovie;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new ActorRecyclerViewAdapter();
+        mAdapter = new PersonRecyclerViewAdapter();
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
     }
 

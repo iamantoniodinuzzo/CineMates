@@ -1,9 +1,11 @@
 package com.example.cinemates.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cinemates.databinding.ListItemMediaPosterBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
+import com.example.cinemates.views.MovieDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +23,8 @@ import java.util.List;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-public class SectionItemsRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<SectionItemsRecyclerViewAdapter.SectionItemViewHolder> {
-    private static List<Movie> dataList = new ArrayList<>();
+public class SectionItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapter<SectionItemsRecyclerViewAdapter.SectionItemViewHolder> {
+    private List<T> dataList = new ArrayList<>();
 
 
     @NonNull
@@ -34,9 +37,18 @@ public class SectionItemsRecyclerViewAdapter extends RecyclerViewEmptySupport.Ad
 
     @Override
     public void onBindViewHolder(SectionItemViewHolder holder, int position) {
-        Movie movie = dataList.get(position);
-        holder.mBinding.setMovie(movie);
+        T selected = dataList.get(position);
+        holder.mBinding.setMovie((Movie) selected);
         holder.mBinding.executePendingBindings();
+
+        holder.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
+                intent.putExtra("movie", (Movie) selected);
+                view.getContext().startActivity(intent);
+            }
+        });
 
     }
 
@@ -45,7 +57,7 @@ public class SectionItemsRecyclerViewAdapter extends RecyclerViewEmptySupport.Ad
         return dataList.size();
     }
 
-    public void addItems(List<Movie> dataList) {
+    public void addItems(List<T> dataList) {
         this.dataList.addAll(dataList);
         notifyDataSetChanged();
     }
@@ -56,16 +68,6 @@ public class SectionItemsRecyclerViewAdapter extends RecyclerViewEmptySupport.Ad
         SectionItemViewHolder(@NonNull ListItemMediaPosterBinding listItemMediaPosterBinding) {
             super(listItemMediaPosterBinding.getRoot());
             this.mBinding = listItemMediaPosterBinding;
-
-
-            this.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //TODO open details fragment
-                    Movie movieSelected = dataList.get(getAdapterPosition());
-
-                }
-            });
 
         }
 

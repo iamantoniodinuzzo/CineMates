@@ -17,13 +17,16 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.ItemTouchHelper;
 
 import com.example.cinemates.R;
 import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
+import com.example.cinemates.adapter.SectionRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentHomeBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Section;
 import com.example.cinemates.util.Constants;
+import com.example.cinemates.util.ItemMoveCallback;
 import com.example.cinemates.util.MediaType;
 import com.example.cinemates.util.TimeWindow;
 import com.example.cinemates.viewmodel.MovieViewModel;
@@ -42,22 +45,30 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding mBinding;
     private NavController mNavController;
-    private MovieRecyclerViewAdapter mUpcomingRecyclerViewAdapter, mTopRatedRecyclerViewAdapter, mTrendingRecyclerViewAdapter;
+    private Section<Movie> upcomingSection, topRatedSection, trendingSection;
     private Toolbar mToolbar;
     private MovieViewModel mViewModel;
+    private SectionRecyclerViewAdapter<Movie> mAdapter;
+    private List<Section<Movie>> mSectionList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mUpcomingRecyclerViewAdapter = new MovieRecyclerViewAdapter();
-        mTopRatedRecyclerViewAdapter = new MovieRecyclerViewAdapter();
-        mTrendingRecyclerViewAdapter = new MovieRecyclerViewAdapter();
+        mAdapter = new SectionRecyclerViewAdapter<>(this, getContext());
+        upcomingSection = new Section<>("Upcoming", null);
+        topRatedSection = new Section<>("Top Rated", null);
+        trendingSection = new Section<>("Trending", null);
+        mSectionList = new ArrayList<>();
+        mSectionList.add(upcomingSection);
+        mSectionList.add(topRatedSection);
+        mSectionList.add(trendingSection);
+
         mViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
+    public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -75,10 +86,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
-
-        mBinding.topratedRecyclerView.setAdapter(mTopRatedRecyclerViewAdapter);
-        mBinding.upcomingRecyclerView.setAdapter(mUpcomingRecyclerViewAdapter);
-        mBinding.trendingRecyclerView.setAdapter(mTrendingRecyclerViewAdapter);
+        ItemTouchHelper.Callback callback =
+                new ItemMoveCallback(mAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(mBinding.sectionRv);
+        mBinding.sectionRv.setAdapter(mAdapter);
+        mAdapter.addItems(mSectionList);
 
         observeData();
         mViewModel.getCurrentlyShowingMovies();
@@ -100,7 +113,6 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.discoverFragment) {
-//                    Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_searchActivity);
                     Intent intent = new Intent(view.getContext(), SearchActivity.class);
                     view.getContext().startActivity(intent);
                 }
@@ -110,25 +122,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void observeData() {
-        mViewModel.getUpcomingMoviesList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
-            @Override
-            public void onChanged(ArrayList<Movie> movies) {
-                mUpcomingRecyclerViewAdapter.addItems(movies);
-            }
-        });
-        mViewModel.getTopRatedMoviesList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
-            @Override
-            public void onChanged(ArrayList<Movie> movies) {
-                mTopRatedRecyclerViewAdapter.addItems(movies);
-            }
-        });
-        mViewModel.getTrendingMovieList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
-            @Override
-            public void onChanged(ArrayList<Movie> movies) {
-                System.out.println(movies);
-                mTrendingRecyclerViewAdapter.addItems(movies);
-            }
-        });
+        upcomingSection.setMutableLiveData(mViewModel.getUpcomingMoviesList());
+        topRatedSection.setMutableLiveData(mViewModel.getTopRatedMoviesList());
+        trendingSection.setMutableLiveData(mViewModel.getTrendingMovieList());
 
     }
 

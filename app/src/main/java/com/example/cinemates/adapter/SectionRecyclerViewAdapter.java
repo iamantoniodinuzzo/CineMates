@@ -1,22 +1,32 @@
 package com.example.cinemates.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cinemates.R;
 import com.example.cinemates.databinding.SectionRowBinding;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.util.ItemMoveCallback;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 import com.example.cinemates.views.fragment.HomeFragmentDirections;
 import com.example.cinemates.model.Section;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
@@ -24,8 +34,18 @@ import java.util.List;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecyclerViewAdapter.SectionViewHolder> {
-    private List<Section> dataList = new ArrayList<>();
+public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionRecyclerViewAdapter.SectionViewHolder> implements ItemMoveCallback.ItemTouchHelperContract {
+    private final List<Section<T>> dataList = new ArrayList<>();
+    private final LifecycleOwner mLifecycleOwner;
+    private Vibrator vibe;
+    private VibrationEffect vibrationEffect1;
+
+    public SectionRecyclerViewAdapter(LifecycleOwner lifecycleOwner, Context context) {
+        mLifecycleOwner = lifecycleOwner;
+        vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        vibrationEffect1 = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
+
+    }
 
     @NonNull
     @Override
@@ -37,15 +57,20 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
 
     @Override
     public void onBindViewHolder(SectionViewHolder holder, int position) {
-        Section section = dataList.get(position);
+        Section<T> section = dataList.get(position);
         holder.mBinding.setSection(section);
         holder.mBinding.executePendingBindings();
-        List<Movie> movies_of_section = section.getSectionItems();
 
-        SectionItemsRecyclerViewAdapter sectionItemsRecyclerViewAdapter = new SectionItemsRecyclerViewAdapter();
-        sectionItemsRecyclerViewAdapter.addItems(movies_of_section);
+        SectionItemsRecyclerViewAdapter<T> sectionItemsRecyclerViewAdapter = new SectionItemsRecyclerViewAdapter<>();
         holder.mBinding.recyclerView.setAdapter(sectionItemsRecyclerViewAdapter);
         holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
+        section.getMutableLiveData().observe(mLifecycleOwner, new Observer<ArrayList<T>>() {
+            @Override
+            public void onChanged(ArrayList<T> items) {
+                sectionItemsRecyclerViewAdapter.addItems((items));
+
+            }
+        });
 
 
     }
@@ -55,17 +80,17 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
         return dataList.size();
     }
 
-    public void addItems(List<Section> dataList) {
+    public void addItems(List<Section<T>> dataList) {
         this.dataList.addAll(dataList);
         notifyDataSetChanged();
     }
 
-    public void addItems(Section section) {
+    public void addItems(Section<T> section) {
         this.dataList.add(section);
         notifyDataSetChanged();
     }
 
-    static class SectionViewHolder extends RecyclerViewEmptySupport.ViewHolder {
+    public static class SectionViewHolder extends RecyclerViewEmptySupport.ViewHolder {
         SectionRowBinding mBinding;
 
         SectionViewHolder(@NonNull SectionRowBinding sectionRowBinding) {
@@ -76,17 +101,46 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
                 @Override
                 public void onClick(View view) {
 
-                    HomeFragmentDirections.ActionHomeFragmentToDetailedViewFragment action =
+                  /*  HomeFragmentDirections.ActionHomeFragmentToDetailedViewFragment action =
                             HomeFragmentDirections.actionHomeFragmentToDetailedViewFragment();
                     action.setSection(mBinding.textSectionTitle.getText().toString());
-                    Navigation.findNavController(view).navigate(action);
+                    Navigation.findNavController(view).navigate(action);*/
+                    Toast.makeText(view.getContext(), "Soon", Toast.LENGTH_SHORT).show();
 
                 }
             });
 
 
         }
+    }
 
+    @Override
+    public void onRowMoved(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(dataList, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(dataList, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    @Override
+    public void onRowSelected(SectionViewHolder myViewHolder) {
+        myViewHolder.itemView.setBackgroundColor(ContextCompat.getColor(myViewHolder.itemView.getContext(), R.color.geyser));
+        // it is safe to cancel other vibrations currently taking place
+        vibe.cancel();
+        vibe.vibrate(vibrationEffect1);
+
+
+    }
+
+    @Override
+    public void onRowClear(SectionViewHolder myViewHolder) {
+        myViewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
 
     }
 }

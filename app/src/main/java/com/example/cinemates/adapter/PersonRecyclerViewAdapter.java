@@ -4,17 +4,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 
 import com.example.cinemates.databinding.ListItemPersonInformationBinding;
+import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Cast;
+import com.example.cinemates.model.Person;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 import com.example.cinemates.views.ActorDetailsActivity;
-import com.example.cinemates.views.MovieDetailsActivity;
-import com.example.cinemates.views.fragment.DetailMediaContentFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,27 +22,27 @@ import java.util.List;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-public class ActorRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<ActorRecyclerViewAdapter.ActorViewHolder> {
-    private List<Cast> dataList = new ArrayList<>();
+public class PersonRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapter<PersonRecyclerViewAdapter.PersonViewHolder> {
+    private List<T> dataList = new ArrayList<>();
 
     @NonNull
     @Override
-    public ActorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PersonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         ListItemPersonInformationBinding mediaBinding = ListItemPersonInformationBinding.inflate(layoutInflater, parent, false);
-        return new ActorViewHolder(mediaBinding);
+        return new PersonViewHolder(mediaBinding);
     }
 
     @Override
-    public void onBindViewHolder(ActorViewHolder holder, int position) {
-        Cast personCast = dataList.get(position);
-        holder.mBinding.setActor(personCast);
+    public void onBindViewHolder(PersonViewHolder holder, int position) {
+        T selected = dataList.get(position);
+        holder.mBinding.setActor((Cast) selected);
         holder.mBinding.executePendingBindings();
         holder.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ActorDetailsActivity.class);
-                intent.putExtra("person", personCast);
+                intent.putExtra("person", (Person)selected);
                 view.getContext().startActivity(intent);
             }
         });
@@ -56,16 +54,16 @@ public class ActorRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<A
         return dataList.size();
     }
 
-    public void addItems(List<Cast> dataList) {
+    public void addItems(List<T> dataList) {
         this.dataList.clear();
         this.dataList.addAll(dataList);
         notifyDataSetChanged();
     }
 
-    static class ActorViewHolder extends RecyclerViewEmptySupport.ViewHolder {
+    static class PersonViewHolder extends RecyclerViewEmptySupport.ViewHolder {
         ListItemPersonInformationBinding mBinding;
 
-        ActorViewHolder(@NonNull ListItemPersonInformationBinding listItemPersonInformationBinding) {
+        PersonViewHolder(@NonNull ListItemPersonInformationBinding listItemPersonInformationBinding) {
             super(listItemPersonInformationBinding.getRoot());
             this.mBinding = listItemPersonInformationBinding;
 

@@ -30,101 +30,110 @@
             tools:src="@tools:sample/avatars" />
     </androidx.appcompat.widget.Toolbar>
 
-    <ScrollView
+    <!--   <ScrollView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_below="@id/toolbar">
+
+           <androidx.appcompat.widget.LinearLayoutCompat
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="10dp"
+                   android:text="Upcoming"
+                   android:textColor="@color/white"
+                   android:textSize="24sp"
+                   android:textStyle="bold" />
+
+               <com.example.cinemates.util.RecyclerViewEmptySupport
+                   android:id="@+id/upcoming_recyclerView"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                   tools:listitem="@layout/list_item_media_poster" />
+
+               &lt;!&ndash; <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Popular"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <com.example.cinemates.util.RecyclerViewEmptySupport
+                    android:id="@+id/popular_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/list_item_media_poster" />&ndash;&gt;
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="10dp"
+                   android:text="Trending this week"
+                   android:textColor="@color/white"
+                   android:textSize="24sp"
+                   android:textStyle="bold" />
+
+               <com.example.cinemates.util.RecyclerViewEmptySupport
+                   android:id="@+id/trending_recyclerView"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                   tools:listitem="@layout/list_item_media_poster" />
+
+               &lt;!&ndash;  <TextView
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginStart="10dp"
+                     android:text="Current"
+                     android:textColor="@color/white"
+                     android:textSize="24sp"
+                     android:textStyle="bold" />
+
+                 <com.example.cinemates.util.RecyclerViewEmptySupport
+                     android:id="@+id/current_recyclerView"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:orientation="horizontal"
+                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                     tools:listitem="@layout/list_item_media_poster" />&ndash;&gt;
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="10dp"
+                   android:text="Top rated"
+                   android:textColor="@color/white"
+                   android:textSize="24sp"
+                   android:textStyle="bold" />
+
+               <com.example.cinemates.util.RecyclerViewEmptySupport
+                   android:id="@+id/toprated_recyclerView"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                   tools:listitem="@layout/list_item_media_poster" />
+
+
+           </androidx.appcompat.widget.LinearLayoutCompat>
+       </ScrollView>-->
+    <com.example.cinemates.util.RecyclerViewEmptySupport
+        android:id="@+id/sectionRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/toolbar"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/section_row" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="Upcoming"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <com.example.cinemates.util.RecyclerViewEmptySupport
-                android:id="@+id/upcoming_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/list_item_media_poster" />
-
-            <!-- <TextView
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_marginStart="10dp"
-                 android:text="Popular"
-                 android:textColor="@color/white"
-                 android:textSize="24sp"
-                 android:textStyle="bold" />
-
-             <com.example.cinemates.util.RecyclerViewEmptySupport
-                 android:id="@+id/popular_recyclerView"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="horizontal"
-                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                 tools:listitem="@layout/list_item_media_poster" />-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="Trending this week"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <com.example.cinemates.util.RecyclerViewEmptySupport
-                android:id="@+id/trending_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/list_item_media_poster" />
-
-            <!--  <TextView
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginStart="10dp"
-                  android:text="Current"
-                  android:textColor="@color/white"
-                  android:textSize="24sp"
-                  android:textStyle="bold" />
-
-              <com.example.cinemates.util.RecyclerViewEmptySupport
-                  android:id="@+id/current_recyclerView"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                  tools:listitem="@layout/list_item_media_poster" />-->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="Top rated"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <com.example.cinemates.util.RecyclerViewEmptySupport
-                android:id="@+id/toprated_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/list_item_media_poster" />
-
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </ScrollView>
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.cinemates.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,18 +9,22 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cinemates.R;
 import com.example.cinemates.databinding.SectionRowBinding;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.util.ItemMoveCallback;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 import com.example.cinemates.views.fragment.HomeFragmentDirections;
 import com.example.cinemates.model.Section;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
@@ -27,7 +32,7 @@ import java.util.List;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionRecyclerViewAdapter.SectionViewHolder> {
+public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionRecyclerViewAdapter.SectionViewHolder> implements ItemMoveCallback.ItemTouchHelperContract  {
     private final List<Section<T>> dataList = new ArrayList<>();
     private final LifecycleOwner mLifecycleOwner;
 
@@ -78,7 +83,7 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
         notifyDataSetChanged();
     }
 
-    static class SectionViewHolder extends RecyclerViewEmptySupport.ViewHolder {
+    public static class SectionViewHolder extends RecyclerViewEmptySupport.ViewHolder {
         SectionRowBinding mBinding;
 
         SectionViewHolder(@NonNull SectionRowBinding sectionRowBinding) {
@@ -100,7 +105,31 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
 
 
         }
+    }
 
+    @Override
+    public void onRowMoved(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(dataList, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(dataList, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    @Override
+    public void onRowSelected(SectionViewHolder myViewHolder) {
+        myViewHolder.itemView.setBackgroundColor(ContextCompat.getColor(myViewHolder.itemView.getContext(), R.color.geyser));
+
+    }
+
+    @Override
+    public void onRowClear(SectionViewHolder myViewHolder) {
+        myViewHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
 
     }
 }

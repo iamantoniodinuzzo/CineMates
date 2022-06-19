@@ -4,8 +4,6 @@
 ## Project Overview
 Molte volte ci capita di voler scoprire nuovi film andando a ricercare in internet film di un genere specifico: "film da vedere", "film mind blowing", "film per piangere". Lo scopo di *CineMates* è quello di raggruppare tutte queste ricerche e questi bisogni sotto un unico tetto. Con l'aggiunta di molteplici utilità.
 
-Questa app usa l'API di  [themoviedb.org](https://www.themoviedb.org/)
-
 ## API Key Note
 **Define key in build.gradle**
 
@@ -15,10 +13,8 @@ Aggiungi `apiKey = "YOUR-API-KEY"` a questo file.
 
 ## Why this Project
 
-Per diventare uno sviluppatore Android, devi sapere come portare particolari 
-esperienze mobili particolari alla vita. In particolare, è necessario sapere come costruire 
-interfacce utente (UI) pulite e convincenti, recuperare dati dai servizi di rete, 
-e ottimizzare l'esperienza per vari dispositivi mobili. 
+Per diventare uno sviluppatore Android, devi sapere come portare particolari esperienze in vita. In particolare, è necessario sapere come costruire 
+interfacce utente (UI) pulite e convincenti, recuperare dati dai servizi di rete,e ottimizzare l'esperienza per vari dispositivi mobile. 
 
 Costruendo questa applicazione, ho imparato a comprendere gli elementi fondamentali della programmazione Android, approfondendo una delle mie passioni principali ovvero il cinema.
 

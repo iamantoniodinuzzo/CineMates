@@ -23,14 +23,14 @@ e ottimizzare l'esperienza per vari dispositivi mobili.
 Costruendo questa applicazione, ho imparato a comprendere gli elementi fondamentali della programmazione Android, approfondendo una delle mie passioni principali ovvero il cinema.
 
 ## What I learned
-- Recuperare dati da Internet con l'**API** di TheMovieDB
+- Recuperare dati da Internet con l'**API** di [TheMovieDB](https://developers.themoviedb.org/3/getting-started)
 - Usare adapters e layout di lista personalizzati per popolare le viste di lista
 - Incorporare librerie per semplificare la quantità di codice da scrivere
-- Costruire un'applicazione completa che appare e si sente naturale sull'ultimo sistema operativo Android.
 - Utilizzare il pattern **MVVM**
 - Incorporare il **data binding** e il **view binding**
 - Utilizzare il componente **Navigation**, **View Pager** , **Live Data**
 - Utilizzare Dagger Hilt per la **dependency injection**
+- Creare delle view personalizzare uniche per ridurre codice boilerplate
 
 ## Image Resources
 

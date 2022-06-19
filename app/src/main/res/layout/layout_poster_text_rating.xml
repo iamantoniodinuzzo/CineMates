@@ -7,7 +7,6 @@
         <variable
             name="movie"
             type="com.example.cinemates.model.Movie" />
-        <import type="android.view.View"/>
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -30,20 +29,12 @@
                 android:id="@+id/textRating"
                 android:layout_width="31dp"
                 android:layout_height="18dp"
-                android:text="@{String.valueOf(movie.vote_average)}"
                 android:textAlignment="center"
-                android:textColor="@color/alabaster"
+                android:textColor="@color/vermilion_100"
                 android:textSize="12sp"
                 android:textStyle="bold"
+                app:voteAverage="@{movie.vote_average}"
                 tools:text="7,0" />
-
-            <ImageView
-                android:visibility="@{movie.adult ? View.VISIBLE : View.GONE}"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_alignEnd="@id/textRating"
-                android:layout_alignBottom="@id/textRating"
-                android:src="@drawable/ic_baseline_whatshot_24" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

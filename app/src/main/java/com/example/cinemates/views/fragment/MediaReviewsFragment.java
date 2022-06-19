@@ -51,6 +51,7 @@ public class MediaReviewsFragment extends Fragment {
         mMovie = (Movie) getArguments().getSerializable("movie");
 
         mBinding.reviewsRecyclerView.setAdapter(mAdapter);
+        mBinding.reviewsRecyclerView.setEmptyView(mBinding.emptyView.getRoot());
 
 
         mViewModel.getMovieReviews().observe(getViewLifecycleOwner(), new Observer<ArrayList<Review>>() {

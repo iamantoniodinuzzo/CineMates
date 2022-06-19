@@ -178,5 +178,10 @@ public class BindingAdapters {
         });
     }
 
+    @BindingAdapter({"voteAverage"})
+    public static void loadVoteAverage(TextView textView, Number number){
+        textView.setText(String.format("%,.1f", number.doubleValue()));
+    }
+
 
 }

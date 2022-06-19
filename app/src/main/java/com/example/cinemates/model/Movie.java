@@ -1,7 +1,11 @@
 package com.example.cinemates.model;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
 
 /**
  * @author Antonio Di Nuzzo
@@ -221,6 +225,21 @@ public class Movie implements Serializable {
     public void setGenres(ArrayList<Genre> genres) {
         this.genres = genres;
     }
+
+
+    public static final Comparator<Movie> COMPARE_BY_RUNTIME = (movie1, movie2) -> Integer.compare(movie1.getRuntime(), movie2.getRuntime());
+    public static final Comparator<Movie> COMPARE_BY_VOTE_AVERAGE = (movie1, movie2) -> Double.compare(movie1.getVote_average().doubleValue(), movie2.getVote_average().doubleValue());
+    public static final Comparator<Movie> COMPARE_BY_RELEASE_DATE = (movie1, movie2) -> {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date1 = new Date(), date2 = new Date();
+        try {
+            date1 = sdf.parse(movie1.release_date);
+            date2 = sdf.parse(movie2.release_date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date1.compareTo(date2);
+    };
 
     @Override
     public String toString() {

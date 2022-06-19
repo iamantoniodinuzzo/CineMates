@@ -145,4 +145,38 @@ public class BindingAdapters {
         textView.setText(isOfficial ? "Official" : "Not Official");
     }
 
+    @BindingAdapter({"loadThumbnail"})
+    public static void loadThumbnail(YouTubeThumbnailView youTubeThumbnailView, String key){
+        /*  initialize the thumbnail image view , we need to pass Developer Key */
+        youTubeThumbnailView.initialize(Constants.YT_API_KEY, new YouTubeThumbnailView.OnInitializedListener() {
+            @Override
+            public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, final YouTubeThumbnailLoader youTubeThumbnailLoader) {
+                //when initialization is success, set the video id to thumbnail to load
+                youTubeThumbnailLoader.setVideo(key);
+
+                youTubeThumbnailLoader.setOnThumbnailLoadedListener(new YouTubeThumbnailLoader.OnThumbnailLoadedListener() {
+                    @Override
+                    public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
+                        //when thumbnail loaded successfully release the thumbnail loader as we are showing thumbnail in adapter
+                        youTubeThumbnailLoader.release();
+                    }
+
+                    @Override
+                    public void onThumbnailError(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader.ErrorReason errorReason) {
+                        //print or show error when thumbnail load failed
+                        Log.e(TAG, "Youtube Thumbnail Error");
+                    }
+                });
+            }
+
+            @Override
+            public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {
+                //print or show error when initialization failed
+                Log.e(TAG, "Youtube Initialization Failure");
+
+            }
+        });
+    }
+
+
 }

@@ -8,6 +8,8 @@
         <variable
             name="movie"
             type="com.example.cinemates.model.Movie" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -168,6 +170,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/textSectionVideo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
@@ -176,22 +179,15 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <RelativeLayout
+
+                <com.example.cinemates.util.RecyclerViewEmptySupport
+                    android:id="@+id/videos_recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/list_item_yt_video" />
 
-                    <com.example.cinemates.util.RecyclerViewEmptySupport
-                        android:id="@+id/videos_recyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/list_item_yt_video" />
-
-                    <include
-                        android:id="@+id/empty_view_videos"
-                        layout="@layout/layout_empty_recycler" />
-                </RelativeLayout>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

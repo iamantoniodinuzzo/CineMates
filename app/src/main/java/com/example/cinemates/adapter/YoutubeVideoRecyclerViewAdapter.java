@@ -39,44 +39,15 @@ public class YoutubeVideoRecyclerViewAdapter extends RecyclerViewEmptySupport.Ad
     @Override
     public void onBindViewHolder(YoutubeViewHolder holder, final int position) {
 
-        final Video video = dataList.get(position);
+        Video video = dataList.get(position);
         holder.mBinding.setVideo(video);
         holder.mBinding.executePendingBindings();
-        /*  initialize the thumbnail image view , we need to pass Developer Key */
-        holder.mBinding.thumbnailView.initialize(Constants.YT_API_KEY, new YouTubeThumbnailView.OnInitializedListener() {
-            @Override
-            public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, final YouTubeThumbnailLoader youTubeThumbnailLoader) {
-                //when initialization is success, set the video id to thumbnail to load
-                youTubeThumbnailLoader.setVideo(video.getKey());
-
-                youTubeThumbnailLoader.setOnThumbnailLoadedListener(new YouTubeThumbnailLoader.OnThumbnailLoadedListener() {
-                    @Override
-                    public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
-                        //when thumbnail loaded successfully release the thumbnail loader as we are showing thumbnail in adapter
-                        youTubeThumbnailLoader.release();
-                    }
-
-                    @Override
-                    public void onThumbnailError(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader.ErrorReason errorReason) {
-                        //print or show error when thumbnail load failed
-                        Log.e(TAG, "Youtube Thumbnail Error");
-                    }
-                });
-            }
-
-            @Override
-            public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {
-                //print or show error when initialization failed
-                Log.e(TAG, "Youtube Initialization Failure");
-
-            }
-        });
         holder.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + video.getKey()));
                 Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://www.youtube.com/watch?v=" + video.getKey()));
+                        Uri.parse(Constants.YOUTUBE_COM_WATCH_V + video.getKey()));
                 try {
                     view.getContext().startActivity(appIntent);
                 } catch (ActivityNotFoundException ex) {

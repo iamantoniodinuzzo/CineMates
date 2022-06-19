@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,8 +26,7 @@ import java.util.ArrayList;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-@AndroidEntryPoint
-public class MediaInfoFragment extends Fragment  {
+public class MediaInfoFragment extends Fragment {
 
     private FragmentMediaInfoBinding mBinding;
     private MovieViewModel mViewModel;
@@ -58,7 +58,6 @@ public class MediaInfoFragment extends Fragment  {
         mBinding.recommendedRecyclerView.setAdapter(mAdapter);
         mBinding.recommendedRecyclerView.setEmptyView(mBinding.emptyViewRecommended.getRoot());
         mBinding.videosRecyclerView.setAdapter(mVideoAdapter);
-        mBinding.videosRecyclerView.setEmptyView(mBinding.emptyViewVideos.getRoot());
 
         observe();
         mViewModel.getMovieDetails(mMovie.getId());
@@ -92,8 +91,12 @@ public class MediaInfoFragment extends Fragment  {
         mViewModel.getMovieVideos().observe(getViewLifecycleOwner(), new Observer<ArrayList<Video>>() {
             @Override
             public void onChanged(ArrayList<Video> videos) {
-                System.out.println(videos);
-                mVideoAdapter.setDataList(videos);
+                if (!videos.isEmpty()) {
+                    mBinding.textSectionVideo.setVisibility(View.VISIBLE);
+                    mVideoAdapter.setDataList(videos);
+                } else {
+                    mBinding.textSectionVideo.setVisibility(View.GONE);
+                }
             }
         });
     }

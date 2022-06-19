@@ -22,6 +22,7 @@ public class Constants {
     public static final String Upcoming = "Upcoming";
     public static final String Current = "Current";
     public static final String TopRated = "TopRated";
+    public static final String YOUTUBE_COM_WATCH_V = "http://www.youtube.com/watch?v=";
 
     public static HashMap<Integer, String> getGenreMap() {
         HashMap<Integer, String> genreMap = new HashMap<>();

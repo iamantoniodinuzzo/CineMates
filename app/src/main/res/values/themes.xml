@@ -16,6 +16,8 @@
         <item name="android:windowBackground">@color/mirage_100</item>
         <!-- Apply default style for dialogs -->
         <item name="android:dialogTheme">@style/AppDialogTheme</item>
+        <item name="android:textColorHint">@color/geyser</item>
+
 
     </style>
 

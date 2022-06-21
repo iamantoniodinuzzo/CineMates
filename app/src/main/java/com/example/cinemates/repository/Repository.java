@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Collection;
+import com.example.cinemates.model.Images;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Response;
 import com.example.cinemates.model.Review;
@@ -75,6 +76,10 @@ public class Repository {
 
     public Observable<Response<Review>> getReviews(int movieId) {
         return apiService.getReviews(movieId, sMap);
+    }
+
+    public Observable<Images> getImages(int movieId) {
+        return apiService.getImages(movieId, sMap);
     }
 
     public Observable<JsonObject> getCast(int movieId) {

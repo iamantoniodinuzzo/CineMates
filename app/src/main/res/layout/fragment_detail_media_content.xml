@@ -6,6 +6,8 @@
         <variable
             name="movie"
             type="com.example.cinemates.model.Movie" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -30,14 +32,35 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:titleEnabled="false">
 
-                <ImageView
-                    android:id="@+id/imageView"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    app:imageUrlLong="@{movie.backdrop_path}"
-                    tools:src="@tools:sample/backgrounds/scenic" />
+                    android:layout_height="match_parent">
 
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        app:imageUrlLong="@{movie.backdrop_path}"
+                        tools:src="@tools:sample/backgrounds/scenic" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="?attr/actionBarSize"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/round_corner_bg"
+                        android:backgroundTint="@color/design_default_color_error"
+                        android:elevation="4dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="18+"
+                        android:visibility="invisible"
+                        android:textColor="@color/alabaster"
+                        android:textStyle="bold"
+                        app:hideNSeek="@{movie.adult}" />
+                </RelativeLayout>
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -48,7 +71,6 @@
                     app:navigationIcon="@drawable/ic_round_arrow_back_24"
                     app:title="@{movie.title}"
                     app:titleTextColor="@color/white" />
-
 
 
                 <com.google.android.material.tabs.TabLayout

@@ -12,7 +12,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cinemates.adapter.PersonRecyclerViewAdapter;
-import com.example.cinemates.databinding.FargmentMediaCastBinding;
+import com.example.cinemates.databinding.FragmentMediaCastBinding;
+import com.example.cinemates.databinding.FragmentMediaImagesBinding;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.viewmodel.MovieViewModel;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 
 
 public class MediaCastFragment extends Fragment {
-    private FargmentMediaCastBinding mBinding;
+    private FragmentMediaCastBinding mBinding;
     private PersonRecyclerViewAdapter mAdapter;
     private MovieViewModel mViewModel;
     private Movie mMovie;
@@ -37,7 +38,7 @@ public class MediaCastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = FargmentMediaCastBinding.inflate(inflater, container, false);
+        mBinding = FragmentMediaCastBinding.inflate(inflater, container, false);
 
         return mBinding.getRoot();
     }

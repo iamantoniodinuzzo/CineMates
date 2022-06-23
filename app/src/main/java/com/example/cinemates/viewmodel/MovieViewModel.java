@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Collection;
+import com.example.cinemates.model.Images;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Response;
 import com.example.cinemates.model.Review;
@@ -43,6 +44,7 @@ public class MovieViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Movie>> trendingMovieList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> movieSimilar = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Review>> movieReviews = new MutableLiveData<>();
+    private MutableLiveData<Images> images = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Video>> movieVideos = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> popularMoviesList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> topRatedMoviesList = new MutableLiveData<>();
@@ -83,6 +85,10 @@ public class MovieViewModel extends ViewModel {
 
     public MutableLiveData<ArrayList<Video>> getMovieVideos() {
         return movieVideos;
+    }
+
+    public MutableLiveData<Images> getImages() {
+        return images;
     }
 
     public MutableLiveData<Actor> getActor() {
@@ -237,6 +243,16 @@ public class MovieViewModel extends ViewModel {
 
     }
 
+    public void getImages(int movieId) {
+        disposables.add(repository.getImages(movieId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> images.setValue(result),
+                        error -> Log.e(TAG, "getMovieImages: " + error.getMessage()))
+        );
+
+    }
+
     public void getCast(int movieId) {
         disposables.add(repository.getCast(movieId)
                 .subscribeOn(Schedulers.io())
@@ -259,7 +275,7 @@ public class MovieViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> collection.setValue(result),
-                        error -> Log.e(TAG, "getCastList: " + error.getMessage()))
+                        error -> Log.e(TAG, "getCollection: " + error.getMessage()))
         );
     }
 

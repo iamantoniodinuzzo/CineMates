@@ -2,6 +2,7 @@ package com.example.cinemates.adapter;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -176,6 +177,14 @@ public class BindingAdapters {
 
             }
         });
+    }
+    @BindingAdapter({"hideNSeek"})
+    public static void hideNSeek(View view , boolean value ){
+        if (value)
+            view.setVisibility(View.VISIBLE);
+        else
+            view.setVisibility(View.INVISIBLE);
+
     }
 
     @BindingAdapter({"voteAverage"})

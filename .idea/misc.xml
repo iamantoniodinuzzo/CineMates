@@ -26,6 +26,7 @@
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_discover.xml" value="0.25" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_home.xml" value="0.2803442028985507" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_media_cast.xml" value="0.3392210144927536" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_media_images.xml" value="0.2907608695652174" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_media_info.xml" value="0.22028688524590165" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_media_reviews.xml" value="0.33" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_more.xml" value="0.2803442028985507" />
@@ -41,6 +42,7 @@
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_dialog_youtube_player.xml" value="0.2115036231884058" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_empty_recycler.xml" value="0.27898550724637683" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_error_recycler.xml" value="0.27898550724637683" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_expanded_image.xml" value="0.2907608695652174" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_header_person_list.xml" value="0.25679347826086957" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_item_collection.xml" value="0.2921195652173913" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_item_connect_service.xml" value="0.25679347826086957" />
@@ -50,11 +52,13 @@
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_movie_poster.xml" value="0.75" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_person_avatar.xml" value="0.2115036231884058" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_poster_text_rating.xml" value="0.67" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_backdrop.xml" value="0.2907608695652174" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_connect_service.xml" value="0.33695652173913043" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_crew.xml" value="0.2803442028985507" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_media.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_media_poster.xml" value="0.2803442028985507" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_person_information.xml" value="0.2803442028985507" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_poster.xml" value="0.2907608695652174" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_review.xml" value="0.5" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_yt_video.xml" value="0.2115036231884058" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/section_row.xml" value="0.2803442028985507" />

@@ -20,7 +20,7 @@ public class Movie implements Serializable {
     private ArrayList<String> genre_names;
     private ArrayList<Genre> genres;
     private ArrayList<ProductionCompany> production_companies;
-    private boolean video, adult;
+    private Boolean video, adult;
     private Collection belongs_to_collection;
 
     public Movie(String poster_path, String overview, String release_date, String title,

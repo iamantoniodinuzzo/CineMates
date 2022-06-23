@@ -43,6 +43,7 @@ public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<M
         holder.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
                 intent.putExtra("movie", movie);
                 view.getContext().startActivity(intent);

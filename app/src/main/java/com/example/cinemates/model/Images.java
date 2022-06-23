@@ -54,9 +54,10 @@ public class Images {
      * @author Antonio Di Nuzzo
      * Created 19/06/2022 at 11:00
      */
-    public class Image {
+    public static class Image {
         private String file_path;
         private int height, width;
+        public static final int BACKDROP = 0, POSTER = 1;
 
         public Image(String file_path, int height, int width) {
             this.file_path = file_path;
@@ -70,6 +71,13 @@ public class Images {
 
         public void setFile_path(String file_path) {
             this.file_path = file_path;
+        }
+
+        public int getImageType() {
+            if (height > width)
+                return POSTER;
+            else
+                return BACKDROP;
         }
 
         public int getHeight() {

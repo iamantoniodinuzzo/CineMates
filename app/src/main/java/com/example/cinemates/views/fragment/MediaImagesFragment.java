@@ -11,8 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.cinemates.adapter.ImageRecyclerViewAdapter;
 import com.example.cinemates.adapter.ReviewRecyclerViewAdapter;
-import com.example.cinemates.databinding.FargmentMediaImagesBinding;
+import com.example.cinemates.databinding.FragmentMediaImagesBinding;
 import com.example.cinemates.model.Images;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Review;
@@ -25,29 +26,37 @@ import java.util.ArrayList;
  * Created 19/06/2022 at 09:54
  */
 public class MediaImagesFragment extends Fragment {
-    private FargmentMediaImagesBinding mBinding;
-    private Movie mMovie;
+    private FragmentMediaImagesBinding mBinding;
     private MovieViewModel mViewModel;
+    private ImageRecyclerViewAdapter mPosterAdapter, mBackdropAdapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
+        mPosterAdapter = new ImageRecyclerViewAdapter(getContext());
+        mBackdropAdapter = new ImageRecyclerViewAdapter(getContext());
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = FargmentMediaImagesBinding.inflate(inflater, container, false);
-        mMovie = (Movie) getArguments().getSerializable("movie");
+        mBinding = FragmentMediaImagesBinding.inflate(inflater, container, false);
+        Movie movie = (Movie) getArguments().getSerializable("movie");
+        mBinding.postersRv.setAdapter(mPosterAdapter);
+        mBinding.postersRv.setEmptyView(mBinding.emptyPosterView.getRoot());
+        mBinding.backdropRv.setEmptyView(mBinding.emptyBackdropView.getRoot());
+        mBinding.backdropRv.setAdapter(mBackdropAdapter);
 
         mViewModel.getImages().observe(getViewLifecycleOwner(), new Observer<Images>() {
             @Override
             public void onChanged(Images images) {
-                System.out.println(images);
+                mPosterAdapter.addItems(images.getPosters());
+                mBackdropAdapter.addItems(images.getBackdrops());
             }
         });
-        mViewModel.getImages(mMovie.getId());
+        mViewModel.getImages(movie.getId());
         return mBinding.getRoot();
     }
 

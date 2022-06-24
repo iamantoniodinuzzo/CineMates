@@ -12,14 +12,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cinemates.adapter.ImageRecyclerViewAdapter;
-import com.example.cinemates.adapter.ReviewRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentMediaImagesBinding;
 import com.example.cinemates.model.Images;
 import com.example.cinemates.model.Movie;
-import com.example.cinemates.model.Review;
 import com.example.cinemates.viewmodel.MovieViewModel;
-
-import java.util.ArrayList;
 
 /**
  * @author Antonio Di Nuzzo

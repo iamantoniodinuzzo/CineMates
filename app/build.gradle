@@ -2,8 +2,12 @@ plugins {
     id 'com.android.application'
     id 'androidx.navigation.safeargs'
     id 'dagger.hilt.android.plugin'
-
+    id 'com.google.secrets_gradle_plugin' version '0.4'
 }
+
+def apikeyPropertiesFile = rootProject.file("local.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
     compileSdk 31
@@ -14,7 +18,9 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
+// should correspond to key/value pairs inside the file
+        buildConfigField("String", "TMDB_API_KEY", apikeyProperties['TMDB_API_KEY'])
+        buildConfigField("String", "YT_API_KEY", apikeyProperties['YT_API_KEY'])
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -29,7 +35,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding true
         dataBinding true
     }

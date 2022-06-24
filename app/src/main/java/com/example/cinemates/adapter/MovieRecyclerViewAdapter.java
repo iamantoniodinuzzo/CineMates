@@ -15,7 +15,6 @@ import com.example.cinemates.databinding.ListItemMediaPosterBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 import com.example.cinemates.views.MovieDetailsActivity;
-import com.example.cinemates.views.fragment.HomeFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -105,7 +105,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //TODO open drawer
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_accountFragment);
             }
         });
 

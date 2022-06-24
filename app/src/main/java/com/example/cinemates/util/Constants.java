@@ -2,6 +2,8 @@ package com.example.cinemates.util;
 
 import static java.util.Locale.getDefault;
 
+import com.example.cinemates.BuildConfig;
+
 import java.util.HashMap;
 
 /**
@@ -9,8 +11,8 @@ import java.util.HashMap;
  * Created 21/04/2022 at 15:48
  */
 public class Constants {
-    public static final String TMDB_API_KEY = "9ca2906942298ba2a5a9f3b813ee0491";
-    public static final String YT_API_KEY = "AIzaSyA6GFKGQTE0E6Qk9OtU-75sRR1mK3GU78Y";
+    public static final String TMDB_API_KEY = BuildConfig.TMDB_API_KEY;
+    public static final String YT_API_KEY = BuildConfig.YT_API_KEY;
     public static final String BaseURL = "https://api.themoviedb.org/3/";
     public static final String DEFAULT_SYSTEM_LANGUAGE = getDefault().getLanguage();
     public static final String ImageBaseURL = "https://image.tmdb.org/t/p/original";

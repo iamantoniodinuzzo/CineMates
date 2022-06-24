@@ -22,7 +22,7 @@ import java.util.List;
  * Created 29/05/2022 at 10:31
  */
 public class ReviewRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<ReviewRecyclerViewAdapter.ReviewViewHolder> {
-    private List<Review> dataList = new ArrayList<>();
+    private final List<Review> dataList = new ArrayList<>();
 
     @NonNull
     @Override

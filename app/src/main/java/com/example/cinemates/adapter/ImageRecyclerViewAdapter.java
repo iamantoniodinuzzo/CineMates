@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecyclerViewAdapter.ImageViewHolder> {
     private final List<Images.Image> dataList = new ArrayList<>();
-    private Context mContext;
+    private final Context mContext;
 
     public ImageRecyclerViewAdapter(Context context) {
         mContext = context;

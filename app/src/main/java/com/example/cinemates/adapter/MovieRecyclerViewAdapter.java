@@ -25,7 +25,7 @@ import java.util.List;
  * Created 15/12/2021 at 16:36
  */
 public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<MovieRecyclerViewAdapter.MovieViewHolder> {
-    private List<Movie> dataList = new ArrayList<>();
+    private final List<Movie> dataList = new ArrayList<>();
 
     @NonNull
     @Override

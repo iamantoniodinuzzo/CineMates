@@ -23,7 +23,7 @@ import java.util.List;
  * Created 15/12/2021 at 16:36
  */
 public class PersonRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapter<PersonRecyclerViewAdapter.PersonViewHolder> {
-    private List<T> dataList = new ArrayList<>();
+    private final List<T> dataList = new ArrayList<>();
 
     @NonNull
     @Override

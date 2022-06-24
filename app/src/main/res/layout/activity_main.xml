@@ -17,18 +17,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph" />
 
-    <!-- <com.google.android.material.bottomnavigation.BottomNavigationView
-         android:id="@+id/bottomNavigationView"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:background="@color/lynch_100"
-         app:itemIconSize="28dp"
-         app:itemIconTint="@color/item_state_color"
-         app:labelVisibilityMode="unlabeled"
-         app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
-         app:menu="@menu/menu_main_bottom_nav" />-->
-
 
 </RelativeLayout>

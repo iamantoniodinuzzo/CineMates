@@ -24,7 +24,7 @@ import java.util.List;
  * Created 15/12/2021 at 16:36
  */
 public class SectionItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapter<SectionItemsRecyclerViewAdapter.SectionItemViewHolder> {
-    private List<T> dataList = new ArrayList<>();
+    private final List<T> dataList = new ArrayList<>();
 
 
     @NonNull

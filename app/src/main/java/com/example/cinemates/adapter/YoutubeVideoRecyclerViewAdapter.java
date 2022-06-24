@@ -70,7 +70,7 @@ public class YoutubeVideoRecyclerViewAdapter extends RecyclerViewEmptySupport.Ad
     }
 
     static class YoutubeViewHolder extends RecyclerView.ViewHolder {
-        private ListItemYtVideoBinding mBinding;
+        private final ListItemYtVideoBinding mBinding;
 
         public YoutubeViewHolder(ListItemYtVideoBinding binding) {
             super(binding.getRoot());

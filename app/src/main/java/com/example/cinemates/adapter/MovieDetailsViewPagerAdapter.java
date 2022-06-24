@@ -24,9 +24,9 @@ public class MovieDetailsViewPagerAdapter extends FragmentStatePagerAdapter {
     private static final int FIRST_TAB = 0;
     private static final int SECOND_TAB = 1;
     private static final int THIRD_TAB = 3;
-    private int[] TABS;
-    private Context mContext;
-    private Movie mMovie;
+    private final int[] TABS;
+    private final Context mContext;
+    private final Movie mMovie;
 
     private final List<Fragment> fragments = new ArrayList<>();
     private final List<String> fragmentTitles = new ArrayList<>();

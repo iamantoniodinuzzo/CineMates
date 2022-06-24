@@ -37,8 +37,8 @@ import java.util.List;
 public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionRecyclerViewAdapter.SectionViewHolder> implements ItemMoveCallback.ItemTouchHelperContract {
     private final List<Section<T>> dataList = new ArrayList<>();
     private final LifecycleOwner mLifecycleOwner;
-    private Vibrator vibe;
-    private VibrationEffect vibrationEffect1;
+    private final Vibrator vibe;
+    private final VibrationEffect vibrationEffect1;
 
     public SectionRecyclerViewAdapter(LifecycleOwner lifecycleOwner, Context context) {
         mLifecycleOwner = lifecycleOwner;

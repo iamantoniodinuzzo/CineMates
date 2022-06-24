@@ -38,23 +38,23 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class MovieViewModel extends ViewModel {
     private static final String TAG = MovieViewModel.class.getSimpleName();
 
-    private Repository repository;
-    private MutableLiveData<ArrayList<Movie>> currentMoviesList = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Movie>> moviesByActor = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Movie>> trendingMovieList = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Movie>> movieSimilar = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Review>> movieReviews = new MutableLiveData<>();
-    private MutableLiveData<Images> images = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Video>> movieVideos = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Movie>> popularMoviesList = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Movie>> topRatedMoviesList = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Movie>> upcomingMoviesList = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Movie>> queriesMovies = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Cast>> queriesPeoples = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<Cast>> movieCastList = new MutableLiveData<>();
-    private MutableLiveData<Movie> movieDetails = new MutableLiveData<>();
-    private MutableLiveData<Collection> collection = new MutableLiveData<>();
-    private MutableLiveData<Actor> actorDetails = new MutableLiveData<>();
+    private final Repository repository;
+    private final MutableLiveData<ArrayList<Movie>> currentMoviesList = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Movie>> moviesByActor = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Movie>> trendingMovieList = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Movie>> movieSimilar = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Review>> movieReviews = new MutableLiveData<>();
+    private final MutableLiveData<Images> images = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Video>> movieVideos = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Movie>> popularMoviesList = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Movie>> topRatedMoviesList = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Movie>> upcomingMoviesList = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Movie>> queriesMovies = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Cast>> queriesPeoples = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Cast>> movieCastList = new MutableLiveData<>();
+    private final MutableLiveData<Movie> movieDetails = new MutableLiveData<>();
+    private final MutableLiveData<Collection> collection = new MutableLiveData<>();
+    private final MutableLiveData<Actor> actorDetails = new MutableLiveData<>();
 
     private final CompositeDisposable disposables = new CompositeDisposable();
 

@@ -14,7 +14,6 @@ import com.example.cinemates.network.MovieApiService;
 import com.example.cinemates.util.Constants;
 import com.google.gson.JsonObject;
 
-import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.inject.Inject;
@@ -35,7 +34,7 @@ public class Repository {
     public Repository(MovieApiService apiService) {
         this.apiService = apiService;
         sMap = new HashMap<>();
-        sMap.put("api_key", Constants.API_KEY);
+        sMap.put("api_key", Constants.TMDB_API_KEY);
         sMap.put("language", Constants.DEFAULT_SYSTEM_LANGUAGE);
         sMap.put("append_to_response", "images");
         sMap.put("include_image_language", Constants.DEFAULT_SYSTEM_LANGUAGE);

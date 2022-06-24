@@ -7,9 +7,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.cinemates.databinding.ListItemPersonInformationBinding;
-import com.example.cinemates.databinding.ListItemReviewBinding;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Review;
 import com.example.cinemates.util.RecyclerViewEmptySupport;

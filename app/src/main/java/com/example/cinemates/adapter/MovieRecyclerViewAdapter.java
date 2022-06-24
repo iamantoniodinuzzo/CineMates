@@ -53,7 +53,6 @@ public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<M
     }
 
 
-
     @Override
     public int getItemCount() {
         return dataList.size();

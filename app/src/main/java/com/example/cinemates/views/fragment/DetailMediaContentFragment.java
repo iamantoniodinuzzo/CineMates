@@ -29,6 +29,11 @@ public class DetailMediaContentFragment extends Fragment {
     private FragmentDetailMediaContentBinding mBinding;
     private DetailMediaContentFragmentArgs args;
     private Movie mMovie;
+    private MediaInfoFragment mMediaInfoFragment;
+    private MediaCastFragment mMediaCastFragment;
+    private MediaImagesFragment mMediaImagesFragment;
+    private ViewPagerAdapter mViewPagerAdapter;
+    private Bundle mBundle;
 
 
     @Override
@@ -36,6 +41,11 @@ public class DetailMediaContentFragment extends Fragment {
         super.onCreate(savedInstanceState);
         fragmentManager = getActivity().getSupportFragmentManager();
         args = DetailMediaContentFragmentArgs.fromBundle(requireArguments());
+        mViewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), getLifecycle());
+        mMediaInfoFragment = new MediaInfoFragment();
+        mMediaCastFragment = new MediaCastFragment();
+        mMediaImagesFragment = new MediaImagesFragment();
+        mBundle = new Bundle();
 
     }
 
@@ -52,6 +62,7 @@ public class DetailMediaContentFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mMovie = args.getMovie();
         mBinding.setMovie(mMovie);
+        mBundle.putSerializable("movie", mMovie);
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,7 +70,23 @@ public class DetailMediaContentFragment extends Fragment {
             }
         });
 
-        bindViewPagerAdapter(mBinding.viewPager);
+        mMediaCastFragment.setArguments(mBundle);
+        mMediaInfoFragment.setArguments(mBundle);
+        mMediaImagesFragment.setArguments(mBundle);
+
+        initializeViewPager();
+
+
+    }
+
+    private void initializeViewPager() {
+        mViewPagerAdapter.addFragment(mMediaInfoFragment);
+        mViewPagerAdapter.addFragment(mMediaCastFragment);
+        mViewPagerAdapter.addFragment(mMediaImagesFragment);
+
+        mBinding.viewPager.setAdapter(mViewPagerAdapter);
+        mBinding.viewPager.setUserInputEnabled(false);
+
         new TabLayoutMediator(mBinding.tabLayout, mBinding.viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
@@ -77,27 +104,6 @@ public class DetailMediaContentFragment extends Fragment {
             }
         }).attach();
     }
-
-
-    public void bindViewPagerAdapter(final ViewPager2 view) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("movie", mMovie);
-
-        final ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), getLifecycle());
-        final MediaInfoFragment mediaInfoFragment = new MediaInfoFragment();
-        mediaInfoFragment.setArguments(bundle);
-        final MediaCastFragment mediaCastFragment = new MediaCastFragment();
-        mediaCastFragment.setArguments(bundle);
-        final MediaImagesFragment mediaImagesFragment = new MediaImagesFragment();
-        mediaImagesFragment.setArguments(bundle);
-
-        adapter.addFragment(mediaInfoFragment);
-        adapter.addFragment(mediaCastFragment);
-        adapter.addFragment(mediaImagesFragment);
-
-        view.setAdapter(adapter);
-    }
-
 
 
     @Override

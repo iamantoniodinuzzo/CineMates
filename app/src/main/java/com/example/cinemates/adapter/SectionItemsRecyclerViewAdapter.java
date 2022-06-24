@@ -26,7 +26,6 @@ import java.util.List;
 public class SectionItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapter<SectionItemsRecyclerViewAdapter.SectionItemViewHolder> {
     private final List<T> dataList = new ArrayList<>();
 
-
     @NonNull
     @Override
     public SectionItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

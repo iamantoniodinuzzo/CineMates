@@ -103,6 +103,16 @@ public class DetailMediaContentFragment extends Fragment {
                 }
             }
         }).attach();
+
+        mBinding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (position != 0)
+                    mBinding.fab.hide();
+                else
+                    mBinding.fab.show();
+            }
+        });
     }
 
 

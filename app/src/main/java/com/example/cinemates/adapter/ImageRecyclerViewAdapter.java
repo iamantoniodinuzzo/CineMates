@@ -19,6 +19,7 @@ import com.example.cinemates.databinding.ListItemMediaPosterBinding;
 import com.example.cinemates.databinding.ListItemPosterBinding;
 import com.example.cinemates.model.Images;
 import com.example.cinemates.util.Constants;
+import com.example.cinemates.util.DialogFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -92,29 +93,35 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
     }
 
     private void downloadImageNew(String filename, String downloadUrlOfImage) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("Image Download");
-        builder.setMessage("Vuoi scaricare questa immagine?");
-        builder.setCancelable(true);
-        builder.setNegativeButton("No", (dialogInterface, i) -> dialogInterface.dismiss());
-        builder.setPositiveButton("Download", (dialogInterface, i) -> {
-            try {
-                DownloadManager dm = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-                Uri downloadUri = Uri.parse(downloadUrlOfImage);
-                DownloadManager.Request request = new DownloadManager.Request(downloadUri);
-                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
-                        .setAllowedOverRoaming(false)
-                        .setTitle(filename)
-                        .setMimeType("image/jpeg") // Your file type. You can use this code to download other file types also.
-                        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                        .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES, File.separator + filename + ".jpg");
-                dm.enqueue(request);
-                Toast.makeText(mContext, "Image download started.", Toast.LENGTH_SHORT).show();
-            } catch (Exception e) {
-                Toast.makeText(mContext, "Image download failed.", Toast.LENGTH_SHORT).show();
-            }
-        });
-        builder.show();
+        DialogFactory.createSimpleOkCancelDialog(mContext,
+                "Vuoi scaricare questa immagine?",
+                "Scarica",
+                "Annulla",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        try {
+                            DownloadManager dm = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
+                            Uri downloadUri = Uri.parse(downloadUrlOfImage);
+                            DownloadManager.Request request = new DownloadManager.Request(downloadUri);
+                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
+                                    .setAllowedOverRoaming(false)
+                                    .setTitle(filename)
+                                    .setMimeType("image/jpeg") // Your file type. You can use this code to download other file types also.
+                                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                                    .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES, File.separator + filename + ".jpg");
+                            dm.enqueue(request);
+                            Toast.makeText(mContext, "Image download started.", Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Toast.makeText(mContext, "Image download failed.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).show();
 
     }
 

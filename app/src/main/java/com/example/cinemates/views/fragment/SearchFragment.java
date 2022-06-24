@@ -8,27 +8,18 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.R;
-import com.example.cinemates.adapter.FragmentSearchAdapter;
-import com.example.cinemates.adapter.MovieDetailsViewPagerAdapter;
 import com.example.cinemates.adapter.ViewPagerAdapter;
 import com.example.cinemates.databinding.FragmentSearchBinding;
-import com.example.cinemates.views.fragment.SearchActorFragment;
-import com.example.cinemates.views.fragment.SearchMovieFragment;
-
-import dagger.hilt.android.AndroidEntryPoint;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class SearchFragment extends Fragment {
 
@@ -125,13 +116,24 @@ public class SearchFragment extends Fragment {
 
 
     private void setupTabLayout() {
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), 0);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), getLifecycle());
 
-        viewPagerAdapter.addFragment(searchMovieFragment, "Movies");
-        viewPagerAdapter.addFragment(searchActorsFragment, "Actors");
+        viewPagerAdapter.addFragment(searchMovieFragment);
+        viewPagerAdapter.addFragment(searchActorsFragment);
         mBinding.viewPager.setAdapter(viewPagerAdapter);
-
-        mBinding.tabLayout.setupWithViewPager(mBinding.viewPager);
+        new TabLayoutMediator(mBinding.tabLayout, mBinding.viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                switch (position) {
+                    case 0:
+                        tab.setText("Movies");
+                        break;
+                    case 1:
+                        tab.setText("Actors");
+                        break;
+                }
+            }
+        }).attach();
     }
 
 

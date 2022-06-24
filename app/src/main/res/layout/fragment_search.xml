@@ -30,6 +30,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
+                android:focusedByDefault="true"
                 app:iconifiedByDefault="false"
                 app:queryBackground="@null"
                 app:queryHint="Search something..."

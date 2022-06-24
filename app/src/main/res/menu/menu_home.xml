@@ -5,6 +5,6 @@
         android:id="@+id/discoverFragment"
         android:icon="@drawable/ic_outline_search_24"
         android:iconTint="@color/alabaster"
-        android:title="Discover"
+        android:title="Search"
         app:showAsAction="always" />
 </menu>

@@ -19,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding mBinding;
-    private NavController mNavController;
 
 
     @Override
@@ -28,17 +27,10 @@ public class MainActivity extends AppCompatActivity {
         mBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-//        setupBottomNav();
 
 
     }
 
-
-    /*private void setupBottomNav() {
-        BottomNavigationView bottomNavigationView = mBinding.bottomNavigationView;
-        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupWithNavController(bottomNavigationView, mNavController);
-    }*/
 
 
 }

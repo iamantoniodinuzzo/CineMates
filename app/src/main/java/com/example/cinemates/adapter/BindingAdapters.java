@@ -51,7 +51,7 @@ public class BindingAdapters {
     public static void loadImage(ImageView view, String url) {
         //ImageView: Using Glide Library
         Glide.with(view.getContext())
-                .load(Constants.ImageBaseURL
+                .load(Constants.ImageBaseURLw500
                         + url)
                 .error(R.drawable.ic_round_error_outline_24)
                 .centerCrop()
@@ -74,7 +74,7 @@ public class BindingAdapters {
     @BindingAdapter({"description"})
     public static void loadDescription(TextView view, String text) {
         if (TextUtils.isEmpty(text)) {// movie description is empty
-            view.setText("Nessuna descrizione");
+            view.setText("Not specified");
         } else {
             view.setText(text);
         }
@@ -82,9 +82,13 @@ public class BindingAdapters {
 
     @BindingAdapter({"runtime"})
     public static void loadRuntime(TextView view, long runtime) {
-        int hours = (int) (runtime / 60); //since both are ints, you get an int
-        int minutes = (int) (runtime % 60);
-        view.setText(String.format("%d h %02d min", hours, minutes));
+        if (runtime > 0) {
+            int hours = (int) (runtime / 60); //since both are ints, you get an int
+            int minutes = (int) (runtime % 60);
+            view.setText(String.format("%d h %02d min", hours, minutes));
+        } else {
+            view.setText("Not specified");
+        }
     }
 
     @BindingAdapter({"currency"})
@@ -96,17 +100,22 @@ public class BindingAdapters {
         if (budget > 0)
             view.setText(format.format(budget));
         else
-            view.setText("Non specificato");
+            view.setText("Not specified");
     }
 
-   @BindingAdapter("knowAs")
-   public static void setKnownAs(TextView view, String[] names){
-        try{
-            view.setText(Arrays.stream(names).collect(Collectors.joining(" - ")));
-        }catch (NullPointerException e){
+    @BindingAdapter("knowAs")
+    public static void setKnownAs(TextView view, String[] names) {
+        if (names.length == 0) {
             view.setText("Not specified");
+
+        } else {
+            try {
+                view.setText(Arrays.stream(names).collect(Collectors.joining(" - ")));
+            } catch (NullPointerException e) {
+                view.setText("Not specified");
+            }
         }
-   }
+    }
 
     @BindingAdapter({"genres"})
     public static void setGenresChip(ChipGroup chipGroup, @NonNull ArrayList<Genre> genres) {
@@ -147,7 +156,7 @@ public class BindingAdapters {
     }
 
     @BindingAdapter({"loadThumbnail"})
-    public static void loadThumbnail(YouTubeThumbnailView youTubeThumbnailView, String key){
+    public static void loadThumbnail(YouTubeThumbnailView youTubeThumbnailView, String key) {
         /*  initialize the thumbnail image view , we need to pass Developer Key */
         youTubeThumbnailView.initialize(Constants.YT_API_KEY, new YouTubeThumbnailView.OnInitializedListener() {
             @Override
@@ -178,8 +187,9 @@ public class BindingAdapters {
             }
         });
     }
+
     @BindingAdapter({"hideNSeek"})
-    public static void hideNSeek(View view , boolean value ){
+    public static void hideNSeek(View view, boolean value) {
         if (value)
             view.setVisibility(View.VISIBLE);
         else
@@ -188,7 +198,7 @@ public class BindingAdapters {
     }
 
     @BindingAdapter({"voteAverage"})
-    public static void loadVoteAverage(TextView textView, Number number){
+    public static void loadVoteAverage(TextView textView, Number number) {
         textView.setText(String.format("%,.1f", number.doubleValue()));
     }
 

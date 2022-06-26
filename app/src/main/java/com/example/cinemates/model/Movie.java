@@ -1,5 +1,7 @@
 package com.example.cinemates.model;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,7 +19,6 @@ public class Movie implements Serializable {
     private Integer id, vote_count, runtime, budget, revenue;
     private Number popularity, vote_average;
     private ArrayList<Integer> genre_ids;
-    private ArrayList<String> genre_names;
     private ArrayList<Genre> genres;
     private ArrayList<ProductionCompany> production_companies;
     private Boolean video, adult;
@@ -202,14 +203,6 @@ public class Movie implements Serializable {
         this.genre_ids = genre_ids;
     }
 
-    public ArrayList<String> getGenre_names() {
-        return genre_names;
-    }
-
-    public void setGenre_names(ArrayList<String> genre_names) {
-        this.genre_names = genre_names;
-    }
-
     public Integer getRuntime() {
         return runtime;
     }
@@ -241,6 +234,7 @@ public class Movie implements Serializable {
         return date1.compareTo(date2);
     };
 
+    @NotNull
     @Override
     public String toString() {
         return "Movie{" +
@@ -259,7 +253,6 @@ public class Movie implements Serializable {
                 ", popularity=" + popularity +
                 ", vote_average=" + vote_average +
                 ", genre_ids=" + genre_ids +
-                ", genre_names=" + genre_names +
                 ", genres=" + genres +
                 ", production_companies=" + production_companies +
                 ", videos=" + video +

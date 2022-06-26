@@ -105,16 +105,16 @@ public class BindingAdapters {
 
     @BindingAdapter("knowAs")
     public static void setKnownAs(TextView view, String[] names) {
-        if (names.length == 0) {
-            view.setText("Not specified");
 
-        } else {
-            try {
-                view.setText(Arrays.stream(names).collect(Collectors.joining(" - ")));
-            } catch (NullPointerException e) {
+        try {
+            if (names.length == 0)
                 view.setText("Not specified");
-            }
+            else
+                view.setText(Arrays.stream(names).collect(Collectors.joining(" - ")));
+        } catch (NullPointerException e) {
+            view.setText("Not specified");
         }
+
     }
 
     @BindingAdapter({"genres"})
@@ -128,12 +128,6 @@ public class BindingAdapters {
                 chip.setChipDrawable(drawable);
                 chip.setText(genre.getName());
                 chip.setId(genre.getId());
-                chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        Toast.makeText(chipGroup.getContext(), compoundButton.getText(), Toast.LENGTH_SHORT).show();
-                    }
-                });
                 chipGroup.addView(chip);
             }
         }

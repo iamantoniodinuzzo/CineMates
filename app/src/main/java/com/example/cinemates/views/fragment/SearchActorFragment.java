@@ -75,7 +75,10 @@ public class SearchActorFragment extends Fragment implements ChangeRvLayout, Sea
 
     @Override
     public void bindData(String query) {
-        mViewModel.getPeoplesBySearch(query);
+        try {
 
+            mViewModel.getPeoplesBySearch(query);
+        } catch (Exception e) {
+        }
     }
 }

@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
         mAdapter = new SectionRecyclerViewAdapter<>(this, getContext());
         upcomingSection = new Section<>("Upcoming", null);
         topRatedSection = new Section<>("Top Rated", null);
-        trendingSection = new Section<>("Trending", null);
+        trendingSection = new Section<>("Trending this week", null);
         mSectionList = new ArrayList<>();
         mSectionList.add(upcomingSection);
         mSectionList.add(topRatedSection);

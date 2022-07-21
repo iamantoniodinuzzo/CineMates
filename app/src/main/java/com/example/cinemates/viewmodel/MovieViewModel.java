@@ -1,5 +1,6 @@
 package com.example.cinemates.viewmodel;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -22,6 +23,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -42,19 +45,19 @@ public class MovieViewModel extends ViewModel {
     private static final String TAG = MovieViewModel.class.getSimpleName();
 
     private final Repository repository;
-    private final MutableLiveData<ArrayList<Movie>> currentMoviesList = new MutableLiveData<>();
-    private final MutableLiveData<ArrayList<Movie>> moviesByActor = new MutableLiveData<>();
-    private final MutableLiveData<ArrayList<Movie>> trendingMovieList = new MutableLiveData<>();
-    private final MutableLiveData<ArrayList<Movie>> movieSimilar = new MutableLiveData<>();
-    private final MutableLiveData<ArrayList<Review>> movieReviews = new MutableLiveData<>();
+    private final MutableLiveData<List<Movie>> currentMoviesList = new MutableLiveData<>();
+    private final MutableLiveData<List<Movie>> moviesByActor = new MutableLiveData<>();
+    private final MutableLiveData<List<Movie>> trendingMovieList = new MutableLiveData<>();
+    private final MutableLiveData<List<Movie>> movieSimilar = new MutableLiveData<>();
+    private final MutableLiveData<List<Review>> movieReviews = new MutableLiveData<>();
     private final MutableLiveData<Images> images = new MutableLiveData<>();
-    private final MutableLiveData<ArrayList<Video>> movieVideos = new MutableLiveData<>();
-    private final MutableLiveData<ArrayList<Movie>> popularMoviesList = new MutableLiveData<>();
-    private final MutableLiveData<ArrayList<Movie>> topRatedMoviesList = new MutableLiveData<>();
-    private final MutableLiveData<ArrayList<Movie>> upcomingMoviesList = new MutableLiveData<>();
-    private final MutableLiveData<ArrayList<Movie>> queriesMovies = new MutableLiveData<>();
-    private final MutableLiveData<ArrayList<Cast>> queriesPeoples = new MutableLiveData<>();
-    private final MutableLiveData<ArrayList<Cast>> movieCastList = new MutableLiveData<>();
+    private final MutableLiveData<List<Video>> movieVideos = new MutableLiveData<>();
+    private final MutableLiveData<List<Movie>> popularMoviesList = new MutableLiveData<>();
+    private final MutableLiveData<List<Movie>> topRatedMoviesList = new MutableLiveData<>();
+    private final MutableLiveData<List<Movie>> upcomingMoviesList = new MutableLiveData<>();
+    private final MutableLiveData<List<Movie>> queriesMovies = new MutableLiveData<>();
+    private final MutableLiveData<List<Cast>> queriesPeoples = new MutableLiveData<>();
+    private final MutableLiveData<List<Cast>> movieCastList = new MutableLiveData<>();
     private final MutableLiveData<Movie> movieDetails = new MutableLiveData<>();
     private final MutableLiveData<Collection> collection = new MutableLiveData<>();
     private final MutableLiveData<Actor> actorDetails = new MutableLiveData<>();
@@ -66,19 +69,19 @@ public class MovieViewModel extends ViewModel {
         this.repository = repository;
     }
 
-    public MutableLiveData<ArrayList<Movie>> getCurrentlyShowingList() {
+    public MutableLiveData<List<Movie>> getCurrentlyShowingList() {
         return currentMoviesList;
     }
 
-    public MutableLiveData<ArrayList<Movie>> getPopularMoviesList() {
+    public MutableLiveData<List<Movie>> getPopularMoviesList() {
         return popularMoviesList;
     }
 
-    public MutableLiveData<ArrayList<Movie>> getTopRatedMoviesList() {
+    public MutableLiveData<List<Movie>> getTopRatedMoviesList() {
         return topRatedMoviesList;
     }
 
-    public MutableLiveData<ArrayList<Movie>> getUpcomingMoviesList() {
+    public MutableLiveData<List<Movie>> getUpcomingMoviesList() {
         return upcomingMoviesList;
     }
 
@@ -86,7 +89,7 @@ public class MovieViewModel extends ViewModel {
         return movieDetails;
     }
 
-    public MutableLiveData<ArrayList<Video>> getMovieVideos() {
+    public MutableLiveData<List<Video>> getMovieVideos() {
         return movieVideos;
     }
 
@@ -98,27 +101,27 @@ public class MovieViewModel extends ViewModel {
         return actorDetails;
     }
 
-    public MutableLiveData<ArrayList<Cast>> getQueriesPeoples() {
+    public MutableLiveData<List<Cast>> getQueriesPeoples() {
         return queriesPeoples;
     }
 
-    public MutableLiveData<ArrayList<Movie>> getMoviesByActor() {
+    public MutableLiveData<List<Movie>> getMoviesByActor() {
         return moviesByActor;
     }
 
-    public MutableLiveData<ArrayList<Movie>> getMovieSimilar() {
+    public MutableLiveData<List<Movie>> getMovieSimilar() {
         return movieSimilar;
     }
 
-    public MutableLiveData<ArrayList<Cast>> getMovieCastList() {
+    public MutableLiveData<List<Cast>> getMovieCastList() {
         return movieCastList;
     }
 
-    public MutableLiveData<ArrayList<Movie>> getQueriesMovies() {
+    public MutableLiveData<List<Movie>> getQueriedMovies() {
         return queriesMovies;
     }
 
-    public MutableLiveData<ArrayList<Review>> getMovieReviews() {
+    public MutableLiveData<List<Review>> getMovieReviews() {
         return movieReviews;
     }
 
@@ -126,7 +129,7 @@ public class MovieViewModel extends ViewModel {
         return collection;
     }
 
-    public MutableLiveData<ArrayList<Movie>> getTrendingMovieList() {
+    public MutableLiveData<List<Movie>> getTrendingMovieList() {
         return trendingMovieList;
     }
 
@@ -302,21 +305,27 @@ public class MovieViewModel extends ViewModel {
 
 
     public void getQueriedMovies(String query) {
-        disposables.add(repository.getMoviesBySearch(query)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> queriesMovies.setValue(result.getResults()),
-                        error -> Log.e(TAG, "getQueriedMovies: " + error.getMessage()))
-        );
+        if (!TextUtils.isEmpty(query)) {
+            disposables.add(repository.getMoviesBySearch(query)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(result -> queriesMovies.setValue(result.getResults()),
+                            error -> Log.e(TAG, "getQueriedMovies: " + error.getMessage()))
+            );
+        }else
+            queriesMovies.setValue(Collections.emptyList());
     }
 
     public void getPeoplesBySearch(String query) {
-        disposables.add(repository.getPeoplesBySearch(query)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> queriesPeoples.setValue(result.getResults()),
-                        error -> Log.e(TAG, "getQueriedPeoples: " + error.getMessage()))
-        );
+        if (!TextUtils.isEmpty(query)) {
+            disposables.add(repository.getPeoplesBySearch(query)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(result -> queriesPeoples.setValue(result.getResults()),
+                            error -> Log.e(TAG, "getQueriedPeoples: " + error.getMessage()))
+            );
+        }else
+            queriesPeoples.setValue(Collections.emptyList());
     }
 
 

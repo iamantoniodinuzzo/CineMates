@@ -16,7 +16,7 @@ import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Person;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -45,9 +45,9 @@ public class ActorDetailsActivity extends AppCompatActivity {
                 mBinding.setActor(actor);
             }
         });
-        mViewModel.getMoviesByActor().observe(this, new Observer<ArrayList<Movie>>() {
+        mViewModel.getMoviesByActor().observe(this, new Observer<List<Movie>>() {
             @Override
-            public void onChanged(ArrayList<Movie> movies) {
+            public void onChanged(List<Movie> movies) {
                 mAdapter.addItems(movies);
             }
         });

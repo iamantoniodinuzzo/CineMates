@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -75,6 +76,8 @@ public class SearchFragment extends Fragment {
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                searchMovieFragment.bindData("");
+                searchActorsFragment.bindData("");
                 getActivity().onBackPressed();
             }
         });
@@ -116,6 +119,7 @@ public class SearchFragment extends Fragment {
 
 
     private void switchLayout(RecyclerView.LayoutManager layoutManager) {
+        Toast.makeText(getContext(), "Soon!", Toast.LENGTH_SHORT).show();
         searchMovieFragment.changeLayout(layoutManager);
         searchActorsFragment.changeLayout(layoutManager);
     }

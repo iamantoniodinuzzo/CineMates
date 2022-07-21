@@ -2,7 +2,6 @@ package com.example.cinemates.model;
 
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,9 +12,9 @@ import java.util.Objects;
 public class Section<T> {
 
     private String sectionName;
-    private MutableLiveData<ArrayList<T>> mMutableLiveData;
+    private MutableLiveData<List<T>> mMutableLiveData;
 
-    public Section(String sectionName, MutableLiveData<ArrayList<T>> mutableLiveData) {
+    public Section(String sectionName, MutableLiveData<List<T>> mutableLiveData) {
         this.sectionName = sectionName;
         mMutableLiveData = mutableLiveData;
     }
@@ -24,11 +23,11 @@ public class Section<T> {
         return sectionName;
     }
 
-    public MutableLiveData<ArrayList<T>> getMutableLiveData() {
+    public MutableLiveData<List<T>> getMutableLiveData() {
         return mMutableLiveData;
     }
 
-    public void setMutableLiveData(MutableLiveData<ArrayList<T>> mutableLiveData) {
+    public void setMutableLiveData(MutableLiveData<List<T>> mutableLiveData) {
         mMutableLiveData = mutableLiveData;
     }
 

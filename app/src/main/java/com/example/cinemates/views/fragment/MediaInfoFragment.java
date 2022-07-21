@@ -1,7 +1,5 @@
 package com.example.cinemates.views.fragment;
 
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,6 +20,7 @@ import com.example.cinemates.model.Video;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MediaInfoFragment extends Fragment {
@@ -82,18 +82,18 @@ public class MediaInfoFragment extends Fragment {
                 mMovie = movie;
             }
         });
-        mViewModel.getMovieSimilar().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
+        mViewModel.getMovieSimilar().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
             @Override
-            public void onChanged(ArrayList<Movie> movies) {
+            public void onChanged(List<Movie> movies) {
                 mAdapter.addItems(movies);
             }
         });
-        mViewModel.getMovieVideos().observe(getViewLifecycleOwner(), new Observer<ArrayList<Video>>() {
+        mViewModel.getMovieVideos().observe(getViewLifecycleOwner(), new Observer<List<Video>>() {
             @Override
-            public void onChanged(ArrayList<Video> videos) {
+            public void onChanged(List<Video> videos) {
                 if (!videos.isEmpty()) {
                     mBinding.textSectionVideo.setVisibility(View.VISIBLE);
-                    mVideoAdapter.setDataList(videos);
+                    mVideoAdapter.setDataList((ArrayList<Video>) videos);
                 } else {
                     mBinding.textSectionVideo.setVisibility(View.GONE);
                 }

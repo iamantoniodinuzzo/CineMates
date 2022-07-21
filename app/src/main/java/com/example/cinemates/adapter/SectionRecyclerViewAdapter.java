@@ -60,9 +60,9 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
         SectionItemsRecyclerViewAdapter<T> sectionItemsRecyclerViewAdapter = new SectionItemsRecyclerViewAdapter<>();
         holder.mBinding.recyclerView.setAdapter(sectionItemsRecyclerViewAdapter);
         holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
-        section.getMutableLiveData().observe(mLifecycleOwner, new Observer<ArrayList<T>>() {
+        section.getMutableLiveData().observe(mLifecycleOwner, new Observer<List<T>>() {
             @Override
-            public void onChanged(ArrayList<T> items) {
+            public void onChanged(List<T> items) {
                 sectionItemsRecyclerViewAdapter.addItems((items));
 
             }

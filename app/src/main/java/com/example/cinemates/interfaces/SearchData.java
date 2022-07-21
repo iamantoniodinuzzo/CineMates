@@ -1,4 +1,4 @@
-package com.example.cinemates.util;
+package com.example.cinemates.interfaces;
 
 /**
  * @author Antonio Di Nuzzo

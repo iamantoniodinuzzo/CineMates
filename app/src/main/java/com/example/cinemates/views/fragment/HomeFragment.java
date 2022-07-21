@@ -1,6 +1,5 @@
 package com.example.cinemates.views.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -11,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,26 +18,18 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.ItemTouchHelper;
 
 import com.example.cinemates.R;
-import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentHomeBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Section;
-import com.example.cinemates.util.Constants;
 import com.example.cinemates.util.ItemMoveCallback;
 import com.example.cinemates.util.MediaType;
 import com.example.cinemates.util.TimeWindow;
 import com.example.cinemates.viewmodel.MovieViewModel;
-import com.example.cinemates.views.MovieDetailsActivity;
-import com.example.cinemates.views.SearchActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import dagger.hilt.android.AndroidEntryPoint;
-
-@AndroidEntryPoint
 public class HomeFragment extends Fragment {
 
 
@@ -54,18 +44,19 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new SectionRecyclerViewAdapter<>(this, getContext());
-        upcomingSection = new Section<>("Upcoming", null);
-        topRatedSection = new Section<>("Top Rated", null);
-        trendingSection = new Section<>("Trending this week", null);
-        mSectionList = new ArrayList<>();
-        mSectionList.add(upcomingSection);
-        mSectionList.add(topRatedSection);
-        mSectionList.add(trendingSection);
+            mAdapter = new SectionRecyclerViewAdapter<>(this, getContext());
+            upcomingSection = new Section<>("Upcoming", null);
+            topRatedSection = new Section<>("Top Rated", null);
+            trendingSection = new Section<>("Trending this week", null);
+            mSectionList = new ArrayList<>();
+            mSectionList.add(upcomingSection);
+            mSectionList.add(topRatedSection);
+            mSectionList.add(trendingSection);
 
-        mViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
+            mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
 
     }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -76,7 +67,7 @@ public class HomeFragment extends Fragment {
 
         mNavController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(mNavController.getGraph()).build();
+                new AppBarConfiguration.Builder(R.id.homeFragment, R.id.searchFragment).build();
         mToolbar = mBinding.toolbar;
         NavigationUI.setupWithNavController(mToolbar, mNavController, appBarConfiguration);
 
@@ -111,9 +102,8 @@ public class HomeFragment extends Fragment {
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.discoverFragment) {
-                    Intent intent = new Intent(view.getContext(), SearchActivity.class);
-                    view.getContext().startActivity(intent);
+                if (item.getItemId() == R.id.searchFragment) {
+                    mNavController.navigate(R.id.action_homeFragment_to_searchFragment);
                 }
                 return false;
             }

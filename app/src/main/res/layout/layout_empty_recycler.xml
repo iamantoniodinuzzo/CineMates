@@ -13,7 +13,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_baseline_accessibility_24"
+        android:src="@drawable/ic_empty_white_box"
         app:tint="@color/geyser" />
 
     <TextView

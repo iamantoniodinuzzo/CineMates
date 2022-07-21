@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +13,18 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
-import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.R;
-import com.example.cinemates.databinding.SectionRowBinding;
-import com.example.cinemates.model.Movie;
-import com.example.cinemates.util.ItemMoveCallback;
-import com.example.cinemates.util.RecyclerViewEmptySupport;
+import com.example.cinemates.databinding.ListItemSectionBinding;
 import com.example.cinemates.model.Section;
+import com.example.cinemates.util.ItemMoveCallback;
+import com.example.cinemates.util.MyDiffUtilCallbacks;
+import com.example.cinemates.util.RecyclerViewEmptySupport;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
 /**
@@ -37,6 +35,8 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
     private final List<Section<T>> dataList = new ArrayList<>();
     private final LifecycleOwner mLifecycleOwner;
     private final Vibrator vibe;
+    // TODO: 21/07/2022
+    //private final RecyclerView.Adapter adapter;
     private final VibrationEffect vibrationEffect1;
 
     public SectionRecyclerViewAdapter(LifecycleOwner lifecycleOwner, Context context) {
@@ -50,7 +50,7 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
     @Override
     public SectionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        SectionRowBinding sectionRowBinding = SectionRowBinding.inflate(layoutInflater, parent, false);
+        ListItemSectionBinding sectionRowBinding = ListItemSectionBinding.inflate(layoutInflater, parent, false);
         return new SectionViewHolder(sectionRowBinding);
     }
 
@@ -63,9 +63,9 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
         SectionItemsRecyclerViewAdapter<T> sectionItemsRecyclerViewAdapter = new SectionItemsRecyclerViewAdapter<>();
         holder.mBinding.recyclerView.setAdapter(sectionItemsRecyclerViewAdapter);
         holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
-        section.getMutableLiveData().observe(mLifecycleOwner, new Observer<ArrayList<T>>() {
+        section.getMutableLiveData().observe(mLifecycleOwner, new Observer<List<T>>() {
             @Override
-            public void onChanged(ArrayList<T> items) {
+            public void onChanged(List<T> items) {
                 sectionItemsRecyclerViewAdapter.addItems((items));
 
             }
@@ -75,13 +75,37 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
     }
 
     @Override
+    public void onBindViewHolder(@NonNull SectionViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads.isEmpty())
+            super.onBindViewHolder(holder, position, payloads);
+        else {
+            Section<T> section = dataList.get(position);
+            holder.mBinding.setSection(section);
+            holder.mBinding.executePendingBindings();
+
+            SectionItemsRecyclerViewAdapter<T> sectionItemsRecyclerViewAdapter = new SectionItemsRecyclerViewAdapter<>();
+            holder.mBinding.recyclerView.setAdapter(sectionItemsRecyclerViewAdapter);
+            holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
+            section.getMutableLiveData().observe(mLifecycleOwner, new Observer<List<T>>() {
+                @Override
+                public void onChanged(List<T> items) {
+                    sectionItemsRecyclerViewAdapter.addItems((items));
+
+                }
+            });
+        }
+    }
+
+    @Override
     public int getItemCount() {
         return dataList.size();
     }
 
     public void addItems(List<Section<T>> dataList) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffUtilCallbacks(this.dataList, dataList));
+        diffResult.dispatchUpdatesTo(this);
+        this.dataList.clear();
         this.dataList.addAll(dataList);
-        notifyDataSetChanged();
     }
 
     public void addItems(Section<T> section) {
@@ -90,13 +114,13 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
     }
 
     public static class SectionViewHolder extends RecyclerViewEmptySupport.ViewHolder {
-        SectionRowBinding mBinding;
+        ListItemSectionBinding mBinding;
 
-        SectionViewHolder(@NonNull SectionRowBinding sectionRowBinding) {
+        SectionViewHolder(@NonNull ListItemSectionBinding sectionRowBinding) {
             super(sectionRowBinding.getRoot());
             this.mBinding = sectionRowBinding;
 
-            this.mBinding.actionOpenPage.setOnClickListener(new View.OnClickListener() {
+            this.mBinding.textSectionTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 

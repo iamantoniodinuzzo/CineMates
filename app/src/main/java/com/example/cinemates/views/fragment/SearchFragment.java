@@ -1,10 +1,13 @@
 package com.example.cinemates.views.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,7 +56,7 @@ public class SearchFragment extends Fragment {
         setupTabLayout();
         updateToolbar();
 
-       /* // Listen menu item click and change layout into recyclerview
+        // Listen menu item click and change layout into recyclerview
         // owned by SearchActor & SearchMovie fragment
         mBinding.toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -69,11 +72,14 @@ public class SearchFragment extends Fragment {
                 updateToolbar();
                 return false;
             }
-        });*/
-
+        });
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                searchMovieFragment.bindData("");
+                searchActorsFragment.bindData("");
+                ((InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), 0);
+
                 getActivity().onBackPressed();
             }
         });
@@ -93,6 +99,7 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
+
     }
 
 
@@ -101,15 +108,16 @@ public class SearchFragment extends Fragment {
      */
     private void updateToolbar() {
         layoutGrid = !layoutGrid;
-
-      /*  MenuItem gridView = mBinding.toolbar.getMenu().findItem(R.id.menu_switch_grid);
+        MenuItem gridView = mBinding.toolbar.getMenu().findItem(R.id.menu_switch_grid);
         gridView.setVisible(layoutGrid);
         MenuItem listView = mBinding.toolbar.getMenu().findItem(R.id.menu_switch_list);
-        listView.setVisible(!layoutGrid);*/
+        listView.setVisible(!layoutGrid);
     }
 
 
+
     private void switchLayout(RecyclerView.LayoutManager layoutManager) {
+        Toast.makeText(getContext(), "Soon!", Toast.LENGTH_SHORT).show();
         searchMovieFragment.changeLayout(layoutManager);
         searchActorsFragment.changeLayout(layoutManager);
     }

@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linearLayoutCompat"
             android:layout_width="match_parent"
@@ -40,17 +39,10 @@
                 android:textColor="@color/alabaster"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                app:drawableEndCompat="@drawable/ic_outline_arrow_forward_24"
+                app:drawableTint="@color/geyser"
                 tools:text="@tools:sample/first_names" />
 
-            <ImageView
-                android:id="@+id/actionOpenPage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:layout_weight="8"
-                android:scaleType="fitEnd"
-                android:src="@drawable/ic_outline_arrow_forward_24"
-                app:tint="@color/geyser" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <RelativeLayout

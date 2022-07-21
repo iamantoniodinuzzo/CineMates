@@ -31,7 +31,7 @@
                 android:textColor="@color/alabaster"
                 android:textSize="14sp"
                 app:colorClickableText="@color/vermilion_100"
-                app:description="@{movie.overview}"
+                app:loadText="@{movie.overview}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

@@ -17,29 +17,27 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:navigationIcon="@drawable/ic_outline_arrow_back_24"
-            android:background="@color/lynch_100"
             android:layout_width="match_parent"
+            app:menu="@menu/menu_change_layout"
             android:layout_height="?attr/actionBarSize"
+            android:background="@color/lynch_100"
             app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="@drawable/ic_outline_arrow_back_24"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_view"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:focusedByDefault="true"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:focusedByDefault="true"
                 app:iconifiedByDefault="false"
                 app:queryBackground="@null"
                 app:queryHint="Search something..."
                 app:searchIcon="@null" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_round_view_list_24" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -47,7 +45,7 @@
             android:id="@+id/tab_layout"
             style="@style/Tab_Layout_Small"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

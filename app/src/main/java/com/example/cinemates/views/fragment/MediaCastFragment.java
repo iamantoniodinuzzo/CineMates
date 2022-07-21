@@ -13,12 +13,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cinemates.adapter.PersonRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentMediaCastBinding;
-import com.example.cinemates.databinding.FragmentMediaImagesBinding;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class MediaCastFragment extends Fragment {
@@ -50,9 +49,9 @@ public class MediaCastFragment extends Fragment {
 
         mBinding.castRecyclerView.setAdapter(mAdapter);
 
-        mViewModel.getMovieCastList().observe(getViewLifecycleOwner(), new Observer<ArrayList<Cast>>() {
+        mViewModel.getMovieCastList().observe(getViewLifecycleOwner(), new Observer<List<Cast>>() {
             @Override
-            public void onChanged(ArrayList<Cast> casts) {
+            public void onChanged(List<Cast> casts) {
                 mAdapter.addItems(casts);
             }
         });

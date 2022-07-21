@@ -10,8 +10,8 @@ public class Cast extends Person implements Serializable {
     private String character;
     private final String original_name;
 
-    public Cast(String character, String name, String profile_path, String known_for_department, String original_name, Integer id, Number popularity) {
-        super(name, profile_path, known_for_department, id, popularity);
+    public Cast(String character, String name, String profile_path,  String original_name, Integer id, Number popularity) {
+        super(name, profile_path, id, popularity);
         this.character = character;
         this.original_name = original_name;
     }

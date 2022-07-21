@@ -1,4 +1,4 @@
-package com.example.cinemates.util;
+package com.example.cinemates.interfaces;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;

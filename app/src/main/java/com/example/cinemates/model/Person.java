@@ -7,14 +7,13 @@ import java.io.Serializable;
  * Created 31/05/2022 at 11:32
  */
 public class Person implements Serializable {
-    private String name, profile_path, known_for_department;
+    private String name, profile_path;
     private Integer id;
     private Number popularity;
 
-    public Person(String name, String profile_path, String known_for_department, Integer id, Number popularity) {
+    public Person(String name, String profile_path, Integer id, Number popularity) {
         this.name = name;
         this.profile_path = profile_path;
-        this.known_for_department = known_for_department;
         this.id = id;
         this.popularity = popularity;
     }
@@ -35,13 +34,6 @@ public class Person implements Serializable {
         this.profile_path = profile_path;
     }
 
-    public String getKnown_for_department() {
-        return known_for_department;
-    }
-
-    public void setKnown_for_department(String known_for_department) {
-        this.known_for_department = known_for_department;
-    }
 
     public Integer getId() {
         return id;
@@ -64,7 +56,6 @@ public class Person implements Serializable {
         return "Person{" +
                 "name='" + name + '\'' +
                 ", profile_path='" + profile_path + '\'' +
-                ", known_for_department='" + known_for_department + '\'' +
                 ", id=" + id +
                 ", popularity=" + popularity +
                 '}';

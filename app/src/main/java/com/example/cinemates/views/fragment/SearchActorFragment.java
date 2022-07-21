@@ -14,12 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.adapter.PersonRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentSearchActorBinding;
+import com.example.cinemates.interfaces.ChangeRvLayout;
+import com.example.cinemates.interfaces.SearchData;
 import com.example.cinemates.model.Cast;
-import com.example.cinemates.util.ChangeRvLayout;
-import com.example.cinemates.util.SearchData;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class SearchActorFragment extends Fragment implements ChangeRvLayout, SearchData {
@@ -52,9 +52,9 @@ public class SearchActorFragment extends Fragment implements ChangeRvLayout, Sea
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewModel.getQueriesPeoples().observe(getViewLifecycleOwner(), new Observer<ArrayList<Cast>>() {
+        mViewModel.getQueriesPeoples().observe(getViewLifecycleOwner(), new Observer<List<Cast>>() {
             @Override
-            public void onChanged(ArrayList<Cast> people) {
+            public void onChanged(List<Cast> people) {
                 mRecyclerViewAdapter.addItems(people);
             }
         });
@@ -75,10 +75,14 @@ public class SearchActorFragment extends Fragment implements ChangeRvLayout, Sea
 
     @Override
     public void bindData(String query) {
+
         try {
 
             mViewModel.getPeoplesBySearch(query);
-        } catch (Exception e) {
+        } catch (NullPointerException exception) {
+
         }
+
+
     }
 }

@@ -1,11 +1,9 @@
 package com.example.cinemates.views.fragment;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,12 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentSearchMovieBinding;
+import com.example.cinemates.interfaces.ChangeRvLayout;
+import com.example.cinemates.interfaces.SearchData;
 import com.example.cinemates.model.Movie;
-import com.example.cinemates.util.ChangeRvLayout;
-import com.example.cinemates.util.SearchData;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class SearchMovieFragment extends Fragment implements ChangeRvLayout, SearchData {
 
@@ -56,9 +54,9 @@ public class SearchMovieFragment extends Fragment implements ChangeRvLayout, Sea
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel.getQueriesMovies().observe(getViewLifecycleOwner(), new Observer<ArrayList<Movie>>() {
+        mViewModel.getQueriedMovies().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
             @Override
-            public void onChanged(ArrayList<Movie> movies) {
+            public void onChanged(List<Movie> movies) {
                 mRecyclerViewAdapter.addItems(movies);
             }
         });
@@ -78,11 +76,14 @@ public class SearchMovieFragment extends Fragment implements ChangeRvLayout, Sea
 
     @Override
     public void bindData(String query) {
+
         try {
 
             mViewModel.getQueriedMovies(query);
-        } catch (Exception e) {
+        } catch (NullPointerException exception) {
+
         }
+
 
     }
 }

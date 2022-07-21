@@ -1,7 +1,6 @@
 package com.example.cinemates.model;
 
 import com.google.gson.JsonObject;
-
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -15,9 +14,9 @@ public class Actor extends Person implements Serializable {
     private String[] also_known_as;
 
     public Actor(String birthday, String name, String biography, String place_of_birth,
-                 String profile_path, String known_for_department, Integer id,
+                 String profile_path,  Integer id,
                  Number popularity, String deathday, JsonObject movie_credits, String[] also_known_as) {
-        super(name, profile_path, known_for_department, id, popularity);
+        super(name, profile_path, id, popularity);
         this.birthday = birthday;
         this.biography = biography;
         this.place_of_birth = place_of_birth;

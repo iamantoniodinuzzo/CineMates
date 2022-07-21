@@ -9,6 +9,7 @@
         android:title="List" />
     <item
         android:id="@+id/menu_switch_grid"
+        android:visible="false"
         android:icon="@drawable/ic_round_view_module_24"
         android:iconTint="@color/geyser"
         app:showAsAction="always"

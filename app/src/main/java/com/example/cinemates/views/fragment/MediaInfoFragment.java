@@ -1,15 +1,14 @@
 package com.example.cinemates.views.fragment;
 
+import androidx.fragment.app.Fragment;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,13 +19,9 @@ import com.example.cinemates.databinding.FragmentMediaInfoBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Video;
 import com.example.cinemates.viewmodel.MovieViewModel;
-import com.google.android.material.chip.ChipGroup;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
 
 import java.util.ArrayList;
 
-import dagger.hilt.android.AndroidEntryPoint;
 
 public class MediaInfoFragment extends Fragment {
 
@@ -41,6 +36,7 @@ public class MediaInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mAdapter = new MovieRecyclerViewAdapter();
         mVideoAdapter = new YoutubeVideoRecyclerViewAdapter();
+        mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
 
     }

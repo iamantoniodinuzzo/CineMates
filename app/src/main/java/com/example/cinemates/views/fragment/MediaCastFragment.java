@@ -23,14 +23,14 @@ import java.util.ArrayList;
 
 public class MediaCastFragment extends Fragment {
     private FragmentMediaCastBinding mBinding;
-    private PersonRecyclerViewAdapter mAdapter;
+    private PersonRecyclerViewAdapter<Cast> mAdapter;
     private MovieViewModel mViewModel;
     private Movie mMovie;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new PersonRecyclerViewAdapter();
+        mAdapter = new PersonRecyclerViewAdapter<>();
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
     }
 

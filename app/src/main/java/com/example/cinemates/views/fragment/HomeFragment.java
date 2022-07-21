@@ -1,6 +1,5 @@
 package com.example.cinemates.views.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -27,7 +26,6 @@ import com.example.cinemates.util.ItemMoveCallback;
 import com.example.cinemates.util.MediaType;
 import com.example.cinemates.util.TimeWindow;
 import com.example.cinemates.viewmodel.MovieViewModel;
-import com.example.cinemates.views.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +66,7 @@ public class HomeFragment extends Fragment {
 
         mNavController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(mNavController.getGraph()).build();
+                new AppBarConfiguration.Builder(R.id.homeFragment,R.id.searchFragment).build();
         mToolbar = mBinding.toolbar;
         NavigationUI.setupWithNavController(mToolbar, mNavController, appBarConfiguration);
 
@@ -103,9 +101,8 @@ public class HomeFragment extends Fragment {
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.discoverFragment) {
-                    Intent intent = new Intent(view.getContext(), SearchActivity.class);
-                    view.getContext().startActivity(intent);
+                if (item.getItemId() == R.id.searchFragment) {
+                    mNavController.navigate(R.id.action_homeFragment_to_searchFragment);
                 }
                 return false;
             }

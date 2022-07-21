@@ -53,7 +53,7 @@ public class SearchFragment extends Fragment {
         setupTabLayout();
         updateToolbar();
 
-       /* // Listen menu item click and change layout into recyclerview
+        // Listen menu item click and change layout into recyclerview
         // owned by SearchActor & SearchMovie fragment
         mBinding.toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -69,8 +69,7 @@ public class SearchFragment extends Fragment {
                 updateToolbar();
                 return false;
             }
-        });*/
-
+        });
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,6 +92,7 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
+
     }
 
 
@@ -101,12 +101,12 @@ public class SearchFragment extends Fragment {
      */
     private void updateToolbar() {
         layoutGrid = !layoutGrid;
-
-      /*  MenuItem gridView = mBinding.toolbar.getMenu().findItem(R.id.menu_switch_grid);
+        MenuItem gridView = mBinding.toolbar.getMenu().findItem(R.id.menu_switch_grid);
         gridView.setVisible(layoutGrid);
         MenuItem listView = mBinding.toolbar.getMenu().findItem(R.id.menu_switch_list);
-        listView.setVisible(!layoutGrid);*/
+        listView.setVisible(!layoutGrid);
     }
+
 
 
     private void switchLayout(RecyclerView.LayoutManager layoutManager) {

@@ -13,13 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.R;
+import com.example.cinemates.databinding.ListItemSectionBinding;
 import com.example.cinemates.model.Section;
 import com.example.cinemates.util.ItemMoveCallback;
+import com.example.cinemates.util.MyDiffUtilCallbacks;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
-import  com.example.cinemates.databinding.ListItemSectionBinding;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +50,7 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
     @Override
     public SectionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-       ListItemSectionBinding sectionRowBinding =  ListItemSectionBinding.inflate(layoutInflater, parent, false);
+        ListItemSectionBinding sectionRowBinding = ListItemSectionBinding.inflate(layoutInflater, parent, false);
         return new SectionViewHolder(sectionRowBinding);
     }
 
@@ -72,13 +75,37 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
     }
 
     @Override
+    public void onBindViewHolder(@NonNull SectionViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads.isEmpty())
+            super.onBindViewHolder(holder, position, payloads);
+        else {
+            Section<T> section = dataList.get(position);
+            holder.mBinding.setSection(section);
+            holder.mBinding.executePendingBindings();
+
+            SectionItemsRecyclerViewAdapter<T> sectionItemsRecyclerViewAdapter = new SectionItemsRecyclerViewAdapter<>();
+            holder.mBinding.recyclerView.setAdapter(sectionItemsRecyclerViewAdapter);
+            holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
+            section.getMutableLiveData().observe(mLifecycleOwner, new Observer<List<T>>() {
+                @Override
+                public void onChanged(List<T> items) {
+                    sectionItemsRecyclerViewAdapter.addItems((items));
+
+                }
+            });
+        }
+    }
+
+    @Override
     public int getItemCount() {
         return dataList.size();
     }
 
     public void addItems(List<Section<T>> dataList) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffUtilCallbacks(this.dataList, dataList));
+        diffResult.dispatchUpdatesTo(this);
+        this.dataList.clear();
         this.dataList.addAll(dataList);
-        notifyDataSetChanged();
     }
 
     public void addItems(Section<T> section) {

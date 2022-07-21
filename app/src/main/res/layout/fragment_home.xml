@@ -38,6 +38,6 @@
         android:layout_below="@id/toolbar"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/section_row" />
+        tools:listitem="@layout/list_item_section" />
 
 </RelativeLayout>

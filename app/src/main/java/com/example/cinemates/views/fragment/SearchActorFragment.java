@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinemates.adapter.PersonRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentSearchActorBinding;
 import com.example.cinemates.model.Cast;
-import com.example.cinemates.util.ChangeRvLayout;
-import com.example.cinemates.util.SearchData;
+import com.example.cinemates.interfaces.ChangeRvLayout;
+import com.example.cinemates.interfaces.SearchData;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;

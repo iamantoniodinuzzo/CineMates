@@ -1,4 +1,4 @@
-package com.example.cinemates.network;
+package com.example.cinemates.interfaces;
 
 import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Cast;

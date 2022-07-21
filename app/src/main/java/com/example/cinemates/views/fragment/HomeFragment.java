@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,26 +19,19 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.ItemTouchHelper;
 
 import com.example.cinemates.R;
-import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentHomeBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Section;
-import com.example.cinemates.util.Constants;
 import com.example.cinemates.util.ItemMoveCallback;
 import com.example.cinemates.util.MediaType;
 import com.example.cinemates.util.TimeWindow;
 import com.example.cinemates.viewmodel.MovieViewModel;
-import com.example.cinemates.views.MovieDetailsActivity;
 import com.example.cinemates.views.SearchActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import dagger.hilt.android.AndroidEntryPoint;
-
-@AndroidEntryPoint
 public class HomeFragment extends Fragment {
 
 
@@ -63,7 +55,7 @@ public class HomeFragment extends Fragment {
         mSectionList.add(topRatedSection);
         mSectionList.add(trendingSection);
 
-        mViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
 
     }
 

@@ -10,7 +10,7 @@ import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Response;
 import com.example.cinemates.model.Review;
 import com.example.cinemates.model.Video;
-import com.example.cinemates.network.MovieApiService;
+import com.example.cinemates.interfaces.MovieApiService;
 import com.example.cinemates.util.Constants;
 import com.google.gson.JsonObject;
 

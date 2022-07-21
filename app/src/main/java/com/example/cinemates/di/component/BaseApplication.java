@@ -1,4 +1,4 @@
-package com.example.cinemates;
+package com.example.cinemates.di.component;
 
 import dagger.hilt.android.HiltAndroidApp;
 

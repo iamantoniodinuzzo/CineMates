@@ -1,16 +1,17 @@
-package com.example.cinemates.network;
+package com.example.cinemates.di.module;
 
+
+import com.example.cinemates.interfaces.MovieApiService;
+import com.example.cinemates.util.Constants;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
-import dagger.hilt.android.internal.managers.ApplicationComponentManager;
 import dagger.hilt.components.SingletonComponent;
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import retrofit2.Retrofit;
-import com.example.cinemates.util.Constants;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -20,10 +21,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 @InstallIn(SingletonComponent.class)
 public class NetworkModule {
-    @Provides
     @Singleton
-    public static MovieApiService provideMovieApiService(){
-        return  new Retrofit.Builder()
+    @Provides
+    public static MovieApiService provideMovieApiService() {
+        return new Retrofit.Builder()
                 .baseUrl(Constants.BaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())

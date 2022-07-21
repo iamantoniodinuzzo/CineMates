@@ -2,7 +2,6 @@ package com.example.cinemates.viewmodel;
 
 import android.util.Log;
 
-import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -24,6 +23,9 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -35,6 +37,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  * @author Antonio Di Nuzzo
  * Created 21/04/2022 at 15:56
  */
+@HiltViewModel
 public class MovieViewModel extends ViewModel {
     private static final String TAG = MovieViewModel.class.getSimpleName();
 
@@ -58,7 +61,7 @@ public class MovieViewModel extends ViewModel {
 
     private final CompositeDisposable disposables = new CompositeDisposable();
 
-    @ViewModelInject
+    @Inject
     public MovieViewModel(Repository repository) {
         this.repository = repository;
     }

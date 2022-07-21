@@ -44,18 +44,19 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new SectionRecyclerViewAdapter<>(this, getContext());
-        upcomingSection = new Section<>("Upcoming", null);
-        topRatedSection = new Section<>("Top Rated", null);
-        trendingSection = new Section<>("Trending this week", null);
-        mSectionList = new ArrayList<>();
-        mSectionList.add(upcomingSection);
-        mSectionList.add(topRatedSection);
-        mSectionList.add(trendingSection);
+            mAdapter = new SectionRecyclerViewAdapter<>(this, getContext());
+            upcomingSection = new Section<>("Upcoming", null);
+            topRatedSection = new Section<>("Top Rated", null);
+            trendingSection = new Section<>("Trending this week", null);
+            mSectionList = new ArrayList<>();
+            mSectionList.add(upcomingSection);
+            mSectionList.add(topRatedSection);
+            mSectionList.add(trendingSection);
 
-        mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
+            mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
 
     }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -66,7 +67,7 @@ public class HomeFragment extends Fragment {
 
         mNavController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(R.id.homeFragment,R.id.searchFragment).build();
+                new AppBarConfiguration.Builder(R.id.homeFragment, R.id.searchFragment).build();
         mToolbar = mBinding.toolbar;
         NavigationUI.setupWithNavController(mToolbar, mNavController, appBarConfiguration);
 

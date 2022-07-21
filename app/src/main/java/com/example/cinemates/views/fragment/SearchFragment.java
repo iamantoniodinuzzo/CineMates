@@ -78,15 +78,13 @@ public class SearchFragment extends Fragment {
             public void onClick(View view) {
                 searchMovieFragment.bindData("");
                 searchActorsFragment.bindData("");
+                ((InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), 0);
+
                 getActivity().onBackPressed();
             }
         });
 
         //Send query to SearchActor & SearchMovie
-        mBinding.searchView.requestFocus();
-        //The following line open keyboard by default
-        ((InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-
         mBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

@@ -1,6 +1,5 @@
 package com.example.cinemates.views.fragment;
 
-import android.graphics.Movie;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +11,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.cinemates.adapter.PersonRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentMediaCastBinding;
 import com.example.cinemates.model.Cast;
+import com.example.cinemates.model.Movie;
+import com.example.cinemates.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;
 

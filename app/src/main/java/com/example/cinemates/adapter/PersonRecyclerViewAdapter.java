@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.example.cinemates.databinding.ListItemPersonInformationBinding;
-import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Person;
 import com.example.cinemates.util.RecyclerViewEmptySupport;

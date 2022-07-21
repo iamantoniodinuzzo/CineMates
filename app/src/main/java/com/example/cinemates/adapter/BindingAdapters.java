@@ -3,13 +3,10 @@ package com.example.cinemates.adapter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
@@ -25,18 +22,10 @@ import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Currency;
-import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -71,24 +60,28 @@ public class BindingAdapters {
     }
 
 
-    @BindingAdapter({"description"})
-    public static void loadDescription(TextView view, String text) {
-        if (TextUtils.isEmpty(text)) {// movie description is empty
-            view.setText("Not specified");
-        } else {
-            view.setText(text);
-        }
-    }
+
 
     @BindingAdapter({"runtime"})
     public static void loadRuntime(TextView view, long runtime) {
+        String value = "";
         if (runtime > 0) {
             int hours = (int) (runtime / 60); //since both are ints, you get an int
             int minutes = (int) (runtime % 60);
-            view.setText(String.format("%d h %02d min", hours, minutes));
-        } else {
-            view.setText("Not specified");
+            value = String.format("%d h %02d min", hours, minutes);
         }
+        loadText(view, value);
+    }
+
+    @BindingAdapter({"loadText"})
+    public static void loadText(TextView view, String value) {
+
+        if (TextUtils.isEmpty(value)) {
+            view.setText("Not specified");
+        } else {
+            view.setText(value);
+        }
+
     }
 
     @BindingAdapter({"currency"})
@@ -97,20 +90,13 @@ public class BindingAdapters {
         NumberFormat format = NumberFormat.getCurrencyInstance();
         format.setMaximumFractionDigits(0);
         format.setCurrency(Currency.getInstance(Currency.getInstance(current).getCurrencyCode()));
-        if (budget > 0)
-            view.setText(format.format(budget));
-        else
-            view.setText("Not specified");
+        loadText(view, format.format(budget));
     }
 
     @BindingAdapter("knowAs")
     public static void setKnownAs(TextView view, String[] names) {
-
         try {
-            if (names.length == 0)
-                view.setText("Not specified");
-            else
-                view.setText(Arrays.stream(names).collect(Collectors.joining(" - ")));
+            loadText(view, Arrays.stream(names).collect(Collectors.joining(" - ")));
         } catch (NullPointerException e) {
             view.setText("Not specified");
         }

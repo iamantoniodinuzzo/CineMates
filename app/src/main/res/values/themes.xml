@@ -3,7 +3,7 @@
     <style name="Theme.CineMates" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/mirage_100</item>
-        <item name="colorPrimaryVariant">@color/mirage_20</item>
+        <item name="colorPrimaryVariant">@color/mirage_90</item>
         <item name="colorOnPrimary">@color/alabaster</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/lynch_100</item>

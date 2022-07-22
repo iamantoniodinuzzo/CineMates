@@ -1,6 +1,5 @@
-package com.example.cinemates.views.fragment;
+package com.example.cinemates.ui.fragment;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,20 +7,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.cinemates.R;
 import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
 import com.example.cinemates.databinding.LayoutCollectionDialogBinding;
 import com.example.cinemates.model.Collection;
-import com.example.cinemates.util.Constants;
 import com.example.cinemates.viewmodel.MovieViewModel;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import java.util.HashMap;
 
 import dagger.hilt.android.AndroidEntryPoint;
 

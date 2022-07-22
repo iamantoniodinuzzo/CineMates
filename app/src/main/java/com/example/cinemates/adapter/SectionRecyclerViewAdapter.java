@@ -123,7 +123,7 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
             this.mBinding.textSectionTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    // TODO: 22/07/2022 open detail section
                   /*  HomeFragmentDirections.ActionHomeFragmentToDetailedViewFragment action =
                             HomeFragmentDirections.actionHomeFragmentToDetailedViewFragment();
                     action.setSection(mBinding.textSectionTitle.getText().toString());

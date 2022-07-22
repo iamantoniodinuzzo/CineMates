@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.cinemates.views.fragment.HomeFragment"
+        android:name="com.example.cinemates.ui.fragment.HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
@@ -15,7 +15,19 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.cinemates.views.fragment.SearchFragment"
+        android:name="com.example.cinemates.ui.fragment.SearchFragment"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.cinemates.ui.fragment.ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/discoverFragment"
+        android:name="com.example.cinemates.ui.fragment.DiscoverFragment"
+        tools:layout="@layout/fragment_discover" />
+    <fragment
+        android:id="@+id/savedFragment"
+        android:name="com.example.cinemates.ui.fragment.SavedFragment"
+        tools:layout="@layout/fragment_saved" />
 
 </navigation>

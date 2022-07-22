@@ -1,4 +1,4 @@
-package com.example.cinemates.views.fragment;
+package com.example.cinemates.ui.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -64,12 +64,14 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         mBinding = FragmentHomeBinding.inflate(inflater, container, false);
 
-
         mNavController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(R.id.homeFragment, R.id.searchFragment).build();
+                new AppBarConfiguration.Builder(mNavController.getGraph()).build();
         mToolbar = mBinding.toolbar;
+
         NavigationUI.setupWithNavController(mToolbar, mNavController, appBarConfiguration);
+
+
 
         return mBinding.getRoot();
     }

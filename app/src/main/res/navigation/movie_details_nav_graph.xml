@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/detailMediaContentFragment"
-        android:name="com.example.cinemates.views.fragment.DetailMediaContentFragment"
+        android:name="com.example.cinemates.ui.fragment.DetailMediaContentFragment"
         android:label="DetailMediaContentFragment"
         tools:layout="@layout/fragment_detail_media_content">
         <argument

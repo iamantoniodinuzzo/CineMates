@@ -4,17 +4,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
-import androidx.navigation.Navigation;
 
 import com.example.cinemates.databinding.ListItemMediaPosterBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
-import com.example.cinemates.views.MovieDetailsActivity;
+import com.example.cinemates.ui.MovieDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;

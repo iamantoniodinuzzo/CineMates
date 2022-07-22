@@ -23,13 +23,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CineMates">
         <activity
-            android:name=".views.ActorDetailsActivity"
+            android:name=".ui.ActorDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".views.MovieDetailsActivity"
+            android:name=".ui.MovieDetailsActivity"
             android:exported="true" />
         <activity
-            android:name=".views.MainActivity"
+            android:name=".ui.MainActivity"
             android:windowSoftInputMode="adjustPan"
             android:exported="true">
             <intent-filter>

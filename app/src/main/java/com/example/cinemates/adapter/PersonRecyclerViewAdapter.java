@@ -11,7 +11,7 @@ import com.example.cinemates.databinding.ListItemPersonInformationBinding;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Person;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
-import com.example.cinemates.views.ActorDetailsActivity;
+import com.example.cinemates.ui.ActorDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;

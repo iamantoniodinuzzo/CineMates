@@ -1,8 +1,6 @@
-package com.example.cinemates.views;
+package com.example.cinemates.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.Navigation;

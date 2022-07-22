@@ -7,7 +7,7 @@
         <item name="colorOnPrimary">@color/alabaster</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/lynch_100</item>
-        <item name="colorSecondaryVariant">@color/lynch_20</item>
+        <item name="colorSecondaryVariant">@color/lynch_90</item>
         <item name="colorOnSecondary">@color/geyser</item>
         <item name="colorAccent">@color/vermilion_100</item>
         <!-- Status bar color. -->

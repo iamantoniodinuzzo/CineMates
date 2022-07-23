@@ -2,6 +2,8 @@ package com.example.cinemates.ui;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding mBinding;
     private NavController mNavController;
+    private Animation slideIn, slideOut;
 
 
     @Override
@@ -29,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
+        slideIn = AnimationUtils.loadAnimation(this, R.anim.slide_in);
+        slideOut = AnimationUtils.loadAnimation(this, R.anim.slide_out);
 
         BottomNavigationView navView = mBinding.navView;
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -43,9 +48,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.homeFragment:
                     case R.id.profileFragment:
                     case R.id.savedFragment:
+                        navView.startAnimation(slideIn);
                         navView.setVisibility(View.VISIBLE);
                         break;
                     default:
+                        navView.startAnimation(slideOut);
                         navView.setVisibility(View.INVISIBLE);
                         break;
                 }

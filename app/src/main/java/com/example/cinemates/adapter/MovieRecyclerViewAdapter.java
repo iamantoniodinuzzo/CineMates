@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 
 import com.example.cinemates.databinding.ListItemMediaPosterBinding;
 import com.example.cinemates.model.Movie;
-import com.example.cinemates.util.RecyclerViewEmptySupport;
 import com.example.cinemates.ui.MovieDetailsActivity;
+import com.example.cinemates.util.RecyclerViewEmptySupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +59,8 @@ public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<M
         this.dataList.addAll(dataList);
         notifyDataSetChanged();
     }
+
+
 
     static class MovieViewHolder extends RecyclerViewEmptySupport.ViewHolder {
         private static final String TAG = MovieViewHolder.class.getSimpleName();

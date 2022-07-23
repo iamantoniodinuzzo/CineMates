@@ -2,6 +2,7 @@ package com.example.cinemates.repository;
 
 import androidx.annotation.NonNull;
 
+import com.example.cinemates.interfaces.MovieApiService;
 import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Collection;
@@ -10,7 +11,6 @@ import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Response;
 import com.example.cinemates.model.Review;
 import com.example.cinemates.model.Video;
-import com.example.cinemates.interfaces.MovieApiService;
 import com.example.cinemates.util.Constants;
 import com.google.gson.JsonObject;
 
@@ -109,6 +109,11 @@ public class Repository {
         sMap.put("query", query);
         return apiService.getPeoplesBySearch(sMap);
 
+    }
+    public Observable<Response<Movie>> getDiscoverMovies(String sort_option, String genre_id){
+        sMap.put("sort_by", sort_option);
+        sMap.put("with_genres", genre_id);
+        return apiService.getMoviesByDiscover(sMap);
     }
 
 

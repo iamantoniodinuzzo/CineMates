@@ -24,10 +24,26 @@
     <fragment
         android:id="@+id/discoverFragment"
         android:name="com.example.cinemates.ui.fragment.DiscoverFragment"
-        tools:layout="@layout/fragment_discover" />
+        tools:layout="@layout/fragment_discover" >
+        <action
+            android:id="@+id/action_discoverFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_discoverFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+    </fragment>
     <fragment
         android:id="@+id/savedFragment"
         android:name="com.example.cinemates.ui.fragment.SavedFragment"
         tools:layout="@layout/fragment_saved" />
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.example.cinemates.ui.fragment.FilterFragment"
+        tools:layout="@layout/fragment_filter"
+        android:label="FilterFragment" >
+        <argument
+            android:name="genre"
+            app:argType="com.example.cinemates.model.Genre" />
+    </fragment>
 
 </navigation>

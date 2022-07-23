@@ -2,9 +2,13 @@ package com.example.cinemates.util;
 
 import static java.util.Locale.getDefault;
 
+import android.graphics.Color;
+
 import com.example.cinemates.BuildConfig;
+import com.example.cinemates.R;
 
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * @author Antonio Di Nuzzo
@@ -12,6 +16,7 @@ import java.util.HashMap;
  */
 public class Constants {
     public static final String TMDB_API_KEY = BuildConfig.TMDB_API_KEY;
+    private static final Random mRnd = new Random();
     public static final String YT_API_KEY = BuildConfig.YT_API_KEY;
     public static final String BaseURL = "https://api.themoviedb.org/3/";
     public static final String DEFAULT_SYSTEM_LANGUAGE = getDefault().getLanguage();
@@ -50,5 +55,18 @@ public class Constants {
 
         return genreMap;
     }
+    public static int getRandomColor() {
+        // This is the base color which will be mixed with the generated one
+        final int baseColor = R.color.vermilion_100;//TODO maybe this color can be customizable
 
+        final int baseRed = Color.red(baseColor);
+        final int baseGreen = Color.green(baseColor);
+        final int baseBlue = Color.blue(baseColor);
+
+        final int red = (baseRed + mRnd.nextInt(256)) / 2;
+        final int green = (baseGreen + mRnd.nextInt(256)) / 2;
+        final int blue = (baseBlue + mRnd.nextInt(256)) / 2;
+
+        return Color.rgb(red, green, blue);
+    }
 }

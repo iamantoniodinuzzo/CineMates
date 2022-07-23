@@ -60,8 +60,6 @@ public class BindingAdapters {
     }
 
 
-
-
     @BindingAdapter({"runtime"})
     public static void loadRuntime(TextView view, long runtime) {
         String value = "";
@@ -75,8 +73,10 @@ public class BindingAdapters {
 
     @BindingAdapter({"loadText"})
     public static void loadText(TextView view, String value) {
-
-        if (TextUtils.isEmpty(value)) {
+        //Two cases (1) empty string literal (2) empty string number
+        if (TextUtils.isEmpty(value) || value.length() <= 3) {
+            //ho usato il numero 3 per indicare il caso in cui buget o revenue
+            //contengano "0 $", in questo caso si tratta di 3 caratteri che non voglio siano espressi
             view.setText("Not specified");
         } else {
             view.setText(value);

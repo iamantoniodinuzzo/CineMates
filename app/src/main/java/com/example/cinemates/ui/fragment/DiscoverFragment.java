@@ -1,5 +1,7 @@
 package com.example.cinemates.ui.fragment;
 
+import static com.example.cinemates.util.Constants.getRandomColor;
+
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -78,20 +80,7 @@ public class DiscoverFragment extends Fragment {
 
     }
 
-    private int getRandomColor() {
-        // This is the base color which will be mixed with the generated one
-        final int baseColor = R.color.vermilion_100;//TODO maybe this color can be customizable
 
-        final int baseRed = Color.red(baseColor);
-        final int baseGreen = Color.green(baseColor);
-        final int baseBlue = Color.blue(baseColor);
-
-        final int red = (baseRed + mRnd.nextInt(256)) / 2;
-        final int green = (baseGreen + mRnd.nextInt(256)) / 2;
-        final int blue = (baseBlue + mRnd.nextInt(256)) / 2;
-
-        return Color.rgb(red, green, blue);
-    }
 
 
     @Override

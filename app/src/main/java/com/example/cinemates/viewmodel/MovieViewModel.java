@@ -47,6 +47,7 @@ public class MovieViewModel extends ViewModel {
     private final Repository repository;
     private final MutableLiveData<List<Movie>> currentMoviesList = new MutableLiveData<>();
     private final MutableLiveData<List<Movie>> moviesByActor = new MutableLiveData<>();
+    private final MutableLiveData<List<Movie>> filteredMovies = new MutableLiveData<>();
     private final MutableLiveData<List<Movie>> trendingMovieList = new MutableLiveData<>();
     private final MutableLiveData<List<Movie>> movieSimilar = new MutableLiveData<>();
     private final MutableLiveData<List<Review>> movieReviews = new MutableLiveData<>();
@@ -67,6 +68,10 @@ public class MovieViewModel extends ViewModel {
     @Inject
     public MovieViewModel(Repository repository) {
         this.repository = repository;
+    }
+
+    public MutableLiveData<List<Movie>> getFilteredMovies() {
+        return filteredMovies;
     }
 
     public MutableLiveData<List<Movie>> getCurrentlyShowingList() {
@@ -303,6 +308,15 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
+    public void getDiscoverMovies(String sort_value, String genre_id) {
+        disposables.add(repository.getDiscoverMovies(sort_value, genre_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> filteredMovies.setValue(result.getResults()),
+                        error -> Log.e(TAG, "getDiscoverMovies: " + error.getMessage()))
+        );
+    }
+
 
     public void getQueriedMovies(String query) {
         if (!TextUtils.isEmpty(query)) {
@@ -312,7 +326,7 @@ public class MovieViewModel extends ViewModel {
                     .subscribe(result -> queriesMovies.setValue(result.getResults()),
                             error -> Log.e(TAG, "getQueriedMovies: " + error.getMessage()))
             );
-        }else
+        } else
             queriesMovies.setValue(Collections.emptyList());
     }
 
@@ -324,7 +338,7 @@ public class MovieViewModel extends ViewModel {
                     .subscribe(result -> queriesPeoples.setValue(result.getResults()),
                             error -> Log.e(TAG, "getQueriedPeoples: " + error.getMessage()))
             );
-        }else
+        } else
             queriesPeoples.setValue(Collections.emptyList());
     }
 

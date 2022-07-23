@@ -3,13 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/round_corner_bg.xml" value="0.2985" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/activity_actor_details.xml" value="0.1" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/activity_main.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/activity_movie_details.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/activity_search.xml" value="0.25181159420289856" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/chip_item.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_detail_media_content.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_detailed_media.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_discover.xml" value="0.266304347826087" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_filter.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_home.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_media_cast.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_media_info.xml" value="0.25181159420289856" />
@@ -20,7 +23,9 @@
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_linear_section.xml" value="0.1" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_review.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_section.xml" value="0.25181159420289856" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/nav_filter_header.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/menu/menu_filter.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/menu/menu_home.xml" value="0.1" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/menu/menu_search.xml" value="0.36666666666666664" />
       </map>

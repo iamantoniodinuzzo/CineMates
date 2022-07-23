@@ -1,12 +1,13 @@
 package com.example.cinemates.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author Antonio Di Nuzzo
  * Created 21/04/2022 at 15:39
  */
-public class Genre {
+public class Genre implements Serializable {
     private Integer id;
     private String name;
 
@@ -37,6 +38,14 @@ public class Genre {
         if (!(o instanceof Genre)) return false;
         Genre genre = (Genre) o;
         return getId().equals(genre.getId()) && Objects.equals(getName(), genre.getName());
+    }
+
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     @Override

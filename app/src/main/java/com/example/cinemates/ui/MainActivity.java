@@ -48,8 +48,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.homeFragment:
                     case R.id.profileFragment:
                     case R.id.savedFragment:
-                        navView.startAnimation(slideIn);
-                        navView.setVisibility(View.VISIBLE);
+                        if (navView.getVisibility() != View.VISIBLE) {
+                            navView.startAnimation(slideIn);
+                            navView.setVisibility(View.VISIBLE);
+                        }
                         break;
                     default:
                         navView.startAnimation(slideOut);

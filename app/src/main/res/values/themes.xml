@@ -42,7 +42,7 @@
         <item name="tabMode">scrollable</item>
         <item name="android:background">@color/mirage_100</item>
         <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>
-        <item name="tabTextColor">@color/lynch_100</item>
+        <item name="tabTextColor">@color/geyser</item>
     </style>
 
     <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">

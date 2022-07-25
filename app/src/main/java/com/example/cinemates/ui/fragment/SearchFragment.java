@@ -78,7 +78,7 @@ public class SearchFragment extends Fragment {
             public void onClick(View view) {
                 searchMovieFragment.bindData("");
                 searchActorsFragment.bindData("");
-                ((InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), 0);
+                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), 0);
 
                 getActivity().onBackPressed();
             }
@@ -103,9 +103,7 @@ public class SearchFragment extends Fragment {
     }
 
 
-    /**
-     * Change menu icon in toolbar showing list or grid view
-     */
+    //Change menu icon in toolbar showing list or grid view
     private void updateToolbar() {
         layoutGrid = !layoutGrid;
         MenuItem gridView = mBinding.toolbar.getMenu().findItem(R.id.menu_switch_grid);
@@ -113,7 +111,6 @@ public class SearchFragment extends Fragment {
         MenuItem listView = mBinding.toolbar.getMenu().findItem(R.id.menu_switch_list);
         listView.setVisible(!layoutGrid);
     }
-
 
 
     private void switchLayout(RecyclerView.LayoutManager layoutManager) {

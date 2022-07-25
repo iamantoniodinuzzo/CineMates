@@ -32,12 +32,12 @@
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chip_group"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                app:selectionRequired="true"
                 style="@style/Widget.MaterialComponents.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                app:selectionRequired="true"
                 app:singleSelection="true" />
 
 
@@ -54,6 +54,7 @@
             tools:listitem="@layout/list_item_media_poster" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/shuffle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -64,6 +65,8 @@
             android:src="@drawable/ic_shuffle"
             app:backgroundTint="@color/vermilion_100"
             app:fabSize="normal" />
+
     </RelativeLayout>
+
 
 </layout>

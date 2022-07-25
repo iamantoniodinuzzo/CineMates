@@ -73,6 +73,7 @@
         <item name="colorControlNormal">@color/alabaster</item>
         <item name="buttonBarButtonStyle">@style/DialogButtonStyle</item>
         <item name="android:textSize">14sp</item>
+        <item name="background">@drawable/round_corner_bg</item>
         <!-- Define window properties as desired -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>

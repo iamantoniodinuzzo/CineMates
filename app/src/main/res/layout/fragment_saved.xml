@@ -10,15 +10,12 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:elevation="4dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            app:menu="@menu/menu_change_layout"
+            app:menu="@menu/menu_customizable_fragment"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
             app:layout_scrollFlags="scroll|enterAlways" />
@@ -29,8 +26,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent" />
-
-
 
     </com.google.android.material.appbar.AppBarLayout>
 

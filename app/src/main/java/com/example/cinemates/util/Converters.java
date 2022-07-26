@@ -18,6 +18,8 @@ public class Converters {
         } else if (status == Movie.PersonalStatus
                 .SEEN.getStatus()) {
             return Movie.PersonalStatus.SEEN;
+        }else if(status == Movie.PersonalStatus.EMPTY.getStatus()){
+            return Movie.PersonalStatus.EMPTY;
         }
         throw new IllegalArgumentException("Could not recognize status");
     }

@@ -54,7 +54,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.watchlistBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 26/07/2022 Add to watchlist
                 mMovie.setPersonalStatus(Movie.PersonalStatus.TO_SEE);
                 update(dialog);
             }
@@ -63,7 +62,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         mBinding.watchedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 26/07/2022 Add to watched
                 mMovie.setPersonalStatus(Movie.PersonalStatus.SEEN);
                 update(dialog);
             }

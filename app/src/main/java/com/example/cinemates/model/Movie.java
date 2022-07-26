@@ -26,7 +26,7 @@ public class Movie implements Serializable {
     @PrimaryKey
     private Integer id;
     private Integer runtime;
-    private String title, poster_path, release_date;
+    private String title, poster_path, release_date, backdrop_path;
     @TypeConverters(Converters.class)
     private Number vote_average;
     private boolean favorite;
@@ -44,14 +44,14 @@ public class Movie implements Serializable {
     @Ignore
     private Boolean video, adult;
     @Ignore
-    private String backdrop_path, overview, original_title, original_language, status;
+    private String overview, original_title, original_language, status;
     @Ignore
     private Collection belongs_to_collection;
     @Ignore
     private ArrayList<Genre> genres;// TODO: 26/07/2022 Next database version should include this data
 
 
-    public Movie(Integer id, Integer runtime, String title, String poster_path, String release_date, Number vote_average, boolean favorite, PersonalStatus personalStatus) {
+    public Movie(Integer id, Integer runtime, String title, String poster_path, String release_date, Number vote_average, boolean favorite, PersonalStatus personalStatus, String backdrop_path) {
         this.id = id;
         this.runtime = runtime;
         this.title = title;
@@ -60,6 +60,7 @@ public class Movie implements Serializable {
         this.vote_average = vote_average;
         this.favorite = favorite;
         this.personalStatus = personalStatus;
+        this.backdrop_path = backdrop_path;
     }
 
     @Ignore
@@ -92,7 +93,7 @@ public class Movie implements Serializable {
 
     @TypeConverters(Converters.class)
     public enum PersonalStatus {
-        TO_SEE(1), SEEN(0);
+        TO_SEE(1), SEEN(0), EMPTY(2);
         private final int status;
 
         PersonalStatus(int i) {
@@ -109,7 +110,10 @@ public class Movie implements Serializable {
     }
 
     public void setPersonalStatus(PersonalStatus personalStatus) {
-        this.personalStatus = personalStatus;
+        if (this.personalStatus == personalStatus)
+            this.personalStatus = PersonalStatus.EMPTY;
+        else
+            this.personalStatus = personalStatus;
     }
 
     public boolean thereAreVideos() {

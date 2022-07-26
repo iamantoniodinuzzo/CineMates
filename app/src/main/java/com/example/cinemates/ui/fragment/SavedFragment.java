@@ -24,7 +24,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 public class SavedFragment extends Fragment {
 
     private FragmentSavedBinding mBinding;
-    private ListingFragment toSeeFragment, seenFragment;
+    private ToSeeFragment toSeeFragment;
+    private SeenFragment seenFragment;
     private LinearLayoutManager mLinearLayoutManager;
     private GridLayoutManager mGridLayoutManager;
     private boolean layoutGrid = false;
@@ -33,8 +34,8 @@ public class SavedFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        toSeeFragment = new ListingFragment();
-        seenFragment = new ListingFragment();
+        toSeeFragment = new ToSeeFragment();
+        seenFragment = new SeenFragment();
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mGridLayoutManager = new GridLayoutManager(getContext(), 3);
     }

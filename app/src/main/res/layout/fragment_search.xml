@@ -18,7 +18,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            app:menu="@menu/menu_change_layout"
+            app:menu="@menu/menu_customizable_fragment"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/lynch_100"
             app:layout_scrollFlags="scroll|enterAlways"

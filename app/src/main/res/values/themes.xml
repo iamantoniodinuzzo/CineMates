@@ -40,7 +40,7 @@
         <item name="tabIndicatorHeight">0dp</item>
         <item name="tabSelectedTextColor">@color/alabaster</item>
         <item name="tabMode">scrollable</item>
-        <item name="android:background">@color/mirage_100</item>
+        <item name="android:background">@color/lynch_100</item>
         <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>
         <item name="tabTextColor">@color/geyser</item>
     </style>

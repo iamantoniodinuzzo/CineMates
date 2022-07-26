@@ -14,15 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.adapter.PersonRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentSearchActorBinding;
-import com.example.cinemates.interfaces.ChangeRvLayout;
-import com.example.cinemates.interfaces.SearchData;
+import com.example.cinemates.interfaces.CustomizableFragment;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
 import java.util.List;
 
 
-public class SearchActorFragment extends Fragment implements ChangeRvLayout, SearchData {
+public class SearchActorFragment extends Fragment implements CustomizableFragment {
 
     private FragmentSearchActorBinding mBinding;
     private PersonRecyclerViewAdapter mRecyclerViewAdapter;

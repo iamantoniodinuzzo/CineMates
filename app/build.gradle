@@ -115,16 +115,16 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     // optional - RxJava2 support for Room
-    implementation "androidx.room:room-rxjava2:$room_version"
+    //implementation "androidx.room:room-rxjava2:$room_version"
 
     // optional - RxJava3 support for Room
     implementation "androidx.room:room-rxjava3:$room_version"
-
+/*
     // optional - Guava support for Room, including Optional and ListenableFuture
     implementation "androidx.room:room-guava:$room_version"
 
     // optional - Paging 3 Integration
-    implementation "androidx.room:room-paging:2.5.0-alpha02"
+    implementation "androidx.room:room-paging:2.5.0-alpha02"*/
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'

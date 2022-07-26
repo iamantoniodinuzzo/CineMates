@@ -3,12 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/circle_icon.xml" value="0.329" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.329" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/ic_eye_closed.xml" value="0.329" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/ic_eye_open.xml" value="0.329" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/ic_outline_bookmark_add_24.xml" value="0.329" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/ic_outline_favorite.xml" value="0.329" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/ic_seen_icon.xml" value="0.329" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/round_corner_bg.xml" value="0.2985" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/activity_actor_details.xml" value="0.1" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/activity_main.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/activity_movie_details.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/activity_search.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/chip_item.xml" value="0.24954710144927536" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_bottomsheet.xml" value="0.27717391304347827" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_detail_media_content.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_detailed_media.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_discover.xml" value="0.266304347826087" />

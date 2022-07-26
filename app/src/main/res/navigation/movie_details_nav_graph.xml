@@ -15,14 +15,14 @@
             app:argType="com.example.cinemates.model.Movie" />
         <action
             android:id="@+id/action_detailMediaContentFragment_to_detailActorMediaFragment"
-            app:destination="@id/detailActorBottomSheetFragment" />
+            app:destination="@id/bottomSheetFragment" />
     </fragment>
     <dialog
-        android:id="@+id/detailActorBottomSheetFragment"
-        android:name="com.example.cinemates.views.fragment.DetailActorBottomSheetFragment"
-        android:label="DetailActorBottomSheetFragment">
+        android:id="@+id/bottomSheetFragment"
+        android:name="com.example.cinemates.ui.fragment.BottomSheetFragment"
+        android:label="BottomSheetFragment">
         <argument
-            android:name="person"
-            app:argType="com.example.cinemates.model.Person" />
+            android:name="movie"
+            app:argType="com.example.cinemates.model.Movie" />
     </dialog>
 </navigation>

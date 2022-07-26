@@ -3,6 +3,7 @@ package com.example.cinemates.adapter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import androidx.databinding.BindingAdapter;
 import com.bumptech.glide.Glide;
 import com.example.cinemates.R;
 import com.example.cinemates.model.Genre;
+import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.ProductionCompany;
 import com.example.cinemates.util.Constants;
 import com.google.android.material.chip.Chip;
@@ -46,6 +48,21 @@ public class BindingAdapters {
                 .centerCrop()
                 .into(view);
 
+    }
+
+    @BindingAdapter({"isFavorite"})
+    public static void isFavorite(ImageButton view, boolean value) {
+        view.setPressed(value);
+    }
+
+    @BindingAdapter({"toSee"})
+    public static void setStatusToSee(ImageButton view, Movie.PersonalStatus value) {
+        view.setPressed(value == Movie.PersonalStatus.TO_SEE);
+    }
+
+    @BindingAdapter({"seen"})
+    public static void setStatusSeen(ImageButton view, Movie.PersonalStatus value) {
+        view.setPressed(value == Movie.PersonalStatus.SEEN);
     }
 
     @BindingAdapter({"imageUrlLong"})

@@ -1,26 +1,23 @@
 package com.example.cinemates.util;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.cinemates.model.Movie;
-import com.example.cinemates.model.Section;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Antonio Di Nuzzo
  * Created 21/07/2022 at 19:16
  */
-public class MyDiffUtilCallbacks<T> extends DiffUtil.Callback {
-    private List<Section<T>> oldList;
-    private List<Section<T>> newList;
+public class MyDiffUtilMovieCallbacks<T> extends DiffUtil.Callback {
+    private List<Movie> oldList;
+    private List<Movie> newList;
 
-    public MyDiffUtilCallbacks(List<Section<T>> oldList, List<Section<T>> newList) {
+    public MyDiffUtilMovieCallbacks(List<Movie> oldList, List<Movie> newList) {
         this.oldList = oldList;
         this.newList = newList;
     }
@@ -48,17 +45,12 @@ public class MyDiffUtilCallbacks<T> extends DiffUtil.Callback {
     @Nullable
     @Override
     public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-        Section<T> newSection = newList.get(newItemPosition);
-        Section<T> oldSection = oldList.get(oldItemPosition);
+        Movie newMovie = newList.get(newItemPosition);
+        Movie oldMovie = oldList.get(oldItemPosition);
         Bundle bundle = new Bundle();
 
-        if (!newSection.getSectionName().equals(oldSection.getSectionName())) {
-            bundle.putString("section_name", newSection.getSectionName());
-        }
-        if (!newSection.getMutableLiveData().getValue().equals(oldSection.getMutableLiveData().getValue())) {
-            bundle.putParcelableArrayList("movies", (ArrayList<? extends Parcelable>) newSection.getMutableLiveData().getValue());
-
-        }
+        if(!newMovie.equals(oldMovie))
+            bundle.putSerializable("movie", newMovie);
 
 
         return bundle.size() == 0 ? null : bundle;

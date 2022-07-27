@@ -48,6 +48,11 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 mMovie.setFavorite();
+                if (mMovie.isFavorite())
+                    Toast.makeText(getContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
+
                 update(dialog);
             }
         });
@@ -84,7 +89,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         if (!mMovie.isFavorite() && mMovie.getPersonalStatus() == Movie.PersonalStatus.EMPTY) {
             mViewModel.delete(mMovie);
             return;
-        }
+        } else if (mMovie.getPersonalStatus() == null)
+            mMovie.setPersonalStatus(Movie.PersonalStatus.EMPTY);
         mViewModel.insert(mMovie);
         mBinding.setMovie(mMovie);
         dialog.dismiss();

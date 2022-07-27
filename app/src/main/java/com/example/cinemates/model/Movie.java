@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author Antonio Di Nuzzo
@@ -31,7 +32,7 @@ public class Movie implements Serializable {
     private Number vote_average;
     private boolean favorite;
     @TypeConverters(Converters.class)
-    private PersonalStatus personalStatus = PersonalStatus.EMPTY;
+    private PersonalStatus personalStatus ;
 
     @Ignore
     private Number popularity;
@@ -89,6 +90,19 @@ public class Movie implements Serializable {
         this.video = video;
         this.adult = adult;
         this.belongs_to_collection = belongs_to_collection;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Movie)) return false;
+        Movie movie = (Movie) o;
+        return getId().equals(movie.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 
     @TypeConverters(Converters.class)

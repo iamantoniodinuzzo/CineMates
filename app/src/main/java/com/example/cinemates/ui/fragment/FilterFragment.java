@@ -121,7 +121,7 @@ public class FilterFragment extends Fragment {
                 mViewModel.getDiscoverMovies(sort, String.valueOf(mGenre.getId()));
             }
         });
-        mBinding.shuffle.setOnClickListener(new View.OnClickListener() {
+        mBinding.shuffle.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showCustomDialog();

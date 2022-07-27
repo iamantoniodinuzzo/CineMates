@@ -110,6 +110,8 @@ public class SearchFragment extends Fragment {
         gridView.setVisible(layoutGrid);
         MenuItem listView = mBinding.toolbar.getMenu().findItem(R.id.menu_switch_list);
         listView.setVisible(!layoutGrid);
+        MenuItem filterView = mBinding.toolbar.getMenu().findItem(R.id.menu_filter);
+        filterView.setVisible(false);
     }
 
 

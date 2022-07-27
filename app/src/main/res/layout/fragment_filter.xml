@@ -21,6 +21,7 @@
             android:layout_height="?android:actionBarSize"
             app:navigationIcon="@drawable/ic_round_arrow_back_24"
             app:title="@{title}"
+            app:menu="@menu/menu_customizable_fragment"
             app:titleTextColor="@color/geyser"
             tools:title="Title" />
 
@@ -53,18 +54,9 @@
             app:spanCount="3"
             tools:listitem="@layout/list_item_media_poster" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <include
             android:id="@+id/shuffle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:contentDescription="Shuffle"
-            android:src="@drawable/ic_shuffle"
-            app:backgroundTint="@color/vermilion_100"
-            app:fabSize="normal" />
+            layout="@layout/layout_fab_shuffle" />
 
     </RelativeLayout>
 

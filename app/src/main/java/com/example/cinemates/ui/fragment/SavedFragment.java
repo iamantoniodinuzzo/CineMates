@@ -24,7 +24,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 public class SavedFragment extends Fragment {
 
     private FragmentSavedBinding mBinding;
-    private ListingFragment toSeeFragment, seenFragment;
+    private ToSeeFragment toSeeFragment;
+    private SeenFragment seenFragment;
     private LinearLayoutManager mLinearLayoutManager;
     private GridLayoutManager mGridLayoutManager;
     private boolean layoutGrid = false;
@@ -33,8 +34,8 @@ public class SavedFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        toSeeFragment = new ListingFragment();
-        seenFragment = new ListingFragment();
+        toSeeFragment = new ToSeeFragment();
+        seenFragment = new SeenFragment();
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mGridLayoutManager = new GridLayoutManager(getContext(), 3);
     }
@@ -60,12 +61,18 @@ public class SavedFragment extends Fragment {
                 switch (item.getItemId()) {
                     case R.id.menu_switch_grid:
                         switchLayout(mGridLayoutManager);
+                        updateToolbar();
+
                         break;
                     case R.id.menu_switch_list:
                         switchLayout(mLinearLayoutManager);
+                        updateToolbar();
+
+                        break;
+                    case R.id.menu_filter:
+                        Toast.makeText(getContext(), "Soon!", Toast.LENGTH_SHORT).show();
                         break;
                 }
-                updateToolbar();
                 return false;
             }
         });

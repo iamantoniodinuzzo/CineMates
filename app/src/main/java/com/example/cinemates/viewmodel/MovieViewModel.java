@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Collection;
+import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Images;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Response;
@@ -46,6 +47,7 @@ public class MovieViewModel extends ViewModel {
 
     private final Repository repository;
     private final MutableLiveData<List<Movie>> currentMoviesList = new MutableLiveData<>();
+    private final MutableLiveData<List<Genre>> genreList = new MutableLiveData<>();
     private final MutableLiveData<List<Movie>> moviesByActor = new MutableLiveData<>();
     private final MutableLiveData<List<Movie>> filteredMovies = new MutableLiveData<>();
     private final MutableLiveData<List<Movie>> trendingMovieList = new MutableLiveData<>();
@@ -92,6 +94,10 @@ public class MovieViewModel extends ViewModel {
 
     public MutableLiveData<Movie> getMovie() {
         return movieDetails;
+    }
+
+    public MutableLiveData<List<Genre>> getGenreList() {
+        return genreList;
     }
 
     public MutableLiveData<List<Video>> getMovieVideos() {
@@ -194,6 +200,15 @@ public class MovieViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> popularMoviesList.setValue(result.getResults()),
                         error -> Log.e(TAG, "getPopularMovies: " + error.getMessage()))
+        );
+    }
+
+    public void getGenres() {
+        disposables.add(repository.getGenreList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> genreList.setValue(result.getResults()),
+                        error -> Log.e(TAG, "getGenres: " + error.getMessage()))
         );
     }
 

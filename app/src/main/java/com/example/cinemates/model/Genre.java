@@ -1,5 +1,9 @@
 package com.example.cinemates.model;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -7,10 +11,20 @@ import java.util.Objects;
  * @author Antonio Di Nuzzo
  * Created 21/04/2022 at 15:39
  */
+@Entity
 public class Genre implements Serializable {
+    @PrimaryKey
     private Integer id;
     private String name;
+    private boolean favorite = false;
 
+    public Genre(Integer id, String name, boolean favorite) {
+        this.id = id;
+        this.name = name;
+        this.favorite = favorite;
+    }
+
+    @Ignore
     public Genre(Integer id, String name) {
         this.id = id;
         this.name = name;
@@ -32,6 +46,14 @@ public class Genre implements Serializable {
         this.name = name;
     }
 
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite() {
+        this.favorite = !this.favorite;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,6 +67,7 @@ public class Genre implements Serializable {
         return "Genre{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", favorite=" + favorite +
                 '}';
     }
 

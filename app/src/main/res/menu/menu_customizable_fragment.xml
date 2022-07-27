@@ -2,16 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/menu_filter"
+        android:icon="@drawable/ic_baseline_filter_list_24"
+        android:iconTint="@color/geyser"
+        android:title="Filter"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/menu_switch_list"
         android:icon="@drawable/ic_round_view_list_24"
         android:iconTint="@color/geyser"
-        app:showAsAction="always"
-        android:title="List" />
+        android:title="List"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_switch_grid"
-        android:visible="false"
         android:icon="@drawable/ic_round_view_module_24"
         android:iconTint="@color/geyser"
-        app:showAsAction="always"
-        android:title="Grid" />
+        android:title="Grid"
+        android:visible="false"
+        app:showAsAction="always" />
 </menu>

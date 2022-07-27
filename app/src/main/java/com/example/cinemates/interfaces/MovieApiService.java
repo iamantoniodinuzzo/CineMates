@@ -3,6 +3,7 @@ package com.example.cinemates.interfaces;
 import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Collection;
+import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Images;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Response;
@@ -67,6 +68,9 @@ public interface MovieApiService {
 
     @GET("discover/movie")
     Observable<Response<Movie>> getMoviesByDiscover(@QueryMap HashMap<String, String> queries);
+
+    @GET("genre/movie/list")
+    Observable<Response<Genre>> getGenreList(@QueryMap HashMap<String, String> queries);
 
     @GET("search/person")
     Observable<Response<Cast>> getPeoplesBySearch(@QueryMap HashMap<String, String> queries);

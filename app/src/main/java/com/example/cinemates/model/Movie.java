@@ -1,5 +1,12 @@
 package com.example.cinemates.model;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.cinemates.util.Converters;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
@@ -13,17 +20,50 @@ import java.util.Date;
  * @author Antonio Di Nuzzo
  * Created 21/04/2022 at 15:38
  */
+@Entity
 public class Movie implements Serializable {
 
-    private String poster_path, overview, release_date, title, backdrop_path, original_title, original_language, status;
-    private Integer id, vote_count, runtime, budget, revenue;
-    private Number popularity, vote_average;
-    private ArrayList<Integer> genre_ids;
-    private ArrayList<Genre> genres;
-    private ArrayList<ProductionCompany> production_companies;
-    private Boolean video, adult;
-    private Collection belongs_to_collection;
+    @PrimaryKey
+    private Integer id;
+    private Integer runtime;
+    private String title, poster_path, release_date, backdrop_path;
+    @TypeConverters(Converters.class)
+    private Number vote_average;
+    private boolean favorite;
+    @TypeConverters(Converters.class)
+    private PersonalStatus personalStatus;
 
+    @Ignore
+    private Number popularity;
+    @Ignore
+    private Integer vote_count, budget, revenue;
+    @Ignore
+    private ArrayList<Integer> genre_ids;
+    @Ignore
+    private ArrayList<ProductionCompany> production_companies;
+    @Ignore
+    private Boolean video, adult;
+    @Ignore
+    private String overview, original_title, original_language, status;
+    @Ignore
+    private Collection belongs_to_collection;
+    @Ignore
+    private ArrayList<Genre> genres;// TODO: 26/07/2022 Next database version should include this data
+
+
+    public Movie(Integer id, Integer runtime, String title, String poster_path, String release_date, Number vote_average, boolean favorite, PersonalStatus personalStatus, String backdrop_path) {
+        this.id = id;
+        this.runtime = runtime;
+        this.title = title;
+        this.poster_path = poster_path;
+        this.release_date = release_date;
+        this.vote_average = vote_average;
+        this.favorite = favorite;
+        this.personalStatus = personalStatus;
+        this.backdrop_path = backdrop_path;
+    }
+
+    @Ignore
     public Movie(String poster_path, String overview, String release_date, String title,
                  String original_title, String original_language, String status, Integer id, Integer vote_count, Integer budget, Integer revenue, Number popularity, Number vote_average,
                  ArrayList<Integer> genre_ids, Integer runtime, ArrayList<Genre> genres,
@@ -51,6 +91,40 @@ public class Movie implements Serializable {
         this.belongs_to_collection = belongs_to_collection;
     }
 
+    @TypeConverters(Converters.class)
+    public enum PersonalStatus {
+        TO_SEE(1), SEEN(0), EMPTY(2);
+        private final int status;
+
+        PersonalStatus(int i) {
+            status = i;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+    }
+
+    public PersonalStatus getPersonalStatus() {
+        return personalStatus;
+    }
+
+    /**
+     *
+     * @param personalStatus
+     * @return True se lo stato è stato cambiato, false se è stato rimosso
+     */
+    public boolean setPersonalStatus(PersonalStatus personalStatus) {
+        if (this.personalStatus == personalStatus) {
+            this.personalStatus = PersonalStatus.EMPTY;
+            return false;
+        }
+        else {
+            this.personalStatus = personalStatus;
+            return true;
+        }
+    }
+
     public boolean thereAreVideos() {
         return video;
     }
@@ -61,6 +135,14 @@ public class Movie implements Serializable {
 
     public void setProduction_companies(ArrayList<ProductionCompany> production_companies) {
         this.production_companies = production_companies;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite() {
+        this.favorite = !this.favorite;
     }
 
     public Integer getRevenue() {

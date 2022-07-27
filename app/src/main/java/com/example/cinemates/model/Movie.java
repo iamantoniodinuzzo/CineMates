@@ -31,7 +31,7 @@ public class Movie implements Serializable {
     private Number vote_average;
     private boolean favorite;
     @TypeConverters(Converters.class)
-    private PersonalStatus personalStatus;
+    private PersonalStatus personalStatus = PersonalStatus.EMPTY;
 
     @Ignore
     private Number popularity;

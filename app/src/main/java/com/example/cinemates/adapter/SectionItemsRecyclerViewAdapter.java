@@ -54,6 +54,7 @@ public class SectionItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport
     }
 
     public void addItems(List<T> dataList) {
+        // TODO: 27/07/2022 USing DiffUtil 
         this.dataList.addAll(dataList);
         notifyDataSetChanged();
     }

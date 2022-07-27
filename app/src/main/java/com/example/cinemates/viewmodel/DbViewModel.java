@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.repository.DbRepository;
 
@@ -25,10 +26,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class DbViewModel extends ViewModel {
     private static final String TAG = DbViewModel.class.getSimpleName();
     private final DbRepository mDbRepository;
-    private final MutableLiveData<List<Movie>> favorites = new MutableLiveData<>(),
+    private final MutableLiveData<List<Movie>> favorite_movies = new MutableLiveData<>(),
             to_see = new MutableLiveData<>(),
             seen = new MutableLiveData<>();
-    private  Movie retrieved_movie ;
+    private final MutableLiveData<List<Genre>> favorite_genres = new MutableLiveData<>();
+    private final MutableLiveData<List<Genre>> genres = new MutableLiveData<>();
     private final CompositeDisposable disposables = new CompositeDisposable();
 
 
@@ -37,8 +39,16 @@ public class DbViewModel extends ViewModel {
         mDbRepository = dbRepository;
     }
 
-    public MutableLiveData<List<Movie>> getFavorites() {
-        return favorites;
+    public MutableLiveData<List<Movie>> getFavorite_movies() {
+        return favorite_movies;
+    }
+
+    public MutableLiveData<List<Genre>> getFavorite_genres() {
+        return favorite_genres;
+    }
+
+    public MutableLiveData<List<Genre>> getGenres() {
+        return genres;
     }
 
     public MutableLiveData<List<Movie>> getTo_see() {
@@ -50,22 +60,36 @@ public class DbViewModel extends ViewModel {
     }
 
     public void getAllFavorites() {
-        disposables.add(mDbRepository.getAllFavorites()
+        disposables.add(mDbRepository.getAllFavoritesMovies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(favorites::setValue,
+                .subscribe(favorite_movies::setValue,
                         error -> Log.e(TAG, "getFavorites: " + error.getMessage()))
         );
     }
-    public Movie getMovie(Movie movie){
+
+    public void getAllGenres() {
+        disposables.add(mDbRepository.getAllGenres()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(genres::setValue,
+                        error -> Log.e(TAG, "getAllGenres: " + error.getMessage()))
+        );
+    }
+
+    public Movie getMovie(Movie movie) {
         return mDbRepository.retrieveMovie(movie.getId());
+    }
+
+    public Genre getGenre(Integer id) {
+        return mDbRepository.retrieveGenre(id);
     }
 
     public void getAllWithStatus(Movie.PersonalStatus status) {
         switch (status) {
 
             case TO_SEE:
-                disposables.add(mDbRepository.getAllWithStatus(status)
+                disposables.add(mDbRepository.getAllMoviesWithStatus(status)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(to_see::setValue,
@@ -73,7 +97,7 @@ public class DbViewModel extends ViewModel {
                 );
                 break;
             case SEEN:
-                disposables.add(mDbRepository.getAllWithStatus(status)
+                disposables.add(mDbRepository.getAllMoviesWithStatus(status)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(seen::setValue,
@@ -83,12 +107,31 @@ public class DbViewModel extends ViewModel {
         }
     }
 
+    public void getFavoriteGenres() {
+
+        disposables.add(mDbRepository.getAllFavoritesGenres()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(favorite_genres::setValue,
+                        error -> Log.e(TAG, "getFavoriteGenres: " + error.getMessage()))
+        );
+
+    }
+
     public void insertAll(Movie... movies) {
-        mDbRepository.insertAll(movies);
+        mDbRepository.insertAllMovies(movies);
+    }
+
+    public void insertAll(List<Genre> genres) {
+        mDbRepository.insertAllGenres(genres);
     }
 
     public void insert(Movie movie) {
         mDbRepository.insert(movie);
+    }
+
+    public void insert(Genre genre) {
+        mDbRepository.insert(genre);
     }
 
     public void update(Movie movie) {
@@ -97,5 +140,9 @@ public class DbViewModel extends ViewModel {
 
     public void delete(Movie movie) {
         mDbRepository.delete(movie);
+    }
+
+    public void delete(Genre genre) {
+        mDbRepository.delete(genre);
     }
 }

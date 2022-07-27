@@ -4,7 +4,9 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.example.cinemates.local.dao.GenreDao;
 import com.example.cinemates.local.dao.MovieDao;
+import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.util.Converters;
 
@@ -12,8 +14,9 @@ import com.example.cinemates.util.Converters;
  * @author Antonio Di Nuzzo
  * Created 26/07/2022 at 08:13
  */
-@Database(entities = {Movie.class}, version = 2)
+@Database(entities = {Movie.class, Genre.class}, version = 3)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract MovieDao mMovieDao();
+    public abstract GenreDao mGenreDao();
 }

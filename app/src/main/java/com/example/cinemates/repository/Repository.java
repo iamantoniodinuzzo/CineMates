@@ -6,6 +6,7 @@ import com.example.cinemates.interfaces.MovieApiService;
 import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Collection;
+import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Images;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Response;
@@ -75,6 +76,9 @@ public class Repository {
 
     public Observable<Response<Review>> getReviews(int movieId) {
         return apiService.getReviews(movieId, sMap);
+    }
+    public Observable<Response<Genre>> getGenreList(){
+        return apiService.getGenreList(sMap);
     }
 
     public Observable<Images> getImages(int movieId) {

@@ -29,10 +29,11 @@ public interface MovieDao {
     Movie retrieveMovie(Integer id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(Movie... movies);
+    void insertAllMovies(Movie... movies);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Movie movie);
+
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void update(Movie movie);

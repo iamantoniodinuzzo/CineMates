@@ -61,12 +61,18 @@ public class SavedFragment extends Fragment {
                 switch (item.getItemId()) {
                     case R.id.menu_switch_grid:
                         switchLayout(mGridLayoutManager);
+                        updateToolbar();
+
                         break;
                     case R.id.menu_switch_list:
                         switchLayout(mLinearLayoutManager);
+                        updateToolbar();
+
+                        break;
+                    case R.id.menu_filter:
+                        Toast.makeText(getContext(), "Soon!", Toast.LENGTH_SHORT).show();
                         break;
                 }
-                updateToolbar();
                 return false;
             }
         });

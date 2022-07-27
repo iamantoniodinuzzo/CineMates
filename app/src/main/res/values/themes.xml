@@ -90,7 +90,7 @@
 
     <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
         <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
-        <item name="android:backgroundTint">@color/lynch_100</item>
+        <item name="android:backgroundTint">@color/lynch_90</item>
     </style>
 
     <style name="CustomShapeAppearanceBottomSheetDialog" parent="">

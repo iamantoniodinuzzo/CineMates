@@ -109,11 +109,20 @@ public class Movie implements Serializable {
         return personalStatus;
     }
 
-    public void setPersonalStatus(PersonalStatus personalStatus) {
-        if (this.personalStatus == personalStatus)
+    /**
+     *
+     * @param personalStatus
+     * @return True se lo stato è stato cambiato, false se è stato rimosso
+     */
+    public boolean setPersonalStatus(PersonalStatus personalStatus) {
+        if (this.personalStatus == personalStatus) {
             this.personalStatus = PersonalStatus.EMPTY;
-        else
+            return false;
+        }
+        else {
             this.personalStatus = personalStatus;
+            return true;
+        }
     }
 
     public boolean thereAreVideos() {

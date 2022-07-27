@@ -21,6 +21,7 @@
             android:layout_height="?android:actionBarSize"
             app:navigationIcon="@drawable/ic_round_arrow_back_24"
             app:title="@{title}"
+            app:menu="@menu/menu_customizable_fragment"
             app:titleTextColor="@color/geyser"
             tools:title="Title" />
 

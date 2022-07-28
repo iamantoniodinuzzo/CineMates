@@ -2,6 +2,7 @@ package com.example.cinemates.adapter;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -117,6 +118,17 @@ public class BindingAdapters {
             view.setText(value);
         }
 
+    }
+
+    @BindingAdapter({"loadSectionDescription"})
+    public static void loadSectionDescription(TextView view, String value) {
+        if (value == null)
+            view.setVisibility(View.GONE);
+        else {
+            view.setVisibility(View.VISIBLE);
+            view.setText(value);
+
+        }
     }
 
     @BindingAdapter({"currency"})

@@ -33,7 +33,7 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new SectionRecyclerViewAdapter(this, getContext());
-        favorite_section = new Section<>("Favorites",Movie.class, null, ViewSize.SMALL);
+        favorite_section = new Section<>("Favorites","Movies",Movie.class, null, ViewSize.SMALL);
         mSectionList = new ArrayList<>();
         mSectionList.add(favorite_section);
         mDbViewModel = new ViewModelProvider(getActivity()).get(DbViewModel.class);

@@ -54,10 +54,10 @@ public class HomeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new SectionRecyclerViewAdapter(this, getContext());
-        upcomingSection = new Section<>("Upcoming", Movie.class, null, ViewSize.SMALL);
-        topRatedSection = new Section<>("Top Rated", Movie.class, null, ViewSize.SMALL);
-        trendingSection = new Section<>("Movies Trending this week", Movie.class, null, ViewSize.SMALL);
-        trendingPerson = new Section<>("Person Trending this week", Cast.class, null, ViewSize.SMALL);
+        upcomingSection = new Section<>("Upcoming",null, Movie.class, null, ViewSize.SMALL);
+        topRatedSection = new Section<>("Top Rated",null, Movie.class, null, ViewSize.SMALL);
+        trendingSection = new Section<>("Trending this week","Movies", Movie.class, null, ViewSize.SMALL);
+        trendingPerson = new Section<>("Trending this week","Actors", Cast.class, null, ViewSize.SMALL);
         mSectionList = new ArrayList<>();
         mSectionList.add(upcomingSection);
         mSectionList.add(topRatedSection);

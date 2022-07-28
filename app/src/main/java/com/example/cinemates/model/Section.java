@@ -15,14 +15,16 @@ import java.util.Objects;
 public class Section<T> extends ArrayList<T> {
     private Class<T> genericType;
     private String sectionName;
+    private String sectionContentDescription;
     private MutableLiveData<List<T>> mMutableLiveData;
     private ViewSize mViewSize;
 
 
-    public Section(String sectionName, Class<T> c, MutableLiveData<List<T>> mutableLiveData, ViewSize viewSize) {
+    public Section(String sectionName, String sectionContentDescription, Class<T> c, MutableLiveData<List<T>> mutableLiveData, ViewSize viewSize) {
         this.sectionName = sectionName;
         mMutableLiveData = mutableLiveData;
         this.genericType = c;
+        this.sectionContentDescription = sectionContentDescription;
         this.mViewSize = viewSize;
     }
 
@@ -40,6 +42,14 @@ public class Section<T> extends ArrayList<T> {
 
     public void setMutableLiveData(MutableLiveData<List<T>> mutableLiveData) {
         mMutableLiveData = mutableLiveData;
+    }
+
+    public String getSectionContentDescription() {
+        return sectionContentDescription;
+    }
+
+    public void setSectionContentDescription(String sectionContentDescription) {
+        this.sectionContentDescription = sectionContentDescription;
     }
 
     public ViewSize getViewSize() {

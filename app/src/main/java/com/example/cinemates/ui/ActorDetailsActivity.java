@@ -9,11 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
+import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.databinding.ActivityActorDetailsBinding;
 import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Person;
+import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
 import java.util.List;
@@ -25,7 +26,8 @@ public class ActorDetailsActivity extends AppCompatActivity {
 
     private ActivityActorDetailsBinding mBinding;
     private MovieViewModel mViewModel;
-    private MovieRecyclerViewAdapter mAdapter;
+//    private MovieRecyclerViewAdapter mAdapter;
+    private ItemsRecyclerViewAdapter<Movie> mAdapter;
     private Person mPerson;
 
     @Override
@@ -36,7 +38,7 @@ public class ActorDetailsActivity extends AppCompatActivity {
 
         mPerson = (Person) getIntent().getExtras().getSerializable("person");
         mViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
-        mAdapter = new MovieRecyclerViewAdapter();
+        mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mViewModel.getActor().observe(this, new Observer<Actor>() {

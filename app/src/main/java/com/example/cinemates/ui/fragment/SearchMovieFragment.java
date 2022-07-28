@@ -12,10 +12,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
+import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentSearchMovieBinding;
 import com.example.cinemates.interfaces.CustomizableFragment;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
 import java.util.List;
@@ -23,13 +24,14 @@ import java.util.List;
 public class SearchMovieFragment extends Fragment implements CustomizableFragment {
 
     private FragmentSearchMovieBinding mBinding;
-    private MovieRecyclerViewAdapter mRecyclerViewAdapter;
+//    private MovieRecyclerViewAdapter mRecyclerViewAdapter;
+private ItemsRecyclerViewAdapter<Movie> mAdapter;
     private MovieViewModel mViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRecyclerViewAdapter = new MovieRecyclerViewAdapter();
+        mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
 
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
 
@@ -42,7 +44,7 @@ public class SearchMovieFragment extends Fragment implements CustomizableFragmen
         // Inflate the layout for this fragment
         mBinding = FragmentSearchMovieBinding.inflate(inflater, container, false);
 
-        mBinding.recyclerView.setAdapter(mRecyclerViewAdapter);
+        mBinding.recyclerView.setAdapter(mAdapter);
         mBinding.recyclerView.setEmptyView(mBinding.emptyView.getRoot());
 
 
@@ -56,7 +58,7 @@ public class SearchMovieFragment extends Fragment implements CustomizableFragmen
         mViewModel.getQueriedMovies().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
             @Override
             public void onChanged(List<Movie> movies) {
-                mRecyclerViewAdapter.addItems(movies);
+                mAdapter.addItems(movies);
             }
         });
     }

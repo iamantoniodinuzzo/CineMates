@@ -1,6 +1,5 @@
 package com.example.cinemates.adapter;
 
-import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.databinding.ListItemBackdropBinding;
-import com.example.cinemates.databinding.ListItemMediaPosterBinding;
 import com.example.cinemates.databinding.ListItemPosterBinding;
 import com.example.cinemates.model.Images;
 import com.example.cinemates.util.Constants;

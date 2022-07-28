@@ -23,11 +23,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinemates.R;
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentHomeBinding;
+import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Section;
 import com.example.cinemates.util.ItemMoveCallback;
 import com.example.cinemates.util.MediaType;
 import com.example.cinemates.util.TimeWindow;
+import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.MovieViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -40,24 +42,27 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding mBinding;
     private NavController mNavController;
     private Section<Movie> upcomingSection, topRatedSection, trendingSection;
+    private Section<Cast> trendingPerson;
     private Toolbar mToolbar;
     private MovieViewModel mViewModel;
-    private SectionRecyclerViewAdapter<Movie> mAdapter;
-    private List<Section<Movie>> mSectionList;
+    private SectionRecyclerViewAdapter mAdapter;
+    private List<Section<?>> mSectionList;
     private BottomNavigationView mBottomNavigationView;
     private Animation slideIn, slideOut;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new SectionRecyclerViewAdapter<>(this, getContext());
-        upcomingSection = new Section<>("Upcoming", null);
-        topRatedSection = new Section<>("Top Rated", null);
-        trendingSection = new Section<>("Trending this week", null);
+        mAdapter = new SectionRecyclerViewAdapter(this, getContext());
+        upcomingSection = new Section<>("Upcoming",null, Movie.class, null, ViewSize.SMALL);
+        topRatedSection = new Section<>("Top Rated",null, Movie.class, null, ViewSize.SMALL);
+        trendingSection = new Section<>("Trending this week","Movies", Movie.class, null, ViewSize.SMALL);
+        trendingPerson = new Section<>("Trending this week","Actors", Cast.class, null, ViewSize.SMALL);
         mSectionList = new ArrayList<>();
         mSectionList.add(upcomingSection);
         mSectionList.add(topRatedSection);
         mSectionList.add(trendingSection);
+        mSectionList.add(trendingPerson);
         slideIn = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in);
         slideOut = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out);
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
@@ -98,7 +103,8 @@ public class HomeFragment extends Fragment {
         mViewModel.getUpcomingMovies();
         mViewModel.getTopRatedMovies();
         mViewModel.getPopularMovies();
-        mViewModel.getTrendingMovies(MediaType.MOVIE, TimeWindow.WEEK);
+        mViewModel.getTrending(MediaType.MOVIE, TimeWindow.WEEK);
+        mViewModel.getTrending(MediaType.PERSON, TimeWindow.WEEK);
 
 
         mBinding.imageProfile.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +150,7 @@ public class HomeFragment extends Fragment {
         upcomingSection.setMutableLiveData(mViewModel.getUpcomingMoviesList());
         topRatedSection.setMutableLiveData(mViewModel.getTopRatedMoviesList());
         trendingSection.setMutableLiveData(mViewModel.getTrendingMovieList());
+        trendingPerson.setMutableLiveData(mViewModel.getTrendingPerson());
 
     }
 

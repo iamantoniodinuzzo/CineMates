@@ -12,10 +12,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
+import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentListingBinding;
 import com.example.cinemates.interfaces.CustomizableFragment;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.DbViewModel;
 
 import java.util.ArrayList;
@@ -29,7 +30,8 @@ import java.util.Random;
 public class ToSeeFragment extends Fragment implements CustomizableFragment {
     private FragmentListingBinding mBinding;
     private DbViewModel mDbViewModel;
-    private MovieRecyclerViewAdapter mAdapter;
+//    private MovieRecyclerViewAdapter mAdapter;
+    private ItemsRecyclerViewAdapter<Movie> mAdapter;
     private ArrayList<Movie> movie_to_see;
     private Random rand;
 
@@ -37,7 +39,7 @@ public class ToSeeFragment extends Fragment implements CustomizableFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDbViewModel = new ViewModelProvider(getActivity()).get(DbViewModel.class);
-        mAdapter = new MovieRecyclerViewAdapter();
+        mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
         movie_to_see = new ArrayList<>();
         rand = new Random();
 

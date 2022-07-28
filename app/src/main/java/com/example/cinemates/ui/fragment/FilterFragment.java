@@ -22,13 +22,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cinemates.R;
-import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
+import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentFilterBinding;
 import com.example.cinemates.databinding.LayoutCustomDialogRandomBinding;
 import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.ui.MovieDetailsActivity;
 import com.example.cinemates.util.Sort;
+import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.MovieViewModel;
 import com.google.android.material.chip.Chip;
 
@@ -43,7 +44,8 @@ public class FilterFragment extends Fragment {
     private ArrayList<Movie> filtered_list;
     private MovieViewModel mViewModel;
     private CompoundButton.OnCheckedChangeListener mCheckedChangeListener;
-    private MovieRecyclerViewAdapter mAdapter;
+//    private MovieRecyclerViewAdapter mAdapter;
+    private ItemsRecyclerViewAdapter<Movie> mAdapter;
     private MutableLiveData<String> mSortObservable;
     private final Random rand = new Random();
 
@@ -53,7 +55,7 @@ public class FilterFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mGenre = FilterFragmentArgs.fromBundle(getArguments()).getGenre();
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
-        mAdapter = new MovieRecyclerViewAdapter();
+        mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
         mSortObservable = new MutableLiveData<>();
         mSortObservable.setValue(Sort.POPULARITY.getAttribute());//Default value of sorting chips
         filtered_list = new ArrayList<>();

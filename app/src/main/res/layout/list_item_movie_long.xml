@@ -20,7 +20,7 @@
             android:layout_height="match_parent">
 
             <include
-                android:id="@+id/include"
+                android:id="@+id/poster"
                 layout="@layout/layout_movie_poster"
                 android:layout_width="100dp"
                 android:layout_height="150dp"
@@ -38,7 +38,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.125"
-                app:layout_constraintStart_toEndOf="@+id/include"
+                app:layout_constraintStart_toEndOf="@+id/poster"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.128">
 
@@ -111,7 +111,7 @@
                 android:background="@color/geyser"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/include" />
+                app:layout_constraintStart_toEndOf="@+id/poster" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

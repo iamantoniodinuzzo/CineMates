@@ -51,6 +51,7 @@ public class MovieViewModel extends ViewModel {
     private final MutableLiveData<List<Movie>> moviesByActor = new MutableLiveData<>();
     private final MutableLiveData<List<Movie>> filteredMovies = new MutableLiveData<>();
     private final MutableLiveData<List<Movie>> trendingMovieList = new MutableLiveData<>();
+    private final MutableLiveData<List<Cast>> trendingPerson = new MutableLiveData<>();
     private final MutableLiveData<List<Movie>> movieSimilar = new MutableLiveData<>();
     private final MutableLiveData<List<Review>> movieReviews = new MutableLiveData<>();
     private final MutableLiveData<Images> images = new MutableLiveData<>();
@@ -106,6 +107,10 @@ public class MovieViewModel extends ViewModel {
 
     public MutableLiveData<Images> getImages() {
         return images;
+    }
+
+    public MutableLiveData<List<Cast>> getTrendingPerson() {
+        return trendingPerson;
     }
 
     public MutableLiveData<Actor> getActor() {
@@ -173,7 +178,7 @@ public class MovieViewModel extends ViewModel {
         );
     }
 
-    public void getTrendingMovies(@NonNull MediaType mediaType, @NonNull TimeWindow timeWindow) {
+    public void getTrending(@NonNull MediaType mediaType, @NonNull TimeWindow timeWindow) {
         switch (mediaType) {
             case ALL:
                 break;
@@ -188,7 +193,12 @@ public class MovieViewModel extends ViewModel {
             case TV:
                 break;
             case PERSON:
-                //TODO catch trending persons
+                disposables.add(repository.getTrendingPerson(mediaType.toString(), timeWindow.toString())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(result -> trendingPerson.setValue(result.getResults()),
+                                error -> Log.e(TAG, "getTrendingPerson: " + error.getMessage()))
+                );
                 break;
         }
 

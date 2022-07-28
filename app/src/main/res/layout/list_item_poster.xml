@@ -18,8 +18,9 @@
 
         <ImageView
             android:layout_width="150dp"
-            tools:src="@tools:sample/backgrounds/scenic"
             android:scaleType="centerCrop"
+            tools:src="@tools:sample/backgrounds/scenic"
+            android:background="@color/geyser"
             app:imageUrl="@{image.file_path}"
             android:layout_height="250dp"/>
     </androidx.cardview.widget.CardView>

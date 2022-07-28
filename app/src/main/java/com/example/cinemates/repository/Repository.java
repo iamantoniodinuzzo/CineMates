@@ -9,6 +9,7 @@ import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Images;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.model.Person;
 import com.example.cinemates.model.Response;
 import com.example.cinemates.model.Review;
 import com.example.cinemates.model.Video;
@@ -50,7 +51,7 @@ public class Repository {
         return apiService.getTrendingMovies(mediaType, timeWindow, sMap);
     }
 
-    public Observable<Response<Cast>> getTrendingPerson(@NonNull String mediaType, @NonNull String timeWindow) {
+    public Observable<Response<Person>> getTrendingPerson(@NonNull String mediaType, @NonNull String timeWindow) {
         return apiService.getTrendingPerson(mediaType, timeWindow, sMap);
     }
 

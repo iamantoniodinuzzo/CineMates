@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentProfileBinding;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.model.Person;
 import com.example.cinemates.model.Section;
 import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.DbViewModel;
@@ -23,7 +24,8 @@ import java.util.List;
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding mBinding;
-    private Section<Movie> favorite_section;
+    private Section<Movie> mMovieSection;
+    private Section<Person> mPersonSection;
     private DbViewModel mDbViewModel;
     private SectionRecyclerViewAdapter mAdapter;
     private List<Section<?>> mSectionList;
@@ -33,9 +35,11 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new SectionRecyclerViewAdapter(this, getContext());
-        favorite_section = new Section<>("Favorites","Movies",Movie.class, null, ViewSize.SMALL);
+        mMovieSection = new Section<>("Favorites", "Movies", Movie.class, null, ViewSize.SMALL);
+        mPersonSection = new Section<>("Favorites", "Actors", Person.class, null, ViewSize.SMALL);
         mSectionList = new ArrayList<>();
-        mSectionList.add(favorite_section);
+        mSectionList.add(mMovieSection);
+        mSectionList.add(mPersonSection);
         mDbViewModel = new ViewModelProvider(getActivity()).get(DbViewModel.class);
     }
 
@@ -46,14 +50,18 @@ public class ProfileFragment extends Fragment {
         mBinding = FragmentProfileBinding.inflate(inflater, container, false);
         mBinding.recyclerView.setAdapter(mAdapter);
         mAdapter.addItems(mSectionList);
+        System.out.println(mSectionList);
         return mBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        favorite_section.setMutableLiveData(mDbViewModel.getFavorite_movies());
-        mDbViewModel.getAllFavorites();
+        System.out.println(mDbViewModel.getFavorite_persons().getValue());
+        mMovieSection.setMutableLiveData(mDbViewModel.getFavorite_movies());
+        mPersonSection.setMutableLiveData( mDbViewModel.getFavorite_persons());
+        mDbViewModel.getAllFavoritesMovies();
+        mDbViewModel.getAllFavoritesPersons();
     }
 
     @Override

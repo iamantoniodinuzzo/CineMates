@@ -6,6 +6,7 @@ import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Images;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.model.Person;
 import com.example.cinemates.model.Response;
 import com.example.cinemates.model.Review;
 import com.example.cinemates.model.Video;
@@ -79,5 +80,5 @@ public interface MovieApiService {
     Observable<Response<Movie>> getTrendingMovies(@Path("media_type") String media_type, @Path("time_window") String time_window, @QueryMap HashMap<String, String> queries);
 
     @GET("trending/{media_type}/{time_window}")
-    Observable<Response<Cast>> getTrendingPerson(@Path("media_type") String media_type, @Path("time_window") String time_window, @QueryMap HashMap<String, String> queries);
+    Observable<Response<Person>> getTrendingPerson(@Path("media_type") String media_type, @Path("time_window") String time_window, @QueryMap HashMap<String, String> queries);
 }

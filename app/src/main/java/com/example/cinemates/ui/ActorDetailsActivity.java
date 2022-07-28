@@ -9,12 +9,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.cinemates.R;
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.databinding.ActivityActorDetailsBinding;
 import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Person;
 import com.example.cinemates.util.ViewSize;
+import com.example.cinemates.viewmodel.DbViewModel;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
 import java.util.List;
@@ -25,37 +27,40 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ActorDetailsActivity extends AppCompatActivity {
 
     private ActivityActorDetailsBinding mBinding;
-    private MovieViewModel mViewModel;
-//    private MovieRecyclerViewAdapter mAdapter;
     private ItemsRecyclerViewAdapter<Movie> mAdapter;
-    private Person mPerson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = ActivityActorDetailsBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
-
-        mPerson = (Person) getIntent().getExtras().getSerializable("person");
-        mViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
+        DbViewModel dbViewModel = new ViewModelProvider(this).get(DbViewModel.class);
+        Person person = (Person) getIntent().getExtras().getSerializable("person");
+        MovieViewModel viewModel = new ViewModelProvider(this).get(MovieViewModel.class);
         mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
+
+        if (dbViewModel.getPerson(person) != null)
+            mBinding.fab.setImageDrawable(getDrawable(R.drawable.ic_baseline_favorite_24));
+        else
+            mBinding.fab.setImageDrawable(getDrawable(R.drawable.ic_baseline_favorite_border_24));
+
         mBinding.recyclerView.setAdapter(mAdapter);
 
-        mViewModel.getActor().observe(this, new Observer<Actor>() {
+        viewModel.getActor().observe(this, new Observer<Actor>() {
             @Override
             public void onChanged(Actor actor) {
                 mBinding.setActor(actor);
             }
         });
-        mViewModel.getMoviesByActor().observe(this, new Observer<List<Movie>>() {
+        viewModel.getMoviesByActor().observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(List<Movie> movies) {
                 mAdapter.addItems(movies);
             }
         });
 
-        mViewModel.getMoviesByActor(String.valueOf(mPerson.getId()));
-        mViewModel.getActorDetails(mPerson.getId());
+        viewModel.getMoviesByActor(String.valueOf(person.getId()));
+        viewModel.getActorDetails(person.getId());
 
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +72,16 @@ public class ActorDetailsActivity extends AppCompatActivity {
         mBinding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ActorDetailsActivity.this, "On develop", Toast.LENGTH_SHORT).show();
+                person.setFavorite();
+                if (dbViewModel.getPerson(person) != null) {//it was already into favorite
+                    dbViewModel.delete(person);//should delete it
+                    mBinding.fab.setImageDrawable(getDrawable(R.drawable.ic_baseline_favorite_border_24));
+                    Toast.makeText(ActorDetailsActivity.this, "Removed from favorite", Toast.LENGTH_SHORT).show();
+                } else {
+                    dbViewModel.insert(person);
+                    mBinding.fab.setImageDrawable(getDrawable(R.drawable.ic_baseline_favorite_24));
+                    Toast.makeText(ActorDetailsActivity.this, "Added to favorite", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

@@ -69,14 +69,13 @@ public class Section<T> extends ArrayList<T> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Section)) return false;
+        if (!super.equals(o)) return false;
         Section<?> section = (Section<?>) o;
-        return Objects.equals(getSectionName(), section.getSectionName()) && Objects.equals(getMutableLiveData(), section.getMutableLiveData());
+        return getGenericType().equals(section.getGenericType()) && getSectionName().equals(section.getSectionName()) && Objects.equals(getSectionContentDescription(), section.getSectionContentDescription()) && Objects.equals(getMutableLiveData(), section.getMutableLiveData());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSectionName(), getMutableLiveData());
+        return Objects.hash(super.hashCode(), getGenericType(), getSectionName(), getSectionContentDescription(), getMutableLiveData());
     }
-
-
 }

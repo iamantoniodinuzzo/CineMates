@@ -1,23 +1,41 @@
 package com.example.cinemates.model;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.cinemates.util.Converters;
+
 import java.io.Serializable;
 
 /**
  * @author Antonio Di Nuzzo
  * Created 31/05/2022 at 11:32
  */
+@Entity
 public class Person implements Serializable {
     private String name, profile_path;
+    @PrimaryKey
     private Integer id;
+    private boolean favorite;
+    @TypeConverters(Converters.class)
     private Number popularity;
 
-
-
+    @Ignore
     public Person(String name, String profile_path, Integer id, Number popularity) {
         this.name = name;
         this.profile_path = profile_path;
         this.id = id;
         this.popularity = popularity;
+    }
+
+    public Person(String name, String profile_path, Integer id, Number popularity, boolean favorite) {
+        this.name = name;
+        this.profile_path = profile_path;
+        this.id = id;
+        this.popularity = popularity;
+        this.favorite = favorite;
     }
 
     public String getName() {
@@ -36,6 +54,17 @@ public class Person implements Serializable {
         this.profile_path = profile_path;
     }
 
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    public void setFavorite() {
+        this.favorite = !this.favorite;
+    }
 
     public Integer getId() {
         return id;

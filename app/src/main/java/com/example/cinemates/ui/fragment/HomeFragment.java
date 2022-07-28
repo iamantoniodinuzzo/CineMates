@@ -23,8 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinemates.R;
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentHomeBinding;
-import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.model.Person;
 import com.example.cinemates.model.Section;
 import com.example.cinemates.util.ItemMoveCallback;
 import com.example.cinemates.util.MediaType;
@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding mBinding;
     private NavController mNavController;
     private Section<Movie> upcomingSection, topRatedSection, trendingSection;
-    private Section<Cast> trendingPerson;
+    private Section<Person> trendingPerson;
     private Toolbar mToolbar;
     private MovieViewModel mViewModel;
     private SectionRecyclerViewAdapter mAdapter;
@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
         upcomingSection = new Section<>("Upcoming",null, Movie.class, null, ViewSize.SMALL);
         topRatedSection = new Section<>("Top Rated",null, Movie.class, null, ViewSize.SMALL);
         trendingSection = new Section<>("Trending this week","Movies", Movie.class, null, ViewSize.SMALL);
-        trendingPerson = new Section<>("Trending this week","Actors", Cast.class, null, ViewSize.SMALL);
+        trendingPerson = new Section<>("Trending this week","Actors", Person.class, null, ViewSize.SMALL);
         mSectionList = new ArrayList<>();
         mSectionList.add(upcomingSection);
         mSectionList.add(topRatedSection);

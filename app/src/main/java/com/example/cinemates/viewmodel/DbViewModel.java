@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.model.Person;
 import com.example.cinemates.repository.DbRepository;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class DbViewModel extends ViewModel {
     private final MutableLiveData<List<Movie>> favorite_movies = new MutableLiveData<>(),
             to_see = new MutableLiveData<>(),
             seen = new MutableLiveData<>();
+    private final MutableLiveData<List<Person>> favorite_persons = new MutableLiveData<>();
     private final CompositeDisposable disposables = new CompositeDisposable();
 
 
@@ -40,6 +42,9 @@ public class DbViewModel extends ViewModel {
         return favorite_movies;
     }
 
+    public MutableLiveData<List<Person>> getFavorite_persons() {
+        return favorite_persons;
+    }
 
     public MutableLiveData<List<Movie>> getTo_see() {
         return to_see;
@@ -49,19 +54,31 @@ public class DbViewModel extends ViewModel {
         return seen;
     }
 
-    public void getAllFavorites() {
+    public void getAllFavoritesMovies() {
         disposables.add(mDbRepository.getAllFavoritesMovies()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(favorite_movies::setValue,
-                        error -> Log.e(TAG, "getFavorites: " + error.getMessage()))
+                        error -> Log.e(TAG, "getFavoritesMovies: " + error.getMessage()))
+        );
+    }
+
+    public void getAllFavoritesPersons() {
+        disposables.add(mDbRepository.getAllFavoritesPerson()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(favorite_persons::setValue,
+                        error -> Log.e(TAG, "getFavoritesPersons: " + error.getMessage()))
         );
     }
 
 
-
     public Movie getMovie(Movie movie) {
         return mDbRepository.retrieveMovie(movie.getId());
+    }
+
+    public Person getPerson(Person person) {
+        return mDbRepository.retrievePerson(person.getId());
     }
 
 
@@ -88,15 +105,17 @@ public class DbViewModel extends ViewModel {
     }
 
 
-
     public void insertAll(Movie... movies) {
         mDbRepository.insertAllMovies(movies);
     }
 
 
-
     public void insert(Movie movie) {
         mDbRepository.insert(movie);
+    }
+
+    public void insert(Person person) {
+        mDbRepository.insert(person);
     }
 
 
@@ -106,6 +125,10 @@ public class DbViewModel extends ViewModel {
 
     public void delete(Movie movie) {
         mDbRepository.delete(movie);
+    }
+
+    public void delete(Person person) {
+        mDbRepository.delete(person);
     }
 
 }

@@ -38,7 +38,7 @@ public class ActorDetailsActivity extends AppCompatActivity {
 
         mPerson = (Person) getIntent().getExtras().getSerializable("person");
         mViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
-        mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.LONG);
+        mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mViewModel.getActor().observe(this, new Observer<Actor>() {

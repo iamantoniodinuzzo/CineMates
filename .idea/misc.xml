@@ -11,7 +11,7 @@
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/ic_outline_favorite.xml" value="0.329" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/ic_seen_icon.xml" value="0.329" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/round_corner_bg.xml" value="0.2985" />
-        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/activity_actor_details.xml" value="0.1" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/activity_actor_details.xml" value="0.25" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/activity_movie_details.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/activity_search.xml" value="0.25181159420289856" />
@@ -28,14 +28,21 @@
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_profile.xml" value="0.266304347826087" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_saved.xml" value="0.266304347826087" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_search.xml" value="0.25181159420289856" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/fragment_search_movie.xml" value="0.2740036231884058" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_collection_dialog.xml" value="0.2740036231884058" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_custom_dialog_random.xml" value="0.27717391304347827" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_empty_recycler.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_fab_shuffle.xml" value="0.27717391304347827" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_linear_section.xml" value="0.1" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_movie_poster.xml" value="0.2740036231884058" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_person_avatar.xml" value="0.2740036231884058" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/layout_poster_text_rating.xml" value="0.2740036231884058" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_backdrop.xml" value="0.2740036231884058" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_media_long.xml" value="0.2740036231884058" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_media_poster.xml" value="0.27717391304347827" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_person_information.xml" value="0.2740036231884058" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_person_small.xml" value="0.2740036231884058" />
+        <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_poster.xml" value="0.2740036231884058" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_review.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/list_item_section.xml" value="0.25181159420289856" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/layout/nav_filter_header.xml" value="0.24954710144927536" />

@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/list_item_media_poster" />
+        tools:listitem="@layout/list_item_movie_small" />
 
     <include
         android:id="@+id/empty_view"

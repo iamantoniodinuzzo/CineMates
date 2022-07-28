@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/list_item_media_poster" />
+                tools:listitem="@layout/list_item_movie_small" />
 
             <include
                 android:id="@+id/empty_view"

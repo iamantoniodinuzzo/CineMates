@@ -9,7 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinemates.databinding.ListItemMediaPosterBinding;
+import com.example.cinemates.databinding.ListItemMovieLongBinding;
+import com.example.cinemates.databinding.ListItemMovieSmallBinding;
 import com.example.cinemates.databinding.ListItemPersonLongBinding;
 import com.example.cinemates.databinding.ListItemPersonSmallBinding;
 import com.example.cinemates.model.Cast;
@@ -46,8 +47,14 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
 
         switch (viewType) {
             case MOVIE:
-                ListItemMediaPosterBinding mediaBinding = ListItemMediaPosterBinding.inflate(layoutInflater, parent, false);
-                viewHolder = new MovieViewHolder(mediaBinding);
+                if (mViewSize == ViewSize.SMALL) {
+                    ListItemMovieSmallBinding smallMovieBinding = ListItemMovieSmallBinding.inflate(layoutInflater, parent, false);
+                    viewHolder = new MovieViewHolder(smallMovieBinding);
+                } else {
+                    ListItemMovieLongBinding longMovieBinding = ListItemMovieLongBinding.inflate(layoutInflater, parent, false);
+                    viewHolder = new MovieViewHolder(longMovieBinding);
+                }
+
                 break;
             case PERSON:
                 if (mViewSize == ViewSize.SMALL) {
@@ -72,18 +79,38 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
         switch (holder.getItemViewType()) {
             case MOVIE:
                 Movie movie = (Movie) dataList.get(position);
-                ((MovieViewHolder) holder).mBinding.setMovie(movie);
-                ((MovieViewHolder) holder).mBinding.executePendingBindings();
-                ((MovieViewHolder) holder).mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                switch (mViewSize) {
 
-                        Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
-                        intent.putExtra("movie", movie);
-                        view.getContext().startActivity(intent);
+                    case LONG:
+                        ((MovieViewHolder) holder).mMovieLongBinding.setMovie(movie);
+                        ((MovieViewHolder) holder).mMovieLongBinding.executePendingBindings();
+                        ((MovieViewHolder) holder).mMovieLongBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                    }
-                });
+                                Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
+                                intent.putExtra("movie", movie);
+                                view.getContext().startActivity(intent);
+
+                            }
+                        });
+                        break;
+                    case SMALL:
+                        ((MovieViewHolder) holder).mMovieSmallBinding.setMovie(movie);
+                        ((MovieViewHolder) holder).mMovieSmallBinding.executePendingBindings();
+                        ((MovieViewHolder) holder).mMovieSmallBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
+                                intent.putExtra("movie", movie);
+                                view.getContext().startActivity(intent);
+
+                            }
+                        });
+                        break;
+                }
+
                 break;
             case PERSON:
                 Cast selected = (Cast) dataList.get(position);
@@ -126,18 +153,37 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
             switch (holder.getItemViewType()) {
                 case MOVIE:
                     Movie movie = (Movie) dataList.get(position);
-                    ((MovieViewHolder) holder).mBinding.setMovie(movie);
-                    ((MovieViewHolder) holder).mBinding.executePendingBindings();
-                    ((MovieViewHolder) holder).mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
+                    switch (mViewSize) {
 
-                            Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
-                            intent.putExtra("movie", movie);
-                            view.getContext().startActivity(intent);
+                        case LONG:
+                            ((MovieViewHolder) holder).mMovieLongBinding.setMovie(movie);
+                            ((MovieViewHolder) holder).mMovieLongBinding.executePendingBindings();
+                            ((MovieViewHolder) holder).mMovieLongBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
 
-                        }
-                    });
+                                    Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
+                                    intent.putExtra("movie", movie);
+                                    view.getContext().startActivity(intent);
+
+                                }
+                            });
+                            break;
+                        case SMALL:
+                            ((MovieViewHolder) holder).mMovieSmallBinding.setMovie(movie);
+                            ((MovieViewHolder) holder).mMovieSmallBinding.executePendingBindings();
+                            ((MovieViewHolder) holder).mMovieSmallBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                    Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
+                                    intent.putExtra("movie", movie);
+                                    view.getContext().startActivity(intent);
+
+                                }
+                            });
+                            break;
+                    }
                     break;
                 case PERSON:
                     Cast selected = (Cast) dataList.get(position);

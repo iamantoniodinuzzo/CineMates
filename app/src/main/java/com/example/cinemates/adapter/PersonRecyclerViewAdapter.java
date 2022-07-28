@@ -21,7 +21,7 @@ import java.util.List;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-public class PersonRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapter<PersonRecyclerViewAdapter.PersonViewHolder> {
+public class PersonRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapter<PersonViewHolder> {
     private final List<T> dataList = new ArrayList<>();
 
     @NonNull
@@ -59,16 +59,4 @@ public class PersonRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapt
         notifyDataSetChanged();
     }
 
-    static class PersonViewHolder extends RecyclerViewEmptySupport.ViewHolder {
-        ListItemPersonInformationBinding mBinding;
-
-        PersonViewHolder(@NonNull ListItemPersonInformationBinding listItemPersonInformationBinding) {
-            super(listItemPersonInformationBinding.getRoot());
-            this.mBinding = listItemPersonInformationBinding;
-
-
-        }
-
-
-    }
 }

@@ -19,7 +19,7 @@ import java.util.List;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<MovieRecyclerViewAdapter.MovieViewHolder> {
+public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<MovieViewHolder> {
     private final List<Movie> dataList = new ArrayList<>();
 
     @NonNull
@@ -61,17 +61,4 @@ public class MovieRecyclerViewAdapter extends RecyclerViewEmptySupport.Adapter<M
     }
 
 
-
-    static class MovieViewHolder extends RecyclerViewEmptySupport.ViewHolder {
-        private static final String TAG = MovieViewHolder.class.getSimpleName();
-        ListItemMediaPosterBinding mBinding;
-
-        MovieViewHolder(@NonNull ListItemMediaPosterBinding listItemMediaPosterBinding) {
-            super(listItemMediaPosterBinding.getRoot());
-            this.mBinding = listItemMediaPosterBinding;
-
-        }
-
-
-    }
 }

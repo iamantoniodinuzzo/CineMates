@@ -14,6 +14,7 @@ import com.example.cinemates.databinding.ActivityActorDetailsBinding;
 import com.example.cinemates.model.Actor;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Person;
+import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class ActorDetailsActivity extends AppCompatActivity {
 
         mPerson = (Person) getIntent().getExtras().getSerializable("person");
         mViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
-        mAdapter = new ItemsRecyclerViewAdapter<>();
+        mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.LONG);
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mViewModel.getActor().observe(this, new Observer<Actor>() {

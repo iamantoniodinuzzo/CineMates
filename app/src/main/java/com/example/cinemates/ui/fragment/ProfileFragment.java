@@ -14,6 +14,7 @@ import com.example.cinemates.adapter.SectionRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentProfileBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Section;
+import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.DbViewModel;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new SectionRecyclerViewAdapter(this, getContext());
-        favorite_section = new Section<>("Favorites",Movie.class, null);
+        favorite_section = new Section<>("Favorites",Movie.class, null, ViewSize.SMALL);
         mSectionList = new ArrayList<>();
         mSectionList.add(favorite_section);
         mDbViewModel = new ViewModelProvider(getActivity()).get(DbViewModel.class);

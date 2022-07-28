@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.databinding.ListItemMediaPosterBinding;
-import com.example.cinemates.databinding.ListItemPersonInformationBinding;
+import com.example.cinemates.databinding.ListItemPersonLongBinding;
+import com.example.cinemates.databinding.ListItemPersonSmallBinding;
 import com.example.cinemates.model.Cast;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Person;
@@ -18,6 +19,7 @@ import com.example.cinemates.ui.ActorDetailsActivity;
 import com.example.cinemates.ui.MovieDetailsActivity;
 import com.example.cinemates.util.MyDiffUtilMovieCallbacks;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
+import com.example.cinemates.util.ViewSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,11 @@ import java.util.List;
 public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapter<RecyclerView.ViewHolder> {
     private final List<T> dataList = new ArrayList<>();
     private final int PERSON = 0, MOVIE = 1;
+    private final ViewSize mViewSize;
+
+    public ItemsRecyclerViewAdapter(ViewSize viewSize) {
+        mViewSize = viewSize;
+    }
 
     @NonNull
     @Override
@@ -43,8 +50,14 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
                 viewHolder = new MovieViewHolder(mediaBinding);
                 break;
             case PERSON:
-                ListItemPersonInformationBinding personBinding = ListItemPersonInformationBinding.inflate(layoutInflater, parent, false);
-                viewHolder = new PersonViewHolder(personBinding);
+                if (mViewSize == ViewSize.SMALL) {
+                    ListItemPersonSmallBinding smallPersonBinding = ListItemPersonSmallBinding.inflate(layoutInflater, parent, false);
+                    viewHolder = new PersonViewHolder(smallPersonBinding);
+                } else {
+                    ListItemPersonLongBinding defaultBinding = ListItemPersonLongBinding.inflate(layoutInflater, parent, false);
+                    viewHolder = new PersonViewHolder(defaultBinding);
+                }
+
                 break;
 
             default:
@@ -74,16 +87,33 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
                 break;
             case PERSON:
                 Cast selected = (Cast) dataList.get(position);
-                ((PersonViewHolder) holder).mBinding.setActor(selected);
-                ((PersonViewHolder) holder).mBinding.executePendingBindings();
-                ((PersonViewHolder) holder).mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(view.getContext(), ActorDetailsActivity.class);
-                        intent.putExtra("person", (Person) selected);
-                        view.getContext().startActivity(intent);
-                    }
-                });
+                switch (mViewSize) {
+                    case LONG:
+                        ((PersonViewHolder) holder).mLongBinding.setActor(selected);
+                        ((PersonViewHolder) holder).mLongBinding.executePendingBindings();
+                        ((PersonViewHolder) holder).mLongBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(view.getContext(), ActorDetailsActivity.class);
+                                intent.putExtra("person", (Person) selected);
+                                view.getContext().startActivity(intent);
+                            }
+                        });
+                        break;
+                    case SMALL:
+                        ((PersonViewHolder) holder).mSmallBinding.setActor(selected);
+                        ((PersonViewHolder) holder).mSmallBinding.executePendingBindings();
+                        ((PersonViewHolder) holder).mSmallBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(view.getContext(), ActorDetailsActivity.class);
+                                intent.putExtra("person", (Person) selected);
+                                view.getContext().startActivity(intent);
+                            }
+                        });
+                        break;
+                }
+
                 break;
         }
     }
@@ -111,16 +141,32 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
                     break;
                 case PERSON:
                     Cast selected = (Cast) dataList.get(position);
-                    ((PersonViewHolder) holder).mBinding.setActor(selected);
-                    ((PersonViewHolder) holder).mBinding.executePendingBindings();
-                    ((PersonViewHolder) holder).mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(view.getContext(), ActorDetailsActivity.class);
-                            intent.putExtra("person", (Person) selected);
-                            view.getContext().startActivity(intent);
-                        }
-                    });
+                    switch (mViewSize) {
+                        case LONG:
+                            ((PersonViewHolder) holder).mLongBinding.setActor(selected);
+                            ((PersonViewHolder) holder).mLongBinding.executePendingBindings();
+                            ((PersonViewHolder) holder).mLongBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(view.getContext(), ActorDetailsActivity.class);
+                                    intent.putExtra("person", (Person) selected);
+                                    view.getContext().startActivity(intent);
+                                }
+                            });
+                            break;
+                        case SMALL:
+                            ((PersonViewHolder) holder).mSmallBinding.setActor(selected);
+                            ((PersonViewHolder) holder).mSmallBinding.executePendingBindings();
+                            ((PersonViewHolder) holder).mSmallBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(view.getContext(), ActorDetailsActivity.class);
+                                    intent.putExtra("person", (Person) selected);
+                                    view.getContext().startActivity(intent);
+                                }
+                            });
+                            break;
+                    }
                     break;
             }
         }

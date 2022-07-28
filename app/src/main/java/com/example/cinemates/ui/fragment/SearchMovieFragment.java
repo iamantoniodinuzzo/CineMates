@@ -16,6 +16,7 @@ import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentSearchMovieBinding;
 import com.example.cinemates.interfaces.CustomizableFragment;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
 import java.util.List;
@@ -30,7 +31,7 @@ private ItemsRecyclerViewAdapter<Movie> mAdapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new ItemsRecyclerViewAdapter<>();
+        mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
 
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
 

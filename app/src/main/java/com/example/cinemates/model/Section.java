@@ -2,6 +2,8 @@ package com.example.cinemates.model;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.cinemates.util.ViewSize;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,18 +16,20 @@ public class Section<T> extends ArrayList<T> {
     private Class<T> genericType;
     private String sectionName;
     private MutableLiveData<List<T>> mMutableLiveData;
+    private ViewSize mViewSize;
 
-    public Section(String sectionName, Class<T> c, MutableLiveData<List<T>> mutableLiveData) {
+
+    public Section(String sectionName, Class<T> c, MutableLiveData<List<T>> mutableLiveData, ViewSize viewSize) {
         this.sectionName = sectionName;
         mMutableLiveData = mutableLiveData;
         this.genericType = c;
-
+        this.mViewSize = viewSize;
     }
 
-    public Class<T> getGenericType()
-    {
+    public Class<T> getGenericType() {
         return genericType;
     }
+
     public String getSectionName() {
         return sectionName;
     }
@@ -38,10 +42,17 @@ public class Section<T> extends ArrayList<T> {
         mMutableLiveData = mutableLiveData;
     }
 
+    public ViewSize getViewSize() {
+        return mViewSize;
+    }
+
+    public void setViewSize(ViewSize viewSize) {
+        mViewSize = viewSize;
+    }
+
     public void setSectionName(String sectionName) {
         this.sectionName = sectionName;
     }
-
 
 
     @Override

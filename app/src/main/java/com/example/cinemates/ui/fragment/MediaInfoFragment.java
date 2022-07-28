@@ -17,6 +17,7 @@ import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentMediaInfoBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Video;
+import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class MediaInfoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new ItemsRecyclerViewAdapter<>();
+        mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
         mVideoAdapter = new YoutubeVideoRecyclerViewAdapter();
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);

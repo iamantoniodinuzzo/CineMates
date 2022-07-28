@@ -29,6 +29,7 @@ import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.ui.MovieDetailsActivity;
 import com.example.cinemates.util.Sort;
+import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.MovieViewModel;
 import com.google.android.material.chip.Chip;
 
@@ -54,7 +55,7 @@ public class FilterFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mGenre = FilterFragmentArgs.fromBundle(getArguments()).getGenre();
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
-        mAdapter = new ItemsRecyclerViewAdapter<>();
+        mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
         mSortObservable = new MutableLiveData<>();
         mSortObservable.setValue(Sort.POPULARITY.getAttribute());//Default value of sorting chips
         filtered_list = new ArrayList<>();

@@ -11,5 +11,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/list_item_person_information" />
+        tools:listitem="@layout/list_item_person_long" />
 </RelativeLayout>

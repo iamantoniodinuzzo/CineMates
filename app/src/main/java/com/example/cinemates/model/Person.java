@@ -11,6 +11,8 @@ public class Person implements Serializable {
     private Integer id;
     private Number popularity;
 
+
+
     public Person(String name, String profile_path, Integer id, Number popularity) {
         this.name = name;
         this.profile_path = profile_path;

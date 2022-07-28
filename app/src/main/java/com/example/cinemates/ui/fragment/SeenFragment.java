@@ -16,6 +16,7 @@ import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentListingBinding;
 import com.example.cinemates.interfaces.CustomizableFragment;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.DbViewModel;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class SeenFragment extends Fragment implements CustomizableFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDbViewModel = new ViewModelProvider(getActivity()).get(DbViewModel.class);
-        mAdapter = new ItemsRecyclerViewAdapter<>();
+        mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
 
     }
 

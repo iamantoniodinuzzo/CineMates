@@ -10,7 +10,6 @@ import com.example.cinemates.util.RecyclerViewEmptySupport;
  * Created 28/07/2022 at 08:51
  */
 class MovieViewHolder extends RecyclerViewEmptySupport.ViewHolder {
-    private static final String TAG = MovieViewHolder.class.getSimpleName();
     ListItemMediaPosterBinding mBinding;
 
     MovieViewHolder(@NonNull ListItemMediaPosterBinding listItemMediaPosterBinding) {

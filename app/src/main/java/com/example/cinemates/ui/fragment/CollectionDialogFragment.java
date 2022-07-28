@@ -15,6 +15,7 @@ import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.databinding.LayoutCollectionDialogBinding;
 import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -46,7 +47,7 @@ public class CollectionDialogFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
-        mAdapter = new ItemsRecyclerViewAdapter<>();
+        mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
 
     }
 

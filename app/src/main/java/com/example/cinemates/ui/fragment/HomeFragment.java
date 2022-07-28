@@ -29,6 +29,7 @@ import com.example.cinemates.model.Section;
 import com.example.cinemates.util.ItemMoveCallback;
 import com.example.cinemates.util.MediaType;
 import com.example.cinemates.util.TimeWindow;
+import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.MovieViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -53,10 +54,10 @@ public class HomeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new SectionRecyclerViewAdapter(this, getContext());
-        upcomingSection = new Section<>("Upcoming", Movie.class, null);
-        topRatedSection = new Section<>("Top Rated", Movie.class, null);
-        trendingSection = new Section<>("Movies Trending this week", Movie.class, null);
-        trendingPerson = new Section<>("Person Trending this week", Cast.class, null);
+        upcomingSection = new Section<>("Upcoming", Movie.class, null, ViewSize.SMALL);
+        topRatedSection = new Section<>("Top Rated", Movie.class, null, ViewSize.SMALL);
+        trendingSection = new Section<>("Movies Trending this week", Movie.class, null, ViewSize.SMALL);
+        trendingPerson = new Section<>("Person Trending this week", Cast.class, null, ViewSize.SMALL);
         mSectionList = new ArrayList<>();
         mSectionList.add(upcomingSection);
         mSectionList.add(topRatedSection);

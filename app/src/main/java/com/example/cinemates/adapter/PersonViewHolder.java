@@ -2,7 +2,8 @@ package com.example.cinemates.adapter;
 
 import androidx.annotation.NonNull;
 
-import com.example.cinemates.databinding.ListItemPersonInformationBinding;
+import com.example.cinemates.databinding.ListItemPersonLongBinding;
+import com.example.cinemates.databinding.ListItemPersonSmallBinding;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 
 /**
@@ -10,11 +11,18 @@ import com.example.cinemates.util.RecyclerViewEmptySupport;
  * Created 28/07/2022 at 08:51
  */
 class PersonViewHolder extends RecyclerViewEmptySupport.ViewHolder {
-    ListItemPersonInformationBinding mBinding;
+    ListItemPersonLongBinding mLongBinding;
+    ListItemPersonSmallBinding mSmallBinding;
 
-    PersonViewHolder(@NonNull ListItemPersonInformationBinding listItemPersonInformationBinding) {
-        super(listItemPersonInformationBinding.getRoot());
-        this.mBinding = listItemPersonInformationBinding;
+    PersonViewHolder(@NonNull ListItemPersonLongBinding listItemPersonLongBinding) {
+        super(listItemPersonLongBinding.getRoot());
+        this.mLongBinding = listItemPersonLongBinding;
+
+    }
+
+    PersonViewHolder(@NonNull ListItemPersonSmallBinding listItemPersonSmallBinding) {
+        super(listItemPersonSmallBinding.getRoot());
+        this.mSmallBinding = listItemPersonSmallBinding;
 
 
     }

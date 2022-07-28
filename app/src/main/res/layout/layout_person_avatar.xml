@@ -21,9 +21,9 @@
             android:id="@+id/ivAvatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/blue_stone_100"
+            android:background="@color/geyser"
             android:scaleType="centerCrop"
-            app:imageUrl="@{path}"
+            app:imageUrlAvatar="@{path}"
             tools:src="@tools:sample/avatars" />
     </androidx.cardview.widget.CardView>
 </layout>

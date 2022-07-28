@@ -2,7 +2,6 @@ package com.example.cinemates.adapter;
 
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.cinemates.R;
 import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Movie;
@@ -44,7 +44,23 @@ public class BindingAdapters {
         Glide.with(view.getContext())
                 .load(Constants.ImageBaseURLw500
                         + url)
-                .error(R.drawable.ic_round_error_outline_24)
+                .error(R.drawable.ic_outline_image_not_supported_24)
+                .placeholder(R.drawable.ic_death_star)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .centerCrop()
+                .into(view);
+
+    }
+
+    @BindingAdapter({"imageUrlAvatar"})
+    public static void loadAvatar(ImageView view, String url) {
+        //ImageView: Using Glide Library
+        Glide.with(view.getContext())
+                .load(Constants.ImageBaseURLw500
+                        + url)
+                .error(R.drawable.ic_avatar)
+                .placeholder(R.drawable.ic_cap_america)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .centerCrop()
                 .into(view);
 
@@ -71,7 +87,9 @@ public class BindingAdapters {
         Glide.with(view.getContext())
                 .load(Constants.ImageBaseURLw780
                         + url)
-                .error(R.drawable.ic_round_error_outline_24)
+                .error(R.drawable.ic_outline_image_not_supported_24)
+                .placeholder(R.drawable.ic_avengers)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .centerCrop()
                 .into(view);
     }
@@ -185,14 +203,6 @@ public class BindingAdapters {
         });
     }
 
-    @BindingAdapter({"hideNSeek"})
-    public static void hideNSeek(View view, boolean value) {
-        if (value)
-            view.setVisibility(View.VISIBLE);
-        else
-            view.setVisibility(View.INVISIBLE);
-
-    }
 
     @BindingAdapter({"voteAverage"})
     public static void loadVoteAverage(TextView textView, Number number) {

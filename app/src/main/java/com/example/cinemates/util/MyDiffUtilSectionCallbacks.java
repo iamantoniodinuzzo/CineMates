@@ -58,6 +58,10 @@ public class MyDiffUtilSectionCallbacks<T> extends DiffUtil.Callback {
             bundle.putParcelableArrayList("movies", (ArrayList<? extends Parcelable>) newSection.getMutableLiveData().getValue());
 
         }
+        if (!newSection.getSectionContentDescription().equals(oldSection.getSectionContentDescription())) {
+            bundle.putString("section_content_description", newSection.getSectionContentDescription());
+
+        }
 
 
         return bundle.size() == 0 ? null : bundle;

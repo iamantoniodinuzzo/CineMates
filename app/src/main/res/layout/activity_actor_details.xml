@@ -194,7 +194,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="20dp"
             android:backgroundTint="@color/vermilion_100"
-            android:src="@drawable/ic_baseline_favorite_border_24" />
+            android:src="@drawable/ic_baseline_favorite_border_24"/>
 
         <com.example.cinemates.util.RecyclerViewEmptySupport
             android:id="@+id/recyclerView"

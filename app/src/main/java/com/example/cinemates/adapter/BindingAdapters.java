@@ -120,6 +120,7 @@ public class BindingAdapters {
 
     }
 
+
     @BindingAdapter({"loadSectionDescription"})
     public static void loadSectionDescription(TextView view, String value) {
         if (value == null)

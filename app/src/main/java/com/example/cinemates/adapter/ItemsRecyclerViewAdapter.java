@@ -113,28 +113,27 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
 
                 break;
             case PERSON:
-                Cast selected = (Cast) dataList.get(position);
                 switch (mViewSize) {
                     case LONG:
-                        ((PersonViewHolder) holder).mLongBinding.setActor(selected);
+                        ((PersonViewHolder) holder).mLongBinding.setActor((Cast) dataList.get(position));
                         ((PersonViewHolder) holder).mLongBinding.executePendingBindings();
                         ((PersonViewHolder) holder).mLongBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent(view.getContext(), ActorDetailsActivity.class);
-                                intent.putExtra("person", (Person) selected);
+                                intent.putExtra("person", (Person) dataList.get(position));
                                 view.getContext().startActivity(intent);
                             }
                         });
                         break;
                     case SMALL:
-                        ((PersonViewHolder) holder).mSmallBinding.setActor(selected);
+                        ((PersonViewHolder) holder).mSmallBinding.setPerson((Person) dataList.get(position));
                         ((PersonViewHolder) holder).mSmallBinding.executePendingBindings();
                         ((PersonViewHolder) holder).mSmallBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 Intent intent = new Intent(view.getContext(), ActorDetailsActivity.class);
-                                intent.putExtra("person", (Person) selected);
+                                intent.putExtra("person", (Person) dataList.get(position));
                                 view.getContext().startActivity(intent);
                             }
                         });
@@ -186,28 +185,27 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
                     }
                     break;
                 case PERSON:
-                    Cast selected = (Cast) dataList.get(position);
                     switch (mViewSize) {
                         case LONG:
-                            ((PersonViewHolder) holder).mLongBinding.setActor(selected);
+                            ((PersonViewHolder) holder).mLongBinding.setActor((Cast) dataList.get(position));
                             ((PersonViewHolder) holder).mLongBinding.executePendingBindings();
                             ((PersonViewHolder) holder).mLongBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     Intent intent = new Intent(view.getContext(), ActorDetailsActivity.class);
-                                    intent.putExtra("person", (Person) selected);
+                                    intent.putExtra("person", (Person) dataList.get(position));
                                     view.getContext().startActivity(intent);
                                 }
                             });
                             break;
                         case SMALL:
-                            ((PersonViewHolder) holder).mSmallBinding.setActor(selected);
+                            ((PersonViewHolder) holder).mSmallBinding.setPerson((Person) dataList.get(position));
                             ((PersonViewHolder) holder).mSmallBinding.executePendingBindings();
                             ((PersonViewHolder) holder).mSmallBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     Intent intent = new Intent(view.getContext(), ActorDetailsActivity.class);
-                                    intent.putExtra("person", (Person) selected);
+                                    intent.putExtra("person", (Person) dataList.get(position));
                                     view.getContext().startActivity(intent);
                                 }
                             });
@@ -223,7 +221,7 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
     public int getItemViewType(int position) {
         if (dataList.get(position) instanceof Movie) {
             return MOVIE;
-        } else if (dataList.get(position) instanceof Cast) {
+        } else if ((dataList.get(position) instanceof Cast) || dataList.get(position) instanceof Person) {
             return PERSON;
         }
         return -1;

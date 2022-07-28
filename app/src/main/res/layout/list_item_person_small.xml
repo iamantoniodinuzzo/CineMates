@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="actor"
-            type="com.example.cinemates.model.Cast" />
+            name="person"
+            type="com.example.cinemates.model.Person" />
     </data>
 
     <RelativeLayout
@@ -23,7 +23,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerHorizontal="true"
-            app:path="@{actor.profile_path}" />
+            app:path="@{person.profile_path}" />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ivAvatar"
             android:layout_centerInParent="true"
-            android:text="@{actor.name}"
+            android:text="@{person.name}"
             android:textColor="@color/alabaster"
             android:textSize="18sp"
             android:textStyle="bold"

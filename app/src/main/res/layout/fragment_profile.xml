@@ -22,9 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        tools:itemCount="2"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/list_item_movie_small" />
+        tools:listitem="@layout/list_item_section" />
 
     <TextView
         android:id="@+id/stats_section"

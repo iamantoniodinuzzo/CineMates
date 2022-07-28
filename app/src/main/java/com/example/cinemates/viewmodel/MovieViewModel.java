@@ -12,6 +12,7 @@ import com.example.cinemates.model.Collection;
 import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Images;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.model.Person;
 import com.example.cinemates.model.Response;
 import com.example.cinemates.model.Review;
 import com.example.cinemates.model.Video;
@@ -51,7 +52,7 @@ public class MovieViewModel extends ViewModel {
     private final MutableLiveData<List<Movie>> moviesByActor = new MutableLiveData<>();
     private final MutableLiveData<List<Movie>> filteredMovies = new MutableLiveData<>();
     private final MutableLiveData<List<Movie>> trendingMovieList = new MutableLiveData<>();
-    private final MutableLiveData<List<Cast>> trendingPerson = new MutableLiveData<>();
+    private final MutableLiveData<List<Person>> trendingPerson = new MutableLiveData<>();
     private final MutableLiveData<List<Movie>> movieSimilar = new MutableLiveData<>();
     private final MutableLiveData<List<Review>> movieReviews = new MutableLiveData<>();
     private final MutableLiveData<Images> images = new MutableLiveData<>();
@@ -109,7 +110,7 @@ public class MovieViewModel extends ViewModel {
         return images;
     }
 
-    public MutableLiveData<List<Cast>> getTrendingPerson() {
+    public MutableLiveData<List<Person>> getTrendingPerson() {
         return trendingPerson;
     }
 

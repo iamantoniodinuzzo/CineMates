@@ -77,4 +77,7 @@ public interface MovieApiService {
 
     @GET("trending/{media_type}/{time_window}")
     Observable<Response<Movie>> getTrendingMovies(@Path("media_type") String media_type, @Path("time_window") String time_window, @QueryMap HashMap<String, String> queries);
+
+    @GET("trending/{media_type}/{time_window}")
+    Observable<Response<Cast>> getTrendingPerson(@Path("media_type") String media_type, @Path("time_window") String time_window, @QueryMap HashMap<String, String> queries);
 }

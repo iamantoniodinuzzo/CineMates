@@ -18,6 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.R;
 import com.example.cinemates.databinding.ListItemSectionBinding;
+import com.example.cinemates.model.Cast;
+import com.example.cinemates.model.Movie;
+import com.example.cinemates.model.Person;
 import com.example.cinemates.model.Section;
 import com.example.cinemates.util.ItemMoveCallback;
 import com.example.cinemates.util.MyDiffUtilSectionCallbacks;
@@ -31,13 +34,12 @@ import java.util.List;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionRecyclerViewAdapter.SectionViewHolder> implements ItemMoveCallback.ItemTouchHelperContract {
-    private final List<Section<T>> dataList = new ArrayList<>();
+public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecyclerViewAdapter.SectionViewHolder> implements ItemMoveCallback.ItemTouchHelperContract {
+    private final List<Section<?>> dataList = new ArrayList<>();
     private final LifecycleOwner mLifecycleOwner;
     private final Vibrator vibe;
-    // TODO: 21/07/2022
-    //private final RecyclerView.Adapter adapter;
     private final VibrationEffect vibrationEffect1;
+    private final int PERSON = 0, MOVIE = 1;
 
     public SectionRecyclerViewAdapter(LifecycleOwner lifecycleOwner, Context context) {
         mLifecycleOwner = lifecycleOwner;
@@ -56,20 +58,42 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
 
     @Override
     public void onBindViewHolder(SectionViewHolder holder, int position) {
-        Section<T> section = dataList.get(position);
-        holder.mBinding.setSection(section);
-        holder.mBinding.executePendingBindings();
 
-        SectionItemsRecyclerViewAdapter<T> sectionItemsRecyclerViewAdapter = new SectionItemsRecyclerViewAdapter<>();
-        holder.mBinding.recyclerView.setAdapter(sectionItemsRecyclerViewAdapter);
-        holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
-        section.getMutableLiveData().observe(mLifecycleOwner, new Observer<List<T>>() {
-            @Override
-            public void onChanged(List<T> items) {
-                sectionItemsRecyclerViewAdapter.addItems((items));
 
-            }
-        });
+        switch (holder.getItemViewType()) {
+            case MOVIE:
+                Section<Movie> movie_section = (Section<Movie>) dataList.get(position);
+                holder.mBinding.setSection(movie_section);
+                holder.mBinding.executePendingBindings();
+
+                SectionItemsRecyclerViewAdapter<Movie> section_items_movie = new SectionItemsRecyclerViewAdapter<>();
+                holder.mBinding.recyclerView.setAdapter(section_items_movie);
+                holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
+                movie_section.getMutableLiveData().observe(mLifecycleOwner, new Observer<List<Movie>>() {
+                    @Override
+                    public void onChanged(List<Movie> items) {
+                        section_items_movie.addItems((items));
+
+                    }
+                });
+                break;
+            case PERSON:
+                Section<Person> person_section = (Section<Person>) dataList.get(position);
+                holder.mBinding.setSection(person_section);
+                holder.mBinding.executePendingBindings();
+
+                SectionItemsRecyclerViewAdapter<Person> sectionItemsPerson = new SectionItemsRecyclerViewAdapter<>();
+                holder.mBinding.recyclerView.setAdapter(sectionItemsPerson);
+                holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
+                person_section.getMutableLiveData().observe(mLifecycleOwner, new Observer<List<Person>>() {
+                    @Override
+                    public void onChanged(List<Person> items) {
+                        sectionItemsPerson.addItems((items));
+
+                    }
+                });
+                break;
+        }
 
 
     }
@@ -79,20 +103,41 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
         if (payloads.isEmpty())
             super.onBindViewHolder(holder, position, payloads);
         else {
-            Section<T> section = dataList.get(position);
-            holder.mBinding.setSection(section);
-            holder.mBinding.executePendingBindings();
+            switch (holder.getItemViewType()) {
+                case MOVIE:
+                    Section<Movie> movie_section = (Section<Movie>) dataList.get(position);
+                    holder.mBinding.setSection(movie_section);
+                    holder.mBinding.executePendingBindings();
 
-            SectionItemsRecyclerViewAdapter<T> sectionItemsRecyclerViewAdapter = new SectionItemsRecyclerViewAdapter<>();
-            holder.mBinding.recyclerView.setAdapter(sectionItemsRecyclerViewAdapter);
-            holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
-            section.getMutableLiveData().observe(mLifecycleOwner, new Observer<List<T>>() {
-                @Override
-                public void onChanged(List<T> items) {
-                    sectionItemsRecyclerViewAdapter.addItems((items));
+                    SectionItemsRecyclerViewAdapter<Movie> section_items_movie = new SectionItemsRecyclerViewAdapter<>();
+                    holder.mBinding.recyclerView.setAdapter(section_items_movie);
+                    holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
+                    movie_section.getMutableLiveData().observe(mLifecycleOwner, new Observer<List<Movie>>() {
+                        @Override
+                        public void onChanged(List<Movie> items) {
+                            section_items_movie.addItems((items));
 
-                }
-            });
+                        }
+                    });
+                    break;
+                case PERSON:
+                    Section<Person> person_section = (Section<Person>) dataList.get(position);
+
+                    holder.mBinding.setSection(person_section);
+                    holder.mBinding.executePendingBindings();
+
+                    SectionItemsRecyclerViewAdapter<Person> sectionItemsPerson = new SectionItemsRecyclerViewAdapter<>();
+                    holder.mBinding.recyclerView.setAdapter(sectionItemsPerson);
+                    holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
+                    person_section.getMutableLiveData().observe(mLifecycleOwner, new Observer<List<Person>>() {
+                        @Override
+                        public void onChanged(List<Person> items) {
+                            sectionItemsPerson.addItems((items));
+
+                        }
+                    });
+                    break;
+            }
         }
     }
 
@@ -101,7 +146,7 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
         return dataList.size();
     }
 
-    public void addItems(List<Section<T>> dataList) {
+    public void addItems(List<Section<?>> dataList) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffUtilSectionCallbacks(this.dataList, dataList));
         this.dataList.clear();
         this.dataList.addAll(dataList);
@@ -110,10 +155,22 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
 
     }
 
-    public void addItems(Section<T> section) {
+    public void addItems(Section<Object> section) {
         this.dataList.add(section);
         notifyDataSetChanged();
     }
+
+    //Returns the view type of the item at position for the purposes of view recycling.
+    @Override
+    public int getItemViewType(int position) {
+        if (dataList.get(position).getGenericType().equals(Movie.class)) {
+            return MOVIE;
+        } else if (dataList.get(position).getGenericType().equals(Cast.class)) {
+            return PERSON;
+        }
+        return -1;
+    }
+
 
     public static class SectionViewHolder extends RecyclerViewEmptySupport.ViewHolder {
         ListItemSectionBinding mBinding;

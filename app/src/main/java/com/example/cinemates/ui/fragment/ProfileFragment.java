@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter;
@@ -16,7 +15,6 @@ import com.example.cinemates.databinding.FragmentProfileBinding;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Section;
 import com.example.cinemates.viewmodel.DbViewModel;
-import com.example.cinemates.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +24,15 @@ public class ProfileFragment extends Fragment {
     private FragmentProfileBinding mBinding;
     private Section<Movie> favorite_section;
     private DbViewModel mDbViewModel;
-    private SectionRecyclerViewAdapter<Movie> mAdapter;
-    private List<Section<Movie>> mSectionList;
+    private SectionRecyclerViewAdapter mAdapter;
+    private List<Section<?>> mSectionList;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new SectionRecyclerViewAdapter<>(this, getContext());
-        favorite_section = new Section<>("Favorites", null);
+        mAdapter = new SectionRecyclerViewAdapter(this, getContext());
+        favorite_section = new Section<>("Favorites",Movie.class, null);
         mSectionList = new ArrayList<>();
         mSectionList.add(favorite_section);
         mDbViewModel = new ViewModelProvider(getActivity()).get(DbViewModel.class);

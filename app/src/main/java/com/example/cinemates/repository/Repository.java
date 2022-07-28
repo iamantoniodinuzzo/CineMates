@@ -50,6 +50,10 @@ public class Repository {
         return apiService.getTrendingMovies(mediaType, timeWindow, sMap);
     }
 
+    public Observable<Response<Cast>> getTrendingPerson(@NonNull String mediaType, @NonNull String timeWindow) {
+        return apiService.getTrendingPerson(mediaType, timeWindow, sMap);
+    }
+
     public Observable<Response<Movie>> getPopular() {
         return apiService.getPopular(sMap);
     }
@@ -77,7 +81,8 @@ public class Repository {
     public Observable<Response<Review>> getReviews(int movieId) {
         return apiService.getReviews(movieId, sMap);
     }
-    public Observable<Response<Genre>> getGenreList(){
+
+    public Observable<Response<Genre>> getGenreList() {
         return apiService.getGenreList(sMap);
     }
 
@@ -114,7 +119,8 @@ public class Repository {
         return apiService.getPeoplesBySearch(sMap);
 
     }
-    public Observable<Response<Movie>> getDiscoverMovies(String sort_option, String genre_id){
+
+    public Observable<Response<Movie>> getDiscoverMovies(String sort_option, String genre_id) {
         sMap.put("sort_by", sort_option);
         sMap.put("with_genres", genre_id);
         return apiService.getMoviesByDiscover(sMap);

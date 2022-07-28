@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
+import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentMediaInfoBinding;
 import com.example.cinemates.model.Movie;
@@ -27,14 +27,15 @@ public class MediaInfoFragment extends Fragment {
 
     private FragmentMediaInfoBinding mBinding;
     private MovieViewModel mViewModel;
-    private MovieRecyclerViewAdapter mAdapter;
+//    private MovieRecyclerViewAdapter mAdapter;
+    private ItemsRecyclerViewAdapter<Movie> mAdapter;
     private YoutubeVideoRecyclerViewAdapter mVideoAdapter;
     private Movie mMovie;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new MovieRecyclerViewAdapter();
+        mAdapter = new ItemsRecyclerViewAdapter<>();
         mVideoAdapter = new YoutubeVideoRecyclerViewAdapter();
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);

@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cinemates.adapter.PersonRecyclerViewAdapter;
+import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentSearchActorBinding;
 import com.example.cinemates.interfaces.CustomizableFragment;
 import com.example.cinemates.model.Cast;
@@ -24,14 +24,14 @@ import java.util.List;
 public class SearchActorFragment extends Fragment implements CustomizableFragment {
 
     private FragmentSearchActorBinding mBinding;
-    private PersonRecyclerViewAdapter mRecyclerViewAdapter;
+    private ItemsRecyclerViewAdapter<Cast> mRecyclerViewAdapter;
     private MovieViewModel mViewModel;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRecyclerViewAdapter = new PersonRecyclerViewAdapter();
+        mRecyclerViewAdapter = new ItemsRecyclerViewAdapter<>();
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
 
 

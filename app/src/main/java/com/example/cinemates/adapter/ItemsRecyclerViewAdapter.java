@@ -27,7 +27,7 @@ import java.util.List;
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-public class SectionItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapter<RecyclerView.ViewHolder> {
+public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapter<RecyclerView.ViewHolder> {
     private final List<T> dataList = new ArrayList<>();
     private final int PERSON = 0, MOVIE = 1;
 
@@ -88,42 +88,44 @@ public class SectionItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport
         }
     }
 
- /*   @Override
-    public void onBindViewHolder(SectionItemViewHolder holder, int position) {
-        T selected = dataList.get(position);
-        holder.mBinding.setMovie((Movie) selected);
-        holder.mBinding.executePendingBindings();
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads.isEmpty())
+            super.onBindViewHolder(holder, position, payloads);
+        else {
+            switch (holder.getItemViewType()) {
+                case MOVIE:
+                    Movie movie = (Movie) dataList.get(position);
+                    ((MovieViewHolder) holder).mBinding.setMovie(movie);
+                    ((MovieViewHolder) holder).mBinding.executePendingBindings();
+                    ((MovieViewHolder) holder).mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
-        holder.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
-                intent.putExtra("movie", (Movie) selected);
-                view.getContext().startActivity(intent);
+                            Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
+                            intent.putExtra("movie", movie);
+                            view.getContext().startActivity(intent);
+
+                        }
+                    });
+                    break;
+                case PERSON:
+                    Cast selected = (Cast) dataList.get(position);
+                    ((PersonViewHolder) holder).mBinding.setActor(selected);
+                    ((PersonViewHolder) holder).mBinding.executePendingBindings();
+                    ((PersonViewHolder) holder).mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(view.getContext(), ActorDetailsActivity.class);
+                            intent.putExtra("person", (Person) selected);
+                            view.getContext().startActivity(intent);
+                        }
+                    });
+                    break;
             }
-        });
+        }
+    }
 
-    }*/
-
-    /*  @Override
-      public void onBindViewHolder(@NonNull SectionItemViewHolder holder, int position, @NonNull List<Object> payloads) {
-          if(payloads.isEmpty())
-              super.onBindViewHolder(holder, position, payloads);
-          else {
-              T selected = dataList.get(position);
-              holder.mBinding.setMovie((Movie) selected);
-              holder.mBinding.executePendingBindings();
-
-              holder.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-                  @Override
-                  public void onClick(View view) {
-                      Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
-                      intent.putExtra("movie", (Movie) selected);
-                      view.getContext().startActivity(intent);
-                  }
-              });
-          }
-      }*/
     //Returns the view type of the item at position for the purposes of view recycling.
     @Override
     public int getItemViewType(int position) {

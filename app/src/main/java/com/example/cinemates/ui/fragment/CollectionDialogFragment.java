@@ -11,9 +11,10 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.cinemates.adapter.MovieRecyclerViewAdapter;
+import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.databinding.LayoutCollectionDialogBinding;
 import com.example.cinemates.model.Collection;
+import com.example.cinemates.model.Movie;
 import com.example.cinemates.viewmodel.MovieViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -26,7 +27,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class CollectionDialogFragment extends DialogFragment {
     //    private static Collection mCollection;
     private LayoutCollectionDialogBinding mBinding;
-    private MovieRecyclerViewAdapter mAdapter;
+//    private MovieRecyclerViewAdapter mAdapter;
+    private ItemsRecyclerViewAdapter<Movie> mAdapter;
     private MovieViewModel mViewModel;
 
     public CollectionDialogFragment() {
@@ -44,7 +46,7 @@ public class CollectionDialogFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
-        mAdapter = new MovieRecyclerViewAdapter();
+        mAdapter = new ItemsRecyclerViewAdapter<>();
 
     }
 

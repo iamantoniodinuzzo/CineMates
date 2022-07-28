@@ -66,7 +66,7 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
                 holder.mBinding.setSection(movie_section);
                 holder.mBinding.executePendingBindings();
 
-                SectionItemsRecyclerViewAdapter<Movie> section_items_movie = new SectionItemsRecyclerViewAdapter<>();
+                ItemsRecyclerViewAdapter<Movie> section_items_movie = new ItemsRecyclerViewAdapter<>();
                 holder.mBinding.recyclerView.setAdapter(section_items_movie);
                 holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
                 movie_section.getMutableLiveData().observe(mLifecycleOwner, new Observer<List<Movie>>() {
@@ -82,7 +82,7 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
                 holder.mBinding.setSection(person_section);
                 holder.mBinding.executePendingBindings();
 
-                SectionItemsRecyclerViewAdapter<Person> sectionItemsPerson = new SectionItemsRecyclerViewAdapter<>();
+                ItemsRecyclerViewAdapter<Person> sectionItemsPerson = new ItemsRecyclerViewAdapter<>();
                 holder.mBinding.recyclerView.setAdapter(sectionItemsPerson);
                 holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
                 person_section.getMutableLiveData().observe(mLifecycleOwner, new Observer<List<Person>>() {
@@ -109,7 +109,7 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
                     holder.mBinding.setSection(movie_section);
                     holder.mBinding.executePendingBindings();
 
-                    SectionItemsRecyclerViewAdapter<Movie> section_items_movie = new SectionItemsRecyclerViewAdapter<>();
+                    ItemsRecyclerViewAdapter<Movie> section_items_movie = new ItemsRecyclerViewAdapter<>();
                     holder.mBinding.recyclerView.setAdapter(section_items_movie);
                     holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
                     movie_section.getMutableLiveData().observe(mLifecycleOwner, new Observer<List<Movie>>() {
@@ -126,7 +126,7 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
                     holder.mBinding.setSection(person_section);
                     holder.mBinding.executePendingBindings();
 
-                    SectionItemsRecyclerViewAdapter<Person> sectionItemsPerson = new SectionItemsRecyclerViewAdapter<>();
+                    ItemsRecyclerViewAdapter<Person> sectionItemsPerson = new ItemsRecyclerViewAdapter<>();
                     holder.mBinding.recyclerView.setAdapter(sectionItemsPerson);
                     holder.mBinding.recyclerView.setEmptyView(holder.mBinding.emptyView.getRoot());
                     person_section.getMutableLiveData().observe(mLifecycleOwner, new Observer<List<Person>>() {

@@ -20,7 +20,7 @@ import com.example.cinemates.R;
 import com.example.cinemates.databinding.ListItemSectionBinding;
 import com.example.cinemates.model.Section;
 import com.example.cinemates.util.ItemMoveCallback;
-import com.example.cinemates.util.MyDiffUtilCallbacks;
+import com.example.cinemates.util.MyDiffUtilSectionCallbacks;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 
 import java.util.ArrayList;
@@ -102,10 +102,12 @@ public class SectionRecyclerViewAdapter<T> extends RecyclerView.Adapter<SectionR
     }
 
     public void addItems(List<Section<T>> dataList) {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffUtilCallbacks(this.dataList, dataList));
-        diffResult.dispatchUpdatesTo(this);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffUtilSectionCallbacks(this.dataList, dataList));
         this.dataList.clear();
         this.dataList.addAll(dataList);
+        diffResult.dispatchUpdatesTo(this);
+        notifyDataSetChanged();
+
     }
 
     public void addItems(Section<T> section) {

@@ -134,4 +134,8 @@ dependencies {
     //Youtube
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
+    //Charts
+    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
+
+
 }

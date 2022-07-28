@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.cinemates.databinding.ListItemMediaPosterBinding;
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.util.MyDiffUtilMovieCallbacks;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 import com.example.cinemates.ui.MovieDetailsActivity;
 
@@ -49,12 +51,36 @@ public class SectionItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport
     }
 
     @Override
+    public void onBindViewHolder(@NonNull SectionItemViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if(payloads.isEmpty())
+            super.onBindViewHolder(holder, position, payloads);
+        else {
+            T selected = dataList.get(position);
+            holder.mBinding.setMovie((Movie) selected);
+            holder.mBinding.executePendingBindings();
+
+            holder.mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
+                    intent.putExtra("movie", (Movie) selected);
+                    view.getContext().startActivity(intent);
+                }
+            });
+        }
+    }
+
+    @Override
     public int getItemCount() {
         return dataList.size();
     }
 
     public void addItems(List<T> dataList) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffUtilMovieCallbacks(this.dataList, dataList));
+
+        this.dataList.clear();
         this.dataList.addAll(dataList);
+        diffResult.dispatchUpdatesTo(this);
         notifyDataSetChanged();
     }
 

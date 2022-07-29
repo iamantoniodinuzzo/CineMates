@@ -1,4 +1,4 @@
-package com.example.cinemates.repository;
+package com.example.cinemates.local.repository;
 
 import com.example.cinemates.local.dao.MovieDao;
 import com.example.cinemates.local.dao.PersonDao;
@@ -39,6 +39,14 @@ public class DbRepository {
 
     public Observable<List<Movie>> getAllMoviesWithStatus(Movie.PersonalStatus status) {
         return mMovieDao.getAllWithStatus(status);
+    }
+
+    public long sumRuntimeAllWatchedMovies() {
+        return mMovieDao.sumRuntimeAllWatchedMovies(Movie.PersonalStatus.SEEN);
+    }
+
+    public long getMovieCountByStatus(Movie.PersonalStatus status) {
+        return mMovieDao.getMovieCountByStatus(status);
     }
 
     public Movie retrieveMovie(Integer id) {

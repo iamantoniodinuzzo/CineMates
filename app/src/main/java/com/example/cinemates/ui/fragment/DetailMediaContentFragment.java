@@ -9,8 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.Navigation;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cinemates.adapter.ViewPagerAdapter;
 import com.example.cinemates.databinding.FragmentDetailMediaContentBinding;
@@ -75,18 +73,7 @@ public class DetailMediaContentFragment extends Fragment {
         mMediaInfoFragment.setArguments(mBundle);
         mMediaImagesFragment.setArguments(mBundle);
 
-        mBinding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: 26/07/2022 Show dialog
-             /*   BottomSheetFragment bottomSheetDialog = BottomSheetFragment.newInstance();
-                bottomSheetDialog.show(getActivity().getSupportFragmentManager(), "Bottom Sheet Dialog Fragment");*/
-                DetailMediaContentFragmentDirections.ActionDetailMediaContentFragmentToDetailActorMediaFragment action =
-                        DetailMediaContentFragmentDirections.actionDetailMediaContentFragmentToDetailActorMediaFragment(mMovie);
-                Navigation.findNavController(view).navigate(action);
 
-            }
-        });
 
         initializeViewPager();
 
@@ -118,15 +105,6 @@ public class DetailMediaContentFragment extends Fragment {
             }
         }).attach();
 
-        mBinding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (position != 0)
-                    mBinding.fab.hide();
-                else
-                    mBinding.fab.show();
-            }
-        });
     }
 
 

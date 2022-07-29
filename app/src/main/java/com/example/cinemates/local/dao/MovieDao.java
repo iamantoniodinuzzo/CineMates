@@ -22,11 +22,18 @@ public interface MovieDao {
     @Query("SELECT * FROM movie WHERE favorite = 1")
     Observable<List<Movie>> getAllFavorite();
 
-    @Query("SELECT * FROM movie WHERE personalStatus = :status")
+    @Query("SELECT * FROM movie WHERE personalStatus = :status ORDER BY runtime ASC")
+//todo should be customizable
     Observable<List<Movie>> getAllWithStatus(Movie.PersonalStatus status);
 
     @Query("SELECT * FROM movie WHERE id = :id ")
     Movie retrieveMovie(Integer id);
+
+    @Query("SELECT SUM(runtime)  FROM movie WHERE personalStatus =:status")
+    long sumRuntimeAllWatchedMovies(Movie.PersonalStatus status);
+
+    @Query("SELECT COUNT(id) FROM movie WHERE personalStatus = :status")
+    long getMovieCountByStatus(Movie.PersonalStatus status);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAllMovies(Movie... movies);

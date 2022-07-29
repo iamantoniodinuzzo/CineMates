@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/stat_section"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:showIn="@layout/fragment_profile">
+
+    <TextView
+        android:id="@+id/stat_content"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:autoSizePresetSizes="2sp"
+        android:autoSizeTextType="uniform"
+        android:textColor="@color/geyser"
+        android:autoSizeMaxTextSize="32sp"
+        android:autoSizeMinTextSize="18sp"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        tools:text="@tools:sample/us_zipcodes" />
+
+    <TextView
+        android:id="@+id/stat_title"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:text="@tools:sample/lorem"
+        android:textSize="12sp"
+        android:textAlignment="center"
+        android:textColor="@color/geyser" />
+</androidx.appcompat.widget.LinearLayoutCompat>

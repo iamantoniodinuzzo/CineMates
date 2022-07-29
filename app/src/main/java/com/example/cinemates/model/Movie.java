@@ -32,7 +32,9 @@ public class Movie implements Serializable {
     private Number vote_average;
     private boolean favorite;
     @TypeConverters(Converters.class)
-    private PersonalStatus personalStatus ;
+    private PersonalStatus personalStatus;
+    @TypeConverters(Converters.class)
+    private ArrayList<Genre> genres;
 
     @Ignore
     private Number popularity;
@@ -48,20 +50,21 @@ public class Movie implements Serializable {
     private String overview, original_title, original_language, status;
     @Ignore
     private Collection belongs_to_collection;
-    @Ignore
-    private ArrayList<Genre> genres;// TODO: 26/07/2022 Next database version should include this data
 
 
-    public Movie(Integer id, Integer runtime, String title, String poster_path, String release_date, Number vote_average, boolean favorite, PersonalStatus personalStatus, String backdrop_path) {
+    public Movie(Integer id, Integer runtime, String title, String poster_path, String release_date,
+                 String backdrop_path, Number vote_average, boolean favorite, PersonalStatus personalStatus,
+                 ArrayList<Genre> genres) {
         this.id = id;
         this.runtime = runtime;
         this.title = title;
         this.poster_path = poster_path;
         this.release_date = release_date;
+        this.backdrop_path = backdrop_path;
         this.vote_average = vote_average;
         this.favorite = favorite;
         this.personalStatus = personalStatus;
-        this.backdrop_path = backdrop_path;
+        this.genres = genres;
     }
 
     @Ignore
@@ -124,7 +127,6 @@ public class Movie implements Serializable {
     }
 
     /**
-     *
      * @param personalStatus
      * @return True se lo stato è stato cambiato, false se è stato rimosso
      */
@@ -132,8 +134,7 @@ public class Movie implements Serializable {
         if (this.personalStatus == personalStatus) {
             this.personalStatus = PersonalStatus.EMPTY;
             return false;
-        }
-        else {
+        } else {
             this.personalStatus = personalStatus;
             return true;
         }

@@ -20,7 +20,10 @@
     <com.example.cinemates.util.RecyclerViewEmptySupport
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
+        android:background="@drawable/round_corner_bg"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         android:layout_below="@id/title"
         android:orientation="vertical"
         tools:itemCount="2"

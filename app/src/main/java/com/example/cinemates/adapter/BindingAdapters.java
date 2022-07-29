@@ -1,8 +1,8 @@
 package com.example.cinemates.adapter;
 
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +16,7 @@ import com.example.cinemates.R;
 import com.example.cinemates.model.Genre;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.ProductionCompany;
+import com.example.cinemates.model.Section;
 import com.example.cinemates.util.Constants;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
@@ -120,17 +121,18 @@ public class BindingAdapters {
 
     }
 
-
-    @BindingAdapter({"loadSectionDescription"})
-    public static void loadSectionDescription(TextView view, String value) {
-        if (value == null)
-            view.setVisibility(View.GONE);
-        else {
-            view.setVisibility(View.VISIBLE);
-            view.setText(value);
-
+    @BindingAdapter({"asHtml"})
+    public static void formatAsHtml(TextView view, Section section) {
+        String section_title = "<font color=#FAFAFA><big><big><b>" + section.getSectionName() + "</b></big></big></font>";
+        if (section.getSectionContentDescription() != null) {
+            String section_descr = " <font color=#3A55EA><big><b>" + section.getSectionContentDescription() + "</b></big></font>";
+            section_title += section_descr;
         }
+        view.setText(Html.fromHtml(section_title,Html.FROM_HTML_MODE_COMPACT));
+
+
     }
+
 
     @BindingAdapter({"currency"})
     public static void loadBudget(TextView view, long budget) {

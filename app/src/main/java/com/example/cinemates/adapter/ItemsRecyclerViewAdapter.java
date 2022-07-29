@@ -18,7 +18,7 @@ import com.example.cinemates.model.Movie;
 import com.example.cinemates.model.Person;
 import com.example.cinemates.ui.ActorDetailsActivity;
 import com.example.cinemates.ui.MovieDetailsActivity;
-import com.example.cinemates.util.MyDiffUtilMovieCallbacks;
+import com.example.cinemates.util.MyDiffUtilCallbacks;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 import com.example.cinemates.util.ViewSize;
 
@@ -221,7 +221,7 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
     public int getItemViewType(int position) {
         if (dataList.get(position) instanceof Movie) {
             return MOVIE;
-        } else if ((dataList.get(position) instanceof Cast) || dataList.get(position) instanceof Person) {
+        } else if ((dataList.get(position) instanceof Person)) {
             return PERSON;
         }
         return -1;
@@ -233,11 +233,11 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
     }
 
     public void addItems(List<T> dataList) {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffUtilMovieCallbacks(this.dataList, dataList));
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MyDiffUtilCallbacks(this.dataList, dataList));
+        diffResult.dispatchUpdatesTo(this);
 
         this.dataList.clear();
         this.dataList.addAll(dataList);
-        diffResult.dispatchUpdatesTo(this);
         notifyDataSetChanged();
     }
 

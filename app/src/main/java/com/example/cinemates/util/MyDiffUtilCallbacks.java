@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.cinemates.model.Movie;
+import com.example.cinemates.model.Person;
 
 import java.util.List;
 
@@ -13,11 +14,11 @@ import java.util.List;
  * @author Antonio Di Nuzzo
  * Created 21/07/2022 at 19:16
  */
-public class MyDiffUtilMovieCallbacks<T> extends DiffUtil.Callback {
-    private List<Movie> oldList;
-    private List<Movie> newList;
+public class MyDiffUtilCallbacks<T> extends DiffUtil.Callback {
+    private List<T> oldList;
+    private List<T> newList;
 
-    public MyDiffUtilMovieCallbacks(List<Movie> oldList, List<Movie> newList) {
+    public MyDiffUtilCallbacks(List<T> oldList, List<T> newList) {
         this.oldList = oldList;
         this.newList = newList;
     }
@@ -45,12 +46,22 @@ public class MyDiffUtilMovieCallbacks<T> extends DiffUtil.Callback {
     @Nullable
     @Override
     public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-        Movie newMovie = newList.get(newItemPosition);
-        Movie oldMovie = oldList.get(oldItemPosition);
         Bundle bundle = new Bundle();
 
-        if(!newMovie.equals(oldMovie))
-            bundle.putSerializable("movie", newMovie);
+        if (oldList.get(oldItemPosition) instanceof Movie && newList.get(newItemPosition) instanceof Movie) {
+            Movie newMovie = (Movie) newList.get(newItemPosition);
+            Movie oldMovie = (Movie) oldList.get(oldItemPosition);
+
+            if (!newMovie.equals(oldMovie))
+                bundle.putSerializable("movie", newMovie);
+
+        }else if(oldList.get(oldItemPosition) instanceof Person && newList.get(newItemPosition) instanceof Person){
+            Person newPerson = (Person) newList.get(newItemPosition);
+            Person oldPerson = (Person) oldList.get(oldItemPosition);
+
+            if (!newPerson.equals(oldPerson))
+                bundle.putSerializable("person", newPerson);
+        }
 
 
         return bundle.size() == 0 ? null : bundle;

@@ -8,6 +8,7 @@ import androidx.room.TypeConverters;
 import com.example.cinemates.util.Converters;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author Antonio Di Nuzzo
@@ -80,6 +81,20 @@ public class Person implements Serializable {
 
     public void setPopularity(Number popularity) {
         this.popularity = popularity;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person person = (Person) o;
+        return Objects.equals(getName(), person.getName()) && getId().equals(person.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getId());
     }
 
     @Override

@@ -26,20 +26,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textSectionContent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/royal_blue_100"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:autoSizeMinTextSize="12sp"
-                android:autoSizeStepGranularity="2sp"
-                android:autoSizeTextType="uniform"
-                app:loadSectionDescription="@{section.sectionContentDescription}"
-                android:layout_marginEnd="12dp"
-                tools:text="Content" />
-
-            <TextView
                 android:id="@+id/textSectionTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,12 +35,10 @@
                 android:autoSizeStepGranularity="2sp"
                 android:autoSizeTextType="uniform"
                 android:gravity="start"
-                android:text="@{section.sectionName}"
                 android:textColor="@color/alabaster"
-                android:textSize="24sp"
-                android:textStyle="bold"
                 app:drawableEndCompat="@drawable/ic_outline_arrow_forward_24"
                 app:drawableTint="@color/geyser"
+                app:asHtml="@{section}"
                 tools:text="@tools:sample/first_names" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

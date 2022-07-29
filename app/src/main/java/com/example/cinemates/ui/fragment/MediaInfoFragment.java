@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter;
@@ -28,7 +29,6 @@ public class MediaInfoFragment extends Fragment {
 
     private FragmentMediaInfoBinding mBinding;
     private MovieViewModel mViewModel;
-//    private MovieRecyclerViewAdapter mAdapter;
     private ItemsRecyclerViewAdapter<Movie> mAdapter;
     private YoutubeVideoRecyclerViewAdapter mVideoAdapter;
     private Movie mMovie;
@@ -38,7 +38,6 @@ public class MediaInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
         mVideoAdapter = new YoutubeVideoRecyclerViewAdapter();
-        mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
 
     }
@@ -70,6 +69,19 @@ public class MediaInfoFragment extends Fragment {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 CollectionDialogFragment collectionDialogFragment = CollectionDialogFragment.newInstance(mMovie.getBelongs_to_collection());
                 collectionDialogFragment.show(fm, "fragment_show_collection");
+            }
+        });
+
+        mBinding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             /*   BottomSheetFragment bottomSheetDialog = BottomSheetFragment.newInstance();
+                bottomSheetDialog.show(getActivity().getSupportFragmentManager(), "Bottom Sheet Dialog Fragment");*/
+                System.out.println(mMovie.getRuntime());
+                DetailMediaContentFragmentDirections.ActionDetailMediaContentFragmentToDetailActorMediaFragment action =
+                        DetailMediaContentFragmentDirections.actionDetailMediaContentFragmentToDetailActorMediaFragment(mMovie);
+                Navigation.findNavController(view).navigate(action);
+
             }
         });
 

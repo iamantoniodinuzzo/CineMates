@@ -50,18 +50,31 @@ public class ProfileFragment extends Fragment {
         mBinding = FragmentProfileBinding.inflate(inflater, container, false);
         mBinding.recyclerView.setAdapter(mAdapter);
         mAdapter.addItems(mSectionList);
-        System.out.println(mSectionList);
+        mBinding.statHours.statTitle.setText("Hours");
+        mBinding.statWatchedCounter.statTitle.setText("Movies Seen");
+        mBinding.statToSeeCounter.statTitle.setText("Movies To See");
         return mBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        System.out.println(mDbViewModel.getFavorite_persons().getValue());
         mMovieSection.setMutableLiveData(mDbViewModel.getFavorite_movies());
-        mPersonSection.setMutableLiveData( mDbViewModel.getFavorite_persons());
+        mPersonSection.setMutableLiveData(mDbViewModel.getFavorite_persons());
         mDbViewModel.getAllFavoritesMovies();
         mDbViewModel.getAllFavoritesPersons();
+        mDbViewModel.getAllWithStatus(Movie.PersonalStatus.SEEN);
+        mBinding.statHours.statContent.setText(formatTime(mDbViewModel.sumRuntimeAllWatchedMovies()));
+        mBinding.statWatchedCounter.statContent.setText(String.valueOf(mDbViewModel.getMovieCountByStatus(Movie.PersonalStatus.SEEN)));
+        mBinding.statToSeeCounter.statContent.setText(String.valueOf(mDbViewModel.getMovieCountByStatus(Movie.PersonalStatus.TO_SEE)));
+
+    }
+
+    private String formatTime(long runtime) {
+        long hours = (long) (runtime / 60);
+//        int minutes = (int) (runtime % 60);
+        return String.valueOf(hours);
+
     }
 
     @Override

@@ -14,7 +14,7 @@ import com.example.cinemates.util.Converters;
  * @author Antonio Di Nuzzo
  * Created 26/07/2022 at 08:13
  */
-@Database(entities = {Movie.class, Person.class}, version = 5)
+@Database(entities = {Movie.class, Person.class}, version = 6)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract MovieDao mMovieDao();

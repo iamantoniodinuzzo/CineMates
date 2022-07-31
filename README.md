@@ -30,8 +30,9 @@ Costruendo questa applicazione, ho imparato a comprendere gli elementi fondament
 
 ## Image Resources
 
-> Parte in allestimento
-
+**Personalize**	|	**Movie details**	|	**Actor details** |  **Filters** |
+:------:|:---------------------:|:-----------------------------:|:-----------------------------:
+![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/personalization.gif)  |  ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/movie_details.gif)  |  ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/actor_details.gif) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/filterable.gif) 
 ## Libraries
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/) 
     * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)

@@ -1,6 +1,9 @@
 
 # CineMates
 ![GitHub last commit](https://img.shields.io/github/last-commit/Indisparte/CineMates?style=for-the-badge)
+
+![Logo](https://github.com/Indisparte/CineMates/blob/main/assets/logo.png)
+
 ## Project Overview
 Molte volte ci capita di voler scoprire nuovi film andando a ricercare in internet film di un genere specifico: "film da vedere", "film mind blowing", "film per piangere". Lo scopo di *CineMates* è quello di raggruppare tutte queste ricerche e questi bisogni sotto un unico tetto. Con l'aggiunta di molteplici utilità.
 

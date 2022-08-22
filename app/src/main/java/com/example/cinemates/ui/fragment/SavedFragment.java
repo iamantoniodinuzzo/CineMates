@@ -81,7 +81,7 @@ public class SavedFragment extends Fragment {
     }
 
     private void setupTabLayout() {
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), getLifecycle());
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), getLifecycle());
 
         viewPagerAdapter.addFragment(toSeeFragment);
         viewPagerAdapter.addFragment(seenFragment);

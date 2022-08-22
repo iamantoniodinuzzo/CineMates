@@ -123,7 +123,7 @@ public class SearchFragment extends Fragment {
 
 
     private void setupTabLayout() {
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), getLifecycle());
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), getLifecycle());
 
         viewPagerAdapter.addFragment(searchMovieFragment);
         viewPagerAdapter.addFragment(searchActorsFragment);

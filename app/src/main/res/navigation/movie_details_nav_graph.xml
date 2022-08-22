@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/detailMediaContentFragment"
-        android:name="com.example.cinemates.ui.fragment.DetailMediaContentFragment"
+        android:name="com.example.cinemates.view.ui.DetailMediaContentFragment"
         android:label="DetailMediaContentFragment"
         tools:layout="@layout/fragment_detail_media_content">
         <argument
@@ -19,7 +19,7 @@
     </fragment>
     <dialog
         android:id="@+id/bottomSheetFragment"
-        android:name="com.example.cinemates.ui.fragment.BottomSheetFragment"
+        android:name="com.example.cinemates.view.ui.BottomSheetFragment"
         android:label="BottomSheetFragment">
         <argument
             android:name="movie"

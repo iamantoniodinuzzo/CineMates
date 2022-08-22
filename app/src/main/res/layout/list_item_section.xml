@@ -8,7 +8,7 @@
 
         <variable
             name="section"
-            type="com.example.cinemates.model.Section" />
+            type="com.example.cinemates.model.data.Section" />
     </data>
 
     <RelativeLayout

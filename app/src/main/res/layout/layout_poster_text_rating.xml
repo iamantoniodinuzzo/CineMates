@@ -6,7 +6,7 @@
 
         <variable
             name="movie"
-            type="com.example.cinemates.model.Movie" />
+            type="com.example.cinemates.model.data.Movie" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"

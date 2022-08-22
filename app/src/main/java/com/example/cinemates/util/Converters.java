@@ -2,8 +2,8 @@ package com.example.cinemates.util;
 
 import androidx.room.TypeConverter;
 
-import com.example.cinemates.model.Genre;
-import com.example.cinemates.model.Movie;
+import com.example.cinemates.model.data.Genre;
+import com.example.cinemates.model.data.Movie;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

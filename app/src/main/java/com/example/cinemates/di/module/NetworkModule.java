@@ -8,8 +8,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.cinemates.interfaces.MovieApiService;
-import com.example.cinemates.local.db.AppDatabase;
+import com.example.cinemates.model.api.MovieApiService;
+import com.example.cinemates.model.local.db.AppDatabase;
 import com.example.cinemates.util.Constants;
 
 import javax.inject.Singleton;

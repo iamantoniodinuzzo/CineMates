@@ -7,7 +7,7 @@
 
         <variable
             name="collection"
-            type="com.example.cinemates.model.Collection" />
+            type="com.example.cinemates.model.data.Collection" />
     </data>
 
     <androidx.cardview.widget.CardView

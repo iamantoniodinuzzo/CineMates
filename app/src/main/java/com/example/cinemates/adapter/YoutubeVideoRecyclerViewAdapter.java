@@ -3,7 +3,6 @@ package com.example.cinemates.adapter;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,9 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.databinding.ListItemYtVideoBinding;
-import com.example.cinemates.model.Video;
+import com.example.cinemates.model.data.Video;
 import com.example.cinemates.util.Constants;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubeThumbnailLoader;
-import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import java.util.ArrayList;
 

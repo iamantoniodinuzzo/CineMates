@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.R;
 import com.example.cinemates.databinding.ListItemSectionBinding;
-import com.example.cinemates.model.Actor;
-import com.example.cinemates.model.Cast;
-import com.example.cinemates.model.Movie;
-import com.example.cinemates.model.Person;
-import com.example.cinemates.model.Section;
+import com.example.cinemates.model.data.Actor;
+import com.example.cinemates.model.data.Cast;
+import com.example.cinemates.model.data.Movie;
+import com.example.cinemates.model.data.Person;
+import com.example.cinemates.model.data.Section;
 import com.example.cinemates.util.ItemMoveCallback;
 import com.example.cinemates.util.MyDiffUtilSectionCallbacks;
 import com.example.cinemates.util.RecyclerViewEmptySupport;

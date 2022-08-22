@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.example.cinemates.model.Section;
+import com.example.cinemates.model.data.Section;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,7 +7,7 @@
 
         <variable
             name="review"
-            type="com.example.cinemates.model.Review" />
+            type="com.example.cinemates.model.data.Review" />
     </data>
 
     <androidx.cardview.widget.CardView

@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter;
-import com.example.cinemates.model.Movie;
 
 /**
  * @author Antonio Di Nuzzo

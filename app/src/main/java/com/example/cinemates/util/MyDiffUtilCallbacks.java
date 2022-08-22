@@ -5,8 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.example.cinemates.model.Movie;
-import com.example.cinemates.model.Person;
+import com.example.cinemates.model.data.Movie;
+import com.example.cinemates.model.data.Person;
 
 import java.util.List;
 

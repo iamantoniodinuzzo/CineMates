@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.databinding.ListItemBackdropBinding;
 import com.example.cinemates.databinding.ListItemPosterBinding;
-import com.example.cinemates.model.Images;
+import com.example.cinemates.model.data.Images;
 import com.example.cinemates.util.Constants;
 import com.example.cinemates.util.DialogFactory;
 

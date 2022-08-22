@@ -7,14 +7,14 @@
 
         <variable
             name="actor"
-            type="com.example.cinemates.model.Actor" />
+            type="com.example.cinemates.model.data.Actor" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".ui.ActorDetailsActivity">
+        tools:context=".view.ui.ActorDetailsActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"

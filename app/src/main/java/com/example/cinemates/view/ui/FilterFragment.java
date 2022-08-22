@@ -23,6 +23,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cinemates.R;
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
+import com.example.cinemates.databinding.FragmentFilterBinding;
+import com.example.cinemates.databinding.LayoutCustomDialogRandomBinding;
 import com.example.cinemates.model.data.Genre;
 import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.util.Sort;

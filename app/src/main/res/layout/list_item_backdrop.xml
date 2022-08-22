@@ -7,7 +7,7 @@
 
         <variable
             name="image"
-            type="com.example.cinemates.model.data.Images" />
+            type="com.example.cinemates.model.data.Images.Image" />
     </data>
 
     <androidx.cardview.widget.CardView

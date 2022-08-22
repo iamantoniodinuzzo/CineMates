@@ -43,7 +43,7 @@
         android:label="FilterFragment" >
         <argument
             android:name="genre"
-            app:argType="com.example.cinemates.model.Genre" />
+            app:argType="com.example.cinemates.model.data.Genre" />
     </fragment>
 
 </navigation>

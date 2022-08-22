@@ -10,12 +10,12 @@
         android:name="com.example.cinemates.view.ui.DetailMediaContentFragment"
         android:label="DetailMediaContentFragment"
         tools:layout="@layout/fragment_detail_media_content">
-        <argument
-            android:name="movie"
-            app:argType="com.example.cinemates.model.Movie" />
         <action
             android:id="@+id/action_detailMediaContentFragment_to_detailActorMediaFragment"
             app:destination="@id/bottomSheetFragment" />
+        <argument
+            android:name="movie"
+            app:argType="com.example.cinemates.model.data.Movie" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetFragment"
@@ -23,6 +23,6 @@
         android:label="BottomSheetFragment">
         <argument
             android:name="movie"
-            app:argType="com.example.cinemates.model.Movie" />
+            app:argType="com.example.cinemates.model.data.Movie" />
     </dialog>
 </navigation>

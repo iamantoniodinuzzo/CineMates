@@ -18,6 +18,7 @@ import com.example.cinemates.interfaces.CustomizableFragment;
 import com.example.cinemates.model.Movie;
 import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.DbViewModel;
+import com.google.android.material.transition.MaterialElevationScale;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,6 @@ public class ToSeeFragment extends Fragment implements CustomizableFragment {
         mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
         movie_to_see = new ArrayList<>();
         rand = new Random();
-
     }
 
     @Nullable
@@ -64,8 +64,6 @@ public class ToSeeFragment extends Fragment implements CustomizableFragment {
 
         return mBinding.getRoot();
     }
-
-
 
 
     @Override

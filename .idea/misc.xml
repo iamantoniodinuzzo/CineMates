@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/JonAreas/Projects/Android/CineMates/app/src/main/res/layout/fragment_home.xml" value="0.17239583333333333" />
+        <entry key="..\:/Users/JonAreas/Projects/Android/CineMates/app/src/main/res/layout/fragment_saved.xml" value="0.17239583333333333" />
+        <entry key="..\:/Users/JonAreas/Projects/Android/CineMates/app/src/main/res/layout/fragment_search.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/circle_icon.xml" value="0.329" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.329" />
         <entry key="..\:/Users/tonyd_k5jojab/Desktop/CineMates/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.1905" />

@@ -20,6 +20,8 @@ import com.example.cinemates.adapter.ViewPagerAdapter;
 import com.example.cinemates.databinding.FragmentSavedBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.android.material.transition.MaterialElevationScale;
+import com.google.android.material.transition.MaterialFadeThrough;
 
 public class SavedFragment extends Fragment {
 
@@ -38,6 +40,11 @@ public class SavedFragment extends Fragment {
         seenFragment = new SeenFragment();
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mGridLayoutManager = new GridLayoutManager(getContext(), 3);
+        setupMotionAnimations();
+    }
+
+    private void setupMotionAnimations() {
+        setEnterTransition(new MaterialElevationScale(true));
     }
 
     @Override
@@ -81,7 +88,7 @@ public class SavedFragment extends Fragment {
     }
 
     private void setupTabLayout() {
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), getLifecycle());
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), getLifecycle());
 
         viewPagerAdapter.addFragment(toSeeFragment);
         viewPagerAdapter.addFragment(seenFragment);

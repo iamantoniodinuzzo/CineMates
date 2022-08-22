@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -12,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -32,6 +35,8 @@ import com.example.cinemates.util.TimeWindow;
 import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.MovieViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.transition.MaterialElevationScale;
+import com.google.android.material.transition.MaterialFadeThrough;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +44,8 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
 
-    private FragmentHomeBinding mBinding;
     private NavController mNavController;
+    private FragmentHomeBinding mBinding;
     private Section<Movie> upcomingSection, topRatedSection, trendingSection;
     private Section<Person> trendingPerson;
     private Toolbar mToolbar;
@@ -66,7 +71,16 @@ public class HomeFragment extends Fragment {
         slideIn = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in);
         slideOut = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out);
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
+        setupMotionAnimations();
+    }
 
+    private void setupMotionAnimations() {
+
+        Object elevationScaleTransition = new MaterialElevationScale(true)
+                .setInterpolator(new FastOutSlowInInterpolator());
+
+        setEnterTransition(elevationScaleTransition);
+        setReenterTransition(elevationScaleTransition);
     }
 
 
@@ -91,6 +105,14 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
+        postponeEnterTransition();
+        ((ViewGroup) view.getParent())
+                .getViewTreeObserver()
+                .addOnPreDrawListener(() -> {
+                    startPostponedEnterTransition();
+                    return true;
+                });
+
         ItemTouchHelper.Callback callback =
                 new ItemMoveCallback(mAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);

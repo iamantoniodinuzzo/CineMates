@@ -17,6 +17,7 @@ import com.example.cinemates.model.Person;
 import com.example.cinemates.model.Section;
 import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.viewmodel.DbViewModel;
+import com.google.android.material.transition.MaterialFadeThrough;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,11 @@ public class ProfileFragment extends Fragment {
         mSectionList.add(mMovieSection);
         mSectionList.add(mPersonSection);
         mDbViewModel = new ViewModelProvider(getActivity()).get(DbViewModel.class);
+        setupMotionAnimations();
+    }
+
+    private void setupMotionAnimations() {
+        setEnterTransition(new MaterialFadeThrough());
     }
 
     @Override

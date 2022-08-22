@@ -20,6 +20,7 @@ import com.example.cinemates.model.Genre;
 import com.example.cinemates.util.Constants;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.transition.MaterialFadeThrough;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +37,11 @@ public class DiscoverFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRnd = new Random();
+        setupMotionAnimations();
+    }
+
+    private void setupMotionAnimations() {
+        setEnterTransition(new MaterialFadeThrough());
     }
 
     @Override

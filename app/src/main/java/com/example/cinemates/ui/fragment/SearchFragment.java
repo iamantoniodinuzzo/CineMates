@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +25,8 @@ import com.example.cinemates.adapter.ViewPagerAdapter;
 import com.example.cinemates.databinding.FragmentSearchBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.android.material.transition.MaterialElevationScale;
+import com.google.android.material.transition.MaterialFadeThrough;
 
 public class SearchFragment extends Fragment {
 
@@ -40,6 +44,14 @@ public class SearchFragment extends Fragment {
         mGridLayoutManager = new GridLayoutManager(getContext(), 3);
         searchMovieFragment = new SearchMovieFragment();
         searchActorsFragment = new SearchActorFragment();
+        setupMotionAnimations();
+    }
+    private void setupMotionAnimations() {
+
+        Object fadeThroughTransition = new MaterialFadeThrough()
+                .setInterpolator(new AnticipateOvershootInterpolator());
+
+        setEnterTransition(fadeThroughTransition);
     }
 
     @Nullable

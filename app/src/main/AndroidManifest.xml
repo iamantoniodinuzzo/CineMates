@@ -26,9 +26,6 @@
             android:name=".view.ui.ActorDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".view.ui.MovieDetailsActivity"
-            android:exported="true" />
-        <activity
             android:name=".view.ui.MainActivity"
             android:windowSoftInputMode="adjustPan"
             android:exported="true">

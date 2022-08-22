@@ -75,12 +75,11 @@ public class MediaInfoFragment extends Fragment {
         mBinding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             /*   BottomSheetFragment bottomSheetDialog = BottomSheetFragment.newInstance();
-                bottomSheetDialog.show(getActivity().getSupportFragmentManager(), "Bottom Sheet Dialog Fragment");*/
-                System.out.println(mMovie.getRuntime());
-                DetailMediaContentFragmentDirections.ActionDetailMediaContentFragmentToDetailActorMediaFragment action =
-                        DetailMediaContentFragmentDirections.actionDetailMediaContentFragmentToDetailActorMediaFragment(mMovie);
-                Navigation.findNavController(view).navigate(action);
+
+                // TODO: 22/08/2022 add navigation to detail actor fragment 
+               /* MovieDetailsFragmentDirections.ActionDetailMediaContentFragmentToDetailActorMediaFragment action =
+                        MovieDetailsFragmentDirections.actionDetailMediaContentFragmentToDetailActorMediaFragment(mMovie);
+                Navigation.findNavController(view).navigate(action);*/
 
             }
         });

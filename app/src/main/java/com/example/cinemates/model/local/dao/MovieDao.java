@@ -23,7 +23,6 @@ public interface MovieDao {
     Observable<List<Movie>> getAllFavorite();
 
     @Query("SELECT * FROM movie WHERE personalStatus = :status ORDER BY runtime ASC")
-//todo should be customizable
     Observable<List<Movie>> getAllWithStatus(Movie.PersonalStatus status);
 
     @Query("SELECT * FROM movie WHERE id = :id ")

@@ -6,9 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavGraph;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cinemates.R;
 import com.example.cinemates.databinding.ListItemMovieLongBinding;
 import com.example.cinemates.databinding.ListItemMovieSmallBinding;
 import com.example.cinemates.databinding.ListItemPersonLongBinding;
@@ -17,10 +20,12 @@ import com.example.cinemates.model.data.Cast;
 import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.model.data.Person;
 import com.example.cinemates.view.ui.ActorDetailsActivity;
-import com.example.cinemates.view.ui.MovieDetailsActivity;
 import com.example.cinemates.util.MyDiffUtilCallbacks;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 import com.example.cinemates.util.ViewSize;
+import com.example.cinemates.view.ui.BottomSheetFragmentDirections;
+import com.example.cinemates.view.ui.HomeFragmentDirections;
+import com.example.cinemates.view.ui.MovieDetailsFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,11 +92,7 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
                         ((MovieViewHolder) holder).mMovieLongBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
-                                Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
-                                intent.putExtra("movie", movie);
-                                view.getContext().startActivity(intent);
-
+                                navigateToMovieDetails(view, movie);
                             }
                         });
                         break;
@@ -101,11 +102,7 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
                         ((MovieViewHolder) holder).mMovieSmallBinding.getRoot().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
-                                Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
-                                intent.putExtra("movie", movie);
-                                view.getContext().startActivity(intent);
-
+                                navigateToMovieDetails(view, movie);
                             }
                         });
                         break;
@@ -161,9 +158,7 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
                                 @Override
                                 public void onClick(View view) {
 
-                                    Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
-                                    intent.putExtra("movie", movie);
-                                    view.getContext().startActivity(intent);
+                                    navigateToMovieDetails(view, movie);
 
                                 }
                             });
@@ -175,9 +170,7 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
                                 @Override
                                 public void onClick(View view) {
 
-                                    Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
-                                    intent.putExtra("movie", movie);
-                                    view.getContext().startActivity(intent);
+                                    navigateToMovieDetails(view, movie);
 
                                 }
                             });
@@ -214,6 +207,14 @@ public class ItemsRecyclerViewAdapter<T> extends RecyclerViewEmptySupport.Adapte
                     break;
             }
         }
+    }
+
+    private void navigateToMovieDetails(View view, Movie movie) {
+        // TODO: 22/08/2022 Issue #30 
+        MovieDetailsFragmentDirections.ActionGlobalMovieDetailsFragment action =
+                MovieDetailsFragmentDirections.actionGlobalMovieDetailsFragment(movie);
+        Navigation.findNavController(view).navigate(R.id.action_global_movieDetailsFragment);
+//        Navigation.findNavController(view).navigate(action);
     }
 
     //Returns the view type of the item at position for the purposes of view recycling.

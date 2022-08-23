@@ -147,7 +147,8 @@ public class FilterFragment extends Fragment {
             public void onClick(View view) {
                 NavGraphDirections.ActionGlobalMovieDetailsFragment action =
                         NavGraphDirections.actionGlobalMovieDetailsFragment(movie);
-                Navigation.findNavController(view).navigate(action);
+                Navigation.findNavController(getView()).navigate(action);
+                dialog.dismiss();
             }
         });
         dialog.show();

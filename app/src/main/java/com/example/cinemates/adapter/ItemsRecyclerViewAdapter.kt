@@ -5,14 +5,10 @@ import com.example.cinemates.util.ViewSize
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
-import com.example.cinemates.adapter.MovieViewHolder
-import com.example.cinemates.adapter.PersonViewHolder
 import com.example.cinemates.model.data.Cast
 import android.content.Intent
 import android.view.View
-import androidx.navigation.NavGraph
-import com.example.cinemates.view.ui.ActorDetailsActivity
-import androidx.recyclerview.widget.DiffUtil.DiffResult
+import com.example.cinemates.view.ui.ActorDetailsFragment
 import androidx.recyclerview.widget.DiffUtil
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.databinding.ListItemMovieLongBinding
@@ -22,9 +18,7 @@ import com.example.cinemates.databinding.ListItemPersonSmallBinding
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
 import com.example.cinemates.util.MyDiffUtilCallbacks
-import com.example.cinemates.view.ui.MovieDetailsFragmentDirections
 import java.lang.IllegalStateException
-import java.util.ArrayList
 
 private const val PERSON = 0
 private const val MOVIE = 1
@@ -175,9 +169,8 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
     }
 
     private fun navigateToActorDetails(view: View, person: Person) {
-        val intent = Intent(view.context, ActorDetailsActivity::class.java)
-        intent.putExtra("person", person)
-        view.context.startActivity(intent)
+        val action = NavGraphDirections.actionGlobalActorDetailsFragment(person)
+        findNavController(view).navigate(action)
     }
 
     private fun navigateToMovieDetails(view: View, movie: Movie) {

@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * @author Antonio Di Nuzzo
  * Created 27/05/2022 at 17:56
  */
-@AndroidEntryPoint
+
 public class CollectionDialogFragment extends DialogFragment {
     //    private static Collection mCollection;
     private LayoutCollectionDialogBinding mBinding;

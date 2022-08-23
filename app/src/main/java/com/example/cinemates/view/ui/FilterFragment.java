@@ -144,9 +144,10 @@ public class FilterFragment extends Fragment {
         poster.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MovieDetailsFragmentDirections.ActionGlobalMovieDetailsFragment action =
+               /* MovieDetailsFragmentDirections.ActionGlobalMovieDetailsFragment action =
                         MovieDetailsFragmentDirections.actionGlobalMovieDetailsFragment(movie);
-                Navigation.findNavController(view).navigate(action);
+                Navigation.findNavController(view).navigate(action);*/
+                //TODO Convert this fragment in Kotlin to apply navigation as in ItemsRecyclerViewAdapter
             }
         });
         dialog.show();

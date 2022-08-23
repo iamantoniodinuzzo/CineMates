@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph.xml"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
     <fragment
@@ -39,7 +39,7 @@
     <fragment
         android:id="@+id/filterFragment"
         android:name="com.example.cinemates.view.ui.FilterFragment"
-        android:label="{genre.name}"
+        android:label="{genre}"
         tools:layout="@layout/fragment_filter">
         <argument
             android:name="genre"
@@ -64,6 +64,7 @@
     </fragment>
     <action
         android:id="@+id/action_global_movieDetailsFragment"
-        app:destination="@id/movieDetailsFragment" />
+        app:destination="@id/movieDetailsFragment"
+        app:popUpTo="@id/movieDetailsFragment" />
 
 </navigation>

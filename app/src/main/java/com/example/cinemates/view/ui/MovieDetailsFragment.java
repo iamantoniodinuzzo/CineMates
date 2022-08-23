@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavArgument;
+import androidx.navigation.Navigation;
 
 import com.example.cinemates.adapter.ViewPagerAdapter;
 import com.example.cinemates.databinding.FragmentMovieDetailsBinding;
@@ -74,6 +76,10 @@ public class MovieDetailsFragment extends Fragment {
 
 
         initializeViewPager();
+
+        /*mBinding.toolbar.setNavigationOnClickListener((view1) -> {
+            Navigation.findNavController(view).navigateUp();
+        });*/
 
 
     }

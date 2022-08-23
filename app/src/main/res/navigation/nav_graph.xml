@@ -65,6 +65,21 @@
     <action
         android:id="@+id/action_global_movieDetailsFragment"
         app:destination="@id/movieDetailsFragment"
-        app:popUpTo="@id/movieDetailsFragment" />
+        app:popUpTo="@id/movieDetailsFragment"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/actorDetailsFragment"
+        android:name="com.example.cinemates.view.ui.ActorDetailsFragment"
+        android:label="ActorDetailsFragment"
+        tools:layout="@layout/fragment_actor_details">
+        <argument
+            android:name="person"
+            app:argType="com.example.cinemates.model.data.Person" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_actorDetailsFragment"
+        app:popUpToInclusive="true"
+        app:popUpTo="@id/homeFragment"
+        app:destination="@id/actorDetailsFragment" />
 
 </navigation>

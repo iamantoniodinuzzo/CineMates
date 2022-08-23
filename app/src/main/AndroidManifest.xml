@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CineMates">
         <activity
-            android:name=".view.ui.ActorDetailsActivity"
+            android:name=".view.ui.ActorDetailsFragment"
             android:exported="false" />
         <activity
             android:name=".view.ui.MainActivity"

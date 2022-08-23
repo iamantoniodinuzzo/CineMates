@@ -181,7 +181,6 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
     }
 
     private fun navigateToMovieDetails(view: View, movie: Movie) {
-        // TODO: 22/08/2022 Issue #30
         val action = NavGraphDirections.actionGlobalMovieDetailsFragment(movie)
         findNavController(view).navigate(action)
     }

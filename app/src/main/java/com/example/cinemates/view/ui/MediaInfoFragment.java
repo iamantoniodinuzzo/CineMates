@@ -76,7 +76,7 @@ public class MediaInfoFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                // TODO: 22/08/2022 add navigation to detail actor fragment 
+                // TODO: 22/08/2022 add navigation to DetailActorFragment (next feature required new branch)
                /* MovieDetailsFragmentDirections.ActionDetailMediaContentFragmentToDetailActorMediaFragment action =
                         MovieDetailsFragmentDirections.actionDetailMediaContentFragmentToDetailActorMediaFragment(mMovie);
                 Navigation.findNavController(view).navigate(action);*/

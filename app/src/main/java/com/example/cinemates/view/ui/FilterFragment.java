@@ -22,6 +22,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.example.cinemates.NavGraphDirections;
 import com.example.cinemates.R;
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentFilterBinding;
@@ -144,10 +145,9 @@ public class FilterFragment extends Fragment {
         poster.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* MovieDetailsFragmentDirections.ActionGlobalMovieDetailsFragment action =
-                        MovieDetailsFragmentDirections.actionGlobalMovieDetailsFragment(movie);
-                Navigation.findNavController(view).navigate(action);*/
-                //TODO Convert this fragment in Kotlin to apply navigation as in ItemsRecyclerViewAdapter
+                NavGraphDirections.ActionGlobalMovieDetailsFragment action =
+                        NavGraphDirections.actionGlobalMovieDetailsFragment(movie);
+                Navigation.findNavController(view).navigate(action);
             }
         });
         dialog.show();

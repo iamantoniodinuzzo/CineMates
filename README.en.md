@@ -44,7 +44,8 @@ Here are **some features already developed or in progress**:
 ## 🗝 API Key.
 Find a file called `local.properties` in the `.gradle` file in the home directory.
 
-Add `apiKey = "YOUR-API-KEY"` to this file.
+- Add `TMDB_API_KEY = "YOUR-API-KEY"` (*The API of The Movie DB obtainable [here](https://www.themoviedb.org/?language=en)*)
+- Add `YT_API_KEY = "YOUR-API-KEY"` (*The API of Youtube obtainable [here](https://console.cloud.google.com/apis/dashboard)*)
 
 ## 👨🏽🎓 What I learned.
 - Retrieve data from the Internet with the **API** of [TheMovieDB](https://developers.themoviedb.org/3/getting-started)

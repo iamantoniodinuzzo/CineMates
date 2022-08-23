@@ -9,24 +9,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavArgument;
+import androidx.navigation.Navigation;
 
 import com.example.cinemates.adapter.ViewPagerAdapter;
-import com.example.cinemates.databinding.FragmentDetailMediaContentBinding;
+import com.example.cinemates.databinding.FragmentMovieDetailsBinding;
 import com.example.cinemates.model.data.Movie;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * @author Antonio Di Nuzzo
  * Created 26/05/2022 at 15:44
  */
-@AndroidEntryPoint
-public class DetailMediaContentFragment extends Fragment {
+public class MovieDetailsFragment extends Fragment {
     public static FragmentManager fragmentManager;
-    private FragmentDetailMediaContentBinding mBinding;
-    private DetailMediaContentFragmentArgs args;
+    private FragmentMovieDetailsBinding mBinding;
+    private MovieDetailsFragmentArgs args;
     private Movie mMovie;
     private MediaInfoFragment mMediaInfoFragment;
     private MediaCastFragment mMediaCastFragment;
@@ -39,7 +39,8 @@ public class DetailMediaContentFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fragmentManager = getActivity().getSupportFragmentManager();
-        args = DetailMediaContentFragmentArgs.fromBundle(requireArguments());
+
+        args = MovieDetailsFragmentArgs.fromBundle(requireArguments());
         mViewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), getLifecycle());
         mMediaInfoFragment = new MediaInfoFragment();
         mMediaCastFragment = new MediaCastFragment();
@@ -51,7 +52,7 @@ public class DetailMediaContentFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = FragmentDetailMediaContentBinding.inflate(inflater, container, false);
+        mBinding = FragmentMovieDetailsBinding.inflate(inflater, container, false);
 
         return mBinding.getRoot();
     }
@@ -74,8 +75,11 @@ public class DetailMediaContentFragment extends Fragment {
         mMediaImagesFragment.setArguments(mBundle);
 
 
-
         initializeViewPager();
+
+        /*mBinding.toolbar.setNavigationOnClickListener((view1) -> {
+            Navigation.findNavController(view).navigateUp();
+        });*/
 
 
     }

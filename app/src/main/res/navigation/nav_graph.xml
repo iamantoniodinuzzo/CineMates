@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph.xml"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
     <fragment
@@ -20,11 +20,11 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.cinemates.view.ui.ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/discoverFragment"
         android:name="com.example.cinemates.view.ui.DiscoverFragment"
-        tools:layout="@layout/fragment_discover" >
+        tools:layout="@layout/fragment_discover">
         <action
             android:id="@+id/action_discoverFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -39,11 +39,47 @@
     <fragment
         android:id="@+id/filterFragment"
         android:name="com.example.cinemates.view.ui.FilterFragment"
-        tools:layout="@layout/fragment_filter"
-        android:label="FilterFragment" >
+        android:label="{genre}"
+        tools:layout="@layout/fragment_filter">
         <argument
             android:name="genre"
             app:argType="com.example.cinemates.model.data.Genre" />
     </fragment>
+    <dialog
+        android:id="@+id/bottomSheetFragment"
+        android:name="com.example.cinemates.view.ui.BottomSheetFragment"
+        android:label="BottomSheetFragment">
+        <argument
+            android:name="movie"
+            app:argType="com.example.cinemates.model.data.Movie" />
+    </dialog>
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.example.cinemates.view.ui.MovieDetailsFragment"
+        android:label="MovieDetailsFragment"
+        tools:layout="@layout/fragment_movie_details">
+        <argument
+            android:name="movie"
+            app:argType="com.example.cinemates.model.data.Movie" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_movieDetailsFragment"
+        app:destination="@id/movieDetailsFragment"
+        app:popUpTo="@id/movieDetailsFragment"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/actorDetailsFragment"
+        android:name="com.example.cinemates.view.ui.ActorDetailsFragment"
+        android:label="ActorDetailsFragment"
+        tools:layout="@layout/fragment_actor_details">
+        <argument
+            android:name="person"
+            app:argType="com.example.cinemates.model.data.Person" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_actorDetailsFragment"
+        app:popUpToInclusive="true"
+        app:popUpTo="@id/homeFragment"
+        app:destination="@id/actorDetailsFragment" />
 
 </navigation>

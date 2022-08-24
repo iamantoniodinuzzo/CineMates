@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
+ * Is attached to the [HomeFragment]
  * @author Antonio Di Nuzzo
  * Created 24/08/2022
  */

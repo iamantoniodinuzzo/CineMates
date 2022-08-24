@@ -23,7 +23,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".view.ui.MediaInfoFragment">
+                tools:context=".view.ui.details.movie.MediaInfoFragment">
 
 
                 <com.borjabravo.readmoretextview.ReadMoreTextView

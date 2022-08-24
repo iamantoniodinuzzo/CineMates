@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.cinemates.view.ui.HomeFragment"
+        android:name="com.example.cinemates.view.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
@@ -15,15 +15,15 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.cinemates.view.ui.SearchFragment"
+        android:name="com.example.cinemates.view.ui.search.SearchFragment"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.cinemates.view.ui.ProfileFragment"
+        android:name="com.example.cinemates.view.ui.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/discoverFragment"
-        android:name="com.example.cinemates.view.ui.DiscoverFragment"
+        android:name="com.example.cinemates.view.ui.discover.DiscoverFragment"
         tools:layout="@layout/fragment_discover">
         <action
             android:id="@+id/action_discoverFragment_to_searchFragment"
@@ -34,11 +34,11 @@
     </fragment>
     <fragment
         android:id="@+id/savedFragment"
-        android:name="com.example.cinemates.view.ui.SavedFragment"
+        android:name="com.example.cinemates.view.ui.saved.SavedFragment"
         tools:layout="@layout/fragment_saved" />
     <fragment
         android:id="@+id/filterFragment"
-        android:name="com.example.cinemates.view.ui.FilterFragment"
+        android:name="com.example.cinemates.view.ui.filterable.FilterableFragment"
         android:label="{genre}"
         tools:layout="@layout/fragment_filter">
         <argument
@@ -55,7 +55,7 @@
     </dialog>
     <fragment
         android:id="@+id/movieDetailsFragment"
-        android:name="com.example.cinemates.view.ui.MovieDetailsFragment"
+        android:name="com.example.cinemates.view.ui.details.movie.MovieDetailsFragment"
         android:label="MovieDetailsFragment"
         tools:layout="@layout/fragment_movie_details">
         <argument

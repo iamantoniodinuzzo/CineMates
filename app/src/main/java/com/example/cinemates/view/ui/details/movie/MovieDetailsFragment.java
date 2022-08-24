@@ -26,9 +26,9 @@ public class MovieDetailsFragment extends Fragment {
     private FragmentMovieDetailsBinding mBinding;
     private MovieDetailsFragmentArgs args;
     private Movie mMovie;
-    private MediaInfoFragment mMediaInfoFragment;
-    private MediaCastFragment mMediaCastFragment;
-    private MediaImagesFragment mMediaImagesFragment;
+    private MovieInfoFragment mMovieInfoFragment;
+    private MovieCastFragment mMovieCastFragment;
+    private MovieImagesFragment mMovieImagesFragment;
     private ViewPagerAdapter mViewPagerAdapter;
     private Bundle mBundle;
 
@@ -40,9 +40,9 @@ public class MovieDetailsFragment extends Fragment {
 
         args = MovieDetailsFragmentArgs.fromBundle(requireArguments());
         mViewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), getLifecycle());
-        mMediaInfoFragment = new MediaInfoFragment();
-        mMediaCastFragment = new MediaCastFragment();
-        mMediaImagesFragment = new MediaImagesFragment();
+        mMovieInfoFragment = new MovieInfoFragment();
+        mMovieCastFragment = new MovieCastFragment();
+        mMovieImagesFragment = new MovieImagesFragment();
         mBundle = new Bundle();
 
     }
@@ -68,9 +68,9 @@ public class MovieDetailsFragment extends Fragment {
             }
         });
 
-        mMediaCastFragment.setArguments(mBundle);
-        mMediaInfoFragment.setArguments(mBundle);
-        mMediaImagesFragment.setArguments(mBundle);
+        mMovieCastFragment.setArguments(mBundle);
+        mMovieInfoFragment.setArguments(mBundle);
+        mMovieImagesFragment.setArguments(mBundle);
 
 
         initializeViewPager();
@@ -83,9 +83,9 @@ public class MovieDetailsFragment extends Fragment {
     }
 
     private void initializeViewPager() {
-        mViewPagerAdapter.addFragment(mMediaInfoFragment);
-        mViewPagerAdapter.addFragment(mMediaCastFragment);
-        mViewPagerAdapter.addFragment(mMediaImagesFragment);
+        mViewPagerAdapter.addFragment(mMovieInfoFragment);
+        mViewPagerAdapter.addFragment(mMovieCastFragment);
+        mViewPagerAdapter.addFragment(mMovieImagesFragment);
 
         mBinding.viewPager.setAdapter(mViewPagerAdapter);
         mBinding.viewPager.setUserInputEnabled(false);

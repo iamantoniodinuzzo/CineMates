@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MediaInfoFragment extends Fragment {
+public class MovieInfoFragment extends Fragment {
 
     private FragmentMediaInfoBinding mBinding;
     private MovieViewModel mViewModel;

@@ -21,7 +21,7 @@ import com.example.cinemates.view.viewmodel.MovieViewModel;
  * @author Antonio Di Nuzzo
  * Created 19/06/2022 at 09:54
  */
-public class MediaImagesFragment extends Fragment {
+public class MovieImagesFragment extends Fragment {
     private FragmentMediaImagesBinding mBinding;
     private MovieViewModel mViewModel;
     private ImageRecyclerViewAdapter mPosterAdapter, mBackdropAdapter;

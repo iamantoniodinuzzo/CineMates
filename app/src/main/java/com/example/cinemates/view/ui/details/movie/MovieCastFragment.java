@@ -21,7 +21,7 @@ import com.example.cinemates.view.viewmodel.MovieViewModel;
 import java.util.List;
 
 
-public class MediaCastFragment extends Fragment {
+public class MovieCastFragment extends Fragment {
     private FragmentMediaCastBinding mBinding;
     private ItemsRecyclerViewAdapter<Cast> mAdapter;
     private MovieViewModel mViewModel;

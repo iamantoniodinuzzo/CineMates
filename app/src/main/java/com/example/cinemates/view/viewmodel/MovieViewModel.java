@@ -49,7 +49,7 @@ public class MovieViewModel extends ViewModel {
     private final MovieRepository movieRepository;
     private final MutableLiveData<List<Movie>> currentMoviesList = new MutableLiveData<>();
     private final MutableLiveData<List<Genre>> genreList = new MutableLiveData<>();
-    private final MutableLiveData<List<Movie>> moviesByActor = new MutableLiveData<>();
+    private final MutableLiveData<List<Movie>> moviesByActor = new MutableLiveData<>();//added
     private final MutableLiveData<List<Movie>> filteredMovies = new MutableLiveData<>();
     private final MutableLiveData<List<Movie>> trendingMovieList = new MutableLiveData<>();//added
     private final MutableLiveData<List<Person>> trendingPerson = new MutableLiveData<>();//added
@@ -65,7 +65,7 @@ public class MovieViewModel extends ViewModel {
     private final MutableLiveData<List<Cast>> movieCastList = new MutableLiveData<>();//added
     private final MutableLiveData<Movie> movieDetails = new MutableLiveData<>();//added
     private final MutableLiveData<Collection> collection = new MutableLiveData<>();//added
-    private final MutableLiveData<Actor> actorDetails = new MutableLiveData<>();
+    private final MutableLiveData<Actor> actorDetails = new MutableLiveData<>();//added
 
     private final CompositeDisposable disposables = new CompositeDisposable();
 

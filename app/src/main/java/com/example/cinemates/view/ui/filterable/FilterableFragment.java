@@ -25,7 +25,7 @@ import androidx.navigation.Navigation;
 import com.example.cinemates.NavGraphDirections;
 import com.example.cinemates.R;
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
-import com.example.cinemates.databinding.FragmentFilterBinding;
+import com.example.cinemates.databinding.FragmentFilterableBinding;
 import com.example.cinemates.databinding.LayoutCustomDialogRandomBinding;
 import com.example.cinemates.model.data.Genre;
 import com.example.cinemates.model.data.Movie;
@@ -40,7 +40,7 @@ import java.util.Random;
 
 public class FilterableFragment extends Fragment {
 
-    private FragmentFilterBinding mBinding;
+    private FragmentFilterableBinding mBinding;
     private Genre mGenre;
     private ArrayList<Movie> filtered_list;
     private MovieViewModel mViewModel;
@@ -54,7 +54,7 @@ public class FilterableFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mGenre = FilterFragmentArgs.fromBundle(getArguments()).getGenre();
+        mGenre = FilterableFragmentArgs.fromBundle(getArguments()).getGenre();
         mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
         mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
         mSortObservable = new MutableLiveData<>();
@@ -76,7 +76,7 @@ public class FilterableFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = FragmentFilterBinding.inflate(inflater, container, false);
+        mBinding = FragmentFilterableBinding.inflate(inflater, container, false);
         mBinding.setTitle(mGenre.getName());
 
 

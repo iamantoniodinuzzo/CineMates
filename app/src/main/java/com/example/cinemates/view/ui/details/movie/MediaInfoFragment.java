@@ -1,4 +1,4 @@
-package com.example.cinemates.view.ui;
+package com.example.cinemates.view.ui.details.movie;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter;

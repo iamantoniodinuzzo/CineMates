@@ -1,4 +1,4 @@
-package com.example.cinemates.view.ui;
+package com.example.cinemates.view.ui.filterable;
 
 import static com.example.cinemates.util.Constants.getRandomColor;
 
@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class FilterFragment extends Fragment {
+public class FilterableFragment extends Fragment {
 
     private FragmentFilterBinding mBinding;
     private Genre mGenre;

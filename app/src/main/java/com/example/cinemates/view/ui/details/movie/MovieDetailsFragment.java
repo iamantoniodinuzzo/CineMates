@@ -1,4 +1,4 @@
-package com.example.cinemates.view.ui;
+package com.example.cinemates.view.ui.details.movie;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,11 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavArgument;
-import androidx.navigation.Navigation;
 
 import com.example.cinemates.adapter.ViewPagerAdapter;
-import com.example.cinemates.databinding.FragmentMovieDetailsBinding;
 import com.example.cinemates.model.data.Movie;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;

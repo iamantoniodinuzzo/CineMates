@@ -1,4 +1,4 @@
-package com.example.cinemates.view.ui;
+package com.example.cinemates.view.ui.details.movie;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,8 +17,6 @@ import com.example.cinemates.model.data.Collection;
 import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.view.viewmodel.MovieViewModel;
-
-import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * @author Antonio Di Nuzzo

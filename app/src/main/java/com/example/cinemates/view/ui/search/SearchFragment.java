@@ -1,4 +1,4 @@
-package com.example.cinemates.view.ui;
+package com.example.cinemates.view.ui.search;
 
 import android.content.Context;
 import android.os.Bundle;

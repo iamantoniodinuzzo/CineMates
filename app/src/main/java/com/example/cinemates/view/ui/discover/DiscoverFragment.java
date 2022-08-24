@@ -1,4 +1,4 @@
-package com.example.cinemates.view.ui;
+package com.example.cinemates.view.ui.discover;
 
 import static com.example.cinemates.util.Constants.getRandomColor;
 

@@ -1,9 +1,11 @@
 package com.example.cinemates.view.ui.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cinemates.model.data.Cast
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
 import com.example.cinemates.model.repository.MovieRepository
@@ -31,8 +33,8 @@ constructor(private val movieRepository: MovieRepository) : ViewModel() {
     private val _queriedMovies = MutableLiveData<List<Movie>>()
     val queriedMovies: LiveData<List<Movie>> get() = _queriedMovies
 
-    private val _queriedActors = MutableLiveData<List<Person>>()
-    val queriedActors: LiveData<List<Person>> get() = _queriedActors
+    private val _queriedActors = MutableLiveData<List<Cast>>()
+    val queriedActors: LiveData<List<Cast>> get() = _queriedActors
 
     init {
         clearQuery()
@@ -46,26 +48,24 @@ constructor(private val movieRepository: MovieRepository) : ViewModel() {
 
     private fun searchActors(query: String) = viewModelScope.launch {
         movieRepository.getMoviesBySearch(query).let { response ->
-            //TODO switch RxJava to Coroutines
 
-            /*  if(response.isSuccessful){
-                    _queriedMovies.value = response.getBody()
+              if(response.isSuccessful){
+                    _queriedMovies.value = response.body()
               }else{
                   Log.d(TAG, "getQueriesMovies Error: ${response.code()}")
-              }*/
+              }
 
         }
     }
 
     private fun searchMovies(query: String) = viewModelScope.launch {
         movieRepository.getPeoplesBySearch(query).let { response ->
-            //TODO switch RxJava to Coroutines
 
-            /*  if(response.isSuccessful){
-                    _queriedActors.value = response.getBody()
+              if(response.isSuccessful){
+                    _queriedActors.value = response.body()
               }else{
                   Log.d(TAG, "getQueriedActors Error: ${response.code()}")
-              }*/
+              }
         }
     }
 

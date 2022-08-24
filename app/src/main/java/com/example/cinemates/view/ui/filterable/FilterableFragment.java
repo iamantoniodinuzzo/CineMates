@@ -3,7 +3,6 @@ package com.example.cinemates.view.ui.filterable;
 import static com.example.cinemates.util.Constants.getRandomColor;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -31,7 +30,6 @@ import com.example.cinemates.model.data.Genre;
 import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.util.Sort;
 import com.example.cinemates.util.ViewSize;
-import com.example.cinemates.view.viewmodel.MovieViewModel;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
@@ -43,7 +41,7 @@ public class FilterableFragment extends Fragment {
     private FragmentFilterableBinding mBinding;
     private Genre mGenre;
     private ArrayList<Movie> filtered_list;
-    private MovieViewModel mViewModel;
+    private FilterableViewModel viewModel;
     private CompoundButton.OnCheckedChangeListener mCheckedChangeListener;
 //    private MovieRecyclerViewAdapter mAdapter;
     private ItemsRecyclerViewAdapter<Movie> mAdapter;
@@ -55,7 +53,7 @@ public class FilterableFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mGenre = FilterableFragmentArgs.fromBundle(getArguments()).getGenre();
-        mViewModel = new ViewModelProvider(getActivity()).get(MovieViewModel.class);
+        viewModel = new ViewModelProvider(getActivity()).get(FilterableViewModel.class);
         mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
         mSortObservable = new MutableLiveData<>();
         mSortObservable.setValue(Sort.POPULARITY.getAttribute());//Default value of sorting chips
@@ -111,7 +109,7 @@ public class FilterableFragment extends Fragment {
             }
         });
         mBinding.recyclerView.setAdapter(mAdapter);
-        mViewModel.getFilteredMovies().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
+      /*  mViewModel.getFilteredMovies().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
             @Override
             public void onChanged(List<Movie> movies) {
                 mAdapter.addItems(movies);
@@ -123,7 +121,7 @@ public class FilterableFragment extends Fragment {
             public void onChanged(String sort) {
                 mViewModel.getDiscoverMovies(sort, String.valueOf(mGenre.getId()));
             }
-        });
+        });*/
         mBinding.shuffle.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

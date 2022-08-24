@@ -45,6 +45,7 @@ constructor(
         getTrendingPerson()
         getPopularMovies()
         getTopRatedMovies()
+        getUpcomingMovies()
     }
 
     private fun getTrendingMovies() = viewModelScope.launch {
@@ -52,63 +53,60 @@ constructor(
             .let { response ->
                 //TODO switch RxJava to Coroutines
 
-                /*  if(response.isSuccessful){
+                  if(response.isSuccessful){
                       _trendingMovies.postValue(response.body())
                   }else{
                       Log.d(TAG, "getTrendingMovies Error: ${response.code()}")
-                  }*/
+                  }
             }
     }
 
     private fun getTrendingPerson() = viewModelScope.launch {
-        movieRepository.getTrendingMovies(MediaType.PERSON.name, TimeWindow.WEEK.name)
+        movieRepository.getTrendingPerson(MediaType.PERSON.name, TimeWindow.WEEK.name)
             .let { response ->
                 //TODO switch RxJava to Coroutines
 
-                /*  if(response.isSuccessful){
+                  if(response.isSuccessful){
                       _trendingPerson.postValue(response.body())
                   }else{
                       Log.d(TAG, "getTrendingPerson Error: ${response.code()}")
-                  }*/
+                  }
             }
     }
 
     private fun getPopularMovies() = viewModelScope.launch {
-        movieRepository.popular
-            .let { response ->
+        movieRepository.getPopularMovies().let { response ->
                 //TODO switch RxJava to Coroutines
 
-                /*  if(response.isSuccessful){
+                  if(response.isSuccessful){
                       _popularMovies.postValue(response.body())
                   }else{
                       Log.d(TAG, "getPopularMovies Error: ${response.code()}")
-                  }*/
+                  }
             }
     }
 
     private fun getTopRatedMovies() = viewModelScope.launch {
-        movieRepository.topRated
-            .let { response ->
+        movieRepository.getTopRatedMovies().let { response ->
                 //TODO switch RxJava to Coroutines
 
-                /*  if(response.isSuccessful){
+                  if(response.isSuccessful){
                       _topRatedMovies.postValue(response.body())
                   }else{
                       Log.d(TAG, "getTopRatedMovies Error: ${response.code()}")
-                  }*/
+                  }
             }
     }
 
     private fun getUpcomingMovies() = viewModelScope.launch {
-        movieRepository.upcoming
-            .let { response ->
+        movieRepository.getUpcomingMovies().let { response ->
                 //TODO switch RxJava to Coroutines
 
-                /*  if(response.isSuccessful){
+                  if(response.isSuccessful){
                       _upcomingMovies.postValue(response.body())
                   }else{
                       Log.d(TAG, "getUpcomingMovies Error: ${response.code()}")
-                  }*/
+                  }
             }
     }
 

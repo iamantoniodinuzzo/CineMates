@@ -1,5 +1,6 @@
 package com.example.cinemates.view.ui.details.movie
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -43,8 +44,8 @@ constructor(
     private val _cast = MutableLiveData<List<Cast>>()
     val cast: LiveData<List<Cast>> get() = _cast
 
-    private val _moviesBelongsCollection = MutableLiveData<Collection>()
-    val moviesBelongsCollection: LiveData<Collection> get() = _moviesBelongsCollection
+    private val _moviesBelongsCollection = MutableLiveData<List<Movie>>()
+    val moviesBelongsCollection: LiveData<List<Movie>> get() = _moviesBelongsCollection
 
     fun setSelectedMovie(movie: Movie) {
         getMovieDetails(movie.id)
@@ -55,80 +56,71 @@ constructor(
         getMoviesBelongsCollection(movie.belongs_to_collection.id)
     }
 
-    private fun getMoviesBelongsCollection(collectionId: Int) {
-        movieRepository.getCollection(collectionId)
-            .let { response ->
-                //TODO switch RxJava to Coroutines
+    private fun getMoviesBelongsCollection(collectionId: Int) = viewModelScope.launch {
+        movieRepository.getCollection(collectionId).let { response ->
 
-                /*  if(response.isSuccessful){
-                val collection : Collection = response.body()
-                        _moviesBelongsCollection.value = collection.getParts()
-                  }else{
-                      Log.d(TAG, "getMoviesBelongsCollection Error: ${response.code()}")
-                  }*/
+            if (response.isSuccessful) {
+                val collection: Collection? = response.body()
+                _moviesBelongsCollection.value = collection?.parts
+            } else {
+                Log.d(TAG, "getMoviesBelongsCollection Error: ${response.code()}")
             }
+        }
     }
 
-    private fun getMovieCast(movieId: Int) {
-        movieRepository.getMovieDetails(movieId)
-            .let { response ->
-                //TODO switch RxJava to Coroutines
+    private fun getMovieCast(movieId: Int) = viewModelScope.launch {
+        movieRepository.getCast(movieId).let { response ->
 
-                /*  if(response.isSuccessful){
-                        _cast.value = response.body()
-                  }else{
-                      Log.d(TAG, "getMovieCast Error: ${response.code()}")
-                  }*/
+                if (response.isSuccessful) {
+                    _cast.value = response.body()
+                } else {
+                    Log.d(TAG, "getMovieCast Error: ${response.code()}")
+                }
             }
     }
 
     private fun getMovieDetails(movieId: Int) = viewModelScope.launch {
-        movieRepository.getMovieDetails(movieId)
-            .let { response ->
-                //TODO switch RxJava to Coroutines
+        movieRepository.getMovieDetails(movieId).let { response ->
 
-                /*  if(response.isSuccessful){
-                        _selectedMovie.value = response.body()
-                  }else{
-                      Log.d(TAG, "getMovieDetails Error: ${response.code()}")
-                  }*/
+                if (response.isSuccessful) {
+                    _selectedMovie.value = response.body()
+                } else {
+                    Log.d(TAG, "getMovieDetails Error: ${response.code()}")
+                }
             }
 
     }
 
-    private fun getMovieImages(movieId: Int) {
+    private fun getMovieImages(movieId: Int) = viewModelScope.launch {
         movieRepository.getImages(movieId).let { response ->
-            //TODO switch RxJava to Coroutines
 
-            /*  if(response.isSuccessful){
-                    _images.value = response.body()
-              }else{
-                  Log.d(TAG, "getMovieImages Error: ${response.code()}")
-              }*/
+            if (response.isSuccessful) {
+                _images.value = response.body()
+            } else {
+                Log.d(TAG, "getMovieImages Error: ${response.code()}")
+            }
         }
     }
 
-    private fun getMovieVideos(movieId: Int) {
+    private fun getMovieVideos(movieId: Int) = viewModelScope.launch {
         movieRepository.getVideos(movieId).let { response ->
-            //TODO switch RxJava to Coroutines
 
-            /*  if(response.isSuccessful){
-                    _videos.value = response.body()
-              }else{
-                  Log.d(TAG, "getMovieVideos Error: ${response.code()}")
-              }*/
+            if (response.isSuccessful) {
+                _videos.value = response.body()
+            } else {
+                Log.d(TAG, "getMovieVideos Error: ${response.code()}")
+            }
         }
     }
 
     private fun getSimilarMovies(movieId: Int) = viewModelScope.launch {
         movieRepository.getSimilar(movieId).let { response ->
-            //TODO switch RxJava to Coroutines
 
-            /*  if(response.isSuccessful){
-                    _similarMovies.value = response.body()
-              }else{
-                  Log.d(TAG, "getSimilarMovies Error: ${response.code()}")
-              }*/
+            if (response.isSuccessful) {
+                _similarMovies.value = response.body()
+            } else {
+                Log.d(TAG, "getSimilarMovies Error: ${response.code()}")
+            }
         }
     }
 

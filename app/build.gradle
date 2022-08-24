@@ -11,12 +11,12 @@ def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
-    compileSdk 31
+    compileSdk 32
 
     defaultConfig {
         applicationId "com.example.cinemates"
         minSdk 26
-        targetSdk 31
+        targetSdk 32
         versionCode 1
         versionName "1.0"
         // should correspond to key/value pairs inside the file
@@ -127,6 +127,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha01"
     implementation "androidx.work:work-runtime-ktx:2.7.1"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
     implementation "com.google.android.play:core-ktx:1.8.1"
 
 

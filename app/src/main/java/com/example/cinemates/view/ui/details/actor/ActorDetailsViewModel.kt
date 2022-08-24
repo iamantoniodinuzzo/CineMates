@@ -1,5 +1,6 @@
 package com.example.cinemates.view.ui.details.actor
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -36,13 +37,11 @@ constructor(private val movieRepository: MovieRepository) : ViewModel() {
     private fun getMoviesByActor(id: Int) = viewModelScope.launch {
         movieRepository.getMoviesByActor(id.toString()).let { response ->
 
-            //TODO switch RxJava to Coroutines
-
-            /*  if(response.isSuccessful){
+              if(response.isSuccessful){
                   _movies.postValue(response.body())
               }else{
                   Log.d(TAG, "getMoviesByActor Error: ${response.code()}")
-              }*/
+              }
         }
     }
 
@@ -50,13 +49,11 @@ constructor(private val movieRepository: MovieRepository) : ViewModel() {
     private fun getActorDetails(id: Int) = viewModelScope.launch {
         movieRepository.getActorDetails(id).let { response ->
 
-            //TODO switch RxJava to Coroutines
-
-            /*  if(response.isSuccessful){
+              if(response.isSuccessful){
                   _actor.postValue(response.body())
               }else{
                   Log.d(TAG, "getActorDetails Error: ${response.code()}")
-              }*/
+              }
         }
     }
 }

@@ -65,8 +65,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mMovieSection.setMutableLiveData(mDbViewModel.getFavorite_movies());
-        mPersonSection.setMutableLiveData(mDbViewModel.getFavorite_persons());
+        mMovieSection.setLiveData(mDbViewModel.getFavorite_movies());
+        mPersonSection.setLiveData(mDbViewModel.getFavorite_persons());
         mDbViewModel.getAllFavoritesMovies();
         mDbViewModel.getAllFavoritesPersons();
         mDbViewModel.getAllWithStatus(Movie.PersonalStatus.SEEN);

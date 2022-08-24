@@ -1,4 +1,4 @@
-package com.example.cinemates.view.ui.details.movie;
+package com.example.cinemates.view.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavArgument;
+import androidx.navigation.Navigation;
 
 import com.example.cinemates.adapter.ViewPagerAdapter;
 import com.example.cinemates.databinding.FragmentMovieDetailsBinding;
@@ -26,9 +28,9 @@ public class MovieDetailsFragment extends Fragment {
     private FragmentMovieDetailsBinding mBinding;
     private MovieDetailsFragmentArgs args;
     private Movie mMovie;
-    private MovieInfoFragment mMovieInfoFragment;
-    private MovieCastFragment mMovieCastFragment;
-    private MovieImagesFragment mMovieImagesFragment;
+    private MediaInfoFragment mMediaInfoFragment;
+    private MediaCastFragment mMediaCastFragment;
+    private MediaImagesFragment mMediaImagesFragment;
     private ViewPagerAdapter mViewPagerAdapter;
     private Bundle mBundle;
 
@@ -40,9 +42,9 @@ public class MovieDetailsFragment extends Fragment {
 
         args = MovieDetailsFragmentArgs.fromBundle(requireArguments());
         mViewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), getLifecycle());
-        mMovieInfoFragment = new MovieInfoFragment();
-        mMovieCastFragment = new MovieCastFragment();
-        mMovieImagesFragment = new MovieImagesFragment();
+        mMediaInfoFragment = new MediaInfoFragment();
+        mMediaCastFragment = new MediaCastFragment();
+        mMediaImagesFragment = new MediaImagesFragment();
         mBundle = new Bundle();
 
     }
@@ -68,9 +70,9 @@ public class MovieDetailsFragment extends Fragment {
             }
         });
 
-        mMovieCastFragment.setArguments(mBundle);
-        mMovieInfoFragment.setArguments(mBundle);
-        mMovieImagesFragment.setArguments(mBundle);
+        mMediaCastFragment.setArguments(mBundle);
+        mMediaInfoFragment.setArguments(mBundle);
+        mMediaImagesFragment.setArguments(mBundle);
 
 
         initializeViewPager();
@@ -83,9 +85,9 @@ public class MovieDetailsFragment extends Fragment {
     }
 
     private void initializeViewPager() {
-        mViewPagerAdapter.addFragment(mMovieInfoFragment);
-        mViewPagerAdapter.addFragment(mMovieCastFragment);
-        mViewPagerAdapter.addFragment(mMovieImagesFragment);
+        mViewPagerAdapter.addFragment(mMediaInfoFragment);
+        mViewPagerAdapter.addFragment(mMediaCastFragment);
+        mViewPagerAdapter.addFragment(mMediaImagesFragment);
 
         mBinding.viewPager.setAdapter(mViewPagerAdapter);
         mBinding.viewPager.setUserInputEnabled(false);

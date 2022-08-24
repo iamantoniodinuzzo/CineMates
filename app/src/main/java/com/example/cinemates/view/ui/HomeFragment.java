@@ -1,4 +1,4 @@
-package com.example.cinemates.view.ui.home;
+package com.example.cinemates.view.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

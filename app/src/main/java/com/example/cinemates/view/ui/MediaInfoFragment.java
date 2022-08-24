@@ -1,4 +1,4 @@
-package com.example.cinemates.view.ui.details.movie;
+package com.example.cinemates.view.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,10 +11,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter;
-import com.example.cinemates.databinding.FragmentMovieInfoBinding;
+import com.example.cinemates.databinding.FragmentMediaInfoBinding;
 import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.model.data.Video;
 import com.example.cinemates.util.ViewSize;
@@ -24,9 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MovieInfoFragment extends Fragment {
+public class MediaInfoFragment extends Fragment {
 
-    private FragmentMovieInfoBinding mBinding;
+    private FragmentMediaInfoBinding mBinding;
     private MovieViewModel mViewModel;
     private ItemsRecyclerViewAdapter<Movie> mAdapter;
     private YoutubeVideoRecyclerViewAdapter mVideoAdapter;
@@ -45,7 +46,7 @@ public class MovieInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = FragmentMovieInfoBinding.inflate(inflater, container, false);
+        mBinding = FragmentMediaInfoBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
     }
 

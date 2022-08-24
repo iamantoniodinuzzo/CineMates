@@ -1,4 +1,4 @@
-package com.example.cinemates.view.ui;
+package com.example.cinemates.view.ui.details.movie;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cinemates.adapter.ImageRecyclerViewAdapter;
-import com.example.cinemates.databinding.FragmentMediaImagesBinding;
+import com.example.cinemates.databinding.FragmentMovieImagesBinding;
 import com.example.cinemates.model.data.Images;
 import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.view.viewmodel.MovieViewModel;
@@ -21,8 +21,8 @@ import com.example.cinemates.view.viewmodel.MovieViewModel;
  * @author Antonio Di Nuzzo
  * Created 19/06/2022 at 09:54
  */
-public class MediaImagesFragment extends Fragment {
-    private FragmentMediaImagesBinding mBinding;
+public class MovieImagesFragment extends Fragment {
+    private FragmentMovieImagesBinding mBinding;
     private MovieViewModel mViewModel;
     private ImageRecyclerViewAdapter mPosterAdapter, mBackdropAdapter;
 
@@ -38,7 +38,7 @@ public class MediaImagesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = FragmentMediaImagesBinding.inflate(inflater, container, false);
+        mBinding = FragmentMovieImagesBinding.inflate(inflater, container, false);
         Movie movie = (Movie) getArguments().getSerializable("movie");
         mBinding.postersRv.setAdapter(mPosterAdapter);
         mBinding.postersRv.setEmptyView(mBinding.emptyPosterView.getRoot());

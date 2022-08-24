@@ -1,4 +1,4 @@
-package com.example.cinemates.view.ui;
+package com.example.cinemates.view.ui.saved;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,29 +19,24 @@ import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.view.viewmodel.DbViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author Antonio Di Nuzzo
  * Created 25/07/2022 at 08:24
  */
-public class ToSeeFragment extends Fragment implements CustomizableFragment {
+public class SeenFragment extends Fragment implements CustomizableFragment {
     private FragmentListingBinding mBinding;
     private DbViewModel mDbViewModel;
 //    private MovieRecyclerViewAdapter mAdapter;
     private ItemsRecyclerViewAdapter<Movie> mAdapter;
-    private ArrayList<Movie> movie_to_see;
-    private Random rand;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDbViewModel = new ViewModelProvider(getActivity()).get(DbViewModel.class);
         mAdapter = new ItemsRecyclerViewAdapter<>(ViewSize.SMALL);
-        movie_to_see = new ArrayList<>();
-        rand = new Random();
+
     }
 
     @Nullable
@@ -52,18 +47,17 @@ public class ToSeeFragment extends Fragment implements CustomizableFragment {
         mBinding.recyclerView.setEmptyView(mBinding.emptyView.getRoot());
         mBinding.recyclerView.setAdapter(mAdapter);
 
-        mDbViewModel.getAllWithStatus(Movie.PersonalStatus.TO_SEE);
-        mDbViewModel.getTo_see().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
+
+        mDbViewModel.getAllWithStatus(Movie.PersonalStatus.SEEN);
+        mDbViewModel.getSeen().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
             @Override
             public void onChanged(List<Movie> movies) {
                 mAdapter.addItems(movies);
             }
         });
 
-
         return mBinding.getRoot();
     }
-
 
     @Override
     public void onDestroyView() {

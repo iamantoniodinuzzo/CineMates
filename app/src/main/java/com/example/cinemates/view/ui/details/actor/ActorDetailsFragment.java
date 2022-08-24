@@ -1,4 +1,4 @@
-package com.example.cinemates.view.ui;
+package com.example.cinemates.view.ui.details.actor;
 
 
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,12 +21,11 @@ import com.example.cinemates.model.data.Actor;
 import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.model.data.Person;
 import com.example.cinemates.util.ViewSize;
+import com.example.cinemates.view.ui.ActorDetailsFragmentArgs;
 import com.example.cinemates.view.viewmodel.DbViewModel;
 import com.example.cinemates.view.viewmodel.MovieViewModel;
 
 import java.util.List;
-
-import dagger.hilt.android.AndroidEntryPoint;
 
 public class ActorDetailsFragment extends Fragment {
 

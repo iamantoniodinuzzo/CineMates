@@ -1,4 +1,4 @@
-package com.example.cinemates.view.ui;
+package com.example.cinemates.view.ui.details.movie;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
-import com.example.cinemates.databinding.FragmentMediaCastBinding;
+import com.example.cinemates.databinding.FragmentMovieCastBinding;
 import com.example.cinemates.model.data.Cast;
 import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.util.ViewSize;
@@ -21,8 +21,8 @@ import com.example.cinemates.view.viewmodel.MovieViewModel;
 import java.util.List;
 
 
-public class MediaCastFragment extends Fragment {
-    private FragmentMediaCastBinding mBinding;
+public class MovieCastFragment extends Fragment {
+    private FragmentMovieCastBinding mBinding;
     private ItemsRecyclerViewAdapter<Cast> mAdapter;
     private MovieViewModel mViewModel;
     private Movie mMovie;
@@ -38,7 +38,7 @@ public class MediaCastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = FragmentMediaCastBinding.inflate(inflater, container, false);
+        mBinding = FragmentMovieCastBinding.inflate(inflater, container, false);
 
         return mBinding.getRoot();
     }

@@ -60,8 +60,8 @@ public class MovieViewModel extends ViewModel {
     private final MutableLiveData<List<Movie>> popularMoviesList = new MutableLiveData<>();//added
     private final MutableLiveData<List<Movie>> topRatedMoviesList = new MutableLiveData<>();//added
     private final MutableLiveData<List<Movie>> upcomingMoviesList = new MutableLiveData<>();//added
-    private final MutableLiveData<List<Movie>> queriesMovies = new MutableLiveData<>();
-    private final MutableLiveData<List<Cast>> queriesPeoples = new MutableLiveData<>();
+    private final MutableLiveData<List<Movie>> queriesMovies = new MutableLiveData<>();//added
+    private final MutableLiveData<List<Cast>> queriesPeoples = new MutableLiveData<>();//added
     private final MutableLiveData<List<Cast>> movieCastList = new MutableLiveData<>();//added
     private final MutableLiveData<Movie> movieDetails = new MutableLiveData<>();//added
     private final MutableLiveData<Collection> collection = new MutableLiveData<>();//added

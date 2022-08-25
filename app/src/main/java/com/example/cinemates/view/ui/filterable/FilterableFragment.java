@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -33,7 +32,6 @@ import com.example.cinemates.util.ViewSize;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class FilterableFragment extends Fragment {

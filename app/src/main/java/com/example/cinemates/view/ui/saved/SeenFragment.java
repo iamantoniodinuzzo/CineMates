@@ -16,6 +16,7 @@ import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentListingBinding;
 import com.example.cinemates.interfaces.CustomizableFragment;
 import com.example.cinemates.model.data.Movie;
+import com.example.cinemates.model.data.PersonalStatus;
 import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.view.viewmodel.DbViewModel;
 
@@ -48,7 +49,7 @@ public class SeenFragment extends Fragment implements CustomizableFragment {
         mBinding.recyclerView.setAdapter(mAdapter);
 
 
-        mDbViewModel.getAllWithStatus(Movie.PersonalStatus.SEEN);
+        mDbViewModel.getAllWithStatus(PersonalStatus.SEEN);
         mDbViewModel.getSeen().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
             @Override
             public void onChanged(List<Movie> movies) {

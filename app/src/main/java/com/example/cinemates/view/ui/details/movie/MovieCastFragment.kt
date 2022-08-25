@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.cinemates.databinding.FragmentMovieCastBinding
-import com.example.cinemates.model.data.Movie
 
 class MovieCastFragment : Fragment() {
     private lateinit var mBinding: FragmentMovieCastBinding

@@ -38,7 +38,7 @@ constructor(private val movieRepository: MovieRepository) : ViewModel() {
         movieRepository.getMoviesByActor(id.toString()).let { response ->
 
               if(response.isSuccessful){
-                  _movies.postValue(response.body())
+                  _movies.postValue(response.body()?.results)
               }else{
                   Log.d(TAG, "getMoviesByActor Error: ${response.code()}")
               }

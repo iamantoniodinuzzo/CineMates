@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cinemates.databinding.FragmentBottomsheetBinding;
 import com.example.cinemates.model.data.Movie;
+import com.example.cinemates.model.data.PersonalStatus;
 import com.example.cinemates.view.viewmodel.DbViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -44,7 +45,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
 
         mBinding.setMovie(mMovie);
-        mBinding.favoriteBtn.setOnClickListener(new View.OnClickListener() {
+        // TODO: 25/08/2022 Error with set favorite, need other branch to solve issues w Room
+     /*   mBinding.favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mMovie.setFavorite();
@@ -55,20 +57,20 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
                 update(dialog);
             }
-        });
+        });*/
 
-        mBinding.watchlistBtn.setOnClickListener(new View.OnClickListener() {
+       /* mBinding.watchlistBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mMovie.setPersonalStatus(Movie.PersonalStatus.TO_SEE))
+                if (mMovie.setPersonalStatus(PersonalStatus.TO_SEE))
                     Toast.makeText(getContext(), "Added to watch list!", Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(getContext(), "Removed from watch list!", Toast.LENGTH_SHORT).show();
                 update(dialog);
             }
-        });
+        });*/
 
-        mBinding.watchedBtn.setOnClickListener(new View.OnClickListener() {
+     /*   mBinding.watchedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mMovie.setPersonalStatus(Movie.PersonalStatus.SEEN))
@@ -78,7 +80,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
                 update(dialog);
             }
-        });
+        });*/
 
 
         return dialog;
@@ -86,14 +88,14 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
     private void update(BottomSheetDialog dialog) {
         //This 'if' check if movie has no propriety for stay into db
-        if (!mMovie.isFavorite() && mMovie.getPersonalStatus() == Movie.PersonalStatus.EMPTY) {
+       /* if (!mMovie.isFavorite() && mMovie.getPersonalStatus() == Movie.PersonalStatus.EMPTY) {
             mViewModel.delete(mMovie);
             return;
         } else if (mMovie.getPersonalStatus() == null)
             mMovie.setPersonalStatus(Movie.PersonalStatus.EMPTY);
         mViewModel.insert(mMovie);
         mBinding.setMovie(mMovie);
-        dialog.dismiss();
+        dialog.dismiss();*/
     }
 
 

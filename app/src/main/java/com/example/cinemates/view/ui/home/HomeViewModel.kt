@@ -53,7 +53,7 @@ constructor(
             .let { response ->
 
                   if(response.isSuccessful){
-                      _trendingMovies.postValue(response.body())
+                      _trendingMovies.postValue(response.body()?.results)
                   }else{
                       Log.d(TAG, "getTrendingMovies Error: ${response.code()}")
                   }
@@ -65,7 +65,7 @@ constructor(
             .let { response ->
 
                   if(response.isSuccessful){
-                      _trendingPerson.postValue(response.body())
+                      _trendingPerson.postValue(response.body()?.results)
                   }else{
                       Log.d(TAG, "getTrendingPerson Error: ${response.code()}")
                   }
@@ -76,7 +76,7 @@ constructor(
         movieRepository.getPopularMovies().let { response ->
 
                   if(response.isSuccessful){
-                      _popularMovies.postValue(response.body())
+                      _popularMovies.postValue(response.body()?.results)
                   }else{
                       Log.d(TAG, "getPopularMovies Error: ${response.code()}")
                   }
@@ -87,7 +87,7 @@ constructor(
         movieRepository.getTopRatedMovies().let { response ->
 
                   if(response.isSuccessful){
-                      _topRatedMovies.postValue(response.body())
+                      _topRatedMovies.postValue(response.body()?.results)
                   }else{
                       Log.d(TAG, "getTopRatedMovies Error: ${response.code()}")
                   }
@@ -98,7 +98,7 @@ constructor(
         movieRepository.getUpcomingMovies().let { response ->
 
                   if(response.isSuccessful){
-                      _upcomingMovies.postValue(response.body())
+                      _upcomingMovies.postValue(response.body()?.results)
                   }else{
                       Log.d(TAG, "getUpcomingMovies Error: ${response.code()}")
                   }

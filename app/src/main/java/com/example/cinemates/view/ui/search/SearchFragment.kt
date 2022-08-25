@@ -75,11 +75,11 @@ class SearchFragment : Fragment() {
             toolbar.setNavigationOnClickListener { view ->
                 /*searchMovieFragment!!.bindData("")
                 searchActorsFragment!!.bindData("")*/
-                (activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                (requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
                     view.windowToken,
                     0
                 )
-                activity!!.onBackPressed()
+                requireActivity().onBackPressed()
             }
 
             //Set query parameter

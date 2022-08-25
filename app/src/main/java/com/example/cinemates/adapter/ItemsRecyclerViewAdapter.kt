@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import com.example.cinemates.model.data.Cast
 import android.view.View
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.databinding.ListItemMovieLongBinding

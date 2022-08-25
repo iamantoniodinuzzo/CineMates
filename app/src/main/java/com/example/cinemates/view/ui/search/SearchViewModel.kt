@@ -7,9 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinemates.model.data.Cast
 import com.example.cinemates.model.data.Movie
-import com.example.cinemates.model.data.Person
 import com.example.cinemates.model.repository.MovieRepository
-import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -49,11 +47,11 @@ constructor(private val movieRepository: MovieRepository) : ViewModel() {
     private fun searchActors(query: String) = viewModelScope.launch {
         movieRepository.getMoviesBySearch(query).let { response ->
 
-              if(response.isSuccessful){
-                    _queriedMovies.value = response.body()
-              }else{
-                  Log.d(TAG, "getQueriesMovies Error: ${response.code()}")
-              }
+            if (response.isSuccessful) {
+                _queriedMovies.value = response.body()?.results
+            } else {
+                Log.d(TAG, "getQueriesMovies Error: ${response.code()}")
+            }
 
         }
     }
@@ -61,11 +59,11 @@ constructor(private val movieRepository: MovieRepository) : ViewModel() {
     private fun searchMovies(query: String) = viewModelScope.launch {
         movieRepository.getPeoplesBySearch(query).let { response ->
 
-              if(response.isSuccessful){
-                    _queriedActors.value = response.body()
-              }else{
-                  Log.d(TAG, "getQueriedActors Error: ${response.code()}")
-              }
+            if (response.isSuccessful) {
+                _queriedActors.value = response.body()?.results
+            } else {
+                Log.d(TAG, "getQueriedActors Error: ${response.code()}")
+            }
         }
     }
 

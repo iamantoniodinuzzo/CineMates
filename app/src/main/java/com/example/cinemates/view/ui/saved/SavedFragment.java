@@ -123,8 +123,8 @@ public class SavedFragment extends Fragment {
 
     private void switchLayout(RecyclerView.LayoutManager layoutManager) {
         Toast.makeText(getContext(), "Soon!", Toast.LENGTH_SHORT).show();
-        toSeeFragment.changeLayout(layoutManager);
-        seenFragment.changeLayout(layoutManager);
+        /*toSeeFragment.changeLayout(layoutManager);
+        seenFragment.changeLayout(layoutManager);*/
     }
 
     @Override

@@ -4,7 +4,6 @@ import androidx.navigation.Navigation.findNavController
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
 import com.example.cinemates.view.viewmodel.DbViewModel
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
 import com.example.cinemates.util.ViewSize
 import android.view.LayoutInflater
 import android.view.View
@@ -56,11 +55,11 @@ class ActorDetailsFragment : Fragment() {
         }
         mBinding.apply {
             if (dbViewModel.getPerson(person) != null) fab.setImageDrawable(
-                activity!!.getDrawable(
+                requireActivity().getDrawable(
                     R.drawable.ic_baseline_favorite_24
                 )
             ) else fab.setImageDrawable(
-                activity!!.getDrawable(R.drawable.ic_baseline_favorite_border_24)
+                requireActivity().getDrawable(R.drawable.ic_baseline_favorite_border_24)
             )
             recyclerView.adapter = mAdapter
             viewModel.actor.observe(viewLifecycleOwner) { selectedActor ->
@@ -75,11 +74,11 @@ class ActorDetailsFragment : Fragment() {
                 person.setFavorite()
                 if (dbViewModel.getPerson(person) != null) { //it was already into favorite
                     dbViewModel.delete(person) //should delete it
-                    fab.setImageDrawable(activity!!.getDrawable(R.drawable.ic_baseline_favorite_border_24))
+                    fab.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_baseline_favorite_border_24))
                     Toast.makeText(context, "Removed from favorite", Toast.LENGTH_SHORT).show()
                 } else {
                     dbViewModel.insert(person)
-                    fab.setImageDrawable(activity!!.getDrawable(R.drawable.ic_baseline_favorite_24))
+                    fab.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_baseline_favorite_24))
                     Toast.makeText(context, "Added to favorite", Toast.LENGTH_SHORT).show()
                 }
             }

@@ -15,16 +15,16 @@ import java.util.HashMap
  */
 interface MovieService {
     @GET("movie/now_playing")
-    suspend fun getCurrentlyShowing(@QueryMap queries: HashMap<String, String>): Response<List<Movie>>
+    suspend fun getCurrentlyShowing(@QueryMap queries: HashMap<String, String>): Response<GenericResponse<Movie>>
 
     @GET("movie/popular")
-    suspend fun getPopular(@QueryMap queries: HashMap<String, String>): Response<List<Movie>>
+    suspend fun getPopular(@QueryMap queries: HashMap<String, String>): Response<GenericResponse<Movie>>
 
     @GET("movie/upcoming")
-    suspend fun getUpcoming(@QueryMap queries: HashMap<String, String>): Response<List<Movie>>
+    suspend fun getUpcoming(@QueryMap queries: HashMap<String, String>): Response<GenericResponse<Movie>>
 
     @GET("movie/top_rated")
-    suspend fun getTopRated(@QueryMap queries: HashMap<String, String>): Response<List<Movie>>
+    suspend fun getTopRated(@QueryMap queries: HashMap<String, String>): Response<GenericResponse<Movie>>
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
@@ -36,25 +36,25 @@ interface MovieService {
     suspend fun getCast(
         @Path("movie_id") id: Int,
         @QueryMap queries: HashMap<String, String>
-    ): Response<List<Cast>>
+    ): Response<GenericResponse<Cast>>
 
     @GET("movie/{movie_id}/similar")
     suspend fun getSimilar(
         @Path("movie_id") movie_id: Int,
         @QueryMap queries: HashMap<String, String>
-    ): Response<List<Movie>>
+    ): Response<GenericResponse<Movie>>
 
     @GET("movie/{movie_id}/videos")
     suspend fun getVideos(
         @Path("movie_id") movie_id: Int,
         @QueryMap queries: HashMap<String, String>
-    ): Response<List<Video>>
+    ): Response<GenericResponse<Video>>
 
     @GET("movie/{movie_id}/reviews")
     suspend fun getReviews(
         @Path("movie_id") movie_id: Int,
         @QueryMap queries: HashMap<String, String>
-    ): Response<List<Review>>
+    ): Response<GenericResponse<Review>>
 
     @GET("movie/{movie_id}/images")
     suspend fun getImages(
@@ -81,28 +81,28 @@ interface MovieService {
     ): Response<Collection>
 
     @GET("search/movie")
-    suspend fun getMoviesBySearch(@QueryMap queries: HashMap<String, String>): Response<List<Movie>>
+    suspend fun getMoviesBySearch(@QueryMap queries: HashMap<String, String>): Response<GenericResponse<Movie>>
 
     @GET("discover/movie")
-    suspend fun getMoviesByDiscover(@QueryMap queries: HashMap<String, String>): Response<List<Movie>>
+    suspend fun getMoviesByDiscover(@QueryMap queries: HashMap<String, String>): Response<GenericResponse<Movie>>
 
     @GET("genre/movie/list")
-    suspend fun getGenreList(@QueryMap queries: HashMap<String, String>): Response<List<Genre>>
+    suspend fun getGenreList(@QueryMap queries: HashMap<String, String>): Response<GenericResponse<Genre>>
 
     @GET("search/person")
-    suspend fun getPeoplesBySearch(@QueryMap queries: HashMap<String, String>): Response<List<Cast>>
+    suspend fun getPeoplesBySearch(@QueryMap queries: HashMap<String, String>): Response<GenericResponse<Cast>>
 
     @GET("trending/{media_type}/{time_window}")
     suspend fun getTrendingMovies(
         @Path("media_type") media_type: String,
         @Path("time_window") time_window: String,
         @QueryMap queries: HashMap<String, String>
-    ): Response<List<Movie>>
+    ): Response<GenericResponse<Movie>>
 
     @GET("trending/{media_type}/{time_window}")
     suspend fun getTrendingPerson(
         @Path("media_type") media_type: String,
         @Path("time_window") time_window: String,
         @QueryMap queries: HashMap<String, String>
-    ): Response<List<Person>>
+    ): Response<GenericResponse<Person>>
 }

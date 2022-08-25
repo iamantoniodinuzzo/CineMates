@@ -65,7 +65,7 @@ public class DiscoverFragment extends Fragment {
             genre_chip.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Genre tmp_genre = new Genre(genre.getKey(), genre.getValue());
+                    Genre tmp_genre = new Genre(genre.getKey(), genre.getValue(), false);
                     DiscoverFragmentDirections.ActionDiscoverFragmentToFilterFragment action = DiscoverFragmentDirections.actionDiscoverFragmentToFilterFragment(tmp_genre);
                     Navigation.findNavController(view).navigate(action);
                 }

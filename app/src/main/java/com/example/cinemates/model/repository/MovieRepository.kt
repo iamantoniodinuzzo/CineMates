@@ -75,22 +75,22 @@ constructor(private val apiService: MovieService) {
     suspend fun getCollection(collectionId: Int) = apiService.getCollection(collectionId, sMap)
 
 
-    suspend fun getMoviesBySearch(query: String): Response<List<Movie>> {
+    suspend fun getMoviesBySearch(query: String): Response<GenericResponse<Movie>> {
         sMap["query"] = query
         return apiService.getMoviesBySearch(sMap)
     }
 
-    suspend fun getMoviesByActor(with_cast: String): Response<List<Movie>> {
+    suspend fun getMoviesByActor(with_cast: String): Response<GenericResponse<Movie>> {
         sMap["with_cast"] = with_cast
         return apiService.getMoviesByDiscover(sMap)
     }
 
-    suspend fun getPeoplesBySearch(query: String): Response<List<Cast>> {
+    suspend fun getPeoplesBySearch(query: String): Response<GenericResponse<Cast>> {
         sMap["query"] = query
         return apiService.getPeoplesBySearch(sMap)
     }
 
-    suspend fun getDiscoverMovies(sort_option: String, genre_id: String): Response<List<Movie>> {
+    suspend fun getDiscoverMovies(sort_option: String, genre_id: String): Response<GenericResponse<Movie>> {
         sMap["sort_by"] = sort_option
         sMap["with_genres"] = genre_id
         return apiService.getMoviesByDiscover(sMap)

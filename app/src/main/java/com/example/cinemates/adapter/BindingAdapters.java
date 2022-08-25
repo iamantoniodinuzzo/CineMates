@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.cinemates.R;
 import com.example.cinemates.model.data.Genre;
-import com.example.cinemates.model.data.Movie;
+import com.example.cinemates.model.data.PersonalStatus;
 import com.example.cinemates.model.data.ProductionCompany;
 import com.example.cinemates.model.data.Section;
 import com.example.cinemates.util.Constants;
@@ -29,6 +29,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Currency;
+import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
@@ -74,13 +75,13 @@ public class BindingAdapters {
     }
 
     @BindingAdapter({"toSee"})
-    public static void setStatusToSee(ImageButton view, Movie.PersonalStatus value) {
-        view.setPressed(value == Movie.PersonalStatus.TO_SEE);
+    public static void setStatusToSee(ImageButton view, PersonalStatus value) {
+        view.setPressed(value == PersonalStatus.TO_SEE);
     }
 
     @BindingAdapter({"seen"})
-    public static void setStatusSeen(ImageButton view, Movie.PersonalStatus value) {
-        view.setPressed(value == Movie.PersonalStatus.SEEN);
+    public static void setStatusSeen(ImageButton view, PersonalStatus value) {
+        view.setPressed(value == PersonalStatus.SEEN);
     }
 
     @BindingAdapter({"imageUrlLong"})
@@ -154,18 +155,16 @@ public class BindingAdapters {
     }
 
     @BindingAdapter({"genres"})
-    public static void setGenresChip(ChipGroup chipGroup, @NonNull ArrayList<Genre> genres) {
-        if (genres != null) {
-            for (Genre genre : genres) {
+    public static void setGenresChip(ChipGroup chipGroup, @NonNull List<Genre> genres) {
+        for (Genre genre : genres) {
 
-                Chip chip = new Chip(chipGroup.getContext());
-                ChipDrawable drawable = ChipDrawable.createFromAttributes(chipGroup.getContext(), null,
-                        0, R.style.Widget_MaterialComponents_Chip_Action);
-                chip.setChipDrawable(drawable);
-                chip.setText(genre.getName());
-                chip.setId(genre.getId());
-                chipGroup.addView(chip);
-            }
+            Chip chip = new Chip(chipGroup.getContext());
+            ChipDrawable drawable = ChipDrawable.createFromAttributes(chipGroup.getContext(), null,
+                    0, R.style.Widget_MaterialComponents_Chip_Action);
+            chip.setChipDrawable(drawable);
+            chip.setText(genre.getName());
+            chip.setId(genre.getId());
+            chipGroup.addView(chip);
         }
     }
 

@@ -1,22 +1,14 @@
 package com.example.cinemates.view.ui.details.movie
 
-import com.example.cinemates.view.ui.details.movie.MovieInfoFragment
-import com.example.cinemates.view.ui.details.movie.MovieCastFragment
-import com.example.cinemates.view.ui.details.movie.MovieImagesFragment
 import com.example.cinemates.adapter.ViewPagerAdapter
 import android.os.Bundle
-import com.example.cinemates.view.ui.details.movie.MovieDetailsFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import com.example.cinemates.databinding.FragmentMovieDetailsBinding
-import com.example.cinemates.model.data.Movie
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.android.material.tabs.TabLayoutMediator.TabConfigurationStrategy
-import com.google.android.material.tabs.TabLayout
 
 /**
  * @author Antonio Di Nuzzo

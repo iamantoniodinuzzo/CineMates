@@ -4,9 +4,9 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.model.local.dao.MovieDao;
 import com.example.cinemates.model.local.dao.PersonDao;
-import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.model.data.Person;
 import com.example.cinemates.util.Converters;
 

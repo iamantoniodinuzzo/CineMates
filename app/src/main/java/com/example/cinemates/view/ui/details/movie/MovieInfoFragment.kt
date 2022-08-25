@@ -42,7 +42,7 @@ class MovieInfoFragment : Fragment() {
             videosRecyclerView.adapter = mVideoAdapter
 
             collectionName.collectionName.setOnClickListener {
-                val fm = activity!!.supportFragmentManager
+                val fm = requireActivity().supportFragmentManager
                 val collectionDialogFragment = CollectionDialogFragment()
                 collectionDialogFragment.show(fm, "fragment_show_collection")
             }

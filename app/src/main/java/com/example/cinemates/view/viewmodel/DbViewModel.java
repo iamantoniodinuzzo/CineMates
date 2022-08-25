@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.model.data.Person;
+import com.example.cinemates.model.data.PersonalStatus;
 import com.example.cinemates.model.repository.DbRepository;
 
 import java.util.List;
@@ -77,7 +78,7 @@ public class DbViewModel extends ViewModel {
         return mDbRepository.retrieveMovie(movie.getId());
     }
 
-    public long getMovieCountByStatus(Movie.PersonalStatus status) {
+    public long getMovieCountByStatus(PersonalStatus status) {
         return mDbRepository.getMovieCountByStatus(status);
     }
 
@@ -90,7 +91,7 @@ public class DbViewModel extends ViewModel {
     }
 
 
-    public void getAllWithStatus(Movie.PersonalStatus status) {
+    public void getAllWithStatus(PersonalStatus status) {
         switch (status) {
 
             case TO_SEE:

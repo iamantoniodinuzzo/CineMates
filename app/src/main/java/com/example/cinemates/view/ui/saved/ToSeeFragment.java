@@ -16,6 +16,7 @@ import com.example.cinemates.adapter.ItemsRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentListingBinding;
 import com.example.cinemates.interfaces.CustomizableFragment;
 import com.example.cinemates.model.data.Movie;
+import com.example.cinemates.model.data.PersonalStatus;
 import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.view.viewmodel.DbViewModel;
 
@@ -27,7 +28,7 @@ import java.util.Random;
  * @author Antonio Di Nuzzo
  * Created 25/07/2022 at 08:24
  */
-public class ToSeeFragment extends Fragment implements CustomizableFragment {
+public class ToSeeFragment extends Fragment  {
     private FragmentListingBinding mBinding;
     private DbViewModel mDbViewModel;
 //    private MovieRecyclerViewAdapter mAdapter;
@@ -52,7 +53,7 @@ public class ToSeeFragment extends Fragment implements CustomizableFragment {
         mBinding.recyclerView.setEmptyView(mBinding.emptyView.getRoot());
         mBinding.recyclerView.setAdapter(mAdapter);
 
-        mDbViewModel.getAllWithStatus(Movie.PersonalStatus.TO_SEE);
+        mDbViewModel.getAllWithStatus(PersonalStatus.TO_SEE);
         mDbViewModel.getTo_see().observe(getViewLifecycleOwner(), new Observer<List<Movie>>() {
             @Override
             public void onChanged(List<Movie> movies) {
@@ -71,13 +72,5 @@ public class ToSeeFragment extends Fragment implements CustomizableFragment {
         mBinding = null;
     }
 
-    @Override
-    public void changeLayout(RecyclerView.LayoutManager layoutManager) {
 
-    }
-
-    @Override
-    public void bindData(String query) {
-        //Nothing
-    }
 }

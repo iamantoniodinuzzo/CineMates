@@ -1,9 +1,10 @@
 package com.example.cinemates.model.repository;
 
+import com.example.cinemates.model.data.Movie;
+import com.example.cinemates.model.data.PersonalStatus;
 import com.example.cinemates.model.local.dao.MovieDao;
 import com.example.cinemates.model.local.dao.PersonDao;
 import com.example.cinemates.model.local.db.AppDatabase;
-import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.model.data.Person;
 
 import java.util.List;
@@ -37,15 +38,15 @@ public class DbRepository {
     }
 
 
-    public Observable<List<Movie>> getAllMoviesWithStatus(Movie.PersonalStatus status) {
+    public Observable<List<Movie>> getAllMoviesWithStatus(PersonalStatus status) {
         return mMovieDao.getAllWithStatus(status);
     }
 
     public long sumRuntimeAllWatchedMovies() {
-        return mMovieDao.sumRuntimeAllWatchedMovies(Movie.PersonalStatus.SEEN);
+        return mMovieDao.sumRuntimeAllWatchedMovies(PersonalStatus.SEEN);
     }
 
-    public long getMovieCountByStatus(Movie.PersonalStatus status) {
+    public long getMovieCountByStatus(PersonalStatus status) {
         return mMovieDao.getMovieCountByStatus(status);
     }
 

@@ -23,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding mBinding;
-    private NavController mNavController;
     private Animation slideIn, slideOut;
 
 
@@ -37,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navView = mBinding.navView;
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        mNavController = navHostFragment.getNavController();
-        NavigationUI.setupWithNavController(navView, mNavController);
+        NavController mMNavController = navHostFragment.getNavController();
+        NavigationUI.setupWithNavController(navView, mMNavController);
 
-        mNavController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+        mMNavController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
                 switch (navDestination.getId()) {

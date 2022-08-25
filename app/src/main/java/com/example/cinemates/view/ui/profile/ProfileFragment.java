@@ -14,6 +14,7 @@ import com.example.cinemates.adapter.SectionRecyclerViewAdapter;
 import com.example.cinemates.databinding.FragmentProfileBinding;
 import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.model.data.Person;
+import com.example.cinemates.model.data.PersonalStatus;
 import com.example.cinemates.model.data.Section;
 import com.example.cinemates.util.ViewSize;
 import com.example.cinemates.view.viewmodel.DbViewModel;
@@ -69,10 +70,10 @@ public class ProfileFragment extends Fragment {
         mPersonSection.setLiveData(mDbViewModel.getFavorite_persons());
         mDbViewModel.getAllFavoritesMovies();
         mDbViewModel.getAllFavoritesPersons();
-        mDbViewModel.getAllWithStatus(Movie.PersonalStatus.SEEN);
+        mDbViewModel.getAllWithStatus(PersonalStatus.SEEN);
         mBinding.statHours.statContent.setText(formatTime(mDbViewModel.sumRuntimeAllWatchedMovies()));
-        mBinding.statWatchedCounter.statContent.setText(String.valueOf(mDbViewModel.getMovieCountByStatus(Movie.PersonalStatus.SEEN)));
-        mBinding.statToSeeCounter.statContent.setText(String.valueOf(mDbViewModel.getMovieCountByStatus(Movie.PersonalStatus.TO_SEE)));
+        mBinding.statWatchedCounter.statContent.setText(String.valueOf(mDbViewModel.getMovieCountByStatus(PersonalStatus.SEEN)));
+        mBinding.statToSeeCounter.statContent.setText(String.valueOf(mDbViewModel.getMovieCountByStatus(PersonalStatus.TO_SEE)));
 
     }
 

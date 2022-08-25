@@ -15,7 +15,6 @@ import android.view.ViewGroup
 import androidx.navigation.ui.AppBarConfiguration
 import android.view.animation.AnimationUtils
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController

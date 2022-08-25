@@ -5,11 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinemates.model.data.Cast
+import com.example.cinemates.model.data.*
 import com.example.cinemates.model.data.Collection
-import com.example.cinemates.model.data.Images
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.model.data.Video
 import com.example.cinemates.model.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -72,7 +69,7 @@ constructor(
         movieRepository.getCast(movieId).let { response ->
 
                 if (response.isSuccessful) {
-                    _cast.value = response.body()
+                    _cast.value = response.body()?.results
                 } else {
                     Log.d(TAG, "getMovieCast Error: ${response.code()}")
                 }
@@ -106,7 +103,7 @@ constructor(
         movieRepository.getVideos(movieId).let { response ->
 
             if (response.isSuccessful) {
-                _videos.value = response.body()
+                _videos.value = response.body()?.results
             } else {
                 Log.d(TAG, "getMovieVideos Error: ${response.code()}")
             }
@@ -117,7 +114,7 @@ constructor(
         movieRepository.getSimilar(movieId).let { response ->
 
             if (response.isSuccessful) {
-                _similarMovies.value = response.body()
+                _similarMovies.value = response.body()?.results
             } else {
                 Log.d(TAG, "getSimilarMovies Error: ${response.code()}")
             }

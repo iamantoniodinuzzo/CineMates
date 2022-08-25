@@ -1,9 +1,8 @@
-package com.example.cinemates.di.module
+package com.example.cinemates.di
 
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.cinemates.CineMatesApp
 import com.example.cinemates.model.local.db.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -18,12 +17,12 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideCinematesDatabase(@ApplicationContext context : Context) : AppDatabase =
-        Room.databaseBuilder(context, AppDatabase::class.java, "cinemates.db")
+    fun provideCineMatesDatabase(@ApplicationContext context : Context) : AppDatabase =
+        Room.databaseBuilder(context, AppDatabase::class.java, "CineMates.db")
             .fallbackToDestructiveMigration()
             .allowMainThreadQueries()
             .addCallback(object : RoomDatabase.Callback() {
-                // TODO : Prepopulate the database, if necessary (??), otherwise delete
+                // TODO : Prepopulate the database, if necessary (??), otherwise remove callback
             })
             .build()
 

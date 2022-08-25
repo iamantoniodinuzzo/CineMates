@@ -41,17 +41,16 @@ constructor(
     val upcomingMovies: LiveData<List<Movie>> get() = _upcomingMovies
 
     init {
-        getTrendingMovies()
-        getTrendingPerson()
-//        getPopularMovies()
-//        getTopRatedMovies()
-//        getUpcomingMovies()
+        getTrendingMovies()//crash
+        getTrendingPerson()//crash
+        getPopularMovies()//crash
+        getTopRatedMovies()//crash
+        getUpcomingMovies()//crash
     }
 
     private fun getTrendingMovies() = viewModelScope.launch {
-        movieRepository.getTrendingMovies(MediaType.MOVIE.name, TimeWindow.WEEK.name)
+        movieRepository.getTrendingMovies(MediaType.MOVIE.toString(), TimeWindow.WEEK.toString())
             .let { response ->
-                //TODO switch RxJava to Coroutines
 
                   if(response.isSuccessful){
                       _trendingMovies.postValue(response.body())
@@ -62,9 +61,8 @@ constructor(
     }
 
     private fun getTrendingPerson() = viewModelScope.launch {
-        movieRepository.getTrendingPerson(MediaType.PERSON.name, TimeWindow.WEEK.name)
+        movieRepository.getTrendingPerson(MediaType.PERSON.toString(), TimeWindow.WEEK.toString())
             .let { response ->
-                //TODO switch RxJava to Coroutines
 
                   if(response.isSuccessful){
                       _trendingPerson.postValue(response.body())
@@ -76,7 +74,6 @@ constructor(
 
     private fun getPopularMovies() = viewModelScope.launch {
         movieRepository.getPopularMovies().let { response ->
-                //TODO switch RxJava to Coroutines
 
                   if(response.isSuccessful){
                       _popularMovies.postValue(response.body())
@@ -88,7 +85,6 @@ constructor(
 
     private fun getTopRatedMovies() = viewModelScope.launch {
         movieRepository.getTopRatedMovies().let { response ->
-                //TODO switch RxJava to Coroutines
 
                   if(response.isSuccessful){
                       _topRatedMovies.postValue(response.body())
@@ -100,7 +96,6 @@ constructor(
 
     private fun getUpcomingMovies() = viewModelScope.launch {
         movieRepository.getUpcomingMovies().let { response ->
-                //TODO switch RxJava to Coroutines
 
                   if(response.isSuccessful){
                       _upcomingMovies.postValue(response.body())

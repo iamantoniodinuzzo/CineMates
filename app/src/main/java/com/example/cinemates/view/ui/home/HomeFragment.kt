@@ -54,10 +54,10 @@ class HomeFragment : Fragment() {
         trendingPerson =
             Section("Trending this week", "Actors", Person::class.java, null, ViewSize.SMALL)
         mSectionList = ArrayList()
-        mSectionList.add(upcomingSection!!)
-        mSectionList.add(topRatedSection!!)
-        mSectionList.add(trendingSection!!)
-        mSectionList.add(trendingPerson!!)
+        mSectionList.add(upcomingSection)
+        mSectionList.add(topRatedSection)
+        mSectionList.add(trendingSection)
+        mSectionList.add(trendingPerson)
         slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
         slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)
 

@@ -1,13 +1,9 @@
 package com.example.cinemates.model.repository
 
 import javax.inject.Inject
-import com.example.cinemates.model.api.MovieApiService
+import com.example.cinemates.model.api.MovieService
 import com.example.cinemates.model.data.*
-import com.example.cinemates.model.data.Collection
-import com.example.cinemates.model.repository.MovieRepository
 import com.example.cinemates.util.Constants
-import com.google.gson.JsonObject
-import io.reactivex.rxjava3.core.Observable
 import retrofit2.Response
 import java.util.HashMap
 
@@ -19,7 +15,7 @@ private const val TAG = "MovieRepository"
  */
 class MovieRepository
 @Inject
-constructor(private val apiService: MovieApiService) {
+constructor(private val apiService: MovieService) {
 
     companion object {
         private lateinit var sMap: HashMap<String, String>
@@ -27,7 +23,6 @@ constructor(private val apiService: MovieApiService) {
 
     init {
         sMap = HashMap()
-        sMap["api_key"] = Constants.TMDB_API_KEY
         sMap["language"] =
             Constants.DEFAULT_SYSTEM_LANGUAGE
         sMap["append_to_response"] = "images"

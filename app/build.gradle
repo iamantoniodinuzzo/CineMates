@@ -3,6 +3,7 @@ plugins {
     id 'androidx.navigation.safeargs'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-android'
+    id 'kotlin-kapt'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
@@ -88,10 +89,11 @@ dependencies {
     implementation 'com.borjabravo:readmoretextview:2.1.0'
 
     // Hilt
-    implementation "com.google.dagger:hilt-android:2.37"
-    annotationProcessor 'com.google.dagger:hilt-android-compiler:2.37'
+    annotationProcessor 'com.google.dagger:hilt-android-compiler:2.38.1'
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
     annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0'
+    implementation 'com.google.dagger:hilt-android:2.42'
+    kapt 'com.google.dagger:hilt-compiler:2.42'
 
     //RxJava
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
@@ -101,6 +103,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 
     // ViewModel
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
@@ -111,6 +114,8 @@ dependencies {
     //Room
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:2.4.3"
+
 
     // optional - RxJava3 support for Room
     implementation "androidx.room:room-rxjava3:$room_version"

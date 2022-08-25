@@ -13,7 +13,7 @@ import java.util.HashMap
  * @author Antonio Di Nuzzo
  * Created 21/04/2022 at 15:44
  */
-interface MovieApiService {
+interface MovieService {
     @GET("movie/now_playing")
     suspend fun getCurrentlyShowing(@QueryMap queries: HashMap<String, String>): Response<List<Movie>>
 

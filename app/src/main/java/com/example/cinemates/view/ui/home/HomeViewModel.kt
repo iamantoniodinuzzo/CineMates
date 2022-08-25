@@ -43,9 +43,9 @@ constructor(
     init {
         getTrendingMovies()
         getTrendingPerson()
-        getPopularMovies()
-        getTopRatedMovies()
-        getUpcomingMovies()
+//        getPopularMovies()
+//        getTopRatedMovies()
+//        getUpcomingMovies()
     }
 
     private fun getTrendingMovies() = viewModelScope.launch {

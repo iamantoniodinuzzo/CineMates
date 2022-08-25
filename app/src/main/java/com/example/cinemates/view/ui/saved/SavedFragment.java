@@ -22,6 +22,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.transition.MaterialElevationScale;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 public class SavedFragment extends Fragment {
 
     private FragmentSavedBinding mBinding;

@@ -27,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @author Antonio Di Nuzzo
  * Created 21/04/2022 at 15:51
  */
-@Module
+/* @Module
 @InstallIn(SingletonComponent.class)
 public class NetworkModule {
     @Singleton
@@ -59,4 +59,4 @@ public class NetworkModule {
             // new PopulateDb(instance).execute();
         }
     };
-}
+} */

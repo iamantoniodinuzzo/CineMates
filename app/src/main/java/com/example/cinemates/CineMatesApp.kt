@@ -1,4 +1,4 @@
-package com.example.cinemates.di.component
+package com.example.cinemates
 
 import dagger.hilt.android.HiltAndroidApp
 import android.app.Application
@@ -8,4 +8,4 @@ import android.app.Application
  * Created 21/04/2022 at 15:28
  */
 @HiltAndroidApp
-class BaseApplication : Application()
+class CineMatesApp : Application()

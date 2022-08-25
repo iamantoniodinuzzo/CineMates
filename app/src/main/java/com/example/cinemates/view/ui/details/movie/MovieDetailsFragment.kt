@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.example.cinemates.databinding.FragmentMovieDetailsBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -16,7 +17,7 @@ import com.google.android.material.tabs.TabLayoutMediator
  */
 class MovieDetailsFragment : Fragment() {
     private lateinit var mBinding: FragmentMovieDetailsBinding
-    private lateinit var args: MovieDetailsFragmentArgs
+    private val args: MovieDetailsFragmentArgs by navArgs()
     private lateinit var mMovieInfoFragment: MovieInfoFragment
     private lateinit var mMovieCastFragment: MovieCastFragment
     private lateinit var mMovieImagesFragment: MovieImagesFragment
@@ -26,8 +27,7 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        args = MovieDetailsFragmentArgs.fromBundle(requireArguments())
-        mViewPagerAdapter = ViewPagerAdapter(activity!!.supportFragmentManager, lifecycle)
+        mViewPagerAdapter = ViewPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
         mMovieInfoFragment = MovieInfoFragment()
         mMovieCastFragment = MovieCastFragment()
         mMovieImagesFragment = MovieImagesFragment()
@@ -42,7 +42,7 @@ class MovieDetailsFragment : Fragment() {
         mBinding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
         viewModel.setSelectedMovie(args.movie)
 
-        viewModel.selectedMovie.observe(viewLifecycleOwner){selectedMovie->
+        viewModel.selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
             mBinding.movie = selectedMovie
         }
         return mBinding.root
@@ -52,7 +52,7 @@ class MovieDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        mBinding.toolbar.setNavigationOnClickListener { activity!!.onBackPressed() }
+        mBinding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
 
         initializeViewPager()
 

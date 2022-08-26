@@ -1,35 +1,33 @@
 package com.example.cinemates.view.ui.home
 
-import androidx.navigation.ui.NavigationUI.setupWithNavController
-import androidx.navigation.NavController
-import com.example.cinemates.adapter.SectionRecyclerViewAdapter
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import android.view.animation.Animation
 import android.os.Bundle
-import com.example.cinemates.util.ViewSize
-import com.example.cinemates.R
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.ui.AppBarConfiguration
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.example.cinemates.util.ItemMoveCallback
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cinemates.R
+import com.example.cinemates.adapter.SectionRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentHomeBinding
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
 import com.example.cinemates.model.data.Section
+import com.example.cinemates.util.ItemMoveCallback
+import com.example.cinemates.util.ViewSize
+import com.example.cinemates.view.ui.MainActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.transition.MaterialElevationScale
-import java.util.ArrayList
 
 class HomeFragment : Fragment() {
-    private lateinit var mNavController: NavController
     private lateinit var mBinding: FragmentHomeBinding
     private lateinit var upcomingSection: Section<Movie>
     private lateinit var topRatedSection: Section<Movie>
@@ -76,10 +74,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentHomeBinding.inflate(inflater, container, false)
-        mNavController = findNavController()
 
-        val appBarConfiguration = AppBarConfiguration(mNavController.graph)
-        setupWithNavController(mBinding.toolbar, mNavController, appBarConfiguration)
+        val appBarConfiguration = AppBarConfiguration(findNavController().graph)
+        setupWithNavController(mBinding.toolbar, findNavController(), appBarConfiguration)
 
 
         return mBinding.root
@@ -89,6 +86,7 @@ class HomeFragment : Fragment() {
         view: View,
         savedInstanceState: Bundle?
     ) {
+        mBottomNavigationView = (requireActivity() as MainActivity).binding.bottomNavigationView
         postponeEnterTransition()
         (view.parent as ViewGroup)
             .viewTreeObserver

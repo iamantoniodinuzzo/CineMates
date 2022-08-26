@@ -37,6 +37,11 @@ class MainActivity : AppCompatActivity() {
         setupNavigation()
     }
 
+    private fun loadAnimations() {
+        slideIn = AnimationUtils.loadAnimation(this, R.anim.slide_in)
+        slideOut = AnimationUtils.loadAnimation(this, R.anim.slide_out)
+    }
+
     private fun setupNavigation() = binding.bottomNavigationView.run {
         val navHost =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHost
@@ -62,9 +67,4 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean =
         navController.navigateUp() || super.onSupportNavigateUp()
-
-    private fun loadAnimations() {
-        slideIn = AnimationUtils.loadAnimation(this, R.anim.slide_in)
-        slideOut = AnimationUtils.loadAnimation(this, R.anim.slide_out)
-    }
 }

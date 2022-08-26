@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -26,43 +27,44 @@ import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.ui.MainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.transition.MaterialElevationScale
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
-    private lateinit var mBinding: FragmentHomeBinding
-    private lateinit var upcomingSection: Section<Movie>
-    private lateinit var topRatedSection: Section<Movie>
-    private lateinit var trendingSection: Section<Movie>
-    private lateinit var trendingPerson: Section<Person>
-    private val mViewModel: HomeViewModel by activityViewModels()
-    private lateinit var mAdapter: SectionRecyclerViewAdapter
-    private lateinit var mSectionList: MutableList<Section<*>> //TODO to add to viewModel
-    private lateinit var mBottomNavigationView: BottomNavigationView
+
+    private var _binding : FragmentHomeBinding? = null
+    private val binding : FragmentHomeBinding
+        get() = _binding!!
+    private val viewModel: HomeViewModel by viewModels()
+    private lateinit var sectionAdapter: SectionRecyclerViewAdapter
+    private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var slideIn: Animation
     private lateinit var slideOut: Animation
+
+    // Sections
+    private val upcomingSection: Section<Movie> =
+        Section("Upcoming", null, Movie::class.java, null, ViewSize.SMALL)
+    private val topRatedSection: Section<Movie> =
+        Section("Top Rated", null, Movie::class.java, null, ViewSize.SMALL)
+    private var trendingSection: Section<Movie> =
+        Section("Trending this week", "Movies", Movie::class.java, null, ViewSize.SMALL)
+    private var trendingPerson: Section<Person> =
+        Section("Trending this week", "Actors", Person::class.java, null, ViewSize.SMALL)
+    private var sectionList: List<Section<*>> =
+        listOf(upcomingSection, topRatedSection, trendingSection, trendingPerson) //TODO to add to viewModel
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mAdapter = SectionRecyclerViewAdapter(this, context)
-        upcomingSection = Section("Upcoming", null, Movie::class.java, null, ViewSize.SMALL)
-        topRatedSection = Section("Top Rated", null, Movie::class.java, null, ViewSize.SMALL)
-        trendingSection =
-            Section("Trending this week", "Movies", Movie::class.java, null, ViewSize.SMALL)
-        trendingPerson =
-            Section("Trending this week", "Actors", Person::class.java, null, ViewSize.SMALL)
-        mSectionList = ArrayList()
-        mSectionList.add(upcomingSection)
-        mSectionList.add(topRatedSection)
-        mSectionList.add(trendingSection)
-        mSectionList.add(trendingPerson)
+        sectionAdapter = SectionRecyclerViewAdapter(this, context)
         slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
         slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)
-
-        setupMotionAnimations()
+        setupTransitions()
     }
 
-    private fun setupMotionAnimations() {
-        val elevationScaleTransition: Any = MaterialElevationScale(true)
+    private fun setupTransitions() {
+        val elevationScaleTransition = MaterialElevationScale(true)
             .setInterpolator(FastOutSlowInInterpolator())
         enterTransition = elevationScaleTransition
         reenterTransition = elevationScaleTransition
@@ -71,76 +73,71 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
-        mBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val appBarConfiguration = AppBarConfiguration(findNavController().graph)
-        setupWithNavController(mBinding.toolbar, findNavController(), appBarConfiguration)
+        setupWithNavController(binding.toolbar, findNavController(), appBarConfiguration)
 
-
-        return mBinding.root
+        return binding.root
     }
 
     override fun onViewCreated(
         view: View,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ) {
-        mBottomNavigationView = (requireActivity() as MainActivity).binding.bottomNavigationView
         postponeEnterTransition()
-        (view.parent as ViewGroup)
-            .viewTreeObserver
-            .addOnPreDrawListener {
-                startPostponedEnterTransition()
-                true
-            }
-        val callback: ItemTouchHelper.Callback = ItemMoveCallback(mAdapter)
-        val touchHelper = ItemTouchHelper(callback)
-        touchHelper.attachToRecyclerView(mBinding.sectionRv)
+        view.doOnPreDraw { startPostponedEnterTransition() }
+        bottomNavigationView = (activity as MainActivity).binding.bottomNavigationView
+        setupListeners()
+        setupRecyclerView()
+    }
 
-        mBinding.apply {
-
-            imageProfile.setOnClickListener {
-                // TODO: Open Drawer
-                Toast.makeText(context, "Soon", Toast.LENGTH_SHORT).show()
-            }
-
-            toolbar.setOnMenuItemClickListener {
-                if (it.itemId == R.id.searchFragment)
-                    findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
-                true
-            }
-
-            sectionRv.adapter = mAdapter
-            //Hides bottomBar when recyclerview is scrolled
-            sectionRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                    super.onScrollStateChanged(recyclerView, newState)
-                }
-
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    if (dy > 0 && mBottomNavigationView.isShown) {
-                        mBottomNavigationView.startAnimation(slideOut)
-                        mBottomNavigationView.visibility = View.INVISIBLE
-                    } else if (dy < 0) {
-                        mBottomNavigationView.startAnimation(slideIn)
-                        mBottomNavigationView.visibility = View.VISIBLE
-                    }
-                }
-            })
+    private fun setupListeners() = binding.run {
+        imageProfile.setOnClickListener {
+            Toast.makeText(context, "Soon", Toast.LENGTH_SHORT).show()
         }
 
-        initSectionedRecyclerView()
+        toolbar.setOnMenuItemClickListener {
+            if (it.itemId == R.id.searchFragment)
+                findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+            true
+        }
+    }
 
+    private fun setupRecyclerView() = binding.sectionRv.run {
+        adapter = sectionAdapter
+        val callback = ItemMoveCallback(sectionAdapter)
+        val touchHelper = ItemTouchHelper(callback)
+        touchHelper.attachToRecyclerView(this)
+        // Hides BottomNavigationView OnScroll
+        addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0 && bottomNavigationView.isShown) {
+                        bottomNavigationView.startAnimation(slideOut)
+                        bottomNavigationView.visibility = View.INVISIBLE
+                    } else if (dy < 0) {
+                        bottomNavigationView.startAnimation(slideIn)
+                        bottomNavigationView.visibility = View.VISIBLE
+                    }
+            }
+        })
+        initSectionedRecyclerView()
     }
 
     private fun initSectionedRecyclerView() {
-        mAdapter.addItems(mSectionList)
-        upcomingSection.liveData = mViewModel.upcomingMovies
-        topRatedSection.liveData = mViewModel.topRatedMovies
-        trendingSection.liveData = mViewModel.trendingMovies
-        trendingPerson.liveData = mViewModel.trendingPerson
+        sectionAdapter.addItems(sectionList)
+        upcomingSection.liveData = viewModel.upcomingMovies
+        topRatedSection.liveData = viewModel.topRatedMovies
+        trendingSection.liveData = viewModel.trendingMovies
+        trendingPerson.liveData = viewModel.trendingPerson
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

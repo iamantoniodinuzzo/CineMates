@@ -26,7 +26,7 @@ public class DbRepository {
     @Inject
     public DbRepository(AppDatabase appDatabase) {
         mMovieDao = appDatabase.mMovieDao();
-        mPersonDao = appDatabase.mPersonDao();
+//        mPersonDao = appDatabase.mPersonDao();
     }
 
     public Observable<List<Movie>> getAllFavoritesMovies() {

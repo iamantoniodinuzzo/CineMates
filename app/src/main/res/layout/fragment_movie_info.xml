@@ -132,7 +132,7 @@
                     app:movie="@{movie}" />
 
                 <include
-                    android:id="@+id/collectionName"
+                    android:id="@+id/collection_view"
                     layout="@layout/layout_item_collection"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
@@ -144,7 +144,7 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/collectionName"
+                    android:layout_below="@id/collection_view"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical">
 

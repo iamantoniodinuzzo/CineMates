@@ -3,12 +3,16 @@ package com.example.cinemates.view.ui.details.movie
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter
 import android.os.Bundle
+import android.util.Log
 import com.example.cinemates.util.ViewSize
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.example.cinemates.NavGraphDirections
+import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentMovieInfoBinding
 import com.example.cinemates.model.data.Movie
 
@@ -41,10 +45,12 @@ class MovieInfoFragment : Fragment() {
             recommendedRecyclerView.setEmptyView(emptyViewRecommended.root)
             videosRecyclerView.adapter = mVideoAdapter
 
-            collectionName.collectionName.setOnClickListener {
+            collectionView.collectionName.setOnClickListener {
+                /*val action = MovieDetailsFragmentDirections.actionGlobalMovieDetailsFragment()
                 val fm = requireActivity().supportFragmentManager
                 val collectionDialogFragment = CollectionDialogFragment()
-                collectionDialogFragment.show(fm, "fragment_show_collection")
+                collectionDialogFragment.show(fm, "fragment_show_collection")*/
+                findNavController().navigate(R.id.action_movieDetailsFragment_to_collectionDialogFragment)
             }
 
             fab.setOnClickListener {
@@ -61,6 +67,7 @@ class MovieInfoFragment : Fragment() {
                     mVideoAdapter.setDataList(videos)
                 }
             }
+
         }
 
         viewModel.similarMovies.observe(viewLifecycleOwner) { similarMovies ->

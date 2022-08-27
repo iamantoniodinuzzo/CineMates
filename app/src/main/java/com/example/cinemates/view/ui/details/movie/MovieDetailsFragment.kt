@@ -40,11 +40,7 @@ class MovieDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
-        viewModel.setSelectedMovie(args.movie)
 
-        viewModel.selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
-            mBinding.movie = selectedMovie
-        }
         return mBinding.root
     }
 
@@ -53,7 +49,11 @@ class MovieDetailsFragment : Fragment() {
 
 
         mBinding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+        viewModel.setSelectedMovie(args.movie)
 
+        viewModel.selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
+            mBinding.movie = selectedMovie
+        }
         initializeViewPager()
 
     }

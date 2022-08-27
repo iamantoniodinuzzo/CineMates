@@ -44,13 +44,13 @@ constructor(
     private val _moviesBelongsCollection = MutableLiveData<List<Movie>>()
     val moviesBelongsCollection: LiveData<List<Movie>> get() = _moviesBelongsCollection
 
-    fun setSelectedMovie(movie: Movie) {
+    fun setSelectedMovie(movie: Movie) = viewModelScope.launch {
         getMovieDetails(movie.id)
         getSimilarMovies(movie.id)
         getMovieVideos(movie.id)
         getMovieImages(movie.id)
         getMovieCast(movie.id)
-        getMoviesBelongsCollection(movie.belongs_to_collection.id)
+
     }
 
     private fun getMoviesBelongsCollection(collectionId: Int) = viewModelScope.launch {
@@ -68,24 +68,31 @@ constructor(
     private fun getMovieCast(movieId: Int) = viewModelScope.launch {
         movieRepository.getCast(movieId).let { response ->
 
-                if (response.isSuccessful) {
-                    _cast.value = response.body()?.results
-                } else {
-                    Log.d(TAG, "getMovieCast Error: ${response.code()}")
-                }
+            if (response.isSuccessful) {
+                _cast.value = response.body()?.results
+            } else {
+                Log.d(TAG, "getMovieCast Error: ${response.code()}")
             }
+        }
     }
 
     private fun getMovieDetails(movieId: Int) = viewModelScope.launch {
         movieRepository.getMovieDetails(movieId).let { response ->
 
-                if (response.isSuccessful) {
-                    _selectedMovie.value = response.body()
-                } else {
-                    Log.d(TAG, "getMovieDetails Error: ${response.code()}")
-                }
+            if (response.isSuccessful) {
+                _selectedMovie.value = response.body()
+                checkIfBelongsToCollection()
+            } else {
+                Log.d(TAG, "getMovieDetails Error: ${response.code()}")
             }
+        }
 
+    }
+
+    private fun checkIfBelongsToCollection() {
+        if (selectedMovie.value!!.belongs_to_collection != null) {
+            getMoviesBelongsCollection(selectedMovie.value!!.belongs_to_collection!!.id)
+        }
     }
 
     private fun getMovieImages(movieId: Int) = viewModelScope.launch {

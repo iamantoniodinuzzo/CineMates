@@ -61,6 +61,9 @@
         <argument
             android:name="movie"
             app:argType="com.example.cinemates.model.data.Movie" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_collectionDialogFragment"
+            app:destination="@id/collectionDialogFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_movieDetailsFragment"
@@ -81,5 +84,10 @@
         app:popUpToInclusive="true"
         app:popUpTo="@id/homeFragment"
         app:destination="@id/actorDetailsFragment" />
+    <dialog
+        android:id="@+id/collectionDialogFragment"
+        tools:layout="@layout/layout_collection_dialog"
+        android:name="com.example.cinemates.view.ui.details.movie.CollectionDialogFragment"
+        android:label="CollectionDialogFragment" />
 
 </navigation>

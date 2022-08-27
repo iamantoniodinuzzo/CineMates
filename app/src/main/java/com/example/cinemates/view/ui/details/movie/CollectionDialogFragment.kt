@@ -2,6 +2,7 @@ package com.example.cinemates.view.ui.details.movie
 
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
 import android.os.Bundle
+import android.util.Log
 import com.example.cinemates.util.ViewSize
 import android.view.LayoutInflater
 import android.view.View
@@ -40,10 +41,11 @@ class CollectionDialogFragment : DialogFragment() {
 
         mBinding.apply {
             moviesIntoCollection.adapter = mAdapter
-            viewModel.selectedMovie.observe(viewLifecycleOwner) {
-                collectionTitle.text = it.belongs_to_collection.name
+            viewModel.selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
+                collection = selectedMovie.belongs_to_collection
             }
             viewModel.moviesBelongsCollection.observe(viewLifecycleOwner) { moviesBelongsCollection ->
+                Log.d("CollectionDialog", moviesBelongsCollection.toString())
                 mAdapter.addItems(moviesBelongsCollection.toMutableList())
             }
         }

@@ -10,41 +10,41 @@ import java.io.Serializable
 @Entity
 data class Movie(
     @TypeConverters(Converters::class)
-    var belongs_to_collection: Collection,
+    var belongs_to_collection: Collection?,
     @TypeConverters(Converters::class)
-    var genres: List<Genre>,
-    var homepage: String,
+    var genres: List<Genre>?,
+    var homepage: String?,
     @PrimaryKey
     var id: Int,
-    var imdb_id: String,
+    var imdb_id: String?,
     var original_language: String,
     var original_title: String,
-    var overview: String,
-    var poster_path: String,
+    var overview: String?,
+    var poster_path: String?,
     var release_date: String,
-    var runtime: Int,
+    var runtime: Int?,
     var title: String,
     var vote_average: Double,
-    var personalStatus: PersonalStatus,
-    var favorite: Boolean,
+    var personalStatus: PersonalStatus?,
+    var favorite: Boolean?,
     @Ignore
-    val backdrop_path: String,
-    @Ignore
-    val spoken_languages: List<SpokenLanguage>,
+    val backdrop_path: String?,
+   /* @Ignore
+    val spoken_languages: List<SpokenLanguage>,*/
     @Ignore
     val budget: Int,
     @Ignore
     val popularity: Double,
     @Ignore
     val adult: Boolean,
-    @Ignore
+   /* @Ignore
     val production_companies: List<ProductionCompany>,
     @Ignore
-    val production_countries: List<ProductionCountry>,
+    val production_countries: List<ProductionCountry>,*/
     @Ignore
     val revenue: Int,
     @Ignore
-    val status: String,
+    val status: String?,
     @Ignore
     val tagline: String,
     @Ignore
@@ -71,9 +71,24 @@ data class Movie(
     ) : this(
         belongs_to_collection, genres, homepage, id, imdb_id, original_language, original_title,
         overview, poster_path, release_date, runtime, title, vote_average, personalStatus, favorite,
-        "", listOf(), 0, 0.0, false, listOf(), listOf(), 0,
-        "", "", false, 0
+        "", 0, 0.0, false, 0, "", "", false, 0
     )
+
+    override fun hashCode(): Int {
+        return id.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Movie
+
+        if (id != other.id) return false
+        if (popularity != other.popularity) return false
+
+        return true
+    }
 }
 
 @TypeConverters(Converters::class)

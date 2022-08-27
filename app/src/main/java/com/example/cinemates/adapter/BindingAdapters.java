@@ -129,7 +129,7 @@ public class BindingAdapters {
             String section_descr = " <font color=#3A55EA><big><b>" + section.getSectionContentDescription() + "</b></big></font>";
             section_title += section_descr;
         }
-        view.setText(Html.fromHtml(section_title,Html.FROM_HTML_MODE_COMPACT));
+        view.setText(Html.fromHtml(section_title, Html.FROM_HTML_MODE_COMPACT));
 
 
     }
@@ -155,16 +155,18 @@ public class BindingAdapters {
     }
 
     @BindingAdapter({"genres"})
-    public static void setGenresChip(ChipGroup chipGroup, @NonNull List<Genre> genres) {
-        for (Genre genre : genres) {
+    public static void setGenresChip(ChipGroup chipGroup, List<Genre> genres) {
+        if (genres != null) {
+            for (Genre genre : genres) {
 
-            Chip chip = new Chip(chipGroup.getContext());
-            ChipDrawable drawable = ChipDrawable.createFromAttributes(chipGroup.getContext(), null,
-                    0, R.style.Widget_MaterialComponents_Chip_Action);
-            chip.setChipDrawable(drawable);
-            chip.setText(genre.getName());
-            chip.setId(genre.getId());
-            chipGroup.addView(chip);
+                Chip chip = new Chip(chipGroup.getContext());
+                ChipDrawable drawable = ChipDrawable.createFromAttributes(chipGroup.getContext(), null,
+                        0, R.style.Widget_MaterialComponents_Chip_Action);
+                chip.setChipDrawable(drawable);
+                chip.setText(genre.getName());
+                chip.setId(genre.getId());
+                chipGroup.addView(chip);
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 package com.example.cinemates.model.data
 
-class Cast(
+class Crew(
     adult: Boolean,
     gender: Int?,
     id: Int,
@@ -8,11 +8,10 @@ class Cast(
     name: String,
     popularity: Double,
     profile_path: String?,
-    var cast_id: Int,
-    var character: String,
-    var credit_id: String,
-    var order: Int,
-    var original_name: String
+    val credit_id: String,
+    val department: String,
+    val job: String,
+    val original_name: String
 ) : Person(
     adult = adult,
     gender = gender,
@@ -21,9 +20,4 @@ class Cast(
     name = name,
     popularity = popularity,
     profile_path = profile_path
-) {
-    constructor(id: Int, name: String, profile_path: String?) : this(
-        false, null, id, "", name, 0.0, profile_path, 0,
-        "", "", 0, ""
-    )
-}
+)

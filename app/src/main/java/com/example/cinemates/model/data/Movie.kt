@@ -10,43 +10,37 @@ import java.io.Serializable
 @Entity
 data class Movie(
     @TypeConverters(Converters::class)
-    var belongs_to_collection: Collection?,
+    val belongs_to_collection: Collection?,
     @TypeConverters(Converters::class)
-    var genres: List<Genre>?,
-    var homepage: String?,
+    val genres: List<Genre>?,
+    val homepage: String?,
     @PrimaryKey
-    var id: Int,
-    var imdb_id: String?,
-    var original_language: String,
-    var original_title: String,
-    var overview: String?,
-    var poster_path: String?,
-    var release_date: String,
-    var runtime: Int?,
-    var title: String,
-    var vote_average: Double,
-    var personalStatus: PersonalStatus?,
-    var favorite: Boolean?,
+    val id: Int,
+    val imdb_id: String?,
+    val original_language: String,
+    val original_title: String,
+    val overview: String?,
+    val poster_path: String?,
+    val release_date: String,
+    val runtime: Int?,
+    val title: String,
+    val vote_average: Double,
+    val personalStatus: PersonalStatus?,
+    val favorite: Boolean?,
     @Ignore
     val backdrop_path: String?,
-   /* @Ignore
-    val spoken_languages: List<SpokenLanguage>,*/
     @Ignore
     val budget: Int,
     @Ignore
     val popularity: Double,
     @Ignore
     val adult: Boolean,
-   /* @Ignore
-    val production_companies: List<ProductionCompany>,
-    @Ignore
-    val production_countries: List<ProductionCountry>,*/
     @Ignore
     val revenue: Int,
     @Ignore
     val status: String?,
     @Ignore
-    val tagline: String,
+    val tagline: String?,
     @Ignore
     val video: Boolean,
     @Ignore
@@ -71,7 +65,7 @@ data class Movie(
     ) : this(
         belongs_to_collection, genres, homepage, id, imdb_id, original_language, original_title,
         overview, poster_path, release_date, runtime, title, vote_average, personalStatus, favorite,
-        "", 0, 0.0, false, 0, "", "", false, 0
+        null, 0, 0.0, false, 0, null, null, false, 0
     )
 
     override fun hashCode(): Int {
@@ -85,10 +79,11 @@ data class Movie(
         other as Movie
 
         if (id != other.id) return false
-        if (popularity != other.popularity) return false
 
         return true
     }
+
+
 }
 
 @TypeConverters(Converters::class)

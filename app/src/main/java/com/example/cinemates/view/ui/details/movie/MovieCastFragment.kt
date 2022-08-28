@@ -1,7 +1,6 @@
 package com.example.cinemates.view.ui.details.movie
 
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
-import com.example.cinemates.model.data.Cast
 import android.os.Bundle
 import com.example.cinemates.util.ViewSize
 import android.view.LayoutInflater
@@ -10,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.cinemates.databinding.FragmentMovieCastBinding
+import com.example.cinemates.model.data.Cast
 
 class MovieCastFragment : Fragment() {
     private lateinit var mBinding: FragmentMovieCastBinding

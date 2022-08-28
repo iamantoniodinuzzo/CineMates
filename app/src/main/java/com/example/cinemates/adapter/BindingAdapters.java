@@ -144,10 +144,10 @@ public class BindingAdapters {
         loadText(view, format.format(budget));
     }
 
-    @BindingAdapter("knowAs")
-    public static void setKnownAs(TextView view, String[] names) {
+    @BindingAdapter({"knowAs"})
+    public static void setKnownAs(TextView view, List<String> names) {
         try {
-            loadText(view, Arrays.stream(names).collect(Collectors.joining(" - ")));
+//            loadText(view, List.stream(names).collect(Collectors.joining(" - "))); TODO
         } catch (NullPointerException e) {
             view.setText("Not specified");
         }

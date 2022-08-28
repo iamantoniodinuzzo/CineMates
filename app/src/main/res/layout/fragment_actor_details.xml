@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="actor"
-            type="com.example.cinemates.model.data.Actor" />
+            name="person"
+            type="com.example.cinemates.model.data.Person" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -41,7 +41,7 @@
                         android:layout_height="100dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="?attr/actionBarSize"
-                        app:path="@{actor.profilePath}" />
+                        app:path="@{person.profile_path}" />
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:id="@+id/birthday"
@@ -68,7 +68,7 @@
                             android:layout_weight="50"
                             android:textColor="@color/alabaster"
                             android:textSize="14sp"
-                            app:loadText="@{actor.birthday}"
+                            app:loadText="@{person.birthday}"
                             tools:text="@tools:sample/date/ddmmyy" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -99,7 +99,7 @@
                             android:textColor="@color/alabaster"
                             android:textIsSelectable="true"
                             android:textSize="14sp"
-                            app:loadText="@{actor.place_of_birth}"
+                            app:loadText="@{person.place_of_birth}"
                             tools:text="@tools:sample/lorem" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -134,7 +134,7 @@
                             android:textIsSelectable="true"
                             android:textSize="14sp"
                             app:colorClickableText="@color/vermilion_100"
-                            app:knowAs="@{actor.also_known_as}"
+                            app:knowAs="@{person.also_known_as}"
                             app:trimLength="50"
                             app:trimMode="trimModeLength"
                             tools:text="@tools:sample/lorem/random" />
@@ -164,7 +164,7 @@
                         android:textColor="@color/alabaster"
                         android:textSize="14sp"
                         app:colorClickableText="@color/vermilion_100"
-                        app:loadText="@{actor.biography}"
+                        app:loadText="@{person.biography}"
                         app:trimLength="200"
                         app:trimMode="trimModeLength"
                         tools:text="@tools:sample/lorem/random" />
@@ -178,7 +178,7 @@
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
                     app:navigationIcon="@drawable/ic_round_arrow_back_24"
-                    app:title="@{actor.name}"
+                    app:title="@{person.name}"
                     app:titleTextColor="@color/white"
                     tools:title="@tools:sample/full_names" />
 

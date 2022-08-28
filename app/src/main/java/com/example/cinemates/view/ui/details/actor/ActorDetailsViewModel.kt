@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinemates.model.data.Actor
 import com.example.cinemates.model.data.Movie
+import com.example.cinemates.model.data.Person
 import com.example.cinemates.model.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,8 +23,8 @@ class ActorDetailsViewModel
 @Inject
 constructor(private val movieRepository: MovieRepository) : ViewModel() {
 
-    private val _actor = MutableLiveData<Actor>()
-    val actor: LiveData<Actor> get() = _actor
+    private val _actor = MutableLiveData<Person>()
+    val actor: LiveData<Person> get() = _actor
 
     private val _movies = MutableLiveData<List<Movie>>()
     val movies: LiveData<List<Movie>> get() = _movies

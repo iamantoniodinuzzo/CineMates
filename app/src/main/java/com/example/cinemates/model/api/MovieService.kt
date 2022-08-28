@@ -33,10 +33,10 @@ interface MovieService {
     ): Response<Movie>
 
     @GET("movie/{movie_id}/credits")
-    suspend fun getCast(
+    suspend fun getMovieCredits(
         @Path("movie_id") id: Int,
         @QueryMap queries: HashMap<String, String>
-    ): Response<GenericResponse<Cast>>
+    ): Response<CreditsResponse>
 
     @GET("movie/{movie_id}/similar")
     suspend fun getSimilar(
@@ -60,19 +60,19 @@ interface MovieService {
     suspend fun getImages(
         @Path("movie_id") movie_id: Int,
         @QueryMap queries: HashMap<String, String>
-    ): Response<Images>
+    ): Response<ImagesResponse>
 
     @GET("person/{person_id}")
     suspend fun getActorDetails(
         @Path("person_id") id: Int,
         @QueryMap queries: HashMap<String, String>
-    ): Response<Actor>
+    ): Response<Person>
 
     @GET("person/{person_id}/images")
     suspend fun getActorImages(
         @Path("person_id") id: Int,
         @Query("api_key") api: String
-    ): Response<Images>
+    ): Response<ImagesResponse>
 
     @GET("collection/{collection_id}")
     suspend fun getCollection(

@@ -62,8 +62,8 @@ class ActorDetailsFragment : Fragment() {
                 requireActivity().getDrawable(R.drawable.ic_baseline_favorite_border_24)
             )
             recyclerView.adapter = mAdapter
-            viewModel.actor.observe(viewLifecycleOwner) { selectedActor ->
-                actor = selectedActor
+            viewModel.actor.observe(viewLifecycleOwner) { selectedPerson ->
+                person = selectedPerson
             }
             toolbar.setNavigationOnClickListener { view ->
                 findNavController(
@@ -71,7 +71,7 @@ class ActorDetailsFragment : Fragment() {
                 ).navigateUp()
             }
             fab.setOnClickListener {
-                person.setFavorite()
+                person!!.setFavorite()
                 if (dbViewModel.getPerson(person) != null) { //it was already into favorite
                     dbViewModel.delete(person) //should delete it
                     fab.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_baseline_favorite_border_24))

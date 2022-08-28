@@ -43,7 +43,7 @@ class MovieImagesFragment : Fragment() {
             backdropRv.setEmptyView(emptyBackdropView.root)
         }
 
-        viewModel.images.observe(viewLifecycleOwner){images->
+        viewModel.imagesResponse.observe(viewLifecycleOwner){ images->
             mPosterAdapter.addItems(images.posters)
             mBackdropAdapter.addItems(images.backdrops)
         }

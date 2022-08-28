@@ -69,8 +69,13 @@ open class Person(
         return id.hashCode()
     }
 
+
     fun setFavorite() {
         isFavorite = !isFavorite
+    }
+
+    override fun toString(): String {
+        return "Person(birthday=$birthday, deathDay=$deathDay, gender=$gender, id=$id, name='$name', profile_path=$profile_path, isFavorite=$isFavorite)"
     }
 
 }

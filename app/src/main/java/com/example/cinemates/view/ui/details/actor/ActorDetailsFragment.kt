@@ -4,6 +4,7 @@ import androidx.navigation.Navigation.findNavController
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
 import com.example.cinemates.view.viewmodel.DbViewModel
 import android.os.Bundle
+import android.util.Log
 import com.example.cinemates.util.ViewSize
 import android.view.LayoutInflater
 import android.view.View
@@ -20,14 +21,13 @@ import com.example.cinemates.model.data.Person
 class ActorDetailsFragment : Fragment() {
     private lateinit var mBinding: FragmentActorDetailsBinding
     private lateinit var mAdapter: ItemsRecyclerViewAdapter<Movie>
-    private val dbViewModel: DbViewModel by activityViewModels()
+
+    //    private val dbViewModel: DbViewModel by activityViewModels()TODO convert to kotlin
     private val viewModel: ActorDetailsViewModel by activityViewModels()
-    private lateinit var person: Person
     private val args: ActorDetailsFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        person = args.person
         mAdapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
     }
 
@@ -41,7 +41,7 @@ class ActorDetailsFragment : Fragment() {
             container,
             false
         )
-        viewModel.setActorDetails(person.id)
+        viewModel.setActorDetails(args.person.id)
         return mBinding.root
     }
 
@@ -54,13 +54,15 @@ class ActorDetailsFragment : Fragment() {
 
         }
         mBinding.apply {
-            if (dbViewModel.getPerson(person) != null) fab.setImageDrawable(
-                requireActivity().getDrawable(
-                    R.drawable.ic_baseline_favorite_24
+           /* if (dbViewModel.getPerson(person) != null) {
+                fab.setImageDrawable(
+                    requireActivity().getDrawable(
+                        R.drawable.ic_baseline_favorite_24
+                    )
                 )
-            ) else fab.setImageDrawable(
+            } else fab.setImageDrawable(
                 requireActivity().getDrawable(R.drawable.ic_baseline_favorite_border_24)
-            )
+            )*/
             recyclerView.adapter = mAdapter
             viewModel.actor.observe(viewLifecycleOwner) { selectedPerson ->
                 person = selectedPerson
@@ -71,7 +73,7 @@ class ActorDetailsFragment : Fragment() {
                 ).navigateUp()
             }
             fab.setOnClickListener {
-                person!!.setFavorite()
+               /* person!!.setFavorite()
                 if (dbViewModel.getPerson(person) != null) { //it was already into favorite
                     dbViewModel.delete(person) //should delete it
                     fab.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_baseline_favorite_border_24))
@@ -80,7 +82,7 @@ class ActorDetailsFragment : Fragment() {
                     dbViewModel.insert(person)
                     fab.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_baseline_favorite_24))
                     Toast.makeText(context, "Added to favorite", Toast.LENGTH_SHORT).show()
-                }
+                }*/
             }
         }
 

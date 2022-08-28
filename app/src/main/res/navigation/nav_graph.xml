@@ -48,6 +48,7 @@
     <dialog
         android:id="@+id/bottomSheetFragment"
         android:name="com.example.cinemates.view.ui.BottomSheetFragment"
+        tools:layout="@layout/fragment_bottomsheet"
         android:label="BottomSheetFragment">
         <argument
             android:name="movie"
@@ -81,8 +82,7 @@
     </fragment>
     <action
         android:id="@+id/action_global_actorDetailsFragment"
-        app:popUpToInclusive="true"
-        app:popUpTo="@id/homeFragment"
+        app:launchSingleTop="true"
         app:destination="@id/actorDetailsFragment" />
     <dialog
         android:id="@+id/collectionDialogFragment"

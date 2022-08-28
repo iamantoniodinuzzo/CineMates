@@ -41,6 +41,7 @@ constructor(private val movieRepository: MovieRepository) : ViewModel() {
                   _movies.postValue(response.body()?.results)
               }else{
                   Log.d(TAG, "getMoviesByActor Error: ${response.code()}")
+                  _movies.value = listOf()
               }
         }
     }

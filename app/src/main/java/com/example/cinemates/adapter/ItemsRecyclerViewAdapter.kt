@@ -5,7 +5,6 @@ import com.example.cinemates.util.ViewSize
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
-import com.example.cinemates.model.data.Cast
 import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import com.example.cinemates.NavGraphDirections
@@ -13,6 +12,7 @@ import com.example.cinemates.databinding.ListItemMovieLongBinding
 import com.example.cinemates.databinding.ListItemMovieSmallBinding
 import com.example.cinemates.databinding.ListItemPersonLongBinding
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
+import com.example.cinemates.model.data.Cast
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
 import com.example.cinemates.util.MyDiffUtilCallbacks

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.databinding.ListItemBackdropBinding;
 import com.example.cinemates.databinding.ListItemPosterBinding;
-import com.example.cinemates.model.data.Images;
+import com.example.cinemates.model.data.ImagesResponse;
 import com.example.cinemates.util.Constants;
 import com.example.cinemates.util.DialogFactory;
 
@@ -28,7 +28,7 @@ import java.util.List;
  * Created 23/06/2022 at 17:23
  */
 public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecyclerViewAdapter.ImageViewHolder> {
-    private final List<Images.Image> dataList = new ArrayList<>();
+    private final List<ImagesResponse.Image> dataList = new ArrayList<>();
     private final Context mContext;
 
     public ImageRecyclerViewAdapter(Context context) {
@@ -39,7 +39,7 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
     @Override
     public ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        if (viewType == Images.Image.POSTER) {
+        if (viewType == ImagesResponse.Image.POSTER) {
             ListItemPosterBinding mediaBinding = ListItemPosterBinding.inflate(layoutInflater, parent, false);
             return new ImageViewHolder(mediaBinding);
         } else {
@@ -51,8 +51,8 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        Images.Image image = dataList.get(position);
-        if (getItemViewType(position) == Images.Image.POSTER) {
+        ImagesResponse.Image image = dataList.get(position);
+        if (getItemViewType(position) == ImagesResponse.Image.POSTER) {
             holder.mBindingPoster.setImage(image);
             holder.mBindingPoster.executePendingBindings();
             holder.mBindingPoster.getRoot().setOnClickListener(new View.OnClickListener() {
@@ -79,14 +79,14 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
         return dataList.size();
     }
 
-    public void addItems(List<Images.Image> dataList) {
+    public void addItems(List<ImagesResponse.Image> dataList) {
         this.dataList.addAll(dataList);
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemViewType(int position) {
-        Images.Image image = dataList.get(position);
+        ImagesResponse.Image image = dataList.get(position);
         return image.getImageType();
     }
 

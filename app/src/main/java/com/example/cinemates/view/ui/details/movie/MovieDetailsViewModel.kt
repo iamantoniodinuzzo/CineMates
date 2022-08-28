@@ -35,21 +35,24 @@ constructor(
     private val _videos = MutableLiveData<List<Video>>()
     val videos: LiveData<List<Video>> get() = _videos
 
-    private val _images = MutableLiveData<Images>()
-    val images: LiveData<Images> get() = _images
+    private val _imagesResponse = MutableLiveData<ImagesResponse>()
+    val imagesResponse: LiveData<ImagesResponse> get() = _imagesResponse
 
     private val _cast = MutableLiveData<List<Cast>>()
     val cast: LiveData<List<Cast>> get() = _cast
 
+    private val _crew = MutableLiveData<List<Crew>>()
+    val crew: LiveData<List<Crew>> get() = _crew
+
     private val _moviesBelongsCollection = MutableLiveData<List<Movie>>()
     val moviesBelongsCollection: LiveData<List<Movie>> get() = _moviesBelongsCollection
 
-    fun setSelectedMovie(movie: Movie) = viewModelScope.launch {
+    fun setSelectedMovie(movie: Movie) {
         getMovieDetails(movie.id)
         getSimilarMovies(movie.id)
         getMovieVideos(movie.id)
         getMovieImages(movie.id)
-        getMovieCast(movie.id)
+        getMovieCredits(movie.id)
 
     }
 
@@ -61,17 +64,20 @@ constructor(
                 _moviesBelongsCollection.value = collection?.parts
             } else {
                 Log.d(TAG, "getMoviesBelongsCollection Error: ${response.code()}")
+                _moviesBelongsCollection.value = listOf()
             }
         }
     }
 
-    private fun getMovieCast(movieId: Int) = viewModelScope.launch {
-        movieRepository.getCast(movieId).let { response ->
+    private fun getMovieCredits(movieId: Int) = viewModelScope.launch {
+        movieRepository.getMovieCredits(movieId).let { response ->
 
             if (response.isSuccessful) {
-                _cast.value = response.body()?.results
+                _cast.value = response.body()?.cast
+                _crew.value = response.body()?.crew
             } else {
                 Log.d(TAG, "getMovieCast Error: ${response.code()}")
+                _cast.value = listOf()
             }
         }
     }
@@ -99,7 +105,7 @@ constructor(
         movieRepository.getImages(movieId).let { response ->
 
             if (response.isSuccessful) {
-                _images.value = response.body()
+                _imagesResponse.value = response.body()
             } else {
                 Log.d(TAG, "getMovieImages Error: ${response.code()}")
             }
@@ -113,6 +119,7 @@ constructor(
                 _videos.value = response.body()?.results
             } else {
                 Log.d(TAG, "getMovieVideos Error: ${response.code()}")
+                _videos.value = listOf()
             }
         }
     }
@@ -124,6 +131,7 @@ constructor(
                 _similarMovies.value = response.body()?.results
             } else {
                 Log.d(TAG, "getSimilarMovies Error: ${response.code()}")
+                _similarMovies.value = listOf()
             }
         }
     }

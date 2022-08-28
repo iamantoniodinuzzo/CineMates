@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.R;
 import com.example.cinemates.databinding.ListItemSectionBinding;
-import com.example.cinemates.model.data.Actor;
 import com.example.cinemates.model.data.Cast;
 import com.example.cinemates.model.data.Movie;
 import com.example.cinemates.model.data.Person;
@@ -167,8 +166,7 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
         if (dataList.get(position).getGenericType().equals(Movie.class)) {
             return MOVIE;
         } else if (dataList.get(position).getGenericType().equals(Person.class)
-                || dataList.get(position).getGenericType().equals(Cast.class)
-                || dataList.get(position).getGenericType().equals(Actor.class)) {
+                || dataList.get(position).getGenericType().equals(Cast.class)){
             return PERSON;
         }
         return -1;

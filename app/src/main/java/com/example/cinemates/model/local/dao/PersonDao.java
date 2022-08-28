@@ -19,12 +19,12 @@ import io.reactivex.rxjava3.core.Observable;
  */
 @Dao
 public interface PersonDao {
-    @Query("SELECT * FROM person WHERE favorite = 1")
+    @Query("SELECT * FROM person WHERE isFavorite = 1")
     Observable<List<Person>> getAllFavorite();
 
 
     @Query("SELECT * FROM person WHERE id = :id ")
-    Cast retrievePerson(Integer id);
+    Person retrievePerson(Integer id);
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -3,70 +3,74 @@ package com.example.cinemates.model.data
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.example.cinemates.util.Converters
 import java.io.Serializable
-import java.util.*
 
-/**
- * @author Antonio Di Nuzzo
- * Created 31/05/2022 at 11:32
- */
 @Entity
-open class Person : Serializable {
-    var name: String
-    var profilePath: String
-
-    @PrimaryKey
-    var id: Int
-    var isFavorite = false
-
-    @TypeConverters(Converters::class)
-    var popularity: Number
-
+open class Person(
     @Ignore
-    constructor(name: String, profile_path: String, id: Int, popularity: Number) {
-        this.name = name
-        this.profilePath = profile_path
-        this.id = id
-        this.popularity = popularity
-    }
+    val adult: Boolean,
+    @Ignore
+    val also_known_as: List<String>,
+    @Ignore
+    val biography: String?,
+    @Ignore
+    val birthday: String?,
+    @Ignore
+    val deathDay: String?,
+    @Ignore
+    val gender: Int?,
+    @Ignore
+    val homepage: String?,
+    @PrimaryKey
+    val id: Int,
+    @Ignore
+    val imdb_id: String?,
+    @Ignore
+    val known_for_department: String,
+    val name: String,
+    @Ignore
+    val place_of_birth: String?,
+    @Ignore
+    val popularity: Double,
+    val profile_path: String?,
+    var isFavorite: Boolean = false
+) : Serializable {
+    @Ignore
+    constructor(
+        adult: Boolean,
+        gender: Int?,
+        id: Int,
+        known_for_department: String,
+        name: String,
+        popularity: Double,
+        profile_path: String?
+    ) : this(
+        adult, listOf(), null, "", "", gender, null, id, null,
+        known_for_department, name, null, popularity, profile_path, false
+    )
 
     constructor(
-        name: String,
-        profile_path: String,
         id: Int,
-        popularity: Number,
-        favorite: Boolean
-    ) {
-        this.name = name
-        this.profilePath = profile_path
-        this.id = id
-        this.popularity = popularity
-        isFavorite = favorite
+        name: String,
+        profile_path: String?,
+        isFavorite: Boolean
+    ) : this(
+        false, arrayListOf(), null, null, null, null, null, id, null,
+        "", name, null, 0.0, profile_path, isFavorite = isFavorite
+    )
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Person) return false
+        return id == other.id
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode()
     }
 
     fun setFavorite() {
         isFavorite = !isFavorite
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is Person) return false
-        val person = other
-        return name == person.name && id == person.id
-    }
-
-    override fun hashCode(): Int {
-        return Objects.hash(name, id)
-    }
-
-    override fun toString(): String {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", profile_path='" + profilePath + '\'' +
-                ", id=" + id +
-                ", popularity=" + popularity +
-                '}'
-    }
 }

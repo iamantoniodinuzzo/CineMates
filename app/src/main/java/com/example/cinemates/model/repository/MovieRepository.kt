@@ -66,7 +66,7 @@ constructor(private val apiService: MovieService) {
     suspend fun getImages(movieId: Int) = apiService.getImages(movieId, sMap)
 
 
-    suspend fun getCast(movieId: Int) = apiService.getCast(movieId, sMap)
+    suspend fun getMovieCredits(movieId: Int) = apiService.getMovieCredits(movieId, sMap)
 
 
     suspend fun getActorDetails(personId: Int) = apiService.getActorDetails(personId, sMap)

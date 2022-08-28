@@ -21,9 +21,11 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialFadeThrough
 
 class SearchFragment : Fragment() {
-    private lateinit var mBinding: FragmentSearchBinding
-    private lateinit var mLinearLayoutManager: LinearLayoutManager
-    private lateinit var mGridLayoutManager: GridLayoutManager
+    private var _binding: FragmentSearchBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var searchMovieFragment: SearchMovieFragment
     private lateinit var searchActorsFragment: SearchActorFragment
     private val viewModel: SearchViewModel by activityViewModels()
@@ -31,8 +33,8 @@ class SearchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mLinearLayoutManager = LinearLayoutManager(context)
-        mGridLayoutManager = GridLayoutManager(context, 3)
+        linearLayoutManager = LinearLayoutManager(context)
+        gridLayoutManager = GridLayoutManager(context, 3)
         searchMovieFragment = SearchMovieFragment()
         searchActorsFragment = SearchActorFragment()
 
@@ -50,8 +52,8 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBinding = FragmentSearchBinding.inflate(layoutInflater)
-        return mBinding.root
+        _binding = FragmentSearchBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,13 +61,13 @@ class SearchFragment : Fragment() {
         setupTabLayout()
         updateToolbar()
 
-        mBinding.apply {
+        binding.apply {
             // Listen menu item click and change layout into recyclerview
             // owned by SearchActor & SearchMovie fragment
             toolbar.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
-                    R.id.menu_switch_grid -> switchLayout(mGridLayoutManager)
-                    R.id.menu_switch_list -> switchLayout(mLinearLayoutManager)
+                    R.id.menu_switch_grid -> switchLayout(gridLayoutManager)
+                    R.id.menu_switch_list -> switchLayout(linearLayoutManager)
                 }
                 updateToolbar()
                 false
@@ -90,7 +92,7 @@ class SearchFragment : Fragment() {
                 }
 
                 override fun onQueryTextChange(query: String): Boolean {
-                   viewModel.setQuery(query)
+                    viewModel.setQuery(query)
                     return false
                 }
             })
@@ -100,11 +102,11 @@ class SearchFragment : Fragment() {
     //Change menu icon in toolbar showing list or grid view
     private fun updateToolbar() {
         layoutGrid = !layoutGrid
-        val gridView = mBinding.toolbar.menu.findItem(R.id.menu_switch_grid)
+        val gridView = binding.toolbar.menu.findItem(R.id.menu_switch_grid)
         gridView.isVisible = layoutGrid
-        val listView = mBinding.toolbar.menu.findItem(R.id.menu_switch_list)
+        val listView = binding.toolbar.menu.findItem(R.id.menu_switch_list)
         listView.isVisible = !layoutGrid
-        val filterView = mBinding.toolbar.menu.findItem(R.id.menu_filter)
+        val filterView = binding.toolbar.menu.findItem(R.id.menu_filter)
         filterView.isVisible = false
     }
 
@@ -118,12 +120,17 @@ class SearchFragment : Fragment() {
         val viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         viewPagerAdapter.addFragment(searchMovieFragment)
         viewPagerAdapter.addFragment(searchActorsFragment)
-        mBinding.viewPager.adapter = viewPagerAdapter
-        TabLayoutMediator(mBinding.tabLayout, mBinding!!.viewPager) { tab, position ->
+        binding.viewPager.adapter = viewPagerAdapter
+        TabLayoutMediator(binding.tabLayout, binding!!.viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = "Movies"
                 1 -> tab.text = "Actors"
             }
         }.attach()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

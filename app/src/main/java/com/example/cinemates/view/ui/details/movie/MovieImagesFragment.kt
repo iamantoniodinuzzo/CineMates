@@ -14,15 +14,17 @@ import com.example.cinemates.databinding.FragmentMovieImagesBinding
  * Created 19/06/2022 at 09:54
  */
 class MovieImagesFragment : Fragment() {
-    private lateinit var mBinding: FragmentMovieImagesBinding
-    private lateinit var mPosterAdapter: ImageRecyclerViewAdapter
-    private lateinit var mBackdropAdapter: ImageRecyclerViewAdapter
+
+    private var _binding: FragmentMovieImagesBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var posterAdapter: ImageRecyclerViewAdapter
+    private lateinit var backdropAdapter: ImageRecyclerViewAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mPosterAdapter = ImageRecyclerViewAdapter(context)
-        mBackdropAdapter = ImageRecyclerViewAdapter(context)
+        posterAdapter = ImageRecyclerViewAdapter(context)
+        backdropAdapter = ImageRecyclerViewAdapter(context)
     }
 
     override fun onCreateView(
@@ -30,23 +32,27 @@ class MovieImagesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBinding = FragmentMovieImagesBinding.inflate(inflater, container, false)
-        return mBinding.root
+        _binding = FragmentMovieImagesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding.apply {
-            postersRv.adapter = mPosterAdapter
+        binding.apply {
+            postersRv.adapter = posterAdapter
             postersRv.setEmptyView(emptyBackdropView.root)
-            backdropRv.adapter = mBackdropAdapter
+            backdropRv.adapter = backdropAdapter
             backdropRv.setEmptyView(emptyBackdropView.root)
         }
 
-        viewModel.imagesResponse.observe(viewLifecycleOwner){ images->
-            mPosterAdapter.addItems(images.posters)
-            mBackdropAdapter.addItems(images.backdrops)
+        viewModel.imagesResponse.observe(viewLifecycleOwner) { images ->
+            posterAdapter.addItems(images.posters)
+            backdropAdapter.addItems(images.backdrops)
         }
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

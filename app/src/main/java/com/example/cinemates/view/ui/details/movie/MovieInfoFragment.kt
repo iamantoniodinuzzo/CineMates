@@ -3,7 +3,6 @@ package com.example.cinemates.view.ui.details.movie
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter
 import android.os.Bundle
-import android.util.Log
 import com.example.cinemates.util.ViewSize
 import android.view.LayoutInflater
 import android.view.View
@@ -11,21 +10,23 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentMovieInfoBinding
 import com.example.cinemates.model.data.Movie
 
 class MovieInfoFragment : Fragment() {
-    private lateinit var mBinding: FragmentMovieInfoBinding
-    private lateinit var mMoviesSimilarAdapter: ItemsRecyclerViewAdapter<Movie>
-    private lateinit var mVideoAdapter: YoutubeVideoRecyclerViewAdapter
+
+
+    private var _binding: FragmentMovieInfoBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var similarAdapter: ItemsRecyclerViewAdapter<Movie>
+    private lateinit var videoAdapter: YoutubeVideoRecyclerViewAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mMoviesSimilarAdapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
-        mVideoAdapter = YoutubeVideoRecyclerViewAdapter()
+        similarAdapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
+        videoAdapter = YoutubeVideoRecyclerViewAdapter()
     }
 
     override fun onCreateView(
@@ -33,47 +34,51 @@ class MovieInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        mBinding = FragmentMovieInfoBinding.inflate(inflater, container, false)
-        return mBinding.root
+        _binding = FragmentMovieInfoBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mBinding.apply {
-            recommendedRecyclerView.adapter = mMoviesSimilarAdapter
+        binding.apply {
+            recommendedRecyclerView.adapter = similarAdapter
             recommendedRecyclerView.setEmptyView(emptyViewRecommended.root)
-            videosRecyclerView.adapter = mVideoAdapter
+            videosRecyclerView.adapter = videoAdapter
 
             collectionView.collectionName.setOnClickListener {
-                /*val action = MovieDetailsFragmentDirections.actionGlobalMovieDetailsFragment()
-                val fm = requireActivity().supportFragmentManager
-                val collectionDialogFragment = CollectionDialogFragment()
-                collectionDialogFragment.show(fm, "fragment_show_collection")*/
+                //Open collection dialog
                 findNavController().navigate(R.id.action_movieDetailsFragment_to_collectionDialogFragment)
             }
 
             fab.setOnClickListener {
-                // TODO: 22/08/2022 open dialog to choose a list
+                //Open bottomSheetFragment
+                findNavController().navigate(R.id.action_movieDetailsFragment_to_bottomSheetFragment)
             }
+
             viewModel.selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
                 movie = selectedMovie
             }
-            viewModel.videos.observe(viewLifecycleOwner){videos->
-                if(videos.isEmpty()){
+            viewModel.videos.observe(viewLifecycleOwner) { videos ->
+                if (videos.isEmpty()) {
                     textSectionVideo.visibility = View.GONE
-                }else{
+                } else {
                     textSectionVideo.visibility = View.VISIBLE
-                    mVideoAdapter.setDataList(videos)
+                    videoAdapter.setDataList(videos)
                 }
             }
 
         }
 
         viewModel.similarMovies.observe(viewLifecycleOwner) { similarMovies ->
-            mMoviesSimilarAdapter.addItems(similarMovies.toMutableList())
+            similarAdapter.addItems(similarMovies.toMutableList())
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 

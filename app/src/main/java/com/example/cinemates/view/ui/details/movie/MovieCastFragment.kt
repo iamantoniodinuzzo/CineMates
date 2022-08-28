@@ -12,14 +12,17 @@ import com.example.cinemates.databinding.FragmentMovieCastBinding
 import com.example.cinemates.model.data.Cast
 
 class MovieCastFragment : Fragment() {
-    private lateinit var mBinding: FragmentMovieCastBinding
-    private lateinit var mAdapter: ItemsRecyclerViewAdapter<Cast>
+
+    private var _binding: FragmentMovieCastBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var adapter: ItemsRecyclerViewAdapter<Cast>
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mAdapter = ItemsRecyclerViewAdapter(ViewSize.LONG)
+        adapter = ItemsRecyclerViewAdapter(ViewSize.LONG)
     }
 
     override fun onCreateView(
@@ -27,15 +30,20 @@ class MovieCastFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        mBinding = FragmentMovieCastBinding.inflate(inflater, container, false)
-        return mBinding.root
+        _binding = FragmentMovieCastBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding.castRecyclerView.adapter = mAdapter
+        binding.castRecyclerView.adapter = adapter
         viewModel.cast.observe(viewLifecycleOwner) { cast ->
-            mAdapter.addItems(cast.toMutableList())
+            adapter.addItems(cast.toMutableList())
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

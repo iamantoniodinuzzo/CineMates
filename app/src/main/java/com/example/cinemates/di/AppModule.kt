@@ -21,9 +21,6 @@ object AppModule {
         Room.databaseBuilder(context, AppDatabase::class.java, "CineMates.db")
             .fallbackToDestructiveMigration()
             .allowMainThreadQueries()
-            .addCallback(object : RoomDatabase.Callback() {
-                // TODO : Prepopulate the database, if necessary (??), otherwise remove callback
-            })
             .build()
 
 }

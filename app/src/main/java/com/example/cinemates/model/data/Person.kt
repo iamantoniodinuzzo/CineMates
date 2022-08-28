@@ -33,7 +33,6 @@ open class Person(
     @Ignore
     val popularity: Double,
     val profile_path: String?,
-    var isFavorite: Boolean = false
 ) : Serializable {
     @Ignore
     constructor(
@@ -46,17 +45,16 @@ open class Person(
         profile_path: String?
     ) : this(
         adult, listOf(), null, "", "", gender, null, id, null,
-        known_for_department, name, null, popularity, profile_path, false
+        known_for_department, name, null, popularity, profile_path
     )
 
     constructor(
         id: Int,
         name: String,
         profile_path: String?,
-        isFavorite: Boolean
     ) : this(
         false, arrayListOf(), null, null, null, null, null, id, null,
-        "", name, null, 0.0, profile_path, isFavorite = isFavorite
+        "", name, null, 0.0, profile_path
     )
 
     override fun equals(other: Any?): Boolean {
@@ -69,13 +67,8 @@ open class Person(
         return id.hashCode()
     }
 
-
-    fun setFavorite() {
-        isFavorite = !isFavorite
-    }
-
     override fun toString(): String {
-        return "Person(birthday=$birthday, deathDay=$deathDay, gender=$gender, id=$id, name='$name', profile_path=$profile_path, isFavorite=$isFavorite)"
+        return "Person(birthday=$birthday, deathDay=$deathDay, gender=$gender, id=$id, name='$name', profile_path=$profile_path)"
     }
 
 }

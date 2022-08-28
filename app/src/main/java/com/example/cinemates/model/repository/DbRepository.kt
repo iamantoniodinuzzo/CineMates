@@ -8,6 +8,7 @@ import com.example.cinemates.model.local.dao.MovieDao
 import com.example.cinemates.model.local.dao.PersonDao
 import com.example.cinemates.model.data.PersonalStatus
 import io.reactivex.rxjava3.core.Observable
+import java.util.HashMap
 
 private const val TAG = "DbRepository"
 
@@ -17,58 +18,28 @@ private const val TAG = "DbRepository"
  */
 class DbRepository
 @Inject
-constructor(private val appDatabase: AppDatabase) {
-    private val movieDao: MovieDao = appDatabase.mMovieDao()
-    private val personDao: PersonDao = appDatabase.mPersonDao()
-
-    val allFavoritesMovies: Observable<List<Movie>>
-        get() = movieDao.allFavorite
-    val allFavoritesPerson: Observable<List<Person>>
-        get() = personDao.allFavorite
-
-    fun getAllMoviesWithStatus(status: PersonalStatus): Observable<List<Movie>> {
-        return movieDao.getAllWithStatus(status)
+constructor(appDatabase: AppDatabase) {
+    companion object {
+        private lateinit var movieDao: MovieDao
+        private lateinit var personDao: PersonDao
     }
 
-    fun sumRuntimeAllWatchedMovies(): Long {
-        return movieDao.sumRuntimeAllWatchedMovies(PersonalStatus.SEEN)
+    init {
+        movieDao = appDatabase.mMovieDao()
+        personDao = appDatabase.mPersonDao()
     }
 
-    fun getMovieCountByStatus(status: PersonalStatus): Long {
-        return movieDao.getMovieCountByStatus(status)
-    }
+    fun getMovies() = movieDao.getMovies()
+    fun isMovieFavorite(id: Int) = movieDao.isMovieFavorite(id)
+    suspend fun insertMovie(movie: Movie) = movieDao.insert(movie)
+    suspend fun updateMovie(movie: Movie) = movieDao.update(movie)
+    suspend fun deleteMovie(movie: Movie) = movieDao.delete(movie)
 
-    fun retrieveMovie(id: Int): Movie {
-        return movieDao.retrieveMovie(id)
-    }
-
-    fun retrievePerson(id: Int): Person {
-        return personDao.retrievePerson(id)
-    }
-
-    fun insertAllMovies(vararg movies: Movie?) {
-        movieDao.insertAllMovies(*movies)
-    }
-
-    fun insert(movie: Movie) {
-        movieDao.insert(movie)
-    }
-
-    fun insert(person: Person) {
-        personDao.insert(person)
-    }
-
-    fun update(movie: Movie) {
-        movieDao.update(movie)
-    }
-
-    fun delete(movie: Movie) {
-        movieDao.delete(movie)
-    }
-
-    fun delete(person: Person) {
-        personDao.delete(person)
-    }
+    fun getPersons() = personDao.getPersons()
+    fun isPersonFavorite(id: Int) = personDao.isPersonFavorite(id)
+    suspend fun insertPerson(person: Person) = personDao.insert(person)
+    suspend fun updatePerson(person: Person) = personDao.update(person)
+    suspend fun deletePerson(person: Person) = personDao.delete(person)
 
 
 }

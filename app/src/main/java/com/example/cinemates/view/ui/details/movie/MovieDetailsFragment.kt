@@ -16,7 +16,9 @@ import com.google.android.material.tabs.TabLayoutMediator
  * Created 26/05/2022 at 15:44
  */
 class MovieDetailsFragment : Fragment() {
-    private lateinit var mBinding: FragmentMovieDetailsBinding
+
+    private var _binding: FragmentMovieDetailsBinding? = null
+    private val binding get() = _binding!!
     private val args: MovieDetailsFragmentArgs by navArgs()
     private lateinit var mMovieInfoFragment: MovieInfoFragment
     private lateinit var mMovieCastFragment: MovieCastFragment
@@ -39,20 +41,20 @@ class MovieDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBinding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
+        _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
 
-        return mBinding.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
-        mBinding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+        binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
         viewModel.setSelectedMovie(args.movie)
 
         viewModel.selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
-            mBinding.movie = selectedMovie
+            binding.movie = selectedMovie
         }
         initializeViewPager()
 
@@ -62,15 +64,20 @@ class MovieDetailsFragment : Fragment() {
         mViewPagerAdapter.addFragment(mMovieInfoFragment)
         mViewPagerAdapter.addFragment(mMovieCastFragment)
         mViewPagerAdapter.addFragment(mMovieImagesFragment)
-        mBinding.viewPager.adapter = mViewPagerAdapter
-        mBinding.viewPager.isUserInputEnabled = false
-        TabLayoutMediator(mBinding.tabLayout, mBinding.viewPager) { tab, position ->
+        binding.viewPager.adapter = mViewPagerAdapter
+        binding.viewPager.isUserInputEnabled = false
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = "Info"
                 1 -> tab.text = "Cast"
                 2 -> tab.text = "Images"
             }
         }.attach()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

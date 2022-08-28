@@ -1,5 +1,6 @@
-package com.example.cinemates.view.ui.search
+package com.example.cinemates.view.ui.saved
 
+import com.example.cinemates.interfaces.CustomizableFragment
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
 import android.os.Bundle
 import com.example.cinemates.util.ViewSize
@@ -8,13 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.cinemates.databinding.FragmentSearchMovieBinding
+import androidx.recyclerview.widget.RecyclerView
+import com.example.cinemates.databinding.FragmentListingBinding
 import com.example.cinemates.model.data.Movie
+import com.example.cinemates.model.data.PersonalStatus
+import com.example.cinemates.view.viewmodel.DbViewModel
 
-class SearchMovieFragment : Fragment() {
-    private var _binding: FragmentSearchMovieBinding? = null
+/**
+ * @author Antonio Di Nuzzo
+ * Created 25/07/2022 at 08:24
+ */
+class SeenFragment : Fragment() {
+    private var _binding: FragmentListingBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: SearchViewModel by activityViewModels()
+    private val dbViewModel: DbViewModel by activityViewModels()
     private lateinit var adapter: ItemsRecyclerViewAdapter<Movie>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,30 +31,27 @@ class SearchMovieFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentSearchMovieBinding.inflate(inflater, container, false)
+        _binding = FragmentListingBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.apply {
             recyclerView.adapter = adapter
             recyclerView.setEmptyView(emptyView.root)
+            adapter.addItems(dbViewModel.getMoviesWithStatus(PersonalStatus.SEEN))
         }
-        viewModel.queriedMovies.observe(viewLifecycleOwner) { movies ->
-            adapter.addItems(movies.toMutableList())
-        }
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }

@@ -18,13 +18,14 @@ import com.example.cinemates.model.data.Movie
  */
 class CollectionDialogFragment : DialogFragment() {
 
-    private lateinit var mBinding: LayoutCollectionDialogBinding
-    private lateinit var mAdapter: ItemsRecyclerViewAdapter<Movie>
+    private var _binding: LayoutCollectionDialogBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var adapter: ItemsRecyclerViewAdapter<Movie>
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mAdapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
+        adapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
     }
 
     override fun onCreateView(
@@ -32,22 +33,26 @@ class CollectionDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBinding = LayoutCollectionDialogBinding.inflate(inflater, container, false)
-        return mBinding.root
+        _binding = LayoutCollectionDialogBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mBinding.apply {
-            moviesIntoCollection.adapter = mAdapter
+        binding.apply {
+            moviesIntoCollection.adapter = adapter
             viewModel.selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
                 collection = selectedMovie.belongs_to_collection
             }
             viewModel.moviesBelongsCollection.observe(viewLifecycleOwner) { moviesBelongsCollection ->
                 Log.d("CollectionDialog", moviesBelongsCollection.toString())
-                mAdapter.addItems(moviesBelongsCollection.toMutableList())
+                adapter.addItems(moviesBelongsCollection.toMutableList())
             }
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

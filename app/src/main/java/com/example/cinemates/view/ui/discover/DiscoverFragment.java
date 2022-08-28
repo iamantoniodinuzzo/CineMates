@@ -29,8 +29,8 @@ import java.util.Random;
 
 public class DiscoverFragment extends Fragment {
 
-    private FragmentDiscoverBinding mBinding;
-    private final HashMap<Integer, String> mGenres = Constants.getGenreMap();
+    private FragmentDiscoverBinding binding;
+    private final HashMap<Integer, String> genreMap = Constants.getGenreMap();
     private Random mRnd;
 
     @Override
@@ -48,15 +48,15 @@ public class DiscoverFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = FragmentDiscoverBinding.inflate(inflater, container, false);
+        binding = FragmentDiscoverBinding.inflate(inflater, container, false);
         populateChipGroup();
-        return mBinding.getRoot();
+        return binding.getRoot();
     }
 
     private void populateChipGroup() {
-        ChipGroup chipGroup = mBinding.chipGroup;
+        ChipGroup chipGroup = binding.chipGroup;
         chipGroup.removeAllViews();
-        for (Map.Entry<Integer, String> genre : mGenres.entrySet()) {
+        for (Map.Entry<Integer, String> genre : genreMap.entrySet()) {
             Chip genre_chip = new Chip(getContext());
             genre_chip.setId(genre.getKey());
             genre_chip.setText(genre.getValue());
@@ -77,7 +77,7 @@ public class DiscoverFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mBinding.searchButton.setOnClickListener(new View.OnClickListener() {
+        binding.searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_discoverFragment_to_searchFragment);
@@ -92,6 +92,6 @@ public class DiscoverFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mBinding = null;
+        binding = null;
     }
 }

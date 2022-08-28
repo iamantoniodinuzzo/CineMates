@@ -13,22 +13,26 @@ data class Movie(
     val belongs_to_collection: Collection?,
     @TypeConverters(Converters::class)
     val genres: List<Genre>?,
-    val homepage: String?,
     @PrimaryKey
     val id: Int,
-    val imdb_id: String?,
-    val original_language: String,
-    val original_title: String,
-    val overview: String?,
     val poster_path: String?,
-    val release_date: String,
+    val release_date: String?,
     val runtime: Int?,
     val title: String,
     val vote_average: Double,
-    val personalStatus: PersonalStatus?,
-    val favorite: Boolean?,
+    var personalStatus: PersonalStatus = PersonalStatus.EMPTY,
+    var favorite: Boolean = false,
+    val original_title: String,
+    @Ignore
+    val original_language: String,
+    @Ignore
+    val homepage: String?,
+    @Ignore
+    val imdb_id: String?,
     @Ignore
     val backdrop_path: String?,
+    @Ignore
+    val overview: String?,
     @Ignore
     val budget: Int,
     @Ignore
@@ -47,25 +51,21 @@ data class Movie(
     val vote_count: Int
 ) : Serializable {
     constructor(
-        genres: List<Genre>,
-        belongs_to_collection: Collection,
-        homepage: String,
+        genres: List<Genre>?,
+        belongs_to_collection: Collection?,
         id: Int,
-        imdb_id: String,
-        original_language: String,
         original_title: String,
-        overview: String,
-        poster_path: String,
-        release_date: String,
-        runtime: Int,
+        poster_path: String?,
+        release_date: String?,
+        runtime: Int?,
         title: String,
         vote_average: Double,
-        personalStatus: PersonalStatus,
+        personalStatus: PersonalStatus = PersonalStatus.EMPTY,
         favorite: Boolean
     ) : this(
-        belongs_to_collection, genres, homepage, id, imdb_id, original_language, original_title,
-        overview, poster_path, release_date, runtime, title, vote_average, personalStatus, favorite,
-        null, 0, 0.0, false, 0, null, null, false, 0
+        belongs_to_collection, genres, id, poster_path, release_date, runtime, title, vote_average,
+        personalStatus, favorite, original_title, "", "", "", "",
+        "", 0, 0.0, false, 0, "", "", false, 0
     )
 
     override fun hashCode(): Int {
@@ -83,8 +83,21 @@ data class Movie(
         return true
     }
 
+    fun setFavorite() {
+        favorite = !favorite
+    }
+
 
 }
+
+fun Movie.setPersonalStatus(status: PersonalStatus) {
+    personalStatus = if (status == personalStatus) {
+        PersonalStatus.EMPTY
+    } else {
+        status
+    }
+}
+
 
 @TypeConverters(Converters::class)
 enum class PersonalStatus(

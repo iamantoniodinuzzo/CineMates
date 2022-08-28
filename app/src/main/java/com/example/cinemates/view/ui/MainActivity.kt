@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding private set
+    lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
     private val topLevelDestinations: Set<Int>

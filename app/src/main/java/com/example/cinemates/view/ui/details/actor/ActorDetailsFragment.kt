@@ -4,31 +4,30 @@ import androidx.navigation.Navigation.findNavController
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
 import com.example.cinemates.view.viewmodel.DbViewModel
 import android.os.Bundle
-import android.util.Log
 import com.example.cinemates.util.ViewSize
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.cinemates.R
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
+import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentActorDetailsBinding
 import com.example.cinemates.model.data.Movie
-import com.example.cinemates.model.data.Person
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ActorDetailsFragment : Fragment() {
-    private lateinit var mBinding: FragmentActorDetailsBinding
-    private lateinit var mAdapter: ItemsRecyclerViewAdapter<Movie>
-
-    //    private val dbViewModel: DbViewModel by activityViewModels()TODO convert to kotlin
+    private var _binding: FragmentActorDetailsBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var adapter: ItemsRecyclerViewAdapter<Movie>
+    private val dbViewModel: DbViewModel by activityViewModels()
     private val viewModel: ActorDetailsViewModel by activityViewModels()
     private val args: ActorDetailsFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mAdapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
+        adapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
     }
 
     override fun onCreateView(
@@ -36,34 +35,30 @@ class ActorDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBinding = FragmentActorDetailsBinding.inflate(
+        _binding = FragmentActorDetailsBinding.inflate(
             inflater,
             container,
             false
         )
-        viewModel.setActorDetails(args.person.id)
-        return mBinding.root
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.apply {
             movies.observe(viewLifecycleOwner) { moviesByActor ->
-                mAdapter.addItems(moviesByActor.toMutableList())
+                adapter.addItems(moviesByActor.toMutableList())
             }
-
+            setActorDetails(args.person.id)
         }
-        mBinding.apply {
-           /* if (dbViewModel.getPerson(person) != null) {
-                fab.setImageDrawable(
-                    requireActivity().getDrawable(
-                        R.drawable.ic_baseline_favorite_24
-                    )
-                )
-            } else fab.setImageDrawable(
-                requireActivity().getDrawable(R.drawable.ic_baseline_favorite_border_24)
-            )*/
-            recyclerView.adapter = mAdapter
+
+        binding.apply {
+            customizeFab(fab)
+            fab.setOnClickListener {
+                updateThisPerson(fab)
+            }
+            recyclerView.adapter = adapter
             viewModel.actor.observe(viewLifecycleOwner) { selectedPerson ->
                 person = selectedPerson
             }
@@ -72,19 +67,32 @@ class ActorDetailsFragment : Fragment() {
                     view
                 ).navigateUp()
             }
-            fab.setOnClickListener {
-               /* person!!.setFavorite()
-                if (dbViewModel.getPerson(person) != null) { //it was already into favorite
-                    dbViewModel.delete(person) //should delete it
-                    fab.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_baseline_favorite_border_24))
-                    Toast.makeText(context, "Removed from favorite", Toast.LENGTH_SHORT).show()
-                } else {
-                    dbViewModel.insert(person)
-                    fab.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_baseline_favorite_24))
-                    Toast.makeText(context, "Added to favorite", Toast.LENGTH_SHORT).show()
-                }*/
-            }
+
         }
 
+    }
+
+    private fun updateThisPerson(fab: FloatingActionButton) {
+        if (dbViewModel.setAsFavorite(args.person)) {
+            Toast.makeText(context, "Added to favorites", Toast.LENGTH_SHORT).show()
+            fab.setImageResource(R.drawable.ic_favorite_filled)
+        } else {
+            Toast.makeText(context, "Removed from favorites", Toast.LENGTH_SHORT).show()
+            fab.setImageResource(R.drawable.ic_favorite_border)
+        }
+    }
+
+    private fun customizeFab(fab: FloatingActionButton) {
+        if (dbViewModel.isMyFavoritePerson(args.person)) {
+            fab.setImageResource(R.drawable.ic_favorite_filled)
+        } else {
+            fab.setImageResource(R.drawable.ic_favorite_border)
+        }
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

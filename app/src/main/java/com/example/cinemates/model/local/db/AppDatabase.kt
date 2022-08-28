@@ -13,7 +13,7 @@ import com.example.cinemates.util.Converters
  * @author Antonio Di Nuzzo
  * Created 26/07/2022 at 08:13
  */
-@Database(entities = [Movie::class, Person::class], version = 8)
+@Database(entities = [Movie::class, Person::class], version = 11)
 @TypeConverters(
     Converters::class
 )

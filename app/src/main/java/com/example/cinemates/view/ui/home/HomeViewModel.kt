@@ -41,11 +41,11 @@ constructor(
     val upcomingMovies: LiveData<List<Movie>> get() = _upcomingMovies
 
     init {
-        getTrendingMovies()//crash
-        getTrendingPerson()//crash
-        getPopularMovies()//crash
-        getTopRatedMovies()//crash
-        getUpcomingMovies()//crash
+        getTrendingMovies()
+        getTrendingPerson()
+        getPopularMovies()
+        getTopRatedMovies()
+        getUpcomingMovies()
     }
 
     private fun getTrendingMovies() = viewModelScope.launch {

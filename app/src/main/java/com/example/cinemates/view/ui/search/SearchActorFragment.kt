@@ -12,13 +12,14 @@ import com.example.cinemates.databinding.FragmentSearchActorBinding
 import com.example.cinemates.model.data.Cast
 
 class SearchActorFragment : Fragment() {
-    private lateinit var mBinding: FragmentSearchActorBinding
+    private var _binding: FragmentSearchActorBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: SearchViewModel by activityViewModels()
-    private lateinit var mRecyclerViewAdapter: ItemsRecyclerViewAdapter<Cast>
+    private lateinit var adapter: ItemsRecyclerViewAdapter<Cast>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mRecyclerViewAdapter = ItemsRecyclerViewAdapter(ViewSize.LONG)
+        adapter = ItemsRecyclerViewAdapter(ViewSize.LONG)
     }
 
     override fun onCreateView(
@@ -26,20 +27,25 @@ class SearchActorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        mBinding = FragmentSearchActorBinding.inflate(inflater, container, false)
-        mBinding.apply {
-            recyclerView.adapter = mRecyclerViewAdapter
+        _binding = FragmentSearchActorBinding.inflate(inflater, container, false)
+        binding.apply {
+            recyclerView.adapter = adapter
             recyclerView.setEmptyView(emptyView.root)
         }
 
-        return mBinding.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.queriedActors.observe(viewLifecycleOwner) { persons ->
-            mRecyclerViewAdapter.addItems(persons.toMutableList())
+            adapter.addItems(persons.toMutableList())
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

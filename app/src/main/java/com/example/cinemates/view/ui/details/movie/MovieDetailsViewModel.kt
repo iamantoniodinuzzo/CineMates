@@ -56,6 +56,14 @@ constructor(
 
     }
 
+    fun setFavorite() {
+        selectedMovie.value?.setFavorite()
+    }
+
+    fun setPersonalStatus(status: PersonalStatus){
+        selectedMovie.value?.setPersonalStatus(status)
+    }
+
     private fun getMoviesBelongsCollection(collectionId: Int) = viewModelScope.launch {
         movieRepository.getCollection(collectionId).let { response ->
 

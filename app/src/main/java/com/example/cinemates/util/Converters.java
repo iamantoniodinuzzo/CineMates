@@ -38,10 +38,6 @@ public class Converters {
         return status.getStatus();
     }
 
-    @TypeConverter
-    public static Integer toInteger(Number number) {
-        return number.intValue();
-    }
 
     @TypeConverter
     public static List<Genre> fromString(String value) {

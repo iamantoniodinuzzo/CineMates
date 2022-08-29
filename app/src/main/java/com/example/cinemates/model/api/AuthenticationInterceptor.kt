@@ -6,6 +6,10 @@ import okhttp3.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * @author Jon Areas
+ * Created 25/08/2022 at 0:00
+ */
 @Singleton
 class AuthenticationInterceptor @Inject constructor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {

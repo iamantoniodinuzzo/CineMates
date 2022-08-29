@@ -22,8 +22,11 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.transition.MaterialElevationScale;
 
-import dagger.hilt.android.AndroidEntryPoint;
-
+/**
+ * @author Antonio Di Nuzzo
+ * @author Jon Areas
+ * Created 22/07/2022 at 12:32
+ */
 public class SavedFragment extends Fragment {
 
     private FragmentSavedBinding mBinding;

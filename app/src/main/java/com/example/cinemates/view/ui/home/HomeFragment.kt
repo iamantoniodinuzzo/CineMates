@@ -29,6 +29,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * @author Antonio Di Nuzzo
+ * @author Jon Areas
+ * Created 24/08/2022 at 09:03
+ */
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 

@@ -74,7 +74,6 @@ constructor(
     fun onDetailsFragmentReady(movie: Movie) =
         getMovieDetails(movie.id)
 
-
     fun setFavorite() =
         selectedMovie.value?.setFavorite()
 

@@ -1,6 +1,5 @@
 package com.example.cinemates.view.ui
 
-
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
@@ -16,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding private set
     private lateinit var navController: NavController
 
     private val topLevelDestinations: Set<Int>

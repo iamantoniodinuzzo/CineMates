@@ -1,13 +1,21 @@
 package com.example.cinemates.model.api
 
-import com.example.cinemates.model.data.*
+
+import com.example.cinemates.model.data.Cast
 import com.example.cinemates.model.data.Collection
+import com.example.cinemates.model.data.CreditsResponse
+import com.example.cinemates.model.data.GenericResponse
+import com.example.cinemates.model.data.Genre
+import com.example.cinemates.model.data.ImagesResponse
+import com.example.cinemates.model.data.Movie
+import com.example.cinemates.model.data.Person
+import com.example.cinemates.model.data.Review
+import com.example.cinemates.model.data.Video
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import retrofit2.http.QueryMap
-import retrofit2.Response
-import java.util.HashMap
 
 /**
  * @author Antonio Di Nuzzo

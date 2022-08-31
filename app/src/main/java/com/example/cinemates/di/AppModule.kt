@@ -2,7 +2,6 @@ package com.example.cinemates.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.example.cinemates.model.local.db.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -11,6 +10,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * @author Antonio Di Nuzzo
+ * @author Jon Areas
+ * Created 25/08/2022 at 0:00
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {

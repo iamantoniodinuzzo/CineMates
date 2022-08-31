@@ -1,21 +1,25 @@
 package com.example.cinemates.view.ui.profile
 
-import com.example.cinemates.adapter.SectionRecyclerViewAdapter
 import android.os.Bundle
-import com.example.cinemates.util.ViewSize
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.cinemates.adapter.SectionRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentProfileBinding
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
 import com.example.cinemates.model.data.PersonalStatus
 import com.example.cinemates.model.data.Section
+import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.viewmodel.DbViewModel
 import com.google.android.material.transition.MaterialFadeThrough
 
+/**
+ * @author Antonio Di Nuzzo
+ * Created 28/08/2022 at 10:13
+ */
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!

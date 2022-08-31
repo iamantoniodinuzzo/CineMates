@@ -1,20 +1,29 @@
 package com.example.cinemates.view.ui.details.movie
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.cinemates.model.data.*
-import com.example.cinemates.model.data.Collection
+import com.example.cinemates.model.data.Cast
+import com.example.cinemates.model.data.CreditsResponse
+import com.example.cinemates.model.data.Crew
+import com.example.cinemates.model.data.ImagesResponse
+import com.example.cinemates.model.data.Movie
+import com.example.cinemates.model.data.PersonalStatus
+import com.example.cinemates.model.data.Video
+import com.example.cinemates.model.data.setPersonalStatus
 import com.example.cinemates.model.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.mapLatest
 import javax.inject.Inject
 
 /**
  * Is shared between  [MovieCastFragment] [MovieImagesFragment] [MovieInfoFragment] [CollectionDialogFragment]
  * @author Antonio Di Nuzzo
+ * @author Jon Areas
  * Created 24/08/2022
  */
 private const val TAG = "MovieDetailsViewModel"
@@ -23,125 +32,63 @@ private const val TAG = "MovieDetailsViewModel"
 class MovieDetailsViewModel
 @Inject
 constructor(
-    private val movieRepository: MovieRepository
+    private val movieRepository: MovieRepository,
 ) : ViewModel() {
 
     private val _selectedMovie = MutableLiveData<Movie>()
     val selectedMovie: LiveData<Movie> get() = _selectedMovie
 
-    private val _similarMovies = MutableLiveData<List<Movie>>()
-    val similarMovies: LiveData<List<Movie>> get() = _similarMovies
+    val similarMovies: LiveData<List<Movie>> =
+        Transformations.switchMap(_selectedMovie) { movie ->
+            movieRepository.getSimilarMovies(movie.id).asLiveData()
+        }
 
-    private val _videos = MutableLiveData<List<Video>>()
-    val videos: LiveData<List<Video>> get() = _videos
+    val videos: LiveData<List<Video>> =
+        Transformations.switchMap(_selectedMovie) { movie ->
+            movieRepository.getVideos(movie.id).asLiveData()
+        }
 
-    private val _imagesResponse = MutableLiveData<ImagesResponse>()
-    val imagesResponse: LiveData<ImagesResponse> get() = _imagesResponse
+    val imagesResponse: LiveData<ImagesResponse> =
+        Transformations.switchMap(_selectedMovie) { movie ->
+            movieRepository.getImages(movie.id).asLiveData()
+        }
 
-    private val _cast = MutableLiveData<List<Cast>>()
-    val cast: LiveData<List<Cast>> get() = _cast
+    private val credits: LiveData<CreditsResponse> =
+        Transformations.switchMap(_selectedMovie) { movie ->
+            movieRepository.getMovieCredits(movie.id).asLiveData()
+        }
 
-    private val _crew = MutableLiveData<List<Crew>>()
-    val crew: LiveData<List<Crew>> get() = _crew
+    val cast: LiveData<List<Cast>> =
+        Transformations.map(credits, CreditsResponse::cast)
 
-    private val _moviesBelongsCollection = MutableLiveData<List<Movie>>()
-    val moviesBelongsCollection: LiveData<List<Movie>> get() = _moviesBelongsCollection
+    val crew: LiveData<List<Crew>> =
+        Transformations.map(credits, CreditsResponse::crew)
 
-    fun setSelectedMovie(movie: Movie) {
+    val moviesBelongsCollection: LiveData<List<Movie>> =
+        Transformations.switchMap(_selectedMovie) { movie ->
+            movie.belongs_to_collection?.id?.let { collectionId ->
+                movieRepository.getCollection(collectionId).asLiveData()
+            }
+        }
+
+    fun onDetailsFragmentReady(movie: Movie) =
         getMovieDetails(movie.id)
-        getSimilarMovies(movie.id)
-        getMovieVideos(movie.id)
-        getMovieImages(movie.id)
-        getMovieCredits(movie.id)
 
-    }
-
-    fun setFavorite() {
+    fun setFavorite() =
         selectedMovie.value?.setFavorite()
-    }
 
-    fun setPersonalStatus(status: PersonalStatus){
+
+    fun setPersonalStatus(status: PersonalStatus) =
         selectedMovie.value?.setPersonalStatus(status)
-    }
 
-    private fun getMoviesBelongsCollection(collectionId: Int) = viewModelScope.launch {
-        movieRepository.getCollection(collectionId).let { response ->
 
-            if (response.isSuccessful) {
-                val collection: Collection? = response.body()
-                _moviesBelongsCollection.value = collection?.parts
-            } else {
-                Log.d(TAG, "getMoviesBelongsCollection Error: ${response.code()}")
-                _moviesBelongsCollection.value = listOf()
+    private fun getMovieDetails(movieId: Int) {
+        movieRepository.getMovieDetails(movieId)
+            .mapLatest { currentMovie ->
+                _selectedMovie.postValue(currentMovie)
             }
-        }
+            .launchIn(viewModelScope)
     }
 
-    private fun getMovieCredits(movieId: Int) = viewModelScope.launch {
-        movieRepository.getMovieCredits(movieId).let { response ->
-
-            if (response.isSuccessful) {
-                _cast.value = response.body()?.cast
-                _crew.value = response.body()?.crew
-            } else {
-                Log.d(TAG, "getMovieCast Error: ${response.code()}")
-                _cast.value = listOf()
-            }
-        }
-    }
-
-    private fun getMovieDetails(movieId: Int) = viewModelScope.launch {
-        movieRepository.getMovieDetails(movieId).let { response ->
-
-            if (response.isSuccessful) {
-                _selectedMovie.value = response.body()
-                checkIfBelongsToCollection()
-            } else {
-                Log.d(TAG, "getMovieDetails Error: ${response.code()}")
-            }
-        }
-
-    }
-
-    private fun checkIfBelongsToCollection() {
-        if (selectedMovie.value!!.belongs_to_collection != null) {
-            getMoviesBelongsCollection(selectedMovie.value!!.belongs_to_collection!!.id)
-        }
-    }
-
-    private fun getMovieImages(movieId: Int) = viewModelScope.launch {
-        movieRepository.getImages(movieId).let { response ->
-
-            if (response.isSuccessful) {
-                _imagesResponse.value = response.body()
-            } else {
-                Log.d(TAG, "getMovieImages Error: ${response.code()}")
-            }
-        }
-    }
-
-    private fun getMovieVideos(movieId: Int) = viewModelScope.launch {
-        movieRepository.getVideos(movieId).let { response ->
-
-            if (response.isSuccessful) {
-                _videos.value = response.body()?.results
-            } else {
-                Log.d(TAG, "getMovieVideos Error: ${response.code()}")
-                _videos.value = listOf()
-            }
-        }
-    }
-
-    private fun getSimilarMovies(movieId: Int) = viewModelScope.launch {
-        movieRepository.getSimilar(movieId).let { response ->
-
-            if (response.isSuccessful) {
-                _similarMovies.value = response.body()?.results
-            } else {
-                Log.d(TAG, "getSimilarMovies Error: ${response.code()}")
-                _similarMovies.value = listOf()
-            }
-        }
-    }
 
 }

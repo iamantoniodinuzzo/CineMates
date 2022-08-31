@@ -1,9 +1,6 @@
 package com.example.cinemates.view.ui.details.movie
 
-import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
-import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter
 import android.os.Bundle
-import com.example.cinemates.util.ViewSize
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +8,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cinemates.R
+import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
+import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentMovieInfoBinding
 import com.example.cinemates.model.data.Movie
+import com.example.cinemates.util.ViewSize
 
 class MovieInfoFragment : Fragment() {
 
 
     private var _binding: FragmentMovieInfoBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentMovieInfoBinding
+        get() = _binding!!
     private lateinit var similarAdapter: ItemsRecyclerViewAdapter<Movie>
     private lateinit var videoAdapter: YoutubeVideoRecyclerViewAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()

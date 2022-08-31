@@ -1,25 +1,26 @@
 package com.example.cinemates.view.ui.details.actor
 
-import androidx.navigation.Navigation.findNavController
-import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
-import com.example.cinemates.view.viewmodel.DbViewModel
 import android.os.Bundle
-import com.example.cinemates.util.ViewSize
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
+import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentActorDetailsBinding
 import com.example.cinemates.model.data.Movie
+import com.example.cinemates.util.ViewSize
+import com.example.cinemates.view.viewmodel.DbViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ActorDetailsFragment : Fragment() {
     private var _binding: FragmentActorDetailsBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentActorDetailsBinding
+        get() = _binding!!
     private lateinit var adapter: ItemsRecyclerViewAdapter<Movie>
     private val dbViewModel: DbViewModel by activityViewModels()
     private val viewModel: ActorDetailsViewModel by activityViewModels()

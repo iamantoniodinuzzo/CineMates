@@ -1,7 +1,6 @@
 package com.example.cinemates.view.ui.details.movie
 
 import android.app.Dialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.cinemates.databinding.FragmentBottomsheetBinding
-import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.PersonalStatus
 import com.example.cinemates.view.viewmodel.DbViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /**
  * @author Antonio Di Nuzzo
@@ -20,7 +19,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
  */
 class BottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentBottomsheetBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentBottomsheetBinding
+        get() = _binding!!
     private val dbViewModel: DbViewModel by activityViewModels()
     private val movieViewModel: MovieDetailsViewModel by activityViewModels()
 

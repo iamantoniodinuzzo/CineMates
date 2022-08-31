@@ -1,12 +1,12 @@
 package com.example.cinemates.view.ui.details.movie
 
-import com.example.cinemates.adapter.ImageRecyclerViewAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.cinemates.adapter.ImageRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentMovieImagesBinding
 
 /**
@@ -16,7 +16,8 @@ import com.example.cinemates.databinding.FragmentMovieImagesBinding
 class MovieImagesFragment : Fragment() {
 
     private var _binding: FragmentMovieImagesBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentMovieImagesBinding
+        get() = _binding!!
     private lateinit var posterAdapter: ImageRecyclerViewAdapter
     private lateinit var backdropAdapter: ImageRecyclerViewAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()

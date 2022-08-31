@@ -1,16 +1,16 @@
 package com.example.cinemates.view.ui.details.movie
 
-import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
 import android.os.Bundle
 import android.util.Log
-import com.example.cinemates.util.ViewSize
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
 import com.example.cinemates.databinding.LayoutCollectionDialogBinding
 import com.example.cinemates.model.data.Movie
+import com.example.cinemates.util.ViewSize
 
 /**
  * @author Antonio Di Nuzzo
@@ -19,7 +19,8 @@ import com.example.cinemates.model.data.Movie
 class CollectionDialogFragment : DialogFragment() {
 
     private var _binding: LayoutCollectionDialogBinding? = null
-    private val binding get() = _binding!!
+    private val binding: LayoutCollectionDialogBinding
+        get() = _binding!!
     private lateinit var adapter: ItemsRecyclerViewAdapter<Movie>
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
@@ -51,6 +52,7 @@ class CollectionDialogFragment : DialogFragment() {
             }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

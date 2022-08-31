@@ -1,20 +1,20 @@
 package com.example.cinemates.view.ui.search
 
 import android.content.Context
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.GridLayoutManager
 import android.os.Bundle
-import android.view.animation.AnticipateOvershootInterpolator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnticipateOvershootInterpolator
 import android.view.inputmethod.InputMethodManager
-import com.example.cinemates.R
-import androidx.recyclerview.widget.RecyclerView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.cinemates.R
 import com.example.cinemates.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentSearchBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -22,7 +22,8 @@ import com.google.android.material.transition.MaterialFadeThrough
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentSearchBinding
+        get() = _binding!!
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager

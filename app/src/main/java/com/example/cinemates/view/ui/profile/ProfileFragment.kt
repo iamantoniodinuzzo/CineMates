@@ -22,7 +22,8 @@ import com.google.android.material.transition.MaterialFadeThrough
  */
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentProfileBinding
+        get() = _binding!!
     private val dbViewModel: DbViewModel by activityViewModels()
 
     private lateinit var adapter: SectionRecyclerViewAdapter

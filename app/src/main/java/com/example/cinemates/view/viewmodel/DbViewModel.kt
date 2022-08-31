@@ -1,15 +1,16 @@
 package com.example.cinemates.view.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.*
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
-import com.example.cinemates.model.repository.DbRepository
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
 import com.example.cinemates.model.data.PersonalStatus
-import com.google.android.youtube.player.internal.p
+import com.example.cinemates.model.repository.DbRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 private const val TAG = "DBViewModel"
 
@@ -28,11 +29,11 @@ constructor(
     val persons: LiveData<List<Person>> = dbRepository.getPersons().asLiveData()
 
 
-    fun insertPerson(person: Person) = viewModelScope.launch {
+    private fun insertPerson(person: Person) = viewModelScope.launch {
         dbRepository.insertPerson(person)
     }
 
-    fun deletePerson(person: Person) = viewModelScope.launch {
+    private fun deletePerson(person: Person) = viewModelScope.launch {
         dbRepository.deletePerson(person)
     }
 
@@ -40,11 +41,11 @@ constructor(
         dbRepository.updatePerson(person)
     }
 
-    fun insertMovie(movie: Movie) = viewModelScope.launch {
+    private fun insertMovie(movie: Movie) = viewModelScope.launch {
         dbRepository.insertMovie(movie)
     }
 
-    fun deleteMovie(movie: Movie) = viewModelScope.launch {
+    private fun deleteMovie(movie: Movie) = viewModelScope.launch {
         dbRepository.deleteMovie(movie)
     }
 

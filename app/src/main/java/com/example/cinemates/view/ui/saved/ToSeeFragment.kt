@@ -1,18 +1,17 @@
 package com.example.cinemates.view.ui.saved
 
-import com.example.cinemates.view.viewmodel.DbViewModel
-import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
 import android.os.Bundle
-import com.example.cinemates.util.ViewSize
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentListingBinding
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.PersonalStatus
-import java.util.*
+import com.example.cinemates.util.ViewSize
+import com.example.cinemates.view.viewmodel.DbViewModel
 
 /**
  * @author Antonio Di Nuzzo
@@ -20,7 +19,8 @@ import java.util.*
  */
 class ToSeeFragment : Fragment() {
     private var _binding: FragmentListingBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentListingBinding
+        get() = _binding!!
     private val dbViewModel: DbViewModel by activityViewModels()
     private lateinit var adapter: ItemsRecyclerViewAdapter<Movie>
 

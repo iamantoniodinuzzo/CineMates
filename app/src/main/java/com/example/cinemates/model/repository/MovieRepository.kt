@@ -1,11 +1,7 @@
 package com.example.cinemates.model.repository
 
 import com.example.cinemates.model.api.MovieService
-import com.example.cinemates.model.data.Cast
-import com.example.cinemates.model.data.CreditsResponse
-import com.example.cinemates.model.data.GenericResponse
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.model.data.Video
+import com.example.cinemates.model.data.*
 import com.example.cinemates.util.Constants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -47,7 +43,6 @@ constructor(private val apiService: MovieService) {
 
     suspend fun getGenreList() = apiService.getGenreList(sMap)
 
-
     suspend fun getTrendingMovies(mediaType: String, timeWindow: String) =
         apiService.getTrendingMovies(mediaType, timeWindow, sMap)
 
@@ -73,6 +68,13 @@ constructor(private val apiService: MovieService) {
     fun getSimilarMovies(movieId: Int): Flow<List<Movie>> = flow {
         val similarMovies = apiService.getSimilar(movieId, sMap).body()?.results ?: listOf()
         emit(similarMovies)
+    }
+
+    fun getDiscoverableMovies(filter: Filter): Flow<List<Movie>> = flow {
+        sMap["sort_by"] = filter.sortBy.toString()
+        sMap["with_genres"] = filter.withGenres ?: ""
+        val movies = apiService.getMoviesByDiscover(sMap).body()?.results ?: listOf()
+        emit(movies)
     }
 
 
@@ -115,15 +117,6 @@ constructor(private val apiService: MovieService) {
     suspend fun getPeoplesBySearch(query: String): Response<GenericResponse<Cast>> {
         sMap["query"] = query
         return apiService.getPeoplesBySearch(sMap)
-    }
-
-    suspend fun getDiscoverMovies(
-        sort_option: String,
-        genre_id: String,
-    ): Response<GenericResponse<Movie>> {
-        sMap["sort_by"] = sort_option
-        sMap["with_genres"] = genre_id
-        return apiService.getMoviesByDiscover(sMap)
     }
 
 

@@ -1,64 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.discover.DiscoverFragment">
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:text="Discover"
-        android:textColor="@color/alabaster"
-        android:textSize="32sp"
-        android:textStyle="bold" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@id/search_button"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
-        android:backgroundTint="@color/lynch_100"
-        android:drawableTint="@color/geyser"
-        android:elevation="4dp"
-        android:padding="12dp"
-        android:text="Movie or Actors"
-        android:textAlignment="textStart"
-        android:textAllCaps="false"
-        android:textColor="@color/geyser"
-        android:textSize="16sp"
-        app:cornerRadius="20dp"
-        app:icon="@drawable/ic_outline_search_24" />
+        tools:context=".view.ui.discover.DiscoverFragment">
 
-    <TextView
-        android:id="@+id/genres_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/search_button"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
-        android:text="Genres"
-        android:textColor="@color/geyser"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:text="Discover"
+            android:textColor="@color/alabaster"
+            android:textSize="32sp"
+            android:textStyle="bold" />
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chip_group"
-        style="@style/Widget.MaterialComponents.Chip.Action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/genres_title"
-        android:layout_marginTop="12dp"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        app:chipSpacingHorizontal="12dp"
-        app:singleSelection="true" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@id/search_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/lynch_100"
+            android:drawableTint="@color/geyser"
+            android:elevation="4dp"
+            android:padding="12dp"
+            android:text="Movie or Actors"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/geyser"
+            android:textSize="16sp"
+            app:cornerRadius="20dp"
+            app:icon="@drawable/ic_outline_search_24" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/filters_block_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search_button"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:text="Filters"
+            android:textColor="@color/alabaster"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/filters_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/filters_block_title"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/round_corner_bg"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_button"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:text="Genres"
+                android:textColor="@color/geyser"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                app:chipSpacingHorizontal="12dp" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/button_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/filters_group"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/clean_filters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="Clean"
+                android:textAllCaps="false"
+                app:cornerRadius="10dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/apply_filter_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/vermilion_100"
+                app:cornerRadius="10dp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </RelativeLayout>
+</ScrollView>

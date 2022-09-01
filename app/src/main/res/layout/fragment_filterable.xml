@@ -19,40 +19,25 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:actionBarSize"
+            app:menu="@menu/menu_customizable_fragment"
             app:navigationIcon="@drawable/ic_round_arrow_back_24"
             app:title="@{title}"
-            app:menu="@menu/menu_customizable_fragment"
             app:titleTextColor="@color/geyser"
             tools:title="Title" />
-
-        <HorizontalScrollView
-            android:id="@+id/horizontal_only"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_group"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                app:selectionRequired="true"
-                app:singleSelection="true" />
-
-
-        </HorizontalScrollView>
 
         <com.example.cinemates.util.RecyclerViewEmptySupport
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/horizontal_only"
+            android:layout_below="@id/toolbar"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="3"
             tools:listitem="@layout/list_item_movie_small" />
+
+        <include
+            android:id="@+id/empty_view"
+            layout="@layout/layout_empty_recycler" />
 
         <include
             android:id="@+id/shuffle"

@@ -39,11 +39,10 @@
     <fragment
         android:id="@+id/filterFragment"
         android:name="com.example.cinemates.view.ui.filterable.FilterableFragment"
-        android:label="{genre}"
         tools:layout="@layout/fragment_filterable">
         <argument
-            android:name="genre"
-            app:argType="com.example.cinemates.model.data.Genre" />
+            android:name="filter"
+            app:argType="com.example.cinemates.model.data.Filter" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetFragment"

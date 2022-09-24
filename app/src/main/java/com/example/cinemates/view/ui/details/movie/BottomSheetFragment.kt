@@ -58,12 +58,16 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             watchlistBtn.setOnClickListener {
                 movieViewModel.setPersonalStatus(PersonalStatus.TO_SEE)
                 dbViewModel.updateMovie(movieViewModel.selectedMovie.value!!)
+                Toast.makeText(context, "Added to watchlist", Toast.LENGTH_SHORT).show()
+
                 dismiss()
             }
 
             watchedBtn.setOnClickListener {
                 movieViewModel.setPersonalStatus(PersonalStatus.SEEN)
                 dbViewModel.updateMovie(movieViewModel.selectedMovie.value!!)
+                Toast.makeText(context, "Added to watched", Toast.LENGTH_SHORT).show()
+
                 dismiss()
             }
 

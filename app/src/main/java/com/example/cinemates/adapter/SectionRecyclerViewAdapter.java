@@ -1,8 +1,6 @@
 package com.example.cinemates.adapter;
 
 import android.content.Context;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,15 +30,10 @@ import java.util.List;
 public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecyclerViewAdapter.SectionViewHolder> {
     private final List<Section<?>> dataList = new ArrayList<>();
     private final LifecycleOwner mLifecycleOwner;
-    private final Vibrator vibe;
-    private final VibrationEffect vibrationEffect1;
     private final int PERSON = 0, MOVIE = 1;
 
     public SectionRecyclerViewAdapter(LifecycleOwner lifecycleOwner, Context context) {
         mLifecycleOwner = lifecycleOwner;
-        vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        vibrationEffect1 = VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE);
-
     }
 
     @NonNull
@@ -191,5 +184,5 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
 
         }
     }
-    
+
 }

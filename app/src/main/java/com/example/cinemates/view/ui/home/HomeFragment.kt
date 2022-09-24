@@ -15,7 +15,6 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter
@@ -23,7 +22,6 @@ import com.example.cinemates.databinding.FragmentHomeBinding
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
 import com.example.cinemates.model.data.Section
-import com.example.cinemates.util.ItemMoveCallback
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.ui.MainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -114,9 +112,6 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() = binding.sectionRv.run {
         adapter = sectionAdapter
-        val callback = ItemMoveCallback(sectionAdapter)
-        val touchHelper = ItemTouchHelper(callback)
-        touchHelper.attachToRecyclerView(this)
         // Hides BottomNavigationView OnScroll
         addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

@@ -11,7 +11,8 @@
         <item name="colorOnSecondary">@color/geyser</item>
         <item name="colorAccent">@color/vermilion_100</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/lynch_100</item>
+        <item name="android:navigationBarColor">@color/lynch_100</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/mirage_100</item>
         <!-- Apply default style for dialogs -->

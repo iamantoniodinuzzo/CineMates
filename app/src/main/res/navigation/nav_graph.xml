@@ -39,20 +39,16 @@
     <fragment
         android:id="@+id/filterFragment"
         android:name="com.example.cinemates.view.ui.filterable.FilterableFragment"
-        android:label="{genre}"
         tools:layout="@layout/fragment_filterable">
         <argument
-            android:name="genre"
-            app:argType="com.example.cinemates.model.data.Genre" />
+            android:name="filter"
+            app:argType="com.example.cinemates.model.data.Filter" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetFragment"
-        android:name="com.example.cinemates.view.ui.BottomSheetFragment"
-        android:label="BottomSheetFragment">
-        <argument
-            android:name="movie"
-            app:argType="com.example.cinemates.model.data.Movie" />
-    </dialog>
+        android:name="com.example.cinemates.view.ui.details.movie.BottomSheetFragment"
+        tools:layout="@layout/fragment_bottomsheet"
+        android:label="BottomSheetFragment"/>
     <fragment
         android:id="@+id/movieDetailsFragment"
         android:name="com.example.cinemates.view.ui.details.movie.MovieDetailsFragment"
@@ -61,6 +57,12 @@
         <argument
             android:name="movie"
             app:argType="com.example.cinemates.model.data.Movie" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_collectionDialogFragment"
+            app:destination="@id/collectionDialogFragment" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_bottomSheetFragment"
+            app:destination="@id/bottomSheetFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_movieDetailsFragment"
@@ -69,7 +71,7 @@
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/actorDetailsFragment"
-        android:name="com.example.cinemates.view.ui.ActorDetailsFragment"
+        android:name="com.example.cinemates.view.ui.details.actor.ActorDetailsFragment"
         android:label="ActorDetailsFragment"
         tools:layout="@layout/fragment_actor_details">
         <argument
@@ -78,8 +80,13 @@
     </fragment>
     <action
         android:id="@+id/action_global_actorDetailsFragment"
+        app:launchSingleTop="true"
         app:popUpToInclusive="true"
-        app:popUpTo="@id/homeFragment"
         app:destination="@id/actorDetailsFragment" />
+    <dialog
+        android:id="@+id/collectionDialogFragment"
+        tools:layout="@layout/layout_collection_dialog"
+        android:name="com.example.cinemates.view.ui.details.movie.CollectionDialogFragment"
+        android:label="CollectionDialogFragment" />
 
 </navigation>

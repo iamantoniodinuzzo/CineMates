@@ -15,16 +15,14 @@
     </queries>
 
     <application
-        android:name=".di.component.BaseApplication"
+       android:name=".CineMatesApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CineMates">
-        <activity
-            android:name=".view.ui.ActorDetailsFragment"
-            android:exported="false" />
+
         <activity
             android:name=".view.ui.MainActivity"
             android:windowSoftInputMode="adjustPan"

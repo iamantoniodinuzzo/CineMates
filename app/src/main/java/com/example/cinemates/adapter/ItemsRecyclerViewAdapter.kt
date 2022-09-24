@@ -5,7 +5,6 @@ import com.example.cinemates.util.ViewSize
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
-import com.example.cinemates.model.data.Cast
 import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import com.example.cinemates.NavGraphDirections
@@ -13,6 +12,7 @@ import com.example.cinemates.databinding.ListItemMovieLongBinding
 import com.example.cinemates.databinding.ListItemMovieSmallBinding
 import com.example.cinemates.databinding.ListItemPersonLongBinding
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
+import com.example.cinemates.model.data.Cast
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
 import com.example.cinemates.util.MyDiffUtilCallbacks
@@ -140,7 +140,7 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
                     when (mViewSize) {
                         ViewSize.LONG -> {
                             (holder as PersonViewHolder).mLongBinding.actor =
-                                dataList.get(position) as Cast?
+                                dataList[position] as Cast?
                             holder.mLongBinding.executePendingBindings()
                             holder.mLongBinding.root.setOnClickListener { view ->
                                 navigateToActorDetails(
@@ -151,7 +151,7 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
                         }
                         ViewSize.SMALL -> {
                             (holder as PersonViewHolder).mSmallBinding.person =
-                                dataList.get(position) as Person?
+                                dataList[position] as Person?
                             holder.mSmallBinding.executePendingBindings()
                             holder.mSmallBinding.root.setOnClickListener { view ->
                                 navigateToActorDetails(
@@ -191,7 +191,7 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
     }
 
     fun addItems(dataList: MutableList<T>) {
-        val diffResult = DiffUtil.calculateDiff(MyDiffUtilCallbacks<T>(this.dataList, dataList))
+        val diffResult = DiffUtil.calculateDiff(MyDiffUtilCallbacks(this.dataList, dataList))
         diffResult.dispatchUpdatesTo(this)
         this.dataList.clear()
         this.dataList.addAll(dataList)

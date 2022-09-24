@@ -1,7 +1,10 @@
 package com.example.cinemates.view.ui.home
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
 import com.example.cinemates.model.repository.MovieRepository
@@ -45,70 +48,63 @@ constructor(
         getTrendingPerson()
         getPopularMovies()
         getTopRatedMovies()
+        getUpcomingMovies()
     }
 
     private fun getTrendingMovies() = viewModelScope.launch {
-        movieRepository.getTrendingMovies(MediaType.MOVIE.name, TimeWindow.WEEK.name)
+        movieRepository.getTrendingMovies(MediaType.MOVIE.toString(), TimeWindow.WEEK.toString())
             .let { response ->
-                //TODO switch RxJava to Coroutines
 
-                /*  if(response.isSuccessful){
-                      _trendingMovies.postValue(response.body())
+                  if(response.isSuccessful){
+                      _trendingMovies.postValue(response.body()?.results)
                   }else{
                       Log.d(TAG, "getTrendingMovies Error: ${response.code()}")
-                  }*/
+                  }
             }
     }
 
     private fun getTrendingPerson() = viewModelScope.launch {
-        movieRepository.getTrendingMovies(MediaType.PERSON.name, TimeWindow.WEEK.name)
+        movieRepository.getTrendingPerson(MediaType.PERSON.toString(), TimeWindow.WEEK.toString())
             .let { response ->
-                //TODO switch RxJava to Coroutines
 
-                /*  if(response.isSuccessful){
-                      _trendingPerson.postValue(response.body())
+                  if(response.isSuccessful){
+                      _trendingPerson.postValue(response.body()?.results)
                   }else{
                       Log.d(TAG, "getTrendingPerson Error: ${response.code()}")
-                  }*/
+                  }
             }
     }
 
     private fun getPopularMovies() = viewModelScope.launch {
-        movieRepository.popular
-            .let { response ->
-                //TODO switch RxJava to Coroutines
+        movieRepository.getPopularMovies().let { response ->
 
-                /*  if(response.isSuccessful){
-                      _popularMovies.postValue(response.body())
+                  if(response.isSuccessful){
+                      _popularMovies.postValue(response.body()?.results)
                   }else{
                       Log.d(TAG, "getPopularMovies Error: ${response.code()}")
-                  }*/
+                  }
             }
     }
 
     private fun getTopRatedMovies() = viewModelScope.launch {
-        movieRepository.topRated
-            .let { response ->
-                //TODO switch RxJava to Coroutines
+        movieRepository.getTopRatedMovies().let { response ->
 
-                /*  if(response.isSuccessful){
-                      _topRatedMovies.postValue(response.body())
+                  if(response.isSuccessful){
+                      _topRatedMovies.postValue(response.body()?.results)
                   }else{
                       Log.d(TAG, "getTopRatedMovies Error: ${response.code()}")
-                  }*/
+                  }
             }
     }
 
     private fun getUpcomingMovies() = viewModelScope.launch {
-        movieRepository.upcoming
-            .let { response ->
-                //TODO switch RxJava to Coroutines
+        movieRepository.getUpcomingMovies().let { response ->
 
-                /*  if(response.isSuccessful){
-                      _upcomingMovies.postValue(response.body())
+                  if(response.isSuccessful){
+                      _upcomingMovies.postValue(response.body()?.results)
                   }else{
                       Log.d(TAG, "getUpcomingMovies Error: ${response.code()}")
-                  }*/
+                  }
             }
     }
 

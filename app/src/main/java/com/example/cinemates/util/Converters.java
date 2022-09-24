@@ -2,13 +2,16 @@ package com.example.cinemates.util;
 
 import androidx.room.TypeConverter;
 
+import com.example.cinemates.model.data.Collection;
 import com.example.cinemates.model.data.Genre;
 import com.example.cinemates.model.data.Movie;
+import com.example.cinemates.model.data.PersonalStatus;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Antonio Di Nuzzo
@@ -17,40 +20,49 @@ import java.util.ArrayList;
 public class Converters {
 
     @TypeConverter
-    public static Movie.PersonalStatus toPersonalStatus(int status) {
-        if (status == Movie.PersonalStatus
+    public static PersonalStatus toPersonalStatus(int status) {
+        if (status == PersonalStatus
                 .TO_SEE.getStatus()) {
-            return Movie.PersonalStatus.TO_SEE;
-        } else if (status == Movie.PersonalStatus
+            return PersonalStatus.TO_SEE;
+        } else if (status == PersonalStatus
                 .SEEN.getStatus()) {
-            return Movie.PersonalStatus.SEEN;
-        } else if (status == Movie.PersonalStatus.EMPTY.getStatus()) {
-            return Movie.PersonalStatus.EMPTY;
+            return PersonalStatus.SEEN;
+        } else if (status == PersonalStatus.EMPTY.getStatus()) {
+            return PersonalStatus.EMPTY;
         }
         throw new IllegalArgumentException("Could not recognize status");
     }
 
     @TypeConverter
-    public static Integer toInteger(Movie.PersonalStatus status) {
+    public static Integer toInteger(PersonalStatus status) {
         return status.getStatus();
     }
 
-    @TypeConverter
-    public static Integer toInteger(Number number) {
-        return number.intValue();
-    }
 
     @TypeConverter
-    public static ArrayList<Genre> fromString(String value) {
+    public static List<Genre> fromString(String value) {
         Type listType = new TypeToken<ArrayList<Genre>>() {
         }.getType();
         return new Gson().fromJson(value, listType);
     }
 
     @TypeConverter
-    public static String fromArrayList(ArrayList<Genre> list) {
+    public static String fromArrayList(List<Genre> list) {
         Gson gson = new Gson();
         String json = gson.toJson(list);
         return json;
+    }
+
+    @TypeConverter
+    public static Collection fromValue(String value) {
+        Type listType = new TypeToken<Collection>() {
+        }.getType();
+        return new Gson().fromJson(value, listType);
+    }
+
+    @TypeConverter
+    public static String fromCollection(Collection list) {
+        Gson gson = new Gson();
+        return gson.toJson(list);
     }
 }

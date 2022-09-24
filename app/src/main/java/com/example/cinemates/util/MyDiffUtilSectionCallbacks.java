@@ -54,8 +54,8 @@ public class MyDiffUtilSectionCallbacks<T> extends DiffUtil.Callback {
         if (!newSection.getSectionName().equals(oldSection.getSectionName())) {
             bundle.putString("section_name", newSection.getSectionName());
         }
-        if (!newSection.getMutableLiveData().getValue().equals(oldSection.getMutableLiveData().getValue())) {
-            bundle.putParcelableArrayList("items", (ArrayList<? extends Parcelable>) newSection.getMutableLiveData().getValue());
+        if (!newSection.getLiveData().getValue().equals(oldSection.getLiveData().getValue())) {
+            bundle.putParcelableArrayList("items", (ArrayList<? extends Parcelable>) newSection.getLiveData().getValue());
 
         }
         if (!newSection.getSectionContentDescription().equals(oldSection.getSectionContentDescription())) {

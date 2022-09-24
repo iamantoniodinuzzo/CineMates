@@ -57,7 +57,7 @@ class HomeFragment : Fragment() {
     private var trendingPerson: Section<Person> =
         Section("Trending this week", "Actors", Person::class.java, null, ViewSize.SMALL)
     private var sectionList: List<Section<*>> =
-        listOf(upcomingSection, topRatedSection, trendingSection, trendingPerson) //TODO to add to viewModel
+        listOf(upcomingSection, topRatedSection, trendingSection, trendingPerson)
 
 
 

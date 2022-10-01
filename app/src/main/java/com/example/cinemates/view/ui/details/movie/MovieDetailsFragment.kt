@@ -28,6 +28,7 @@ class MovieDetailsFragment : Fragment() {
     private val args: MovieDetailsFragmentArgs by navArgs()
     private lateinit var mMovieInfoFragment: MovieInfoFragment
     private lateinit var mMovieCastFragment: MovieCastFragment
+    private lateinit var mMovieImagesFragment: MovieImagesFragment
     private lateinit var mViewPagerAdapter: ViewPagerAdapter
     private lateinit var mBundle: Bundle
     private val viewModel: MovieDetailsViewModel by activityViewModels()
@@ -37,6 +38,7 @@ class MovieDetailsFragment : Fragment() {
         mViewPagerAdapter = ViewPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
         mMovieInfoFragment = MovieInfoFragment()
         mMovieCastFragment = MovieCastFragment()
+        mMovieImagesFragment = MovieImagesFragment()
         mBundle = Bundle()
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
             interpolator = AnticipateOvershootInterpolator()
@@ -75,12 +77,14 @@ class MovieDetailsFragment : Fragment() {
     private fun initializeViewPager() {
         mViewPagerAdapter.addFragment(mMovieInfoFragment)
         mViewPagerAdapter.addFragment(mMovieCastFragment)
+        mViewPagerAdapter.addFragment(mMovieImagesFragment)
         binding.viewPager.adapter = mViewPagerAdapter
         binding.viewPager.isUserInputEnabled = false
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = "Info"
                 1 -> tab.text = "Cast"
+                2 -> tab.text = "Images"
             }
         }.attach()
     }

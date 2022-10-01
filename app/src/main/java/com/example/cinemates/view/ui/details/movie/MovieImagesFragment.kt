@@ -41,7 +41,7 @@ class MovieImagesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             postersRv.adapter = posterAdapter
-            postersRv.setEmptyView(emptyBackdropView.root)
+            postersRv.setEmptyView(emptyPosterView.root)
             backdropRv.adapter = backdropAdapter
             backdropRv.setEmptyView(emptyBackdropView.root)
         }

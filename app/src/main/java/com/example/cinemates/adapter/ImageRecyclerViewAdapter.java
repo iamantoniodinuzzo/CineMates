@@ -92,9 +92,9 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
 
     private void downloadImageNew(String filename, String downloadUrlOfImage) {
         DialogFactory.createSimpleOkCancelDialog(mContext,
-                "Vuoi scaricare questa immagine?",
-                "Scarica",
-                "Annulla",
+                "Want to download this image?",
+                "Download",
+                "Cancel",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

@@ -6,11 +6,6 @@
   <img src="https://github.com/Indisparte/CineMates/blob/main/assets/logo.png?raw=true" alt="CineMates Logo"/>
 </p>
 
-
-## 🚧 Work in progress
-
-- Passaggio dell'intero progetto a **Kotlin** nel branch *feat_viewModel_each_view*
-
 ## ❓ Why this Project
 
 Questa app è nata per un progetto di un esame universitario di gruppo (*io e altri miei due colleghi*) per la laurea triennale in informatica dell'Università di Napoli "Federico II". 
@@ -61,6 +56,8 @@ Trova un file chiamato `local.properties` nell file`.gradle` nella home director
 - Utilizzare il componente **Navigation**, **View Pager** , **Live Data**
 - Utilizzare Dagger Hilt per la **dependency injection**
 - Creare delle view personalizzare uniche per ridurre codice boilerplate
+- Kotlin
+- Coroutines
 
 ## 📽 Image Resources
 

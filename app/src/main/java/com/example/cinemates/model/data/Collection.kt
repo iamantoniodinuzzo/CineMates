@@ -7,6 +7,6 @@ data class Collection(
     val id: Int,
     val name: String,
     val overview: String,
-    val parts: List<Movie>,
+    val parts: List<Movie> = listOf(),
     val poster_path: Any
 ):Serializable

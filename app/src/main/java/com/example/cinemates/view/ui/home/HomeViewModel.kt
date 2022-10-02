@@ -43,6 +43,7 @@ constructor(
     private val _upcomingMovies = MutableLiveData<List<Movie>>()
     val upcomingMovies: LiveData<List<Movie>> get() = _upcomingMovies
 
+
     init {
         getTrendingMovies()
         getTrendingPerson()
@@ -54,9 +55,9 @@ constructor(
     private fun getTrendingMovies() = viewModelScope.launch {
         movieRepository.getTrendingMovies(MediaType.MOVIE.toString(), TimeWindow.WEEK.toString())
             .let { response ->
-
                   if(response.isSuccessful){
                       _trendingMovies.postValue(response.body()?.results)
+
                   }else{
                       Log.d(TAG, "getTrendingMovies Error: ${response.code()}")
                   }

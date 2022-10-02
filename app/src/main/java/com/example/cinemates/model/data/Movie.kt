@@ -12,7 +12,7 @@ data class Movie(
     @TypeConverters(Converters::class)
     val belongs_to_collection: Collection?,
     @TypeConverters(Converters::class)
-    val genres: List<Genre>?,
+    val genres: List<Genre>? = listOf(),
     @PrimaryKey
     val id: Int,
     val poster_path: String?,
@@ -38,7 +38,7 @@ data class Movie(
     @Ignore
     val popularity: Double,
     @Ignore
-    val adult: Boolean,
+    val adult: Boolean?,
     @Ignore
     val revenue: Int,
     @Ignore

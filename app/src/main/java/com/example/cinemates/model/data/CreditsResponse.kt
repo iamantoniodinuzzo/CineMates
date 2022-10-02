@@ -6,6 +6,6 @@ package com.example.cinemates.model.data
  */
 class CreditsResponse(
     var id: Int,
-    var cast: List<Cast>,
-    var crew: List<Crew>
+    var cast: List<Cast> = listOf(),
+    var crew: List<Crew> = listOf()
 )

@@ -10,19 +10,11 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cinemates.databinding.ListItemYtVideoBinding;
-<<<<<<< Updated upstream
 import com.example.cinemates.model.data.Video;
-=======
-import com.example.cinemates.model.Video;
->>>>>>> Stashed changes
 import com.example.cinemates.util.Constants;
 import com.example.cinemates.util.RecyclerViewEmptySupport;
 
-import java.util.ArrayList;
-<<<<<<< Updated upstream
 import java.util.List;
-=======
->>>>>>> Stashed changes
 
 /**
  * @author Antonio Di Nuzzo

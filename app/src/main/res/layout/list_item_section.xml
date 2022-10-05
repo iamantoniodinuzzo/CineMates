@@ -36,11 +36,8 @@
                 android:autoSizeTextType="uniform"
                 android:gravity="start"
                 android:textColor="@color/alabaster"
-<<<<<<< Updated upstream
-=======
                 android:textSize="24sp"
                 android:textStyle="bold"
->>>>>>> Stashed changes
                 app:drawableEndCompat="@drawable/ic_outline_arrow_forward_24"
                 app:drawableTint="@color/geyser"
                 app:asHtml="@{section}"

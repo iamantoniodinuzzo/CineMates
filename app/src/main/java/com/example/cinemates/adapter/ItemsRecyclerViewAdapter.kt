@@ -1,12 +1,11 @@
 package com.example.cinemates.adapter
 
-import androidx.navigation.Navigation.findNavController
-import com.example.cinemates.util.ViewSize
-import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.databinding.ListItemMovieLongBinding
 import com.example.cinemates.databinding.ListItemMovieSmallBinding
@@ -16,7 +15,7 @@ import com.example.cinemates.model.data.Cast
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
 import com.example.cinemates.util.MyDiffUtilCallbacks
-import java.lang.IllegalStateException
+import com.example.cinemates.util.ViewSize
 
 private const val PERSON = 0
 private const val MOVIE = 1
@@ -25,7 +24,7 @@ private const val MOVIE = 1
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
+class ItemsRecyclerViewAdapter<T>(private val viewType: ViewSize) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var dataList: MutableList<T> = arrayListOf()
 
@@ -33,7 +32,7 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
         val layoutInflater = LayoutInflater.from(parent.context)
         val viewHolder: RecyclerView.ViewHolder
         when (viewType) {
-            MOVIE -> viewHolder = if (mViewSize == ViewSize.SMALL) {
+            MOVIE -> viewHolder = if (this.viewType == ViewSize.SMALL) {
                 val smallMovieBinding =
                     ListItemMovieSmallBinding.inflate(layoutInflater, parent, false)
                 MovieViewHolder(smallMovieBinding)
@@ -42,7 +41,7 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
                     ListItemMovieLongBinding.inflate(layoutInflater, parent, false)
                 MovieViewHolder(longMovieBinding)
             }
-            PERSON -> viewHolder = if (mViewSize == ViewSize.SMALL) {
+            PERSON -> viewHolder = if (this.viewType == ViewSize.SMALL) {
                 val smallPersonBinding =
                     ListItemPersonSmallBinding.inflate(layoutInflater, parent, false)
                 PersonViewHolder(smallPersonBinding)
@@ -60,7 +59,7 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
         when (holder.itemViewType) {
             MOVIE -> {
                 val movie = dataList[position] as Movie
-                when (mViewSize) {
+                when (viewType) {
                     ViewSize.LONG -> {
                         (holder as MovieViewHolder).mMovieLongBinding.movie = movie
                         holder.mMovieLongBinding.executePendingBindings()
@@ -81,7 +80,7 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
             }
             PERSON -> {
                 val person = dataList[position] as Person
-                when (mViewSize) {
+                when (viewType) {
                     ViewSize.LONG -> {
                         (holder as PersonViewHolder).mLongBinding.actor =
                             dataList.get(position) as Cast?
@@ -112,7 +111,7 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
             when (holder.itemViewType) {
                 MOVIE -> {
                     val movie = dataList[position] as Movie
-                    when (mViewSize) {
+                    when (viewType) {
                         ViewSize.LONG -> {
                             (holder as MovieViewHolder).mMovieLongBinding.movie = movie
                             holder.mMovieLongBinding.executePendingBindings()
@@ -137,7 +136,7 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
                 }
                 PERSON -> {
                     val person = dataList[position] as Person
-                    when (mViewSize) {
+                    when (viewType) {
                         ViewSize.LONG -> {
                             (holder as PersonViewHolder).mLongBinding.actor =
                                 dataList[position] as Cast?

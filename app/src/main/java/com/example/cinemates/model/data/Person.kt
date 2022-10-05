@@ -10,7 +10,7 @@ open class Person(
     @Ignore
     val adult: Boolean,
     @Ignore
-    val also_known_as: List<String> = listOf(),
+    val also_known_as: List<String>,
     @Ignore
     val biography: String?,
     @Ignore

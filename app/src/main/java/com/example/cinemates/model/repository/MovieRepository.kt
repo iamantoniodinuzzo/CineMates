@@ -2,7 +2,7 @@ package com.example.cinemates.model.repository
 
 import com.example.cinemates.model.api.MovieService
 import com.example.cinemates.model.data.*
-import com.example.cinemates.util.DEFAULT_SYSTEM_LANGUAGE
+import com.example.cinemates.util.Constants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
@@ -25,10 +25,10 @@ constructor(private val apiService: MovieService) {
     init {
         sMap = HashMap()
         sMap["language"] =
-            DEFAULT_SYSTEM_LANGUAGE
+            Constants.DEFAULT_SYSTEM_LANGUAGE
         sMap["append_to_response"] = "images"
         sMap["include_image_language"] =
-            DEFAULT_SYSTEM_LANGUAGE
+            Constants.DEFAULT_SYSTEM_LANGUAGE
         sMap["page"] = "1"
     }
 

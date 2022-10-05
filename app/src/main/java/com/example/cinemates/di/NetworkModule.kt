@@ -2,7 +2,7 @@ package com.example.cinemates.di
 
 import com.example.cinemates.model.api.AuthenticationInterceptor
 import com.example.cinemates.model.api.MovieService
-import com.example.cinemates.util.BASE_URL
+import com.example.cinemates.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,7 +46,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(Constants.BaseURL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())

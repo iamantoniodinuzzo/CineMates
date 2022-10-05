@@ -1,7 +1,5 @@
 package com.example.cinemates.adapter;
 
-import static com.example.cinemates.util.ConstantsKt.IMAGE_BASE_URL;
-
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cinemates.databinding.ListItemBackdropBinding;
 import com.example.cinemates.databinding.ListItemPosterBinding;
 import com.example.cinemates.model.data.ImagesResponse;
+import com.example.cinemates.util.Constants;
 import com.example.cinemates.util.DialogFactory;
 
 import java.io.File;
@@ -59,7 +58,7 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
             holder.mBindingPoster.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    downloadImageNew(String.valueOf(image.getWidth() + image.getHeight()), IMAGE_BASE_URL + image.getFile_path());
+                    downloadImageNew(String.valueOf(image.getWidth() + image.getHeight()), Constants.ImageBaseURL + image.getFile_path());
                 }
             });
         } else {
@@ -68,7 +67,7 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
             holder.mBindingBackdrop.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    downloadImageNew(null, IMAGE_BASE_URL + image.getFile_path());
+                    downloadImageNew(null, Constants.ImageBaseURL + image.getFile_path());
                 }
             });
         }

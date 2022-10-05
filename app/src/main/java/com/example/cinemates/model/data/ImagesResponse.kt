@@ -1,13 +1,15 @@
 package com.example.cinemates.model.data
 
+import java.util.ArrayList
+
 /**
  * @author Antonio Di Nuzzo
  * Created 19/06/2022 at 10:05
  */
 class ImagesResponse(
     var id: Int,
-    var backdrops: List<Image> = listOf(),
-    var posters: List<Image> = listOf()
+    var backdrops: List<Image>,
+    var posters: List<Image>
 ) {
     /**
      * @author Antonio Di Nuzzo

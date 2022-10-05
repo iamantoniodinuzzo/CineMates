@@ -12,7 +12,7 @@ import androidx.navigation.Navigation.findNavController
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentDiscoverBinding
 import com.example.cinemates.model.data.Filter
-import com.example.cinemates.util.randomColor
+import com.example.cinemates.util.Constants
 import com.google.android.material.chip.Chip
 import com.google.android.material.transition.MaterialFadeThrough
 
@@ -20,30 +20,7 @@ class DiscoverFragment : Fragment() {
     private var _binding: FragmentDiscoverBinding? = null
     private val binding: FragmentDiscoverBinding
         get() = _binding!!
-    private val genreMap: HashMap<Int, String>
-        get() {
-            val genreMap = HashMap<Int, String>()
-            genreMap[28] = "Action"
-            genreMap[12] = "Adventure"
-            genreMap[16] = "Animation"
-            genreMap[35] = "Comedy"
-            genreMap[80] = "Crime"
-            genreMap[99] = "Documentary"
-            genreMap[18] = "Drama"
-            genreMap[10751] = "Family"
-            genreMap[14] = "Fantasy"
-            genreMap[36] = "History"
-            genreMap[27] = "Horror"
-            genreMap[10402] = "Music"
-            genreMap[9648] = "Mystery"
-            genreMap[10749] = "Romance"
-            genreMap[878] = "Science Fiction"
-            genreMap[53] = "Thriller"
-            genreMap[10752] = "War"
-            genreMap[37] = "Western"
-            genreMap[10770] = "TV Movie"
-            return genreMap
-        }
+    private val genreMap = Constants.getGenreMap()
     private val discoverViewModel: DiscoverViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,7 +80,7 @@ class DiscoverFragment : Fragment() {
             genreChip.isCheckable = true
             genreChip.text = value
             genreChip.setTextColor(Color.WHITE)
-            genreChip.chipBackgroundColor = ColorStateList.valueOf(randomColor)
+            genreChip.chipBackgroundColor = ColorStateList.valueOf(Constants.getRandomColor())
            /* genreChip.setOnClickListener { view ->
                 val selectedGenre = Genre(key, value, false)
                 discoverViewModel.updateSelectedGenres(selectedGenre)

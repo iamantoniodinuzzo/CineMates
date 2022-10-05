@@ -20,7 +20,7 @@ import com.example.cinemates.model.data.Section
  */
 class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
     ListAdapter<Section<*>, SectionViewHolder>(asyncDiffConfig) {
-    private val dataList: MutableList<Section<*>> = ArrayList()
+    private val dataList: MutableList<Section<*>> = mutableListOf()
 
     private companion object {
         private const val PERSON = 0
@@ -47,24 +47,29 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
         when (holder.itemViewType) {
             MOVIE -> {
                 val movieSection = dataList[position] as Section<Movie>
-                holder.binding.section = movieSection
-                holder.binding.executePendingBindings()
                 val sectionItemsMovie = ItemsRecyclerViewAdapter<Movie>(movieSection.viewSize)
-                holder.binding.recyclerView.adapter = sectionItemsMovie
-                holder.binding.recyclerView.setEmptyView(holder.binding.emptyView.root)
+                holder.binding.apply {
+                    section = movieSection
+                    executePendingBindings()
+                    recyclerView.adapter = sectionItemsMovie
+                    recyclerView.setEmptyView(holder.binding.emptyView.root)
+                }
                 movieSection.liveData.observe(lifecycleOwner) { items ->
                     sectionItemsMovie.addItems(
                         items
                     )
                 }
+
             }
             PERSON -> {
                 val personSection = dataList[position] as Section<Person>
-                holder.binding.section = personSection
-                holder.binding.executePendingBindings()
                 val sectionItemsPerson = ItemsRecyclerViewAdapter<Person>(personSection.viewSize)
-                holder.binding.recyclerView.adapter = sectionItemsPerson
-                holder.binding.recyclerView.setEmptyView(holder.binding.emptyView.root)
+                holder.binding.apply {
+                    section = personSection
+                    executePendingBindings()
+                    recyclerView.adapter = sectionItemsPerson
+                    recyclerView.setEmptyView(holder.binding.emptyView.root)
+                }
                 personSection.liveData.observe(lifecycleOwner) { items ->
                     sectionItemsPerson.addItems(
                         items
@@ -79,9 +84,9 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
         return dataList.size
     }
 
-    fun addItems(dataList: List<Section<*>>?) {
+    fun addItems(dataList: List<Section<*>>) {
         this.dataList.clear()
-        this.dataList.addAll(dataList!!)
+        this.dataList.addAll(dataList)
         notifyDataSetChanged()
     }
 

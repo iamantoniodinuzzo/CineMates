@@ -61,15 +61,15 @@ class ItemsRecyclerViewAdapter<T>(private val viewType: ViewSize) :
                 val movie = dataList[position] as Movie
                 when (viewType) {
                     ViewSize.LONG -> {
-                        (holder as MovieViewHolder).mMovieLongBinding.movie = movie
-                        holder.mMovieLongBinding.executePendingBindings()
-                        holder.mMovieLongBinding.root.setOnClickListener(
+                        (holder as MovieViewHolder).longBinding.movie = movie
+                        holder.longBinding.executePendingBindings()
+                        holder.longBinding.root.setOnClickListener(
                             View.OnClickListener { view -> navigateToMovieDetails(view, movie) })
                     }
                     ViewSize.SMALL -> {
-                        (holder as MovieViewHolder).mMovieSmallBinding.movie = movie
-                        holder.mMovieSmallBinding.executePendingBindings()
-                        holder.mMovieSmallBinding.root.setOnClickListener { view ->
+                        (holder as MovieViewHolder).smallBinding.movie = movie
+                        holder.smallBinding.executePendingBindings()
+                        holder.smallBinding.root.setOnClickListener { view ->
                             navigateToMovieDetails(
                                 view,
                                 movie
@@ -113,9 +113,9 @@ class ItemsRecyclerViewAdapter<T>(private val viewType: ViewSize) :
                     val movie = dataList[position] as Movie
                     when (viewType) {
                         ViewSize.LONG -> {
-                            (holder as MovieViewHolder).mMovieLongBinding.movie = movie
-                            holder.mMovieLongBinding.executePendingBindings()
-                            holder.mMovieLongBinding.root.setOnClickListener { view ->
+                            (holder as MovieViewHolder).longBinding.movie = movie
+                            holder.longBinding.executePendingBindings()
+                            holder.longBinding.root.setOnClickListener { view ->
                                 navigateToMovieDetails(
                                     view,
                                     movie
@@ -123,9 +123,9 @@ class ItemsRecyclerViewAdapter<T>(private val viewType: ViewSize) :
                             }
                         }
                         ViewSize.SMALL -> {
-                            (holder as MovieViewHolder).mMovieSmallBinding.movie = movie
-                            holder.mMovieSmallBinding.executePendingBindings()
-                            holder.mMovieSmallBinding.root.setOnClickListener { view ->
+                            (holder as MovieViewHolder).smallBinding.movie = movie
+                            holder.smallBinding.executePendingBindings()
+                            holder.smallBinding.root.setOnClickListener { view ->
                                 navigateToMovieDetails(
                                     view,
                                     movie

@@ -82,18 +82,18 @@ class ItemsRecyclerViewAdapter<T>(private val viewType: ViewSize) :
                 val person = dataList[position] as Person
                 when (viewType) {
                     ViewSize.LONG -> {
-                        (holder as PersonViewHolder).mLongBinding.actor =
+                        (holder as PersonViewHolder).longBinding.actor =
                             dataList.get(position) as Cast?
-                        holder.mLongBinding.executePendingBindings()
-                        holder.mLongBinding.root.setOnClickListener { view ->
+                        holder.longBinding.executePendingBindings()
+                        holder.longBinding.root.setOnClickListener { view ->
                             navigateToActorDetails(view, person)
                         }
                     }
                     ViewSize.SMALL -> {
-                        (holder as PersonViewHolder).mSmallBinding.person =
+                        (holder as PersonViewHolder).smallBinding.person =
                             dataList.get(position) as Person?
-                        holder.mSmallBinding.executePendingBindings()
-                        holder.mSmallBinding.root.setOnClickListener { view ->
+                        holder.smallBinding.executePendingBindings()
+                        holder.smallBinding.root.setOnClickListener { view ->
                             navigateToActorDetails(view, person)
                         }
                     }
@@ -138,10 +138,10 @@ class ItemsRecyclerViewAdapter<T>(private val viewType: ViewSize) :
                     val person = dataList[position] as Person
                     when (viewType) {
                         ViewSize.LONG -> {
-                            (holder as PersonViewHolder).mLongBinding.actor =
+                            (holder as PersonViewHolder).longBinding.actor =
                                 dataList[position] as Cast?
-                            holder.mLongBinding.executePendingBindings()
-                            holder.mLongBinding.root.setOnClickListener { view ->
+                            holder.longBinding.executePendingBindings()
+                            holder.longBinding.root.setOnClickListener { view ->
                                 navigateToActorDetails(
                                     view,
                                     person
@@ -149,10 +149,10 @@ class ItemsRecyclerViewAdapter<T>(private val viewType: ViewSize) :
                             }
                         }
                         ViewSize.SMALL -> {
-                            (holder as PersonViewHolder).mSmallBinding.person =
+                            (holder as PersonViewHolder).smallBinding.person =
                                 dataList[position] as Person?
-                            holder.mSmallBinding.executePendingBindings()
-                            holder.mSmallBinding.root.setOnClickListener { view ->
+                            holder.smallBinding.executePendingBindings()
+                            holder.smallBinding.root.setOnClickListener { view ->
                                 navigateToActorDetails(
                                     view,
                                     person

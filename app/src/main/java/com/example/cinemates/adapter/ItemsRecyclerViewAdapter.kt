@@ -1,10 +1,8 @@
 package com.example.cinemates.adapter
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation.findNavController
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.databinding.ListItemMovieLongBinding
@@ -14,8 +12,8 @@ import com.example.cinemates.databinding.ListItemPersonSmallBinding
 import com.example.cinemates.model.data.Cast
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
-import com.example.cinemates.util.MovieDiffUtilCallbacks
 import com.example.cinemates.util.ViewSize
+import com.example.cinemates.util.inflater
 
 
 /**
@@ -49,26 +47,16 @@ class ItemsRecyclerViewAdapter<T>(private val viewType: ViewSize) :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val viewHolder: RecyclerView.ViewHolder
-        when (viewType) {
-            MOVIE -> viewHolder = if (this.viewType == ViewSize.SMALL) {
-                val smallMovieBinding =
-                    ListItemMovieSmallBinding.inflate(layoutInflater, parent, false)
-                MovieSmallViewHolder(smallMovieBinding)
+        val viewHolder: RecyclerView.ViewHolder = when (viewType) {
+            MOVIE -> if (this.viewType == ViewSize.SMALL) {
+                MovieSmallViewHolder(parent inflater ListItemMovieSmallBinding::inflate)
             } else {
-                val longMovieBinding =
-                    ListItemMovieLongBinding.inflate(layoutInflater, parent, false)
-                MovieLongViewHolder(longMovieBinding)
+                MovieLongViewHolder(parent inflater ListItemMovieLongBinding::inflate)
             }
-            PERSON -> viewHolder = if (this.viewType == ViewSize.SMALL) {
-                val smallPersonBinding =
-                    ListItemPersonSmallBinding.inflate(layoutInflater, parent, false)
-                PersonSmallViewHolder(smallPersonBinding)
+            PERSON -> if (this.viewType == ViewSize.SMALL) {
+                PersonSmallViewHolder(parent inflater ListItemPersonSmallBinding::inflate)
             } else {
-                val defaultBinding =
-                    ListItemPersonLongBinding.inflate(layoutInflater, parent, false)
-                PersonLongViewHolder(defaultBinding)
+                PersonLongViewHolder(parent inflater ListItemPersonLongBinding::inflate)
             }
             else -> throw IllegalStateException("Unexpected value: $viewType")
         }
@@ -216,13 +204,6 @@ class ItemsRecyclerViewAdapter<T>(private val viewType: ViewSize) :
     }
 
     fun addItems(dataList: MutableList<T>) {
-        val diffResult = DiffUtil.calculateDiff(
-            MovieDiffUtilCallbacks(
-                this.dataList,
-                dataList
-            )
-        )
-        diffResult.dispatchUpdatesTo(this)
         this.dataList.clear()
         this.dataList.addAll(dataList)
         notifyDataSetChanged()

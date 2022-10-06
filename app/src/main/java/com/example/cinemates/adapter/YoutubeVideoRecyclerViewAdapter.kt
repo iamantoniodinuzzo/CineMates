@@ -3,13 +3,13 @@ package com.example.cinemates.adapter
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter.YoutubeViewHolder
 import com.example.cinemates.databinding.ListItemYtVideoBinding
 import com.example.cinemates.model.data.Video
 import com.example.cinemates.util.YOUTUBE_COM_WATCH_V
+import com.example.cinemates.util.inflater
 
 /**
  * @author Antonio Di Nuzzo
@@ -19,9 +19,7 @@ class YoutubeVideoRecyclerViewAdapter : RecyclerView.Adapter<YoutubeViewHolder>(
     private var dataList: List<Video> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YoutubeViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ListItemYtVideoBinding.inflate(layoutInflater, parent, false)
-        return YoutubeViewHolder(binding)
+        return YoutubeViewHolder(parent inflater ListItemYtVideoBinding::inflate)
     }
 
     override fun onBindViewHolder(holder: YoutubeViewHolder, position: Int) {

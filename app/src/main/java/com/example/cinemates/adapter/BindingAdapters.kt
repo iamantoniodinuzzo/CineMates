@@ -6,8 +6,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.cinemates.R
 import com.example.cinemates.model.data.Genre
 import com.example.cinemates.model.data.PersonalStatus
@@ -16,6 +14,7 @@ import com.example.cinemates.model.data.Section
 import com.example.cinemates.util.IMAGE_BASE_URL_W500
 import com.example.cinemates.util.IMAGE_BASE_URL_W780
 import com.example.cinemates.util.YT_API_KEY
+import com.example.cinemates.util.load
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
@@ -35,31 +34,7 @@ const val TAG = "BindingAdapters"
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, url: String?) {
-    //ImageView: Using Glide Library
-    Glide.with(view.context)
-        .load(
-            " $IMAGE_BASE_URL_W500${url}"
-
-        )
-        .error(R.drawable.ic_outline_image_not_supported_24)
-        .placeholder(R.drawable.ic_death_star)
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .centerCrop()
-        .into(view)
-}
-
-@BindingAdapter("imageUrlAvatar")
-fun loadAvatar(view: ImageView, url: String?) {
-    //ImageView: Using Glide Library
-    Glide.with(view.context)
-        .load(
-            " $IMAGE_BASE_URL_W500${url}"
-        )
-        .error(R.drawable.ic_avatar)
-        .placeholder(R.drawable.ic_cap_america)
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .centerCrop()
-        .into(view)
+    view.load(" $IMAGE_BASE_URL_W500${url}")
 }
 
 @BindingAdapter("isFavorite")
@@ -85,16 +60,8 @@ fun setStatusSeen(view: ImageButton, value: PersonalStatus?) {
 
 @BindingAdapter("imageUrlLong")
 fun loadImageLong(view: ImageView, url: String?) {
-    //ImageView: Using Glide Library
-    Glide.with(view.context)
-        .load(
-            "$IMAGE_BASE_URL_W780${url}"
-        )
-        .error(R.drawable.ic_outline_image_not_supported_24)
-        .placeholder(R.drawable.ic_avengers)
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .centerCrop()
-        .into(view)
+    view.load(" $IMAGE_BASE_URL_W780${url}")
+
 }
 
 @BindingAdapter("runtime")

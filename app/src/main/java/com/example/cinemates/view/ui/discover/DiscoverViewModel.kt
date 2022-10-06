@@ -1,13 +1,10 @@
 package com.example.cinemates.view.ui.discover
 
-import android.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.cinemates.R
 import com.example.cinemates.model.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.*
 import javax.inject.Inject
 
 
@@ -23,18 +20,14 @@ class DiscoverViewModel
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private val mRnd = Random()
     private val _selectedGenres = MutableLiveData<String>()
     val selectedGenres: LiveData<String> get() = _selectedGenres
-    private val _randomColor = MutableLiveData<Int>()
-    val randomColor: LiveData<Int> get() = _randomColor
     private val _genreMap = MutableLiveData<HashMap<Int, String>>()
     val genreMap: LiveData<HashMap<Int, String>> get() = _genreMap
 
 
     init {
         initGenres()
-        initRandomColor()
         initGenreMap()
     }
 
@@ -66,20 +59,8 @@ class DiscoverViewModel
         return genreMap
     }
 
-    private fun initRandomColor() {
-        _randomColor.value = getRandomColor()
-    }
 
-    private fun getRandomColor(): Int {
-        val baseColor = R.color.vermilion_100 //TODO maybe this color can be customizable
-        val baseRed = Color.red(baseColor)
-        val baseGreen = Color.green(baseColor)
-        val baseBlue = Color.blue(baseColor)
-        val red = (baseRed + mRnd.nextInt(256)) / 2
-        val green = (baseGreen + mRnd.nextInt(256)) / 2
-        val blue = (baseBlue + mRnd.nextInt(256)) / 2
-        return Color.rgb(red, green, blue)
-    }
+
 
     fun initGenres() {
         _selectedGenres.value = ""

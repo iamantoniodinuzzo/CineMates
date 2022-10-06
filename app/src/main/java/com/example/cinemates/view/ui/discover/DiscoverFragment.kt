@@ -14,12 +14,14 @@ import com.example.cinemates.databinding.FragmentDiscoverBinding
 import com.example.cinemates.model.data.Filter
 import com.google.android.material.chip.Chip
 import com.google.android.material.transition.MaterialFadeThrough
+import java.util.*
 
 class DiscoverFragment : Fragment() {
     private var _binding: FragmentDiscoverBinding? = null
     private val binding: FragmentDiscoverBinding
         get() = _binding!!
 
+    private val mRnd = Random()
     private val discoverViewModel: DiscoverViewModel by activityViewModels()
 
 
@@ -74,19 +76,29 @@ class DiscoverFragment : Fragment() {
     private fun populateChipGroup() {
         val chipGroup = binding.chipGroup
         val genreMap = discoverViewModel.genreMap.value
-        val randomColor = discoverViewModel.randomColor.value
         chipGroup.removeAllViews()
-        if (genreMap != null && randomColor!=null) {
+        if (genreMap != null ) {
             for ((key, value) in genreMap) {
                 val genreChip = Chip(context)
                 genreChip.id = key
                 genreChip.isCheckable = true
                 genreChip.text = value
                 genreChip.setTextColor(Color.WHITE)
-                genreChip.chipBackgroundColor = ColorStateList.valueOf(randomColor)
+                genreChip.chipBackgroundColor = ColorStateList.valueOf(getRandomColor())
                 chipGroup.addView(genreChip)
             }
         }
+    }
+
+    fun getRandomColor(): Int {
+        val baseColor = R.color.vermilion_100 //TODO maybe this color can be customizable
+        val baseRed = Color.red(baseColor)
+        val baseGreen = Color.green(baseColor)
+        val baseBlue = Color.blue(baseColor)
+        val red = (baseRed + mRnd.nextInt(256)) / 2
+        val green = (baseGreen + mRnd.nextInt(256)) / 2
+        val blue = (baseBlue + mRnd.nextInt(256)) / 2
+        return Color.rgb(red, green, blue)
     }
 
     override fun onDestroyView() {

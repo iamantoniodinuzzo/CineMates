@@ -6,6 +6,8 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.cinemates.R
 import com.example.cinemates.model.data.Genre
 import com.example.cinemates.model.data.PersonalStatus
@@ -14,7 +16,6 @@ import com.example.cinemates.model.data.Section
 import com.example.cinemates.util.IMAGE_BASE_URL_W500
 import com.example.cinemates.util.IMAGE_BASE_URL_W780
 import com.example.cinemates.util.YT_API_KEY
-import com.example.cinemates.util.load
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
@@ -34,9 +35,47 @@ const val TAG = "BindingAdapters"
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, url: String?) {
-    view.load(" $IMAGE_BASE_URL_W500${url}")
+    //ImageView: Using Glide Library
+    Glide.with(view.context)
+        .load(
+            "$IMAGE_BASE_URL_W500${url}"
+
+        )
+        .error(R.drawable.ic_outline_image_not_supported_24)
+        .placeholder(R.drawable.ic_death_star)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .centerCrop()
+        .into(view)
 }
 
+@BindingAdapter("imageUrlAvatar")
+fun loadAvatar(view: ImageView, url: String?) {
+    //ImageView: Using Glide Library
+    Glide.with(view.context)
+        .load(
+            "$IMAGE_BASE_URL_W500${url}"
+        )
+        .error(R.drawable.ic_avatar)
+        .placeholder(R.drawable.ic_cap_america)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .centerCrop()
+        .into(view)
+}
+
+@BindingAdapter("imageUrlLong")
+fun loadImageLong(view: ImageView, url: String?) {
+    //ImageView: Using Glide Library
+    Glide.with(view.context)
+        .load(
+            "$IMAGE_BASE_URL_W780${url}"
+        )
+        .error(R.drawable.ic_outline_image_not_supported_24)
+        .placeholder(R.drawable.ic_avengers)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .centerCrop()
+        .into(view)
+
+}
 @BindingAdapter("isFavorite")
 fun isFavorite(view: ImageButton, value: Boolean) {
     view.isPressed = value
@@ -58,18 +97,14 @@ fun setStatusSeen(view: ImageButton, value: PersonalStatus?) {
         view.isPressed = value === PersonalStatus.EMPTY
 }
 
-@BindingAdapter("imageUrlLong")
-fun loadImageLong(view: ImageView, url: String?) {
-    view.load(" $IMAGE_BASE_URL_W780${url}")
 
-}
 
 @BindingAdapter("runtime")
-fun loadRuntime(view: TextView, runtime: Long?) {
+fun loadRuntime(view: TextView, runtime: Int?) {
     var value = ""
     if (runtime != null) {
-        val hours = (runtime / 60).toInt() //since both are ints, you get an int
-        val minutes = (runtime % 60).toInt()
+        val hours = (runtime / 60) //since both are ints, you get an int
+        val minutes = (runtime % 60)
         value = String.format("%d h %02d min", hours, minutes)
     }
     loadText(view, value)
@@ -91,18 +126,18 @@ fun loadText(view: TextView, value: String?) {
 
 @BindingAdapter("asHtml")
 fun formatAsHtml(view: TextView, section: Section<*>) {
-    var sectionTitle: String? =
-        "<font color=#FAFAFA><big><big><b>" + section.sectionName + "</b></big></big></font>"
+    val sectionTitle =
+        "<font color=#FAFAFA><b>" + section.sectionName + "</b></font>"
+    var sectionDescription = ""
     if (section.sectionContentDescription != null) {
-        val sectionDescription =
-            " <font color=#3A55EA><big><b>" + section.sectionContentDescription + "</b></big></font>"
-        sectionTitle += sectionDescription
+        sectionDescription =
+            " <font color=#3A55EA>" + section.sectionContentDescription + "</font>"
     }
-    view.text = Html.fromHtml(sectionTitle, Html.FROM_HTML_MODE_COMPACT)
+    view.text = Html.fromHtml("$sectionTitle$sectionDescription", Html.FROM_HTML_MODE_COMPACT)
 }
 
 @BindingAdapter("currency")
-fun loadBudget(view: TextView, budget: Long?) {
+fun loadBudget(view: TextView, budget: Int?) {
     val current = Locale.getDefault()
     val format = NumberFormat.getCurrencyInstance()
     format.maximumFractionDigits = 0

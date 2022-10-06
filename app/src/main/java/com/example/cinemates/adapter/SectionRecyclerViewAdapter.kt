@@ -19,17 +19,17 @@ import com.example.cinemates.util.inflater
  * Created 15/12/2021 at 16:36
  */
 class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
-    ListAdapter<Section<Any>, SectionViewHolder>(asyncDiffConfig) {
-    private val dataList: MutableList<Section<Any>> = mutableListOf()
+    ListAdapter<Section<*>, SectionViewHolder>(asyncDiffConfig) {
+    private val dataList: MutableList<Section<*>> = mutableListOf()
 
     private companion object {
         private const val PERSON = 0
         private const val MOVIE = 1
-        private val diffCallback = object : DiffUtil.ItemCallback<Section<Any>>() {
-            override fun areItemsTheSame(oldItem: Section<Any>, newItem: Section<Any>): Boolean =
+        private val diffCallback = object : DiffUtil.ItemCallback<Section<*>>() {
+            override fun areItemsTheSame(oldItem: Section<*>, newItem: Section<*>): Boolean =
                 oldItem.liveData == newItem.liveData
 
-            override fun areContentsTheSame(oldItem: Section<Any>, newItem: Section<Any>): Boolean =
+            override fun areContentsTheSame(oldItem: Section<*>, newItem: Section<*>): Boolean =
                 areItemsTheSame(oldItem, newItem)
         }
 
@@ -82,13 +82,13 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
         return dataList.size
     }
 
-    fun addItems(dataList: List<Section<Any>>) {
+    fun addItems(dataList: List<Section<*>>) {
         this.dataList.clear()
         this.dataList.addAll(dataList)
         notifyDataSetChanged()
     }
 
-    fun addItems(section: Section<Any>) {
+    fun addItems(section: Section<*>) {
         dataList.add(section)
         notifyDataSetChanged()
     }
@@ -105,7 +105,7 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
         return -1
     }
 
-    class SectionViewHolder internal constructor(var binding: ListItemSectionBinding) :
+    class SectionViewHolder(val binding: ListItemSectionBinding) :
         RecyclerView.ViewHolder(
             binding.root
         ) {

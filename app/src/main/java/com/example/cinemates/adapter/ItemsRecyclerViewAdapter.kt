@@ -17,8 +17,6 @@ import com.example.cinemates.model.data.Person
 import com.example.cinemates.util.MyDiffUtilCallbacks
 import com.example.cinemates.util.ViewSize
 
-private const val PERSON = 0
-private const val MOVIE = 1
 
 /**
  * @author Antonio Di Nuzzo
@@ -29,6 +27,8 @@ class ItemsRecyclerViewAdapter<T>(private val viewType: ViewSize) :
     private var dataList: MutableList<T> = arrayListOf()
 
     private companion object {
+        const val PERSON = 0
+        const val MOVIE = 1
 
         class MovieSmallViewHolder(val binding: ListItemMovieSmallBinding) :
             RecyclerView.ViewHolder(binding.root) {
@@ -222,5 +222,9 @@ class ItemsRecyclerViewAdapter<T>(private val viewType: ViewSize) :
         this.dataList.addAll(dataList)
         notifyDataSetChanged()
     }
+
+
 }
+
+
 

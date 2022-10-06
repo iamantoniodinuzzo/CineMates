@@ -2,10 +2,10 @@ package com.example.cinemates.model.repository
 
 import com.example.cinemates.model.api.MovieService
 import com.example.cinemates.model.data.*
-import com.example.cinemates.util.Constants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
+import java.util.*
 import javax.inject.Inject
 
 private const val TAG = "MovieRepository"
@@ -17,6 +17,7 @@ private const val TAG = "MovieRepository"
 class MovieRepository
 @Inject
 constructor(private val apiService: MovieService) {
+    private val defaultSystemLanguage: String = Locale.getDefault().language
 
     companion object {
         private lateinit var sMap: HashMap<String, String>
@@ -25,10 +26,10 @@ constructor(private val apiService: MovieService) {
     init {
         sMap = HashMap()
         sMap["language"] =
-            Constants.DEFAULT_SYSTEM_LANGUAGE
+            defaultSystemLanguage
         sMap["append_to_response"] = "images"
         sMap["include_image_language"] =
-            Constants.DEFAULT_SYSTEM_LANGUAGE
+            defaultSystemLanguage
         sMap["page"] = "1"
     }
 

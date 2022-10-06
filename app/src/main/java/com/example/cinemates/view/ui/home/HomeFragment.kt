@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sectionAdapter = SectionRecyclerViewAdapter(this, context)
+        sectionAdapter = SectionRecyclerViewAdapter(this)
         slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
         slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)
         setupTransitions()

@@ -14,7 +14,7 @@ import com.example.cinemates.databinding.ListItemPersonSmallBinding
 import com.example.cinemates.model.data.Cast
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
-import com.example.cinemates.util.MyDiffUtilCallbacks
+import com.example.cinemates.util.MovieDiffUtilCallbacks
 import com.example.cinemates.util.ViewSize
 
 
@@ -216,7 +216,12 @@ class ItemsRecyclerViewAdapter<T>(private val viewType: ViewSize) :
     }
 
     fun addItems(dataList: MutableList<T>) {
-        val diffResult = DiffUtil.calculateDiff(MyDiffUtilCallbacks(this.dataList, dataList))
+        val diffResult = DiffUtil.calculateDiff(
+            MovieDiffUtilCallbacks(
+                this.dataList,
+                dataList
+            )
+        )
         diffResult.dispatchUpdatesTo(this)
         this.dataList.clear()
         this.dataList.addAll(dataList)

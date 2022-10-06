@@ -24,8 +24,8 @@ class SavedFragment : Fragment() {
     private var _binding: FragmentSavedBinding? = null
     private val binding: FragmentSavedBinding
         get() = _binding!!
-    private var toSeeFragment: ToSeeFragment? = null
-    private var seenFragment: SeenFragment? = null
+    private lateinit var toSeeFragment: ToSeeFragment
+    private lateinit var seenFragment: SeenFragment
     private var mLinearLayoutManager: LinearLayoutManager? = null
     private var mGridLayoutManager: GridLayoutManager? = null
     private var layoutGrid = false

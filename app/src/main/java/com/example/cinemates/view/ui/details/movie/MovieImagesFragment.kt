@@ -24,8 +24,8 @@ class MovieImagesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        posterAdapter = ImageRecyclerViewAdapter(context)
-        backdropAdapter = ImageRecyclerViewAdapter(context)
+        posterAdapter = ImageRecyclerViewAdapter(requireContext())
+        backdropAdapter = ImageRecyclerViewAdapter(requireContext())
     }
 
     override fun onCreateView(

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter.YoutubeViewHolder
 import com.example.cinemates.databinding.ListItemYtVideoBinding
 import com.example.cinemates.model.data.Video
-import com.example.cinemates.util.Constants
+import com.example.cinemates.util.YOUTUBE_COM_WATCH_V
 
 /**
  * @author Antonio Di Nuzzo
@@ -33,7 +33,7 @@ class YoutubeVideoRecyclerViewAdapter : RecyclerView.Adapter<YoutubeViewHolder>(
                 val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + video.key))
                 val webIntent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse(Constants.YOUTUBE_COM_WATCH_V + video.key)
+                    Uri.parse("$YOUTUBE_COM_WATCH_V${video.key}")
                 )
                 try {
                     view.context.startActivity(appIntent)

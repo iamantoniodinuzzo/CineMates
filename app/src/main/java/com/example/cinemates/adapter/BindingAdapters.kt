@@ -13,7 +13,9 @@ import com.example.cinemates.model.data.Genre
 import com.example.cinemates.model.data.PersonalStatus
 import com.example.cinemates.model.data.ProductionCompany
 import com.example.cinemates.model.data.Section
-import com.example.cinemates.util.Constants
+import com.example.cinemates.util.IMAGE_BASE_URL_W500
+import com.example.cinemates.util.IMAGE_BASE_URL_W780
+import com.example.cinemates.util.YT_API_KEY
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
@@ -36,8 +38,8 @@ fun loadImage(view: ImageView, url: String?) {
     //ImageView: Using Glide Library
     Glide.with(view.context)
         .load(
-            Constants.ImageBaseURLw500
-                    + url
+            " $IMAGE_BASE_URL_W500${url}"
+
         )
         .error(R.drawable.ic_outline_image_not_supported_24)
         .placeholder(R.drawable.ic_death_star)
@@ -51,8 +53,7 @@ fun loadAvatar(view: ImageView, url: String?) {
     //ImageView: Using Glide Library
     Glide.with(view.context)
         .load(
-            Constants.ImageBaseURLw500
-                    + url
+            " $IMAGE_BASE_URL_W500${url}"
         )
         .error(R.drawable.ic_avatar)
         .placeholder(R.drawable.ic_cap_america)
@@ -87,8 +88,7 @@ fun loadImageLong(view: ImageView, url: String?) {
     //ImageView: Using Glide Library
     Glide.with(view.context)
         .load(
-            Constants.ImageBaseURLw780
-                    + url
+            "$IMAGE_BASE_URL_W780${url}"
         )
         .error(R.drawable.ic_outline_image_not_supported_24)
         .placeholder(R.drawable.ic_avengers)
@@ -190,7 +190,7 @@ fun setIsOfficial(textView: TextView, isOfficial: Boolean) {
 fun loadThumbnail(youTubeThumbnailView: YouTubeThumbnailView, key: String?) {
     /*  initialize the thumbnail image view , we need to pass Developer Key */
     youTubeThumbnailView.initialize(
-        Constants.YT_API_KEY,
+        YT_API_KEY,
         object : YouTubeThumbnailView.OnInitializedListener {
             override fun onInitializationSuccess(
                 youTubeThumbnailView: YouTubeThumbnailView,

@@ -12,7 +12,7 @@ import com.example.cinemates.adapter.ImageRecyclerViewAdapter.ImageViewHolder
 import com.example.cinemates.databinding.ListItemBackdropBinding
 import com.example.cinemates.databinding.ListItemPosterBinding
 import com.example.cinemates.model.data.ImagesResponse
-import com.example.cinemates.util.Constants
+import com.example.cinemates.util.BASE_URL
 import com.example.cinemates.util.DialogFactory
 import java.io.File
 
@@ -52,7 +52,7 @@ class ImageRecyclerViewAdapter(private val context: Context) :
             holder.bindingPoster!!.root.setOnClickListener {
                 downloadImageNew(
                     (image.width + image.height).toString(),
-                    Constants.ImageBaseURL + image.file_path
+                    "$BASE_URL${image.file_path}"
                 )
             }
         } else {
@@ -61,7 +61,7 @@ class ImageRecyclerViewAdapter(private val context: Context) :
             holder.bindingBackdrop!!.root.setOnClickListener {
                 downloadImageNew(
                     null,
-                    Constants.ImageBaseURL + image.file_path
+                    "$BASE_URL${image.file_path}"
                 )
             }
         }

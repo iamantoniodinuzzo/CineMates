@@ -105,7 +105,7 @@ class ImageRecyclerViewAdapter(private val context: Context) :
                 } catch (e: Exception) {
                     Toast.makeText(context, "Image download failed.", Toast.LENGTH_SHORT).show()
                 }
-            }) { dialogInterface, i -> dialogInterface.dismiss() }.show()
+            }) { dialogInterface, _ -> dialogInterface.dismiss() }.show()
     }
 
     class ImageViewHolder : RecyclerView.ViewHolder {

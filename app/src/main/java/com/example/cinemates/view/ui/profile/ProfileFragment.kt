@@ -39,7 +39,7 @@ class ProfileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = SectionRecyclerViewAdapter(this, context)
+        adapter = SectionRecyclerViewAdapter(this)
         setupMotionAnimations()
     }
 

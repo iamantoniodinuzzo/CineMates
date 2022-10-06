@@ -4,16 +4,16 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemates.adapter.ImageRecyclerViewAdapter.ImageViewHolder
+import androidx.viewbinding.ViewBinding
 import com.example.cinemates.databinding.ListItemBackdropBinding
 import com.example.cinemates.databinding.ListItemPosterBinding
 import com.example.cinemates.model.data.ImagesResponse
-import com.example.cinemates.util.Constants
+import com.example.cinemates.util.BASE_URL
 import com.example.cinemates.util.DialogFactory
+import com.example.cinemates.util.inflater
 import java.io.File
 
 /**
@@ -21,49 +21,25 @@ import java.io.File
  * Created 23/06/2022 at 17:23
  */
 class ImageRecyclerViewAdapter(private val context: Context) :
-    RecyclerView.Adapter<ImageViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val dataList: MutableList<ImagesResponse.Image> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == ImagesResponse.Image.POSTER) {
-            val mediaBinding = ListItemPosterBinding.inflate(
-                layoutInflater,
-                parent,
-                false
-            )
-            ImageViewHolder(mediaBinding)
+            PosterViewHolder(parent inflater ListItemPosterBinding::inflate)
         } else {
-            val mediaBinding = ListItemBackdropBinding.inflate(
-                layoutInflater,
-                parent,
-                false
-            )
-            ImageViewHolder(mediaBinding)
+            BackdropViewHolder(parent inflater ListItemBackdropBinding::inflate)
         }
     }
 
-    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val image = dataList[position]
         if (getItemViewType(position) == ImagesResponse.Image.POSTER) {
-            holder.bindingPoster!!.image = image
-            holder.bindingPoster!!.executePendingBindings()
-            holder.bindingPoster!!.root.setOnClickListener {
-                downloadImageNew(
-                    (image.width + image.height).toString(),
-                    Constants.ImageBaseURL + image.file_path
-                )
-            }
+            (holder as PosterViewHolder).bind(image)
+
         } else {
-            holder.bindingBackdrop!!.image = image
-            holder.bindingBackdrop!!.executePendingBindings()
-            holder.bindingBackdrop!!.root.setOnClickListener {
-                downloadImageNew(
-                    null,
-                    Constants.ImageBaseURL + image.file_path
-                )
-            }
+            (holder as BackdropViewHolder).bind(image)
         }
     }
 
@@ -81,43 +57,63 @@ class ImageRecyclerViewAdapter(private val context: Context) :
         return image.imageType
     }
 
-    private fun downloadImageNew(filename: String?, downloadUrlOfImage: String) {
-        DialogFactory.createSimpleOkCancelDialog(context,
-            "Want to download this image?",
-            "Download",
-            "Cancel",
-            { _, _ ->
-                try {
-                    val dm = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-                    val downloadUri = Uri.parse(downloadUrlOfImage)
-                    val request = DownloadManager.Request(downloadUri)
-                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
-                        .setAllowedOverRoaming(false)
-                        .setTitle(filename)
-                        .setMimeType("image/jpeg") // Your file type. You can use this code to download other file types also.
-                        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                        .setDestinationInExternalPublicDir(
-                            Environment.DIRECTORY_PICTURES,
-                            File.separator + filename + ".jpg"
-                        )
-                    dm.enqueue(request)
-                    Toast.makeText(context, "Image download started.", Toast.LENGTH_SHORT).show()
-                } catch (e: Exception) {
-                    Toast.makeText(context, "Image download failed.", Toast.LENGTH_SHORT).show()
-                }
-            }) { dialogInterface, i -> dialogInterface.dismiss() }.show()
-    }
 
-    class ImageViewHolder : RecyclerView.ViewHolder {
-        var bindingPoster: ListItemPosterBinding? = null
-        var bindingBackdrop: ListItemBackdropBinding? = null
-
-        constructor(binding: ListItemPosterBinding) : super(binding.root) {
-            bindingPoster = binding
+    abstract inner class ImageViewHolder<Any : ViewBinding>(val binding: Any) :
+        RecyclerView.ViewHolder(binding.root) {
+        abstract fun bind(image: ImagesResponse.Image)
+        fun onImageClick(filename: String, url: String) {
+            binding.root.setOnClickListener {
+                downloadImageNew(filename, url)
+            }
         }
 
-        constructor(binding: ListItemBackdropBinding) : super(binding.root) {
-            bindingBackdrop = binding
+        private fun downloadImageNew(filename: String, downloadUrlOfImage: String) {
+            DialogFactory.createSimpleOkCancelDialog(context,
+                "Want to download this image?",
+                "Download",
+                "Cancel",
+                { _, _ ->
+                    try {
+                        val dm =
+                            context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+                        val downloadUri = Uri.parse(downloadUrlOfImage)
+                        val request = DownloadManager.Request(downloadUri)
+                        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+                            .setAllowedOverRoaming(false)
+                            .setTitle(filename)
+                            .setMimeType("image/jpeg") // Your file type. You can use this code to download other file types also.
+                            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                            .setDestinationInExternalPublicDir(
+                                Environment.DIRECTORY_PICTURES,
+                                File.separator + filename + ".jpg"
+                            )
+                        dm.enqueue(request)
+                        Toast.makeText(context, "Image download started.", Toast.LENGTH_SHORT)
+                            .show()
+                    } catch (e: Exception) {
+                        Toast.makeText(context, "Image download failed.", Toast.LENGTH_SHORT).show()
+                    }
+                }) { dialogInterface, _ -> dialogInterface.dismiss() }.show()
+        }
+    }
+    inner class PosterViewHolder(binding: ListItemPosterBinding) :
+        ImageViewHolder<ListItemPosterBinding>(binding) {
+        override fun bind(image: ImagesResponse.Image) {
+            binding.image = image
+            binding.executePendingBindings()
+            val filename = (image.width + image.height).toString()
+            val url = "$BASE_URL${image.file_path}"
+            onImageClick(filename, url)
+        }
+    }
+    inner class BackdropViewHolder(binding: ListItemBackdropBinding) :
+        ImageViewHolder<ListItemBackdropBinding>(binding) {
+        override fun bind(image: ImagesResponse.Image) {
+            binding.image = image
+            binding.executePendingBindings()
+            val filename = (image.width + image.height).toString()
+            val url = "$BASE_URL${image.file_path}"
+            onImageClick(filename, url)
         }
     }
 }

@@ -12,16 +12,18 @@ import androidx.navigation.Navigation.findNavController
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentDiscoverBinding
 import com.example.cinemates.model.data.Filter
-import com.example.cinemates.util.Constants
 import com.google.android.material.chip.Chip
 import com.google.android.material.transition.MaterialFadeThrough
+import java.util.*
 
 class DiscoverFragment : Fragment() {
     private var _binding: FragmentDiscoverBinding? = null
     private val binding: FragmentDiscoverBinding
         get() = _binding!!
-    private val genreMap = Constants.getGenreMap()
+
+    private val mRnd = Random()
     private val discoverViewModel: DiscoverViewModel by activityViewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +65,7 @@ class DiscoverFragment : Fragment() {
                     DiscoverFragmentDirections.actionDiscoverFragmentToFilterFragment(filter)
                 findNavController(view).navigate(action)
             }
-            cleanFilters.setOnClickListener{
+            cleanFilters.setOnClickListener {
                 chipGroup.clearCheck()
                 discoverViewModel.initGenres()
             }
@@ -73,21 +75,30 @@ class DiscoverFragment : Fragment() {
 
     private fun populateChipGroup() {
         val chipGroup = binding.chipGroup
+        val genreMap = discoverViewModel.genreMap.value
         chipGroup.removeAllViews()
-        for ((key, value) in genreMap) {
-            val genreChip = Chip(context)
-            genreChip.id = key
-            genreChip.isCheckable = true
-            genreChip.text = value
-            genreChip.setTextColor(Color.WHITE)
-            genreChip.chipBackgroundColor = ColorStateList.valueOf(Constants.getRandomColor())
-           /* genreChip.setOnClickListener { view ->
-                val selectedGenre = Genre(key, value, false)
-                discoverViewModel.updateSelectedGenres(selectedGenre)
-            }*/
-
-            chipGroup.addView(genreChip)
+        if (genreMap != null ) {
+            for ((key, value) in genreMap) {
+                val genreChip = Chip(context)
+                genreChip.id = key
+                genreChip.isCheckable = true
+                genreChip.text = value
+                genreChip.setTextColor(Color.WHITE)
+                genreChip.chipBackgroundColor = ColorStateList.valueOf(getRandomColor())
+                chipGroup.addView(genreChip)
+            }
         }
+    }
+
+    fun getRandomColor(): Int {
+        val baseColor = R.color.vermilion_100 //TODO maybe this color can be customizable
+        val baseRed = Color.red(baseColor)
+        val baseGreen = Color.green(baseColor)
+        val baseBlue = Color.blue(baseColor)
+        val red = (baseRed + mRnd.nextInt(256)) / 2
+        val green = (baseGreen + mRnd.nextInt(256)) / 2
+        val blue = (baseBlue + mRnd.nextInt(256)) / 2
+        return Color.rgb(red, green, blue)
     }
 
     override fun onDestroyView() {

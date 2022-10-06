@@ -1,6 +1,5 @@
 package com.example.cinemates.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.AsyncDifferConfig
@@ -13,6 +12,7 @@ import com.example.cinemates.model.data.Cast
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
 import com.example.cinemates.model.data.Section
+import com.example.cinemates.util.inflater
 
 /**
  * @author Antonio Di Nuzzo
@@ -38,9 +38,7 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val sectionRowBinding = ListItemSectionBinding.inflate(layoutInflater, parent, false)
-        return SectionViewHolder(sectionRowBinding)
+        return SectionViewHolder(parent inflater ListItemSectionBinding::inflate)
     }
 
     override fun onBindViewHolder(holder: SectionViewHolder, position: Int) {
@@ -90,7 +88,7 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
         notifyDataSetChanged()
     }
 
-    fun addItems(section: Section<Any?>) {
+    fun addItems(section: Section<*>) {
         dataList.add(section)
         notifyDataSetChanged()
     }
@@ -107,7 +105,7 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
         return -1
     }
 
-    class SectionViewHolder internal constructor(var binding: ListItemSectionBinding) :
+    class SectionViewHolder(val binding: ListItemSectionBinding) :
         RecyclerView.ViewHolder(
             binding.root
         ) {

@@ -13,7 +13,9 @@ import com.example.cinemates.model.data.Genre
 import com.example.cinemates.model.data.PersonalStatus
 import com.example.cinemates.model.data.ProductionCompany
 import com.example.cinemates.model.data.Section
-import com.example.cinemates.util.Constants
+import com.example.cinemates.util.IMAGE_BASE_URL_W500
+import com.example.cinemates.util.IMAGE_BASE_URL_W780
+import com.example.cinemates.util.YT_API_KEY
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
@@ -36,8 +38,8 @@ fun loadImage(view: ImageView, url: String?) {
     //ImageView: Using Glide Library
     Glide.with(view.context)
         .load(
-            Constants.ImageBaseURLw500
-                    + url
+            "$IMAGE_BASE_URL_W500${url}"
+
         )
         .error(R.drawable.ic_outline_image_not_supported_24)
         .placeholder(R.drawable.ic_death_star)
@@ -51,8 +53,7 @@ fun loadAvatar(view: ImageView, url: String?) {
     //ImageView: Using Glide Library
     Glide.with(view.context)
         .load(
-            Constants.ImageBaseURLw500
-                    + url
+            "$IMAGE_BASE_URL_W500${url}"
         )
         .error(R.drawable.ic_avatar)
         .placeholder(R.drawable.ic_cap_america)
@@ -61,6 +62,20 @@ fun loadAvatar(view: ImageView, url: String?) {
         .into(view)
 }
 
+@BindingAdapter("imageUrlLong")
+fun loadImageLong(view: ImageView, url: String?) {
+    //ImageView: Using Glide Library
+    Glide.with(view.context)
+        .load(
+            "$IMAGE_BASE_URL_W780${url}"
+        )
+        .error(R.drawable.ic_outline_image_not_supported_24)
+        .placeholder(R.drawable.ic_avengers)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .centerCrop()
+        .into(view)
+
+}
 @BindingAdapter("isFavorite")
 fun isFavorite(view: ImageButton, value: Boolean) {
     view.isPressed = value
@@ -82,27 +97,14 @@ fun setStatusSeen(view: ImageButton, value: PersonalStatus?) {
         view.isPressed = value === PersonalStatus.EMPTY
 }
 
-@BindingAdapter("imageUrlLong")
-fun loadImageLong(view: ImageView, url: String?) {
-    //ImageView: Using Glide Library
-    Glide.with(view.context)
-        .load(
-            Constants.ImageBaseURLw780
-                    + url
-        )
-        .error(R.drawable.ic_outline_image_not_supported_24)
-        .placeholder(R.drawable.ic_avengers)
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .centerCrop()
-        .into(view)
-}
+
 
 @BindingAdapter("runtime")
-fun loadRuntime(view: TextView, runtime: Long?) {
+fun loadRuntime(view: TextView, runtime: Int?) {
     var value = ""
     if (runtime != null) {
-        val hours = (runtime / 60).toInt() //since both are ints, you get an int
-        val minutes = (runtime % 60).toInt()
+        val hours = (runtime / 60) //since both are ints, you get an int
+        val minutes = (runtime % 60)
         value = String.format("%d h %02d min", hours, minutes)
     }
     loadText(view, value)
@@ -124,18 +126,18 @@ fun loadText(view: TextView, value: String?) {
 
 @BindingAdapter("asHtml")
 fun formatAsHtml(view: TextView, section: Section<*>) {
-    var sectionTitle: String? =
-        "<font color=#FAFAFA><big><big><b>" + section.sectionName + "</b></big></big></font>"
+    val sectionTitle =
+        "<font color=#FAFAFA><b>" + section.sectionName + "</b></font>"
+    var sectionDescription = ""
     if (section.sectionContentDescription != null) {
-        val sectionDescription =
-            " <font color=#3A55EA><big><b>" + section.sectionContentDescription + "</b></big></font>"
-        sectionTitle += sectionDescription
+        sectionDescription =
+            " <font color=#3A55EA>" + section.sectionContentDescription + "</font>"
     }
-    view.text = Html.fromHtml(sectionTitle, Html.FROM_HTML_MODE_COMPACT)
+    view.text = Html.fromHtml("$sectionTitle$sectionDescription", Html.FROM_HTML_MODE_COMPACT)
 }
 
 @BindingAdapter("currency")
-fun loadBudget(view: TextView, budget: Long?) {
+fun loadBudget(view: TextView, budget: Int?) {
     val current = Locale.getDefault()
     val format = NumberFormat.getCurrencyInstance()
     format.maximumFractionDigits = 0
@@ -190,7 +192,7 @@ fun setIsOfficial(textView: TextView, isOfficial: Boolean) {
 fun loadThumbnail(youTubeThumbnailView: YouTubeThumbnailView, key: String?) {
     /*  initialize the thumbnail image view , we need to pass Developer Key */
     youTubeThumbnailView.initialize(
-        Constants.YT_API_KEY,
+        YT_API_KEY,
         object : YouTubeThumbnailView.OnInitializedListener {
             override fun onInitializationSuccess(
                 youTubeThumbnailView: YouTubeThumbnailView,

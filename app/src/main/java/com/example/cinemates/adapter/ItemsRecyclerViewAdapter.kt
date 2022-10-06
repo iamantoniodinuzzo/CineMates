@@ -1,12 +1,11 @@
 package com.example.cinemates.adapter
 
-import androidx.navigation.Navigation.findNavController
-import com.example.cinemates.util.ViewSize
-import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.databinding.ListItemMovieLongBinding
 import com.example.cinemates.databinding.ListItemMovieSmallBinding
@@ -16,40 +15,60 @@ import com.example.cinemates.model.data.Cast
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
 import com.example.cinemates.util.MyDiffUtilCallbacks
-import java.lang.IllegalStateException
+import com.example.cinemates.util.ViewSize
 
-private const val PERSON = 0
-private const val MOVIE = 1
 
 /**
  * @author Antonio Di Nuzzo
  * Created 15/12/2021 at 16:36
  */
-class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
+class ItemsRecyclerViewAdapter<T>(private val viewType: ViewSize) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var dataList: MutableList<T> = arrayListOf()
+
+    private companion object {
+        const val PERSON = 0
+        const val MOVIE = 1
+
+        class MovieSmallViewHolder(val binding: ListItemMovieSmallBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+        }
+
+        class MovieLongViewHolder(val binding: ListItemMovieLongBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+        }
+
+        class PersonSmallViewHolder(val binding: ListItemPersonSmallBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+        }
+
+        class PersonLongViewHolder(val binding: ListItemPersonLongBinding) :
+            RecyclerView.ViewHolder(binding.root) {
+        }
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val viewHolder: RecyclerView.ViewHolder
         when (viewType) {
-            MOVIE -> viewHolder = if (mViewSize == ViewSize.SMALL) {
+            MOVIE -> viewHolder = if (this.viewType == ViewSize.SMALL) {
                 val smallMovieBinding =
                     ListItemMovieSmallBinding.inflate(layoutInflater, parent, false)
-                MovieViewHolder(smallMovieBinding)
+                MovieSmallViewHolder(smallMovieBinding)
             } else {
                 val longMovieBinding =
                     ListItemMovieLongBinding.inflate(layoutInflater, parent, false)
-                MovieViewHolder(longMovieBinding)
+                MovieLongViewHolder(longMovieBinding)
             }
-            PERSON -> viewHolder = if (mViewSize == ViewSize.SMALL) {
+            PERSON -> viewHolder = if (this.viewType == ViewSize.SMALL) {
                 val smallPersonBinding =
                     ListItemPersonSmallBinding.inflate(layoutInflater, parent, false)
-                PersonViewHolder(smallPersonBinding)
+                PersonSmallViewHolder(smallPersonBinding)
             } else {
                 val defaultBinding =
                     ListItemPersonLongBinding.inflate(layoutInflater, parent, false)
-                PersonViewHolder(defaultBinding)
+                PersonLongViewHolder(defaultBinding)
             }
             else -> throw IllegalStateException("Unexpected value: $viewType")
         }
@@ -60,42 +79,47 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
         when (holder.itemViewType) {
             MOVIE -> {
                 val movie = dataList[position] as Movie
-                when (mViewSize) {
+                when (viewType) {
                     ViewSize.LONG -> {
-                        (holder as MovieViewHolder).mMovieLongBinding.movie = movie
-                        holder.mMovieLongBinding.executePendingBindings()
-                        holder.mMovieLongBinding.root.setOnClickListener(
-                            View.OnClickListener { view -> navigateToMovieDetails(view, movie) })
+                        (holder as MovieLongViewHolder).binding.apply {
+                            this.movie = movie
+                            executePendingBindings()
+                            root.setOnClickListener { view -> navigateToMovieDetails(view, movie) }
+                        }
                     }
                     ViewSize.SMALL -> {
-                        (holder as MovieViewHolder).mMovieSmallBinding.movie = movie
-                        holder.mMovieSmallBinding.executePendingBindings()
-                        holder.mMovieSmallBinding.root.setOnClickListener { view ->
-                            navigateToMovieDetails(
-                                view,
-                                movie
-                            )
+                        (holder as MovieSmallViewHolder).binding.apply {
+                            this.movie = movie
+                            executePendingBindings()
+                            root.setOnClickListener { view ->
+                                navigateToMovieDetails(
+                                    view,
+                                    movie
+                                )
+                            }
                         }
                     }
                 }
             }
             PERSON -> {
                 val person = dataList[position] as Person
-                when (mViewSize) {
+                when (viewType) {
                     ViewSize.LONG -> {
-                        (holder as PersonViewHolder).mLongBinding.actor =
-                            dataList.get(position) as Cast?
-                        holder.mLongBinding.executePendingBindings()
-                        holder.mLongBinding.root.setOnClickListener { view ->
-                            navigateToActorDetails(view, person)
+                        (holder as PersonLongViewHolder).binding.apply {
+                            actor = person as Cast
+                            executePendingBindings()
+                            root.setOnClickListener { view ->
+                                navigateToActorDetails(view, person)
+                            }
                         }
                     }
                     ViewSize.SMALL -> {
-                        (holder as PersonViewHolder).mSmallBinding.person =
-                            dataList.get(position) as Person?
-                        holder.mSmallBinding.executePendingBindings()
-                        holder.mSmallBinding.root.setOnClickListener { view ->
-                            navigateToActorDetails(view, person)
+                        (holder as PersonSmallViewHolder).binding.apply {
+                            this.person = person
+                            executePendingBindings()
+                            root.setOnClickListener { view ->
+                                navigateToActorDetails(view, person)
+                            }
                         }
                     }
                 }
@@ -112,52 +136,52 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
             when (holder.itemViewType) {
                 MOVIE -> {
                     val movie = dataList[position] as Movie
-                    when (mViewSize) {
+                    when (viewType) {
                         ViewSize.LONG -> {
-                            (holder as MovieViewHolder).mMovieLongBinding.movie = movie
-                            holder.mMovieLongBinding.executePendingBindings()
-                            holder.mMovieLongBinding.root.setOnClickListener { view ->
-                                navigateToMovieDetails(
-                                    view,
-                                    movie
-                                )
+                            (holder as MovieLongViewHolder).binding.apply {
+                                this.movie = movie
+                                executePendingBindings()
+                                root.setOnClickListener { view ->
+                                    navigateToMovieDetails(
+                                        view,
+                                        movie
+                                    )
+                                }
                             }
                         }
                         ViewSize.SMALL -> {
-                            (holder as MovieViewHolder).mMovieSmallBinding.movie = movie
-                            holder.mMovieSmallBinding.executePendingBindings()
-                            holder.mMovieSmallBinding.root.setOnClickListener { view ->
-                                navigateToMovieDetails(
-                                    view,
-                                    movie
-                                )
+                            (holder as MovieSmallViewHolder).binding.apply {
+                                this.movie = movie
+                                executePendingBindings()
+                                root.setOnClickListener { view ->
+                                    navigateToMovieDetails(
+                                        view,
+                                        movie
+                                    )
+                                }
                             }
                         }
                     }
                 }
                 PERSON -> {
                     val person = dataList[position] as Person
-                    when (mViewSize) {
+                    when (viewType) {
                         ViewSize.LONG -> {
-                            (holder as PersonViewHolder).mLongBinding.actor =
-                                dataList[position] as Cast?
-                            holder.mLongBinding.executePendingBindings()
-                            holder.mLongBinding.root.setOnClickListener { view ->
-                                navigateToActorDetails(
-                                    view,
-                                    person
-                                )
+                            (holder as PersonLongViewHolder).binding.apply {
+                                actor = person as Cast
+                                executePendingBindings()
+                                root.setOnClickListener { view ->
+                                    navigateToActorDetails(view, person)
+                                }
                             }
                         }
                         ViewSize.SMALL -> {
-                            (holder as PersonViewHolder).mSmallBinding.person =
-                                dataList[position] as Person?
-                            holder.mSmallBinding.executePendingBindings()
-                            holder.mSmallBinding.root.setOnClickListener { view ->
-                                navigateToActorDetails(
-                                    view,
-                                    person
-                                )
+                            (holder as PersonSmallViewHolder).binding.apply {
+                                this.person = person
+                                executePendingBindings()
+                                root.setOnClickListener { view ->
+                                    navigateToActorDetails(view, person)
+                                }
                             }
                         }
                     }
@@ -178,9 +202,10 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
 
     //Returns the view type of the item at position for the purposes of view recycling.
     override fun getItemViewType(position: Int): Int {
-        if (dataList[position] is Movie) {
+        val value = dataList[position]
+        if (value is Movie) {
             return MOVIE
-        } else if ((dataList[position] is Person)) {
+        } else if (value is Person) {
             return PERSON
         }
         return -1
@@ -197,4 +222,9 @@ class ItemsRecyclerViewAdapter<T>(private val mViewSize: ViewSize) :
         this.dataList.addAll(dataList)
         notifyDataSetChanged()
     }
+
+
 }
+
+
+

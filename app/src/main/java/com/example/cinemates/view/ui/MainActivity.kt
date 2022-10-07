@@ -1,13 +1,15 @@
 package com.example.cinemates.view.ui
 
 import android.os.Bundle
-import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.NavHost
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.cinemates.R
 import com.example.cinemates.databinding.ActivityMainBinding
@@ -17,13 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding private set
     private lateinit var navController: NavController
-
-    private val topLevelDestinations: Set<Int>
-        get() = setOf(R.id.homeFragment,
-            R.id.discoverFragment,
-            R.id.savedFragment,
-            R.id.profileFragment)
-
     private lateinit var slideIn: Animation
     private lateinit var slideOut: Animation
 
@@ -46,20 +41,14 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHost
         navController = navHost.navController
         setupWithNavController(navController)
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment,
+            R.id.discoverFragment,
+            R.id.savedFragment,
+            R.id.profileFragment)
+        )
         lifecycleScope.launchWhenResumed {
-            navController.addOnDestinationChangedListener { _, navDestination, _ ->
-                when (navDestination.id) {
-                    // Showing bottom navigation in top level destinations
-                    in topLevelDestinations -> if (visibility != View.VISIBLE) {
-                        startAnimation(slideIn)
-                        visibility = View.VISIBLE
-                    }
-                    // Hiding bottom navigation in non top level destinations
-                    else -> {
-                        startAnimation(slideOut)
-                        visibility = View.INVISIBLE
-                    }
-                }
+            navController.addOnDestinationChangedListener{ _: NavController, destination: NavDestination, _: Bundle?->
+                binding.bottomNavigationView.isVisible = appBarConfiguration.topLevelDestinations.contains(destination.id)
             }
         }
     }

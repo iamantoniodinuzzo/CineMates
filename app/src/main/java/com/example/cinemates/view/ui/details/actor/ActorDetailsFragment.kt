@@ -14,7 +14,7 @@ import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentActorDetailsBinding
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.util.ViewSize
-import com.example.cinemates.view.viewmodel.DbViewModel
+import com.example.cinemates.view.viewmodel.DbPersonViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ActorDetailsFragment : Fragment() {
@@ -22,7 +22,7 @@ class ActorDetailsFragment : Fragment() {
     private val binding: FragmentActorDetailsBinding
         get() = _binding!!
     private lateinit var adapter: ItemsRecyclerViewAdapter<Movie>
-    private val dbViewModel: DbViewModel by activityViewModels()
+    private val dbViewModel: DbPersonViewModel by activityViewModels()
     private val viewModel: ActorDetailsViewModel by activityViewModels()
     private val args: ActorDetailsFragmentArgs by navArgs()
 

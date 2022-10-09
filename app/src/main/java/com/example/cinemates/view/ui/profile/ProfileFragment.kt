@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentProfileBinding
+import com.example.cinemates.databinding.LayoutSectionStatsBinding
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
 import com.example.cinemates.model.data.PersonalStatus
 import com.example.cinemates.model.data.Section
 import com.example.cinemates.util.ViewSize
-import com.example.cinemates.view.viewmodel.DbViewModel
+import com.example.cinemates.view.viewmodel.DbMovieViewModel
+import com.example.cinemates.view.viewmodel.DbPersonViewModel
 import com.google.android.material.transition.MaterialFadeThrough
 
 /**
@@ -24,7 +26,8 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding: FragmentProfileBinding
         get() = _binding!!
-    private val dbViewModel: DbViewModel by activityViewModels()
+    private val dbMovieViewModel: DbMovieViewModel by activityViewModels()
+    private val dbPersonViewModel: DbPersonViewModel by activityViewModels()
 
     private lateinit var adapter: SectionRecyclerViewAdapter
 
@@ -62,16 +65,19 @@ class ProfileFragment : Fragment() {
         binding.apply {
             recyclerView.adapter = adapter
             adapter.addItems(sectionList)
-            statHours.statTitle.text = "Hours"
-            statHours.statContent.text = dbViewModel.getTotalHours()
-            statWatchedCounter.statTitle.text = "Movies Seen"
-            statWatchedCounter.statContent.text = dbViewModel.getTotalHoursOf(PersonalStatus.SEEN)
-            statToSeeCounter.statTitle.text = "Movies To See"
-            statToSeeCounter.statTitle.text = dbViewModel.getTotalHoursOf(PersonalStatus.TO_SEE)
-        }
-        movieSection.liveData = dbViewModel.movies
-        personSection.liveData = dbViewModel.persons
 
+            setCounter(statHours, "Hours", dbMovieViewModel.getTotalHoursOf(PersonalStatus.EMPTY))
+            setCounter(statWatchedCounter, "Movies Seen", dbMovieViewModel.getTotalHoursOf(PersonalStatus.SEEN))
+            setCounter(statToSeeCounter, "Movies To See", dbMovieViewModel.getTotalHoursOf(PersonalStatus.TO_SEE))
+        }
+        movieSection.liveData = dbMovieViewModel.favorites
+        personSection.liveData = dbPersonViewModel.persons
+
+    }
+
+    private fun setCounter(stats: LayoutSectionStatsBinding, title:String, value:String ){
+        stats.statTitle.text = title
+        stats.statContent.text = value
     }
 
     override fun onDestroyView() {

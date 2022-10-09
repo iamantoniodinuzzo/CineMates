@@ -29,8 +29,8 @@ class Converters {
     }
 
     @TypeConverter
-    fun toInteger(status: PersonalStatus): Int {
-        return status.status
+    fun toInteger(status: PersonalStatus?): Int {
+        return status?.status ?: 2
     }
 
     @TypeConverter
@@ -46,7 +46,7 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromValue(value: String?): Collection {
+    fun fromValue(value: String?): Collection? {
         val listType = object : TypeToken<Collection?>() {}.type
         return Gson().fromJson(value, listType)
     }

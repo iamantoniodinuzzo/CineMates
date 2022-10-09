@@ -50,6 +50,12 @@ data class Movie(
     @Ignore
     val vote_count: Int
 ) : Serializable {
+
+    companion object{
+
+    }
+
+
     constructor(
         genres: List<Genre>?,
         belongs_to_collection: Collection?,

@@ -1,19 +1,7 @@
 package com.example.cinemates.view.ui.details.movie
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import com.example.cinemates.model.data.Cast
-import com.example.cinemates.model.data.CreditsResponse
-import com.example.cinemates.model.data.Crew
-import com.example.cinemates.model.data.ImagesResponse
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.model.data.PersonalStatus
-import com.example.cinemates.model.data.Video
-import com.example.cinemates.model.data.setPersonalStatus
+import androidx.lifecycle.*
+import com.example.cinemates.model.data.*
 import com.example.cinemates.model.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -26,7 +14,6 @@ import javax.inject.Inject
  * @author Jon Areas
  * Created 24/08/2022
  */
-private const val TAG = "MovieDetailsViewModel"
 
 @HiltViewModel
 class MovieDetailsViewModel
@@ -43,10 +30,10 @@ constructor(
             movieRepository.getSimilarMovies(movie.id).asLiveData()
         }
 
-    val videos: LiveData<List<Video>> =
+    val videos: MutableLiveData<List<Video>> =
         Transformations.switchMap(_selectedMovie) { movie ->
             movieRepository.getVideos(movie.id).asLiveData()
-        }
+        } as MutableLiveData<List<Video>>
 
     val imagesResponse: LiveData<ImagesResponse> =
         Transformations.switchMap(_selectedMovie) { movie ->
@@ -73,6 +60,11 @@ constructor(
 
     fun onDetailsFragmentReady(movie: Movie) =
         getMovieDetails(movie.id)
+
+    fun onDestroyView(){
+        videos.value = listOf()
+    }
+
 
     fun setFavorite() =
         selectedMovie.value?.setFavorite()

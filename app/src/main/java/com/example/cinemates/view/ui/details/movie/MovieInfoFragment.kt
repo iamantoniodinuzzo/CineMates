@@ -1,6 +1,7 @@
 package com.example.cinemates.view.ui.details.movie
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,6 @@ import com.example.cinemates.util.ViewSize
 
 class MovieInfoFragment : Fragment() {
 
-
     private var _binding: FragmentMovieInfoBinding? = null
     private val binding: FragmentMovieInfoBinding
         get() = _binding!!
@@ -26,8 +26,7 @@ class MovieInfoFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        similarAdapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
-        videoAdapter = YoutubeVideoRecyclerViewAdapter()
+
     }
 
     override fun onCreateView(
@@ -43,6 +42,8 @@ class MovieInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
+            similarAdapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
+            videoAdapter = YoutubeVideoRecyclerViewAdapter()
             recommendedRecyclerView.adapter = similarAdapter
             recommendedRecyclerView.setEmptyView(emptyViewRecommended.root)
             videosRecyclerView.adapter = videoAdapter
@@ -59,12 +60,15 @@ class MovieInfoFragment : Fragment() {
 
             viewModel.selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
                 movie = selectedMovie
+                Log.d("MovieInfoFragment", "Il film ha video? ${selectedMovie.video}")
             }
             viewModel.videos.observe(viewLifecycleOwner) { videos ->
                 if (videos.isEmpty()) {
                     textSectionVideo.visibility = View.GONE
+                    videosRecyclerView.visibility = View.GONE
                 } else {
                     textSectionVideo.visibility = View.VISIBLE
+                    videosRecyclerView.visibility = View.VISIBLE
                     videoAdapter.setDataList(videos)
                 }
             }

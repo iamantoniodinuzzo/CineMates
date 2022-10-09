@@ -23,28 +23,25 @@ import com.google.android.material.transition.MaterialSharedAxis
 class MovieDetailsFragment : Fragment() {
 
     private var _binding: FragmentMovieDetailsBinding? = null
-    private val binding : FragmentMovieDetailsBinding
+    private val binding: FragmentMovieDetailsBinding
         get() = _binding!!
     private val args: MovieDetailsFragmentArgs by navArgs()
-    private lateinit var mMovieInfoFragment: MovieInfoFragment
-    private lateinit var mMovieCastFragment: MovieCastFragment
-    private lateinit var mMovieImagesFragment: MovieImagesFragment
-    private lateinit var mViewPagerAdapter: ViewPagerAdapter
-    private lateinit var mBundle: Bundle
+    private lateinit var movieInfoFragment: MovieInfoFragment
+    private lateinit var movieCastFragment: MovieCastFragment
+    private lateinit var movieImagesFragment: MovieImagesFragment
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewPagerAdapter = ViewPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
-        mMovieInfoFragment = MovieInfoFragment()
-        mMovieCastFragment = MovieCastFragment()
-        mMovieImagesFragment = MovieImagesFragment()
-        mBundle = Bundle()
+        movieInfoFragment = MovieInfoFragment()
+        movieCastFragment = MovieCastFragment()
+        movieImagesFragment = MovieImagesFragment()
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
             interpolator = AnticipateOvershootInterpolator()
             duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
         }
-        exitTransition =  MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
             interpolator = AccelerateDecelerateInterpolator()
             duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
         }
@@ -56,7 +53,6 @@ class MovieDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -75,18 +71,22 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun initializeViewPager() {
-        mViewPagerAdapter.addFragment(mMovieInfoFragment)
-        mViewPagerAdapter.addFragment(mMovieCastFragment)
-        mViewPagerAdapter.addFragment(mMovieImagesFragment)
-        binding.viewPager.adapter = mViewPagerAdapter
-        binding.viewPager.isUserInputEnabled = false
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            when (position) {
-                0 -> tab.text = "Info"
-                1 -> tab.text = "Cast"
-                2 -> tab.text = "Images"
-            }
-        }.attach()
+        viewPagerAdapter = ViewPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
+        viewPagerAdapter.addFragment(movieInfoFragment)
+        viewPagerAdapter.addFragment(movieCastFragment)
+        viewPagerAdapter.addFragment(movieImagesFragment)
+        binding.apply {
+            viewPager.adapter = viewPagerAdapter
+            viewPager.isUserInputEnabled = false
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                when (position) {
+                    0 -> tab.text = "Info"
+                    1 -> tab.text = "Cast"
+                    2 -> tab.text = "Images"
+                }
+            }.attach()
+        }
+
     }
 
     override fun onDestroyView() {

@@ -14,8 +14,10 @@ import androidx.navigation.Navigation.findNavController
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentDiscoverBinding
 import com.example.cinemates.model.data.Filter
+import com.example.cinemates.util.getLong
 import com.google.android.material.chip.Chip
 import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
 import com.google.android.material.transition.platform.MaterialElevationScale
 import java.util.*
 
@@ -35,6 +37,10 @@ class DiscoverFragment : Fragment() {
 
     private fun setupMotionAnimations() {
         enterTransition = MaterialFadeThrough()
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
+            interpolator = FastOutSlowInInterpolator()
+            duration = resources.getLong(R.integer.material_motion_duration_long_2)
+        }
     }
 
     override fun onCreateView(

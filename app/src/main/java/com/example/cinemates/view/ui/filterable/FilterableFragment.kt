@@ -4,13 +4,18 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.view.animation.LinearInterpolator
 import android.widget.Toast
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.NavGraphDirections
@@ -20,6 +25,8 @@ import com.example.cinemates.databinding.FragmentFilterableBinding
 import com.example.cinemates.databinding.LayoutCustomDialogRandomBinding
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.util.ViewSize
+import com.example.cinemates.util.getLong
+import com.google.android.material.transition.MaterialSharedAxis
 
 class FilterableFragment : Fragment() {
     private var _binding: FragmentFilterableBinding? = null
@@ -33,12 +40,15 @@ class FilterableFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
-
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
+            interpolator = LinearInterpolator()
+            duration = resources.getLong(R.integer.material_motion_duration_long_2)
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentFilterableBinding.inflate(inflater, container, false)
@@ -48,8 +58,11 @@ class FilterableFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
         viewModel.setFilter(args.filter)
-        Toast.makeText(context, args.filter.withGenres, Toast.LENGTH_SHORT).show()
+        // Undo comment if needed
+        // Toast.makeText(context, args.filter.withGenres, Toast.LENGTH_SHORT).show()
         binding.apply {
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             recyclerView.adapter = adapter

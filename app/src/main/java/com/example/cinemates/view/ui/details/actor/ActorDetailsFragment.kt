@@ -41,6 +41,10 @@ class ActorDetailsFragment : Fragment() {
             interpolator = AnticipateOvershootInterpolator()
             duration = resources.getLong(R.integer.material_motion_duration_medium_2)
         }
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+            interpolator = AnticipateOvershootInterpolator()
+            duration = resources.getLong(R.integer.material_motion_duration_long_2)
+        }
         returnTransition = MaterialFadeThrough()
         exitTransition = MaterialFadeThrough().apply {
             interpolator = FastOutSlowInInterpolator()

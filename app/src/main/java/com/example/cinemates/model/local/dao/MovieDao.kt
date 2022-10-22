@@ -2,8 +2,6 @@ package com.example.cinemates.model.local.dao
 
 import androidx.room.*
 import com.example.cinemates.model.data.Movie
-import com.example.cinemates.model.data.PersonalStatus
-import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -15,9 +13,26 @@ interface MovieDao {
     @Query("SELECT * FROM movie")
     fun getMovies(): Flow<List<Movie>>
 
+    @Query("SELECT * FROM movie WHERE id=:id")
+    fun getMovie(id: Int): Movie?
+
+    @Query("SELECT * FROM movie WHERE personalStatus=1")
+    fun getToSeeMovies(): Flow<List<Movie>>
+
+    @Query("SELECT * FROM movie WHERE personalStatus=0")
+    fun getSeenMovies(): Flow<List<Movie>>
+
+    @Query("SELECT * FROM movie WHERE favorite=1")
+    fun getFavoriteMovies(): Flow<List<Movie>>
 
     @Query("SELECT EXISTS(SELECT * FROM movie WHERE id = :id AND favorite = 1)")
-    fun isMovieFavorite(id : Int) : Boolean
+    fun isFavorite(id: Int): Boolean
+
+    @Query("SELECT EXISTS(SELECT * FROM movie WHERE id = :id AND personalStatus = 1 )")
+    fun isToSee(id: Int): Boolean
+
+    @Query("SELECT EXISTS(SELECT * FROM movie WHERE id = :id AND personalStatus = 0)")
+    fun isSeen(id: Int): Boolean
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(movie: Movie)

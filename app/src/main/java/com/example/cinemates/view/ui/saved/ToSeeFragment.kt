@@ -9,9 +9,8 @@ import androidx.fragment.app.activityViewModels
 import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentListingBinding
 import com.example.cinemates.model.data.Movie
-import com.example.cinemates.model.data.PersonalStatus
 import com.example.cinemates.util.ViewSize
-import com.example.cinemates.view.viewmodel.DbViewModel
+import com.example.cinemates.view.viewmodel.DbMovieViewModel
 
 /**
  * @author Antonio Di Nuzzo
@@ -21,7 +20,7 @@ class ToSeeFragment : Fragment() {
     private var _binding: FragmentListingBinding? = null
     private val binding: FragmentListingBinding
         get() = _binding!!
-    private val dbViewModel: DbViewModel by activityViewModels()
+    private val dbViewModel: DbMovieViewModel by activityViewModels()
     private lateinit var adapter: ItemsRecyclerViewAdapter<Movie>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +44,9 @@ class ToSeeFragment : Fragment() {
         binding.apply {
             recyclerView.adapter = adapter
             recyclerView.setEmptyView(emptyView.root)
-            adapter.addItems(dbViewModel.getMoviesWithStatus(PersonalStatus.TO_SEE))
+            dbViewModel.toSee.observe(viewLifecycleOwner){movies->
+                adapter.addItems(movies as MutableList<Movie>)
+            }
         }
     }
 

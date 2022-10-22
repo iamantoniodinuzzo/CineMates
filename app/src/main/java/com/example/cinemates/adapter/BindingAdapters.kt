@@ -84,17 +84,17 @@ fun isFavorite(view: ImageButton, value: Boolean) {
 @BindingAdapter("toSee")
 fun setStatusToSee(view: ImageButton, value: PersonalStatus?) {
     if (value != null)
-        view.isPressed = value === PersonalStatus.TO_SEE
+        view.isPressed = (value == PersonalStatus.TO_SEE)
     else
-        view.isPressed = value === PersonalStatus.EMPTY
+        view.isPressed = (value == PersonalStatus.EMPTY)
 }
 
 @BindingAdapter("seen")
 fun setStatusSeen(view: ImageButton, value: PersonalStatus?) {
     if (value != null)
-        view.isPressed = value === PersonalStatus.SEEN
+        view.isPressed = (value == PersonalStatus.SEEN)
     else
-        view.isPressed = value === PersonalStatus.EMPTY
+        view.isPressed = (value == PersonalStatus.EMPTY)
 }
 
 

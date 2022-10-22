@@ -50,6 +50,7 @@ data class Movie(
     @Ignore
     val vote_count: Int
 ) : Serializable {
+
     constructor(
         genres: List<Genre>?,
         belongs_to_collection: Collection?,
@@ -83,19 +84,7 @@ data class Movie(
         return true
     }
 
-    fun setFavorite() {
-        favorite = !favorite
-    }
 
-
-}
-
-fun Movie.setPersonalStatus(status: PersonalStatus) {
-    personalStatus = if (status == personalStatus) {
-        PersonalStatus.EMPTY
-    } else {
-        status
-    }
 }
 
 

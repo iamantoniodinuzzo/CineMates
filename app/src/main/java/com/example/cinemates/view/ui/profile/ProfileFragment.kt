@@ -19,7 +19,6 @@ import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.viewmodel.DbMovieViewModel
 import com.example.cinemates.view.viewmodel.DbPersonViewModel
 import com.example.cinemates.util.getLong
-import com.example.cinemates.view.viewmodel.DbViewModel
 import com.google.android.material.transition.MaterialFade
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis

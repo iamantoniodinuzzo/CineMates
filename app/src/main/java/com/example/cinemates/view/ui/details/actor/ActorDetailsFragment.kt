@@ -19,7 +19,6 @@ import com.example.cinemates.model.data.Movie
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.viewmodel.DbPersonViewModel
 import com.example.cinemates.util.getLong
-import com.example.cinemates.view.viewmodel.DbViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialFade

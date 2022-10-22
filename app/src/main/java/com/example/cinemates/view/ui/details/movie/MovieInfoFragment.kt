@@ -24,11 +24,6 @@ class MovieInfoFragment : Fragment() {
     private lateinit var videoAdapter: YoutubeVideoRecyclerViewAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,7 +55,6 @@ class MovieInfoFragment : Fragment() {
 
             viewModel.selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
                 movie = selectedMovie
-                Log.d("MovieInfoFragment", "Il film ha video? ${selectedMovie.video}")
             }
             viewModel.videos.observe(viewLifecycleOwner) { videos ->
                 if (videos.isEmpty()) {

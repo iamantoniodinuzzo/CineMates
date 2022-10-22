@@ -50,7 +50,8 @@ constructor(
         dbMovieRepository.deleteMovie(movie)
     }
 
-    fun updateMovie(movie: Movie) = viewModelScope.launch {
+
+    private fun updateMovie(movie: Movie) = viewModelScope.launch {
         dbMovieRepository.updateMovie(movie)
     }
 
@@ -58,19 +59,20 @@ constructor(
      * Check if the movie is already on the list of favorites.
      * @return True if is my favorite movie, False instead
      */
-    fun isMyFavoriteMovie(movie: Movie): Boolean = dbMovieRepository.isMovieFavorite(movie.id)
+    private fun isMyFavoriteMovie(movie: Movie): Boolean =
+        dbMovieRepository.isMovieFavorite(movie.id)
 
     /**
      * Check if the [Movie] is already on the list of toSee.
      * @return True if is a toSee movie, False instead
      */
-    fun isMovieToSee(movie: Movie): Boolean = dbMovieRepository.isMovieToSee(movie.id)
+    private fun isMovieToSee(movie: Movie): Boolean = dbMovieRepository.isMovieToSee(movie.id)
 
     /**
      * Check if the [Movie] is already on the list of seen.
      * @return True if is seen movie, False instead
      */
-    fun isMovieSeen(movie: Movie): Boolean = dbMovieRepository.isMovieSeen(movie.id)
+    private fun isMovieSeen(movie: Movie): Boolean = dbMovieRepository.isMovieSeen(movie.id)
 
 
     /**
@@ -79,50 +81,75 @@ constructor(
      * @return True if is set as favorite, false if it was favorite and is removed
      */
     fun setAsFavorite(movie: Movie): Boolean {
-        return if (isMyFavoriteMovie(movie)) {
-            deleteMovie(movie)
-            false
-        } else {
-            insertMovie(movie)
-            true
+        val isSetAsFav = !isMyFavoriteMovie(movie)
+        movie.favorite = isSetAsFav
+        insertMovie(movie)
+        deleteIfNotSignificant(movie)
+        return isSetAsFav
+    }
+
+
+    fun getMovie(id: Int): Movie? = dbMovieRepository.getMovie(id)
+
+    /**
+     * Set and update [PersonalStatus] of the movie.
+     * @return True if movie is set into a specific list, false otherwise ([PersonalStatus.EMPTY]).
+     */
+    fun updatePersonalStatus(movie: Movie, status: PersonalStatus): Boolean {
+        val result = when (status) {
+            PersonalStatus.TO_SEE -> {
+                if (isMovieToSee(movie)) {
+                    movie.personalStatus = PersonalStatus.EMPTY
+                    false
+                } else {
+                    movie.personalStatus = PersonalStatus.TO_SEE
+                    true
+                }
+            }
+            PersonalStatus.SEEN -> {
+                if (isMovieSeen(movie)) {
+                    movie.personalStatus = PersonalStatus.EMPTY
+                    false
+                } else {
+                    movie.personalStatus = PersonalStatus.SEEN
+                    true
+                }
+            }
+            else -> false
         }
+        insertMovie(movie)
+        deleteIfNotSignificant(movie)
+
+        return result
     }
 
     /**
-     * Update the [PersonalStatus] of the [Movie]
-     *
-     * For example, you want to add a [Movie] to the '[PersonalStatus.TO_SEE]' list so the method is called by passing the appropriate parameters.
-     * If the [Movie] was already in the '[PersonalStatus.TO_SEE]' list, the [Movie] is removed from that list, otherwise it is inserted
-     *
-     * @return True if the film was not already in that state and then updates it,
-     * false if the film was already in that state and removes it from that state.
+     * An insignificant movie is not favorite and has [PersonalStatus.EMPTY].
+     * If @param movie has both, there is no update/insert only a delete
      */
-    fun updatePersonalStatus(movie: Movie, status: PersonalStatus): Boolean {
-        val result: Boolean = when (status) {
-            PersonalStatus.SEEN -> isMovieSeen(movie)
-            PersonalStatus.TO_SEE -> isMovieToSee(movie)
-            PersonalStatus.EMPTY -> false
-        }
-            insertMovie(movie)
-        return result
+    private fun deleteIfNotSignificant(movie: Movie) {
+        if (!movie.favorite && movie.personalStatus == PersonalStatus.EMPTY)
+            deleteMovie(movie)
+
     }
 
 
     /**
      * Sums the duration of all movies whose state is the one given as parameter and returns a string.
-     * If @param status is [PersonalStatus.EMPTY], sum all movies' runtime
+     * If @param status is [PersonalStatus.EMPTY], sum all other movies' runtime that are in the db.
+     * If @param status is [PersonalStatus.TO_SEE] or [PersonalStatus.SEEN], sum all corresponding category runtime
      * @return A string indicating the total number of hours.
      */
     fun getTotalHoursOf(status: PersonalStatus): String {
         val totalMinutes = when (status) {
-            PersonalStatus.TO_SEE -> calculateTotalHours(toSee.value)
-            PersonalStatus.SEEN -> calculateTotalHours(seen.value)
-            PersonalStatus.EMPTY -> calculateTotalHours(movies.value)
+            PersonalStatus.TO_SEE -> calculateTotalMinutes(toSee.value)
+            PersonalStatus.SEEN -> calculateTotalMinutes(seen.value)
+            PersonalStatus.EMPTY -> calculateTotalMinutes(movies.value)
         }
         return (totalMinutes / 60).toString()
     }
 
-    private fun calculateTotalHours(movies: List<Movie>?): Int {
+    private fun calculateTotalMinutes(movies: List<Movie>?): Int {
         var totalMinutes = 0
 
         movies?.forEach { movie ->

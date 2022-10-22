@@ -65,15 +65,6 @@ constructor(
         videos.value = listOf()
     }
 
-
-    fun setFavorite() =
-        selectedMovie.value?.setFavorite()
-
-
-    fun setPersonalStatus(status: PersonalStatus) =
-        selectedMovie.value?.setPersonalStatus(status)
-
-
     private fun getMovieDetails(movieId: Int) {
         movieRepository.getMovieDetails(movieId)
             .mapLatest { currentMovie ->

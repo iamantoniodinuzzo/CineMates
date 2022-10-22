@@ -21,6 +21,7 @@ constructor(appDatabase: AppDatabase) {
     }
 
     fun getMovies() = movieDao.getMovies()
+    fun getMovie(id: Int) = movieDao.getMovie(id)
     fun getToSeeMovies() = movieDao.getToSeeMovies()
     fun getSeenMovies() = movieDao.getSeenMovies()
     fun getFavoriteMovies() = movieDao.getFavoriteMovies()

@@ -140,13 +140,22 @@ constructor(
      * If @param status is [PersonalStatus.TO_SEE] or [PersonalStatus.SEEN], sum all corresponding category runtime
      * @return A string indicating the total number of hours.
      */
-    fun getTotalHoursOf(status: PersonalStatus): String {
+    fun getTotalHoursOf(status: PersonalStatus): Int {
         val totalMinutes = when (status) {
             PersonalStatus.TO_SEE -> calculateTotalMinutes(toSee.value)
             PersonalStatus.SEEN -> calculateTotalMinutes(seen.value)
             PersonalStatus.EMPTY -> calculateTotalMinutes(movies.value)
         }
-        return (totalMinutes / 60).toString()
+        return (totalMinutes / 60)
+    }
+
+    fun getSizeOf(status: PersonalStatus): Int {
+        return when (status) {
+            PersonalStatus.TO_SEE -> toSee.value?.size ?: 0
+            PersonalStatus.SEEN -> seen.value?.size ?: 0
+            PersonalStatus.EMPTY -> movies.value?.size ?: 0
+        }
+
     }
 
     private fun calculateTotalMinutes(movies: List<Movie>?): Int {

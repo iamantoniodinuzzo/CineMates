@@ -66,18 +66,18 @@ class ProfileFragment : Fragment() {
             recyclerView.adapter = adapter
             adapter.addItems(sectionList)
 
-            setCounter(statHours, "Hours", dbMovieViewModel.getTotalHoursOf(PersonalStatus.EMPTY))
-            setCounter(statWatchedCounter, "Movies Seen", dbMovieViewModel.getTotalHoursOf(PersonalStatus.SEEN))
-            setCounter(statToSeeCounter, "Movies To See", dbMovieViewModel.getTotalHoursOf(PersonalStatus.TO_SEE))
+            setCounter(statHours, "Total Hours", dbMovieViewModel.getTotalHoursOf(PersonalStatus.EMPTY))
+            setCounter(statWatchedCounter, "Movies Seen", dbMovieViewModel.getSizeOf(PersonalStatus.SEEN))
+            setCounter(statToSeeCounter, "Movies To See", dbMovieViewModel.getSizeOf(PersonalStatus.TO_SEE))
         }
         movieSection.liveData = dbMovieViewModel.favorites
         personSection.liveData = dbPersonViewModel.persons
 
     }
 
-    private fun setCounter(stats: LayoutSectionStatsBinding, title:String, value:String ){
+    private fun setCounter(stats: LayoutSectionStatsBinding, title:String, value:Int ){
         stats.statTitle.text = title
-        stats.statContent.text = value
+        stats.statContent.text = value.toString()
     }
 
     override fun onDestroyView() {

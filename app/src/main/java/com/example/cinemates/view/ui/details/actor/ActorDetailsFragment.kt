@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.Toast
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
@@ -15,7 +18,13 @@ import com.example.cinemates.databinding.FragmentActorDetailsBinding
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.viewmodel.DbPersonViewModel
+import com.example.cinemates.util.getLong
+import com.example.cinemates.view.viewmodel.DbViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.transition.MaterialArcMotion
+import com.google.android.material.transition.MaterialFade
+import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
 
 class ActorDetailsFragment : Fragment() {
     private var _binding: FragmentActorDetailsBinding? = null
@@ -29,12 +38,25 @@ class ActorDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+            interpolator = AnticipateOvershootInterpolator()
+            duration = resources.getLong(R.integer.material_motion_duration_medium_2)
+        }
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+            interpolator = AnticipateOvershootInterpolator()
+            duration = resources.getLong(R.integer.material_motion_duration_long_2)
+        }
+        returnTransition = MaterialFadeThrough()
+        exitTransition = MaterialFadeThrough().apply {
+            interpolator = FastOutSlowInInterpolator()
+            duration = resources.getLong(R.integer.material_motion_duration_short_1)
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentActorDetailsBinding.inflate(
             inflater,
@@ -47,6 +69,8 @@ class ActorDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
         viewModel.apply {
             movies.observe(viewLifecycleOwner) { moviesByActor ->
                 adapter.addItems(moviesByActor.toMutableList())

@@ -8,6 +8,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnticipateOvershootInterpolator
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
 import com.example.cinemates.adapter.ViewPagerAdapter
@@ -38,11 +39,11 @@ class MovieDetailsFragment : Fragment() {
         movieCastFragment = MovieCastFragment()
         movieImagesFragment = MovieImagesFragment()
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-            interpolator = AnticipateOvershootInterpolator()
+            interpolator = FastOutSlowInInterpolator()
             duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
         }
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-            interpolator = AccelerateDecelerateInterpolator()
+            interpolator = FastOutSlowInInterpolator()
             duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
         }
     }
@@ -50,7 +51,7 @@ class MovieDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
         return binding.root
@@ -71,7 +72,7 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun initializeViewPager() {
-        viewPagerAdapter = ViewPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
+        viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         viewPagerAdapter.addFragment(movieInfoFragment)
         viewPagerAdapter.addFragment(movieCastFragment)
         viewPagerAdapter.addFragment(movieImagesFragment)

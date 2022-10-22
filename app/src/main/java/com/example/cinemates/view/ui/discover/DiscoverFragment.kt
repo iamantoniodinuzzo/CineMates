@@ -3,17 +3,22 @@ package com.example.cinemates.view.ui.discover
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.Navigation.findNavController
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentDiscoverBinding
 import com.example.cinemates.model.data.Filter
+import com.example.cinemates.util.getLong
 import com.google.android.material.chip.Chip
 import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
+import com.google.android.material.transition.platform.MaterialElevationScale
 import java.util.*
 
 class DiscoverFragment : Fragment() {
@@ -32,11 +37,15 @@ class DiscoverFragment : Fragment() {
 
     private fun setupMotionAnimations() {
         enterTransition = MaterialFadeThrough()
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
+            interpolator = FastOutSlowInInterpolator()
+            duration = resources.getLong(R.integer.material_motion_duration_long_2)
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentDiscoverBinding.inflate(inflater, container, false)
@@ -51,6 +60,13 @@ class DiscoverFragment : Fragment() {
 
             searchButton.setOnClickListener { view -> findNavController(view).navigate(R.id.action_discoverFragment_to_searchFragment) }
             chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+
+                val elevationScaleTransition = MaterialElevationScale(true).apply {
+                    interpolator = FastOutSlowInInterpolator()
+                }
+                TransitionManager.beginDelayedTransition(group.rootView as ViewGroup,
+                    elevationScaleTransition)
+
                 if (checkedIds.isNotEmpty()) {
                     buttonGroup.visibility = View.VISIBLE
                     discoverViewModel.updateSelectedGenres(checkedIds.toString())
@@ -77,7 +93,7 @@ class DiscoverFragment : Fragment() {
         val chipGroup = binding.chipGroup
         val genreMap = discoverViewModel.genreMap.value
         chipGroup.removeAllViews()
-        if (genreMap != null ) {
+        if (genreMap != null) {
             for ((key, value) in genreMap) {
                 val genreChip = Chip(context)
                 genreChip.id = key

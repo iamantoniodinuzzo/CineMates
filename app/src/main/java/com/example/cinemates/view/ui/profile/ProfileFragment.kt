@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import com.example.cinemates.R
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentProfileBinding
 import com.example.cinemates.databinding.LayoutSectionStatsBinding
@@ -16,7 +18,11 @@ import com.example.cinemates.model.data.Section
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.viewmodel.DbMovieViewModel
 import com.example.cinemates.view.viewmodel.DbPersonViewModel
+import com.example.cinemates.util.getLong
+import com.example.cinemates.view.viewmodel.DbViewModel
+import com.google.android.material.transition.MaterialFade
 import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
 
 /**
  * @author Antonio Di Nuzzo
@@ -43,16 +49,17 @@ class ProfileFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = SectionRecyclerViewAdapter(this)
-        setupMotionAnimations()
-    }
-
-    private fun setupMotionAnimations() {
         enterTransition = MaterialFadeThrough()
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
+            interpolator = FastOutSlowInInterpolator()
+            duration = resources.getLong(R.integer.material_motion_duration_long_2)
+        }
+        exitTransition = MaterialFade()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentProfileBinding.inflate(inflater, container, false)

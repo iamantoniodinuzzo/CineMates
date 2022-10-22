@@ -35,10 +35,11 @@ constructor(
             movieRepository.getVideos(movie.id).asLiveData()
         } as MutableLiveData<List<Video>>
 
-    val imagesResponse: LiveData<ImagesResponse> =
-        Transformations.switchMap(_selectedMovie) { movie ->
-            movieRepository.getImages(movie.id).asLiveData()
-        }
+
+    val imagesResponse: LiveData<ImagesResponse>
+        get() = Transformations.switchMap(_selectedMovie) { movie ->
+                movieRepository.getImages(movie.id).asLiveData()
+            }
 
     private val credits: LiveData<CreditsResponse> =
         Transformations.switchMap(_selectedMovie) { movie ->
@@ -61,7 +62,7 @@ constructor(
     fun onDetailsFragmentReady(movie: Movie) =
         getMovieDetails(movie.id)
 
-    fun onDestroyView(){
+    fun onDestroyView() {
         videos.value = listOf()
     }
 

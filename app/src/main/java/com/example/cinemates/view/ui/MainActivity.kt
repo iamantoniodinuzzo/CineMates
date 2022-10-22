@@ -48,7 +48,8 @@ class MainActivity : AppCompatActivity() {
         )
         lifecycleScope.launchWhenResumed {
             navController.addOnDestinationChangedListener{ _: NavController, destination: NavDestination, _: Bundle?->
-                binding.bottomNavigationView.isVisible = appBarConfiguration.topLevelDestinations.contains(destination.id)
+                binding.bottomNavigationView.isVisible =
+                    appBarConfiguration.topLevelDestinations.contains(destination.id)
             }
         }
     }

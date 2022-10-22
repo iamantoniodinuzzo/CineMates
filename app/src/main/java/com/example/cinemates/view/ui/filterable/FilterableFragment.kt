@@ -62,7 +62,7 @@ class FilterableFragment : Fragment() {
         view.doOnPreDraw { startPostponedEnterTransition() }
         viewModel.setFilter(args.filter)
         // Undo comment if needed
-        // Toast.makeText(context, args.filter.withGenres, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, args.filter.toString(), Toast.LENGTH_SHORT).show()
         binding.apply {
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             recyclerView.adapter = adapter

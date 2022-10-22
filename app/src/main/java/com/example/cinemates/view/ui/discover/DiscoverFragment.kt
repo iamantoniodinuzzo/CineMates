@@ -7,6 +7,7 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
@@ -25,7 +26,6 @@ class DiscoverFragment : Fragment() {
     private var _binding: FragmentDiscoverBinding? = null
     private val binding: FragmentDiscoverBinding
         get() = _binding!!
-
     private val mRnd = Random()
     private val discoverViewModel: DiscoverViewModel by activityViewModels()
 
@@ -55,32 +55,74 @@ class DiscoverFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         populateChipGroup()
+        val filterBuilder = Filter.Builder()
 
         binding.apply {
 
-            searchButton.setOnClickListener { view -> findNavController(view).navigate(R.id.action_discoverFragment_to_searchFragment) }
+            searchButton.setOnClickListener { view ->
+                findNavController(view).navigate(
+                    R.id.action_discoverFragment_to_searchFragment
+                )
+            }
+
+            //Genres
             chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
 
                 val elevationScaleTransition = MaterialElevationScale(true).apply {
                     interpolator = FastOutSlowInInterpolator()
                 }
-                TransitionManager.beginDelayedTransition(group.rootView as ViewGroup,
-                    elevationScaleTransition)
+                TransitionManager.beginDelayedTransition(
+                    group.rootView as ViewGroup,
+                    elevationScaleTransition
+                )
 
                 if (checkedIds.isNotEmpty()) {
                     buttonGroup.visibility = View.VISIBLE
-                    discoverViewModel.updateSelectedGenres(checkedIds.toString())
+                    //discoverViewModel.updateSelectedGenres(checkedIds.toString())
+                    filterBuilder.withGenres(checkedIds)
                 } else {
                     buttonGroup.visibility = View.GONE
                 }
             }
 
+            //Sort By
+            popularity.setOnCheckedChangeListener { _, isChecked->
+                if(isChecked) {
+                    filterBuilder.sortBy(Filter.Sort.POPULARITY)
+                    buttonGroup.visibility = View.VISIBLE
+                }else {
+                    filterBuilder.sortBy(null)
+                    buttonGroup.visibility = View.GONE
+                }
+            }
+            releaseDate.setOnCheckedChangeListener { _, isChecked->
+                if(isChecked)
+                    filterBuilder.sortBy(Filter.Sort.RELEASE_DATE)
+                else
+                    filterBuilder.sortBy(null)
+            }
+            revenue.setOnCheckedChangeListener { _, isChecked->
+                if(isChecked)
+                    filterBuilder.sortBy(Filter.Sort.REVENUE)
+                else
+                    filterBuilder.sortBy(null)
+            }
+            voteAverage.setOnCheckedChangeListener { _, isChecked->
+                if(isChecked)
+                    filterBuilder.sortBy(Filter.Sort.VOTE_AVERAGE)
+                else
+                    filterBuilder.sortBy(null)
+            }
+
+            //Apply
             applyFilterBtn.setOnClickListener {
-                val filter = Filter(Filter.Sort.POPULARITY, discoverViewModel.selectedGenres.value)
+                val filter = filterBuilder.build()
                 val action =
                     DiscoverFragmentDirections.actionDiscoverFragmentToFilterFragment(filter)
                 findNavController(view).navigate(action)
             }
+
+            //Clean
             cleanFilters.setOnClickListener {
                 chipGroup.clearCheck()
                 discoverViewModel.initGenres()

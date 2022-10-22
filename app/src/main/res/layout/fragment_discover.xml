@@ -55,7 +55,7 @@
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/filters_group"
+            android:id="@+id/sortBy_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/filters_block_title"
@@ -68,7 +68,75 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/search_button"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:text="Sort by"
+                android:textColor="@color/geyser"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/sortBy_ChipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                app:chipSpacingHorizontal="12dp"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/popularity"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Popularity"
+                    android:textColor="@color/alabaster"
+                    app:chipBackgroundColor="@color/fern_frond_100" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/release_date"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Release Date"
+                    android:textColor="@color/alabaster"
+                    app:chipBackgroundColor="@color/blue_stone_100" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/revenue"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Revenue"
+                    android:textColor="@color/alabaster"
+                    app:chipBackgroundColor="@color/royal_blue_100" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/vote_average"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vote Average"
+                    android:textColor="@color/alabaster"
+                    app:chipBackgroundColor="@color/vermilion_100" />
+            </com.google.android.material.chip.ChipGroup>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/genres_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sortBy_group"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/round_corner_bg"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
                 android:text="Genres"
@@ -85,15 +153,16 @@
                 android:paddingEnd="12dp"
                 app:chipSpacingHorizontal="12dp" />
 
-
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/button_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/filters_group"
+            android:layout_below="@id/search_button"
             android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/filters_block_title"
+            android:gravity="end"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
             android:orientation="horizontal"
@@ -104,7 +173,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:text="Clean"
+                android:text="Clear"
                 android:textAllCaps="false"
                 app:cornerRadius="10dp" />
 

@@ -3,6 +3,7 @@ package com.example.cinemates.view.ui.discover
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.cinemates.model.data.Filter
 import com.example.cinemates.model.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -21,7 +22,11 @@ class DiscoverViewModel
 ) : ViewModel() {
 
     private val _selectedGenres = MutableLiveData<String>()
-    val selectedGenres: LiveData<String> get() = _selectedGenres
+    val selectedGenres: LiveData<String>
+        get() = _selectedGenres
+    private val _filter = MutableLiveData<Filter>()
+    val filter: LiveData<Filter>
+        get() = _filter
     private val _genreMap = MutableLiveData<HashMap<Int, String>>()
     val genreMap: LiveData<HashMap<Int, String>> get() = _genreMap
 
@@ -58,8 +63,6 @@ class DiscoverViewModel
         genreMap[10770] = "TV Movie"
         return genreMap
     }
-
-
 
 
     fun initGenres() {

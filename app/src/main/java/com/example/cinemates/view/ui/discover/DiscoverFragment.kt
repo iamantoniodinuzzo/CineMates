@@ -7,7 +7,8 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
@@ -16,7 +17,10 @@ import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentDiscoverBinding
 import com.example.cinemates.model.data.Filter
 import com.example.cinemates.util.getLong
+import com.example.cinemates.view.ui.MainActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 import com.google.android.material.transition.platform.MaterialElevationScale
@@ -27,11 +31,16 @@ class DiscoverFragment : Fragment() {
     private val binding: FragmentDiscoverBinding
         get() = _binding!!
     private val mRnd = Random()
+    private lateinit var bottomNavigationView: BottomNavigationView
     private val discoverViewModel: DiscoverViewModel by activityViewModels()
+    private lateinit var slideIn: Animation
+    private lateinit var slideOut: Animation
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
+        slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)
         setupMotionAnimations()
     }
 
@@ -54,10 +63,22 @@ class DiscoverFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        populateChipGroup()
-        val filterBuilder = Filter.Builder()
+        populateChipGroups()
+        bottomNavigationView = (activity as MainActivity).binding.bottomNavigationView
 
         binding.apply {
+
+            //Hide and show bottom bar when scrolled
+            scrollView.viewTreeObserver.addOnScrollChangedListener {
+                val scrollY: Int = scrollView.scrollY // For ScrollView
+                if (scrollY > 0 && bottomNavigationView.isShown) {
+                    bottomNavigationView.startAnimation(slideOut)
+                    bottomNavigationView.visibility = View.INVISIBLE
+                } else if (scrollY <= 0) {
+                    bottomNavigationView.startAnimation(slideIn)
+                    bottomNavigationView.visibility = View.VISIBLE
+                }
+            }
 
             searchButton.setOnClickListener { view ->
                 findNavController(view).navigate(
@@ -65,58 +86,52 @@ class DiscoverFragment : Fragment() {
                 )
             }
 
-            //Genres
-            chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
-
-                val elevationScaleTransition = MaterialElevationScale(true).apply {
-                    interpolator = FastOutSlowInInterpolator()
+            //SortBy block
+            expandSortBy.setOnClickListener {
+                if (sortByChipGroup.isShown) {
+                    sortByChipGroup.visibility = View.GONE
+                }else {
+                    sortByChipGroup.visibility = View.VISIBLE
                 }
-                TransitionManager.beginDelayedTransition(
-                    group.rootView as ViewGroup,
-                    elevationScaleTransition
-                )
+            }
+
+            sortByChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+                setupChipGroupAnim(group)
+                if (checkedIds.isNotEmpty()) {
+                    val ordinal = group.checkedChipId
+                    val sortBy = Filter.Sort.values()[ordinal]
+                    discoverViewModel.filterBuilder.value?.sortBy(sortBy)
+                    binding.buttonGroup.visibility = View.VISIBLE
+                } else {
+                    discoverViewModel.filterBuilder.value?.sortBy(null)
+                    binding.buttonGroup.visibility = View.GONE
+                }
+            }
+
+            //Genres block
+            expandGenres.setOnClickListener {
+                if (genreChipGroup.isShown) {
+                    genreChipGroup.visibility = View.GONE
+                } else {
+                    genreChipGroup.visibility = View.VISIBLE
+                }
+            }
+
+            genreChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+
+                setupChipGroupAnim(group)
 
                 if (checkedIds.isNotEmpty()) {
                     buttonGroup.visibility = View.VISIBLE
-                    //discoverViewModel.updateSelectedGenres(checkedIds.toString())
-                    filterBuilder.withGenres(checkedIds)
+                    discoverViewModel.filterBuilder.value?.withGenres(checkedIds)
                 } else {
-                    buttonGroup.visibility = View.GONE
+                    buttonGroup.visibility = View.INVISIBLE
                 }
-            }
-
-            //Sort By
-            popularity.setOnCheckedChangeListener { _, isChecked->
-                if(isChecked) {
-                    filterBuilder.sortBy(Filter.Sort.POPULARITY)
-                    buttonGroup.visibility = View.VISIBLE
-                }else {
-                    filterBuilder.sortBy(null)
-                    buttonGroup.visibility = View.GONE
-                }
-            }
-            releaseDate.setOnCheckedChangeListener { _, isChecked->
-                if(isChecked)
-                    filterBuilder.sortBy(Filter.Sort.RELEASE_DATE)
-                else
-                    filterBuilder.sortBy(null)
-            }
-            revenue.setOnCheckedChangeListener { _, isChecked->
-                if(isChecked)
-                    filterBuilder.sortBy(Filter.Sort.REVENUE)
-                else
-                    filterBuilder.sortBy(null)
-            }
-            voteAverage.setOnCheckedChangeListener { _, isChecked->
-                if(isChecked)
-                    filterBuilder.sortBy(Filter.Sort.VOTE_AVERAGE)
-                else
-                    filterBuilder.sortBy(null)
             }
 
             //Apply
             applyFilterBtn.setOnClickListener {
-                val filter = filterBuilder.build()
+                val filter = discoverViewModel.filterBuilder.value!!.build()
                 val action =
                     DiscoverFragmentDirections.actionDiscoverFragmentToFilterFragment(filter)
                 findNavController(view).navigate(action)
@@ -124,15 +139,44 @@ class DiscoverFragment : Fragment() {
 
             //Clean
             cleanFilters.setOnClickListener {
-                chipGroup.clearCheck()
-                discoverViewModel.initGenres()
+                genreChipGroup.clearCheck()
+                sortByChipGroup.clearCheck()
+                discoverViewModel.initFilter()
             }
         }
 
     }
 
-    private fun populateChipGroup() {
-        val chipGroup = binding.chipGroup
+
+    private fun setupChipGroupAnim(group: ChipGroup) {
+        val elevationScaleTransition = MaterialElevationScale(true).apply {
+            interpolator = FastOutSlowInInterpolator()
+        }
+        TransitionManager.beginDelayedTransition(
+            group.rootView as ViewGroup,
+            elevationScaleTransition
+        )
+    }
+
+    private fun setSortByBtn(chip: Chip, sort: Filter.Sort) {
+        chip.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                discoverViewModel.filterBuilder.value?.sortBy(sort)
+                binding.buttonGroup.visibility = View.VISIBLE
+            } else {
+                discoverViewModel.filterBuilder.value?.sortBy(null)
+                binding.buttonGroup.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun populateChipGroups() {
+        populateGenreChipGroup()
+        populateSortByChipGroup()
+    }
+
+    private fun populateGenreChipGroup() {
+        val chipGroup = binding.genreChipGroup
         val genreMap = discoverViewModel.genreMap.value
         chipGroup.removeAllViews()
         if (genreMap != null) {
@@ -148,7 +192,27 @@ class DiscoverFragment : Fragment() {
         }
     }
 
-    fun getRandomColor(): Int {
+    private fun populateSortByChipGroup() {
+        val chipGroup = binding.sortByChipGroup
+        val sortByMap = discoverViewModel.sortByMap.value
+        chipGroup.removeAllViews()
+        if (sortByMap != null) {
+            for ((key, value) in sortByMap) {
+                val sortByChip = Chip(context)
+                sortByChip.isCheckable = true
+                sortByChip.id = key.ordinal
+                sortByChip.text = value
+                sortByChip.setTextColor(Color.WHITE)
+                sortByChip.chipBackgroundColor = ColorStateList.valueOf(getRandomColor())
+                sortByChip.setOnClickListener {
+                    setSortByBtn(sortByChip, key)
+                }
+                chipGroup.addView(sortByChip)
+            }
+        }
+    }
+
+    private fun getRandomColor(): Int {
         val baseColor = R.color.vermilion_100 //TODO maybe this color can be customizable
         val baseRed = Color.red(baseColor)
         val baseGreen = Color.green(baseColor)

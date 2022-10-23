@@ -1,10 +1,12 @@
 package com.example.cinemates.model.data
+import java.io.Serializable
+
 
 class Filter private constructor(
     val sortBy: Sort?,
     val withGenres: List<Int>?,
     val withCast: List<Int>?,
-) : java.io.Serializable {
+) : Serializable {
 
     data class Builder(
         var sortBy: Sort? = null,
@@ -13,7 +15,6 @@ class Filter private constructor(
     ) {
         fun sortBy(sort: Sort?) = apply { this.sortBy = sort }
         fun withGenres(genresId: List<Int>) = apply { this.withGenres = genresId }
-        fun addGenre(genreId: Int) = apply { this.withGenres += genreId }
         fun withCast(castIds: List<Int>) = apply { this.withCast = castIds }
         fun addCast(castId: Int) = apply { this.withCast += castId }
         fun build() = Filter(sortBy, withGenres, withCast)

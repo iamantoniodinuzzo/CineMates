@@ -21,23 +21,29 @@ class DiscoverViewModel
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private val _selectedGenres = MutableLiveData<String>()
-    val selectedGenres: LiveData<String>
-        get() = _selectedGenres
-    private val _filter = MutableLiveData<Filter>()
-    val filter: LiveData<Filter>
-        get() = _filter
+
+    private val _filterBuilder = MutableLiveData<Filter.Builder>()
+    val filterBuilder: LiveData<Filter.Builder>
+        get() = _filterBuilder
     private val _genreMap = MutableLiveData<HashMap<Int, String>>()
     val genreMap: LiveData<HashMap<Int, String>> get() = _genreMap
+    private val _sortByMap = MutableLiveData<HashMap<Filter.Sort, String>>()
+    val sortByMap: LiveData<HashMap<Filter.Sort, String>>
+        get() = _sortByMap
 
 
     init {
-        initGenres()
-        initGenreMap()
+        initMaps()
+        initFilter()
     }
 
-    private fun initGenreMap() {
+    private fun initMaps() {
         _genreMap.value = getGenreMap()
+        _sortByMap.value = getSortByMap()
+    }
+
+    fun initFilter() {
+        _filterBuilder.value = Filter.Builder()
     }
 
     private fun getGenreMap(): HashMap<Int, String> {
@@ -64,17 +70,13 @@ class DiscoverViewModel
         return genreMap
     }
 
-
-    fun initGenres() {
-        _selectedGenres.value = ""
-    }
-
-    /**
-     * If the genre is not in the list it is added otherwise if already present it is removed
-     */
-    fun updateSelectedGenres(genreIds: String) {
-        _selectedGenres.value = genreIds.replace("[", "").replace("]", "")
-
+    private fun getSortByMap(): HashMap<Filter.Sort, String> {
+        val sortByMap = HashMap<Filter.Sort, String>()
+        sortByMap[Filter.Sort.POPULARITY] = "Popularity"
+        sortByMap[Filter.Sort.RELEASE_DATE] = "Release Date"
+        sortByMap[Filter.Sort.REVENUE] = "Revenue"
+        sortByMap[Filter.Sort.VOTE_AVERAGE] = "Vote Average"
+        return sortByMap
     }
 
 

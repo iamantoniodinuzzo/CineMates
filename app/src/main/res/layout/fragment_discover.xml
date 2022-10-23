@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -34,19 +34,58 @@
             android:drawableTint="@color/geyser"
             android:elevation="4dp"
             android:padding="12dp"
-            android:text="Movie or Actors"
+            android:text="Search by title or actors"
             android:textAlignment="textStart"
             android:textAllCaps="false"
             android:textColor="@color/geyser"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:cornerRadius="20dp"
             app:icon="@drawable/ic_outline_search_24" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/my_filters_block"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search_button"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/my_filters_block_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_button"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:text="My Filters"
+                android:textColor="@color/alabaster"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/linearLayoutCompat">
+
+                <com.example.cinemates.util.RecyclerViewEmptySupport
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/list_item_filter" />
+
+                <include
+                    android:id="@+id/empty_view"
+                    layout="@layout/layout_empty_recycler" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView
             android:id="@+id/filters_block_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/search_button"
+            android:layout_below="@id/my_filters_block"
             android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"
             android:text="Filters"
@@ -55,7 +94,7 @@
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/sortBy_group"
+            android:id="@+id/sortBy_filter_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/filters_block_title"
@@ -63,110 +102,101 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/round_corner_bg"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="12dp"
+            tools:showIn="@layout/fragment_discover">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                android:text="Sort by"
-                android:textColor="@color/geyser"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/sort_by_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sort by"
+                    android:textColor="@color/geyser"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/expand_sort_by"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_expand_state"
+                    app:tint="@color/geyser" />
+            </RelativeLayout>
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/sortBy_ChipGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                app:chipSpacingHorizontal="12dp"
-                app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/popularity"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Popularity"
-                    android:textColor="@color/alabaster"
-                    app:chipBackgroundColor="@color/fern_frond_100" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/release_date"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Release Date"
-                    android:textColor="@color/alabaster"
-                    app:chipBackgroundColor="@color/blue_stone_100" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/revenue"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Revenue"
-                    android:textColor="@color/alabaster"
-                    app:chipBackgroundColor="@color/royal_blue_100" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/vote_average"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vote Average"
-                    android:textColor="@color/alabaster"
-                    app:chipBackgroundColor="@color/vermilion_100" />
-            </com.google.android.material.chip.ChipGroup>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/genres_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/sortBy_group"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/round_corner_bg"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                android:text="Genres"
-                android:textColor="@color/geyser"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_group"
                 style="@style/Widget.MaterialComponents.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                app:chipSpacingHorizontal="12dp" />
+                android:visibility="gone"
+                app:chipSpacingHorizontal="5dp"
+                app:singleSelection="true" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/genres_filter_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sortBy_filter_group"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/round_corner_bg"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/genre_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Genres"
+                    android:textColor="@color/geyser"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/expand_genres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_expand_state"
+                    app:tint="@color/geyser" />
+            </RelativeLayout>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/genre_chipGroup"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:visibility="gone"
+                app:chipSpacingHorizontal="5dp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/button_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/search_button"
+            android:layout_below="@id/genres_filter_group"
             android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@id/filters_block_title"
-            android:gravity="end"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="end"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="invisible">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/clean_filters"
@@ -175,7 +205,21 @@
                 android:layout_marginEnd="10dp"
                 android:text="Clear"
                 android:textAllCaps="false"
-                app:cornerRadius="10dp" />
+                android:textSize="14sp"
+                app:cornerRadius="10dp"
+                app:icon="@drawable/ic_clean" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save_filters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/fern_frond_100"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                app:cornerRadius="10dp"
+                app:icon="@drawable/ic_save_filter" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/apply_filter_btn"
@@ -183,9 +227,11 @@
                 android:layout_height="wrap_content"
                 android:text="Apply"
                 android:textAllCaps="false"
+                android:textSize="14sp"
                 app:backgroundTint="@color/vermilion_100"
-                app:cornerRadius="10dp" />
+                app:cornerRadius="10dp"
+                app:icon="@drawable/ic_outline_double_arrow_24" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </RelativeLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

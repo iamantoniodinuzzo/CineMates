@@ -1,5 +1,6 @@
 package com.example.cinemates.view.ui.discover
 
+import android.app.AlertDialog
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -9,13 +10,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.Navigation.findNavController
 import com.example.cinemates.R
+import com.example.cinemates.adapter.FiltersRecyclerViewAdapter
+import com.example.cinemates.databinding.EditTextLayoutBinding
 import com.example.cinemates.databinding.FragmentDiscoverBinding
 import com.example.cinemates.model.data.Filter
+import com.example.cinemates.util.DialogFactory
 import com.example.cinemates.util.getLong
 import com.example.cinemates.view.ui.MainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -32,6 +37,7 @@ class DiscoverFragment : Fragment() {
         get() = _binding!!
     private val mRnd = Random()
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var adapter: FiltersRecyclerViewAdapter
     private val discoverViewModel: DiscoverViewModel by activityViewModels()
     private lateinit var slideIn: Animation
     private lateinit var slideOut: Animation
@@ -41,6 +47,7 @@ class DiscoverFragment : Fragment() {
         super.onCreate(savedInstanceState)
         slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
         slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)
+        adapter = FiltersRecyclerViewAdapter()
         setupMotionAnimations()
     }
 
@@ -90,7 +97,7 @@ class DiscoverFragment : Fragment() {
             expandSortBy.setOnClickListener {
                 if (sortByChipGroup.isShown) {
                     sortByChipGroup.visibility = View.GONE
-                }else {
+                } else {
                     sortByChipGroup.visibility = View.VISIBLE
                 }
             }
@@ -139,12 +146,55 @@ class DiscoverFragment : Fragment() {
 
             //Clean
             cleanFilters.setOnClickListener {
-                genreChipGroup.clearCheck()
-                sortByChipGroup.clearCheck()
-                discoverViewModel.initFilter()
+                clearSelection()
             }
+
+            //Save
+            saveFilters.setOnClickListener {
+                showEditTextDialog()
+            }
+
+            //Custom filters RecyclerView
+            recyclerView.adapter = adapter
+            recyclerView.setEmptyView(emptyView.root)
         }
 
+    }
+
+    private fun showEditTextDialog() {
+        val builder = AlertDialog.Builder(context)
+        val inflater = layoutInflater
+        val dialogLayout = EditTextLayoutBinding.inflate(inflater)
+        val editText = dialogLayout.editText
+        with(builder) {
+            setTitle("My custom filter name")
+            setPositiveButton("Create") { _, _ ->
+                val name = editText.text.toString().trim()
+                if (name.isNotEmpty()) {
+                    discoverViewModel.filterBuilder.value?.name(name)
+                    val filter = discoverViewModel.filterBuilder.value?.build()
+                    if (filter != null) {
+                        adapter.addItem(filter)
+                        clearSelection()
+                        Toast.makeText(
+                            context,
+                            "Filter ${filter.name} created!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+            setView(dialogLayout.root)
+            show()
+        }
+
+
+    }
+
+    private fun clearSelection() {
+        binding.genreChipGroup.clearCheck()
+        binding.sortByChipGroup.clearCheck()
+        discoverViewModel.initFilter()
     }
 
 

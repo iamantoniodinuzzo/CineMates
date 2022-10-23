@@ -2,27 +2,27 @@ name: 🚀 Feature Request
 description: Suggest an idea for this project
 title: "[Feat]: <title>"
 labels: ["enhancement"]
-assignees:
+assignees: |
   - Indisparte
 body:
   - type: markdown
     attributes:
       label: Is your feature request related to a problem? Please describe.
-      placeholder: |
+      value: |
         A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
     validations:
       required: true
   - type: markdown
     attributes:
       label: Describe alternatives you have considered.
-      placeholder: |
+      value: |
         A clear and concise description of any alternative solutions or features you've considered.
     validations:
       required: true
   - type: markdown
     attributes:
       label: Additional Context
-      placeholder: |
+      value: |
        Add any other context or screenshots about the feature request here.
     validations:
       required: false

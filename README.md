@@ -68,8 +68,8 @@ Find a file called `local.properties` in the `.gradle` file in the home director
     * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
     * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
 - [Android Data Binding](https://developer.android.com/topic/libraries/data-binding/)
-- [Retrofit](http://square.github.io/retrofit/) per la comunicazione con l'API
-- [Glide](https://github.com/bumptech/glide) per il caricamento delle immagini
-- [Hilt Library](https://developer.android.com/training/dependency-injection/hilt-android) per la Dependency Injection
-- [YouTube Library](https://developers.google.com/youtube/android/player) per le anteprime di YouTube 
+- [Retrofit](http://square.github.io/retrofit/)
+- [Glide](https://github.com/bumptech/glide) 
+- [Hilt Library](https://developer.android.com/training/dependency-injection/hilt-android)
+- [YouTube Library](https://developers.google.com/youtube/android/player)
 

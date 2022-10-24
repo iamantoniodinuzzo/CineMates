@@ -1,6 +1,6 @@
 name: 🐞 Bug Report
 description: File a bug report
-title: "[Bug]: <title>"
+title: "<title>"
 labels: ["bug"]
 assignees:
   - Indisparte

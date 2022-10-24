@@ -2,17 +2,22 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-<data>
-    <variable
-        name="filter"
-        type="com.example.cinemates.model.data.Filter" />
-</data>
+
+    <data>
+
+        <variable
+            name="filter"
+            type="com.example.cinemates.model.data.Filter" />
+    </data>
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="200dp"
+        android:layout_height="100dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_height="100dp"
-        app:cardCornerRadius="20dp">
+        app:cardBackgroundColor="@color/royal_blue_100"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,6 +34,7 @@
                 android:maxLines="4"
                 android:text="@{filter.name}"
                 android:textAlignment="textStart"
+                android:textColor="@color/alabaster"
                 android:textSize="24sp"
                 tools:text="@tools:sample/cities" />
         </RelativeLayout>

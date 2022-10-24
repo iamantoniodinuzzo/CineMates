@@ -26,6 +26,7 @@ import com.example.cinemates.view.ui.MainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 import com.google.android.material.transition.platform.MaterialElevationScale
@@ -162,12 +163,12 @@ class DiscoverFragment : Fragment() {
     }
 
     private fun showEditTextDialog() {
-        val builder = AlertDialog.Builder(context)
+        val builder = MaterialAlertDialogBuilder(requireContext())
         val inflater = layoutInflater
         val dialogLayout = EditTextLayoutBinding.inflate(inflater)
         val editText = dialogLayout.editText
         with(builder) {
-            setTitle("My custom filter name")
+            setTitle("Filter's name")
             setPositiveButton("Create") { _, _ ->
                 val name = editText.text.toString().trim()
                 if (name.isNotEmpty()) {

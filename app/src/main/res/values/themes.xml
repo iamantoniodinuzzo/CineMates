@@ -20,7 +20,7 @@
         <item name="android:textColorHint">@color/geyser</item>
         <item name="android:editTextColor">@color/white</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
-
+        <item name="materialAlertDialogTheme">@style/AppDialogTheme</item>
     </style>
 
     <!-- TabLayout Style-->
@@ -76,14 +76,20 @@
         <item name="colorControlNormal">@color/alabaster</item>
         <item name="buttonBarButtonStyle">@style/DialogButtonStyle</item>
         <item name="android:textSize">14sp</item>
-        <item name="background">@drawable/round_corner_bg</item>
         <!-- Define window properties as desired -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>
-        <item name="android:windowBackground">@color/lynch_100</item>
+        <item name="android:background">@color/lynch_100</item>
         <item name="android:windowIsFloating">true</item>
-        <item name="buttonTint">@color/vermilion_100</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Alert.Button.Positive</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <style name="Alert.Button.Positive" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="rippleColor">@color/vermilion_100</item>
+        <item name="android:textColor">@color/alabaster</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <!-- Define your custom bottom sheet dialog theme here extending from base -->

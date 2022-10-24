@@ -62,4 +62,20 @@ class Converters {
         val gson = Gson()
         return gson.toJson(list)
     }
+
+    @TypeConverter
+    fun fromListOfInt(list: List<Int>): String {
+        return if(list.isNotEmpty())
+            list.joinToString(separator = ",")
+        else
+            ""
+    }
+
+    @TypeConverter
+    fun toListOfInt(value: String): List<Int> {
+        return if (value.isNotEmpty())
+            value.split(",").map(String::toInt)
+        else
+            listOf()
+    }
 }

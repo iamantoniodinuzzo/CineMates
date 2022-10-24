@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="title"
-            type="String" />
+            name="filter"
+            type="com.example.cinemates.model.data.Filter" />
     </data>
 
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,9 +21,10 @@
             android:layout_height="?android:actionBarSize"
             app:menu="@menu/menu_customizable_fragment"
             app:navigationIcon="@drawable/ic_round_arrow_back_24"
-            app:title="@{title}"
+            app:title="@{filter.name}"
+            android:textSize="14sp"
             app:titleTextColor="@color/geyser"
-            tools:title="Title" />
+            tools:title="@tools:sample/lorem/random" />
 
         <com.example.cinemates.util.RecyclerViewEmptySupport
             android:id="@+id/recyclerView"

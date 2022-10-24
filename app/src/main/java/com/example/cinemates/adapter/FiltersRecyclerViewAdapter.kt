@@ -1,25 +1,12 @@
 package com.example.cinemates.adapter
 
-import android.app.DownloadManager
-import android.content.Context
-import android.net.Uri
-import android.os.Environment
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
-import com.example.cinemates.databinding.ListItemBackdropBinding
 import com.example.cinemates.databinding.ListItemFilterBinding
-import com.example.cinemates.databinding.ListItemPosterBinding
-import com.example.cinemates.databinding.ListItemSectionBinding
 import com.example.cinemates.model.data.Filter
-import com.example.cinemates.model.data.ImagesResponse
-import com.example.cinemates.util.BASE_URL
-import com.example.cinemates.util.DialogFactory
 import com.example.cinemates.util.inflater
 import com.example.cinemates.view.ui.discover.DiscoverFragmentDirections
-import java.io.File
 
 /**
  * @author Antonio Di Nuzzo
@@ -39,7 +26,7 @@ class FiltersRecyclerViewAdapter :
         val filter = dataList[position]
         holder.binding.apply {
             setFilter(filter)
-            root.setOnClickListener{
+            root.setOnClickListener {
                 val action =
                     DiscoverFragmentDirections.actionDiscoverFragmentToFilterFragment(filter)
                 Navigation.findNavController(it).navigate(action)
@@ -52,6 +39,7 @@ class FiltersRecyclerViewAdapter :
     }
 
     fun addItems(dataList: List<Filter>?) {
+        this.dataList.clear()
         this.dataList.addAll(dataList!!)
         notifyDataSetChanged()
     }

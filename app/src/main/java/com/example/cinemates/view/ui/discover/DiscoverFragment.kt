@@ -1,10 +1,10 @@
 package com.example.cinemates.view.ui.discover
 
-import android.app.AlertDialog
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +20,6 @@ import com.example.cinemates.adapter.FiltersRecyclerViewAdapter
 import com.example.cinemates.databinding.EditTextLayoutBinding
 import com.example.cinemates.databinding.FragmentDiscoverBinding
 import com.example.cinemates.model.data.Filter
-import com.example.cinemates.util.DialogFactory
 import com.example.cinemates.util.getLong
 import com.example.cinemates.view.ui.MainActivity
 import com.example.cinemates.view.viewmodel.DbFilterViewModel
@@ -163,6 +162,7 @@ class DiscoverFragment : Fragment() {
         }
 
         dbFilterViewModel.filters.observe(viewLifecycleOwner) { filters ->
+            Log.d("DiscoverFragment", "Filter list: $filters")
             adapter.addItems(filters)
         }
 
@@ -181,7 +181,7 @@ class DiscoverFragment : Fragment() {
                     discoverViewModel.filterBuilder.value?.name(name)
                     val filter = discoverViewModel.filterBuilder.value?.build()
                     if (filter != null) {
-                        dbFilterViewModel.saveFilter(filter)
+                        dbFilterViewModel.insertFilter(filter)
                         clearSelection()
                         Toast.makeText(
                             context,

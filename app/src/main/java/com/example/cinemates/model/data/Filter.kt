@@ -7,11 +7,13 @@ import com.example.cinemates.util.Converters
 import java.io.Serializable
 
 @Entity
-class Filter private constructor(
+class Filter constructor(
     val name: String?,
     @TypeConverters(Converters::class)
     val sortBy: Sort?,
+    @TypeConverters(Converters::class)
     val withGenres: List<Int>?,
+    @TypeConverters(Converters::class)
     val withCast: List<Int>?,
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)

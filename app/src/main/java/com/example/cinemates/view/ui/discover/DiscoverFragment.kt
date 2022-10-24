@@ -23,6 +23,7 @@ import com.example.cinemates.model.data.Filter
 import com.example.cinemates.util.DialogFactory
 import com.example.cinemates.util.getLong
 import com.example.cinemates.view.ui.MainActivity
+import com.example.cinemates.view.viewmodel.DbFilterViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -40,6 +41,7 @@ class DiscoverFragment : Fragment() {
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var adapter: FiltersRecyclerViewAdapter
     private val discoverViewModel: DiscoverViewModel by activityViewModels()
+    private val dbFilterViewModel: DbFilterViewModel by activityViewModels()
     private lateinit var slideIn: Animation
     private lateinit var slideOut: Animation
 
@@ -160,6 +162,10 @@ class DiscoverFragment : Fragment() {
             recyclerView.setEmptyView(emptyView.root)
         }
 
+        dbFilterViewModel.filters.observe(viewLifecycleOwner) { filters ->
+            adapter.addItems(filters)
+        }
+
     }
 
     private fun showEditTextDialog() {
@@ -175,7 +181,7 @@ class DiscoverFragment : Fragment() {
                     discoverViewModel.filterBuilder.value?.name(name)
                     val filter = discoverViewModel.filterBuilder.value?.build()
                     if (filter != null) {
-                        adapter.addItem(filter)
+                        dbFilterViewModel.saveFilter(filter)
                         clearSelection()
                         Toast.makeText(
                             context,

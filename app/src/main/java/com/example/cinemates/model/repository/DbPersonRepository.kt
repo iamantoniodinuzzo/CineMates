@@ -17,7 +17,7 @@ constructor(appDatabase: AppDatabase) {
     }
 
     init {
-        personDao = appDatabase.mPersonDao()
+        personDao = appDatabase.personDao()
     }
 
     fun getPersons() = personDao.getPersons()

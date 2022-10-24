@@ -1,13 +1,21 @@
 package com.example.cinemates.model.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.cinemates.util.Converters
 import java.io.Serializable
 
+@Entity
 class Filter private constructor(
     val name: String?,
+    @TypeConverters(Converters::class)
     val sortBy: Sort?,
     val withGenres: List<Int>?,
     val withCast: List<Int>?,
 ) : Serializable {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int? = null
 
     data class Builder(
         var name: String? = null,
@@ -26,8 +34,8 @@ class Filter private constructor(
     /**
      * Sorting options, default order is Descendant (desc)
      */
-    enum class Sort() {
-        POPULARITY(), RELEASE_DATE(), REVENUE(), VOTE_AVERAGE();
+    enum class Sort {
+        POPULARITY, RELEASE_DATE, REVENUE, VOTE_AVERAGE;
 
         private var order: Order = Order.DESC
 

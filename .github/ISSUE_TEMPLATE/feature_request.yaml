@@ -1,6 +1,6 @@
 name: 🚀 Feature Request
 description: Suggest an idea for this project
-title: "[Feat]: <title>"
+title: "<title>"
 labels: ["enhancement"]
 assignees:
   - Indisparte

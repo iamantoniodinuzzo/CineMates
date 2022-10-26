@@ -115,4 +115,8 @@
         <item name="android:textColor">@color/vermilion_100</item>
         <item name="android:textAllCaps">false</item>
     </style>
+
+    <style name="CardViewCustom" parent="Widget.MaterialComponents.CardView">
+        <item name="background">@drawable/gradient_filter_bg</item>
+    </style>
 </resources>

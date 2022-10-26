@@ -15,12 +15,12 @@
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        app:cardBackgroundColor="@color/royal_blue_100"
         app:cardCornerRadius="20dp"
         app:cardElevation="4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:background="@drawable/gradient_filter_bg"
             android:layout_height="match_parent">
 
             <TextView
@@ -31,12 +31,12 @@
                 android:layout_marginHorizontal="10dp"
                 android:autoSizeMaxTextSize="24sp"
                 android:autoSizeMinTextSize="10sp"
-                android:maxLines="4"
+                android:maxLines="3"
                 android:text="@{filter.name}"
                 android:textAlignment="textStart"
                 android:textColor="@color/alabaster"
                 android:textSize="24sp"
-                tools:text="@tools:sample/cities" />
+                tools:text="@tools:sample/lorem/random" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

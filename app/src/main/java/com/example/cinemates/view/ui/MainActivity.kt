@@ -41,13 +41,16 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHost
         navController = navHost.navController
         setupWithNavController(navController)
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment,
-            R.id.discoverFragment,
-            R.id.savedFragment,
-            R.id.profileFragment)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.homeFragment,
+                R.id.discoverFragment,
+                R.id.savedFragment,
+                R.id.profileFragment
+            )
         )
         lifecycleScope.launchWhenResumed {
-            navController.addOnDestinationChangedListener{ _: NavController, destination: NavDestination, _: Bundle?->
+            navController.addOnDestinationChangedListener { _: NavController, destination: NavDestination, _: Bundle? ->
                 binding.bottomNavigationView.isVisible =
                     appBarConfiguration.topLevelDestinations.contains(destination.id)
             }

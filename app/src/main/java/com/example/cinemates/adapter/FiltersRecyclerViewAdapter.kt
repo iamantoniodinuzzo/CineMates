@@ -12,14 +12,13 @@ import com.example.cinemates.view.ui.discover.DiscoverFragmentDirections
  * @author Antonio Di Nuzzo
  * Created 23/06/2022 at 17:23
  */
-class FiltersRecyclerViewAdapter :
+class FiltersRecyclerViewAdapter() :
     RecyclerView.Adapter<FiltersRecyclerViewAdapter.FilterViewHolder>() {
 
     private val dataList: MutableList<Filter> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder {
         return FilterViewHolder(parent inflater ListItemFilterBinding::inflate)
-
     }
 
     override fun onBindViewHolder(holder: FilterViewHolder, position: Int) {
@@ -31,30 +30,32 @@ class FiltersRecyclerViewAdapter :
                     DiscoverFragmentDirections.actionDiscoverFragmentToFilterFragment(filter)
                 Navigation.findNavController(it).navigate(action)
             }
+
+
         }
     }
 
-    override fun getItemCount(): Int {
-        return dataList.size
+        override fun getItemCount(): Int {
+            return dataList.size
+        }
+
+        fun addItems(dataList: List<Filter>?) {
+            this.dataList.clear()
+            this.dataList.addAll(dataList!!)
+            notifyDataSetChanged()
+        }
+
+        fun addItem(filter: Filter) {
+            this.dataList.add(filter)
+            notifyDataSetChanged()
+        }
+
+
+        inner class FilterViewHolder(val binding: ListItemFilterBinding) :
+            RecyclerView.ViewHolder(
+                binding.root
+            ) {
+
+        }
+
     }
-
-    fun addItems(dataList: List<Filter>?) {
-        this.dataList.clear()
-        this.dataList.addAll(dataList!!)
-        notifyDataSetChanged()
-    }
-
-    fun addItem(filter: Filter) {
-        this.dataList.add(filter)
-        notifyDataSetChanged()
-    }
-
-
-    inner class FilterViewHolder(val binding: ListItemFilterBinding) :
-        RecyclerView.ViewHolder(
-            binding.root
-        ) {
-
-    }
-
-}

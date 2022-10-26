@@ -8,25 +8,25 @@ import java.io.Serializable
 
 @Entity
 class Filter constructor(
-    val name: String?,
+    val name: String,
     @TypeConverters(Converters::class)
-    val sortBy: Sort?,
+    val sortBy: Sort,
     @TypeConverters(Converters::class)
-    val withGenres: List<Int>?,
+    val withGenres: List<Int>,
     @TypeConverters(Converters::class)
-    val withCast: List<Int>?,
+    val withCast: List<Int>,
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null
 
     data class Builder(
-        var name: String? = null,
-        var sortBy: Sort? = null,
+        var name: String = "",
+        var sortBy: Sort = Sort.POPULARITY,
         var withGenres: List<Int> = listOf(),
         var withCast: List<Int> = listOf(),
     ) {
         fun name(name: String) = apply { this.name = name }
-        fun sortBy(sort: Sort?) = apply { this.sortBy = sort }
+        fun sortBy(sort: Sort) = apply { this.sortBy = sort }
         fun withGenres(genresId: List<Int>) = apply { this.withGenres = genresId }
         fun withCast(castIds: List<Int>) = apply { this.withCast = castIds }
         fun build() = Filter(name, sortBy, withGenres, withCast)

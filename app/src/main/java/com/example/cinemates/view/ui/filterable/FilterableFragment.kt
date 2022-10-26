@@ -4,18 +4,14 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.animation.LinearInterpolator
-import android.widget.Toast
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.NavGraphDirections
@@ -62,11 +58,14 @@ class FilterableFragment : Fragment() {
         view.doOnPreDraw { startPostponedEnterTransition() }
         viewModel.setFilter(args.filter)
         // Undo comment if needed
-        // Toast.makeText(context, args.filter.withGenres, Toast.LENGTH_SHORT).show()
         binding.apply {
+            filter = args.filter
+
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+
             recyclerView.adapter = adapter
             recyclerView.setEmptyView(emptyView.root)
+
             viewModel.movies.observe(viewLifecycleOwner) { movies ->
                 adapter.addItems(movies.toMutableList())
                 setFabVisibility(movies)

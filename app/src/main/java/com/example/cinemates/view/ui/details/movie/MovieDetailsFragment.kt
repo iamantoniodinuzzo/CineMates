@@ -78,7 +78,7 @@ class MovieDetailsFragment : Fragment() {
         viewPagerAdapter.addFragment(movieImagesFragment)
         binding.apply {
             viewPager.adapter = viewPagerAdapter
-            viewPager.isUserInputEnabled = false
+            //viewPager.isUserInputEnabled = false
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 when (position) {
                     0 -> tab.text = "Info"

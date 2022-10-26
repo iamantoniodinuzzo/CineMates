@@ -17,7 +17,7 @@ constructor(appDatabase: AppDatabase) {
     }
 
     init {
-        movieDao = appDatabase.mMovieDao()
+        movieDao = appDatabase.movieDao()
     }
 
     fun getMovies() = movieDao.getMovies()

@@ -2,6 +2,7 @@ package com.example.cinemates.util
 
 import androidx.room.TypeConverter
 import com.example.cinemates.model.data.Collection
+import com.example.cinemates.model.data.Filter
 import com.example.cinemates.model.data.Genre
 import com.example.cinemates.model.data.PersonalStatus
 import com.google.gson.Gson
@@ -28,25 +29,30 @@ class Converters {
         }
     }
 
-    @TypeConverter
-    fun toInteger(status: PersonalStatus?): Int {
-        return status?.status ?: 2
-    }
 
     @TypeConverter
-    fun fromString(value: String?): List<Genre> {
+    fun fromPersonalStatus(status: PersonalStatus?) = status?.status ?: 2
+
+    @TypeConverter
+    fun toSort(value: String) = enumValueOf<Filter.Sort>(value)
+
+    @TypeConverter
+    fun fromSort(value: Filter.Sort) = value.name
+
+    @TypeConverter
+    fun toGenreList(value: String?): List<Genre> {
         val listType = object : TypeToken<ArrayList<Genre?>?>() {}.type
         return Gson().fromJson(value, listType)
     }
 
     @TypeConverter
-    fun fromArrayList(list: List<Genre?>?): String {
+    fun fromGenreList(list: List<Genre?>?): String {
         val gson = Gson()
         return gson.toJson(list)
     }
 
     @TypeConverter
-    fun fromValue(value: String?): Collection? {
+    fun toCollection(value: String?): Collection? {
         val listType = object : TypeToken<Collection?>() {}.type
         return Gson().fromJson(value, listType)
     }
@@ -55,5 +61,21 @@ class Converters {
     fun fromCollection(list: Collection?): String {
         val gson = Gson()
         return gson.toJson(list)
+    }
+
+    @TypeConverter
+    fun fromListOfInt(list: List<Int>): String {
+        return if(list.isNotEmpty())
+            list.joinToString(separator = ",")
+        else
+            ""
+    }
+
+    @TypeConverter
+    fun toListOfInt(value: String): List<Int> {
+        return if (value.isNotEmpty())
+            value.split(",").map(String::toInt)
+        else
+            listOf()
     }
 }

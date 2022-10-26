@@ -72,8 +72,13 @@ constructor(private val apiService: MovieService) {
     }
 
     fun getDiscoverableMovies(filter: Filter): Flow<List<Movie>> = flow {
-        sMap["sort_by"] = filter.sortBy.toString()
-        sMap["with_genres"] = filter.withGenres ?: ""
+        sMap["sort_by"] =
+            filter.sortBy.toString()
+        sMap["with_genres"] =
+            filter.withGenres
+                .toString()
+                .replace("[", "")
+                .replace("]", "")
         val movies = apiService.getMoviesByDiscover(sMap).body()?.results ?: listOf()
         emit(movies)
     }

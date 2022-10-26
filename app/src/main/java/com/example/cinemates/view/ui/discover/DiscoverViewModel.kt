@@ -1,10 +1,15 @@
 package com.example.cinemates.view.ui.discover
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.cinemates.model.data.Filter
+import com.example.cinemates.model.repository.DbFilterRepository
 import com.example.cinemates.model.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -16,23 +21,34 @@ private const val TAG = "DiscoverViewModel"
  */
 @HiltViewModel
 class DiscoverViewModel
-@Inject constructor(
-    private val movieRepository: MovieRepository
+@Inject
+constructor(
+
 ) : ViewModel() {
 
-    private val _selectedGenres = MutableLiveData<String>()
-    val selectedGenres: LiveData<String> get() = _selectedGenres
+
+    private val _filterBuilder = MutableLiveData<Filter.Builder>()
+    val filterBuilder: LiveData<Filter.Builder>
+        get() = _filterBuilder
     private val _genreMap = MutableLiveData<HashMap<Int, String>>()
     val genreMap: LiveData<HashMap<Int, String>> get() = _genreMap
+    private val _sortByMap = MutableLiveData<HashMap<Filter.Sort, String>>()
+    val sortByMap: LiveData<HashMap<Filter.Sort, String>>
+        get() = _sortByMap
 
 
     init {
-        initGenres()
-        initGenreMap()
+        initMaps()
+        initFilter()
     }
 
-    private fun initGenreMap() {
+    private fun initMaps() {
         _genreMap.value = getGenreMap()
+        _sortByMap.value = getSortByMap()
+    }
+
+    fun initFilter() {
+        _filterBuilder.value = Filter.Builder()
     }
 
     private fun getGenreMap(): HashMap<Int, String> {
@@ -59,19 +75,13 @@ class DiscoverViewModel
         return genreMap
     }
 
-
-
-
-    fun initGenres() {
-        _selectedGenres.value = ""
-    }
-
-    /**
-     * If the genre is not in the list it is added otherwise if already present it is removed
-     */
-    fun updateSelectedGenres(genreIds: String) {
-        _selectedGenres.value = genreIds.replace("[", "").replace("]", "")
-
+    private fun getSortByMap(): HashMap<Filter.Sort, String> {
+        val sortByMap = HashMap<Filter.Sort, String>()
+        sortByMap[Filter.Sort.POPULARITY] = "Popularity"
+        sortByMap[Filter.Sort.RELEASE_DATE] = "Release Date"
+        sortByMap[Filter.Sort.REVENUE] = "Revenue"
+        sortByMap[Filter.Sort.VOTE_AVERAGE] = "Vote Average"
+        return sortByMap
     }
 
 

@@ -67,7 +67,6 @@ class SavedFragment : Fragment() {
                     switchLayout(mLinearLayoutManager)
                     updateToolbar()
                 }
-                R.id.menu_filter -> Toast.makeText(context, "Soon!", Toast.LENGTH_SHORT).show()
             }
             false
         }

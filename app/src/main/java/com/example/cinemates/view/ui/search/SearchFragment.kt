@@ -107,8 +107,8 @@ class SearchFragment : Fragment() {
         gridView.isVisible = layoutGrid
         val listView = binding.toolbar.menu.findItem(R.id.menu_switch_list)
         listView.isVisible = !layoutGrid
-        val filterView = binding.toolbar.menu.findItem(R.id.menu_filter)
-        filterView.isVisible = false
+//        val filterView = binding.toolbar.menu.findItem(R.id.menu_filter)
+//        filterView.isVisible = false
     }
 
     private fun switchLayout(layoutManager: RecyclerView.LayoutManager?) {

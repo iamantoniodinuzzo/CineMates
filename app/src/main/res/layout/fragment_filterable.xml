@@ -18,7 +18,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?android:actionBarSize"
+            android:layout_height="wrap_content"
             app:menu="@menu/menu_customizable_fragment"
             app:navigationIcon="@drawable/ic_round_arrow_back_24"
             app:title="@{filter.name}"

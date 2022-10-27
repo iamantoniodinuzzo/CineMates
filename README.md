@@ -1,6 +1,20 @@
 
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+-->
+
 # CineMates
-![GitHub last commit](https://img.shields.io/github/last-commit/Indisparte/CineMates?style=for-the-badge)
+![GitHub last commit][last-commit-shield]
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <p align="center">
   <img src="https://github.com/Indisparte/CineMates/blob/main/assets/logo.png?raw=true" alt="CineMates Logo"/>
@@ -10,11 +24,11 @@
 
 This app was born for a group university exam project (*me and two other colleagues of mine*) for a bachelor's degree in computer science at the University of Naples "Federico II". 
 
-I later decided to take the app back and twist it from what were the initial guidelines, in order to try my hand at a more substantial project and to become more familiar with native Android (*Java*) application development but also software engineering in general.
+I later decided to take the app back and twist it from what were the initial guidelines, in order to try my hand at a more substantial project and to become more familiar with Android (*Kotlin*) application development but also software engineering in general.
 
 
 ## 🔎 Project Overview
-The application is still in its early stages but much more mature than it was when I picked it up. 
+The application **is still in its early stages** but much more mature than it was when I picked it up. 
 
 CineMates aims to be a customizable app and my intention is to make every feature customizable by the user.
 
@@ -25,12 +39,11 @@ Here are **some features already developed or in progress**:
 
     For this requirement I found myself developing a **custom sectionable recyclerview** (*A recyclerview whose items are sections consisting of a title and a recyclerview into which other items are to be inserted*). In this way I have already set the stage for future developments by wanting to bring more heterogeneity within the home and be able to manage each section as a single item.
 
-- It is possible to search for movies or actors using a single query, all then distinguishable by the presence of two tabs that divide the search results.
-    It is also possible to discover movies via genre search that can be done from the discover section, where via chips it is possible to select a genre and view related movies. 
-    
-    This feature is to be explored further as the idea works but I want to be able to give the user the ability to be able to choose more than one genre and be able to sort the result using other filters such as duration, popularity.
+- It is possible to **search for movies or actors using a single query**, all then distinguishable by the presence of two tabs that divide the search results.
 
-- A lot of information can be displayed about each movie including also the collection it is possibly part of, similar movies, and trailers or clips. Thanks to a tab system, it is also possible to learn about the cast of that film and take a quick look at the posters .
+- It is possible to create a **custom filter** by entering gender and a filtering parameter including 'Popularity', 'Release Date' and other values.  
+
+- A **lot of information can be displayed about each movie** including also the collection it is possibly part of, similar movies, and trailers or clips. Thanks to a tab system, it is also possible to learn about the **cast** of that film and take a quick look at the **posters** .
 
     In this way it is also possible to find out about the actors, clicking on one of the cast members in fact leads to a section dedicated to that specific person, in which we will display even nice details, as well as the movies in which he/she is present.
 
@@ -73,3 +86,19 @@ Find a file called `local.properties` in the `.gradle` file in the home director
 - [Hilt Library](https://developer.android.com/training/dependency-injection/hilt-android)
 - [YouTube Library](https://developers.google.com/youtube/android/player)
 
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/Indisparte/CineMates.svg?style=for-the-badge
+[contributors-url]: https://github.com/Indisparte/CineMates/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Indisparte/CineMates.svg?style=for-the-badge
+[forks-url]: https://github.com/Indisparte/CineMates/network/members
+[stars-shield]: https://img.shields.io/github/stars/Indisparte/CineMates.svg?style=for-the-badge
+[stars-url]: https://github.com/Indisparte/CineMates/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Indisparte/CineMates.svg?style=for-the-badge
+[issues-url]: https://github.com/Indisparte/CineMates/issues
+[license-shield]: https://img.shields.io/github/license/Indisparte/CineMates.svg?style=for-the-badge
+[license-url]: https://github.com/Indisparte/repo_name/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/iamantoniodinuzzo
+[last-commit-shield]: https://img.shields.io/github/last-commit/Indisparte/CineMates.svg?style=for-the-badge

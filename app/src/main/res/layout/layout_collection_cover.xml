@@ -7,16 +7,15 @@
         <variable
             name="collection"
             type="com.example.cinemates.model.data.Collection" />
-        <variable
-            name="view"
-            type="android.view.View" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:elevation="4dp"
-        android:visibility="@{collection != null ? view.VISIBLE: view.GONE}"
+        android:visibility="@{collection != null ? View.VISIBLE: View.GONE}"
         app:cardCornerRadius="20dp">
 
         <RelativeLayout

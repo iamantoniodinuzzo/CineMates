@@ -133,12 +133,11 @@
 
                 <include
                     android:id="@+id/collection_view"
-                    layout="@layout/layout_item_collection"
+                    layout="@layout/layout_collection_dialog"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="300dp"
                     android:layout_below="@id/movie_info"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginHorizontal="20dp"
                     app:collection="@{movie.belongs_to_collection}" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat

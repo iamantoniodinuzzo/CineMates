@@ -20,8 +20,16 @@ class MovieInfoFragment : Fragment() {
     private val binding: FragmentMovieInfoBinding
         get() = _binding!!
     private lateinit var similarAdapter: MultiViewTypeRecyclerViewAdapter<Movie>
+    private lateinit var movieIntoCollectionAdapter: MultiViewTypeRecyclerViewAdapter<Movie>
     private lateinit var videoAdapter: YoutubeVideoRecyclerViewAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        similarAdapter = MultiViewTypeRecyclerViewAdapter(ViewSize.SMALL)
+        videoAdapter = YoutubeVideoRecyclerViewAdapter()
+        movieIntoCollectionAdapter = MultiViewTypeRecyclerViewAdapter(ViewSize.SMALL)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,15 +44,15 @@ class MovieInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            similarAdapter = MultiViewTypeRecyclerViewAdapter(ViewSize.SMALL)
-            videoAdapter = YoutubeVideoRecyclerViewAdapter()
+
             recommendedRecyclerView.adapter = similarAdapter
             recommendedRecyclerView.setEmptyView(emptyViewRecommended.root)
             videosRecyclerView.adapter = videoAdapter
+            collectionView.moviesIntoCollection.adapter = movieIntoCollectionAdapter
 
             collectionView.collectionName.setOnClickListener {
-                //Open collection dialog
-                findNavController().navigate(R.id.action_movieDetailsFragment_to_collectionDialogFragment)
+                //Remove collection cover
+                collectionView.coverCollectionImage.visibility = View.INVISIBLE
             }
 
             fab.setOnClickListener {
@@ -70,6 +78,9 @@ class MovieInfoFragment : Fragment() {
 
         viewModel.similarMovies.observe(viewLifecycleOwner) { similarMovies ->
             similarAdapter.addItems(similarMovies.toMutableList())
+        }
+        viewModel.moviesBelongsCollection.observe(viewLifecycleOwner) { moviesBelongsCollection ->
+            movieIntoCollectionAdapter.addItems(moviesBelongsCollection.toMutableList())
         }
 
     }

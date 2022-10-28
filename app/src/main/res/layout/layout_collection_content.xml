@@ -39,7 +39,7 @@
                     tools:src="@tools:sample/backgrounds/scenic" />
 
                 <TextView
-                    android:id="@+id/collection_title"
+                    android:id="@+id/content_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
@@ -65,37 +65,10 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cover_collection_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="20dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    app:imageUrlLong="@{collection.backdrop_path}"
-                    tools:src="@tools:sample/backgrounds/scenic" />
-
-                <TextView
-                    android:id="@+id/collectionName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/round_corner_transparent_bg"
-                    android:padding="10dp"
-                    android:text="@{collection.name}"
-                    android:textColor="@color/vermilion_100"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="Belong to collection" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
+        <include
+            android:id="@+id/collection_cover"
+            layout="@layout/layout_collection_cover"
+            app:collection="@{collection}"/>
 
     </FrameLayout>
 </layout>

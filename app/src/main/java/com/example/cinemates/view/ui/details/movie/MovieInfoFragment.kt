@@ -48,11 +48,15 @@ class MovieInfoFragment : Fragment() {
             recommendedRecyclerView.adapter = similarAdapter
             recommendedRecyclerView.setEmptyView(emptyViewRecommended.root)
             videosRecyclerView.adapter = videoAdapter
-            collectionView.moviesIntoCollection.adapter = movieIntoCollectionAdapter
 
-            collectionView.collectionName.setOnClickListener {
+            collectionView.moviesIntoCollection.adapter = movieIntoCollectionAdapter
+            collectionView.collectionCover.coverTitle.setOnClickListener {
                 //Remove collection cover
-                collectionView.coverCollectionImage.visibility = View.INVISIBLE
+                collectionView.collectionCover.root.visibility = View.INVISIBLE
+            }
+            collectionView.contentTitle.setOnClickListener {
+                //Add collection cover
+                collectionView.collectionCover.root.visibility = View.VISIBLE
             }
 
             fab.setOnClickListener {

@@ -87,6 +87,6 @@
         android:id="@+id/collectionDialogFragment"
         android:name="com.example.cinemates.view.ui.details.movie.CollectionDialogFragment"
         android:label="CollectionDialogFragment"
-        tools:layout="@layout/layout_collection_dialog" />
+        tools:layout="@layout/layout_collection_content" />
 
 </navigation>

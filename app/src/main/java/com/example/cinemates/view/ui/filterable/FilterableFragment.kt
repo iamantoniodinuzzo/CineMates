@@ -16,12 +16,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
-import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
+import com.example.cinemates.adapter.MultiViewTypeRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentFilterableBinding
 import com.example.cinemates.databinding.LayoutCustomDialogRandomBinding
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.util.getLong
+import com.example.cinemates.view.ui.MainActivity
 import com.google.android.material.transition.MaterialSharedAxis
 
 class FilterableFragment : Fragment() {
@@ -30,12 +31,12 @@ class FilterableFragment : Fragment() {
         get() = _binding!!
     private val viewModel: FilterableViewModel by activityViewModels()
     private val args: FilterableFragmentArgs by navArgs()
-    private lateinit var adapter: ItemsRecyclerViewAdapter<Movie>
+    private lateinit var adapter: MultiViewTypeRecyclerViewAdapter<Movie>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
+        adapter = MultiViewTypeRecyclerViewAdapter(ViewSize.SMALL)
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
             interpolator = LinearInterpolator()
             duration = resources.getLong(R.integer.material_motion_duration_long_2)
@@ -54,6 +55,8 @@ class FilterableFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ((activity as MainActivity).binding.bottomNavigationView).visibility = View.GONE
+
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
         viewModel.setFilter(args.filter)
@@ -64,14 +67,13 @@ class FilterableFragment : Fragment() {
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
 
             recyclerView.adapter = adapter
-            recyclerView.setEmptyView(emptyView.root)
 
             viewModel.movies.observe(viewLifecycleOwner) { movies ->
                 adapter.addItems(movies.toMutableList())
                 setFabVisibility(movies)
             }
 
-            shuffle.root.setOnClickListener {
+            shuffle.setOnClickListener {
                 showCustomDialog()
             }
         }
@@ -80,9 +82,9 @@ class FilterableFragment : Fragment() {
 
     private fun FragmentFilterableBinding.setFabVisibility(movies: List<Movie>) {
         if (movies.isNotEmpty()) {
-            shuffle.root.visibility = View.VISIBLE
+            shuffle.visibility = View.VISIBLE
         } else {
-            shuffle.root.visibility = View.INVISIBLE
+            shuffle.visibility = View.INVISIBLE
         }
     }
 

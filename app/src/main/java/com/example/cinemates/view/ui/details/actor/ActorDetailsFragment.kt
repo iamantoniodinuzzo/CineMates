@@ -13,15 +13,13 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
-import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
+import com.example.cinemates.adapter.MultiViewTypeRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentActorDetailsBinding
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.viewmodel.DbPersonViewModel
 import com.example.cinemates.util.getLong
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.transition.MaterialArcMotion
-import com.google.android.material.transition.MaterialFade
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 
@@ -29,14 +27,14 @@ class ActorDetailsFragment : Fragment() {
     private var _binding: FragmentActorDetailsBinding? = null
     private val binding: FragmentActorDetailsBinding
         get() = _binding!!
-    private lateinit var adapter: ItemsRecyclerViewAdapter<Movie>
+    private lateinit var adapter: MultiViewTypeRecyclerViewAdapter<Movie>
     private val dbViewModel: DbPersonViewModel by activityViewModels()
     private val viewModel: ActorDetailsViewModel by activityViewModels()
     private val args: ActorDetailsFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
+        adapter = MultiViewTypeRecyclerViewAdapter(ViewSize.SMALL)
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
             interpolator = AnticipateOvershootInterpolator()
             duration = resources.getLong(R.integer.material_motion_duration_medium_2)

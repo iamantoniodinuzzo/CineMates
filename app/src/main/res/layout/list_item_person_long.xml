@@ -14,7 +14,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lynch_100"
+        android:background="@color/mirage_100"
         android:padding="10dp">
 
         <include

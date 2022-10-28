@@ -1,13 +1,12 @@
 package com.example.cinemates.view.ui.details.movie
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
+import com.example.cinemates.adapter.MultiViewTypeRecyclerViewAdapter
 import com.example.cinemates.databinding.LayoutCollectionDialogBinding
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.util.ViewSize
@@ -21,12 +20,12 @@ class CollectionDialogFragment : DialogFragment() {
     private var _binding: LayoutCollectionDialogBinding? = null
     private val binding: LayoutCollectionDialogBinding
         get() = _binding!!
-    private lateinit var adapter: ItemsRecyclerViewAdapter<Movie>
+    private lateinit var adapter: MultiViewTypeRecyclerViewAdapter<Movie>
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
+        adapter = MultiViewTypeRecyclerViewAdapter(ViewSize.SMALL)
     }
 
     override fun onCreateView(
@@ -47,7 +46,6 @@ class CollectionDialogFragment : DialogFragment() {
                 collection = selectedMovie.belongs_to_collection
             }
             viewModel.moviesBelongsCollection.observe(viewLifecycleOwner) { moviesBelongsCollection ->
-                Log.d("CollectionDialog", moviesBelongsCollection.toString())
                 adapter.addItems(moviesBelongsCollection.toMutableList())
             }
         }

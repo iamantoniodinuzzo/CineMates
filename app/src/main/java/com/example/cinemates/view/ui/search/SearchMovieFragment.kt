@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
+import com.example.cinemates.adapter.MultiViewTypeRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentSearchMovieBinding
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.util.ViewSize
@@ -16,11 +16,11 @@ class SearchMovieFragment : Fragment() {
     private val binding: FragmentSearchMovieBinding
         get() = _binding!!
     private val viewModel: SearchViewModel by activityViewModels()
-    private lateinit var adapter: ItemsRecyclerViewAdapter<Movie>
+    private lateinit var adapter: MultiViewTypeRecyclerViewAdapter<Movie>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
+        adapter = MultiViewTypeRecyclerViewAdapter(ViewSize.SMALL)
     }
 
     override fun onCreateView(

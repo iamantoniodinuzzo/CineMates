@@ -4,7 +4,6 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +13,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.cinemates.R
-import com.example.cinemates.adapter.FiltersRecyclerViewAdapter
+import com.example.cinemates.adapter.BaseAdapter
 import com.example.cinemates.databinding.EditTextLayoutBinding
 import com.example.cinemates.databinding.FragmentDiscoverBinding
+import com.example.cinemates.databinding.ListItemFilterBinding
 import com.example.cinemates.model.data.Filter
 import com.example.cinemates.util.getLong
+import com.example.cinemates.util.inflater
 import com.example.cinemates.view.ui.MainActivity
 import com.example.cinemates.view.viewmodel.DbFilterViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -38,7 +39,7 @@ class DiscoverFragment : Fragment() {
         get() = _binding!!
     private val mRnd = Random()
     private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit var adapter: FiltersRecyclerViewAdapter
+    private lateinit var adapter: BaseAdapter<Filter, ListItemFilterBinding>
     private val discoverViewModel: DiscoverViewModel by activityViewModels()
     private val dbFilterViewModel: DbFilterViewModel by activityViewModels()
     private lateinit var slideIn: Animation
@@ -49,7 +50,22 @@ class DiscoverFragment : Fragment() {
         super.onCreate(savedInstanceState)
         slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
         slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)
-        adapter = FiltersRecyclerViewAdapter()
+        adapter = BaseAdapter(
+            expressionOnCreateViewHolder = { viewGroup ->
+                viewGroup inflater ListItemFilterBinding::inflate
+            },
+            expressionViewHolderBinding = { filter, binding ->
+                binding.apply {
+                    setFilter(filter)
+                    root.setOnClickListener {
+                        val action =
+                            DiscoverFragmentDirections.actionDiscoverFragmentToFilterFragment(filter)
+                        findNavController().navigate(action)
+                    }
+                }
+
+            }
+        )
         setupMotionAnimations()
     }
 
@@ -89,8 +105,8 @@ class DiscoverFragment : Fragment() {
                 }
             }
 
-            searchButton.setOnClickListener { view ->
-                findNavController(view).navigate(
+            searchButton.setOnClickListener { _ ->
+                findNavController().navigate(
                     R.id.action_discoverFragment_to_searchFragment
                 )
             }
@@ -112,7 +128,6 @@ class DiscoverFragment : Fragment() {
                     discoverViewModel.filterBuilder.value?.sortBy(sortBy)
                     binding.buttonGroup.visibility = View.VISIBLE
                 } else {
-                    discoverViewModel.filterBuilder.value?.sortBy(null)
                     binding.buttonGroup.visibility = View.GONE
                 }
             }
@@ -143,7 +158,7 @@ class DiscoverFragment : Fragment() {
                 val filter = discoverViewModel.filterBuilder.value!!.build()
                 val action =
                     DiscoverFragmentDirections.actionDiscoverFragmentToFilterFragment(filter)
-                findNavController(view).navigate(action)
+                findNavController().navigate(action)
             }
 
             //Clean
@@ -162,8 +177,7 @@ class DiscoverFragment : Fragment() {
         }
 
         dbFilterViewModel.filters.observe(viewLifecycleOwner) { filters ->
-            Log.d("DiscoverFragment", "Filter list: $filters")
-            adapter.addItems(filters)
+            adapter.dataList = filters as MutableList<Filter>?
         }
 
     }
@@ -221,7 +235,6 @@ class DiscoverFragment : Fragment() {
                 discoverViewModel.filterBuilder.value?.sortBy(sort)
                 binding.buttonGroup.visibility = View.VISIBLE
             } else {
-                discoverViewModel.filterBuilder.value?.sortBy(null)
                 binding.buttonGroup.visibility = View.GONE
             }
         }

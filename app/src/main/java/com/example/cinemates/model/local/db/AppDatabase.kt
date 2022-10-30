@@ -17,7 +17,7 @@ import com.example.cinemates.util.Converters
  */
 @Database(
     entities = [Movie::class, Person::class, Filter::class],
-    version = 12,
+    version = 13,
     exportSchema = false
 )
 @TypeConverters(

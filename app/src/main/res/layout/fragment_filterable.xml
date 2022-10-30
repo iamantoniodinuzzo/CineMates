@@ -8,43 +8,77 @@
             type="com.example.cinemates.model.data.Filter" />
     </data>
 
-    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/drawer_layout"
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ui.filterable.FilterableFragment">
+        android:fitsSystemWindows="true">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/menu_customizable_fragment"
-            app:navigationIcon="@drawable/ic_round_arrow_back_24"
-            app:title="@{filter.name}"
-            android:textSize="14sp"
-            app:titleTextColor="@color/geyser"
-            tools:title="@tools:sample/lorem/random" />
+            android:background="@android:color/transparent"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="0dp"
+                android:fitsSystemWindows="true"
+                android:textSize="24sp"
+                app:collapsedTitleTextColor="@color/geyser"
+                app:expandedTitleMarginStart="10dp"
+                app:expandedTitleTextColor="@color/alabaster"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:title="@{filter.name}">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax">
+
+                    <!--Content here-->
+
+                </RelativeLayout>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:textSize="14sp"
+                    app:layout_collapseMode="pin"
+                    app:menu="@menu/menu_customizable_fragment"
+                    app:navigationIcon="@drawable/ic_round_arrow_back_24"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/shuffle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/vermilion_100"
+            android:contentDescription="Random movie"
+            android:src="@drawable/ic_shuffle" />
 
         <com.example.cinemates.util.RecyclerViewEmptySupport
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbar"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:spanCount="3"
             tools:listitem="@layout/list_item_movie_small" />
 
-        <include
-            android:id="@+id/empty_view"
-            layout="@layout/layout_empty_recycler" />
 
-        <include
-            android:id="@+id/shuffle"
-            layout="@layout/layout_fab_shuffle" />
-
-    </RelativeLayout>
-
-
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

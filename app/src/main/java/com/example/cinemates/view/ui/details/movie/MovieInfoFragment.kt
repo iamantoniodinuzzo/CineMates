@@ -1,7 +1,6 @@
 package com.example.cinemates.view.ui.details.movie
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cinemates.R
-import com.example.cinemates.adapter.ItemsRecyclerViewAdapter
+import com.example.cinemates.adapter.MultiViewTypeRecyclerViewAdapter
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentMovieInfoBinding
 import com.example.cinemates.model.data.Movie
@@ -20,9 +19,17 @@ class MovieInfoFragment : Fragment() {
     private var _binding: FragmentMovieInfoBinding? = null
     private val binding: FragmentMovieInfoBinding
         get() = _binding!!
-    private lateinit var similarAdapter: ItemsRecyclerViewAdapter<Movie>
+    private lateinit var similarAdapter: MultiViewTypeRecyclerViewAdapter<Movie>
+    private lateinit var movieIntoCollectionAdapter: MultiViewTypeRecyclerViewAdapter<Movie>
     private lateinit var videoAdapter: YoutubeVideoRecyclerViewAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        similarAdapter = MultiViewTypeRecyclerViewAdapter(ViewSize.SMALL)
+        videoAdapter = YoutubeVideoRecyclerViewAdapter()
+        movieIntoCollectionAdapter = MultiViewTypeRecyclerViewAdapter(ViewSize.SMALL)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,16 +44,24 @@ class MovieInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            similarAdapter = ItemsRecyclerViewAdapter(ViewSize.SMALL)
-            videoAdapter = YoutubeVideoRecyclerViewAdapter()
+
             recommendedRecyclerView.adapter = similarAdapter
             recommendedRecyclerView.setEmptyView(emptyViewRecommended.root)
             videosRecyclerView.adapter = videoAdapter
 
-            collectionView.collectionName.setOnClickListener {
-                //Open collection dialog
-                findNavController().navigate(R.id.action_movieDetailsFragment_to_collectionDialogFragment)
+            collectionView.apply {
+                moviesIntoCollection.adapter = movieIntoCollectionAdapter
+                collectionCover.coverTitle.setOnClickListener {
+                    //Remove collection cover
+                    collectionCover.root.visibility = View.INVISIBLE
+
+                }
+                contentTitle.setOnClickListener {
+                    //Add collection cover
+                    collectionCover.root.visibility = View.VISIBLE
+                }
             }
+
 
             fab.setOnClickListener {
                 //Open bottomSheetFragment
@@ -71,6 +86,9 @@ class MovieInfoFragment : Fragment() {
 
         viewModel.similarMovies.observe(viewLifecycleOwner) { similarMovies ->
             similarAdapter.addItems(similarMovies.toMutableList())
+        }
+        viewModel.moviesBelongsCollection.observe(viewLifecycleOwner) { moviesBelongsCollection ->
+            movieIntoCollectionAdapter.addItems(moviesBelongsCollection.toMutableList())
         }
 
     }

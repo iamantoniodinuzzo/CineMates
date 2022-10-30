@@ -49,15 +49,19 @@ class MovieInfoFragment : Fragment() {
             recommendedRecyclerView.setEmptyView(emptyViewRecommended.root)
             videosRecyclerView.adapter = videoAdapter
 
-            collectionView.moviesIntoCollection.adapter = movieIntoCollectionAdapter
-            collectionView.collectionCover.coverTitle.setOnClickListener {
-                //Remove collection cover
-                collectionView.collectionCover.root.visibility = View.INVISIBLE
+            collectionView.apply {
+                moviesIntoCollection.adapter = movieIntoCollectionAdapter
+                collectionCover.coverTitle.setOnClickListener {
+                    //Remove collection cover
+                    collectionCover.root.visibility = View.INVISIBLE
+
+                }
+                contentTitle.setOnClickListener {
+                    //Add collection cover
+                    collectionCover.root.visibility = View.VISIBLE
+                }
             }
-            collectionView.contentTitle.setOnClickListener {
-                //Add collection cover
-                collectionView.collectionCover.root.visibility = View.VISIBLE
-            }
+
 
             fab.setOnClickListener {
                 //Open bottomSheetFragment

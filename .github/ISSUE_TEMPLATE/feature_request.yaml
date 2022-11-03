@@ -9,9 +9,9 @@ body:
     attributes:
       label: Is there a project named like this repo?
       description: Please search to see if project named like this repo and if exists set.
-    options:
-      - label: I have searched 
-        required: true
+      options:
+        - label: I have searched 
+          required: true
   - type: textarea
     attributes:
       label: Is your feature request related to a problem? Please describe.

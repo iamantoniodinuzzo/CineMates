@@ -5,6 +5,10 @@ labels: ["enhancement"]
 assignees:
   - Indisparte
 body:
+  - type: checkboxes
+    options:
+      - label: I checked if there is a project named like this repo. If it exists, I proceeded to assign this issue to that project.
+        required: true
   - type: textarea
     attributes:
       label: Is your feature request related to a problem? Please describe.

@@ -7,9 +7,10 @@ assignees:
 body:
   - type: checkboxes
     attributes:
-     label: " "
-     options:
-      - label: I checked if there is a project named like this repo. If it exists, I proceeded to assign this issue to that project 
+      label: Is there a project named like this repo?
+      description: Please search to see if project named like this repo and if exists set.
+    options:
+      - label: I have searched 
         required: true
   - type: textarea
     attributes:

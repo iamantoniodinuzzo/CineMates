@@ -7,7 +7,7 @@ assignees:
 body:
   - type: checkboxes
     attributes:
-     label: ""
+     label: " "
      options:
       - label: I checked if there is a project named like this repo. If it exists, I proceeded to assign this issue to that project 
         required: true

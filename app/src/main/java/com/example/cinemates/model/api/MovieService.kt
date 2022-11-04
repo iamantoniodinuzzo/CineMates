@@ -9,7 +9,6 @@ import com.example.cinemates.model.data.Genre
 import com.example.cinemates.model.data.ImagesResponse
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.model.data.Person
-import com.example.cinemates.model.data.Review
 import com.example.cinemates.model.data.Video
 import retrofit2.Response
 import retrofit2.http.GET

@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
-import com.example.cinemates.adapter.MultiViewTypeRecyclerViewAdapter
+import com.example.cinemates.adapter.MovieAdapter
 import com.example.cinemates.databinding.FragmentFilterableBinding
 import com.example.cinemates.databinding.LayoutCustomDialogRandomBinding
 import com.example.cinemates.model.data.Movie
@@ -31,12 +31,12 @@ class FilterableFragment : Fragment() {
         get() = _binding!!
     private val viewModel: FilterableViewModel by activityViewModels()
     private val args: FilterableFragmentArgs by navArgs()
-    private lateinit var adapter: MultiViewTypeRecyclerViewAdapter<Movie>
+    private lateinit var adapter: MovieAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = MultiViewTypeRecyclerViewAdapter(ViewSize.SMALL)
+        adapter = MovieAdapter()
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
             interpolator = LinearInterpolator()
             duration = resources.getLong(R.integer.material_motion_duration_long_2)
@@ -69,7 +69,7 @@ class FilterableFragment : Fragment() {
             recyclerView.adapter = adapter
 
             viewModel.movies.observe(viewLifecycleOwner) { movies ->
-                adapter.addItems(movies.toMutableList())
+                adapter.addItems(movies)
                 setFabVisibility(movies)
             }
 

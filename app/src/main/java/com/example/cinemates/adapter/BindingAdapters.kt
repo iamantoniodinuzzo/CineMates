@@ -131,7 +131,7 @@ fun formatAsHtml(view: TextView, section: Section<*>) {
     var sectionDescription = ""
     if (section.sectionContentDescription != null) {
         sectionDescription =
-            " <font color=#3A55EA>" + section.sectionContentDescription + "</font>"
+            " <font color=#3A55EA><small>" + section.sectionContentDescription + "</small></font>"
     }
     view.text = Html.fromHtml("$sectionTitle$sectionDescription", Html.FROM_HTML_MODE_COMPACT)
 }

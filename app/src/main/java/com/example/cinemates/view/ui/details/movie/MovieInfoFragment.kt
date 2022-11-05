@@ -85,8 +85,8 @@ class MovieInfoFragment : Fragment() {
         viewModel.similarMovies.observe(viewLifecycleOwner) { similarMovies ->
             similarAdapter.addItems(similarMovies)
         }
-        viewModel.moviesBelongsCollection.observe(viewLifecycleOwner) { moviesBelongsCollection ->
-            movieIntoCollectionAdapter.addItems(moviesBelongsCollection)
+        viewModel.moviesBelongsCollection.observe(viewLifecycleOwner) { collection ->
+            movieIntoCollectionAdapter.addItems(collection.parts)
         }
 
     }

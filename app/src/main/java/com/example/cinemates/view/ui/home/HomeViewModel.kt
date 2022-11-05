@@ -12,6 +12,7 @@ import com.example.cinemates.model.repository.MovieRepository
 import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.TimeWindow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -54,60 +55,70 @@ constructor(
     }
 
     private fun getTrendingMovies() = viewModelScope.launch {
-        movieRepository.getTrendingMovies(MediaType.MOVIE.toString(), TimeWindow.WEEK.toString())
-            .let { response ->
+        try {
+            movieRepository.getTrendingMovies(
+                MediaType.MOVIE.toString(),
+                TimeWindow.WEEK.toString()
+            ).collectLatest { movies ->
 
-                  if(response.isSuccessful){
-                      _trendingMovies.postValue(response.body()?.results)
-                  }else{
-                      Log.d(TAG, "getTrendingMovies Error: ${response.code()}")
-                  }
+                _trendingMovies.postValue(movies)
+
             }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
+
     }
 
     private fun getTrendingPerson() = viewModelScope.launch {
         actorRepository.getTrendingPerson(MediaType.PERSON.toString(), TimeWindow.WEEK.toString())
             .let { response ->
 
-                  if(response.isSuccessful){
-                      _trendingPerson.postValue(response.body()?.results)
-                  }else{
-                      Log.d(TAG, "getTrendingPerson Error: ${response.code()}")
-                  }
+                if (response.isSuccessful) {
+                    _trendingPerson.postValue(response.body()?.results)
+                } else {
+                    Log.d(TAG, "getTrendingPerson Error: ${response.code()}")
+                }
             }
     }
 
     private fun getPopularMovies() = viewModelScope.launch {
-        movieRepository.getPopularMovies().let { response ->
+        try {
+            movieRepository.getPopularMovies().collectLatest { movies ->
 
-                  if(response.isSuccessful){
-                      _popularMovies.postValue(response.body()?.results)
-                  }else{
-                      Log.d(TAG, "getPopularMovies Error: ${response.code()}")
-                  }
+                _popularMovies.postValue(movies)
+
             }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
+
     }
 
     private fun getTopRatedMovies() = viewModelScope.launch {
-        movieRepository.getTopRatedMovies().let { response ->
+        try {
+            movieRepository.getTopRatedMovies().collectLatest { movies ->
 
-                  if(response.isSuccessful){
-                      _topRatedMovies.postValue(response.body()?.results)
-                  }else{
-                      Log.d(TAG, "getTopRatedMovies Error: ${response.code()}")
-                  }
+                _topRatedMovies.postValue(movies)
+
             }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
+
     }
 
     private fun getUpcomingMovies() = viewModelScope.launch {
-        movieRepository.getUpcomingMovies().let { response ->
+        try {
+            movieRepository.getUpcomingMovies().collectLatest { movies ->
 
-                  if(response.isSuccessful){
-                      _upcomingMovies.postValue(response.body()?.results)
-                  }else{
-                      Log.d(TAG, "getUpcomingMovies Error: ${response.code()}")
-                  }
+                _upcomingMovies.postValue(movies)
+
             }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
+
     }
 
 }

@@ -10,6 +10,7 @@ import com.example.cinemates.model.entities.Movie
 import com.example.cinemates.model.repository.ActorRepository
 import com.example.cinemates.model.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -49,15 +50,16 @@ constructor(
     }
 
     private fun searchActors(query: String) = viewModelScope.launch {
-        movieRepository.getMoviesBySearch(query).let { response ->
+        try {
+            movieRepository.getMoviesBySearch(query).collectLatest { movies ->
 
-            if (response.isSuccessful) {
-                _queriedMovies.value = response.body()?.results
-            } else {
-                Log.d(TAG, "getQueriesMovies Error: ${response.code()}")
+                _queriedMovies.value = movies
+
             }
-
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
         }
+
     }
 
     private fun searchMovies(query: String) = viewModelScope.launch {

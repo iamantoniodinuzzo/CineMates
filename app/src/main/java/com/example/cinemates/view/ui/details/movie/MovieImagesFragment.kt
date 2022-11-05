@@ -16,7 +16,6 @@ import com.example.cinemates.databinding.FragmentMovieImagesBinding
 import com.example.cinemates.databinding.ListItemBackdropBinding
 import com.example.cinemates.databinding.ListItemPosterBinding
 import com.example.cinemates.model.entities.Image
-import com.example.cinemates.network.response.ImagesResponse
 import com.example.cinemates.util.BASE_URL
 import com.example.cinemates.util.DialogFactory
 import com.example.cinemates.util.inflater
@@ -111,11 +110,16 @@ class MovieImagesFragment : Fragment() {
             backdropRv.adapter = backdropAdapter
             backdropRv.setEmptyView(emptyBackdropView.root)
         }
-
-        viewModel.imagesResponse.observe(viewLifecycleOwner) { images ->
-            posterAdapter.dataList = images.posters
-            backdropAdapter.dataList = images.backdrops
+        
+        with(viewModel){
+            posters.observe(viewLifecycleOwner){posters->
+                posterAdapter.dataList = posters
+            }
+            backdrops.observe(viewLifecycleOwner){backdrops->
+                backdropAdapter.dataList = backdrops
+            }
         }
+
     }
 
     override fun onDestroyView() {

@@ -16,7 +16,7 @@ constructor(appDatabase: AppDatabase) {
         filterDao = appDatabase.filterDao()
     }
 
-    fun getFilters() = filterDao.getFilters()
-    suspend fun insertFilter(filter: Filter)= filterDao.insert(filter)
-    suspend fun deleteFilter(filter: Filter)= filterDao.delete(filter)
+    fun getFilters() = filterDao.getAll()
+    fun insertFilter(filter: Filter) = filterDao.insert(filter)
+    fun deleteFilter(filter: Filter) = filterDao.delete(filter)
 }

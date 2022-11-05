@@ -5,14 +5,8 @@ import com.example.cinemates.model.entities.Filter
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface FilterDao {
+interface FilterDao : BaseDao<Filter> {
 
     @Query("SELECT * FROM filter")
-    fun getFilters(): Flow<List<Filter>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(filter: Filter)
-
-    @Delete
-    suspend fun delete(filter: Filter)
+    fun getAll(): Flow<List<Filter>>
 }

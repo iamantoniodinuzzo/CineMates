@@ -9,12 +9,13 @@ import kotlinx.coroutines.flow.Flow
  * Created 26/07/2022 at 07:36
  */
 @Dao
-interface MovieDao {
+interface MovieDao : BaseDao<Movie> {
+
     @Query("SELECT * FROM movie")
-    fun getMovies(): Flow<List<Movie>>
+    fun getAll(): Flow<List<Movie>>
 
     @Query("SELECT * FROM movie WHERE id=:id")
-    fun getMovie(id: Int): Movie?
+    fun getById(id: Int): Movie?
 
     @Query("SELECT * FROM movie WHERE personalStatus=1")
     fun getToSeeMovies(): Flow<List<Movie>>
@@ -34,12 +35,5 @@ interface MovieDao {
     @Query("SELECT EXISTS(SELECT * FROM movie WHERE id = :id AND personalStatus = 0)")
     fun isSeen(id: Int): Boolean
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(movie: Movie)
 
-    @Update
-    suspend fun update(movie: Movie)
-
-    @Delete
-    suspend fun delete(movie: Movie)
 }

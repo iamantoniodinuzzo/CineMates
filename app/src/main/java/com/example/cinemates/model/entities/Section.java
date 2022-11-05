@@ -14,7 +14,7 @@ import java.util.Objects;
  * Created 15/12/2021 at 20:54
  */
 public class Section<T> extends ArrayList<T> {
-    private Class<T> genericType;
+    private final Class<T> genericType;
     private String sectionName;
     private String sectionContentDescription;
     private LiveData<List<T>> listLiveData;

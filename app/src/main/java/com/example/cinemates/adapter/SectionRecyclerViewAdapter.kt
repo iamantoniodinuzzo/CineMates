@@ -108,7 +108,5 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
     class SectionViewHolder(val binding: ListItemSectionBinding) :
         RecyclerView.ViewHolder(
             binding.root
-        ) {
-
-    }
+        )
 }

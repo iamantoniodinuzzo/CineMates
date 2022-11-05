@@ -1,6 +1,5 @@
 package com.example.cinemates.view.ui.details.actor
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,7 +17,6 @@ import javax.inject.Inject
  * @author Antonio Di Nuzzo
  * Created 24/08/2022
  */
-private const val TAG = "ActorDetailsViewModel"
 
 @HiltViewModel
 class ActorDetailsViewModel

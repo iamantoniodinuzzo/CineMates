@@ -34,10 +34,10 @@ class Converters {
     fun fromPersonalStatus(status: PersonalStatus?) = status?.status ?: 2
 
     @TypeConverter
-    fun toSort(value: String) = enumValueOf<Filter.Sort>(value)
+    fun toSort(value: String) = enumValueOf<Sort>(value)
 
     @TypeConverter
-    fun fromSort(value: Filter.Sort) = value.name
+    fun fromSort(value: Sort) = value.name
 
     @TypeConverter
     fun toGenreList(value: String?): List<Genre> {

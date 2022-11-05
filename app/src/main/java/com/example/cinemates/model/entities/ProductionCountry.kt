@@ -1,4 +1,4 @@
-package com.example.cinemates.model.data
+package com.example.cinemates.model.entities
 
 data class ProductionCountry(
     val iso_3166_1: String,

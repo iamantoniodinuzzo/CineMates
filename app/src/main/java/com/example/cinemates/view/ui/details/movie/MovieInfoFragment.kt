@@ -11,8 +11,6 @@ import com.example.cinemates.R
 import com.example.cinemates.adapter.MovieAdapter
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentMovieInfoBinding
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.util.ViewSize
 
 class MovieInfoFragment : Fragment() {
 

@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.cinemates.adapter.MovieAdapter
 import com.example.cinemates.databinding.FragmentSearchMovieBinding
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.util.ViewSize
 
 class SearchMovieFragment : Fragment() {
     private var _binding: FragmentSearchMovieBinding? = null

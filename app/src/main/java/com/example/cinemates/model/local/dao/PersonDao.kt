@@ -1,8 +1,7 @@
 package com.example.cinemates.model.local.dao
 
 import androidx.room.*
-import com.example.cinemates.model.data.Person
-import io.reactivex.rxjava3.core.Observable
+import com.example.cinemates.model.entities.Person
 import kotlinx.coroutines.flow.Flow
 
 /**

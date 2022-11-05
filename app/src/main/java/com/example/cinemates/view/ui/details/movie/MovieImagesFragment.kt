@@ -15,7 +15,7 @@ import com.example.cinemates.adapter.BaseAdapter
 import com.example.cinemates.databinding.FragmentMovieImagesBinding
 import com.example.cinemates.databinding.ListItemBackdropBinding
 import com.example.cinemates.databinding.ListItemPosterBinding
-import com.example.cinemates.model.data.ImagesResponse
+import com.example.cinemates.network.response.ImagesResponse
 import com.example.cinemates.util.BASE_URL
 import com.example.cinemates.util.DialogFactory
 import com.example.cinemates.util.inflater

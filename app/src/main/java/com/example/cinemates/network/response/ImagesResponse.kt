@@ -1,6 +1,4 @@
-package com.example.cinemates.model.data
-
-import java.util.ArrayList
+package com.example.cinemates.network.response
 
 /**
  * @author Antonio Di Nuzzo

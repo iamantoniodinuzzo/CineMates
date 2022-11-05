@@ -15,8 +15,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
 import com.example.cinemates.adapter.MovieAdapter
 import com.example.cinemates.databinding.FragmentActorDetailsBinding
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.viewmodel.DbPersonViewModel
 import com.example.cinemates.util.getLong
 import com.google.android.material.floatingactionbutton.FloatingActionButton

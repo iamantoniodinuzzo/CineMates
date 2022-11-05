@@ -1,22 +1,23 @@
 package com.example.cinemates.model.repository
 
-import com.example.cinemates.model.api.MovieService
-import com.example.cinemates.model.data.*
+import com.example.cinemates.network.service.MovieService
+import com.example.cinemates.model.entities.*
+import com.example.cinemates.network.response.CreditsResponse
+import com.example.cinemates.network.response.GenericResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
 
-private const val TAG = "MovieRepository"
-
 /**
  * @author Antonio Di Nuzzo
- * Created 21/04/2022 at 15:46
  */
 class MovieRepository
 @Inject
-constructor(private val apiService: MovieService) {
+constructor(
+    private val movieService: MovieService
+) {
     private val defaultSystemLanguage: String = Locale.getDefault().language
 
     companion object {
@@ -33,32 +34,27 @@ constructor(private val apiService: MovieService) {
         sMap["page"] = "1"
     }
 
-    suspend fun getPopularMovies() = apiService.getPopular(sMap)
+    suspend fun getPopularMovies() = movieService.getPopular(sMap)
 
+    suspend fun getTopRatedMovies() = movieService.getTopRated(sMap)
 
-    suspend fun getTopRatedMovies() = apiService.getTopRated(sMap)
+    suspend fun getUpcomingMovies() = movieService.getUpcoming(sMap)
 
-    suspend fun getUpcomingMovies() = apiService.getUpcoming(sMap)
+    suspend fun getCurrentlyShowingMovies() = movieService.getCurrentlyShowing(sMap)
 
-    suspend fun getCurrentlyShowingMovies() = apiService.getCurrentlyShowing(sMap)
-
-    suspend fun getGenreList() = apiService.getGenreList(sMap)
+    suspend fun getGenreList() = movieService.getGenreList(sMap)
 
     suspend fun getTrendingMovies(mediaType: String, timeWindow: String) =
-        apiService.getTrendingMovies(mediaType, timeWindow, sMap)
-
-
-    suspend fun getTrendingPerson(mediaType: String, timeWindow: String) =
-        apiService.getTrendingPerson(mediaType, timeWindow, sMap)
+        movieService.getTrendingMovies(mediaType, timeWindow, sMap)
 
 
     fun getVideos(movieId: Int): Flow<List<Video>> = flow {
-        val videos = apiService.getVideos(movieId, sMap).body()?.results ?: listOf()
+        val videos = movieService.getVideos(movieId, sMap).body()?.results ?: listOf()
         emit(videos)
     }
 
     fun getMovieDetails(movieId: Int): Flow<Movie> = flow {
-        val response = apiService.getMovieDetails(movieId, sMap)
+        val response = movieService.getMovieDetails(movieId, sMap)
         if (response.isSuccessful)
             response.body()?.let { movie ->
                 emit(movie)
@@ -67,7 +63,7 @@ constructor(private val apiService: MovieService) {
 
 
     fun getSimilarMovies(movieId: Int): Flow<List<Movie>> = flow {
-        val similarMovies = apiService.getSimilar(movieId, sMap).body()?.results ?: listOf()
+        val similarMovies = movieService.getSimilar(movieId, sMap).body()?.results ?: listOf()
         emit(similarMovies)
     }
 
@@ -79,32 +75,26 @@ constructor(private val apiService: MovieService) {
                 .toString()
                 .replace("[", "")
                 .replace("]", "")
-        val movies = apiService.getMoviesByDiscover(sMap).body()?.results ?: listOf()
+        val movies = movieService.getMoviesByDiscover(sMap).body()?.results ?: listOf()
         emit(movies)
     }
 
 
-    suspend fun getReviews(movieId: Int) = apiService.getReviews(movieId, sMap)
-
-
     fun getImages(movieId: Int) = flow {
-        val images = apiService.getImages(movieId, sMap).body()
+        val images = movieService.getImages(movieId, sMap).body()
         emit(images)
     }
 
 
     fun getMovieCredits(movieId: Int): Flow<CreditsResponse> = flow {
-        val credits = apiService.getMovieCredits(movieId, sMap).body()
+        val credits = movieService.getMovieCredits(movieId, sMap).body()
         if (credits != null)
             emit(credits)
     }
 
 
-    suspend fun getActorDetails(personId: Int) = apiService.getActorDetails(personId, sMap)
-
-
     fun getCollection(collectionId: Int): Flow<List<Movie>> = flow {
-        val collection = apiService.getCollection(collectionId, sMap).body()?.parts
+        val collection = movieService.getCollection(collectionId, sMap).body()?.parts
         if (collection != null)
             emit(collection)
     }
@@ -112,17 +102,12 @@ constructor(private val apiService: MovieService) {
 
     suspend fun getMoviesBySearch(query: String): Response<GenericResponse<Movie>> {
         sMap["query"] = query
-        return apiService.getMoviesBySearch(sMap)
+        return movieService.getMoviesBySearch(sMap)
     }
 
     suspend fun getMoviesByActor(with_cast: String): Response<GenericResponse<Movie>> {
         sMap["with_cast"] = with_cast
-        return apiService.getMoviesByDiscover(sMap)
-    }
-
-    suspend fun getPeoplesBySearch(query: String): Response<GenericResponse<Cast>> {
-        sMap["query"] = query
-        return apiService.getPeoplesBySearch(sMap)
+        return movieService.getMoviesByDiscover(sMap)
     }
 
 

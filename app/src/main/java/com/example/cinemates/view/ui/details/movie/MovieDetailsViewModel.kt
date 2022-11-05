@@ -1,8 +1,10 @@
 package com.example.cinemates.view.ui.details.movie
 
 import androidx.lifecycle.*
-import com.example.cinemates.model.data.*
+import com.example.cinemates.model.entities.*
 import com.example.cinemates.model.repository.MovieRepository
+import com.example.cinemates.network.response.CreditsResponse
+import com.example.cinemates.network.response.ImagesResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.mapLatest

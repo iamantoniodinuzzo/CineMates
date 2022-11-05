@@ -2,7 +2,7 @@ package com.example.cinemates.util
 
 import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
-import com.example.cinemates.model.data.Movie
+import com.example.cinemates.model.entities.Movie
 
 /**
  * @author Antonio Di Nuzzo

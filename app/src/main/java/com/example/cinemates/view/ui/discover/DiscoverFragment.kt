@@ -19,7 +19,7 @@ import com.example.cinemates.adapter.BaseAdapter
 import com.example.cinemates.databinding.EditTextLayoutBinding
 import com.example.cinemates.databinding.FragmentDiscoverBinding
 import com.example.cinemates.databinding.ListItemFilterBinding
-import com.example.cinemates.model.data.Filter
+import com.example.cinemates.model.entities.Filter
 import com.example.cinemates.util.getLong
 import com.example.cinemates.util.inflater
 import com.example.cinemates.view.ui.MainActivity

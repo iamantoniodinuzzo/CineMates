@@ -5,8 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.model.data.Person
+import com.example.cinemates.model.entities.Movie
+import com.example.cinemates.model.entities.Person
+import com.example.cinemates.model.repository.ActorRepository
 import com.example.cinemates.model.repository.MovieRepository
 import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.TimeWindow
@@ -25,7 +26,8 @@ private const val TAG = "HomeViewModel"
 class HomeViewModel
 @Inject
 constructor(
-    private val movieRepository: MovieRepository
+    private val movieRepository: MovieRepository,
+    private val actorRepository: ActorRepository
 ) : ViewModel() {
 
     private val _trendingMovies = MutableLiveData<List<Movie>>()
@@ -64,7 +66,7 @@ constructor(
     }
 
     private fun getTrendingPerson() = viewModelScope.launch {
-        movieRepository.getTrendingPerson(MediaType.PERSON.toString(), TimeWindow.WEEK.toString())
+        actorRepository.getTrendingPerson(MediaType.PERSON.toString(), TimeWindow.WEEK.toString())
             .let { response ->
 
                   if(response.isSuccessful){

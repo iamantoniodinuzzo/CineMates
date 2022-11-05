@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.cinemates.adapter.PersonAdapter
 import com.example.cinemates.databinding.FragmentSearchActorBinding
-import com.example.cinemates.model.data.Cast
 import com.example.cinemates.util.ViewSize
 
 class SearchActorFragment : Fragment() {

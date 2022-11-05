@@ -1,15 +1,10 @@
 package com.example.cinemates.view.ui.discover
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.cinemates.model.data.Filter
-import com.example.cinemates.model.repository.DbFilterRepository
-import com.example.cinemates.model.repository.MovieRepository
+import com.example.cinemates.model.entities.Filter
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 

@@ -5,8 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinemates.model.data.Cast
-import com.example.cinemates.model.data.Movie
+import com.example.cinemates.model.entities.Cast
+import com.example.cinemates.model.entities.Movie
+import com.example.cinemates.model.repository.ActorRepository
 import com.example.cinemates.model.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,7 +24,10 @@ private const val TAG = "SearchViewModel"
 @HiltViewModel
 class SearchViewModel
 @Inject
-constructor(private val movieRepository: MovieRepository) : ViewModel() {
+constructor(
+    private val movieRepository: MovieRepository,
+    private val actorRepository: ActorRepository
+) : ViewModel() {
 
     private val _query = MutableLiveData<String>()
     val query: LiveData<String> get() = _query
@@ -57,7 +61,7 @@ constructor(private val movieRepository: MovieRepository) : ViewModel() {
     }
 
     private fun searchMovies(query: String) = viewModelScope.launch {
-        movieRepository.getPeoplesBySearch(query).let { response ->
+        actorRepository.getPeoplesBySearch(query).let { response ->
 
             if (response.isSuccessful) {
                 _queriedActors.value = response.body()?.results

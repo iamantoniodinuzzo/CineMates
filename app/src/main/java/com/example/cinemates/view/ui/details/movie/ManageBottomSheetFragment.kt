@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.cinemates.databinding.FragmentManageBottomsheetBinding
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.model.data.PersonalStatus
+import com.example.cinemates.model.entities.Movie
+import com.example.cinemates.model.entities.PersonalStatus
 import com.example.cinemates.view.viewmodel.DbMovieViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

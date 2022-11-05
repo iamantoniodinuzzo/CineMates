@@ -3,6 +3,7 @@ package com.example.cinemates.model.local.dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
@@ -23,9 +24,7 @@ interface BaseDao<T> {
     @Delete
     fun delete(vararg entity: T)
 
-    fun getById(id: Long): Flow<T>
 
-    fun getAll(): Flow<List<T>>
 
 
 }

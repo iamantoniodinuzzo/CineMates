@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PersonDao : BaseDao<Person> {
     @Query("SELECT * FROM person")
-    override fun getAll(): Flow<List<Person>>
+    fun getAll(): Flow<List<Person>>
 
     @Query("SELECT EXISTS(SELECT * FROM person WHERE id = :id)")
     fun isPersonFavorite(id: Int): Boolean

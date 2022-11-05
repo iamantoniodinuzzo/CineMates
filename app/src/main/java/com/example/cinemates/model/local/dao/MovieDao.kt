@@ -9,13 +9,13 @@ import kotlinx.coroutines.flow.Flow
  * Created 26/07/2022 at 07:36
  */
 @Dao
-interface MovieDao:BaseDao<Movie> {
+interface MovieDao : BaseDao<Movie> {
 
     @Query("SELECT * FROM movie")
-    override fun getAll(): Flow<List<Movie>>
+    fun getAll(): Flow<List<Movie>>
 
     @Query("SELECT * FROM movie WHERE id=:id")
-    override fun getById(id: Long): Flow<Movie>
+    fun getById(id: Long): Flow<Movie>
 
     @Query("SELECT * FROM movie WHERE personalStatus=1")
     fun getToSeeMovies(): Flow<List<Movie>>

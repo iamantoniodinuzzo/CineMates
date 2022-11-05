@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface FilterDao : BaseDao<Filter> {
 
     @Query("SELECT * FROM filter")
-    override fun getAll(): Flow<List<Filter>>
+    fun getAll(): Flow<List<Filter>>
 }

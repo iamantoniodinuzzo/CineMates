@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cinemates.R
-import com.example.cinemates.adapter.MultiViewTypeRecyclerViewAdapter
+import com.example.cinemates.adapter.MovieAdapter
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentMovieInfoBinding
 import com.example.cinemates.model.data.Movie
@@ -19,16 +19,16 @@ class MovieInfoFragment : Fragment() {
     private var _binding: FragmentMovieInfoBinding? = null
     private val binding: FragmentMovieInfoBinding
         get() = _binding!!
-    private lateinit var similarAdapter: MultiViewTypeRecyclerViewAdapter<Movie>
-    private lateinit var movieIntoCollectionAdapter: MultiViewTypeRecyclerViewAdapter<Movie>
+    private lateinit var similarAdapter: MovieAdapter
+    private lateinit var movieIntoCollectionAdapter: MovieAdapter
     private lateinit var videoAdapter: YoutubeVideoRecyclerViewAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        similarAdapter = MultiViewTypeRecyclerViewAdapter(ViewSize.SMALL)
+        similarAdapter = MovieAdapter()
         videoAdapter = YoutubeVideoRecyclerViewAdapter()
-        movieIntoCollectionAdapter = MultiViewTypeRecyclerViewAdapter(ViewSize.SMALL)
+        movieIntoCollectionAdapter = MovieAdapter()
     }
 
     override fun onCreateView(
@@ -85,10 +85,10 @@ class MovieInfoFragment : Fragment() {
         }
 
         viewModel.similarMovies.observe(viewLifecycleOwner) { similarMovies ->
-            similarAdapter.addItems(similarMovies.toMutableList())
+            similarAdapter.addItems(similarMovies)
         }
         viewModel.moviesBelongsCollection.observe(viewLifecycleOwner) { moviesBelongsCollection ->
-            movieIntoCollectionAdapter.addItems(moviesBelongsCollection.toMutableList())
+            movieIntoCollectionAdapter.addItems(moviesBelongsCollection)
         }
 
     }

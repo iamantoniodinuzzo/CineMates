@@ -13,7 +13,7 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
-import com.example.cinemates.adapter.MultiViewTypeRecyclerViewAdapter
+import com.example.cinemates.adapter.MovieAdapter
 import com.example.cinemates.databinding.FragmentActorDetailsBinding
 import com.example.cinemates.model.data.Movie
 import com.example.cinemates.util.ViewSize
@@ -27,14 +27,14 @@ class ActorDetailsFragment : Fragment() {
     private var _binding: FragmentActorDetailsBinding? = null
     private val binding: FragmentActorDetailsBinding
         get() = _binding!!
-    private lateinit var adapter: MultiViewTypeRecyclerViewAdapter<Movie>
+    private lateinit var adapter: MovieAdapter
     private val dbViewModel: DbPersonViewModel by activityViewModels()
     private val viewModel: ActorDetailsViewModel by activityViewModels()
     private val args: ActorDetailsFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = MultiViewTypeRecyclerViewAdapter(ViewSize.SMALL)
+        adapter = MovieAdapter()
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
             interpolator = AnticipateOvershootInterpolator()
             duration = resources.getLong(R.integer.material_motion_duration_medium_2)
@@ -70,7 +70,7 @@ class ActorDetailsFragment : Fragment() {
         view.doOnPreDraw { startPostponedEnterTransition() }
         viewModel.apply {
             movies.observe(viewLifecycleOwner) { moviesByActor ->
-                adapter.addItems(moviesByActor.toMutableList())
+                adapter.addItems(moviesByActor)
             }
             setActorDetails(args.person.id)
         }

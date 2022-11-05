@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.cinemates.adapter.MultiViewTypeRecyclerViewAdapter
+import com.example.cinemates.adapter.PersonAdapter
 import com.example.cinemates.databinding.FragmentSearchActorBinding
 import com.example.cinemates.model.data.Cast
 import com.example.cinemates.util.ViewSize
@@ -16,11 +16,12 @@ class SearchActorFragment : Fragment() {
     private val binding: FragmentSearchActorBinding
         get() = _binding!!
     private val viewModel: SearchViewModel by activityViewModels()
-    private lateinit var adapter: MultiViewTypeRecyclerViewAdapter<Cast>
+    private lateinit var adapter: PersonAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = MultiViewTypeRecyclerViewAdapter(ViewSize.LONG)
+        adapter = PersonAdapter()
+        adapter.viewSize = ViewSize.LONG
     }
 
     override fun onCreateView(
@@ -40,7 +41,7 @@ class SearchActorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.queriedActors.observe(viewLifecycleOwner) { persons ->
-            adapter.addItems(persons.toMutableList())
+            adapter.addItems(persons)
         }
 
     }

@@ -2,13 +2,13 @@ package com.example.cinemates.util
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemates.adapter.SectionRecyclerViewAdapter.SectionViewHolder
+import com.example.cinemates.adapter.SectionRecyclerViewAdapter
 
 /**
  * @author Antonio Di Nuzzo
  * Created 18/06/2022 at 11:22
  */
-class ItemMoveCallback(private val mAdapter: ItemTouchHelperContract) : ItemTouchHelper.Callback() {
+class ItemMoveCallback(private val adapter: ItemTouchHelperContract) : ItemTouchHelper.Callback() {
     override fun isLongPressDragEnabled(): Boolean {
         return true
     }
@@ -30,7 +30,7 @@ class ItemMoveCallback(private val mAdapter: ItemTouchHelperContract) : ItemTouc
         recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        mAdapter.onRowMoved(viewHolder.adapterPosition, target.adapterPosition)
+        adapter.onRowMoved(viewHolder.adapterPosition, target.adapterPosition)
         return true
     }
 
@@ -39,8 +39,8 @@ class ItemMoveCallback(private val mAdapter: ItemTouchHelperContract) : ItemTouc
         actionState: Int
     ) {
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-            if (viewHolder is SectionViewHolder) {
-                mAdapter.onRowSelected(viewHolder)
+            if (viewHolder is SectionRecyclerViewAdapter.SectionViewHolder) {
+                adapter.onRowSelected(viewHolder)
             }
         }
         super.onSelectedChanged(viewHolder, actionState)
@@ -51,14 +51,14 @@ class ItemMoveCallback(private val mAdapter: ItemTouchHelperContract) : ItemTouc
         viewHolder: RecyclerView.ViewHolder
     ) {
         super.clearView(recyclerView, viewHolder)
-        if (viewHolder is SectionViewHolder) {
-            mAdapter.onRowClear(viewHolder)
+        if (viewHolder is SectionRecyclerViewAdapter.SectionViewHolder) {
+            adapter.onRowClear(viewHolder)
         }
     }
 
     interface ItemTouchHelperContract {
         fun onRowMoved(fromPosition: Int, toPosition: Int)
-        fun onRowSelected(myViewHolder: SectionViewHolder?)
-        fun onRowClear(myViewHolder: SectionViewHolder?)
+        fun onRowSelected(myViewHolder: SectionRecyclerViewAdapter.SectionViewHolder?)
+        fun onRowClear(myViewHolder: SectionRecyclerViewAdapter.SectionViewHolder?)
     }
 }

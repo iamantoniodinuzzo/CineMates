@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.cinemates.adapter.MultiViewTypeRecyclerViewAdapter
+import com.example.cinemates.adapter.PersonAdapter
 import com.example.cinemates.databinding.FragmentMovieCastBinding
 import com.example.cinemates.model.data.Cast
 import com.example.cinemates.util.ViewSize
@@ -17,13 +17,14 @@ class MovieCastFragment : Fragment() {
     private val binding: FragmentMovieCastBinding
         get() = _binding!!
 
-    private lateinit var adapter: MultiViewTypeRecyclerViewAdapter<Cast>
+    private lateinit var adapter: PersonAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = MultiViewTypeRecyclerViewAdapter(ViewSize.LONG)
+        adapter = PersonAdapter()
+        adapter.viewSize = ViewSize.LONG
     }
 
     override fun onCreateView(
@@ -39,7 +40,7 @@ class MovieCastFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.castRecyclerView.adapter = adapter
         viewModel.cast.observe(viewLifecycleOwner) { cast ->
-            adapter.addItems(cast.toMutableList())
+            adapter.addItems(cast)
         }
     }
 

@@ -45,7 +45,7 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
         when (holder.itemViewType) {
             MOVIE -> {
                 val movieSection = dataList[position] as Section<Movie>
-                val sectionItemsMovie = MultiViewTypeRecyclerViewAdapter<Movie>(movieSection.viewSize)
+                val sectionItemsMovie = MovieAdapter()
                 holder.binding.apply {
                     section = movieSection
                     executePendingBindings()
@@ -61,7 +61,7 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
             }
             PERSON -> {
                 val personSection = dataList[position] as Section<Person>
-                val sectionItemsPerson = MultiViewTypeRecyclerViewAdapter<Person>(personSection.viewSize)
+                val sectionItemsPerson = PersonAdapter()
                 holder.binding.apply {
                     section = personSection
                     executePendingBindings()

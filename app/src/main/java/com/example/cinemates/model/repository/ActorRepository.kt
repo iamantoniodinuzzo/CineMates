@@ -2,7 +2,10 @@ package com.example.cinemates.model.repository
 
 import com.example.cinemates.network.service.ActorService
 import com.example.cinemates.model.entities.Cast
+import com.example.cinemates.model.entities.Person
 import com.example.cinemates.network.response.GenericResponse
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
@@ -31,17 +34,21 @@ constructor(
         sMap["page"] = "1"
     }
 
-    suspend fun getTrendingPerson(mediaType: String, timeWindow: String) =
-        actorService.getTrendingPerson(mediaType, timeWindow, sMap)
+    suspend fun getTrendingPerson(mediaType: String, timeWindow: String): Flow<List<Person>> =
+        flow {
+            val trending = actorService.getTrendingPerson(mediaType, timeWindow, sMap).results
+            emit(trending)
+        }
 
-    suspend fun getActorDetails(personId: Int) = actorService.getActorDetails(
-        personId,
-        sMap
-    )
+    suspend fun getActorDetails(personId: Int): Flow<Person> = flow {
+        val actor = actorService.getActorDetails(personId, sMap)
+        emit(actor)
+    }
 
-    suspend fun getPeoplesBySearch(query: String): Response<GenericResponse<Cast>> {
+    suspend fun getPeoplesBySearch(query: String): Flow<List<Person>> = flow {
         sMap["query"] = query
-        return actorService.getPeoplesBySearch(sMap)
+        val persons = actorService.getPeoplesBySearch(sMap).results
+        emit(persons)
     }
 
 }

@@ -53,15 +53,12 @@ constructor(
 
     private fun getActorDetails(id: Int) = viewModelScope.launch {
         try {
-            actorRepository.getActorDetails(id).let { response ->
+            actorRepository.getActorDetails(id).collectLatest { person ->
 
-                if (response.isSuccessful) {
-                    _actor.postValue(response.body())
-                } else {
-                    Log.d(TAG, "getActorDetails Error: ${response.code()}")
-                }
+                _actor.postValue(person)
+
             }
-        }catch (throwable: Throwable){
+        } catch (throwable: Throwable) {
             throwable.printStackTrace()
         }
 

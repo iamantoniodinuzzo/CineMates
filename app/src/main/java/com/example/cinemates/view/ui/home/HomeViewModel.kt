@@ -71,15 +71,18 @@ constructor(
     }
 
     private fun getTrendingPerson() = viewModelScope.launch {
-        actorRepository.getTrendingPerson(MediaType.PERSON.toString(), TimeWindow.WEEK.toString())
-            .let { response ->
+        try {
+            actorRepository.getTrendingPerson(
+                MediaType.PERSON.toString(),
+                TimeWindow.WEEK.toString()
+            ).collectLatest { people ->
+                _trendingPerson.postValue(people)
 
-                if (response.isSuccessful) {
-                    _trendingPerson.postValue(response.body()?.results)
-                } else {
-                    Log.d(TAG, "getTrendingPerson Error: ${response.code()}")
-                }
             }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
+
     }
 
     private fun getPopularMovies() = viewModelScope.launch {

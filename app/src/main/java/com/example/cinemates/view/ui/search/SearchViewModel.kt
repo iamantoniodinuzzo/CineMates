@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinemates.model.entities.Cast
 import com.example.cinemates.model.entities.Movie
+import com.example.cinemates.model.entities.Person
 import com.example.cinemates.model.repository.ActorRepository
 import com.example.cinemates.model.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,8 +37,8 @@ constructor(
     private val _queriedMovies = MutableLiveData<List<Movie>>()
     val queriedMovies: LiveData<List<Movie>> get() = _queriedMovies
 
-    private val _queriedActors = MutableLiveData<List<Cast>>()
-    val queriedActors: LiveData<List<Cast>> get() = _queriedActors
+    private val _queriedActors = MutableLiveData<List<Person>>()
+    val queriedActors: LiveData<List<Person>> get() = _queriedActors
 
     init {
         clearQuery()
@@ -63,14 +64,16 @@ constructor(
     }
 
     private fun searchMovies(query: String) = viewModelScope.launch {
-        actorRepository.getPeoplesBySearch(query).let { response ->
+        try {
+            actorRepository.getPeoplesBySearch(query).collectLatest { response ->
 
-            if (response.isSuccessful) {
-                _queriedActors.value = response.body()?.results
-            } else {
-                Log.d(TAG, "getQueriedActors Error: ${response.code()}")
+                _queriedActors.value = response
+
             }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
         }
+
     }
 
     private fun clearQuery() {

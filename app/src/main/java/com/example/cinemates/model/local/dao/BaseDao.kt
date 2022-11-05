@@ -9,25 +9,23 @@ import kotlinx.coroutines.flow.Flow
 interface BaseDao<T> {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(entity : T)
+    fun insert(entity: T)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(vararg entity : T)
+    fun insert(vararg entity: T)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun update(entity : T)
+    fun update(entity: T)
 
     @Delete
-    fun delete(entity : T)
+    fun delete(entity: T)
 
     @Delete
-    fun delete(vararg entity : T)
+    fun delete(vararg entity: T)
 
-    fun getById(id : Long) : Flow<T>
+    fun getById(id: Long): Flow<T>
 
-    fun getAll() : Flow<List<T>>
-
-
+    fun getAll(): Flow<List<T>>
 
 
 }

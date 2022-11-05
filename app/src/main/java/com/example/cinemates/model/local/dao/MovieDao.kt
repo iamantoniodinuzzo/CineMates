@@ -15,7 +15,7 @@ interface MovieDao : BaseDao<Movie> {
     fun getAll(): Flow<List<Movie>>
 
     @Query("SELECT * FROM movie WHERE id=:id")
-    fun getById(id: Int): Flow<Movie>
+    fun getById(id: Int): Movie?
 
     @Query("SELECT * FROM movie WHERE personalStatus=1")
     fun getToSeeMovies(): Flow<List<Movie>>

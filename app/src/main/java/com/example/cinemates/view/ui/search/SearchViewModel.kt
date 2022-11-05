@@ -5,10 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinemates.model.data.Cast
-import com.example.cinemates.model.data.Movie
+import com.example.cinemates.model.entities.Cast
+import com.example.cinemates.model.entities.Movie
+import com.example.cinemates.model.entities.Person
+import com.example.cinemates.model.repository.ActorRepository
 import com.example.cinemates.model.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,7 +26,10 @@ private const val TAG = "SearchViewModel"
 @HiltViewModel
 class SearchViewModel
 @Inject
-constructor(private val movieRepository: MovieRepository) : ViewModel() {
+constructor(
+    private val movieRepository: MovieRepository,
+    private val actorRepository: ActorRepository
+) : ViewModel() {
 
     private val _query = MutableLiveData<String>()
     val query: LiveData<String> get() = _query
@@ -31,8 +37,8 @@ constructor(private val movieRepository: MovieRepository) : ViewModel() {
     private val _queriedMovies = MutableLiveData<List<Movie>>()
     val queriedMovies: LiveData<List<Movie>> get() = _queriedMovies
 
-    private val _queriedActors = MutableLiveData<List<Cast>>()
-    val queriedActors: LiveData<List<Cast>> get() = _queriedActors
+    private val _queriedActors = MutableLiveData<List<Person>>()
+    val queriedActors: LiveData<List<Person>> get() = _queriedActors
 
     init {
         clearQuery()
@@ -45,26 +51,29 @@ constructor(private val movieRepository: MovieRepository) : ViewModel() {
     }
 
     private fun searchActors(query: String) = viewModelScope.launch {
-        movieRepository.getMoviesBySearch(query).let { response ->
+        try {
+            movieRepository.getMoviesBySearch(query).collectLatest { movies ->
 
-            if (response.isSuccessful) {
-                _queriedMovies.value = response.body()?.results
-            } else {
-                Log.d(TAG, "getQueriesMovies Error: ${response.code()}")
+                _queriedMovies.value = movies
+
             }
-
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
         }
+
     }
 
     private fun searchMovies(query: String) = viewModelScope.launch {
-        movieRepository.getPeoplesBySearch(query).let { response ->
+        try {
+            actorRepository.getPeoplesBySearch(query).collectLatest { response ->
 
-            if (response.isSuccessful) {
-                _queriedActors.value = response.body()?.results
-            } else {
-                Log.d(TAG, "getQueriedActors Error: ${response.code()}")
+                _queriedActors.value = response
+
             }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
         }
+
     }
 
     private fun clearQuery() {

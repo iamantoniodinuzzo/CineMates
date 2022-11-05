@@ -1,14 +1,15 @@
 package com.example.cinemates.view.ui.details.actor
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.model.data.Person
+import com.example.cinemates.model.entities.Movie
+import com.example.cinemates.model.entities.Person
+import com.example.cinemates.model.repository.ActorRepository
 import com.example.cinemates.model.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,12 +17,14 @@ import javax.inject.Inject
  * @author Antonio Di Nuzzo
  * Created 24/08/2022
  */
-private const val TAG = "ActorDetailsViewModel"
 
 @HiltViewModel
 class ActorDetailsViewModel
 @Inject
-constructor(private val movieRepository: MovieRepository) : ViewModel() {
+constructor(
+    private val actorRepository: ActorRepository,
+    private val movieRepository: MovieRepository
+) : ViewModel() {
 
     private val _actor = MutableLiveData<Person>()
     val actor: LiveData<Person> get() = _actor
@@ -35,26 +38,27 @@ constructor(private val movieRepository: MovieRepository) : ViewModel() {
     }
 
     private fun getMoviesByActor(id: Int) = viewModelScope.launch {
-        movieRepository.getMoviesByActor(id.toString()).let { response ->
-
-              if(response.isSuccessful){
-                  _movies.postValue(response.body()?.results)
-              }else{
-                  Log.d(TAG, "getMoviesByActor Error: ${response.code()}")
-                  _movies.value = listOf()
-              }
+        try {
+            movieRepository.getMoviesByActor(id.toString()).collectLatest { movies ->
+                _movies.postValue(movies)
+            }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
         }
+
     }
 
 
     private fun getActorDetails(id: Int) = viewModelScope.launch {
-        movieRepository.getActorDetails(id).let { response ->
+        try {
+            actorRepository.getActorDetails(id).collectLatest { person ->
 
-              if(response.isSuccessful){
-                  _actor.postValue(response.body())
-              }else{
-                  Log.d(TAG, "getActorDetails Error: ${response.code()}")
-              }
+                _actor.postValue(person)
+
+            }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
         }
+
     }
 }

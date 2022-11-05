@@ -11,8 +11,6 @@ import com.example.cinemates.R
 import com.example.cinemates.adapter.MovieAdapter
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentMovieInfoBinding
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.util.ViewSize
 
 class MovieInfoFragment : Fragment() {
 
@@ -87,8 +85,8 @@ class MovieInfoFragment : Fragment() {
         viewModel.similarMovies.observe(viewLifecycleOwner) { similarMovies ->
             similarAdapter.addItems(similarMovies)
         }
-        viewModel.moviesBelongsCollection.observe(viewLifecycleOwner) { moviesBelongsCollection ->
-            movieIntoCollectionAdapter.addItems(moviesBelongsCollection)
+        viewModel.moviesBelongsCollection.observe(viewLifecycleOwner) { collection ->
+            movieIntoCollectionAdapter.addItems(collection.parts)
         }
 
     }

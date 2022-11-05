@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter.SectionViewHolder
 import com.example.cinemates.databinding.ListItemSectionBinding
-import com.example.cinemates.model.data.Cast
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.model.data.Person
-import com.example.cinemates.model.data.Section
+import com.example.cinemates.model.entities.Cast
+import com.example.cinemates.model.entities.Movie
+import com.example.cinemates.model.entities.Person
+import com.example.cinemates.model.entities.Section
 import com.example.cinemates.util.inflater
 
 /**
@@ -108,7 +108,5 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
     class SectionViewHolder(val binding: ListItemSectionBinding) :
         RecyclerView.ViewHolder(
             binding.root
-        ) {
-
-    }
+        )
 }

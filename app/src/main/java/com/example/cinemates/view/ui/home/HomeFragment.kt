@@ -19,9 +19,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentHomeBinding
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.model.data.Person
-import com.example.cinemates.model.data.Section
+import com.example.cinemates.model.entities.Movie
+import com.example.cinemates.model.entities.Person
+import com.example.cinemates.model.entities.Section
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.ui.MainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView

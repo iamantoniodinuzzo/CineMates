@@ -1,10 +1,10 @@
 package com.example.cinemates.util
 
 import androidx.room.TypeConverter
-import com.example.cinemates.model.data.Collection
-import com.example.cinemates.model.data.Filter
-import com.example.cinemates.model.data.Genre
-import com.example.cinemates.model.data.PersonalStatus
+import com.example.cinemates.model.entities.Collection
+import com.example.cinemates.model.entities.Filter
+import com.example.cinemates.model.entities.Genre
+import com.example.cinemates.model.entities.PersonalStatus
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -34,10 +34,10 @@ class Converters {
     fun fromPersonalStatus(status: PersonalStatus?) = status?.status ?: 2
 
     @TypeConverter
-    fun toSort(value: String) = enumValueOf<Filter.Sort>(value)
+    fun toSort(value: String) = enumValueOf<Sort>(value)
 
     @TypeConverter
-    fun fromSort(value: Filter.Sort) = value.name
+    fun fromSort(value: Sort) = value.name
 
     @TypeConverter
     fun toGenreList(value: String?): List<Genre> {

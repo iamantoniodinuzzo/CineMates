@@ -15,7 +15,7 @@ import com.example.cinemates.adapter.BaseAdapter
 import com.example.cinemates.databinding.FragmentMovieImagesBinding
 import com.example.cinemates.databinding.ListItemBackdropBinding
 import com.example.cinemates.databinding.ListItemPosterBinding
-import com.example.cinemates.model.data.ImagesResponse
+import com.example.cinemates.model.entities.Image
 import com.example.cinemates.util.BASE_URL
 import com.example.cinemates.util.DialogFactory
 import com.example.cinemates.util.inflater
@@ -30,8 +30,8 @@ class MovieImagesFragment : Fragment() {
     private var _binding: FragmentMovieImagesBinding? = null
     private val binding: FragmentMovieImagesBinding
         get() = _binding!!
-    private lateinit var posterAdapter: BaseAdapter<ImagesResponse.Image, ListItemPosterBinding>
-    private lateinit var backdropAdapter: BaseAdapter<ImagesResponse.Image, ListItemBackdropBinding>
+    private lateinit var posterAdapter: BaseAdapter<Image, ListItemPosterBinding>
+    private lateinit var backdropAdapter: BaseAdapter<Image, ListItemBackdropBinding>
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +62,7 @@ class MovieImagesFragment : Fragment() {
             })
     }
 
-    private fun downloadImage(image: ImagesResponse.Image) {
+    private fun downloadImage(image: Image) {
         DialogFactory.createSimpleOkCancelDialog(context,
             "Want to download this image?",
             "Download",
@@ -110,11 +110,16 @@ class MovieImagesFragment : Fragment() {
             backdropRv.adapter = backdropAdapter
             backdropRv.setEmptyView(emptyBackdropView.root)
         }
-
-        viewModel.imagesResponse.observe(viewLifecycleOwner) { images ->
-            posterAdapter.dataList = images.posters
-            backdropAdapter.dataList = images.backdrops
+        
+        with(viewModel){
+            posters.observe(viewLifecycleOwner){posters->
+                posterAdapter.dataList = posters
+            }
+            backdrops.observe(viewLifecycleOwner){backdrops->
+                backdropAdapter.dataList = backdrops
+            }
         }
+
     }
 
     override fun onDestroyView() {

@@ -5,12 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.model.data.Person
+import com.example.cinemates.model.entities.Movie
+import com.example.cinemates.model.entities.Person
+import com.example.cinemates.model.repository.ActorRepository
 import com.example.cinemates.model.repository.MovieRepository
 import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.TimeWindow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,7 +27,8 @@ private const val TAG = "HomeViewModel"
 class HomeViewModel
 @Inject
 constructor(
-    private val movieRepository: MovieRepository
+    private val movieRepository: MovieRepository,
+    private val actorRepository: ActorRepository
 ) : ViewModel() {
 
     private val _trendingMovies = MutableLiveData<List<Movie>>()
@@ -52,60 +55,73 @@ constructor(
     }
 
     private fun getTrendingMovies() = viewModelScope.launch {
-        movieRepository.getTrendingMovies(MediaType.MOVIE.toString(), TimeWindow.WEEK.toString())
-            .let { response ->
+        try {
+            movieRepository.getTrendingMovies(
+                MediaType.MOVIE.toString(),
+                TimeWindow.WEEK.toString()
+            ).collectLatest { movies ->
 
-                  if(response.isSuccessful){
-                      _trendingMovies.postValue(response.body()?.results)
-                  }else{
-                      Log.d(TAG, "getTrendingMovies Error: ${response.code()}")
-                  }
+                _trendingMovies.postValue(movies)
+
             }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
+
     }
 
     private fun getTrendingPerson() = viewModelScope.launch {
-        movieRepository.getTrendingPerson(MediaType.PERSON.toString(), TimeWindow.WEEK.toString())
-            .let { response ->
+        try {
+            actorRepository.getTrendingPerson(
+                MediaType.PERSON.toString(),
+                TimeWindow.WEEK.toString()
+            ).collectLatest { people ->
+                _trendingPerson.postValue(people)
 
-                  if(response.isSuccessful){
-                      _trendingPerson.postValue(response.body()?.results)
-                  }else{
-                      Log.d(TAG, "getTrendingPerson Error: ${response.code()}")
-                  }
             }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
+
     }
 
     private fun getPopularMovies() = viewModelScope.launch {
-        movieRepository.getPopularMovies().let { response ->
+        try {
+            movieRepository.getPopularMovies().collectLatest { movies ->
 
-                  if(response.isSuccessful){
-                      _popularMovies.postValue(response.body()?.results)
-                  }else{
-                      Log.d(TAG, "getPopularMovies Error: ${response.code()}")
-                  }
+                _popularMovies.postValue(movies)
+
             }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
+
     }
 
     private fun getTopRatedMovies() = viewModelScope.launch {
-        movieRepository.getTopRatedMovies().let { response ->
+        try {
+            movieRepository.getTopRatedMovies().collectLatest { movies ->
 
-                  if(response.isSuccessful){
-                      _topRatedMovies.postValue(response.body()?.results)
-                  }else{
-                      Log.d(TAG, "getTopRatedMovies Error: ${response.code()}")
-                  }
+                _topRatedMovies.postValue(movies)
+
             }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
+
     }
 
     private fun getUpcomingMovies() = viewModelScope.launch {
-        movieRepository.getUpcomingMovies().let { response ->
+        try {
+            movieRepository.getUpcomingMovies().collectLatest { movies ->
 
-                  if(response.isSuccessful){
-                      _upcomingMovies.postValue(response.body()?.results)
-                  }else{
-                      Log.d(TAG, "getUpcomingMovies Error: ${response.code()}")
-                  }
+                _upcomingMovies.postValue(movies)
+
             }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
+
     }
 
 }

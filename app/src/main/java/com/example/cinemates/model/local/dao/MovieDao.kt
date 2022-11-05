@@ -1,7 +1,7 @@
 package com.example.cinemates.model.local.dao
 
 import androidx.room.*
-import com.example.cinemates.model.data.Movie
+import com.example.cinemates.model.entities.Movie
 import kotlinx.coroutines.flow.Flow
 
 /**

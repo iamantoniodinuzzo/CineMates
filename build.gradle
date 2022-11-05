@@ -32,6 +32,8 @@ buildscript {
         glide = '4.12.0'
         glide_webp_decoder = '1.7.4.11.0'
         work_manager = '2.7.1'
+        kotlin_serialization_version = "1.2.2"
+        kotlin_serialization_converter_version = "0.8.0"
 
         // Testing Dependencies
         junit = '4.13.2'

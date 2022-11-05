@@ -1,6 +1,6 @@
 package com.example.cinemates.model.repository
 
-import com.example.cinemates.model.data.Person
+import com.example.cinemates.model.entities.Person
 import com.example.cinemates.model.local.dao.PersonDao
 import com.example.cinemates.model.local.db.AppDatabase
 import javax.inject.Inject

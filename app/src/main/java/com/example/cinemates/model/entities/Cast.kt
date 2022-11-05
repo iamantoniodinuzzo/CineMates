@@ -1,4 +1,4 @@
-package com.example.cinemates.model.data
+package com.example.cinemates.model.entities
 
 class Cast(
     adult: Boolean,

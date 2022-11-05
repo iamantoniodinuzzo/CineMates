@@ -1,15 +1,11 @@
 package com.example.cinemates.view.ui.discover
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.cinemates.model.data.Filter
-import com.example.cinemates.model.repository.DbFilterRepository
-import com.example.cinemates.model.repository.MovieRepository
+import com.example.cinemates.model.entities.Filter
+import com.example.cinemates.util.Sort
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -32,8 +28,8 @@ constructor(
         get() = _filterBuilder
     private val _genreMap = MutableLiveData<HashMap<Int, String>>()
     val genreMap: LiveData<HashMap<Int, String>> get() = _genreMap
-    private val _sortByMap = MutableLiveData<HashMap<Filter.Sort, String>>()
-    val sortByMap: LiveData<HashMap<Filter.Sort, String>>
+    private val _sortByMap = MutableLiveData<HashMap<Sort, String>>()
+    val sortByMap: LiveData<HashMap<Sort, String>>
         get() = _sortByMap
 
 
@@ -75,12 +71,12 @@ constructor(
         return genreMap
     }
 
-    private fun getSortByMap(): HashMap<Filter.Sort, String> {
-        val sortByMap = HashMap<Filter.Sort, String>()
-        sortByMap[Filter.Sort.POPULARITY] = "Popularity"
-        sortByMap[Filter.Sort.RELEASE_DATE] = "Release Date"
-        sortByMap[Filter.Sort.REVENUE] = "Revenue"
-        sortByMap[Filter.Sort.VOTE_AVERAGE] = "Vote Average"
+    private fun getSortByMap(): HashMap<Sort, String> {
+        val sortByMap = HashMap<Sort, String>()
+        sortByMap[Sort.POPULARITY] = "Popularity"
+        sortByMap[Sort.RELEASE_DATE] = "Release Date"
+        sortByMap[Sort.REVENUE] = "Revenue"
+        sortByMap[Sort.VOTE_AVERAGE] = "Vote Average"
         return sortByMap
     }
 

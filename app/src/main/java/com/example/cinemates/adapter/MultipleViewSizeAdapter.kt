@@ -1,12 +1,7 @@
 package com.example.cinemates.adapter
 
-import android.view.View
 import androidx.databinding.ViewDataBinding
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemates.NavGraphDirections
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.model.data.Person
 import com.example.cinemates.util.ViewSize
 
 /**

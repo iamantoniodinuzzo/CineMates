@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.cinemates.adapter.MovieAdapter
 import com.example.cinemates.databinding.FragmentListingBinding
-import com.example.cinemates.model.data.Movie
-import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.viewmodel.DbMovieViewModel
 
 /**

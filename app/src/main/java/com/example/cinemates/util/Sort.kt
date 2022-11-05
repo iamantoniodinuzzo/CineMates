@@ -1,24 +1,53 @@
 package com.example.cinemates.util
 
 /**
+ * Sorting options, default order is Descendant (desc)
  * @author Antonio Di Nuzzo
  * Created 23/07/2022 at 10:51
  */
-enum class Sort(val attribute: String) {
-    POPULARITY("popularity.desc"), RELEASE_DATE("release_date.desc"), VOTE_AVERAGE("vote_average.desc");
+enum class Sort(
+    var order: Order = Order.DESC
+) {
+    POPULARITY(
+        Order.DESC
+    ),
+    RELEASE_DATE(
+        Order.DESC
+    ),
+    REVENUE(
+        Order.DESC
+    ),
+    VOTE_AVERAGE(
+        Order.DESC
+    );
 
     override fun toString(): String {
         return when (this) {
             POPULARITY -> {
-                "Most Popular"
+                "popularity.$order"
             }
             RELEASE_DATE -> {
-                "Next Movies"
+                "release_date.$order"
             }
             VOTE_AVERAGE -> {
-                "Most voted"
+                "vote_average.$order"
+            }
+            REVENUE -> {
+                "revenue.$order"
             }
         }
-        throw AssertionError("Unknown $this")
+    }
+
+    enum class Order {
+        ASC, DESC;
+
+        override fun toString(): String {
+            return when (this) {
+                ASC -> "asc"
+                DESC -> "desc"
+            }
+        }
+
+
     }
 }

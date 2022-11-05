@@ -122,7 +122,7 @@ class SearchFragment : Fragment() {
         viewPagerAdapter.addFragment(searchMovieFragment)
         viewPagerAdapter.addFragment(searchActorsFragment)
         binding.viewPager.adapter = viewPagerAdapter
-        TabLayoutMediator(binding.tabLayout, binding!!.viewPager) { tab, position ->
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = "Movies"
                 1 -> tab.text = "Actors"

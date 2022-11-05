@@ -42,7 +42,7 @@
         tools:layout="@layout/fragment_filterable">
         <argument
             android:name="filter"
-            app:argType="com.example.cinemates.model.data.Filter" />
+            app:argType="com.example.cinemates.model.entities.Filter" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetFragment"
@@ -56,10 +56,7 @@
         tools:layout="@layout/fragment_movie_details">
         <argument
             android:name="movie"
-            app:argType="com.example.cinemates.model.data.Movie" />
-        <action
-            android:id="@+id/action_movieDetailsFragment_to_collectionDialogFragment"
-            app:destination="@id/collectionDialogFragment" />
+            app:argType="com.example.cinemates.model.entities.Movie" />
         <action
             android:id="@+id/action_movieDetailsFragment_to_bottomSheetFragment"
             app:destination="@id/bottomSheetFragment" />
@@ -71,7 +68,7 @@
         tools:layout="@layout/fragment_actor_details">
         <argument
             android:name="person"
-            app:argType="com.example.cinemates.model.data.Person" />
+            app:argType="com.example.cinemates.model.entities.Person" />
     </fragment>
     <action
         android:id="@+id/action_global_movieDetailsFragment"
@@ -83,10 +80,5 @@
         app:destination="@id/actorDetailsFragment"
         app:popUpTo="@id/actorDetailsFragment"
         app:popUpToInclusive="true" />
-    <dialog
-        android:id="@+id/collectionDialogFragment"
-        android:name="com.example.cinemates.view.ui.details.movie.CollectionDialogFragment"
-        android:label="CollectionDialogFragment"
-        tools:layout="@layout/layout_collection_content" />
 
 </navigation>

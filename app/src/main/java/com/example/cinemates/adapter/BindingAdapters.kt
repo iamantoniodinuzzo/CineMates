@@ -9,10 +9,10 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.cinemates.R
-import com.example.cinemates.model.data.Genre
-import com.example.cinemates.model.data.PersonalStatus
-import com.example.cinemates.model.data.ProductionCompany
-import com.example.cinemates.model.data.Section
+import com.example.cinemates.model.entities.Genre
+import com.example.cinemates.model.entities.PersonalStatus
+import com.example.cinemates.model.entities.ProductionCompany
+import com.example.cinemates.model.entities.Section
 import com.example.cinemates.util.IMAGE_BASE_URL_W500
 import com.example.cinemates.util.IMAGE_BASE_URL_W780
 import com.example.cinemates.util.YT_API_KEY

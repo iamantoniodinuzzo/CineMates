@@ -1,7 +1,8 @@
 package com.example.cinemates.di
 
 import com.example.cinemates.model.api.AuthenticationInterceptor
-import com.example.cinemates.model.api.MovieService
+import com.example.cinemates.network.service.ActorService
+import com.example.cinemates.network.service.MovieService
 import com.example.cinemates.util.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -35,8 +36,9 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideHttpClient(
-        authenticationInterceptor : AuthenticationInterceptor,
-        loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+        authenticationInterceptor: AuthenticationInterceptor,
+        loggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(authenticationInterceptor)
             .addInterceptor(loggingInterceptor)
@@ -55,6 +57,11 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideMovieService(retrofit: Retrofit): MovieService =
+        retrofit.create()
+
+    @Singleton
+    @Provides
+    fun provideActorService(retrofit: Retrofit): ActorService =
         retrofit.create()
 
 }

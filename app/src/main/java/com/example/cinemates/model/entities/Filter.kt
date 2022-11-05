@@ -1,9 +1,10 @@
-package com.example.cinemates.model.data
+package com.example.cinemates.model.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.example.cinemates.util.Converters
+import com.example.cinemates.util.Sort
 import java.io.Serializable
 
 @Entity
@@ -33,29 +34,8 @@ class Filter constructor(
 
     }
 
-    /**
-     * Sorting options, default order is Descendant (desc)
-     */
-    enum class Sort {
-        POPULARITY, RELEASE_DATE, REVENUE, VOTE_AVERAGE;
-
-        private var order: Order = Order.DESC
-
-        override fun toString(): String {
-            return this.name.lowercase() + "." + this.order.name.lowercase()
-        }
-
-        fun setOrder(order: Order) {
-            this.order = order
-        }
-
-        enum class Order {
-            ASC, DESC
-        }
-
-    }
 
     override fun toString(): String {
-        return "sortBy: ${sortBy.toString()}, withGenres: $withGenres"
+        return "sortBy: ${sortBy}, withGenres: $withGenres"
     }
 }

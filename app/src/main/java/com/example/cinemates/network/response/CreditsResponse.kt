@@ -1,4 +1,7 @@
-package com.example.cinemates.model.data
+package com.example.cinemates.network.response
+
+import com.example.cinemates.model.entities.Cast
+import com.example.cinemates.model.entities.Crew
 
 /**
  * @author Antonio Di Nuzzo

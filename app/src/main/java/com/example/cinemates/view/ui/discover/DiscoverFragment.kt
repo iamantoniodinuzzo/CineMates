@@ -19,7 +19,8 @@ import com.example.cinemates.adapter.BaseAdapter
 import com.example.cinemates.databinding.EditTextLayoutBinding
 import com.example.cinemates.databinding.FragmentDiscoverBinding
 import com.example.cinemates.databinding.ListItemFilterBinding
-import com.example.cinemates.model.data.Filter
+import com.example.cinemates.model.entities.Filter
+import com.example.cinemates.util.Sort
 import com.example.cinemates.util.getLong
 import com.example.cinemates.util.inflater
 import com.example.cinemates.view.ui.MainActivity
@@ -124,7 +125,7 @@ class DiscoverFragment : Fragment() {
                 setupChipGroupAnim(group)
                 if (checkedIds.isNotEmpty()) {
                     val ordinal = group.checkedChipId
-                    val sortBy = Filter.Sort.values()[ordinal]
+                    val sortBy = Sort.values()[ordinal]
                     discoverViewModel.filterBuilder.value?.sortBy(sortBy)
                     binding.buttonGroup.visibility = View.VISIBLE
                 } else {
@@ -229,7 +230,7 @@ class DiscoverFragment : Fragment() {
         )
     }
 
-    private fun setSortByBtn(chip: Chip, sort: Filter.Sort) {
+    private fun setSortByBtn(chip: Chip, sort: Sort) {
         chip.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 discoverViewModel.filterBuilder.value?.sortBy(sort)

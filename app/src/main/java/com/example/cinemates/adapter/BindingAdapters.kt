@@ -6,6 +6,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.cinemates.R
@@ -15,6 +16,7 @@ import com.example.cinemates.model.entities.ProductionCompany
 import com.example.cinemates.model.entities.Section
 import com.example.cinemates.util.IMAGE_BASE_URL_W500
 import com.example.cinemates.util.IMAGE_BASE_URL_W780
+import com.example.cinemates.util.LinearInfoView
 import com.example.cinemates.util.YT_API_KEY
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
@@ -122,6 +124,19 @@ fun loadText(view: TextView, value: String?) {
     } else {
         view.text = "Not specified"
     }
+}
+
+@BindingAdapter("value")
+fun value(view: LinearInfoView, value: String?) {
+    //Two cases (1) empty string literal (2) empty string number
+    if (value != null) {
+        view.value = value
+    }
+}
+
+@InverseBindingAdapter(attribute = "value")
+fun getValue(customField: LinearInfoView): String {
+    return customField.value
 }
 
 @BindingAdapter("asHtml")

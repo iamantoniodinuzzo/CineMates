@@ -54,12 +54,10 @@ class FilterableFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ((activity as MainActivity).binding.bottomNavigationView).visibility = View.GONE
 
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
         viewModel.setFilter(args.filter)
-        // Undo comment if needed
         binding.apply {
             filter = args.filter
 

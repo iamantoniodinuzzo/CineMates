@@ -43,14 +43,12 @@ class DiscoverFragment : Fragment() {
     private lateinit var adapter: BaseAdapter<Filter, ListItemFilterBinding>
     private val discoverViewModel: DiscoverViewModel by activityViewModels()
     private val dbFilterViewModel: DbFilterViewModel by activityViewModels()
-    private lateinit var slideIn: Animation
-    private lateinit var slideOut: Animation
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
-        slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)
+       /* slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
+        slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)*/
         adapter = BaseAdapter(
             expressionOnCreateViewHolder = { viewGroup ->
                 viewGroup inflater ListItemFilterBinding::inflate
@@ -93,18 +91,6 @@ class DiscoverFragment : Fragment() {
         bottomNavigationView = (activity as MainActivity).binding.bottomNavigationView
 
         binding.apply {
-
-            //Hide and show bottom bar when scrolled
-            scrollView.viewTreeObserver.addOnScrollChangedListener {
-                val scrollY: Int = scrollView.scrollY // For ScrollView
-                if (scrollY > 0 && bottomNavigationView.isShown) {
-                    bottomNavigationView.startAnimation(slideOut)
-                    bottomNavigationView.visibility = View.INVISIBLE
-                } else if (scrollY <= 0) {
-                    bottomNavigationView.startAnimation(slideIn)
-                    bottomNavigationView.visibility = View.VISIBLE
-                }
-            }
 
             searchButton.setOnClickListener { _ ->
                 findNavController().navigate(

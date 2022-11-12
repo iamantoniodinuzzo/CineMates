@@ -42,8 +42,6 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var sectionAdapter: SectionRecyclerViewAdapter
     private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit var slideIn: Animation
-    private lateinit var slideOut: Animation
 
     // Sections
     private val upcomingSection: Section<Movie> =
@@ -62,8 +60,8 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sectionAdapter = SectionRecyclerViewAdapter(this)
-        slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
-        slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)
+       /* slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
+        slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)*/
         setupTransitions()
     }
 
@@ -112,19 +110,6 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() = binding.sectionRv.run {
         adapter = sectionAdapter
-        // Hides BottomNavigationView OnScroll
-        addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0 && bottomNavigationView.isShown) {
-                        bottomNavigationView.startAnimation(slideOut)
-                        bottomNavigationView.visibility = View.INVISIBLE
-                    } else if (dy < 0) {
-                        bottomNavigationView.startAnimation(slideIn)
-                        bottomNavigationView.visibility = View.VISIBLE
-                    }
-            }
-        })
         initSectionedRecyclerView()
     }
 

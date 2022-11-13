@@ -91,9 +91,6 @@ dependencies {
     // Testing Navigation
     androidTestImplementation "androidx.navigation:navigation-testing:$navigation"
 
-    //Read More TextView
-    implementation "com.borjabravo:readmoretextview:$read_more_text_view"
-
     // Dagger Hilt
     annotationProcessor "com.google.dagger:hilt-android-compiler:$dagger_hilt_compiler"
     annotationProcessor "androidx.hilt:hilt-compiler:$hilt_compiler"

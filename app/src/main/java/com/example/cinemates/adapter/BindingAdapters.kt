@@ -6,6 +6,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.cinemates.R
@@ -15,6 +16,7 @@ import com.example.cinemates.model.entities.ProductionCompany
 import com.example.cinemates.model.entities.Section
 import com.example.cinemates.util.IMAGE_BASE_URL_W500
 import com.example.cinemates.util.IMAGE_BASE_URL_W780
+import com.example.cinemates.util.LinearInfoView
 import com.example.cinemates.util.YT_API_KEY
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
@@ -99,7 +101,7 @@ fun setStatusSeen(view: ImageButton, value: PersonalStatus?) {
 
 
 
-@BindingAdapter("runtime")
+/*@BindingAdapter("runtime")
 fun loadRuntime(view: TextView, runtime: Int?) {
     var value = ""
     if (runtime != null) {
@@ -108,7 +110,7 @@ fun loadRuntime(view: TextView, runtime: Int?) {
         value = String.format("%d h %02d min", hours, minutes)
     }
     loadText(view, value)
-}
+}*/
 
 @BindingAdapter("loadText")
 fun loadText(view: TextView, value: String?) {
@@ -124,6 +126,28 @@ fun loadText(view: TextView, value: String?) {
     }
 }
 
+@BindingAdapter("value")
+fun value(view: LinearInfoView, value: String?) {
+    if (value != null) {
+        view.value = value
+    }
+}
+
+@InverseBindingAdapter(attribute = "value")
+fun getValue(customField: LinearInfoView): String {
+    return customField.value
+}
+
+/*@BindingAdapter("value")
+fun value(view: LinearInfoView, budget: Int?) {
+    val current = Locale.getDefault()
+    val format = NumberFormat.getCurrencyInstance()
+    format.maximumFractionDigits = 0
+    format.currency =
+        Currency.getInstance(Currency.getInstance(current).currencyCode)
+    loadText(view.textViewValue, format.format(budget))
+}*/
+
 @BindingAdapter("asHtml")
 fun formatAsHtml(view: TextView, section: Section<*>) {
     val sectionTitle =
@@ -136,24 +160,9 @@ fun formatAsHtml(view: TextView, section: Section<*>) {
     view.text = Html.fromHtml("$sectionTitle$sectionDescription", Html.FROM_HTML_MODE_COMPACT)
 }
 
-@BindingAdapter("currency")
-fun loadBudget(view: TextView, budget: Int?) {
-    val current = Locale.getDefault()
-    val format = NumberFormat.getCurrencyInstance()
-    format.maximumFractionDigits = 0
-    format.currency =
-        Currency.getInstance(Currency.getInstance(current).currencyCode)
-    loadText(view, format.format(budget))
-}
 
-@BindingAdapter("knowAs")
-fun setKnownAs(view: TextView, names: List<String>?) {
-    if (names != null) {
-        loadText(view, names.stream().collect(Collectors.joining(" - ")))
-    } else {
-        view.text = "Not specified"
-    }
-}
+
+
 
 @BindingAdapter("genres")
 fun setGenresChip(chipGroup: ChipGroup, genres: List<Genre>?) {

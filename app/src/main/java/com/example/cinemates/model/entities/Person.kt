@@ -4,13 +4,14 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import java.io.Serializable
+import java.util.stream.Collectors
 
 @Entity
 open class Person(
     @Ignore
     val adult: Boolean,
     @Ignore
-    val also_known_as: List<String>,
+    private val also_known_as: List<String>,
     @Ignore
     val biography: String?,
     @Ignore
@@ -34,6 +35,10 @@ open class Person(
     val popularity: Double,
     val profile_path: String?,
 ) : Serializable {
+
+    val knownAs: String
+        get() = also_known_as.stream().collect(Collectors.joining(" - "))
+
     @Ignore
     constructor(
         adult: Boolean,

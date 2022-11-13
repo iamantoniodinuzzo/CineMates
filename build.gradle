@@ -24,7 +24,6 @@ buildscript {
         lifecycle_ktx = '2.5.1'
         lifecycle_viewmodel_ktx = '2.6.0-alpha01'
         logging_interceptor = '4.9.1'
-        read_more_text_view = '2.1.0'
         retrofit = '2.9.0'
         room = '2.4.3'
         rx_java = '3.0.0'

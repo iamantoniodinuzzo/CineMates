@@ -6,9 +6,11 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.example.cinemates.util.Converters
 import java.io.Serializable
+import java.text.NumberFormat
+import java.util.*
 
 @Entity
-data class Movie(
+class Movie(
     @TypeConverters(Converters::class)
     val belongs_to_collection: Collection?,
     @TypeConverters(Converters::class)
@@ -50,6 +52,35 @@ data class Movie(
     @Ignore
     val vote_count: Int
 ) : Serializable {
+
+    val formattedRuntime: String
+        get():String {
+            return if (runtime != null) {
+                val hours = (runtime / 60) //since both are ints, you get an int
+                val minutes = (runtime % 60)
+                String.format("%d h %02d min", hours, minutes)
+            } else ""
+        }
+
+    val formattedBudget: String
+        get() {
+            val current = Locale.getDefault()
+            val format = NumberFormat.getCurrencyInstance()
+            format.maximumFractionDigits = 0
+            format.currency =
+                Currency.getInstance(Currency.getInstance(current).currencyCode)
+            return format.format(budget)
+        }
+
+    val formattedRevenue: String
+        get() {
+            val current = Locale.getDefault()
+            val format = NumberFormat.getCurrencyInstance()
+            format.maximumFractionDigits = 0
+            format.currency =
+                Currency.getInstance(Currency.getInstance(current).currencyCode)
+            return format.format(revenue)
+        }
 
     constructor(
         genres: List<Genre>?,

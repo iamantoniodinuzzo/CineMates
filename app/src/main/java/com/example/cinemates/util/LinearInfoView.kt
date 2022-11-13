@@ -47,7 +47,8 @@ class LinearInfoView constructor(
                 binding.root.isVisible = value.isNotEmpty() && value != DEFAULT_VALUE
         }
 
-    private var hideIfValueEmpty: Boolean= false
+    private var hideIfValueEmpty: Boolean = false
+
 
     init {
         context.theme.obtainStyledAttributes(
@@ -63,6 +64,8 @@ class LinearInfoView constructor(
                     getString(R.styleable.LinearInfoView_title) ?: DEFAULT_VALUE
                 value =
                     getString(R.styleable.LinearInfoView_value) ?: DEFAULT_VALUE
+                binding.root.orientation =
+                    getInt(R.styleable.LinearInfoView_android_orientation, 0)
             } finally {
                 recycle()
             }

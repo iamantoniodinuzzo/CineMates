@@ -74,7 +74,7 @@ class ReadMoreTextView(
                 trimExpandedText =
                     getString(R.styleable.ReadMoreTextView_trimExpandedText)?: "Read less"
                 trimLines = getInt(R.styleable.ReadMoreTextView_trimLines, DEFAULT_TRIM_LINES)
-                val accentColor = ContextCompat.getColor(context, R.color.accent)
+                val accentColor = ContextCompat.getColor(context, R.color.vermilion_100)
                 colorClickableText =
                     getColor(R.styleable.ReadMoreTextView_colorClickableText, accentColor)
                 showTrimExpandedText =

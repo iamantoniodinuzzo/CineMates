@@ -101,7 +101,7 @@ fun setStatusSeen(view: ImageButton, value: PersonalStatus?) {
 
 
 
-@BindingAdapter("runtime")
+/*@BindingAdapter("runtime")
 fun loadRuntime(view: TextView, runtime: Int?) {
     var value = ""
     if (runtime != null) {
@@ -110,7 +110,7 @@ fun loadRuntime(view: TextView, runtime: Int?) {
         value = String.format("%d h %02d min", hours, minutes)
     }
     loadText(view, value)
-}
+}*/
 
 @BindingAdapter("loadText")
 fun loadText(view: TextView, value: String?) {
@@ -138,6 +138,15 @@ fun getValue(customField: LinearInfoView): String {
     return customField.value
 }
 
+/*@BindingAdapter("value")
+fun value(view: LinearInfoView, budget: Int?) {
+    val current = Locale.getDefault()
+    val format = NumberFormat.getCurrencyInstance()
+    format.maximumFractionDigits = 0
+    format.currency =
+        Currency.getInstance(Currency.getInstance(current).currencyCode)
+    loadText(view.textViewValue, format.format(budget))
+}*/
 
 @BindingAdapter("asHtml")
 fun formatAsHtml(view: TextView, section: Section<*>) {
@@ -151,15 +160,7 @@ fun formatAsHtml(view: TextView, section: Section<*>) {
     view.text = Html.fromHtml("$sectionTitle$sectionDescription", Html.FROM_HTML_MODE_COMPACT)
 }
 
-@BindingAdapter("currency")
-fun loadBudget(view: TextView, budget: Int?) {
-    val current = Locale.getDefault()
-    val format = NumberFormat.getCurrencyInstance()
-    format.maximumFractionDigits = 0
-    format.currency =
-        Currency.getInstance(Currency.getInstance(current).currencyCode)
-    loadText(view, format.format(budget))
-}
+
 
 
 

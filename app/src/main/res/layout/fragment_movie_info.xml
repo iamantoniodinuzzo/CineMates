@@ -101,33 +101,13 @@
                     android:textColor="@color/alabaster"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-                <!--
-                            <TextView
-                                android:id="@+id/textReleaseInformationTitle"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/textTitleInfo"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="16dp"
-                                android:text="Release information"
-                                android:textColor="@color/geyser"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-
-                            <com.google.android.material.chip.ChipGroup
-                                android:id="@+id/chipGroupReleaseDates"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/textReleaseInformationTitle" />-->
 
                 <include
                     android:id="@+id/movie_info"
                     layout="@layout/layout_movie_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_below="@id/textTitleInfo"
                     app:movie="@{movie}" />
 

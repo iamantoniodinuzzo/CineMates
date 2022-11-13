@@ -23,9 +23,9 @@ class LinearInfoView constructor(
     private val binding: LayoutLinearInfoBinding =
         LayoutLinearInfoBinding.inflate(LayoutInflater.from(context), this, true)
 
-    val titleTextView: TextView
+    val textViewTitle: TextView
         get() = binding.title
-    val valueTextView: ReadMoreTextView
+    val textViewValue: ReadMoreTextView
         get() = binding.value
 
     var title: String = ""

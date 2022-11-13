@@ -25,7 +25,7 @@ class LinearInfoView constructor(
 
     val titleTextView: TextView
         get() = binding.title
-    val valueTextView: TextView
+    val valueTextView: ReadMoreTextView
         get() = binding.value
 
     var title: String = ""
@@ -42,7 +42,6 @@ class LinearInfoView constructor(
 
 
     init {
-        orientation = HORIZONTAL
         context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.LinearInfoView,

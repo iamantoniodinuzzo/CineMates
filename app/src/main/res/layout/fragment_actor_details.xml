@@ -73,68 +73,24 @@
                             app:title="Death-day"
                             app:value="@{person.deathDay}" />
 
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <com.example.cinemates.util.LinearInfoView
                             android:id="@+id/knownAs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="50dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Known As"
-                                android:textColor="@color/geyser"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <com.example.cinemates.util.ReadMoreTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:textAlignment="textStart"
-                                android:textColor="@color/alabaster"
-                                android:textIsSelectable="true"
-                                android:textSize="14sp"
-                                app:colorClickableText="@color/vermilion_100"
-                                app:knowAs="@{person.also_known_as}"
-                                app:trimLength="50"
-                                app:trimMode="trimModeLength"
-                                tools:text="@tools:sample/lorem/random" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
+                            app:title="Known as"
+                            app:value="@{person.knownAs}" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    <TextView
-                        android:id="@+id/biographyTitle"
+                    <!-- TODO must be vertical -->
+                    <com.example.cinemates.util.LinearInfoView
+                        android:id="@+id/biography"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/actor_info"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Biography"
-                        android:textColor="@color/geyser"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <com.example.cinemates.util.ReadMoreTextView
-                        android:id="@+id/readMoreTextV"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/biographyTitle"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:textColor="@color/alabaster"
-                        android:textSize="14sp"
-                        app:colorClickableText="@color/vermilion_100"
-                        app:loadText="@{person.biography}"
-                        app:trimLength="200"
-                        app:trimMode="trimModeLength"
-                        tools:text="@tools:sample/lorem/random" />
-
-
+                        android:layout_marginHorizontal="10dp"
+                        android:orientation="vertical"
+                        app:title="Biography"
+                        app:value="@{person.biography}" />
                 </RelativeLayout>
 
                 <androidx.appcompat.widget.Toolbar

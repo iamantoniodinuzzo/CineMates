@@ -128,7 +128,6 @@ fun loadText(view: TextView, value: String?) {
 
 @BindingAdapter("value")
 fun value(view: LinearInfoView, value: String?) {
-    //Two cases (1) empty string literal (2) empty string number
     if (value != null) {
         view.value = value
     }
@@ -138,6 +137,7 @@ fun value(view: LinearInfoView, value: String?) {
 fun getValue(customField: LinearInfoView): String {
     return customField.value
 }
+
 
 @BindingAdapter("asHtml")
 fun formatAsHtml(view: TextView, section: Section<*>) {
@@ -161,14 +161,7 @@ fun loadBudget(view: TextView, budget: Int?) {
     loadText(view, format.format(budget))
 }
 
-@BindingAdapter("knowAs")
-fun setKnownAs(view: TextView, names: List<String>?) {
-    if (names != null) {
-        loadText(view, names.stream().collect(Collectors.joining(" - ")))
-    } else {
-        view.text = "Not specified"
-    }
-}
+
 
 @BindingAdapter("genres")
 fun setGenresChip(chipGroup: ChipGroup, genres: List<Genre>?) {

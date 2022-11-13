@@ -34,60 +34,70 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <include
-                        android:id="@+id/ivAvatar"
-                        layout="@layout/layout_person_avatar"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="?attr/actionBarSize"
-                        app:path="@{person.profile_path}" />
-
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/actor_info"
+                        android:id="@+id/generalities"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_marginTop="?attr/actionBarSize"
-                        android:layout_toEndOf="@id/ivAvatar"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <com.example.cinemates.util.LinearInfoView
-                            android:id="@+id/birthday"
+                        <include
+                            android:id="@+id/ivAvatar"
+                            layout="@layout/layout_person_avatar"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="?attr/actionBarSize"
+                            app:path="@{person.profile_path}" />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/actor_info"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:title="Birthday"
-                            app:value="@{person.birthday}" />
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginTop="?attr/actionBarSize"
+                            android:layout_toEndOf="@id/ivAvatar"
+                            android:orientation="vertical">
 
-                        <com.example.cinemates.util.LinearInfoView
-                            android:id="@+id/birthPlace"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:title="Birthplace"
-                            app:value="@{person.place_of_birth}" />
+                            <com.example.cinemates.util.LinearInfoView
+                                android:id="@+id/birthday"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:title="Birthday"
+                                app:value="@{person.birthday}" />
 
-                        <com.example.cinemates.util.LinearInfoView
-                            android:id="@+id/deathDate"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:title="Death-day"
-                            app:value="@{person.deathDay}" />
+                            <com.example.cinemates.util.LinearInfoView
+                                android:id="@+id/birthPlace"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:title="Birthplace"
+                                app:value="@{person.place_of_birth}" />
 
-                        <com.example.cinemates.util.LinearInfoView
-                            android:id="@+id/knownAs"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:title="Known as"
-                            app:value="@{person.knownAs}" />
+                            <com.example.cinemates.util.LinearInfoView
+                                android:id="@+id/deathDate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:hideIfValueEmpty="true"
+                                app:title="Death-day"
+                                app:value="@{person.deathDay}" />
+
+                            <com.example.cinemates.util.LinearInfoView
+                                android:id="@+id/knownAs"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:title="Known as"
+                                app:value="@{person.knownAs}" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.appcompat.widget.LinearLayoutCompat>
+
 
                     <!-- TODO must be vertical -->
                     <com.example.cinemates.util.LinearInfoView
                         android:id="@+id/biography"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/actor_info"
+                        android:layout_below="@id/generalities"
                         android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
                         android:orientation="vertical"
                         app:title="Biography"
                         app:value="@{person.biography}" />

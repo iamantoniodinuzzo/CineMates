@@ -61,7 +61,7 @@ class Movie(
                 String.format("%d h %02d min", hours, minutes)
             } else ""
         }
-    
+
     val formattedBudget: String
         get() {
             val current = Locale.getDefault()

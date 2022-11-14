@@ -14,7 +14,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <p align="center">
   <img src="https://github.com/Indisparte/CineMates/blob/main/assets/logo.png?raw=true" alt="CineMates Logo"/>
@@ -99,6 +98,4 @@ Find a file called `local.properties` in the `.gradle` file in the home director
 [issues-url]: https://github.com/Indisparte/CineMates/issues
 [license-shield]: https://img.shields.io/github/license/Indisparte/CineMates.svg?style=for-the-badge
 [license-url]: https://github.com/Indisparte/repo_name/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/iamantoniodinuzzo
 [last-commit-shield]: https://img.shields.io/github/last-commit/Indisparte/CineMates.svg?style=for-the-badge

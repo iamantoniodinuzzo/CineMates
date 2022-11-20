@@ -62,6 +62,7 @@
                                 android:id="@+id/birthday"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
                                 app:title="Birthday"
                                 app:value="@{person.birthday}" />
 
@@ -69,6 +70,7 @@
                                 android:id="@+id/birthPlace"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
                                 app:title="Birthplace"
                                 app:value="@{person.place_of_birth}" />
 
@@ -90,7 +92,6 @@
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-                    <!-- TODO must be vertical -->
                     <com.example.cinemates.util.LinearInfoView
                         android:id="@+id/biography"
                         android:layout_width="match_parent"
@@ -98,8 +99,9 @@
                         android:layout_below="@id/generalities"
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginTop="10dp"
-                        app:title="Biography"
+                        android:layout_marginBottom="10dp"
                         android:orientation="vertical"
+                        app:title="Biography"
                         app:value="@{person.biography}" />
                 </RelativeLayout>
 

@@ -26,7 +26,7 @@ class LinearInfoView constructor(
     }
 
     private val binding: LayoutLinearInfoBinding =
-        LayoutLinearInfoBinding.inflate(LayoutInflater.from(context), this, true)
+        LayoutLinearInfoBinding.inflate(LayoutInflater.from(context), this)
 
     val textViewTitle: TextView
         get() = binding.title
@@ -64,8 +64,7 @@ class LinearInfoView constructor(
                     getString(R.styleable.LinearInfoView_title) ?: DEFAULT_VALUE
                 value =
                     getString(R.styleable.LinearInfoView_value) ?: DEFAULT_VALUE
-                binding.root.orientation =
-                    getInt(R.styleable.LinearInfoView_android_orientation, 0)
+
             } finally {
                 recycle()
             }

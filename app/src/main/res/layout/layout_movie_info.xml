@@ -17,6 +17,7 @@
         <com.example.cinemates.util.LinearInfoView
             android:id="@+id/originalTitle"
             android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
             app:title="Original title"
             app:value="@{movie.original_title}" />
@@ -24,6 +25,7 @@
         <com.example.cinemates.util.LinearInfoView
             android:id="@+id/status"
             android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
             app:title="Status"
             app:value="@{movie.status}" />
@@ -33,11 +35,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="Runtime"
+            android:layout_marginBottom="10dp"
             app:value="@{movie.formattedRuntime}" />
 
         <com.example.cinemates.util.LinearInfoView
             android:id="@+id/originalLanguage"
             android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
             app:title="Original language"
             app:value="@{movie.original_language}" />
@@ -46,6 +50,7 @@
             android:id="@+id/budget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             app:title="Budget"
             app:value="@{movie.formattedBudget}" />
 

@@ -3,6 +3,7 @@ package com.example.cinemates.di
 import com.example.cinemates.model.api.AuthenticationInterceptor
 import com.example.cinemates.network.service.ActorService
 import com.example.cinemates.network.service.MovieService
+import com.example.cinemates.network.service.TvShowService
 import com.example.cinemates.util.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -62,6 +63,11 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideActorService(retrofit: Retrofit): ActorService =
+        retrofit.create()
+
+    @Singleton
+    @Provides
+    fun provideTvShowService(retrofit: Retrofit): TvShowService =
         retrofit.create()
 
 }

@@ -6,6 +6,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -17,6 +18,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.cinemates.R
 import com.example.cinemates.databinding.ActivityMainBinding
+import com.example.cinemates.util.NetworkConnection
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,6 +33,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupNavigation()
+
+        val networkConnection = NetworkConnection(applicationContext)
+        networkConnection.observe(this, Observer { isConnected ->
+            binding.noInternet.isVisible = !isConnected
+        })
     }
 
     private fun setupNavigation() = binding.bottomNavigationView.run {

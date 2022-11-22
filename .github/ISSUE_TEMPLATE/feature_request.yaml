@@ -10,7 +10,7 @@ body:
       label: Is there a project named like this repo?
       description: Please search to see if project named like this repo and if exists set.
       options:
-        - label: I have searched 
+        - label: Yes I looked it up and made sure to list it among the projects in case I found it.
           required: true
   - type: textarea
     attributes:

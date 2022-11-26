@@ -54,8 +54,8 @@ class Movie(
 ) : Serializable {
 
     val formattedRuntime: String
-        get():String {
-            return if (runtime != null) {
+        get() {
+            return if (runtime != null && runtime!=0) {
                 val hours = (runtime / 60) //since both are ints, you get an int
                 val minutes = (runtime % 60)
                 String.format("%d h %02d min", hours, minutes)
@@ -64,22 +64,26 @@ class Movie(
 
     val formattedBudget: String
         get() {
-            val current = Locale.getDefault()
-            val format = NumberFormat.getCurrencyInstance()
-            format.maximumFractionDigits = 0
-            format.currency =
-                Currency.getInstance(Currency.getInstance(current).currencyCode)
-            return format.format(budget)
+            return if(budget!=0) {
+                val current = Locale.getDefault()
+                val format = NumberFormat.getCurrencyInstance()
+                format.maximumFractionDigits = 0
+                format.currency =
+                    Currency.getInstance(Currency.getInstance(current).currencyCode)
+                format.format(budget)
+            }else ""
         }
 
     val formattedRevenue: String
         get() {
-            val current = Locale.getDefault()
-            val format = NumberFormat.getCurrencyInstance()
-            format.maximumFractionDigits = 0
-            format.currency =
-                Currency.getInstance(Currency.getInstance(current).currencyCode)
-            return format.format(revenue)
+            return if (revenue!=0) {
+                val current = Locale.getDefault()
+                val format = NumberFormat.getCurrencyInstance()
+                format.maximumFractionDigits = 0
+                format.currency =
+                    Currency.getInstance(Currency.getInstance(current).currencyCode)
+                format.format(revenue)
+            }else ""
         }
 
     constructor(

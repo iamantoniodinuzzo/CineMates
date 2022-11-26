@@ -37,13 +37,14 @@ class LinearInfoView constructor(
             field = value
             binding.title.text = value
         }
+    var defaultValue: String = DEFAULT_VALUE
 
     var value: String = ""
         set(value) {
             field = value
             binding.value.text = value
             if (hideIfValueEmpty)
-                binding.root.isVisible = value.isNotEmpty() && value != DEFAULT_VALUE
+                binding.root.isVisible = value.isNotEmpty() && value != defaultValue
         }
 
     private var hideIfValueEmpty: Boolean = false
@@ -60,9 +61,11 @@ class LinearInfoView constructor(
                 hideIfValueEmpty =
                     getBoolean(R.styleable.LinearInfoView_hideIfValueEmpty, false)
                 title =
-                    getString(R.styleable.LinearInfoView_title) ?: DEFAULT_VALUE
+                    getString(R.styleable.LinearInfoView_title) ?: defaultValue
                 value =
-                    getString(R.styleable.LinearInfoView_value) ?: DEFAULT_VALUE
+                    getString(R.styleable.LinearInfoView_value) ?: defaultValue
+                defaultValue =
+                    getString(R.styleable.LinearInfoView_defaultValue) ?: DEFAULT_VALUE
 
             } finally {
                 recycle()

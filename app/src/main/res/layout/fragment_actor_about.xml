@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="person"
+            type="com.example.cinemates.model.entities.Person" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+
+            <com.indisparte.linearlayoutinfo.LinearInfoView
+                android:id="@+id/age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:title="Age"
+                app:value="@{person.age}" />
+
+            <com.indisparte.linearlayoutinfo.LinearInfoView
+                android:id="@+id/birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/age"
+                android:layout_marginBottom="10dp"
+                app:title="Birthday"
+                app:value="@{person.birthday}" />
+
+            <com.indisparte.linearlayoutinfo.LinearInfoView
+                android:id="@+id/birthPlace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/birthday"
+                android:layout_marginBottom="10dp"
+                app:title="Birthplace"
+                app:value="@{person.place_of_birth}" />
+
+            <com.indisparte.linearlayoutinfo.LinearInfoView
+                android:id="@+id/deathDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/birthPlace"
+                app:defaultValue="Alive"
+                app:hideIfValueEmpty="true"
+                app:title="Death-day"
+                app:value="@{person.deathDay}" />
+
+            <com.indisparte.linearlayoutinfo.LinearInfoView
+                android:id="@+id/biography"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/deathDate"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:title="Biography"
+                app:value="@{person.biography}" />
+
+            <TextView
+                android:id="@+id/knownAsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/biography"
+                android:layout_marginTop="10dp"
+                android:text="Also known as"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="@{person.also_known_as.empty? View.GONE:View.VISIBLE}" />
+
+            <HorizontalScrollView
+                android:id="@+id/chip_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/knownAsTitle">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupNames"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:knownAs="@{person.also_known_as}"
+                    app:singleLine="true"
+                    app:singleSelection="true" />
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/imageTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/chip_group"
+                android:layout_marginTop="10dp"
+                android:text="Images"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageTitle"
+                android:layout_marginTop="10dp">
+
+                <com.example.cinemates.util.RecyclerViewEmptySupport
+                    android:id="@+id/images"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/list_item_poster" />
+
+                <include
+                    android:id="@+id/empty_view_recommended"
+                    layout="@layout/layout_empty_recycler" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

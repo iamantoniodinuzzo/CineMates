@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="person"
             type="com.example.cinemates.model.entities.Person" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".view.ui.ActorDetailsFragment">
+        android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -23,102 +25,63 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapse_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Small"
+                android:layout_height="260dp"
+                android:textSize="18sp"
+                app:collapsedTitleTextColor="@color/geyser"
                 app:contentScrim="@color/lynch_100"
-                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-                app:titleEnabled="false">
+                app:expandedTitleGravity="bottom|center_horizontal"
+                app:expandedTitleTextColor="@android:color/transparent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:title="@{person.name}">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/generalities"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                    <include
+                        android:id="@+id/ivAvatar"
+                        layout="@layout/layout_person_avatar"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="?attr/actionBarSize"
+                        app:path="@{person.profile_path}" />
 
-                        <include
-                            android:id="@+id/ivAvatar"
-                            layout="@layout/layout_person_avatar"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="?attr/actionBarSize"
-                            app:path="@{person.profile_path}" />
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:id="@+id/actor_info"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="10dp"
-                            android:layout_marginTop="?attr/actionBarSize"
-                            android:layout_toEndOf="@id/ivAvatar"
-                            android:orientation="vertical">
-
-                            <com.indisparte.linearlayoutinfo.LinearInfoView
-                                android:id="@+id/birthday"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                app:title="Birthday"
-                                app:value="@{person.birthday}" />
-
-                            <com.indisparte.linearlayoutinfo.LinearInfoView
-                                android:id="@+id/birthPlace"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                app:title="Birthplace"
-                                app:value="@{person.place_of_birth}" />
-
-                            <com.indisparte.linearlayoutinfo.LinearInfoView
-                                android:id="@+id/deathDate"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:hideIfValueEmpty="true"
-                                app:title="Death-day"
-                                app:value="@{person.deathDay}" />
-
-                            <com.indisparte.linearlayoutinfo.LinearInfoView
-                                android:id="@+id/knownAs"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:title="Known as"
-                                app:value="@{person.knownAs}" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-                    <com.indisparte.linearlayoutinfo.LinearInfoView
-                        android:id="@+id/biography"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/generalities"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="vertical"
-                        app:title="Biography"
-                        app:value="@{person.biography}" />
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_below="@id/ivAvatar"
+                           android:layout_centerHorizontal="true"
+                           android:text="@{person.name}"
+                           android:layout_marginTop="10dp"
+                           android:textColor="@color/alabaster"
+                           android:textSize="18sp"
+                           android:textStyle="bold"
+                           tools:text="@tools:sample/full_names" />
                 </RelativeLayout>
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:layout_marginBottom="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/ic_round_arrow_back_24"
-                    app:title="@{person.name}"
-                    app:titleTextColor="@color/white"
-                    tools:title="@tools:sample/full_names" />
+                    app:navigationIcon="@drawable/ic_round_arrow_back_24" />
+
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    style="@style/Tab_Layout_Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/shadow_details_image"
+                    app:layout_collapseMode="pin" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
-
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -130,13 +93,14 @@
             android:contentDescription="Add to favorite"
             android:src="@drawable/ic_favorite_border" />
 
-        <com.example.cinemates.util.RecyclerViewEmptySupport
-            android:id="@+id/recyclerView"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            app:spanCount="3"
-            tools:listitem="@layout/list_item_movie_small" />
+            android:layout_height="match_parent"
+            android:background="@color/mirage_100"
+            android:nestedScrollingEnabled="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

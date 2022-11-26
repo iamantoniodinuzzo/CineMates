@@ -3,7 +3,7 @@ package com.example.cinemates.model.entities
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class Image(
+open class Image(
     var file_path: String,
     var height: Int,
     var width: Int

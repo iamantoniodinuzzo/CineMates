@@ -4,6 +4,7 @@ import com.example.cinemates.model.entities.Cast
 import com.example.cinemates.network.response.GenericResponse
 import com.example.cinemates.network.response.ImagesResponse
 import com.example.cinemates.model.entities.Person
+import com.example.cinemates.network.response.ActorImageResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -24,8 +25,8 @@ interface ActorService {
     @GET("person/{person_id}/images")
     suspend fun getActorImages(
         @Path("person_id") id: Int,
-        @Query("api_key") api: String
-    ): ImagesResponse
+        @QueryMap queries: HashMap<String, String>
+    ): ActorImageResponse
 
 
     @GET("search/person")

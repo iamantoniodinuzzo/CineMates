@@ -28,10 +28,10 @@ constructor(
     private val _selectedMovie = MutableLiveData<Movie>()
     val selectedMovie: LiveData<Movie> get() = _selectedMovie
 
-    val similarMovies: LiveData<List<Movie>> =
+    val similarMovies: MutableLiveData<List<Movie>> =
         Transformations.switchMap(_selectedMovie) { movie ->
             movieRepository.getSimilarMovies(movie.id).asLiveData()
-        }
+        }as MutableLiveData<List<Movie>>
 
     val videos: MutableLiveData<List<Video>> =
         Transformations.switchMap(_selectedMovie) { movie ->
@@ -39,20 +39,21 @@ constructor(
         } as MutableLiveData<List<Video>>
 
 
-    val posters: LiveData<List<Image>>
+    val posters: MutableLiveData<List<Image>>
         get() = Transformations.switchMap(_selectedMovie) { movie ->
             movieRepository.getPosters(movie.id).asLiveData()
-        }
+        }as MutableLiveData<List<Image>>
 
-    val backdrops: LiveData<List<Image>>
+    val backdrops: MutableLiveData<List<Image>>
         get() = Transformations.switchMap(_selectedMovie) { movie ->
             movieRepository.getBackdrops(movie.id).asLiveData()
-        }
+        }as MutableLiveData<List<Image>>
 
-    val cast: LiveData<List<Cast>> =
+    val cast: MutableLiveData<List<Cast>> =
         Transformations.switchMap(_selectedMovie) { movie ->
             movieRepository.getMovieCast(movie.id).asLiveData()
-        }
+        }as MutableLiveData<List<Cast>>
+
     val crew: LiveData<List<Crew>> =
         Transformations.switchMap(_selectedMovie) { movie ->
             movieRepository.getMovieCrew(movie.id).asLiveData()
@@ -68,9 +69,15 @@ constructor(
     fun onDetailsFragmentReady(movie: Movie) =
         getMovieDetails(movie.id)
 
-    fun onDestroyView() {
+
+    fun onDestroyFragment() {
         videos.value = listOf()
+        cast.value = listOf()
+        backdrops.value = listOf()
+        posters.value = listOf()
+        similarMovies.value = listOf()
     }
+
 
     private fun getMovieDetails(movieId: Int) {
         movieRepository.getMovieDetails(movieId)

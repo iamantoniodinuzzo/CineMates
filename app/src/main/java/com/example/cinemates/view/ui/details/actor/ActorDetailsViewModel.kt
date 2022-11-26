@@ -1,13 +1,13 @@
 package com.example.cinemates.view.ui.details.actor
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.cinemates.model.entities.Image
 import com.example.cinemates.model.entities.Movie
 import com.example.cinemates.model.entities.Person
+import com.example.cinemates.model.entities.TvShow
 import com.example.cinemates.model.repository.ActorRepository
 import com.example.cinemates.model.repository.MovieRepository
+import com.example.cinemates.model.repository.TvShowRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -23,29 +23,30 @@ class ActorDetailsViewModel
 @Inject
 constructor(
     private val actorRepository: ActorRepository,
-    private val movieRepository: MovieRepository
+    private val movieRepository: MovieRepository,
 ) : ViewModel() {
 
     private val _actor = MutableLiveData<Person>()
     val actor: LiveData<Person> get() = _actor
 
-    private val _movies = MutableLiveData<List<Movie>>()
-    val movies: LiveData<List<Movie>> get() = _movies
+    val movies: MutableLiveData<List<Movie>> =
+        Transformations.switchMap(_actor) { actor ->
+            movieRepository.getMoviesByActor(actor.id.toString()).asLiveData()
+        }as MutableLiveData<List<Movie>>
 
-    fun setActorDetails(personId: Int) {
+    val images: MutableLiveData<List<Image>> =
+        Transformations.switchMap(_actor) { actor ->
+            actorRepository.getImages(actor.id).asLiveData()
+        }as MutableLiveData<List<Image>>
+
+    fun onDetailsFragmentReady(personId: Int) {
         getActorDetails(personId)
-        getMoviesByActor(personId)
     }
 
-    private fun getMoviesByActor(id: Int) = viewModelScope.launch {
-        try {
-            movieRepository.getMoviesByActor(id.toString()).collectLatest { movies ->
-                _movies.postValue(movies)
-            }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
-        }
-
+     fun onDestroyFragment() {
+        super.onCleared()
+        movies.value = listOf()
+        images.value = listOf()
     }
 
 

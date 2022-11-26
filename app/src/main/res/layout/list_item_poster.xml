@@ -11,17 +11,17 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        app:cardCornerRadius="10dp"
-        android:layout_marginStart="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:cardCornerRadius="5dp">
 
         <ImageView
-            android:layout_width="150dp"
-            android:scaleType="centerCrop"
-            tools:src="@tools:sample/backgrounds/scenic"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
             android:background="@color/geyser"
+            android:scaleType="centerCrop"
             app:imageUrl="@{image.file_path}"
-            android:layout_height="250dp"/>
+            tools:src="@tools:sample/backgrounds/scenic" />
     </androidx.cardview.widget.CardView>
 </layout>

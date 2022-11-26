@@ -36,27 +36,27 @@ constructor(
         sMap["page"] = "1"
     }
 
-    suspend fun getPopularMovies(): Flow<List<Movie>> = flow {
+     fun getPopularMovies(): Flow<List<Movie>> = flow {
         val popular = movieService.getPopular(sMap).results
         emit(popular)
     }
 
-    suspend fun getTopRatedMovies(): Flow<List<Movie>> = flow {
+     fun getTopRatedMovies(): Flow<List<Movie>> = flow {
         val topRated = movieService.getTopRated(sMap).results
         emit(topRated)
     }
 
-    suspend fun getUpcomingMovies(): Flow<List<Movie>> = flow {
+     fun getUpcomingMovies(): Flow<List<Movie>> = flow {
         val upcoming = movieService.getUpcoming(sMap).results
         emit(upcoming)
     }
 
-    suspend fun getGenreList(): Flow<List<Genre>> = flow {
+     fun getGenreList(): Flow<List<Genre>> = flow {
         val genres = movieService.getGenreList(sMap).results
         emit(genres)
     }
 
-    suspend fun getTrendingMovies(mediaType: String, timeWindow: String): Flow<List<Movie>> = flow {
+     fun getTrendingMovies(mediaType: String, timeWindow: String): Flow<List<Movie>> = flow {
         val trending = movieService.getTrendingMovies(mediaType, timeWindow, sMap).results
         emit(trending)
     }
@@ -116,12 +116,12 @@ constructor(
     }
 
 
-    suspend fun getMoviesBySearch(query: String): Flow<List<Movie>> = flow {
+     fun getMoviesBySearch(query: String): Flow<List<Movie>> = flow {
         sMap["query"] = query
         emit(movieService.getMoviesBySearch(sMap).results)
     }
 
-    suspend fun getMoviesByActor(with_cast: String): Flow<List<Movie>> = flow {
+     fun getMoviesByActor(with_cast: String): Flow<List<Movie>> = flow {
         sMap["with_cast"] = with_cast
         emit(movieService.getMoviesByDiscover(sMap).results)
     }

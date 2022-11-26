@@ -13,11 +13,12 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
-import com.example.cinemates.adapter.MovieAdapter
+import com.example.cinemates.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentActorDetailsBinding
 import com.example.cinemates.view.viewmodel.DbPersonViewModel
 import com.example.cinemates.util.getLong
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 
@@ -25,14 +26,16 @@ class ActorDetailsFragment : Fragment() {
     private var _binding: FragmentActorDetailsBinding? = null
     private val binding: FragmentActorDetailsBinding
         get() = _binding!!
-    private lateinit var adapter: MovieAdapter
     private val dbViewModel: DbPersonViewModel by activityViewModels()
     private val viewModel: ActorDetailsViewModel by activityViewModels()
     private val args: ActorDetailsFragmentArgs by navArgs()
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
+    private lateinit var actorAboutFragment: ActorAboutFragment
+    private lateinit var actorMoviesFragment: ActorMoviesFragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = MovieAdapter()
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
             interpolator = AnticipateOvershootInterpolator()
             duration = resources.getLong(R.integer.material_motion_duration_medium_2)
@@ -46,6 +49,8 @@ class ActorDetailsFragment : Fragment() {
             interpolator = FastOutSlowInInterpolator()
             duration = resources.getLong(R.integer.material_motion_duration_short_1)
         }
+        actorAboutFragment = ActorAboutFragment()
+        actorMoviesFragment = ActorMoviesFragment()
     }
 
     override fun onCreateView(
@@ -59,34 +64,40 @@ class ActorDetailsFragment : Fragment() {
             false
         )
 
+        initializeViewPager()
         return binding.root
+    }
+
+    private fun initializeViewPager() {
+        viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
+        viewPagerAdapter.addFragment(actorAboutFragment)
+        viewPagerAdapter.addFragment(actorMoviesFragment)
+        binding.apply {
+            viewPager.adapter = viewPagerAdapter
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                when (position) {
+                    0 -> tab.text = "About"
+                    1 -> tab.text = "Movies"
+                }
+            }.attach()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
-        viewModel.apply {
-            movies.observe(viewLifecycleOwner) { moviesByActor ->
-                adapter.addItems(moviesByActor)
-            }
-            setActorDetails(args.person.id)
-        }
+        viewModel.onDetailsFragmentReady(args.person.id)
 
         binding.apply {
             customizeFab(fab)
             fab.setOnClickListener {
                 updateThisPerson(fab)
             }
-            recyclerView.adapter = adapter
-            viewModel.actor.observe(viewLifecycleOwner) { selectedPerson ->
-                person = selectedPerson
-            }
             toolbar.setNavigationOnClickListener { view ->
-                findNavController(
-                    view
-                ).navigateUp()
+                findNavController(view).navigateUp()
             }
+            person = args.person
 
         }
 
@@ -114,5 +125,6 @@ class ActorDetailsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        viewModel.onDestroyFragment()
     }
 }

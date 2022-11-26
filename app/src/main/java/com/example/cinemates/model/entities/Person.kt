@@ -4,6 +4,8 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import java.io.Serializable
+import java.time.LocalDate
+import java.time.Period
 import java.util.stream.Collectors
 
 @Entity
@@ -11,7 +13,7 @@ open class Person(
     @Ignore
     val adult: Boolean,
     @Ignore
-    private val also_known_as: List<String>,
+    val also_known_as: List<String>,
     @Ignore
     val biography: String?,
     @Ignore
@@ -38,6 +40,25 @@ open class Person(
 
     val knownAs: String
         get() = also_known_as.stream().collect(Collectors.joining(" - "))
+
+    val age: String
+        get() {
+            val birthdayDate = LocalDate.parse(birthday)
+            return if (deathDay == null) {
+                val age = Period.between(
+                    birthdayDate,
+                    LocalDate.now()
+                ).years
+                age.toString()
+            }else{
+                val deathDayDate = LocalDate.parse(deathDay)
+                val age = Period.between(
+                    birthdayDate,
+                    deathDayDate
+                ).years
+                age.toString()
+            }
+        }
 
     @Ignore
     constructor(

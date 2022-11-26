@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
@@ -15,13 +13,13 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentHomeBinding
 import com.example.cinemates.model.entities.Movie
 import com.example.cinemates.model.entities.Person
 import com.example.cinemates.model.entities.Section
+import com.example.cinemates.model.entities.TvShow
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.ui.MainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -36,8 +34,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private var _binding : FragmentHomeBinding? = null
-     val binding : FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    val binding: FragmentHomeBinding
         get() = _binding!!
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var sectionAdapter: SectionRecyclerViewAdapter
@@ -45,23 +43,33 @@ class HomeFragment : Fragment() {
 
     // Sections
     private val upcomingSection: Section<Movie> =
-        Section("Upcoming", null, Movie::class.java, null, ViewSize.SMALL)
+        Section("Upcoming", "Movie", Movie::class.java, null, ViewSize.SMALL)
     private val topRatedSection: Section<Movie> =
-        Section("Top Rated", null, Movie::class.java, null, ViewSize.SMALL)
-    private var trendingSection: Section<Movie> =
+        Section("Top Rated", "Movie", Movie::class.java, null, ViewSize.SMALL)
+    private val trendingSection: Section<Movie> =
         Section("Trending this week", "Movies", Movie::class.java, null, ViewSize.SMALL)
-    private var trendingPerson: Section<Person> =
+    private val popularTvShow: Section<TvShow> =
+        Section("Popular", "Tv Show", TvShow::class.java, null, ViewSize.SMALL)
+    private val trendingTvShowSection: Section<TvShow> =
+        Section("Trending this week", "Tv Show", TvShow::class.java, null, ViewSize.SMALL)
+    private val trendingPerson: Section<Person> =
         Section("Trending this week", "Actors", Person::class.java, null, ViewSize.SMALL)
-    private var sectionList: List<Section<*>> =
-        listOf(upcomingSection, topRatedSection, trendingSection, trendingPerson)
-
+    private val sectionList: List<Section<*>> =
+        listOf(
+            upcomingSection,
+            popularTvShow,
+            topRatedSection,
+            trendingSection,
+            trendingTvShowSection,
+            trendingPerson
+        )
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sectionAdapter = SectionRecyclerViewAdapter(this)
-       /* slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
-        slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)*/
+        /* slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
+         slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)*/
         setupTransitions()
     }
 
@@ -116,8 +124,10 @@ class HomeFragment : Fragment() {
     private fun initSectionedRecyclerView() {
         sectionAdapter.addItems(sectionList)
         upcomingSection.liveData = viewModel.upcomingMovies
+        popularTvShow.liveData = viewModel.popularTvShow
         topRatedSection.liveData = viewModel.topRatedMovies
         trendingSection.liveData = viewModel.trendingMovies
+        trendingTvShowSection.liveData = viewModel.trendingTvShow
         trendingPerson.liveData = viewModel.trendingPerson
     }
 

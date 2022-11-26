@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinemates.model.entities.Media
 import com.example.cinemates.model.entities.Movie
 import com.example.cinemates.model.entities.Person
 import com.example.cinemates.model.entities.TvShow
@@ -35,8 +34,8 @@ constructor(
     private val _trendingMovies = MutableLiveData<List<Movie>>()
     val trendingMovies: LiveData<List<Movie>> get() = _trendingMovies
 
-    private val _trendingTvShow = MutableLiveData<List<Media>>()
-    val trendingTvShow: LiveData<List<Media>> get() = _trendingTvShow
+    private val _trendingTvShow = MutableLiveData<List<TvShow>>()
+    val trendingTvShow: LiveData<List<TvShow>> get() = _trendingTvShow
 
     private val _trendingPerson = MutableLiveData<List<Person>>()
     val trendingPerson: LiveData<List<Person>> get() = _trendingPerson
@@ -50,9 +49,6 @@ constructor(
     private val _topRatedMovies = MutableLiveData<List<Movie>>()
     val topRatedMovies: LiveData<List<Movie>> get() = _topRatedMovies
 
-    private val _upcomingTvShow = MutableLiveData<List<TvShow>>()
-    val upcomingTvShow: LiveData<List<TvShow>> get() = _upcomingTvShow
-
     private val _upcomingMovies = MutableLiveData<List<Movie>>()
     val upcomingMovies: LiveData<List<Movie>> get() = _upcomingMovies
 
@@ -64,19 +60,6 @@ constructor(
         getPopularTvShow()
         getTopRatedMovies()
         getUpcomingMovies()
-        getUpcomingTvShow()
-    }
-
-    private fun getUpcomingTvShow() = viewModelScope.launch {
-        try {
-            tvShowRepository.getUpcomingTvShow().collectLatest { tvShow ->
-
-                _upcomingTvShow.postValue(tvShow)
-
-            }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
-        }
     }
 
     private fun getPopularTvShow() = viewModelScope.launch {

@@ -42,17 +42,12 @@ constructor(
         emit(popular)
     }
 
-    suspend fun getUpcomingTvShow(): Flow<List<TvShow>> = flow {
-        val upcoming = tvShowService.getUpcoming(sMap).results
-        emit(upcoming)
-    }
-
     suspend fun getGenreList(): Flow<List<Genre>> = flow {
         val genres = tvShowService.getGenreList(sMap).results
         emit(genres)
     }
 
-    suspend fun getTrendingTvShow(mediaType: String, timeWindow: String): Flow<List<Media>> = flow {
+    suspend fun getTrendingTvShow(mediaType: String, timeWindow: String): Flow<List<TvShow>> = flow {
         val trending = tvShowService.getTrendingMedia(mediaType, timeWindow, sMap).results
         emit(trending)
     }

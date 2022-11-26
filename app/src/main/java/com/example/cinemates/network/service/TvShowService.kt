@@ -15,13 +15,10 @@ import retrofit2.http.QueryMap
  * @author Antonio Di Nuzzo
  * Created 21/04/2022 at 15:44
  */
-interface TvShowService : MediaService {
+interface TvShowService  {
 
     @GET("tv/popular")
     suspend fun getPopular(@QueryMap queries: HashMap<String, String>): GenericResponse<TvShow>
-
-    @GET("tv/upcoming")
-    suspend fun getUpcoming(@QueryMap queries: HashMap<String, String>): GenericResponse<TvShow>
 
     @GET("tv/{tv_id}")
     suspend fun getMovieDetails(
@@ -64,4 +61,10 @@ interface TvShowService : MediaService {
     @GET("genre/tv/list")
     suspend fun getGenreList(@QueryMap queries: HashMap<String, String>): GenericResponse<Genre>
 
+    @GET("trending/{media_type}/{time_window}")
+    suspend fun getTrendingMedia(
+        @Path("media_type") media_type: String,
+        @Path("time_window") time_window: String,
+        @QueryMap queries: HashMap<String, String>
+    ): GenericResponse<TvShow>
 }

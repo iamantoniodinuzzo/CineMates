@@ -15,7 +15,7 @@ import retrofit2.http.QueryMap
  * @author Antonio Di Nuzzo
  * Created 21/04/2022 at 15:44
  */
-interface TvShowService  {
+interface TvShowService {
 
     @GET("tv/popular")
     suspend fun getPopular(@QueryMap queries: HashMap<String, String>): GenericResponse<TvShow>
@@ -35,6 +35,11 @@ interface TvShowService  {
     @GET("tv/{tv_id}/similar")
     suspend fun getSimilar(
         @Path("tv_id") id: Int,
+        @QueryMap queries: HashMap<String, String>
+    ): GenericResponse<TvShow>
+
+    @GET("tv/on_the_air")
+    suspend fun getOnTheAir(
         @QueryMap queries: HashMap<String, String>
     ): GenericResponse<TvShow>
 

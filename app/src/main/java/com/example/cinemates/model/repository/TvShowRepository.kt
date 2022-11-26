@@ -1,16 +1,10 @@
 package com.example.cinemates.model.repository
 
-import com.example.cinemates.network.service.MovieService
 import com.example.cinemates.model.entities.*
-import com.example.cinemates.network.response.CreditsResponse
-import com.example.cinemates.network.response.GenericResponse
-import com.example.cinemates.network.response.ImagesResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
-import com.example.cinemates.model.entities.Collection
 import com.example.cinemates.network.service.TvShowService
 
 /**
@@ -42,15 +36,21 @@ constructor(
         emit(popular)
     }
 
+    suspend fun getOnTheAir(): Flow<List<TvShow>> = flow {
+        val onAir = tvShowService.getOnTheAir(sMap).results
+        emit(onAir)
+    }
+
     suspend fun getGenreList(): Flow<List<Genre>> = flow {
         val genres = tvShowService.getGenreList(sMap).results
         emit(genres)
     }
 
-    suspend fun getTrendingTvShow(mediaType: String, timeWindow: String): Flow<List<TvShow>> = flow {
-        val trending = tvShowService.getTrendingMedia(mediaType, timeWindow, sMap).results
-        emit(trending)
-    }
+    suspend fun getTrendingTvShow(mediaType: String, timeWindow: String): Flow<List<TvShow>> =
+        flow {
+            val trending = tvShowService.getTrendingMedia(mediaType, timeWindow, sMap).results
+            emit(trending)
+        }
 
 
     fun getVideos(movieId: Int): Flow<List<Video>> = flow {

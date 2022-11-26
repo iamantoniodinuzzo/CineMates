@@ -50,6 +50,8 @@ class HomeFragment : Fragment() {
         Section("Trending this week", "Movies", Movie::class.java, null, ViewSize.SMALL)
     private val popularTvShow: Section<TvShow> =
         Section("Popular", "Tv Show", TvShow::class.java, null, ViewSize.SMALL)
+    private val onTheAirTvShow: Section<TvShow> =
+        Section("On The Air", "Tv Show", TvShow::class.java, null, ViewSize.SMALL)
     private val trendingTvShowSection: Section<TvShow> =
         Section("Trending this week", "Tv Show", TvShow::class.java, null, ViewSize.SMALL)
     private val trendingPerson: Section<Person> =
@@ -59,6 +61,7 @@ class HomeFragment : Fragment() {
             upcomingSection,
             popularTvShow,
             topRatedSection,
+            onTheAirTvShow,
             trendingSection,
             trendingTvShowSection,
             trendingPerson
@@ -129,6 +132,7 @@ class HomeFragment : Fragment() {
         trendingSection.liveData = viewModel.trendingMovies
         trendingTvShowSection.liveData = viewModel.trendingTvShow
         trendingPerson.liveData = viewModel.trendingPerson
+        onTheAirTvShow.liveData = viewModel.tvShowOnTheAir
     }
 
     override fun onDestroyView() {

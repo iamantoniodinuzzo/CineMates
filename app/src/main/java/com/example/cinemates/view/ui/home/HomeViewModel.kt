@@ -34,6 +34,9 @@ constructor(
     private val _trendingMovies = MutableLiveData<List<Movie>>()
     val trendingMovies: LiveData<List<Movie>> get() = _trendingMovies
 
+    private val _tvShowOnTheAir = MutableLiveData<List<TvShow>>()
+    val tvShowOnTheAir: LiveData<List<TvShow>> get() = _tvShowOnTheAir
+
     private val _trendingTvShow = MutableLiveData<List<TvShow>>()
     val trendingTvShow: LiveData<List<TvShow>> get() = _trendingTvShow
 
@@ -60,6 +63,19 @@ constructor(
         getPopularTvShow()
         getTopRatedMovies()
         getUpcomingMovies()
+        getTvShowOnTheAir()
+    }
+
+    private fun getTvShowOnTheAir() = viewModelScope.launch {
+        try {
+            tvShowRepository.getOnTheAir().collectLatest { tvShow ->
+
+                _tvShowOnTheAir.postValue(tvShow)
+
+            }
+        } catch (throwable: Throwable) {
+            throwable.printStackTrace()
+        }
     }
 
     private fun getPopularTvShow() = viewModelScope.launch {

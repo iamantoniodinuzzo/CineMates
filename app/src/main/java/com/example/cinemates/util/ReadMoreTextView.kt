@@ -32,7 +32,7 @@ class ReadMoreTextView(
         private const val DEFAULT_TRIM_LENGTH = 240
         private const val DEFAULT_TRIM_LINES = 2
         private const val INVALID_END_INDEX = -1
-        private const val DEFAULT_SHOW_TRIM_EXPANDED_TEXT = false
+        private const val DEFAULT_SHOW_TRIM_EXPANDED_TEXT = true
         private const val ELLIPSIZE = "... "
     }
 

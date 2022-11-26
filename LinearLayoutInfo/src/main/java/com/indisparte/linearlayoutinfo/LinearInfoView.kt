@@ -1,4 +1,4 @@
-package com.example.cinemates.util
+package com.indisparte.linearlayoutinfo
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.isVisible
-import com.bumptech.glide.Glide.init
-import com.example.cinemates.R
-import com.example.cinemates.databinding.LayoutLinearInfoBinding
+import com.borjabravo.readmoretextview.ReadMoreTextView
+import com.indisparte.linearlayoutinfo.databinding.LayoutLinearInfoBinding
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)

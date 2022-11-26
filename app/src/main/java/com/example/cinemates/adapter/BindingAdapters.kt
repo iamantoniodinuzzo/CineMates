@@ -16,7 +16,7 @@ import com.example.cinemates.model.entities.ProductionCompany
 import com.example.cinemates.model.entities.Section
 import com.example.cinemates.util.IMAGE_BASE_URL_W500
 import com.example.cinemates.util.IMAGE_BASE_URL_W780
-import com.example.cinemates.util.LinearInfoView
+import com.indisparte.linearlayoutinfo.LinearInfoView
 import com.example.cinemates.util.YT_API_KEY
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
@@ -25,9 +25,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubeThumbnailLoader
 import com.google.android.youtube.player.YouTubeThumbnailLoader.OnThumbnailLoadedListener
 import com.google.android.youtube.player.YouTubeThumbnailView
-import java.text.NumberFormat
 import java.util.*
-import java.util.stream.Collectors
 
 /**
  * @author Antonio Di Nuzzo
@@ -127,14 +125,14 @@ fun loadText(view: TextView, value: String?) {
 }
 
 @BindingAdapter("value")
-fun value(view: LinearInfoView, value: String?) {
+fun value(view: com.indisparte.linearlayoutinfo.LinearInfoView, value: String?) {
     if (value != null) {
         view.value = value
     }
 }
 
 @InverseBindingAdapter(attribute = "value")
-fun getValue(customField: LinearInfoView): String {
+fun getValue(customField: com.indisparte.linearlayoutinfo.LinearInfoView): String {
     return customField.value
 }
 

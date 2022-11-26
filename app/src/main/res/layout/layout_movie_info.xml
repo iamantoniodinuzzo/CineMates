@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.example.cinemates.util.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/originalTitle"
             android:layout_width="match_parent"
             android:layout_marginBottom="10dp"
@@ -22,7 +22,7 @@
             app:title="Original title"
             app:value="@{movie.original_title}" />
 
-        <com.example.cinemates.util.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/status"
             android:layout_width="match_parent"
             android:layout_marginBottom="10dp"
@@ -30,7 +30,7 @@
             app:title="Status"
             app:value="@{movie.status}" />
 
-        <com.example.cinemates.util.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/runtime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             android:layout_marginBottom="10dp"
             app:value="@{movie.formattedRuntime}" />
 
-        <com.example.cinemates.util.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/originalLanguage"
             android:layout_width="match_parent"
             android:layout_marginBottom="10dp"
@@ -46,7 +46,7 @@
             app:title="Original language"
             app:value="@{movie.original_language}" />
 
-        <com.example.cinemates.util.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/budget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
             app:title="Budget"
             app:value="@{movie.formattedBudget}" />
 
-        <com.example.cinemates.util.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/revenue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

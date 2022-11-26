@@ -63,6 +63,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout"
     implementation "androidx.legacy:legacy-support-v4:$legacy"
     implementation "androidx.fragment:fragment-ktx:$fragment_ktx"
+    implementation project(path: ':LinearLayoutInfo')
     testImplementation "junit:junit:$junit"
     androidTestImplementation "androidx.test.ext:junit:$junit_android"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_android"
@@ -132,6 +133,9 @@ dependencies {
 
     // Youtube
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
+
+    //ReadMore
+    implementation 'com.borjabravo:readmoretextview:2.1.0'
 
 
 }

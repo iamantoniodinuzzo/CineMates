@@ -58,7 +58,7 @@
                             android:layout_toEndOf="@id/ivAvatar"
                             android:orientation="vertical">
 
-                            <com.example.cinemates.util.LinearInfoView
+                            <com.indisparte.linearlayoutinfo.LinearInfoView
                                 android:id="@+id/birthday"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                                 app:title="Birthday"
                                 app:value="@{person.birthday}" />
 
-                            <com.example.cinemates.util.LinearInfoView
+                            <com.indisparte.linearlayoutinfo.LinearInfoView
                                 android:id="@+id/birthPlace"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                                 app:title="Birthplace"
                                 app:value="@{person.place_of_birth}" />
 
-                            <com.example.cinemates.util.LinearInfoView
+                            <com.indisparte.linearlayoutinfo.LinearInfoView
                                 android:id="@+id/deathDate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                                 app:title="Death-day"
                                 app:value="@{person.deathDay}" />
 
-                            <com.example.cinemates.util.LinearInfoView
+                            <com.indisparte.linearlayoutinfo.LinearInfoView
                                 android:id="@+id/knownAs"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-                    <com.example.cinemates.util.LinearInfoView
+                    <com.indisparte.linearlayoutinfo.LinearInfoView
                         android:id="@+id/biography"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

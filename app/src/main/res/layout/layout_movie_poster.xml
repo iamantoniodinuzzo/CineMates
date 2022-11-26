@@ -4,8 +4,11 @@
     <data>
 
         <variable
-            name="movie"
-            type="com.example.cinemates.model.entities.Movie" />
+            name="path"
+            type="String" />
+        <variable
+            name="vote"
+            type="Double" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -27,12 +30,12 @@
                 android:layout_width="113dp"
                 android:layout_height="170dp"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{movie.poster_path}"
+                app:imageUrl="@{path}"
                 tools:src="@tools:sample/backgrounds/scenic" />
 
             <include
                 layout="@layout/layout_poster_text_rating"
-                app:movie="@{movie}" />
+                app:vote="@{vote}" />
 
 
 

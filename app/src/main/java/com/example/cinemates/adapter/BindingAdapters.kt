@@ -149,11 +149,11 @@ fun value(view: LinearInfoView, budget: Int?) {
 }*/
 
 @BindingAdapter("asHtml")
-fun formatAsHtml(view: TextView, section: Section<*>) {
+fun formatAsHtml(view: TextView, section: Section<*>?) {
     val sectionTitle =
-        "<font color=#FAFAFA><b>" + section.sectionName + "</b></font>"
+        "<font color=#FAFAFA><b>" + section?.sectionName + "</b></font>"
     var sectionDescription = ""
-    if (section.sectionContentDescription != null) {
+    if (section?.sectionContentDescription != null) {
         sectionDescription =
             " <font color=#3A55EA><small>" + section.sectionContentDescription + "</small></font>"
     }

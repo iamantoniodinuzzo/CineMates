@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter.SectionViewHolder
 import com.example.cinemates.databinding.ListItemSectionBinding
-import com.example.cinemates.model.entities.Cast
-import com.example.cinemates.model.entities.Movie
-import com.example.cinemates.model.entities.Person
-import com.example.cinemates.model.entities.Section
+import com.example.cinemates.model.entities.*
 import com.example.cinemates.util.inflater
 
 /**
@@ -25,6 +22,7 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
     private companion object {
         private const val PERSON = 0
         private const val MOVIE = 1
+        private const val TV = 2
         private val diffCallback = object : DiffUtil.ItemCallback<Section<*>>() {
             override fun areItemsTheSame(oldItem: Section<*>, newItem: Section<*>): Boolean =
                 oldItem.liveData == newItem.liveData
@@ -54,6 +52,22 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
                 }
                 movieSection.liveData.observe(lifecycleOwner) { items ->
                     sectionItemsMovie.addItems(
+                        items
+                    )
+                }
+
+            }
+            TV -> {
+                val tvShowSection = dataList[position] as Section<TvShow>
+                val sectionItemsTv = TvShowAdapter()
+                holder.binding.apply {
+                    section = tvShowSection
+                    executePendingBindings()
+                    recyclerView.adapter = sectionItemsTv
+                    recyclerView.setEmptyView(holder.binding.emptyView.root)
+                }
+                tvShowSection.liveData.observe(lifecycleOwner) { items ->
+                    sectionItemsTv.addItems(
                         items
                     )
                 }
@@ -97,12 +111,12 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
     override fun getItemViewType(position: Int): Int {
         val value = dataList[position].genericType
 
-        if (value == Movie::class.java) {
-            return MOVIE
-        } else if (value == Person::class.java || value == Cast::class.java) {
-            return PERSON
+        return when (value) {
+            Movie::class.java -> MOVIE
+            Person::class.java, Cast::class.java -> PERSON
+            TvShow::class.java -> TV
+            else -> -1
         }
-        return -1
     }
 
     class SectionViewHolder(val binding: ListItemSectionBinding) :

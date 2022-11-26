@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <data>
     <variable
-        name="movie"
-        type="com.example.cinemates.model.entities.Movie" />
+        name="tv"
+        type="com.example.cinemates.model.entities.TvShow" />
 </data>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -28,8 +28,8 @@
 
                 <include
                     layout="@layout/layout_movie_poster"
-                    app:path="@{movie.poster_path}"
-                    app:vote="@{movie.vote_average}"/>
+                    app:path="@{tv.poster_path}"
+                    app:vote="@{tv.vote_average}"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -38,13 +38,13 @@
 
                     <TextView
                         android:id="@+id/textTitle"
-                        android:text="@{movie.title}"
+                        android:text="@{tv.name}"
                         style="@style/item_title_style"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:lines="2"
-                        tools:text="Movie Title" />
+                        tools:text="Tv Show Title" />
 
                 </LinearLayout>
 

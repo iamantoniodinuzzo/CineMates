@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="movie"
-            type="com.example.cinemates.model.entities.Movie" />
+            name="vote"
+            type="Double" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,7 +33,7 @@
                 android:textColor="@color/vermilion_100"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                app:voteAverage="@{movie.vote_average}"
+                app:voteAverage="@{vote}"
                 tools:text="7,0" />
 
         </RelativeLayout>

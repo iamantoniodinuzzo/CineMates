@@ -93,7 +93,7 @@ class MovieDetailsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        viewModel.onDestroyView()
+        viewModel.onDestroyFragment()
     }
 
 }

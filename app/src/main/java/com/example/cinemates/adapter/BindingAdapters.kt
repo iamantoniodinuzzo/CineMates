@@ -2,11 +2,13 @@ package com.example.cinemates.adapter
 
 import android.text.Html
 import android.util.Log
+import android.widget.Adapter
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.cinemates.R
@@ -16,7 +18,7 @@ import com.example.cinemates.model.entities.ProductionCompany
 import com.example.cinemates.model.entities.Section
 import com.example.cinemates.util.IMAGE_BASE_URL_W500
 import com.example.cinemates.util.IMAGE_BASE_URL_W780
-import com.indisparte.linearlayoutinfo.LinearInfoView
+import com.example.cinemates.util.RecyclerViewEmptySupport
 import com.example.cinemates.util.YT_API_KEY
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
@@ -136,15 +138,6 @@ fun getValue(customField: com.indisparte.linearlayoutinfo.LinearInfoView): Strin
     return customField.value
 }
 
-/*@BindingAdapter("value")
-fun value(view: LinearInfoView, budget: Int?) {
-    val current = Locale.getDefault()
-    val format = NumberFormat.getCurrencyInstance()
-    format.maximumFractionDigits = 0
-    format.currency =
-        Currency.getInstance(Currency.getInstance(current).currencyCode)
-    loadText(view.textViewValue, format.format(budget))
-}*/
 
 @BindingAdapter("asHtml")
 fun formatAsHtml(view: TextView, section: Section<*>?) {
@@ -158,13 +151,10 @@ fun formatAsHtml(view: TextView, section: Section<*>?) {
     view.text = Html.fromHtml("$sectionTitle$sectionDescription", Html.FROM_HTML_MODE_COMPACT)
 }
 
-
-
-
-
 @BindingAdapter("genres")
 fun setGenresChip(chipGroup: ChipGroup, genres: List<Genre>?) {
     if (genres != null) {
+        chipGroup.removeAllViews()
         for ((id, name) in genres) {
             val chip = Chip(chipGroup.context)
             val drawable = ChipDrawable.createFromAttributes(
@@ -174,6 +164,25 @@ fun setGenresChip(chipGroup: ChipGroup, genres: List<Genre>?) {
             chip.setChipDrawable(drawable)
             chip.text = name
             chip.id = id
+            chipGroup.addView(chip)
+        }
+    }
+}
+
+
+
+@BindingAdapter("knownAs")
+fun setKnownAsChips(chipGroup: ChipGroup, names: List<String>?) {
+    if (names != null) {
+        chipGroup.removeAllViews()
+        for (name in names) {
+            val chip = Chip(chipGroup.context)
+            val drawable = ChipDrawable.createFromAttributes(
+                chipGroup.context, null,
+                0, R.style.Widget_MaterialComponents_Chip_Action
+            )
+            chip.setChipDrawable(drawable)
+            chip.text = name
             chipGroup.addView(chip)
         }
     }

@@ -31,22 +31,22 @@ constructor(
         sMap["page"] = "1"
     }
 
-    suspend fun getPopularTvShow(): Flow<List<TvShow>> = flow {
+     fun getPopularTvShow(): Flow<List<TvShow>> = flow {
         val popular = tvShowService.getPopular(sMap).results
         emit(popular)
     }
 
-    suspend fun getOnTheAir(): Flow<List<TvShow>> = flow {
+     fun getOnTheAir(): Flow<List<TvShow>> = flow {
         val onAir = tvShowService.getOnTheAir(sMap).results
         emit(onAir)
     }
 
-    suspend fun getGenreList(): Flow<List<Genre>> = flow {
+     fun getGenreList(): Flow<List<Genre>> = flow {
         val genres = tvShowService.getGenreList(sMap).results
         emit(genres)
     }
 
-    suspend fun getTrendingTvShow(mediaType: String, timeWindow: String): Flow<List<TvShow>> =
+     fun getTrendingTvShow(mediaType: String, timeWindow: String): Flow<List<TvShow>> =
         flow {
             val trending = tvShowService.getTrendingMedia(mediaType, timeWindow, sMap).results
             emit(trending)
@@ -101,16 +101,16 @@ constructor(
     }
 
 
-    suspend fun getTvShowBySearch(query: String): Flow<List<TvShow>> = flow {
+     fun getTvShowBySearch(query: String): Flow<List<TvShow>> = flow {
         sMap["query"] = query
         emit(tvShowService.getTvShowBySearch(sMap).results)
     }
 
-    suspend fun getTvShowByActor(with_cast: String): Flow<List<TvShow>> = flow {
+   /*  fun getTvShowByActor(with_cast: String): Flow<List<TvShow>> = flow {
         sMap["with_cast"] = with_cast
         emit(tvShowService.getTvShowByDiscover(sMap).results)
     }
-
+*/
 
 }
 

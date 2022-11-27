@@ -20,7 +20,6 @@
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
             app:title="Original title"
-            app:defaultValue="Not specified"
             app:value="@{movie.original_title}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
@@ -29,7 +28,6 @@
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
             app:title="Status"
-            app:defaultValue="Not specified"
             app:value="@{movie.status}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
@@ -39,7 +37,6 @@
             app:title="Runtime"
             android:layout_marginBottom="10dp"
             app:hideIfValueEmpty="true"
-            app:defaultValue="Not specified"
             app:value="@{movie.formattedRuntime}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
@@ -48,7 +45,6 @@
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
             app:title="Original language"
-            app:defaultValue="Not specified"
             app:value="@{movie.original_language}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
@@ -58,7 +54,6 @@
             android:layout_marginBottom="10dp"
             app:title="Budget"
             app:hideIfValueEmpty="true"
-            app:defaultValue="Not specified"
             app:value="@{movie.formattedBudget}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
@@ -67,7 +62,6 @@
             android:layout_height="wrap_content"
             app:title="Revenue"
             app:hideIfValueEmpty="true"
-            app:defaultValue="Not specified"
             app:value="@{movie.formattedRevenue}" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -21,7 +21,7 @@ class LinearInfoView constructor(
     constructor(context: Context, attrs: AttributeSet) : this(context, attrs, 0)
 
     companion object {
-        private const val DEFAULT_VALUE = "Not specified"
+        private const val DEFAULT_VALUE = ""
     }
 
     private val binding: LayoutLinearInfoBinding =
@@ -37,17 +37,16 @@ class LinearInfoView constructor(
             field = value
             binding.title.text = value
         }
-    var defaultValue: String = DEFAULT_VALUE
 
     var value: String = ""
         set(value) {
             field = value
             binding.value.text = value
             if (hideIfValueEmpty)
-                binding.root.isVisible = value.isNotEmpty() && value != defaultValue
+                binding.root.isVisible = value.isNotEmpty()
         }
 
-    private var hideIfValueEmpty: Boolean = false
+    var hideIfValueEmpty: Boolean
 
 
     init {
@@ -61,11 +60,9 @@ class LinearInfoView constructor(
                 hideIfValueEmpty =
                     getBoolean(R.styleable.LinearInfoView_hideIfValueEmpty, false)
                 title =
-                    getString(R.styleable.LinearInfoView_title) ?: defaultValue
+                    getString(R.styleable.LinearInfoView_title) ?: DEFAULT_VALUE
                 value =
-                    getString(R.styleable.LinearInfoView_value) ?: defaultValue
-                defaultValue =
-                    getString(R.styleable.LinearInfoView_defaultValue) ?: DEFAULT_VALUE
+                    getString(R.styleable.LinearInfoView_value) ?: DEFAULT_VALUE
 
             } finally {
                 recycle()

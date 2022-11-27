@@ -6,33 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cinemates.adapter.MovieAdapter
 import com.example.cinemates.adapter.PersonAdapter
 import com.example.cinemates.databinding.FragmentMovieCastBinding
 import com.example.cinemates.model.entities.Cast
+import com.example.cinemates.model.entities.Movie
 import com.example.cinemates.model.entities.Person
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.ui.ListFragment
 
-class MovieCastFragment : ListFragment<Person, PersonAdapter>(PersonAdapter()) {
+class MovieRecommendedFragment : ListFragment<Movie,MovieAdapter>(MovieAdapter()) {
 
     private val viewModel: MovieDetailsViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        adapter.viewSize = ViewSize.LONG
-    }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        viewModel.cast.observe(viewLifecycleOwner) { cast ->
-            adapter.addItems(cast)
-            binding.counter = cast.size
+        viewModel.recommendedMovies.observe(viewLifecycleOwner) { recommended ->
+            adapter.addItems(recommended)
+            binding.counter = recommended.size
         }
     }
 

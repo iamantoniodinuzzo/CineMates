@@ -46,6 +46,12 @@ interface MovieService {
         @QueryMap queries: HashMap<String, String>
     ): GenericResponse<Movie>
 
+    @GET("movie/{movie_id}/recommendations")
+    suspend fun getRecommended(
+        @Path("movie_id") movie_id: Int,
+        @QueryMap queries: HashMap<String, String>
+    ): GenericResponse<Movie>
+
     @GET("movie/{movie_id}/videos")
     suspend fun getVideos(
         @Path("movie_id") movie_id: Int,

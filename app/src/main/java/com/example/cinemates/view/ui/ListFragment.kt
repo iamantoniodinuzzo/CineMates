@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.adapter.MovieAdapter
 import com.example.cinemates.adapter.MultipleViewSizeAdapter
 import com.example.cinemates.databinding.FragmentListingItemsBinding
+import com.example.cinemates.util.RecyclerViewEmptySupport
 import com.example.cinemates.view.viewmodel.DbMovieViewModel
 
 /**

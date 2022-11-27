@@ -33,6 +33,11 @@ constructor(
             movieRepository.getSimilarMovies(movie.id).asLiveData()
         }as MutableLiveData<List<Movie>>
 
+    val recommendedMovies: MutableLiveData<List<Movie>> =
+        Transformations.switchMap(_selectedMovie) { movie ->
+            movieRepository.getRecommendedMovies(movie.id).asLiveData()
+        }as MutableLiveData<List<Movie>>
+
     val videos: MutableLiveData<List<Video>> =
         Transformations.switchMap(_selectedMovie) { movie ->
             movieRepository.getVideos(movie.id).asLiveData()
@@ -76,6 +81,7 @@ constructor(
         backdrops.value = listOf()
         posters.value = listOf()
         similarMovies.value = listOf()
+        recommendedMovies.value = listOf()
     }
 
 

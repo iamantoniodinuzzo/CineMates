@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="image"
-            type="com.example.cinemates.model.entities.Image" />
+            name="path"
+            type="String" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -21,7 +21,7 @@
             android:layout_height="150dp"
             android:background="@color/geyser"
             android:scaleType="centerCrop"
-            app:imageUrl="@{image.file_path}"
+            app:imageUrl="@{path}"
             tools:src="@tools:sample/backgrounds/scenic" />
     </androidx.cardview.widget.CardView>
 </layout>

@@ -1,5 +1,7 @@
 package com.example.cinemates.model.entities
 
+import android.text.format.DateFormat
+import android.util.Log
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
@@ -7,6 +9,9 @@ import androidx.room.TypeConverters
 import com.example.cinemates.util.Converters
 import java.io.Serializable
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Entity
@@ -55,7 +60,7 @@ class Movie(
 
     val formattedRuntime: String
         get() {
-            return if (runtime != null && runtime!=0) {
+            return if (runtime != null && runtime != 0) {
                 val hours = (runtime / 60) //since both are ints, you get an int
                 val minutes = (runtime % 60)
                 String.format("%d h %02d min", hours, minutes)
@@ -64,26 +69,37 @@ class Movie(
 
     val formattedBudget: String
         get() {
-            return if(budget!=0) {
+            return if (budget != 0) {
                 val current = Locale.getDefault()
                 val format = NumberFormat.getCurrencyInstance()
                 format.maximumFractionDigits = 0
                 format.currency =
                     Currency.getInstance(Currency.getInstance(current).currencyCode)
                 format.format(budget)
-            }else ""
+            } else ""
         }
 
     val formattedRevenue: String
         get() {
-            return if (revenue!=0) {
+            return if (revenue != 0) {
                 val current = Locale.getDefault()
                 val format = NumberFormat.getCurrencyInstance()
                 format.maximumFractionDigits = 0
                 format.currency =
                     Currency.getInstance(Currency.getInstance(current).currencyCode)
                 format.format(revenue)
-            }else ""
+            } else ""
+        }
+
+    val formattedReleaseDate: String
+        get() {
+            return if (release_date != null) {
+                val formatter = DateTimeFormatter.ofPattern("MMM yyyy")
+                val localDate = LocalDate.parse(release_date,formatter)
+                Log.d("MovieClass", "date : ${localDate.toString()}")
+                localDate.toString()
+
+            } else ""
         }
 
     constructor(

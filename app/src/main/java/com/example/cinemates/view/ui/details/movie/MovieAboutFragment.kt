@@ -10,21 +10,20 @@ import androidx.navigation.fragment.findNavController
 import com.example.cinemates.R
 import com.example.cinemates.adapter.MovieAdapter
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter
+import com.example.cinemates.databinding.FragmentMovieAboutBinding
 import com.example.cinemates.databinding.FragmentMovieInfoBinding
 
-class MovieInfoFragment : Fragment() {
+class MovieAboutFragment : Fragment() {
 
-    private var _binding: FragmentMovieInfoBinding? = null
-    private val binding: FragmentMovieInfoBinding
+    private var _binding: FragmentMovieAboutBinding? = null
+    private val binding: FragmentMovieAboutBinding
         get() = _binding!!
-    private lateinit var similarAdapter: MovieAdapter
     private lateinit var movieIntoCollectionAdapter: MovieAdapter
     private lateinit var videoAdapter: YoutubeVideoRecyclerViewAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        similarAdapter = MovieAdapter()
         videoAdapter = YoutubeVideoRecyclerViewAdapter()
         movieIntoCollectionAdapter = MovieAdapter()
     }
@@ -34,7 +33,7 @@ class MovieInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentMovieInfoBinding.inflate(inflater, container, false)
+        _binding = FragmentMovieAboutBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -42,10 +41,7 @@ class MovieInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-
-            recommendedRecyclerView.adapter = similarAdapter
-            recommendedRecyclerView.setEmptyView(emptyViewRecommended.root)
-            videosRecyclerView.adapter = videoAdapter
+            trailers.adapter = videoAdapter
 
             collectionView.apply {
                 moviesIntoCollection.adapter = movieIntoCollectionAdapter
@@ -61,32 +57,25 @@ class MovieInfoFragment : Fragment() {
             }
 
 
-            fab.setOnClickListener {
-                //Open bottomSheetFragment
-                findNavController().navigate(R.id.action_movieDetailsFragment_to_bottomSheetFragment)
-            }
-
-            viewModel.selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
-                movie = selectedMovie
-            }
-            viewModel.videos.observe(viewLifecycleOwner) { videos ->
-                if (videos.isEmpty()) {
-                    textSectionVideo.visibility = View.GONE
-                    videosRecyclerView.visibility = View.GONE
-                } else {
-                    textSectionVideo.visibility = View.VISIBLE
-                    videosRecyclerView.visibility = View.VISIBLE
-                    videoAdapter.setDataList(videos)
+            viewModel.apply {
+                selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
+                    movie = selectedMovie
+                }
+                videos.observe(viewLifecycleOwner) { videos ->
+                    if (videos.isEmpty()) {
+                        trailerTitle.visibility = View.GONE
+                        trailers.visibility = View.GONE
+                    } else {
+                        trailerTitle.visibility = View.VISIBLE
+                        trailers.visibility = View.VISIBLE
+                        videoAdapter.setDataList(videos)
+                    }
+                }
+                moviesBelongsCollection.observe(viewLifecycleOwner) { collection ->
+                    movieIntoCollectionAdapter.addItems(collection.parts)
                 }
             }
 
-        }
-
-        viewModel.similarMovies.observe(viewLifecycleOwner) { similarMovies ->
-            similarAdapter.addItems(similarMovies)
-        }
-        viewModel.moviesBelongsCollection.observe(viewLifecycleOwner) { collection ->
-            movieIntoCollectionAdapter.addItems(collection.parts)
         }
 
     }

@@ -30,7 +30,7 @@ class ActorAboutFragment : Fragment() {
             },
             expressionViewHolderBinding = { poster, binding ->
                 binding.apply {
-                    image = poster
+                    path = poster.file_path
                     root.setOnClickListener {
                         //TODO open download page
                     }

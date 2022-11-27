@@ -2,12 +2,8 @@ package com.example.cinemates.model.repository
 
 import com.example.cinemates.network.service.MovieService
 import com.example.cinemates.model.entities.*
-import com.example.cinemates.network.response.CreditsResponse
-import com.example.cinemates.network.response.GenericResponse
-import com.example.cinemates.network.response.ImagesResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
 import com.example.cinemates.model.entities.Collection
@@ -75,6 +71,10 @@ constructor(
     fun getSimilarMovies(movieId: Int): Flow<List<Movie>> = flow {
         val similarMovies = movieService.getSimilar(movieId, sMap).results
         emit(similarMovies)
+    }
+    fun getRecommendedMovies(movieId: Int): Flow<List<Movie>> = flow {
+        val recommendedMovies = movieService.getRecommended(movieId, sMap).results
+        emit(recommendedMovies)
     }
 
     fun getDiscoverableMovies(filter: Filter): Flow<List<Movie>> = flow {

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,43 +12,105 @@
         <import type="android.view.View" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapse_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="260dp"
+                android:layout_height="360dp"
                 android:textSize="18sp"
                 app:collapsedTitleTextColor="@color/geyser"
                 app:contentScrim="@color/lynch_100"
                 app:expandedTitleMarginStart="10dp"
-                app:expandedTitleTextColor="@color/alabaster"
+                app:expandedTitleTextColor="@android:color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:title="@{movie.title}">
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <include
+                        android:id="@+id/movie_poster"
+                        layout="@layout/list_item_poster"
+                        android:layout_width="100dp"
+                        android:layout_height="150dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="120dp"
+                        android:elevation="4dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:path="@{movie.poster_path}" />
+
+
                     <ImageView
-                        android:id="@+id/imageView"
+                        android:id="@+id/movie_backdrop"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="200dp"
                         android:scaleType="centerCrop"
                         app:imageUrlLong="@{movie.backdrop_path}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:src="@tools:sample/backgrounds/scenic" />
 
-                </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/movie_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:maxLines="2"
+                        android:text="@{movie.title}"
+                        android:textColor="@color/alabaster"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/movie_poster"
+                        app:layout_constraintTop_toBottomOf="@id/movie_backdrop"
+                        tools:text="Movie title" />
+
+                    <TextView
+                        android:id="@+id/movie_release_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:text='@{movie.formattedReleaseDate+" - "+movie.formattedRuntime}'
+                        android:textColor="@color/geyser"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/movie_poster"
+                        app:layout_constraintTop_toBottomOf="@id/movie_title"
+                        tools:text="@tools:sample/date/mmddyy" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/watch_providers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="?attr/actionBarSize"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="@color/lynch_90"
+                        android:clickable="true"
+                        android:padding="10dp"
+                        android:text="Watch providers"
+                        android:textColor="@color/alabaster"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -79,6 +143,15 @@
             android:nestedScrollingEnabled="true"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/vermilion_100"
+            android:src="@drawable/ic_baseline_add_24" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

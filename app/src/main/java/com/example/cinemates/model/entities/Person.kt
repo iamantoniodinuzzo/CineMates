@@ -44,21 +44,41 @@ open class Person(
 
     val age: String
         get() {
-            val birthdayDate = LocalDate.parse(birthday)
-            return if (deathday == null) {
+            return if (deathday == null && birthday!=null) {
+                val birthdayDate = LocalDate.parse(birthday)
                 val age = Period.between(
                     birthdayDate,
                     LocalDate.now()
                 ).years
                 age.toString()
-            }else{
+            } else if (birthday != null) {
+                val birthdayDate = LocalDate.parse(birthday)
                 val deathDayDate = LocalDate.parse(deathday)
                 val age = Period.between(
                     birthdayDate,
                     deathDayDate
                 ).years
                 age.toString()
-            }
+            }else ""
+        }
+    val formattedBirthday: String
+        get() {
+            return if (birthday != null) {
+                val localDate =
+                    LocalDate.parse(birthday, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                val pattern = DateTimeFormatter.ofPattern("dd MMM, yyyy")
+                pattern.format(localDate)
+            } else ""
+        }
+
+    val formattedDeathday: String
+        get() {
+            return if (deathday != null) {
+                val localDate =
+                    LocalDate.parse(deathday, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                val pattern = DateTimeFormatter.ofPattern("dd MMM, yyyy")
+                pattern.format(localDate)
+            } else ""
         }
 
     @Ignore

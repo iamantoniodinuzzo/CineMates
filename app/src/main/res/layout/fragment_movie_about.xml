@@ -9,6 +9,14 @@
             name="movie"
             type="com.example.cinemates.model.entities.Movie" />
 
+        <variable
+            name="poster_counter"
+            type="Integer" />
+
+        <variable
+            name="backdrop_counter"
+            type="Integer" />
+
         <import type="android.view.View" />
     </data>
 
@@ -90,7 +98,7 @@
 
             <include
                 android:id="@+id/collection_view"
-                layout="@layout/layout_collection_content"
+                layout="@layout/layout_collection_cover"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_below="@id/movie_info"
@@ -139,9 +147,17 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
-                <include layout="@layout/list_item_poster" />
+                <include
+                    android:id="@+id/posters"
+                    layout="@layout/list_item_poster"
+                    app:counter="@{poster_counter}"
+                    app:path="@{movie.poster_path}" />
 
-                <include layout="@layout/list_item_backdrop" />
+                <include
+                    android:id="@+id/backdrops"
+                    layout="@layout/list_item_backdrop"
+                    app:counter="@{backdrop_counter}"
+                    app:path="@{movie.backdrop_path}" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

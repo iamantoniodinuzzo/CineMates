@@ -27,32 +27,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                app:hideIfValueEmpty="true"
                 app:title="Age"
                 app:value="@{person.age}" />
 
             <com.indisparte.linearlayoutinfo.LinearInfoView
                 android:id="@+id/birthday"
+                app:hideIfValueEmpty="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/age"
                 android:layout_marginBottom="10dp"
                 app:title="Born on"
-                app:value="@{person.birthday}" />
+                app:value="@{person.formattedBirthday}" />
 
             <com.indisparte.linearlayoutinfo.LinearInfoView
                 android:id="@+id/deathDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/birthPlace"
+                android:layout_below="@id/birthday"
                 app:hideIfValueEmpty="true"
                 app:title="Died on"
-                app:value="@{person.deathday}" />
+                app:value="@{person.formattedDeathday}" />
 
             <com.indisparte.linearlayoutinfo.LinearInfoView
                 android:id="@+id/birthPlace"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/birthday"
+                android:layout_below="@id/deathDate"
+                app:hideIfValueEmpty="true"
                 android:layout_marginBottom="10dp"
                 app:title="From"
                 app:value="@{person.place_of_birth}" />
@@ -61,7 +64,8 @@
                 android:id="@+id/biography"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/deathDate"
+                app:hideIfValueEmpty="true"
+                android:layout_below="@id/birthPlace"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 app:title="Biography"

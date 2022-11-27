@@ -63,7 +63,11 @@ class Movie(
             return if (runtime != null && runtime != 0) {
                 val hours = (runtime / 60) //since both are ints, you get an int
                 val minutes = (runtime % 60)
-                String.format("%d h %02d min", hours, minutes)
+                if (hours == 0) {
+                    String.format("%02d min", minutes)
+                } else {
+                    String.format("%d hrs %02d min", hours, minutes)
+                }
             } else ""
         }
 
@@ -94,11 +98,10 @@ class Movie(
     val formattedReleaseDate: String
         get() {
             return if (release_date != null) {
-                val formatter = DateTimeFormatter.ofPattern("MMM yyyy")
-                val localDate = LocalDate.parse(release_date,formatter)
-                Log.d("MovieClass", "date : ${localDate.toString()}")
-                localDate.toString()
-
+                val localDate =
+                    LocalDate.parse(release_date, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                val pattern = DateTimeFormatter.ofPattern("MMM yyyy")
+                pattern.format(localDate)
             } else ""
         }
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -11,21 +12,18 @@ import com.example.cinemates.R
 import com.example.cinemates.adapter.MovieAdapter
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentMovieAboutBinding
-import com.example.cinemates.databinding.FragmentMovieInfoBinding
 
 class MovieAboutFragment : Fragment() {
 
     private var _binding: FragmentMovieAboutBinding? = null
     private val binding: FragmentMovieAboutBinding
         get() = _binding!!
-    private lateinit var movieIntoCollectionAdapter: MovieAdapter
     private lateinit var videoAdapter: YoutubeVideoRecyclerViewAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         videoAdapter = YoutubeVideoRecyclerViewAdapter()
-        movieIntoCollectionAdapter = MovieAdapter()
     }
 
     override fun onCreateView(
@@ -42,40 +40,40 @@ class MovieAboutFragment : Fragment() {
 
         binding.apply {
             trailers.adapter = videoAdapter
+            collectionView.root.setOnClickListener { _ ->
+                Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
+                //TODO show dialog with movies belongs collection
+            }
 
-            collectionView.apply {
-                moviesIntoCollection.adapter = movieIntoCollectionAdapter
-                collectionCover.coverTitle.setOnClickListener {
-                    //Remove collection cover
-                    collectionCover.root.visibility = View.INVISIBLE
+        }
 
-                }
-                contentTitle.setOnClickListener {
-                    //Add collection cover
-                    collectionCover.root.visibility = View.VISIBLE
+        viewModel.apply {
+            selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
+                binding.movie = selectedMovie
+            }
+            videos.observe(viewLifecycleOwner) { videos ->
+                if (videos.isEmpty()) {
+                    binding.trailerTitle.visibility = View.GONE
+                    binding.trailers.visibility = View.GONE
+                } else {
+                    binding.trailerTitle.visibility = View.VISIBLE
+                    binding.trailers.visibility = View.VISIBLE
+                    videoAdapter.setDataList(videos)
                 }
             }
 
-
-            viewModel.apply {
-                selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
-                    movie = selectedMovie
-                }
-                videos.observe(viewLifecycleOwner) { videos ->
-                    if (videos.isEmpty()) {
-                        trailerTitle.visibility = View.GONE
-                        trailers.visibility = View.GONE
-                    } else {
-                        trailerTitle.visibility = View.VISIBLE
-                        trailers.visibility = View.VISIBLE
-                        videoAdapter.setDataList(videos)
-                    }
-                }
-                moviesBelongsCollection.observe(viewLifecycleOwner) { collection ->
-                    movieIntoCollectionAdapter.addItems(collection.parts)
+            posters.observe(viewLifecycleOwner) { posters ->
+                if (posters.isNotEmpty()) {
+                    binding.posterCounter = posters.size
+                    binding.posters.path = posters.random().file_path
                 }
             }
-
+            backdrops.observe(viewLifecycleOwner) { backdrops ->
+                if (backdrops.isNotEmpty()) {
+                    binding.backdropCounter = backdrops.size
+                    binding.backdrops.path = backdrops.random().file_path
+                }
+            }
         }
 
     }

@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.Period
+import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
 @Entity
@@ -19,7 +20,7 @@ open class Person(
     @Ignore
     val birthday: String?,
     @Ignore
-    val deathDay: String?,
+    val deathday: String?,
     @Ignore
     val gender: Int?,
     @Ignore
@@ -44,14 +45,14 @@ open class Person(
     val age: String
         get() {
             val birthdayDate = LocalDate.parse(birthday)
-            return if (deathDay == null) {
+            return if (deathday == null) {
                 val age = Period.between(
                     birthdayDate,
                     LocalDate.now()
                 ).years
                 age.toString()
             }else{
-                val deathDayDate = LocalDate.parse(deathDay)
+                val deathDayDate = LocalDate.parse(deathday)
                 val age = Period.between(
                     birthdayDate,
                     deathDayDate
@@ -94,7 +95,7 @@ open class Person(
     }
 
     override fun toString(): String {
-        return "Person(birthday=$birthday, deathDay=$deathDay, gender=$gender, id=$id, name='$name', profile_path=$profile_path)"
+        return "Person(birthday=$birthday, deathDay=$deathday, gender=$gender, id=$id, name='$name', profile_path=$profile_path)"
     }
 
 }

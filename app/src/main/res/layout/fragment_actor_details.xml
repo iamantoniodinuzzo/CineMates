@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -48,17 +48,28 @@
                         android:layout_marginTop="?attr/actionBarSize"
                         app:path="@{person.profile_path}" />
 
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:layout_below="@id/ivAvatar"
-                           android:layout_centerHorizontal="true"
-                           android:text="@{person.name}"
-                           android:layout_marginTop="10dp"
-                           android:textColor="@color/alabaster"
-                           android:textSize="18sp"
-                           android:textStyle="bold"
-                           tools:text="@tools:sample/full_names" />
+                    <TextView
+                        android:id="@+id/actorName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ivAvatar"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text="@{person.name}"
+                        android:textColor="@color/alabaster"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="@tools:sample/full_names" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/actorName"
+                        android:layout_centerHorizontal="true"
+                        android:text="@{person.known_for_department}"
+                        android:textColor="@color/alabaster"
+                        android:textSize="14sp"
+                        tools:text="@tools:sample/first_names" />
                 </RelativeLayout>
 
                 <androidx.appcompat.widget.Toolbar

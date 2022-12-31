@@ -34,7 +34,7 @@ object AppModule {
             context,
             AppDatabase::class.java,
             DATABASE_NAME
-        ).build()
+        ).allowMainThreadQueries().build()
 
     @Singleton
     @Provides

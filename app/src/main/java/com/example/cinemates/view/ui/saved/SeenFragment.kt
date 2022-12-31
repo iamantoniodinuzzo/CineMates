@@ -1,14 +1,10 @@
 package com.example.cinemates.view.ui.saved
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.cinemates.adapter.MovieAdapter
-import com.example.cinemates.databinding.FragmentListingItemsBinding
-import com.example.cinemates.model.entities.Movie
+import com.example.cinemates.model.Movie
 import com.example.cinemates.view.ui.ListFragment
 import com.example.cinemates.view.viewmodel.DbMovieViewModel
 

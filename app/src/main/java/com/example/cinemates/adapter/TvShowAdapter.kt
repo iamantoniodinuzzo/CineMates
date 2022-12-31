@@ -5,11 +5,9 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
-import com.example.cinemates.databinding.ListItemMovieLongBinding
-import com.example.cinemates.databinding.ListItemMovieSmallBinding
 import com.example.cinemates.databinding.ListItemTvLongBinding
 import com.example.cinemates.databinding.ListItemTvSmallBinding
-import com.example.cinemates.model.entities.TvShow
+import com.example.cinemates.model.TvShow
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.util.inflater
 

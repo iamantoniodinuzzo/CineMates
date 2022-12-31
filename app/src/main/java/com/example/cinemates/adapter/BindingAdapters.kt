@@ -2,23 +2,20 @@ package com.example.cinemates.adapter
 
 import android.text.Html
 import android.util.Log
-import android.widget.Adapter
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.cinemates.R
-import com.example.cinemates.model.entities.Genre
-import com.example.cinemates.model.entities.PersonalStatus
-import com.example.cinemates.model.entities.ProductionCompany
-import com.example.cinemates.model.entities.Section
+import com.example.cinemates.model.Genre
+import com.example.cinemates.model.PersonalStatus
+import com.example.cinemates.model.ProductionCompany
+import com.example.cinemates.model.Section
 import com.example.cinemates.util.IMAGE_BASE_URL_W500
 import com.example.cinemates.util.IMAGE_BASE_URL_W780
-import com.example.cinemates.util.RecyclerViewEmptySupport
 import com.example.cinemates.util.YT_API_KEY
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable

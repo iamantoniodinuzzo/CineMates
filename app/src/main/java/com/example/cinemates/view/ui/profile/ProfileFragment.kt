@@ -11,10 +11,10 @@ import com.example.cinemates.R
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentProfileBinding
 import com.example.cinemates.databinding.LayoutSectionStatsBinding
-import com.example.cinemates.model.entities.Movie
-import com.example.cinemates.model.entities.Person
-import com.example.cinemates.model.entities.PersonalStatus
-import com.example.cinemates.model.entities.Section
+import com.example.cinemates.model.Movie
+import com.example.cinemates.model.Person
+import com.example.cinemates.model.PersonalStatus
+import com.example.cinemates.model.Section
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.viewmodel.DbMovieViewModel
 import com.example.cinemates.view.viewmodel.DbPersonViewModel

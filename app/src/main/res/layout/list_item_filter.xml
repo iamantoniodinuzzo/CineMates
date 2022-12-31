@@ -7,7 +7,7 @@
 
         <variable
             name="filter"
-            type="com.example.cinemates.model.entities.Filter" />
+            type="com.example.cinemates.model.Filter" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

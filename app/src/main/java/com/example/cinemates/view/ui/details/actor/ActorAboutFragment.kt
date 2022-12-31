@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.cinemates.adapter.BaseAdapter
 import com.example.cinemates.databinding.FragmentActorAboutBinding
 import com.example.cinemates.databinding.ListItemPosterBinding
-import com.example.cinemates.model.entities.Image
+import com.example.cinemates.model.Image
 import com.example.cinemates.util.inflater
 
 /**

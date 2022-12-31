@@ -1,10 +1,9 @@
 package com.example.cinemates.util
 
 import androidx.room.TypeConverter
-import com.example.cinemates.model.entities.Collection
-import com.example.cinemates.model.entities.Filter
-import com.example.cinemates.model.entities.Genre
-import com.example.cinemates.model.entities.PersonalStatus
+import com.example.cinemates.model.Collection
+import com.example.cinemates.model.Genre
+import com.example.cinemates.model.PersonalStatus
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

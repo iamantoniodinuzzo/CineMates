@@ -7,8 +7,6 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -19,7 +17,7 @@ import com.example.cinemates.adapter.BaseAdapter
 import com.example.cinemates.databinding.EditTextLayoutBinding
 import com.example.cinemates.databinding.FragmentDiscoverBinding
 import com.example.cinemates.databinding.ListItemFilterBinding
-import com.example.cinemates.model.entities.Filter
+import com.example.cinemates.model.Filter
 import com.example.cinemates.util.Sort
 import com.example.cinemates.util.getLong
 import com.example.cinemates.util.inflater

@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.databinding.ListItemPersonLongBinding
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
-import com.example.cinemates.model.entities.Cast
-import com.example.cinemates.model.entities.Person
+import com.example.cinemates.model.Cast
+import com.example.cinemates.model.Person
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.util.inflater
 

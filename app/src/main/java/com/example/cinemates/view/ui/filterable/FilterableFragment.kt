@@ -19,9 +19,8 @@ import com.example.cinemates.R
 import com.example.cinemates.adapter.MovieAdapter
 import com.example.cinemates.databinding.FragmentFilterableBinding
 import com.example.cinemates.databinding.LayoutCustomDialogRandomBinding
-import com.example.cinemates.model.entities.Movie
+import com.example.cinemates.model.Movie
 import com.example.cinemates.util.getLong
-import com.example.cinemates.view.ui.MainActivity
 import com.google.android.material.transition.MaterialSharedAxis
 
 class FilterableFragment : Fragment() {

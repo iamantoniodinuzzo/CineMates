@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinemates.model.entities.Movie
-import com.example.cinemates.model.entities.PersonalStatus
-import com.example.cinemates.model.repository.DbMovieRepository
+import com.example.cinemates.model.Movie
+import com.example.cinemates.model.PersonalStatus
+import com.example.cinemates.repository.DbMovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.mapLatest

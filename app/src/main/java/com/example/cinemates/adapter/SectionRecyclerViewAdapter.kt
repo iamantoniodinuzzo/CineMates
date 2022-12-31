@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.adapter.SectionRecyclerViewAdapter.SectionViewHolder
 import com.example.cinemates.databinding.ListItemSectionBinding
-import com.example.cinemates.model.entities.*
+import com.example.cinemates.model.*
 import com.example.cinemates.util.inflater
 
 /**

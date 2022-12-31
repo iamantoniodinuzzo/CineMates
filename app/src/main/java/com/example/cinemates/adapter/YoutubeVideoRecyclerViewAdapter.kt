@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter.YoutubeViewHolder
 import com.example.cinemates.databinding.ListItemYtVideoBinding
-import com.example.cinemates.model.entities.Video
+import com.example.cinemates.model.Video
 import com.example.cinemates.util.YOUTUBE_COM_WATCH_V
 import com.example.cinemates.util.inflater
 

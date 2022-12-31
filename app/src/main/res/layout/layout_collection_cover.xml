@@ -7,7 +7,7 @@
 
         <variable
             name="collection"
-            type="com.example.cinemates.model.entities.Collection" />
+            type="com.example.cinemates.model.Collection" />
 
         <import type="android.view.View" />
     </data>

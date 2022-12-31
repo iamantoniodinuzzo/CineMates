@@ -1,15 +1,13 @@
 package com.example.cinemates.view.ui.details.movie
 
 import androidx.lifecycle.*
-import com.example.cinemates.model.entities.*
-import com.example.cinemates.model.repository.MovieRepository
-import com.example.cinemates.network.response.CreditsResponse
-import com.example.cinemates.network.response.ImagesResponse
+import com.example.cinemates.model.*
+import com.example.cinemates.model.Collection
+import com.example.cinemates.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.mapLatest
 import javax.inject.Inject
-import com.example.cinemates.model.entities.Collection
 
 /**
  * Is shared between  [MovieCastFragment] [MovieImagesFragment] [MovieInfoFragment]

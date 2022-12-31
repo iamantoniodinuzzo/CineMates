@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.cinemates.databinding.FragmentManageBottomsheetBinding
-import com.example.cinemates.model.entities.Movie
-import com.example.cinemates.model.entities.PersonalStatus
-import com.example.cinemates.view.viewmodel.DbMovieViewModel
+import com.example.cinemates.model.Movie
+import com.example.cinemates.model.PersonalStatus
+import com.example.cinemates.view.dbviewmodel.DbMovieViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -81,7 +81,7 @@ class ManageBottomSheetFragment : BottomSheetDialogFragment() {
      * Takes the movie indicated by the id, within the database.
      * If the movie is not present then returns the movie using the one selected in the MovieDetailsViewModel
      */
-    private fun getConsistentMovie():Movie {
+    private fun getConsistentMovie(): Movie {
         val selectedMovie = movieViewModel.selectedMovie.value!!
         return selectedMovie.let { dbViewModel.getMovie(it.id) } ?: selectedMovie
     }

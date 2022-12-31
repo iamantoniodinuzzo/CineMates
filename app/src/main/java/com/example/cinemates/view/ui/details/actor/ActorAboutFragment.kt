@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.cinemates.adapter.BaseAdapter
+import com.example.cinemates.view.ui.adapter.BaseAdapter
 import com.example.cinemates.databinding.FragmentActorAboutBinding
 import com.example.cinemates.databinding.ListItemPosterBinding
-import com.example.cinemates.model.entities.Image
+import com.example.cinemates.model.Image
 import com.example.cinemates.util.inflater
 
 /**
@@ -20,7 +20,7 @@ class ActorAboutFragment : Fragment() {
     private val binding: FragmentActorAboutBinding
         get() = _binding!!
     private val viewModel: ActorDetailsViewModel by activityViewModels()
-    private lateinit var posterAdapter: BaseAdapter<Image, com.example.cinemates.databinding.ListItemPosterBinding>
+    private lateinit var posterAdapter: BaseAdapter<Image, ListItemPosterBinding>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

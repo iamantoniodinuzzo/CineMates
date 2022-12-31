@@ -1,13 +1,11 @@
 package com.example.cinemates.view.ui.details.actor
 
 import androidx.lifecycle.*
-import com.example.cinemates.model.entities.Image
-import com.example.cinemates.model.entities.Movie
-import com.example.cinemates.model.entities.Person
-import com.example.cinemates.model.entities.TvShow
-import com.example.cinemates.model.repository.ActorRepository
-import com.example.cinemates.model.repository.MovieRepository
-import com.example.cinemates.model.repository.TvShowRepository
+import com.example.cinemates.model.Image
+import com.example.cinemates.model.Movie
+import com.example.cinemates.model.Person
+import com.example.cinemates.repository.ActorRepository
+import com.example.cinemates.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

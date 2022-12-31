@@ -1,15 +1,13 @@
 package com.example.cinemates.view.ui.search
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinemates.model.entities.Cast
-import com.example.cinemates.model.entities.Movie
-import com.example.cinemates.model.entities.Person
-import com.example.cinemates.model.repository.ActorRepository
-import com.example.cinemates.model.repository.MovieRepository
+import com.example.cinemates.model.Movie
+import com.example.cinemates.model.Person
+import com.example.cinemates.repository.ActorRepository
+import com.example.cinemates.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

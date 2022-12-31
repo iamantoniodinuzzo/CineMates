@@ -1,9 +1,9 @@
 package com.example.cinemates.di
 
-import com.example.cinemates.model.api.AuthenticationInterceptor
-import com.example.cinemates.network.service.ActorService
-import com.example.cinemates.network.service.MovieService
-import com.example.cinemates.network.service.TvShowService
+import com.example.cinemates.api.AuthenticationInterceptor
+import com.example.cinemates.api.service.ActorService
+import com.example.cinemates.api.service.MovieService
+import com.example.cinemates.api.service.TvShowService
 import com.example.cinemates.util.BASE_URL
 import dagger.Module
 import dagger.Provides

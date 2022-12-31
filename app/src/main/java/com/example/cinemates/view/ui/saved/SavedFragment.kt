@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
-import com.example.cinemates.adapter.ViewPagerAdapter
+import com.example.cinemates.view.ui.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentSavedBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialElevationScale

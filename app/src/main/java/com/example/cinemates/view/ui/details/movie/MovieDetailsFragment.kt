@@ -11,7 +11,7 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
-import com.example.cinemates.adapter.ViewPagerAdapter
+import com.example.cinemates.view.ui.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentMovieDetailsBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialSharedAxis

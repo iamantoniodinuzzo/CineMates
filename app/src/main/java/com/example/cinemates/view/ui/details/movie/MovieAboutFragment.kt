@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cinemates.R
-import com.example.cinemates.adapter.MovieAdapter
-import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter
+import com.example.cinemates.view.ui.adapter.MovieAdapter
+import com.example.cinemates.view.ui.adapter.YoutubeVideoRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentMovieAboutBinding
 
 class MovieAboutFragment : Fragment() {

@@ -5,7 +5,7 @@
 <data>
     <variable
         name="tv"
-        type="com.example.cinemates.model.entities.TvShow" />
+        type="com.example.cinemates.model.TvShow" />
 </data>
     <LinearLayout
         android:layout_width="wrap_content"

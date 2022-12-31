@@ -6,12 +6,14 @@ import com.example.cinemates.local.dao.FilterDao
 import com.example.cinemates.local.dao.MovieDao
 import com.example.cinemates.local.dao.PersonDao
 import com.example.cinemates.local.db.AppDatabase
+import com.example.cinemates.repository.TvShowRepository
 import com.example.cinemates.util.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.util.Locale
 import javax.inject.Singleton
 
 /**
@@ -45,5 +47,20 @@ object AppModule {
     @Singleton
     @Provides
     fun providePersonDao(db: AppDatabase): PersonDao = db.personDao()
+
+
+    @Singleton
+    @Provides
+    fun provideQueryMap(): HashMap<String, String> {
+        val result: HashMap<String, String> = HashMap()
+        result["language"] =
+            Locale.getDefault().language
+        result["append_to_response"] = "images"
+        result["include_image_language"] =
+            Locale.getDefault().language
+        result["page"] = "1"
+
+        return result
+    }
 
 }

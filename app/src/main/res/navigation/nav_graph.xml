@@ -42,7 +42,7 @@
         tools:layout="@layout/fragment_filterable">
         <argument
             android:name="filter"
-            app:argType="com.example.cinemates.model.entities.Filter" />
+            app:argType="com.example.cinemates.model.Filter" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetFragment"
@@ -56,7 +56,7 @@
         tools:layout="@layout/fragment_movie_details">
         <argument
             android:name="movie"
-            app:argType="com.example.cinemates.model.entities.Movie" />
+            app:argType="com.example.cinemates.model.Movie" />
         <action
             android:id="@+id/action_movieDetailsFragment_to_bottomSheetFragment"
             app:destination="@id/bottomSheetFragment" />
@@ -68,7 +68,7 @@
         tools:layout="@layout/fragment_actor_details">
         <argument
             android:name="person"
-            app:argType="com.example.cinemates.model.entities.Person" />
+            app:argType="com.example.cinemates.model.Person" />
     </fragment>
     <action
         android:id="@+id/action_global_movieDetailsFragment"

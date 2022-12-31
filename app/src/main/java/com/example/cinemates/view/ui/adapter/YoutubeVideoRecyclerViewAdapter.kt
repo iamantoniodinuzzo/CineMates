@@ -1,11 +1,11 @@
-package com.example.cinemates.adapter
+package com.example.cinemates.view.ui.adapter
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemates.adapter.YoutubeVideoRecyclerViewAdapter.YoutubeViewHolder
+import com.example.cinemates.view.ui.adapter.YoutubeVideoRecyclerViewAdapter.YoutubeViewHolder
 import com.example.cinemates.databinding.ListItemYtVideoBinding
 import com.example.cinemates.model.Video
 import com.example.cinemates.util.YOUTUBE_COM_WATCH_V

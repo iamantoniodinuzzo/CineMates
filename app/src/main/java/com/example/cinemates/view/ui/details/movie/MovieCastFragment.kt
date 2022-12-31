@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cinemates.adapter.PersonAdapter
+import com.example.cinemates.view.ui.adapter.PersonAdapter
 import com.example.cinemates.model.Person
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.ui.ListFragment

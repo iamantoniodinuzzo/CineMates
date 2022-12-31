@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.cinemates.adapter.PersonAdapter
+import com.example.cinemates.view.ui.adapter.PersonAdapter
 import com.example.cinemates.databinding.FragmentSearchActorBinding
 import com.example.cinemates.util.ViewSize
 

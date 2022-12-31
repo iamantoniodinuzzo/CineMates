@@ -1,4 +1,4 @@
-package com.example.cinemates.adapter
+package com.example.cinemates.view.ui.adapter
 
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemates.adapter.SectionRecyclerViewAdapter.SectionViewHolder
+import com.example.cinemates.view.ui.adapter.SectionRecyclerViewAdapter.SectionViewHolder
 import com.example.cinemates.databinding.ListItemSectionBinding
 import com.example.cinemates.model.*
 import com.example.cinemates.util.inflater

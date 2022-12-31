@@ -2,7 +2,6 @@ package com.example.cinemates.api.service
 
 
 import com.example.cinemates.model.TvShow
-import com.example.cinemates.model.entities.*
 import com.example.cinemates.model.Genre
 import com.example.cinemates.model.Video
 import com.example.cinemates.api.response.CreditsResponse

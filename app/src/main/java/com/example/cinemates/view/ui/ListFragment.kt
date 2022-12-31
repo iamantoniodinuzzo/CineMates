@@ -4,15 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemates.adapter.MovieAdapter
-import com.example.cinemates.adapter.MultipleViewSizeAdapter
+import com.example.cinemates.view.ui.adapter.MultipleViewSizeAdapter
 import com.example.cinemates.databinding.FragmentListingItemsBinding
-import com.example.cinemates.util.RecyclerViewEmptySupport
-import com.example.cinemates.view.viewmodel.DbMovieViewModel
 
 /**
  * A fragment in which a list of items having multiple types of views.

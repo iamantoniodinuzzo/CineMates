@@ -1,4 +1,4 @@
-package com.example.cinemates.adapter
+package com.example.cinemates.view.ui.adapter
 
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +54,7 @@ class PersonAdapter : MultipleViewSizeAdapter<Person>() {
 
     abstract inner class PersonViewHolder(
         binding: ViewDataBinding
-    ) : MultipleViewSizeAdapter.BaseViewHolder<Person>(binding) {
+    ) : BaseViewHolder<Person>(binding) {
 
         abstract override fun bind(items: Person)
         protected fun onClick(view: View, person: Person) {

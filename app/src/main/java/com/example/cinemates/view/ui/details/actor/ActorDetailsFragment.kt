@@ -13,9 +13,9 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
-import com.example.cinemates.adapter.ViewPagerAdapter
+import com.example.cinemates.view.ui.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentActorDetailsBinding
-import com.example.cinemates.view.viewmodel.DbPersonViewModel
+import com.example.cinemates.view.dbviewmodel.DbPersonViewModel
 import com.example.cinemates.util.getLong
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator

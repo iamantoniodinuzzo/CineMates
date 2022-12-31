@@ -9,7 +9,6 @@ import com.example.cinemates.model.Person
 import com.example.cinemates.local.dao.FilterDao
 import com.example.cinemates.local.dao.MovieDao
 import com.example.cinemates.local.dao.PersonDao
-import com.example.cinemates.util.Converters
 
 /**
  * @author Antonio Di Nuzzo

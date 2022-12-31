@@ -1,4 +1,4 @@
-package com.example.cinemates.view.viewmodel
+package com.example.cinemates.view.dbviewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

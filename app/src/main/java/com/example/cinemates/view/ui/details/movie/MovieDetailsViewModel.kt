@@ -3,7 +3,6 @@ package com.example.cinemates.view.ui.details.movie
 import androidx.lifecycle.*
 import com.example.cinemates.model.*
 import com.example.cinemates.model.Collection
-import com.example.cinemates.model.entities.*
 import com.example.cinemates.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn

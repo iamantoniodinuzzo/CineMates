@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.flow
 import java.util.*
 import javax.inject.Inject
 import com.example.cinemates.api.service.TvShowService
+import retrofit2.http.QueryMap
+import kotlin.collections.HashMap
 
 /**
  * @author Antonio Di Nuzzo
@@ -13,104 +15,90 @@ import com.example.cinemates.api.service.TvShowService
 class TvShowRepository
 @Inject
 constructor(
-    private val tvShowService: TvShowService
+    private val tvShowService: TvShowService,
+    private val queryMap: HashMap<String,String>
 ) {
-    private val defaultSystemLanguage: String = Locale.getDefault().language
 
-    companion object {
-        private lateinit var sMap: HashMap<String, String>
-    }
-
-    init {
-        sMap = HashMap()
-        sMap["language"] =
-            defaultSystemLanguage
-        sMap["append_to_response"] = "images"
-        sMap["include_image_language"] =
-            defaultSystemLanguage
-        sMap["page"] = "1"
-    }
-
-     fun getPopularTvShow(): Flow<List<TvShow>> = flow {
-        val popular = tvShowService.getPopular(sMap).results
+    fun getPopularTvShow(): Flow<List<TvShow>> = flow {
+        val popular = tvShowService.getPopular(queryMap).results
         emit(popular)
     }
 
-     fun getOnTheAir(): Flow<List<TvShow>> = flow {
-        val onAir = tvShowService.getOnTheAir(sMap).results
+    fun getOnTheAir(): Flow<List<TvShow>> = flow {
+        val onAir = tvShowService.getOnTheAir(queryMap).results
         emit(onAir)
     }
 
-     fun getGenreList(): Flow<List<Genre>> = flow {
-        val genres = tvShowService.getGenreList(sMap).results
+    fun getGenreList(): Flow<List<Genre>> = flow {
+        val genres = tvShowService.getGenreList(queryMap).results
         emit(genres)
     }
 
-     fun getTrendingTvShow(mediaType: String, timeWindow: String): Flow<List<TvShow>> =
+    fun getTrendingTvShow(mediaType: String, timeWindow: String): Flow<List<TvShow>> =
         flow {
-            val trending = tvShowService.getTrendingMedia(mediaType, timeWindow, sMap).results
+            val trending = tvShowService.getTrendingMedia(mediaType, timeWindow, queryMap).results
             emit(trending)
         }
 
 
     fun getVideos(movieId: Int): Flow<List<Video>> = flow {
-        val videos = tvShowService.getVideos(movieId, sMap).results
+        val videos = tvShowService.getVideos(movieId, queryMap).results
         emit(videos)
     }
 
     fun getTvShowDetails(movieId: Int): Flow<TvShow> = flow {
-        emit(tvShowService.getMovieDetails(movieId, sMap))
+        emit(tvShowService.getMovieDetails(movieId, queryMap))
     }
 
 
     fun getSimilarTvShow(movieId: Int): Flow<List<TvShow>> = flow {
-        val similarMovies = tvShowService.getSimilar(movieId, sMap).results
+        val similarMovies = tvShowService.getSimilar(movieId, queryMap).results
         emit(similarMovies)
     }
 
     fun getDiscoverableTvShow(filter: Filter): Flow<List<TvShow>> = flow {
-        sMap["sort_by"] =
+        queryMap["sort_by"] =
             filter.sortBy.toString()
-        sMap["with_genres"] =
+        queryMap["with_genres"] =
             filter.withGenres
                 .toString()
                 .replace("[", "")
                 .replace("]", "")
-        val movies = tvShowService.getTvShowByDiscover(sMap).results
+        val movies = tvShowService.getTvShowByDiscover(queryMap).results
         emit(movies)
     }
 
     fun getPosters(movieId: Int): Flow<List<Image>> = flow {
-        val posters = tvShowService.getImages(movieId, sMap).posters
+        val posters = tvShowService.getImages(movieId, queryMap).posters
         emit(posters)
     }
 
     fun getBackdrops(movieId: Int): Flow<List<Image>> = flow {
-        val backdrops = tvShowService.getImages(movieId, sMap).backdrops
+        val backdrops = tvShowService.getImages(movieId, queryMap).backdrops
         emit(backdrops)
     }
 
     fun getTvShowCast(movieId: Int): Flow<List<Cast>> = flow {
-        val cast = tvShowService.getMovieCredits(movieId, sMap).cast
+        val cast = tvShowService.getMovieCredits(movieId, queryMap).cast
         emit(cast)
     }
 
     fun getTvShowCrew(movieId: Int): Flow<List<Crew>> = flow {
-        val cast = tvShowService.getMovieCredits(movieId, sMap).crew
+        val cast = tvShowService.getMovieCredits(movieId, queryMap).crew
         emit(cast)
     }
 
 
-     fun getTvShowBySearch(query: String): Flow<List<TvShow>> = flow {
-        sMap["query"] = query
-        emit(tvShowService.getTvShowBySearch(sMap).results)
+    fun getTvShowBySearch(query: String): Flow<List<TvShow>> = flow {
+        queryMap["query"] = query
+        emit(tvShowService.getTvShowBySearch(queryMap).results)
     }
 
-   /*  fun getTvShowByActor(with_cast: String): Flow<List<TvShow>> = flow {
-        sMap["with_cast"] = with_cast
-        emit(tvShowService.getTvShowByDiscover(sMap).results)
-    }
-*/
+    /*  fun getTvShowByActor(with_cast: String): Flow<List<TvShow>> = flow {
+         sMap["with_cast"] = with_cast
+         emit(tvShowService.getTvShowByDiscover(sMap).results)
+     }
+ */
 
 }
 

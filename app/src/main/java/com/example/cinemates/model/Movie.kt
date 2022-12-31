@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.example.cinemates.util.Converters
+import com.example.cinemates.local.db.Converters
 import java.io.Serializable
 import java.text.NumberFormat
 import java.time.LocalDate

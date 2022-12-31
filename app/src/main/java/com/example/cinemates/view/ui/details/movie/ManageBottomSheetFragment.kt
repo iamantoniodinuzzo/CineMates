@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.cinemates.databinding.FragmentManageBottomsheetBinding
 import com.example.cinemates.model.Movie
 import com.example.cinemates.model.PersonalStatus
-import com.example.cinemates.view.viewmodel.DbMovieViewModel
+import com.example.cinemates.view.dbviewmodel.DbMovieViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

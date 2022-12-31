@@ -1,4 +1,4 @@
-package com.example.cinemates.view.viewmodel
+package com.example.cinemates.view.dbviewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinemates.model.Movie
 import com.example.cinemates.model.PersonalStatus
-import com.example.cinemates.repository.DbMovieRepository
+import com.example.cinemates.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.mapLatest
@@ -23,7 +23,7 @@ private const val TAG = "DBViewModel"
 class DbMovieViewModel
 @Inject
 constructor(
-    private val dbMovieRepository: DbMovieRepository
+    private val movieRepository: MovieRepository
 ) : ViewModel() {
 
 
@@ -43,16 +43,16 @@ constructor(
 
 
     private fun insertMovie(movie: Movie) = viewModelScope.launch {
-        dbMovieRepository.insertMovie(movie)
+        movieRepository.insertMovie(movie)
     }
 
     private fun deleteMovie(movie: Movie) = viewModelScope.launch {
-        dbMovieRepository.deleteMovie(movie)
+        movieRepository.deleteMovie(movie)
     }
 
 
     private fun updateMovie(movie: Movie) = viewModelScope.launch {
-        dbMovieRepository.updateMovie(movie)
+        movieRepository.updateMovie(movie)
     }
 
     /**
@@ -60,19 +60,19 @@ constructor(
      * @return True if is my favorite movie, False instead
      */
     private fun isMyFavoriteMovie(movie: Movie): Boolean =
-        dbMovieRepository.isMovieFavorite(movie.id)
+        movieRepository.isMovieFavorite(movie.id)
 
     /**
      * Check if the [Movie] is already on the list of toSee.
      * @return True if is a toSee movie, False instead
      */
-    private fun isMovieToSee(movie: Movie): Boolean = dbMovieRepository.isMovieToSee(movie.id)
+    private fun isMovieToSee(movie: Movie): Boolean = movieRepository.isMovieToSee(movie.id)
 
     /**
      * Check if the [Movie] is already on the list of seen.
      * @return True if is seen movie, False instead
      */
-    private fun isMovieSeen(movie: Movie): Boolean = dbMovieRepository.isMovieSeen(movie.id)
+    private fun isMovieSeen(movie: Movie): Boolean = movieRepository.isMovieSeen(movie.id)
 
 
     /**
@@ -89,7 +89,7 @@ constructor(
     }
 
 
-    fun getMovie(id: Int): Movie? = dbMovieRepository.getMovie(id)
+    fun getMovie(id: Int): Movie? = movieRepository.getMovie(id)
 
     /**
      * Set and update [PersonalStatus] of the movie.
@@ -170,7 +170,7 @@ constructor(
     }
 
     private fun initAllMoviesLists() {
-        dbMovieRepository.apply {
+        movieRepository.apply {
             getFavoriteMovies()
                 .mapLatest { list ->
                     _favorites.value = list

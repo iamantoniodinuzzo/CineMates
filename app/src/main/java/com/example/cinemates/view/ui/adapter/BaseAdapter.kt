@@ -1,4 +1,4 @@
-package com.example.cinemates.adapter
+package com.example.cinemates.view.ui.adapter
 
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding

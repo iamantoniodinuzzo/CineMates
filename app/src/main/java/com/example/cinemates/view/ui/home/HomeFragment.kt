@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.cinemates.R
-import com.example.cinemates.adapter.SectionRecyclerViewAdapter
+import com.example.cinemates.view.ui.adapter.SectionRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentHomeBinding
 import com.example.cinemates.model.Movie
 import com.example.cinemates.model.Person

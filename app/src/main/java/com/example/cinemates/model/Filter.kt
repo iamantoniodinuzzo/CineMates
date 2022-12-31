@@ -3,7 +3,7 @@ package com.example.cinemates.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.example.cinemates.util.Converters
+import com.example.cinemates.local.db.Converters
 import com.example.cinemates.util.Sort
 import java.io.Serializable
 

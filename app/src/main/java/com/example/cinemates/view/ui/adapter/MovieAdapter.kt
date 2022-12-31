@@ -1,4 +1,4 @@
-package com.example.cinemates.adapter
+package com.example.cinemates.view.ui.adapter
 
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +17,7 @@ import com.example.cinemates.util.inflater
  * @author Antonio Di Nuzzo (Indisparte)
  */
 class MovieAdapter : MultipleViewSizeAdapter<Movie>() {
-    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
+    private val differCallback = object : DiffUtil.ItemCallback<Movie>() {
 
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
             return oldItem.id == newItem.id
@@ -28,7 +28,7 @@ class MovieAdapter : MultipleViewSizeAdapter<Movie>() {
         }
 
     }
-    private val dataList = AsyncListDiffer(this, DIFF_CALLBACK)
+    private val dataList = AsyncListDiffer(this, differCallback)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.cinemates.adapter.MovieAdapter
+import com.example.cinemates.view.ui.adapter.MovieAdapter
 import com.example.cinemates.databinding.FragmentSearchMovieBinding
 
 class SearchMovieFragment : Fragment() {

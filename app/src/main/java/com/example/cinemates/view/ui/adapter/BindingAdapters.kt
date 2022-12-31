@@ -1,4 +1,4 @@
-package com.example.cinemates.adapter
+package com.example.cinemates.view.ui.adapter
 
 import android.text.Html
 import android.util.Log
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.cinemates.R
 import com.example.cinemates.model.Genre
@@ -43,6 +44,7 @@ fun loadImage(view: ImageView, url: String?) {
         .error(R.drawable.ic_outline_image_not_supported_24)
         .placeholder(R.drawable.ic_death_star)
         .transition(DrawableTransitionOptions.withCrossFade())
+        .diskCacheStrategy(DiskCacheStrategy.DATA)
         .centerCrop()
         .into(view)
 }
@@ -56,6 +58,7 @@ fun loadAvatar(view: ImageView, url: String?) {
         )
         .error(R.drawable.ic_avatar)
         .placeholder(R.drawable.ic_cap_america)
+        .diskCacheStrategy(DiskCacheStrategy.DATA)
         .transition(DrawableTransitionOptions.withCrossFade())
         .centerCrop()
         .into(view)
@@ -70,6 +73,7 @@ fun loadImageLong(view: ImageView, url: String?) {
         )
         .error(R.drawable.ic_outline_image_not_supported_24)
         .placeholder(R.drawable.ic_avengers)
+        .diskCacheStrategy(DiskCacheStrategy.DATA)
         .transition(DrawableTransitionOptions.withCrossFade())
         .centerCrop()
         .into(view)
@@ -96,18 +100,6 @@ fun setStatusSeen(view: ImageButton, value: PersonalStatus?) {
         view.isPressed = (value == PersonalStatus.EMPTY)
 }
 
-
-
-/*@BindingAdapter("runtime")
-fun loadRuntime(view: TextView, runtime: Int?) {
-    var value = ""
-    if (runtime != null) {
-        val hours = (runtime / 60) //since both are ints, you get an int
-        val minutes = (runtime % 60)
-        value = String.format("%d h %02d min", hours, minutes)
-    }
-    loadText(view, value)
-}*/
 
 @BindingAdapter("loadText")
 fun loadText(view: TextView, value: String?) {

@@ -7,14 +7,9 @@ import javax.inject.Inject
 
 class DbFilterRepository
 @Inject
-constructor(appDatabase: AppDatabase) {
-    companion object {
-        private lateinit var filterDao: FilterDao
-    }
-
-    init {
-        filterDao = appDatabase.filterDao()
-    }
+constructor(
+    private val filterDao: FilterDao
+) {
 
     fun getFilters() = filterDao.getAll()
     fun insertFilter(filter: Filter) = filterDao.insert(filter)

@@ -1,11 +1,11 @@
-package com.example.cinemates.view.viewmodel
+package com.example.cinemates.view.dbviewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.cinemates.model.Person
-import com.example.cinemates.repository.DbPersonRepository
+import com.example.cinemates.repository.ActorRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,22 +20,22 @@ private const val TAG = "DBViewModel"
 class DbPersonViewModel
 @Inject
 constructor(
-    private val dbPersonRepository: DbPersonRepository
+    private val actorRepository: ActorRepository
 ) : ViewModel() {
 
-    val persons: LiveData<List<Person>> = dbPersonRepository.getPersons().asLiveData()
+    val persons: LiveData<List<Person>> = actorRepository.getPersons().asLiveData()
 
 
     private fun insertPerson(person: Person) = viewModelScope.launch {
-        dbPersonRepository.insertPerson(person)
+        actorRepository.insertPerson(person)
     }
 
     private fun deletePerson(person: Person) = viewModelScope.launch {
-        dbPersonRepository.deletePerson(person)
+        actorRepository.deletePerson(person)
     }
 
     fun updatePerson(person: Person) = viewModelScope.launch {
-        dbPersonRepository.updatePerson(person)
+        actorRepository.updatePerson(person)
     }
 
 
@@ -43,7 +43,7 @@ constructor(
      * Check if the person is already on the list of favorites.
      * @return True if is my favorite person, False instead
      */
-    fun isMyFavoritePerson(person: Person): Boolean = dbPersonRepository.isPersonFavorite(person.id)
+    fun isMyFavoritePerson(person: Person): Boolean = actorRepository.isPersonFavorite(person.id)
 
 
     /**

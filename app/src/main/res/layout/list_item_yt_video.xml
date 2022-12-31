@@ -10,46 +10,53 @@
             type="com.example.cinemates.model.entities.Video" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:layout_width="220dp"
-        android:layout_height="120dp"
         android:layout_margin="10dp"
-        app:cardCornerRadius="10dp">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/video_thumbnail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="120dp"
+            app:cardCornerRadius="10dp">
 
-            <com.google.android.youtube.player.YouTubeThumbnailView
-                android:id="@+id/thumbnailView"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:loadThumbnail="@{video.key}"
-                android:scaleType="centerCrop"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:loadOfficial="@{video.official}"
-                tools:text="Official" />
+                <com.google.android.youtube.player.YouTubeThumbnailView
+                    android:id="@+id/thumbnailView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:loadThumbnail="@{video.key}"
+                    tools:src="@tools:sample/backgrounds/scenic" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="10dp"
-                android:text="@{video.type}"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:text="Type" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/alabaster"
+                    android:textSize="14sp"
+                    android:padding="10dp"
+                    android:background="@drawable/round_corner_transparent_bg"
+                    android:textStyle="bold"
+                    app:loadOfficial="@{video.official}"
+                    tools:text="Official" />
 
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/video_thumbnail"
+            android:text="@{video.name}"
+            android:textColor="@color/alabaster"
+            android:textSize="14sp"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            tools:text="@tools:sample/full_names" />
+    </RelativeLayout>
 </layout>

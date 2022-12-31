@@ -6,22 +6,47 @@
     <data>
 
         <variable
-            name="image"
-            type="com.example.cinemates.model.entities.Image" />
+            name="path"
+            type="String" />
+
+        <variable
+            name="counter"
+            type="Integer" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
         android:layout_marginStart="10dp"
         app:cardCornerRadius="5dp">
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="150dp"
-            android:background="@color/geyser"
-            android:scaleType="centerCrop"
-            app:imageUrl="@{image.file_path}"
-            tools:src="@tools:sample/backgrounds/scenic" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/geyser"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{path}"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text='@{counter+" posters"}'
+                android:textColor="@color/alabaster"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="@{counter!=0 || counter!= null?View.VISIBLE:View.GONE}"
+                tools:text="20 poster" />
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </layout>

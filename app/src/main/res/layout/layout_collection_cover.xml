@@ -14,7 +14,8 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
+        android:visibility="@{collection!=null? View.VISIBLE : View.GONE}"
         app:cardCornerRadius="20dp">
 
         <RelativeLayout

@@ -20,7 +20,7 @@ class ActorMoviesFragment : ListFragment<Movie, MovieAdapter>(MovieAdapter()) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.movies.observe(viewLifecycleOwner) { moviesByActor ->
             adapter.addItems(moviesByActor)
-            binding.counter = adapter.itemCount
+            binding.counter = moviesByActor.size
         }
 
     }

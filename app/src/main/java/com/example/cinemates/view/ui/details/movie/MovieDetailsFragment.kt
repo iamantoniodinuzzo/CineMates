@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AnticipateOvershootInterpolator
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
 import com.example.cinemates.adapter.ViewPagerAdapter
@@ -27,17 +27,21 @@ class MovieDetailsFragment : Fragment() {
     private val binding: FragmentMovieDetailsBinding
         get() = _binding!!
     private val args: MovieDetailsFragmentArgs by navArgs()
-    private lateinit var movieInfoFragment: MovieInfoFragment
+    private lateinit var movieAboutFragment: MovieAboutFragment
     private lateinit var movieCastFragment: MovieCastFragment
-    private lateinit var movieImagesFragment: MovieImagesFragment
+    private lateinit var movieSimilarFragment: MovieSimilarFragment
+    private lateinit var movieRecommendedFragment: MovieRecommendedFragment
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        movieInfoFragment = MovieInfoFragment()
+
+        movieAboutFragment = MovieAboutFragment()
         movieCastFragment = MovieCastFragment()
-        movieImagesFragment = MovieImagesFragment()
+        movieSimilarFragment = MovieSimilarFragment()
+        movieRecommendedFragment = MovieRecommendedFragment()
+
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
             interpolator = FastOutSlowInInterpolator()
             duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
@@ -61,7 +65,17 @@ class MovieDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+        binding.apply {
+            toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+            fab.setOnClickListener {
+                //Open bottomSheetFragment
+                findNavController().navigate(R.id.action_movieDetailsFragment_to_bottomSheetFragment)
+            }
+            watchProviders.setOnClickListener { _ ->
+                Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         viewModel.onDetailsFragmentReady(args.movie)
 
         viewModel.selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
@@ -73,9 +87,10 @@ class MovieDetailsFragment : Fragment() {
 
     private fun initializeViewPager() {
         viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
-        viewPagerAdapter.addFragment(movieInfoFragment)
+        viewPagerAdapter.addFragment(movieAboutFragment)
         viewPagerAdapter.addFragment(movieCastFragment)
-        viewPagerAdapter.addFragment(movieImagesFragment)
+        viewPagerAdapter.addFragment(movieSimilarFragment)
+        viewPagerAdapter.addFragment(movieRecommendedFragment)
         binding.apply {
             viewPager.adapter = viewPagerAdapter
             //viewPager.isUserInputEnabled = false
@@ -83,7 +98,8 @@ class MovieDetailsFragment : Fragment() {
                 when (position) {
                     0 -> tab.text = "Info"
                     1 -> tab.text = "Cast"
-                    2 -> tab.text = "Images"
+                    2 -> tab.text = "Similar"
+                    3 -> tab.text = "Recommendations"
                 }
             }.attach()
         }

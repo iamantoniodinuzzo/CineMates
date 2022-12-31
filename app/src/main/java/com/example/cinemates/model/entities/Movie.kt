@@ -55,7 +55,11 @@ class Movie(
     @Ignore
     val video: Boolean,
     @Ignore
-    val vote_count: Int
+    val vote_count: Int,
+    @Ignore
+    val production_companies: List<ProductionCompany>,
+    @Ignore
+    val production_countries: List<ProductionCountry>
 ) : Serializable {
 
     val formattedRuntime: String
@@ -120,7 +124,7 @@ class Movie(
     ) : this(
         belongs_to_collection, genres, id, poster_path, release_date, runtime, title, vote_average,
         personalStatus, favorite, original_title, "", "", "", "",
-        "", 0, 0.0, false, 0, "", "", false, 0
+        "", 0, 0.0, false, 0, "", "", false, 0, listOf(), listOf()
     )
 
     override fun hashCode(): Int {

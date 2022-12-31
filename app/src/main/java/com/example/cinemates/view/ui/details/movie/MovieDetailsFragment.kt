@@ -36,7 +36,7 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         movieAboutFragment = MovieAboutFragment()
         movieCastFragment = MovieCastFragment()
         movieSimilarFragment = MovieSimilarFragment()

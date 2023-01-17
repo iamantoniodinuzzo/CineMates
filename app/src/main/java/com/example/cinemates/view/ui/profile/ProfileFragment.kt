@@ -76,7 +76,7 @@ class ProfileFragment : Fragment() {
             setCounter(statWatchedCounter, "Movies Seen", dbMovieViewModel.getSizeOf(PersonalStatus.SEEN))
             setCounter(statToSeeCounter, "Movies To See", dbMovieViewModel.getSizeOf(PersonalStatus.TO_SEE))
         }
-        movieSection.liveData = dbMovieViewModel.favorites
+//        movieSection.liveData = dbMovieViewModel.favorites
         personSection.liveData = dbPersonViewModel.persons
 
     }

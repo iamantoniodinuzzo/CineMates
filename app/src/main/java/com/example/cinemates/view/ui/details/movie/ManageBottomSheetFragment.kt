@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.cinemates.databinding.FragmentManageBottomsheetBinding
 import com.example.cinemates.model.Movie
 import com.example.cinemates.model.PersonalStatus
@@ -22,8 +23,8 @@ class ManageBottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentManageBottomsheetBinding? = null
     private val binding: FragmentManageBottomsheetBinding
         get() = _binding!!
-    private val dbViewModel: DbMovieViewModel by activityViewModels()
-    private val movieViewModel: MovieDetailsViewModel by activityViewModels()
+    private val dbViewModel: DbMovieViewModel by viewModels()
+    private val movieViewModel: MovieDetailsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,7 +47,7 @@ class ManageBottomSheetFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             //listen selected movie changes for updating UI
-            val selectedMovie = getConsistentMovie()
+          /*  val selectedMovie = getConsistentMovie()
             movie = selectedMovie
 
             favoriteBtn.setOnClickListener {
@@ -71,7 +72,7 @@ class ManageBottomSheetFragment : BottomSheetDialogFragment() {
                 makeResultToast(result, "Watched list")
 
                 dismiss()
-            }
+            }*/
 
 
         }
@@ -81,11 +82,15 @@ class ManageBottomSheetFragment : BottomSheetDialogFragment() {
      * Takes the movie indicated by the id, within the database.
      * If the movie is not present then returns the movie using the one selected in the MovieDetailsViewModel
      */
-    private fun getConsistentMovie(): Movie {
-        val selectedMovie = movieViewModel.selectedMovie.value!!
+  /*  private fun getConsistentMovie(): Movie? {
+        val selectedMovie = movieViewModel.selectedMovie.
         return selectedMovie.let { dbViewModel.getMovie(it.id) } ?: selectedMovie
-    }
+        return null
+    }*/
 
+    /*
+     * Create a toast which, based on a boolean value outputs a user-specific message
+     */
     private fun makeResultToast(result: Boolean, what: String) {
         val text = if (result) "Added to"
         else "Removed from"

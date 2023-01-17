@@ -20,6 +20,12 @@ interface TvShowService {
     @GET("tv/popular")
     suspend fun getPopular(@QueryMap queries: HashMap<String, String>): GenericResponse<TvShow>
 
+    @GET("tv/on_the_air")
+    suspend fun getOnTheAir(
+        @QueryMap queries: HashMap<String, String>
+    ): GenericResponse<TvShow>
+
+
     @GET("tv/{tv_id}")
     suspend fun getMovieDetails(
         @Path("tv_id") id: Int,
@@ -38,10 +44,7 @@ interface TvShowService {
         @QueryMap queries: HashMap<String, String>
     ): GenericResponse<TvShow>
 
-    @GET("tv/on_the_air")
-    suspend fun getOnTheAir(
-        @QueryMap queries: HashMap<String, String>
-    ): GenericResponse<TvShow>
+
 
     @GET("tv/{tv_id}/videos")
     suspend fun getVideos(

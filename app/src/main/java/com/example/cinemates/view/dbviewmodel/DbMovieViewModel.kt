@@ -8,6 +8,7 @@ import com.example.cinemates.model.Movie
 import com.example.cinemates.model.PersonalStatus
 import com.example.cinemates.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
@@ -28,18 +29,14 @@ constructor(
 
 
     init {
-        initAllMoviesLists()
+        initAllPersonalMovieLists()
     }
 
 
-    private val _favorites = MutableLiveData<List<Movie>>()
-    val favorites: LiveData<List<Movie>> get() = _favorites
-    private val _toSee = MutableLiveData<List<Movie>>()
-    val toSee: LiveData<List<Movie>> get() = _toSee
-    private val _seen = MutableLiveData<List<Movie>>()
-    val seen: LiveData<List<Movie>> get() = _seen
-    private val _movies = MutableLiveData<List<Movie>>()
-    val movies: LiveData<List<Movie>> get() = _movies
+    val favorites: MutableStateFlow<List<Movie>> = MutableStateFlow(emptyList())
+    val toSee: MutableStateFlow<List<Movie>> = MutableStateFlow(emptyList())
+    val seen: MutableStateFlow<List<Movie>> = MutableStateFlow(emptyList())
+    val movies: MutableStateFlow<List<Movie>> = MutableStateFlow(emptyList())
 
 
     private fun insertMovie(movie: Movie) = viewModelScope.launch {
@@ -48,11 +45,6 @@ constructor(
 
     private fun deleteMovie(movie: Movie) = viewModelScope.launch {
         movieRepository.deleteMovie(movie)
-    }
-
-
-    private fun updateMovie(movie: Movie) = viewModelScope.launch {
-        movieRepository.updateMovie(movie)
     }
 
     /**
@@ -151,9 +143,9 @@ constructor(
 
     fun getSizeOf(status: PersonalStatus): Int {
         return when (status) {
-            PersonalStatus.TO_SEE -> toSee.value?.size ?: 0
-            PersonalStatus.SEEN -> seen.value?.size ?: 0
-            PersonalStatus.EMPTY -> movies.value?.size ?: 0
+            PersonalStatus.TO_SEE -> toSee.value.size
+            PersonalStatus.SEEN -> seen.value.size
+            PersonalStatus.EMPTY -> movies.value.size
         }
 
     }
@@ -169,32 +161,27 @@ constructor(
         return totalMinutes
     }
 
-    private fun initAllMoviesLists() {
+    private fun initAllPersonalMovieLists() = viewModelScope.launch {
         movieRepository.apply {
             getFavoriteMovies()
                 .mapLatest { list ->
-                    _favorites.value = list
+                    favorites.value = list
                 }
-                .launchIn(viewModelScope)
 
             getToSeeMovies()
                 .mapLatest { list ->
-                    _toSee.value = list
+                    toSee.value = list
                 }
-                .launchIn(viewModelScope)
 
             getSeenMovies()
                 .mapLatest { list ->
-                    _seen.value = list
+                    seen.value = list
                 }
-                .launchIn(viewModelScope)
             getMovies()
                 .mapLatest { list ->
-                    _movies.value = list
+                    movies.value = list
                 }
-                .launchIn(viewModelScope)
         }
-
     }
 
 

@@ -6,13 +6,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cinemates.model.Crew
 import com.example.cinemates.view.ui.adapter.PersonAdapter
 import com.example.cinemates.model.Person
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.ui.ListFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
-class MovieCastFragment : ListFragment<Person, PersonAdapter>(PersonAdapter()) {
+@AndroidEntryPoint
+class MovieCrewFragment : ListFragment<Person, PersonAdapter>(PersonAdapter()) {
 
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
@@ -27,9 +30,9 @@ class MovieCastFragment : ListFragment<Person, PersonAdapter>(PersonAdapter()) {
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                viewModel.cast.collectLatest {cast->
-                    adapter.addItems(cast)
-                    counter = cast.size
+                viewModel.crew.collectLatest {crew->
+                    adapter.addItems(crew)
+                    counter = crew.size
                 }
             }
         }

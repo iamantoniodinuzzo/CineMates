@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
 import com.example.cinemates.view.ui.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentMovieDetailsBinding
+import com.example.cinemates.model.Movie
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialSharedAxis
 
@@ -29,6 +31,7 @@ class MovieDetailsFragment : Fragment() {
     private val args: MovieDetailsFragmentArgs by navArgs()
     private lateinit var movieAboutFragment: MovieAboutFragment
     private lateinit var movieCastFragment: MovieCastFragment
+    private lateinit var movieCrewFragment: MovieCrewFragment
     private lateinit var movieSimilarFragment: MovieSimilarFragment
     private lateinit var movieRecommendedFragment: MovieRecommendedFragment
     private lateinit var viewPagerAdapter: ViewPagerAdapter
@@ -39,6 +42,7 @@ class MovieDetailsFragment : Fragment() {
 
         movieAboutFragment = MovieAboutFragment()
         movieCastFragment = MovieCastFragment()
+        movieCrewFragment = MovieCrewFragment()
         movieSimilarFragment = MovieSimilarFragment()
         movieRecommendedFragment = MovieRecommendedFragment()
 
@@ -63,9 +67,10 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val selectedMovie: Movie = args.movie
 
         binding.apply {
+            movie = selectedMovie
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             fab.setOnClickListener {
                 //Open bottomSheetFragment
@@ -74,14 +79,11 @@ class MovieDetailsFragment : Fragment() {
             watchProviders.setOnClickListener { _ ->
                 Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
             }
+            viewModel.onDetailsFragmentReady(selectedMovie.id)
+            initializeViewPager()
         }
 
-        viewModel.onDetailsFragmentReady(args.movie)
 
-        viewModel.selectedMovie.observe(viewLifecycleOwner) { selectedMovie ->
-            binding.movie = selectedMovie
-        }
-        initializeViewPager()
 
     }
 
@@ -89,6 +91,7 @@ class MovieDetailsFragment : Fragment() {
         viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         viewPagerAdapter.addFragment(movieAboutFragment)
         viewPagerAdapter.addFragment(movieCastFragment)
+        viewPagerAdapter.addFragment(movieCrewFragment)
         viewPagerAdapter.addFragment(movieSimilarFragment)
         viewPagerAdapter.addFragment(movieRecommendedFragment)
         binding.apply {
@@ -98,8 +101,9 @@ class MovieDetailsFragment : Fragment() {
                 when (position) {
                     0 -> tab.text = "Info"
                     1 -> tab.text = "Cast"
-                    2 -> tab.text = "Similar"
-                    3 -> tab.text = "Recommendations"
+                    2 -> tab.text = "Crew"
+                    3 -> tab.text = "Similar"
+                    4 -> tab.text = "Recommendations"
                 }
             }.attach()
         }
@@ -109,7 +113,6 @@ class MovieDetailsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        viewModel.onDestroyFragment()
     }
 
 }

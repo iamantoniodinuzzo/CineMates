@@ -7,24 +7,26 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * A basic interface for dao , containing insertion and deletion methods.
+ * @param T the entity of the db
+ */
 interface BaseDao<T> {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(entity: T)
+    suspend fun insert(entity: T)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(vararg entity: T)
+    suspend fun insert(vararg entity: T)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun update(entity: T)
+    suspend fun update(entity: T)
 
     @Delete
-    fun delete(entity: T)
+    suspend fun delete(entity: T)
 
     @Delete
-    fun delete(vararg entity: T)
-
-
+    suspend fun delete(vararg entity: T)
 
 
 }

@@ -1,12 +1,14 @@
 package com.example.cinemates.view.ui.details.movie
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.cinemates.model.*
 import com.example.cinemates.model.Collection
 import com.example.cinemates.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -20,76 +22,112 @@ import javax.inject.Inject
 class MovieDetailsViewModel
 @Inject
 constructor(
-    private val movieRepository: MovieRepository,
+    private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private val _selectedMovie = MutableLiveData<Movie>()
-    val selectedMovie: LiveData<Movie> get() = _selectedMovie
+    private val TAG = MovieDetailsViewModel::class.simpleName
+    //It was decided to use a MutableSharedFlow rather than a MutableStateFlow
+    //because the latter involves an initial value that must be set.
+    private val _selectedMovie = MutableSharedFlow<Movie>(
+        replay = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
+    val selectedMovie: Flow<Movie> = _selectedMovie.distinctUntilChanged()
 
-    val similarMovies: MutableLiveData<List<Movie>> =
-        Transformations.switchMap(_selectedMovie) { movie ->
-            movieRepository.getSimilarMovies(movie.id).asLiveData()
-        }as MutableLiveData<List<Movie>>
-
-    val recommendedMovies: MutableLiveData<List<Movie>> =
-        Transformations.switchMap(_selectedMovie) { movie ->
-            movieRepository.getRecommendedMovies(movie.id).asLiveData()
-        }as MutableLiveData<List<Movie>>
-
-    val videos: MutableLiveData<List<Video>> =
-        Transformations.switchMap(_selectedMovie) { movie ->
-            movieRepository.getVideos(movie.id).asLiveData()
-        } as MutableLiveData<List<Video>>
+    val partsOfCollection: MutableStateFlow<List<Movie>> = MutableStateFlow(emptyList())
 
 
-    val posters: MutableLiveData<List<Image>>
-        get() = Transformations.switchMap(_selectedMovie) { movie ->
-            movieRepository.getPosters(movie.id).asLiveData()
-        }as MutableLiveData<List<Image>>
 
-    val backdrops: MutableLiveData<List<Image>>
-        get() = Transformations.switchMap(_selectedMovie) { movie ->
-            movieRepository.getBackdrops(movie.id).asLiveData()
-        }as MutableLiveData<List<Image>>
+    /**
+     * Retrieves additional information about the selected movie
+     */
+    fun onDetailsFragmentReady(id: Int) =
+        getMovieDetails(id)
 
-    val cast: MutableLiveData<List<Cast>> =
-        Transformations.switchMap(_selectedMovie) { movie ->
-            movieRepository.getMovieCast(movie.id).asLiveData()
-        }as MutableLiveData<List<Cast>>
-
-    val crew: LiveData<List<Crew>> =
-        Transformations.switchMap(_selectedMovie) { movie ->
-            movieRepository.getMovieCrew(movie.id).asLiveData()
-        }
-
-    val moviesBelongsCollection: LiveData<Collection> =
-        Transformations.switchMap(_selectedMovie) { movie ->
-            movie.belongs_to_collection?.id?.let { collectionId ->
-                movieRepository.getCollection(collectionId).asLiveData()
-            }
-        }
-
-    fun onDetailsFragmentReady(movie: Movie) =
-        getMovieDetails(movie.id)
-
-
-    fun onDestroyFragment() {
-        videos.value = listOf()
-        cast.value = listOf()
-        backdrops.value = listOf()
-        posters.value = listOf()
-        similarMovies.value = listOf()
-        recommendedMovies.value = listOf()
-    }
-
-
+    /*
+        Through the film id , it retrieves the details and checks if the film is part of a collection.
+        If it is successful, it initializes the variable containing the parts of the collection
+     */
     private fun getMovieDetails(movieId: Int) {
         movieRepository.getMovieDetails(movieId)
-            .mapLatest { currentMovie ->
-                _selectedMovie.postValue(currentMovie)
+            .mapLatest { movie ->
+                _selectedMovie.tryEmit(movie)
+                checkIfMovieIsAPartOfACollection(movie.belongs_to_collection)
             }
             .launchIn(viewModelScope)
     }
 
+    private fun checkIfMovieIsAPartOfACollection(
+        belongs_to_collection: Collection?
+    ) {
+        if (belongs_to_collection != null)
+            getMoviesBelongCollection(belongs_to_collection.id)
+    }
+
+    val similarMovies = combine(
+        selectedMovie
+    ) { (query) ->
+        SelectedMovie(query)
+    }.flatMapLatest {
+        movieRepository.getSimilarMovies(it.movie.id)
+    }
+
+    val recommendedMovies = combine(
+        selectedMovie
+    ) { (query) ->
+        SelectedMovie(query)
+    }.flatMapLatest {
+        movieRepository.getRecommendedMovies(it.movie.id)
+    }
+
+    val videos = combine(
+        selectedMovie
+    ) { (query) ->
+        SelectedMovie(query)
+    }.flatMapLatest {
+        movieRepository.getVideos(it.movie.id)
+    }
+
+    val posters = combine(
+        selectedMovie
+    ) { (query) ->
+        SelectedMovie(query)
+    }.flatMapLatest {
+        movieRepository.getPosters(it.movie.id)
+    }
+
+    val backdrops = combine(
+        selectedMovie
+    ) { (query) ->
+        SelectedMovie(query)
+    }.flatMapLatest {
+        movieRepository.getBackdrops(it.movie.id)
+    }
+
+    val cast = combine(
+        selectedMovie
+    ) { (query) ->
+        SelectedMovie(query)
+    }.flatMapLatest {
+        movieRepository.getMovieCast(it.movie.id)
+    }
+
+    val crew = combine(
+        selectedMovie
+    ) { (query) ->
+        SelectedMovie(query)
+    }.flatMapLatest {
+        movieRepository.getMovieCrew(it.movie.id)
+    }
+
+
+    private fun getMoviesBelongCollection(collectionId: Int) = viewModelScope.launch {
+        movieRepository.getCollection(collectionId).collect {
+            partsOfCollection.value = it.parts
+        }
+    }
+
 
 }
+
+private data class SelectedMovie(val movie: Movie)

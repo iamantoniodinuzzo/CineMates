@@ -20,20 +20,12 @@ constructor(
     private val queryMap: HashMap<String, String>
 ) {
 
-
-    fun getPopularMovies(): Flow<List<Movie>> = flow {
-        val popular = movieService.getPopular(queryMap).results
-        emit(popular)
-    }
-
-    fun getTopRatedMovies(): Flow<List<Movie>> = flow {
-        val topRated = movieService.getTopRated(queryMap).results
-        emit(topRated)
-    }
-
-    fun getUpcomingMovies(): Flow<List<Movie>> = flow {
-        val upcoming = movieService.getUpcoming(queryMap).results
-        emit(upcoming)
+    /**
+     * Get Popular,TopRated and Upcoming movies
+     */
+    fun getSpecificMovieList(specification: String) = flow {
+        val movieList = movieService.getListOfSpecificMovies(specification, queryMap).results
+        emit(movieList)
     }
 
     fun getGenreList(): Flow<List<Genre>> = flow {
@@ -125,9 +117,9 @@ constructor(
     fun isMovieFavorite(id: Int) = movieDao.isFavorite(id)
     fun isMovieToSee(id: Int) = movieDao.isToSee(id)
     fun isMovieSeen(id: Int) = movieDao.isSeen(id)
-    fun insertMovie(movie: Movie) = movieDao.insert(movie)
-    fun updateMovie(movie: Movie) = movieDao.update(movie)
-    fun deleteMovie(movie: Movie) = movieDao.delete(movie)
+    suspend fun insertMovie(movie: Movie) = movieDao.insert(movie)
+    suspend fun updateMovie(movie: Movie) = movieDao.update(movie)
+    suspend fun deleteMovie(movie: Movie) = movieDao.delete(movie)
 
 
 }

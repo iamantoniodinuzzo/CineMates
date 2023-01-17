@@ -32,6 +32,7 @@ constructor(
         replay = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
+
     val selectedMovie: Flow<Movie> = _selectedMovie.distinctUntilChanged()
 
     val partsOfCollection: MutableStateFlow<List<Movie>> = MutableStateFlow(emptyList())
@@ -126,7 +127,6 @@ constructor(
             partsOfCollection.value = it.parts
         }
     }
-
 
 }
 

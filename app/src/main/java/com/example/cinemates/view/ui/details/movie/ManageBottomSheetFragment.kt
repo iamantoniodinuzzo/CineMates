@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.cinemates.databinding.FragmentManageBottomsheetBinding
 import com.example.cinemates.model.Movie
 import com.example.cinemates.model.PersonalStatus
 import com.example.cinemates.view.dbviewmodel.DbMovieViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /**
  * @author Antonio Di Nuzzo
@@ -23,8 +26,8 @@ class ManageBottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentManageBottomsheetBinding? = null
     private val binding: FragmentManageBottomsheetBinding
         get() = _binding!!
-    private val dbViewModel: DbMovieViewModel by viewModels()
-    private val movieViewModel: MovieDetailsViewModel by viewModels()
+    private val dbViewModel: DbMovieViewModel by activityViewModels()
+    private val movieViewModel: MovieDetailsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,47 +49,44 @@ class ManageBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            /*Takes the movie indicated by the id, within the database.
+            * If the movie is not present then returns the movie using the one selected in the [MovieDetailsViewModel]
+             */
+            viewLifecycleOwner.lifecycleScope.launch {
+                movieViewModel.selectedMovie.collectLatest {
+                    movie = dbViewModel.getMovie(it.id) ?: it
+                }
+            }
+
             //listen selected movie changes for updating UI
-          /*  val selectedMovie = getConsistentMovie()
-            movie = selectedMovie
-
             favoriteBtn.setOnClickListener {
-                val result = dbViewModel.setAsFavorite(selectedMovie)
+                /*  val result = dbViewModel.setAsFavorite(movie)
 
-                makeResultToast(result, "Favorites")
+                  makeResultToast(result, "Favorites")*/
 
-                dismiss()
+//                dismiss()
             }
 
             watchlistBtn.setOnClickListener {
-                val result = dbViewModel.updatePersonalStatus(selectedMovie, PersonalStatus.TO_SEE)
+                dbViewModel.updatePersonalStatus(movie, PersonalStatus.TO_SEE)
 
-                makeResultToast(result, "Watch list")
+//                makeResultToast(result, "Watch list")
 
-                dismiss()
+//                dismiss()
             }
 
             watchedBtn.setOnClickListener {
-                val result = dbViewModel.updatePersonalStatus(selectedMovie, PersonalStatus.SEEN)
+                dbViewModel.updatePersonalStatus(movie, PersonalStatus.SEEN)
 
-                makeResultToast(result, "Watched list")
+//                makeResultToast(result, "Watched list")
 
-                dismiss()
-            }*/
+//                dismiss()
+            }
 
 
         }
     }
 
-    /*
-     * Takes the movie indicated by the id, within the database.
-     * If the movie is not present then returns the movie using the one selected in the MovieDetailsViewModel
-     */
-  /*  private fun getConsistentMovie(): Movie? {
-        val selectedMovie = movieViewModel.selectedMovie.
-        return selectedMovie.let { dbViewModel.getMovie(it.id) } ?: selectedMovie
-        return null
-    }*/
 
     /*
      * Create a toast which, based on a boolean value outputs a user-specific message

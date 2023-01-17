@@ -2,6 +2,7 @@ package com.example.cinemates.local.dao
 
 import androidx.room.*
 import com.example.cinemates.model.Movie
+import com.example.cinemates.model.PersonalStatus
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -17,23 +18,19 @@ interface MovieDao : BaseDao<Movie> {
     @Query("SELECT * FROM movie WHERE id=:id")
     fun getById(id: Int): Movie?
 
-    @Query("SELECT * FROM movie WHERE personalStatus=1")
-    fun getToSeeMovies(): Flow<List<Movie>>
 
-    @Query("SELECT * FROM movie WHERE personalStatus=0")
-    fun getSeenMovies(): Flow<List<Movie>>
+    @Query("SELECT * FROM movie WHERE personalStatus=:personalStatus")
+    fun getMoviesWithThisPersonalStatus(personalStatus: PersonalStatus):Flow<List<Movie>>
 
     @Query("SELECT * FROM movie WHERE favorite=1")
     fun getFavoriteMovies(): Flow<List<Movie>>
 
+    @Query("SELECT EXISTS(SELECT * FROM movie WHERE id = :id AND personalStatus = :personalStatus)")
+    fun isThisPersonalStatus(id: Int, personalStatus: PersonalStatus): Boolean
+
     @Query("SELECT EXISTS(SELECT * FROM movie WHERE id = :id AND favorite = 1)")
     fun isFavorite(id: Int): Boolean
 
-    @Query("SELECT EXISTS(SELECT * FROM movie WHERE id = :id AND personalStatus = 1 )")
-    fun isToSee(id: Int): Boolean
-
-    @Query("SELECT EXISTS(SELECT * FROM movie WHERE id = :id AND personalStatus = 0)")
-    fun isSeen(id: Int): Boolean
 
 
 }

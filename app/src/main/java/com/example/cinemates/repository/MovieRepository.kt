@@ -111,14 +111,13 @@ constructor(
 
     fun getMovies() = movieDao.getAll()
     fun getMovie(id: Int) = movieDao.getById(id)
-    fun getToSeeMovies() = movieDao.getToSeeMovies()
-    fun getSeenMovies() = movieDao.getSeenMovies()
+    fun getToSeeMovies() = movieDao.getMoviesWithThisPersonalStatus(PersonalStatus.TO_SEE)
+    fun getSeenMovies() = movieDao.getMoviesWithThisPersonalStatus(PersonalStatus.SEEN)
     fun getFavoriteMovies() = movieDao.getFavoriteMovies()
     fun isMovieFavorite(id: Int) = movieDao.isFavorite(id)
-    fun isMovieToSee(id: Int) = movieDao.isToSee(id)
-    fun isMovieSeen(id: Int) = movieDao.isSeen(id)
+    fun isMovieToSee(id: Int) = movieDao.isThisPersonalStatus(id,PersonalStatus.TO_SEE)
+    fun isMovieSeen(id: Int) = movieDao.isThisPersonalStatus(id,PersonalStatus.SEEN)
     suspend fun insertMovie(movie: Movie) = movieDao.insert(movie)
-    suspend fun updateMovie(movie: Movie) = movieDao.update(movie)
     suspend fun deleteMovie(movie: Movie) = movieDao.delete(movie)
 
 

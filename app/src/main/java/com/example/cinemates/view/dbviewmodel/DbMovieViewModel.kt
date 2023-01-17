@@ -1,7 +1,5 @@
 package com.example.cinemates.view.dbviewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinemates.model.Movie
@@ -9,7 +7,6 @@ import com.example.cinemates.model.PersonalStatus
 import com.example.cinemates.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -75,8 +72,10 @@ constructor(
     fun setAsFavorite(movie: Movie): Boolean {
         val isSetAsFav = !isMyFavoriteMovie(movie)
         movie.favorite = isSetAsFav
-        insertMovie(movie)
-        deleteIfNotSignificant(movie)
+        if (!isSignificant(movie))
+            deleteMovie(movie)
+        else
+            insertMovie(movie)
         return isSetAsFav
     }
 
@@ -87,42 +86,47 @@ constructor(
      * Set and update [PersonalStatus] of the movie.
      * @return True if movie is set into a specific list, false otherwise ([PersonalStatus.EMPTY]).
      */
-    fun updatePersonalStatus(movie: Movie, status: PersonalStatus): Boolean {
-        val result = when (status) {
-            PersonalStatus.TO_SEE -> {
-                if (isMovieToSee(movie)) {
-                    movie.personalStatus = PersonalStatus.EMPTY
-                    false
-                } else {
-                    movie.personalStatus = PersonalStatus.TO_SEE
-                    true
+    fun updatePersonalStatus(movie: Movie?, status: PersonalStatus): Movie? {
+        movie?.let {
+            val result = when (status) {
+                PersonalStatus.TO_SEE -> {
+                    if (isMovieToSee(movie)) {
+                        movie.personalStatus = PersonalStatus.EMPTY
+                        movie
+                    } else {
+                        movie.personalStatus = PersonalStatus.TO_SEE
+                        movie
+                    }
                 }
-            }
-            PersonalStatus.SEEN -> {
-                if (isMovieSeen(movie)) {
-                    movie.personalStatus = PersonalStatus.EMPTY
-                    false
-                } else {
-                    movie.personalStatus = PersonalStatus.SEEN
-                    true
+                PersonalStatus.SEEN -> {
+                    if (isMovieSeen(movie)) {
+                        movie.personalStatus = PersonalStatus.EMPTY
+                        movie
+                    } else {
+                        movie.personalStatus = PersonalStatus.SEEN
+                        movie
+                    }
                 }
+                else -> movie
             }
-            else -> false
-        }
-        insertMovie(movie)
-        deleteIfNotSignificant(movie)
+            if (!isSignificant(movie))
+                deleteMovie(movie)
+            else
+                insertMovie(movie)
 
-        return result
+            return result
+        }
+        return null
+
     }
 
     /**
      * An insignificant movie is not favorite and has [PersonalStatus.EMPTY].
-     * If @param movie has both, there is no update/insert only a delete
+     * if movie has both, there is no update/insert only a delete
+     * @param movie
      */
-    private fun deleteIfNotSignificant(movie: Movie) {
-        if (!movie.favorite && movie.personalStatus == PersonalStatus.EMPTY)
-            deleteMovie(movie)
-
+    private fun isSignificant(movie: Movie): Boolean {
+        return movie.favorite && movie.personalStatus != PersonalStatus.EMPTY
     }
 
 

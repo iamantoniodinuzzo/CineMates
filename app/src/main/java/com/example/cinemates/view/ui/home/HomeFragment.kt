@@ -50,7 +50,6 @@ class HomeFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.movieListBySpecification.collectLatest {
-                        Log.d(TAG, "onViewCreated: received list")
                         adapter.addItems(it)
                     }
                 }

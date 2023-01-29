@@ -17,30 +17,30 @@ import com.example.cinemates.util.inflater
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class PersonAdapter : MultipleViewSizeAdapter<Person>() {
+class ActorAdapter : MultipleViewSizeAdapter<Cast>() {
 
-    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Person>() {
+    private val diffCallback = object : DiffUtil.ItemCallback<Cast>() {
 
-        override fun areItemsTheSame(oldItem: Person, newItem: Person): Boolean {
+        override fun areItemsTheSame(oldItem: Cast, newItem: Cast): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Person, newItem: Person): Boolean {
+        override fun areContentsTheSame(oldItem: Cast, newItem: Cast): Boolean {
             return oldItem == newItem
         }
 
     }
-    private val dataList = AsyncListDiffer(this, DIFF_CALLBACK)
+    private val dataList = AsyncListDiffer(this, diffCallback)
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorViewHolder {
         return when (viewSize) {
-            ViewSize.LONG -> PersonLongViewHolder(parent inflater ListItemPersonLongBinding::inflate)
-            ViewSize.SMALL -> PersonSmallViewHolder(parent inflater ListItemPersonSmallBinding::inflate)
+            ViewSize.LONG -> ActorLongViewHolder(parent inflater ListItemPersonLongBinding::inflate)
+            ViewSize.SMALL -> ActorSmallViewHolder(parent inflater ListItemPersonSmallBinding::inflate)
         }
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<Person>, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder<Cast>, position: Int) {
         holder.bind(dataList.currentList[position])
     }
 
@@ -48,27 +48,27 @@ class PersonAdapter : MultipleViewSizeAdapter<Person>() {
         return dataList.currentList.size
     }
 
-    override fun addItems(items: List<Person>) {
+    override fun addItems(items: List<Cast>) {
         dataList.submitList(items)
     }
 
-    abstract inner class PersonViewHolder(
+    abstract inner class ActorViewHolder(
         binding: ViewDataBinding
-    ) : BaseViewHolder<Person>(binding) {
+    ) : BaseViewHolder<Cast>(binding) {
 
-        abstract override fun bind(items: Person)
-        protected fun onClick(view: View, person: Person) {
+        abstract override fun bind(items: Cast)
+        protected fun onClick(view: View, person: Cast) {
             val action = NavGraphDirections.actionGlobalActorDetailsFragment(person)
             Navigation.findNavController(view).navigate(action)
         }
     }
 
-    inner class PersonLongViewHolder(
+    inner class ActorLongViewHolder(
         private val binding: ListItemPersonLongBinding,
-    ) : PersonViewHolder(binding) {
-        override fun bind(items: Person) {
+    ) : ActorViewHolder(binding) {
+        override fun bind(items: Cast) {
             binding.apply {
-                actor = items as Cast
+                actor = items
                 executePendingBindings()
                 root.setOnClickListener { view ->
                     onClick(view, items)
@@ -77,10 +77,10 @@ class PersonAdapter : MultipleViewSizeAdapter<Person>() {
         }
     }
 
-    inner class PersonSmallViewHolder(
+    inner class ActorSmallViewHolder(
         private val binding: ListItemPersonSmallBinding,
-    ) : PersonViewHolder(binding) {
-        override fun bind(items: Person) {
+    ) : ActorViewHolder(binding) {
+        override fun bind(items: Cast) {
             binding.apply {
                 person = items
                 executePendingBindings()

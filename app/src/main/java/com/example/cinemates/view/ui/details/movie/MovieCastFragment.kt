@@ -3,16 +3,16 @@ package com.example.cinemates.view.ui.details.movie
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cinemates.view.ui.adapter.PersonAdapter
+import com.example.cinemates.model.Cast
+import com.example.cinemates.view.ui.adapter.ActorAdapter
 import com.example.cinemates.model.Person
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.ui.ListFragment
 import kotlinx.coroutines.flow.collectLatest
 
-class MovieCastFragment : ListFragment<Person, PersonAdapter>(PersonAdapter()) {
+class MovieCastFragment : ListFragment<Cast, ActorAdapter>(ActorAdapter()) {
 
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 

@@ -74,8 +74,8 @@ class SectionRecyclerViewAdapter(private val lifecycleOwner: LifecycleOwner) :
 
             }
             PERSON -> {
-                val personSection = dataList[position] as Section<Person>
-                val sectionItemsPerson = PersonAdapter()
+                val personSection = dataList[position] as Section<Cast>
+                val sectionItemsPerson = ActorAdapter()
                 holder.binding.apply {
                     section = personSection
                     executePendingBindings()

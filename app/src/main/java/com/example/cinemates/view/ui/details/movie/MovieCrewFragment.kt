@@ -11,11 +11,12 @@ import com.example.cinemates.view.ui.adapter.PersonAdapter
 import com.example.cinemates.model.Person
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.ui.ListFragment
+import com.example.cinemates.view.ui.adapter.CrewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class MovieCrewFragment : ListFragment<Person, PersonAdapter>(PersonAdapter()) {
+class MovieCrewFragment : ListFragment<Crew, CrewAdapter>(CrewAdapter()) {
 
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 

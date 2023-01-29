@@ -9,7 +9,7 @@ import com.example.cinemates.view.ui.adapter.MultipleViewSizeAdapter
 import com.example.cinemates.databinding.FragmentListingItemsBinding
 
 /**
- * A fragment in which a list of items having multiple types of views.
+ * A fragment in which a list of elements is shown which have multiple views depending on the layout of the list.
  * @param T The type of objects contained in the recyclerview
  * @param A The adapter must extend [MultipleViewSizeAdapter]
  * @param adapter The adapter constructor

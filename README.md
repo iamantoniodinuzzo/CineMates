@@ -57,6 +57,11 @@ Find a file called `local.properties` in the `.gradle` file in the home director
 ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/personalization.gif) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/movie_details.gif) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/actor_details.gif) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/filterable.gif) 
 -->
 
+## 🤝 Contributing 
+Feel free to open an [Issues](https://github.com/Indisparte/CineMates/issues) or submit a [Pull requests](https://github.com/Indisparte/CineMates/pulls) for any bugs/enhancement.
+
+If you have 💡 ideas 💡 you can submit them [here].(https://github.com/Indisparte/CineMates/discussions/categories/ideas)
+
 ## 📚 Libraries
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/) 
     * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)

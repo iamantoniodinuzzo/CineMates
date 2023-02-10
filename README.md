@@ -28,7 +28,7 @@ The application **is still in its early stages** but much more mature than it wa
 
 CineMates aims to be a customizable app and my intention is to make every feature customizable by the user.
 
-I am currently working on the branch [feat/series-details](https://github.com/Indisparte/CineMates/tree/99-serie-details) in which I am integrating support for TV series by **generalizing existing designs and classes** for greater code **abstraction**.
+I am currently working on the branch [feat/series-details](https://github.com/Indisparte/CineMates/tree/99-serie-details) in which I am integrating support for TV series by **generalizing existing designs and classes** for greater code **abstraction** e design improvement.
 
 
 ## 🗝 API Key.

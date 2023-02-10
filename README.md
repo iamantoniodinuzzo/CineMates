@@ -60,6 +60,7 @@ Find a file called `local.properties` in the `.gradle` file in the home director
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/) 
     * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
     * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
+    * [Navigation Component](https://developer.android.com/guide/navigation/navigation-getting-started)
 - [Android Data Binding](https://developer.android.com/topic/libraries/data-binding/)
 - [Retrofit](http://square.github.io/retrofit/)
 - [Glide](https://github.com/bumptech/glide) 

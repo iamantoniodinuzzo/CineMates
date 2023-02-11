@@ -60,7 +60,7 @@ Find a file called `local.properties` in the `.gradle` file in the home director
 ## 🤝 Contributing 
 Feel free to open an [Issues](https://github.com/Indisparte/CineMates/issues) or submit a [Pull requests](https://github.com/Indisparte/CineMates/pulls) for any bugs/enhancement.
 
-If you have 💡 ideas 💡 you can submit them [here].(https://github.com/Indisparte/CineMates/discussions/categories/ideas)
+If you have 💡 ideas 💡 you can submit them [here](https://github.com/Indisparte/CineMates/discussions/categories/ideas).
 
 ## 📚 Libraries
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/) 

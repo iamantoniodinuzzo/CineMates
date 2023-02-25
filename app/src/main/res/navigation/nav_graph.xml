@@ -80,5 +80,22 @@
         app:destination="@id/actorDetailsFragment"
         app:popUpTo="@id/actorDetailsFragment"
         app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/tvDetailsFragment"
+        android:name="com.example.cinemates.view.ui.details.tvShow.TvDetailsFragment"
+        android:label="TvDetailsFragment"
+        tools:layout="@layout/fragment_tv_details">
+        <argument
+            android:name="tv"
+            app:argType="com.example.cinemates.model.TvShow" />
+        <action
+            android:id="@+id/action_tvDetailsFragment_to_bottomSheetFragment"
+            app:destination="@id/bottomSheetFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_tvDetailsFragment"
+        app:destination="@id/tvDetailsFragment"
+        app:popUpTo="@id/tvDetailsFragment"
+        app:popUpToInclusive="true"/>
 
 </navigation>

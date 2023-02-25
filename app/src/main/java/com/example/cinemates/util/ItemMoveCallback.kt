@@ -2,7 +2,6 @@ package com.example.cinemates.util
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemates.view.ui.adapter.SectionRecyclerViewAdapter
 
 /**
  * @author Antonio Di Nuzzo

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.example.cinemates.R
-import com.example.cinemates.view.ui.adapter.SectionRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentProfileBinding
 import com.example.cinemates.databinding.LayoutSectionStatsBinding
 import com.example.cinemates.model.Movie

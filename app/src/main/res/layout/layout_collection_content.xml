@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="collection"
+            type="com.example.cinemates.model.Collection" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:elevation="4dp"
+        android:backgroundTint="@color/lynch_90"
+        app:cardCornerRadius="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/collection_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/alabaster"
+                android:textSize="18sp"
+                android:text="@{collection.name}"
+                android:textStyle="bold"
+                tools:text="Collection title" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/collectionParts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/collection_title"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_item_movie_small" />
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -133,5 +133,9 @@ dependencies {
     //ReadMore
     implementation 'com.borjabravo:readmoretextview:2.1.0'
 
+    //Transformation Layout
+    implementation "com.github.skydoves:transformationlayout:1.1.1"
+
+
 
 }

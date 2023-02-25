@@ -18,10 +18,10 @@ class ToSeeFragment : ListFragment<Movie, MovieAdapter>(MovieAdapter()) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            dbViewModel.toSee.observe(viewLifecycleOwner){movies->
+           /* dbViewModel.toSee.observe(viewLifecycleOwner){movies->
                 adapter.addItems(movies)
                 counter=adapter.itemCount
-            }
+            }*/
         }
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,7 +9,6 @@
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,91 +18,45 @@
             android:orientation="horizontal"
             android:padding="24dp">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="0dp"
+
+            <ToggleButton
+                android:id="@+id/watched_btn"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:clickable="true"
-                android:gravity="center"
-                android:minHeight="32dp"
-                android:orientation="vertical">
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_seen_icon"
+                android:textAllCaps="false"
+                app:seen="@{movie.personalStatus}"
+                android:textColor="@color/alabaster"
+                android:textOff="Add to watched"
+                android:textOn="Added to watched" />
 
-                <ImageButton
-                    android:id="@+id/watched_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:minHeight="32dp"
-                    android:src="@drawable/ic_seen_icon"
-                    app:seen="@{movie.personalStatus}" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="12dp"
-                    android:layout_weight="1"
-                    android:text="Add to watched"
-                    android:textAlignment="center"
-                    android:textColor="@color/geyser" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="0dp"
+            <ToggleButton
+                android:id="@+id/favorite_btn"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:clickable="true"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_favorite_state"
+                android:textAllCaps="false"
+                app:isFavorite="@{movie.favorite}"
+                android:textColor="@color/alabaster"
+                android:textOff="Add to favorite"
+                android:textOn="Added to favorite" />
 
-                <ImageButton
-                    android:id="@+id/favorite_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:minHeight="32dp"
-                    android:src="@drawable/ic_favorite_state"
-                    app:isFavorite="@{movie.favorite}" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="12dp"
-                    android:layout_weight="1"
-                    android:text="Add to favorite"
-                    android:textAlignment="center"
-                    android:textColor="@color/geyser" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="0dp"
+            <ToggleButton
+                android:id="@+id/watchlist_btn"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:clickable="true"
-                android:gravity="center"
-                android:minHeight="32dp"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/watchlist_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:minHeight="32dp"
-                    android:src="@drawable/ic_watchlist_icon"
-                    app:toSee="@{movie.personalStatus}" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="12dp"
-                    android:layout_weight="1"
-                    android:text="Add to watchlist"
-                    android:textAlignment="center"
-                    android:textColor="@color/geyser" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_watchlist_icon"
+                android:textAllCaps="false"
+                app:toSee="@{movie.personalStatus}"
+                android:textColor="@color/alabaster"
+                android:textOff="Add to watch list"
+                android:textOn="Added to watch list" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

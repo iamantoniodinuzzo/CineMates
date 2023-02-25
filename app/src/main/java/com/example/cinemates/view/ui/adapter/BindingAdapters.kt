@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import com.bumptech.glide.Glide
@@ -80,24 +81,24 @@ fun loadImageLong(view: ImageView, url: String?) {
 
 }
 @BindingAdapter("isFavorite")
-fun isFavorite(view: ImageButton, value: Boolean) {
-    view.isPressed = value
+fun isFavorite(view: ToggleButton, value: Boolean) {
+    view.isChecked = value
 }
 
 @BindingAdapter("toSee")
-fun setStatusToSee(view: ImageButton, value: PersonalStatus?) {
+fun setStatusToSee(view: ToggleButton, value: PersonalStatus?) {
     if (value != null)
-        view.isPressed = (value == PersonalStatus.TO_SEE)
+        view.isChecked = (value == PersonalStatus.TO_SEE)
     else
-        view.isPressed = (value == PersonalStatus.EMPTY)
+        view.isChecked = (value == PersonalStatus.EMPTY)
 }
 
 @BindingAdapter("seen")
-fun setStatusSeen(view: ImageButton, value: PersonalStatus?) {
+fun setStatusSeen(view: ToggleButton, value: PersonalStatus?) {
     if (value != null)
-        view.isPressed = (value == PersonalStatus.SEEN)
+        view.isChecked = (value == PersonalStatus.SEEN)
     else
-        view.isPressed = (value == PersonalStatus.EMPTY)
+        view.isChecked = (value == PersonalStatus.EMPTY)
 }
 
 
@@ -130,14 +131,15 @@ fun getValue(customField: com.indisparte.linearlayoutinfo.LinearInfoView): Strin
 
 @BindingAdapter("asHtml")
 fun formatAsHtml(view: TextView, section: Section<*>?) {
-    val sectionTitle =
-        "<font color=#FAFAFA><b>" + section?.sectionName + "</b></font>"
+   /* val sectionTitle =
+        "<font color=#FAFAFA><b>" + section?.title + "</b></font>"
     var sectionDescription = ""
-    if (section?.sectionContentDescription != null) {
+   *//* if (section?.sectionContentDescription != null) {
         sectionDescription =
             " <font color=#3A55EA><small>" + section.sectionContentDescription + "</small></font>"
-    }
-    view.text = Html.fromHtml("$sectionTitle$sectionDescription", Html.FROM_HTML_MODE_COMPACT)
+    }*//*
+    view.text = Html.fromHtml("$sectionTitle$sectionDescription", Html.FROM_HTML_MODE_COMPACT)*/
+    view.text = section?.title
 }
 
 @BindingAdapter("genres")

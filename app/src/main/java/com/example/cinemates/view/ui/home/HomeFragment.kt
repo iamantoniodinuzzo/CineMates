@@ -1,139 +1,112 @@
 package com.example.cinemates.view.ui.home
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.example.cinemates.R
-import com.example.cinemates.view.ui.adapter.SectionRecyclerViewAdapter
 import com.example.cinemates.databinding.FragmentHomeBinding
-import com.example.cinemates.model.Movie
-import com.example.cinemates.model.Person
-import com.example.cinemates.model.Section
-import com.example.cinemates.model.TvShow
-import com.example.cinemates.util.ViewSize
-import com.example.cinemates.view.ui.MainActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.transition.MaterialElevationScale
+import com.example.cinemates.model.*
+import com.example.cinemates.view.ui.adapter.SectionAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.observeOn
 
 /**
- * @author Antonio Di Nuzzo
- * @author Jon Areas
- * Created 24/08/2022 at 09:03
+ *@author Antonio Di Nuzzo (Indisparte)
  */
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-
+    private val TAG = HomeFragment::class.simpleName
     private var _binding: FragmentHomeBinding? = null
-    val binding: FragmentHomeBinding
+    private val binding: FragmentHomeBinding
         get() = _binding!!
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var sectionAdapter: SectionRecyclerViewAdapter
-    private lateinit var bottomNavigationView: BottomNavigationView
-
-    // Sections
-    private val upcomingSection: Section<Movie> =
-        Section("Upcoming", "Movie", Movie::class.java, null, ViewSize.SMALL)
-    private val topRatedSection: Section<Movie> =
-        Section("Top Rated", "Movie", Movie::class.java, null, ViewSize.SMALL)
-    private val trendingSection: Section<Movie> =
-        Section("Trending this week", "Movies", Movie::class.java, null, ViewSize.SMALL)
-    private val popularTvShow: Section<TvShow> =
-        Section("Popular", "Tv Show", TvShow::class.java, null, ViewSize.SMALL)
-    private val onTheAirTvShow: Section<TvShow> =
-        Section("On The Air", "Tv Show", TvShow::class.java, null, ViewSize.SMALL)
-    private val trendingTvShowSection: Section<TvShow> =
-        Section("Trending this week", "Tv Show", TvShow::class.java, null, ViewSize.SMALL)
-    private val trendingPerson: Section<Person> =
-        Section("Trending this week", "Actors", Person::class.java, null, ViewSize.SMALL)
-    private val sectionList: List<Section<*>> =
-        listOf(
-            upcomingSection,
-            popularTvShow,
-            topRatedSection,
-            onTheAirTvShow,
-            trendingSection,
-            trendingTvShowSection,
-            trendingPerson
-        )
-
+    private lateinit var sectionMoviePopular: SectionMovie
+    private lateinit var sectionMovieTopRated: SectionMovie
+    private lateinit var sectionMovieUpcoming: SectionMovie
+    private lateinit var sectionTrendingPerson: SectionPersons
+    private lateinit var sectionTrendingMovie: SectionMovie
+    private lateinit var sectionTrendingTvShow: SectionTvShow
+    private lateinit var sectionPopularTvShow: SectionTvShow
+    private lateinit var sectionTvShowOnAir: SectionTvShow
+    private var sections: MutableList<Section<*>> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sectionAdapter = SectionRecyclerViewAdapter(this)
-        /* slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
-         slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)*/
-        setupTransitions()
-    }
-
-    private fun setupTransitions() {
-        val elevationScaleTransition = MaterialElevationScale(true)
-            .setInterpolator(FastOutSlowInInterpolator())
-        enterTransition = elevationScaleTransition
-        reenterTransition = elevationScaleTransition
+        sectionMoviePopular = SectionMovie("Movies popular", listOf())
+        sectionMovieTopRated = SectionMovie("Movies Top rated", mutableListOf())
+        sectionMovieUpcoming = SectionMovie("Movies Upcoming", mutableListOf())
+        sectionTrendingPerson = SectionPersons("Trending persons", mutableListOf())
+        sectionTrendingMovie = SectionMovie("Trending Movie", mutableListOf())
+        sectionTrendingTvShow = SectionTvShow("Trending TvShow", mutableListOf())
+        sectionPopularTvShow = SectionTvShow("Popular TvShow", mutableListOf())
+        sectionTvShowOnAir = SectionTvShow("TvShow On Air", mutableListOf())
+        sections = mutableListOf(
+            sectionMoviePopular,
+            sectionMovieUpcoming,
+            sectionTvShowOnAir,
+            sectionMovieTopRated,
+            sectionTrendingTvShow,
+            sectionTrendingPerson,
+            sectionPopularTvShow,
+            sectionTrendingMovie
+        )
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
+        // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        val appBarConfiguration = AppBarConfiguration(findNavController().graph)
-        setupWithNavController(binding.toolbar, findNavController(), appBarConfiguration)
 
         return binding.root
     }
 
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?,
-    ) {
-        postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
-        bottomNavigationView = (activity as MainActivity).binding.bottomNavigationView
-        setupListeners()
-        setupRecyclerView()
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.apply {
 
-    private fun setupListeners() = binding.run {
-        imageProfile.setOnClickListener {
-            Toast.makeText(context, "Soon", Toast.LENGTH_SHORT).show()
+
+            val adapter = SectionAdapter(sections)
+            sectionRv.adapter = adapter
+            viewModel.popularMovies.observe(requireActivity()) { popular ->
+                sectionMoviePopular.items = popular
+                adapter.notifyDataSetChanged()
+            }
+            viewModel.topRatedMovies.observe(requireActivity()) { topRated ->
+                sectionMovieTopRated.items = topRated
+                adapter.notifyDataSetChanged()
+            }
+            viewModel.upcomingMovies.observe(requireActivity()) { upcoming ->
+                sectionMovieUpcoming.items = upcoming
+                adapter.notifyDataSetChanged()
+            }
+            viewModel.trendingPerson.observe(requireActivity()) { trendingPersons ->
+                sectionTrendingPerson.items = trendingPersons
+                adapter.notifyDataSetChanged()
+            }
+            viewModel.trendingMovies.observe(requireActivity()) { trendingMovies ->
+                sectionTrendingMovie.items = trendingMovies
+                adapter.notifyDataSetChanged()
+            }
+            viewModel.trendingTvShow.observe(requireActivity()) { trendingTvShow ->
+                sectionTrendingTvShow.items = trendingTvShow
+                adapter.notifyDataSetChanged()
+            }
+            viewModel.popularTvShow.observe(requireActivity()) { popularTvShow ->
+                sectionPopularTvShow.items = popularTvShow
+                adapter.notifyDataSetChanged()
+            }
+            viewModel.tvShowOnTheAir.observe(requireActivity()) { onAir ->
+                sectionTvShowOnAir.items = onAir
+                adapter.notifyDataSetChanged()
+            }
+
         }
-
-        toolbar.setOnMenuItemClickListener {
-            if (it.itemId == R.id.searchFragment)
-                findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
-            true
-        }
     }
 
-    private fun setupRecyclerView() = binding.sectionRv.run {
-        adapter = sectionAdapter
-        initSectionedRecyclerView()
-    }
-
-    private fun initSectionedRecyclerView() {
-        sectionAdapter.addItems(sectionList)
-        upcomingSection.liveData = viewModel.upcomingMovies
-        popularTvShow.liveData = viewModel.popularTvShow
-        topRatedSection.liveData = viewModel.topRatedMovies
-        trendingSection.liveData = viewModel.trendingMovies
-        trendingTvShowSection.liveData = viewModel.trendingTvShow
-        trendingPerson.liveData = viewModel.trendingPerson
-        onTheAirTvShow.liveData = viewModel.tvShowOnTheAir
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

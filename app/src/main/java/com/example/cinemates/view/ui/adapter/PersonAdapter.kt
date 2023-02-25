@@ -1,95 +1,73 @@
 package com.example.cinemates.view.ui.adapter
 
-import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.NavGraphDirections
-import com.example.cinemates.databinding.ListItemPersonLongBinding
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
 import com.example.cinemates.model.Cast
 import com.example.cinemates.model.Person
-import com.example.cinemates.util.ViewSize
 import com.example.cinemates.util.inflater
+
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class PersonAdapter : MultipleViewSizeAdapter<Person>() {
+class PersonAdapter(private var people: List<Person>) :
+    RecyclerView.Adapter<PersonAdapter.ActorViewHolder>() {
 
-    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Person>() {
-
-        override fun areItemsTheSame(oldItem: Person, newItem: Person): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Person, newItem: Person): Boolean {
-            return oldItem == newItem
-        }
-
-    }
-    private val dataList = AsyncListDiffer(this, DIFF_CALLBACK)
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {
-        return when (viewSize) {
-            ViewSize.LONG -> PersonLongViewHolder(parent inflater ListItemPersonLongBinding::inflate)
-            ViewSize.SMALL -> PersonSmallViewHolder(parent inflater ListItemPersonSmallBinding::inflate)
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorViewHolder {
+        val view = parent inflater ListItemPersonSmallBinding::inflate
+        return ActorViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<Person>, position: Int) {
-        holder.bind(dataList.currentList[position])
+    override fun onBindViewHolder(holder: ActorViewHolder, position: Int) {
+        val person = people[position]
+        holder.bind(person)
     }
 
     override fun getItemCount(): Int {
-        return dataList.currentList.size
+        return people.size
     }
 
-    override fun addItems(items: List<Person>) {
-        dataList.submitList(items)
+    fun updateActors(newCast: List<Person>) {
+        val diffResult = DiffUtil.calculateDiff(PersonDiffCallback(people, newCast))
+        people = newCast
+        diffResult.dispatchUpdatesTo(this)
     }
 
-    abstract inner class PersonViewHolder(
-        binding: ViewDataBinding
-    ) : BaseViewHolder<Person>(binding) {
+    class ActorViewHolder(val binding: ListItemPersonSmallBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        abstract override fun bind(items: Person)
-        protected fun onClick(view: View, person: Person) {
-            val action = NavGraphDirections.actionGlobalActorDetailsFragment(person)
-            Navigation.findNavController(view).navigate(action)
-        }
-    }
-
-    inner class PersonLongViewHolder(
-        private val binding: ListItemPersonLongBinding,
-    ) : PersonViewHolder(binding) {
-        override fun bind(items: Person) {
-            binding.apply {
-                actor = items as Cast
-                executePendingBindings()
-                root.setOnClickListener { view ->
-                    onClick(view, items)
-                }
+        fun bind(actor: Person) {
+            binding.person = actor
+            binding.root.setOnClickListener {
+                val action = NavGraphDirections.actionGlobalActorDetailsFragment(actor)
+                Navigation.findNavController(it).navigate(action)
             }
         }
     }
 
-    inner class PersonSmallViewHolder(
-        private val binding: ListItemPersonSmallBinding,
-    ) : PersonViewHolder(binding) {
-        override fun bind(items: Person) {
-            binding.apply {
-                person = items
-                executePendingBindings()
-                root.setOnClickListener { view ->
-                    onClick(view, items)
-                }
-            }
+    private class PersonDiffCallback(
+        private val oldPerson: List<Person>,
+        private val newPerson: List<Person>
+    ) : DiffUtil.Callback() {
+
+        override fun getOldListSize(): Int {
+            return oldPerson.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newPerson.size
+        }
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldPerson[oldItemPosition].id == newPerson[newItemPosition].id
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldPerson[oldItemPosition] == newPerson[newItemPosition]
         }
     }
-
-
 }

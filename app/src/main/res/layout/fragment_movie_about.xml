@@ -96,22 +96,38 @@
                 android:layout_marginTop="10dp"
                 app:movie="@{movie}" />
 
-            <include
-                android:id="@+id/collection_view"
-                layout="@layout/layout_collection_cover"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
+            <com.skydoves.transformationlayout.TransformationLayout
+                android:id="@+id/transformationLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/movie_info"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                app:collection="@{movie.belongs_to_collection}" />
+                app:transformation_duration="550"
+                app:transformation_targetView="@+id/collection_content">
 
+                <include
+                    android:id="@+id/collection_cover"
+                    layout="@layout/layout_collection_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    app:collection="@{movie.belongs_to_collection}" />
+            </com.skydoves.transformationlayout.TransformationLayout>
+
+            <include
+                android:id="@+id/collection_content"
+                layout="@layout/layout_collection_content"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:visibility="gone"
+                app:collection="@{movie.belongs_to_collection}"
+                android:layout_centerInParent="true" />
 
             <TextView
                 android:id="@+id/trailer_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/collection_view"
+                android:layout_below="@id/transformationLayout"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="Trailers"
@@ -148,13 +164,13 @@
                 android:orientation="horizontal">
 
                 <include
-                    android:id="@+id/posters"
+                    android:id="@+id/posters_shower"
                     layout="@layout/list_item_poster"
                     app:counter="@{poster_counter}"
                     app:path="@{movie.poster_path}" />
 
                 <include
-                    android:id="@+id/backdrops"
+                    android:id="@+id/backdrops_shower"
                     layout="@layout/list_item_backdrop"
                     app:counter="@{backdrop_counter}"
                     app:path="@{movie.backdrop_path}" />

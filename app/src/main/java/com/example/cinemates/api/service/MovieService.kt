@@ -18,14 +18,22 @@ import retrofit2.http.QueryMap
  */
 interface MovieService {
 
-    @GET("movie/popular")
+   /* @GET("movie/popular")
     suspend fun getPopular(@QueryMap queries: HashMap<String, String>): GenericResponse<Movie>
 
     @GET("movie/upcoming")
     suspend fun getUpcoming(@QueryMap queries: HashMap<String, String>): GenericResponse<Movie>
 
     @GET("movie/top_rated")
-    suspend fun getTopRated(@QueryMap queries: HashMap<String, String>): GenericResponse<Movie>
+    suspend fun getTopRated(@QueryMap queries: HashMap<String, String>): GenericResponse<Movie>*/
+
+    /**
+     * This method generify the getPopular, getUpcoming & getTopRated
+     */
+    @GET("movie/{filter}")
+    suspend fun getListOfSpecificMovies(
+        @Path("filter") filter:String,
+        @QueryMap queryMap: HashMap<String,String>):GenericResponse<Movie>
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(

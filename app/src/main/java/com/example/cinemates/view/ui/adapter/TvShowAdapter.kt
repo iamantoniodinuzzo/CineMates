@@ -3,8 +3,10 @@ package com.example.cinemates.view.ui.adapter
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.databinding.ListItemTvLongBinding
 import com.example.cinemates.databinding.ListItemTvSmallBinding
 import com.example.cinemates.model.TvShow
@@ -15,7 +17,7 @@ import com.example.cinemates.util.inflater
  * @author Antonio Di Nuzzo (Indisparte)
  */
 class TvShowAdapter : MultipleViewSizeAdapter<TvShow>() {
-    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShow>() {
+    private val diffCallback = object : DiffUtil.ItemCallback<TvShow>() {
 
         override fun areItemsTheSame(oldItem: TvShow, newItem: TvShow): Boolean {
             return oldItem.id == newItem.id
@@ -26,7 +28,7 @@ class TvShowAdapter : MultipleViewSizeAdapter<TvShow>() {
         }
 
     }
-    private val dataList = AsyncListDiffer(this, DIFF_CALLBACK)
+    private val dataList = AsyncListDiffer(this, diffCallback)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowViewHolder {
@@ -53,9 +55,9 @@ class TvShowAdapter : MultipleViewSizeAdapter<TvShow>() {
     ) : BaseViewHolder<TvShow>(binding) {
 
         abstract override fun bind(items: TvShow)
-        protected fun onClick(view: View, movie: TvShow) {
-           /* val action = NavGraphDirections.actionGlobalMovieDetailsFragment(movie)
-            Navigation.findNavController(view).navigate(action)*/
+        protected fun onClick(view: View, tvShow: TvShow) {
+            val action = NavGraphDirections.actionGlobalTvDetailsFragment(tvShow)
+            Navigation.findNavController(view).navigate(action)
         }
     }
 

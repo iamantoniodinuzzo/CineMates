@@ -8,8 +8,12 @@ import com.example.cinemates.model.Movie
 import com.example.cinemates.model.Person
 import com.example.cinemates.repository.ActorRepository
 import com.example.cinemates.repository.MovieRepository
+import com.example.cinemates.util.Sort
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -47,6 +51,7 @@ constructor(
         searchMovies(query)
         searchActors(query)
     }
+
 
     private fun searchActors(query: String) = viewModelScope.launch {
         try {

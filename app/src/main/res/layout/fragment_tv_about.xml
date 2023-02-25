@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="tv"
+            type="com.example.cinemates.model.TvShow" />
+
+        <variable
+            name="poster_counter"
+            type="Integer" />
+
+        <variable
+            name="backdrop_counter"
+            type="Integer" />
+
+        <import type="android.view.View" />
+    </data>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".view.ui.details.movie.MovieInfoFragment">
+
+
+            <com.borjabravo.readmoretextview.ReadMoreTextView
+                android:id="@+id/readMoreTextV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/alabaster"
+                android:textSize="14sp"
+                app:colorClickableText="@color/vermilion_100"
+                app:loadText="@{tv.overview}"
+                app:trimLength="200"
+                app:trimMode="trimModeLength"
+                tools:text="@tools:sample/lorem/random" />
+
+            <TextView
+                android:id="@+id/textTitleGenres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/readMoreTextV"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Genres"
+                android:textColor="@color/geyser"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <HorizontalScrollView
+                android:id="@+id/chip_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textTitleGenres"
+                android:padding="10dp">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupGenres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:genres="@{tv.genres}"
+                    app:singleLine="true"
+                    app:singleSelection="true" />
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/textTitleInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/chip_group"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="TvShow Info"
+                android:textColor="@color/alabaster"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <include
+                android:id="@+id/tv_info"
+                layout="@layout/layout_tv_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textTitleInfo"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                app:tv="@{tv}" />
+
+
+            <TextView
+                android:id="@+id/trailer_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_info"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Trailers"
+                android:textColor="@color/alabaster"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.example.cinemates.util.RecyclerViewEmptySupport
+                android:id="@+id/trailers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/trailer_title"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_item_yt_video" />
+
+            <TextView
+                android:id="@+id/media_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/trailers"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Media"
+                android:textColor="@color/alabaster"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/media_title"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <include
+                    android:id="@+id/posters_shower"
+                    layout="@layout/list_item_poster"
+                    app:counter="@{poster_counter}"
+                    app:path="@{tv.poster_path}" />
+
+                <include
+                    android:id="@+id/backdrops_shower"
+                    layout="@layout/list_item_backdrop"
+                    app:counter="@{backdrop_counter}"
+                    app:path="@{tv.backdrop_path}" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

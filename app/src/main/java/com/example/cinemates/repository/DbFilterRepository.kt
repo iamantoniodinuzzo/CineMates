@@ -12,6 +12,6 @@ constructor(
 ) {
 
     fun getFilters() = filterDao.getAll()
-    fun insertFilter(filter: Filter) = filterDao.insert(filter)
-    fun deleteFilter(filter: Filter) = filterDao.delete(filter)
+   suspend fun insertFilter(filter: Filter) = filterDao.insert(filter)
+   suspend fun deleteFilter(filter: Filter) = filterDao.delete(filter)
 }

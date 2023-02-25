@@ -35,9 +35,9 @@ class MainActivity : AppCompatActivity() {
         setupNavigation()
 
         val networkConnection = NetworkConnection(applicationContext)
-        networkConnection.observe(this, Observer { isConnected ->
+        networkConnection.observe(this) { isConnected ->
             binding.noInternet.isVisible = !isConnected
-        })
+        }
     }
 
     private fun setupNavigation() = binding.bottomNavigationView.run {

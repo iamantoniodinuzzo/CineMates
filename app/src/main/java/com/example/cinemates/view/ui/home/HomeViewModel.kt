@@ -1,9 +1,9 @@
 package com.example.cinemates.view.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.annotation.StringRes
+import androidx.lifecycle.*
+import com.example.cinemates.R
 import com.example.cinemates.model.Movie
 import com.example.cinemates.model.Person
 import com.example.cinemates.model.TvShow
@@ -13,7 +13,7 @@ import com.example.cinemates.repository.TvShowRepository
 import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.TimeWindow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,8 +28,20 @@ class HomeViewModel
 constructor(
     private val movieRepository: MovieRepository,
     private val actorRepository: ActorRepository,
-    private val tvShowRepository: TvShowRepository
+    private val tvShowRepository: TvShowRepository,
+    private val state: SavedStateHandle
 ) : ViewModel() {
+
+    init {
+        getPopularMovies()
+        getUpcomingMovies()
+        getTopRatedMovies()
+        getTrendingMovies()
+        getTrendingTvShow()
+        getPopularTvShow()
+        getTvShowOnTheAir()
+        getTrendingPerson()
+    }
 
     private val _trendingMovies = MutableLiveData<List<Movie>>()
     val trendingMovies: LiveData<List<Movie>> get() = _trendingMovies
@@ -55,22 +67,37 @@ constructor(
     private val _upcomingMovies = MutableLiveData<List<Movie>>()
     val upcomingMovies: LiveData<List<Movie>> get() = _upcomingMovies
 
-    init {
-        getTrendingMovies()
-        getTrendingTvShow()
-        getTrendingPerson()
-        getPopularMovies()
-        getPopularTvShow()
-        getTopRatedMovies()
-        getUpcomingMovies()
-        getTvShowOnTheAir()
+    private val movieListSpecification: MutableStateFlow<String> =
+        MutableStateFlow(MovieListSpecification.POPULAR.value)
+
+    companion object {
+        enum class MovieListSpecification(@StringRes val nameResource: Int, val value: String) {
+            POPULAR(R.string.chip_popular, "popular"),
+            TOP_RATED(R.string.chip_top_rated,"top_rated"),
+            UPCOMING(R.string.chip_upcoming, "upcoming")
+        }
     }
 
-    private fun getTvShowOnTheAir() = viewModelScope.launch {
+    val movieListBySpecification = combine(
+        movieListSpecification
+    ) { (query) ->
+        MovieSpecificationParam(query)
+    }.flatMapLatest {
+        movieRepository.getSpecificMovieList(it.query)
+    }
+
+    //set query in SavedStateHandle
+    fun setMovieListSpecification(query: MovieListSpecification) {
+        state["query"] = query.value
+        movieListSpecification.value =
+            state.getLiveData("query", MovieListSpecification.POPULAR.value).value.toString()
+    }
+
+    fun getTvShowOnTheAir() = viewModelScope.launch {
         try {
             tvShowRepository.getOnTheAir().collectLatest { tvShow ->
 
-                _tvShowOnTheAir.postValue(tvShow)
+                _tvShowOnTheAir.value = tvShow
 
             }
         } catch (throwable: Throwable) {
@@ -112,7 +139,7 @@ constructor(
                 TimeWindow.WEEK.toString()
             ).collectLatest { movies ->
 
-                _trendingMovies.postValue(movies)
+                _trendingMovies.value = movies
 
             }
         } catch (throwable: Throwable) {
@@ -138,11 +165,11 @@ constructor(
 
     private fun getPopularMovies() = viewModelScope.launch {
         try {
-            movieRepository.getPopularMovies().collectLatest { movies ->
+            movieRepository.getSpecificMovieList(MovieListSpecification.POPULAR.value)
+                .collectLatest { movies ->
+                    _popularMovies.postValue(movies)
 
-                _popularMovies.postValue(movies)
-
-            }
+                }
         } catch (throwable: Throwable) {
             throwable.printStackTrace()
         }
@@ -151,11 +178,12 @@ constructor(
 
     private fun getTopRatedMovies() = viewModelScope.launch {
         try {
-            movieRepository.getTopRatedMovies().collectLatest { movies ->
+            movieRepository.getSpecificMovieList(MovieListSpecification.TOP_RATED.value)
+                .collectLatest { movies ->
 
-                _topRatedMovies.postValue(movies)
+                    _topRatedMovies.postValue(movies)
 
-            }
+                }
         } catch (throwable: Throwable) {
             throwable.printStackTrace()
         }
@@ -164,11 +192,12 @@ constructor(
 
     private fun getUpcomingMovies() = viewModelScope.launch {
         try {
-            movieRepository.getUpcomingMovies().collectLatest { movies ->
+            movieRepository.getSpecificMovieList(MovieListSpecification.UPCOMING.value)
+                .collectLatest { movies ->
 
-                _upcomingMovies.postValue(movies)
+                    _upcomingMovies.postValue(movies)
 
-            }
+                }
         } catch (throwable: Throwable) {
             throwable.printStackTrace()
         }
@@ -176,4 +205,8 @@ constructor(
     }
 
 }
+
+data class MovieSpecificationParam(
+    val query: String
+)
 

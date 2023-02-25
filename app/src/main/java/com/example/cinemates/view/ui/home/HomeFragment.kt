@@ -1,25 +1,16 @@
 package com.example.cinemates.view.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.example.cinemates.databinding.FragmentHomeBinding
-import com.example.cinemates.model.Movie
-import com.example.cinemates.model.Section
-import com.example.cinemates.model.SectionMovie
-import com.example.cinemates.view.ui.adapter.MovieAdapter
+import com.example.cinemates.model.*
 import com.example.cinemates.view.ui.adapter.SectionAdapter
-import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.observeOn
 
 /**
  *@author Antonio Di Nuzzo (Indisparte)
@@ -34,6 +25,11 @@ class HomeFragment : Fragment() {
     private lateinit var sectionMoviePopular: SectionMovie
     private lateinit var sectionMovieTopRated: SectionMovie
     private lateinit var sectionMovieUpcoming: SectionMovie
+    private lateinit var sectionTrendingPerson: SectionPersons
+    private lateinit var sectionTrendingMovie: SectionMovie
+    private lateinit var sectionTrendingTvShow: SectionTvShow
+    private lateinit var sectionPopularTvShow: SectionTvShow
+    private lateinit var sectionTvShowOnAir: SectionTvShow
     private var sections: MutableList<Section<*>> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +37,21 @@ class HomeFragment : Fragment() {
         sectionMoviePopular = SectionMovie("Movies popular", listOf())
         sectionMovieTopRated = SectionMovie("Movies Top rated", mutableListOf())
         sectionMovieUpcoming = SectionMovie("Movies Upcoming", mutableListOf())
-        sections = mutableListOf(sectionMoviePopular, sectionMovieUpcoming, sectionMovieTopRated)
+        sectionTrendingPerson = SectionPersons("Trending persons", mutableListOf())
+        sectionTrendingMovie = SectionMovie("Trending Movie", mutableListOf())
+        sectionTrendingTvShow = SectionTvShow("Trending TvShow", mutableListOf())
+        sectionPopularTvShow = SectionTvShow("Popular TvShow", mutableListOf())
+        sectionTvShowOnAir = SectionTvShow("TvShow On Air", mutableListOf())
+        sections = mutableListOf(
+            sectionMoviePopular,
+            sectionMovieUpcoming,
+            sectionTvShowOnAir,
+            sectionMovieTopRated,
+            sectionTrendingTvShow,
+            sectionTrendingPerson,
+            sectionPopularTvShow,
+            sectionTrendingMovie
+        )
     }
 
     override fun onCreateView(
@@ -73,7 +83,26 @@ class HomeFragment : Fragment() {
                 sectionMovieUpcoming.items = upcoming
                 adapter.notifyDataSetChanged()
             }
-
+            viewModel.trendingPerson.observe(requireActivity()) { trendingPersons ->
+                sectionTrendingPerson.items = trendingPersons
+                adapter.notifyDataSetChanged()
+            }
+            viewModel.trendingMovies.observe(requireActivity()) { trendingMovies ->
+                sectionTrendingMovie.items = trendingMovies
+                adapter.notifyDataSetChanged()
+            }
+            viewModel.trendingTvShow.observe(requireActivity()) { trendingTvShow ->
+                sectionTrendingTvShow.items = trendingTvShow
+                adapter.notifyDataSetChanged()
+            }
+            viewModel.popularTvShow.observe(requireActivity()) { popularTvShow ->
+                sectionPopularTvShow.items = popularTvShow
+                adapter.notifyDataSetChanged()
+            }
+            viewModel.tvShowOnTheAir.observe(requireActivity()) { onAir ->
+                sectionTvShowOnAir.items = onAir
+                adapter.notifyDataSetChanged()
+            }
 
         }
     }

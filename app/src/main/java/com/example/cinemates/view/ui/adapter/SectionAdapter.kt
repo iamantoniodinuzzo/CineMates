@@ -1,10 +1,7 @@
 package com.example.cinemates.view.ui.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemates.R
 import com.example.cinemates.databinding.ListItemSectionBinding
 import com.example.cinemates.model.*
 import com.example.cinemates.util.inflater
@@ -37,7 +34,7 @@ class SectionAdapter(private val sections: MutableList<Section<*>>) : RecyclerVi
         return when (sections[position]) {
             is SectionMovie -> 0
             is SectionTvShow -> 1
-            is SectionActor -> 2
+            is SectionPersons -> 2
             else -> throw IllegalArgumentException("Invalid data type")
         }
     }

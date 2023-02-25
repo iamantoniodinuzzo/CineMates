@@ -1,8 +1,10 @@
 package com.example.cinemates.view.ui.adapter
 
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.databinding.ListItemMovieSmallBinding
 import com.example.cinemates.databinding.ListItemTvSmallBinding
 import com.example.cinemates.model.Movie
@@ -41,6 +43,10 @@ class TvShow2Adapter(private var tvShows: List<TvShow>) :
 
         fun bind(tvShow: TvShow) {
             binding.tv = tvShow
+            binding.root.setOnClickListener {
+                val action = NavGraphDirections.actionGlobalTvDetailsFragment(tvShow)
+                Navigation.findNavController(it).navigate(action)
+            }
         }
     }
 

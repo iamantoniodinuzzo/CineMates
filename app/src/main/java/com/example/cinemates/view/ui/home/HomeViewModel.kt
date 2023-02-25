@@ -36,13 +36,18 @@ constructor(
         getPopularMovies()
         getUpcomingMovies()
         getTopRatedMovies()
+        getTrendingMovies()
+        getTrendingTvShow()
+        getPopularTvShow()
+        getTvShowOnTheAir()
+        getTrendingPerson()
     }
 
-    private val _trendingMovies = MutableStateFlow<List<Movie>>(emptyList())
-    val trendingMovies: Flow<List<Movie>> get() = _trendingMovies
+    private val _trendingMovies = MutableLiveData<List<Movie>>()
+    val trendingMovies: LiveData<List<Movie>> get() = _trendingMovies
 
-    private val _tvShowOnTheAir = MutableStateFlow<List<TvShow>>(emptyList())
-    val tvShowOnTheAir: Flow<List<TvShow>> get() = _tvShowOnTheAir
+    private val _tvShowOnTheAir = MutableLiveData<List<TvShow>>()
+    val tvShowOnTheAir: LiveData<List<TvShow>> get() = _tvShowOnTheAir
 
     private val _trendingTvShow = MutableLiveData<List<TvShow>>()
     val trendingTvShow: LiveData<List<TvShow>> get() = _trendingTvShow

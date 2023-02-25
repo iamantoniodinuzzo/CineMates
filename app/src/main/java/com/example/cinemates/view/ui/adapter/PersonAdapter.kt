@@ -1,18 +1,21 @@
 package com.example.cinemates.view.ui.adapter
 
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
 import com.example.cinemates.model.Cast
+import com.example.cinemates.model.Person
 import com.example.cinemates.util.inflater
 
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class Actor2Adapter(private var actors: List<Cast>) :
-    RecyclerView.Adapter<Actor2Adapter.ActorViewHolder>() {
+class PersonAdapter(private var people: List<Person>) :
+    RecyclerView.Adapter<PersonAdapter.ActorViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorViewHolder {
         val view = parent inflater ListItemPersonSmallBinding::inflate
@@ -20,47 +23,51 @@ class Actor2Adapter(private var actors: List<Cast>) :
     }
 
     override fun onBindViewHolder(holder: ActorViewHolder, position: Int) {
-        val movie = actors[position]
-        holder.bind(movie)
+        val person = people[position]
+        holder.bind(person)
     }
 
     override fun getItemCount(): Int {
-        return actors.size
+        return people.size
     }
 
-    fun updateActors(newCast: List<Cast>) {
-        val diffResult = DiffUtil.calculateDiff(CastDiffCallback(actors, newCast))
-        actors = newCast
+    fun updateActors(newCast: List<Person>) {
+        val diffResult = DiffUtil.calculateDiff(PersonDiffCallback(people, newCast))
+        people = newCast
         diffResult.dispatchUpdatesTo(this)
     }
 
     class ActorViewHolder(val binding: ListItemPersonSmallBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(actor: Cast) {
+        fun bind(actor: Person) {
             binding.person = actor
+            binding.root.setOnClickListener {
+                val action = NavGraphDirections.actionGlobalActorDetailsFragment(actor)
+                Navigation.findNavController(it).navigate(action)
+            }
         }
     }
 
-    private class CastDiffCallback(
-        private val oldMovies: List<Cast>,
-        private val newMovies: List<Cast>
+    private class PersonDiffCallback(
+        private val oldPerson: List<Person>,
+        private val newPerson: List<Person>
     ) : DiffUtil.Callback() {
 
         override fun getOldListSize(): Int {
-            return oldMovies.size
+            return oldPerson.size
         }
 
         override fun getNewListSize(): Int {
-            return newMovies.size
+            return newPerson.size
         }
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldMovies[oldItemPosition].id == newMovies[newItemPosition].id
+            return oldPerson[oldItemPosition].id == newPerson[newItemPosition].id
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldMovies[oldItemPosition] == newMovies[newItemPosition]
+            return oldPerson[oldItemPosition] == newPerson[newItemPosition]
         }
     }
 }

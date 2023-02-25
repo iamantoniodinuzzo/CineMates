@@ -32,4 +32,17 @@ data class TvShow(
     val type: String,
     val vote_average: Double,
     val vote_count: Int
-):java.io.Serializable
+):java.io.Serializable{
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is TvShow) return false
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id
+    }
+}

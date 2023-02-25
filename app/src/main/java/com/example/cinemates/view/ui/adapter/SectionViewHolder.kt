@@ -1,12 +1,10 @@
 package com.example.cinemates.view.ui.adapter
 
-import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemates.R
 import com.example.cinemates.databinding.ListItemSectionBinding
-import com.example.cinemates.model.SectionActor
+import com.example.cinemates.model.SectionPersons
 import com.example.cinemates.model.SectionMovie
 import com.example.cinemates.model.SectionTvShow
 
@@ -40,7 +38,7 @@ class SectionTvViewHolder(binding: ListItemSectionBinding) : SectionViewHolder(b
         binding.section = section
 
         recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = TvShow2Adapter(section.items)
         }
     }
@@ -48,12 +46,12 @@ class SectionTvViewHolder(binding: ListItemSectionBinding) : SectionViewHolder(b
 
 class SectionActorViewHolder(binding: ListItemSectionBinding) : SectionViewHolder(binding) {
     override fun bind(section: Any) {
-        section as SectionActor
+        section as SectionPersons
         binding.section = section
 
         recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = Actor2Adapter(section.items)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = PersonAdapter(section.items)
         }
     }
 }

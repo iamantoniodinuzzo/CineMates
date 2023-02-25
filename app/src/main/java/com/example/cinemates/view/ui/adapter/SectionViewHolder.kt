@@ -25,7 +25,7 @@ class SectionMovieViewHolder(binding: ListItemSectionBinding) : SectionViewHolde
 
     override fun bind(section: Any) {
         section as SectionMovie
-        titleView.text = section.title
+        binding.section = section
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -37,7 +37,7 @@ class SectionMovieViewHolder(binding: ListItemSectionBinding) : SectionViewHolde
 class SectionTvViewHolder(binding: ListItemSectionBinding) : SectionViewHolder(binding) {
     override fun bind(section: Any) {
         section as SectionTvShow
-        titleView.text = section.title
+        binding.section = section
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
@@ -49,7 +49,7 @@ class SectionTvViewHolder(binding: ListItemSectionBinding) : SectionViewHolder(b
 class SectionActorViewHolder(binding: ListItemSectionBinding) : SectionViewHolder(binding) {
     override fun bind(section: Any) {
         section as SectionActor
-        titleView.text = section.title
+        binding.section = section
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)

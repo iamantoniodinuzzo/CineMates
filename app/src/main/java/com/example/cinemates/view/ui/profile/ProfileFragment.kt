@@ -33,7 +33,7 @@ class ProfileFragment : Fragment() {
     private val dbMovieViewModel: DbMovieViewModel by activityViewModels()
     private val dbPersonViewModel: DbPersonViewModel by activityViewModels()
 
-    private lateinit var adapter: SectionRecyclerViewAdapter
+    /*private lateinit var adapter: SectionRecyclerViewAdapter
 
     //Sections
     private val movieSection: Section<Movie> =
@@ -41,12 +41,12 @@ class ProfileFragment : Fragment() {
     private val personSection: Section<Person> =
         Section("Favorites", "Actors", Person::class.java, null, ViewSize.SMALL)
     private val sectionList: List<Section<*>> =
-        listOf(movieSection, personSection)
+        listOf(movieSection, personSection)*/
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = SectionRecyclerViewAdapter(this)
+//        adapter = SectionRecyclerViewAdapter(this)
         enterTransition = MaterialFadeThrough()
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
             interpolator = FastOutSlowInInterpolator()
@@ -68,15 +68,15 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            recyclerView.adapter = adapter
-            adapter.addItems(sectionList)
+          /*  recyclerView.adapter = adapter
+            adapter.addItems(sectionList)*/
 
             setCounter(statHours, "Total Hours", dbMovieViewModel.getTotalHoursOf(PersonalStatus.EMPTY))
             setCounter(statWatchedCounter, "Movies Seen", dbMovieViewModel.getSizeOf(PersonalStatus.SEEN))
             setCounter(statToSeeCounter, "Movies To See", dbMovieViewModel.getSizeOf(PersonalStatus.TO_SEE))
         }
 //        movieSection.liveData = dbMovieViewModel.favorites
-        personSection.liveData = dbPersonViewModel.persons
+//        personSection.liveData = dbPersonViewModel.persons
 
     }
 

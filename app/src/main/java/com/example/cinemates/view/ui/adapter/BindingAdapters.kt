@@ -131,14 +131,15 @@ fun getValue(customField: com.indisparte.linearlayoutinfo.LinearInfoView): Strin
 
 @BindingAdapter("asHtml")
 fun formatAsHtml(view: TextView, section: Section<*>?) {
-    val sectionTitle =
+   /* val sectionTitle =
         "<font color=#FAFAFA><b>" + section?.title + "</b></font>"
     var sectionDescription = ""
-   /* if (section?.sectionContentDescription != null) {
+   *//* if (section?.sectionContentDescription != null) {
         sectionDescription =
             " <font color=#3A55EA><small>" + section.sectionContentDescription + "</small></font>"
-    }*/
-    view.text = Html.fromHtml("$sectionTitle$sectionDescription", Html.FROM_HTML_MODE_COMPACT)
+    }*//*
+    view.text = Html.fromHtml("$sectionTitle$sectionDescription", Html.FROM_HTML_MODE_COMPACT)*/
+    view.text = section?.title
 }
 
 @BindingAdapter("genres")

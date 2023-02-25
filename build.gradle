@@ -13,7 +13,7 @@ buildscript {
         dagger_hilt = '2.42'
         dagger_hilt_compiler = '2.38.1'
         google_play = '1.8.1'
-        fragment_ktx = '1.5.2'
+        fragment_ktx = '1.5.5'
         hilt_compiler = '1.0.0'
         hilt_lifecycle = '1.0.0-alpha03'
         material = '1.6.1'

@@ -30,64 +30,18 @@
             tools:src="@tools:sample/avatars" />
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:layout_marginStart="10dp"
-        android:text="Movies"
-        android:textColor="@color/alabaster"
-        android:textSize="24sp"
-        android:textStyle="bold" />
 
-    <HorizontalScrollView
-        android:id="@+id/horizontal_chip_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:clipToPadding="false"
-        android:paddingStart="10dp">
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:selectionRequired="true"
-            app:singleSelection="true">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_popular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_popular" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_top_rated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_top_rated" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_upcoming"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_upcoming" />
-        </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
-
-
-    <com.example.cinemates.util.RecyclerViewEmptySupport
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sectionRv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/horizontal_chip_group"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
         android:clipToPadding="false"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/list_item_movie_small" />
+        tools:listitem="@layout/list_item_section" />
 
 
 </RelativeLayout>

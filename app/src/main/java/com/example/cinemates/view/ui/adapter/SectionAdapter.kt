@@ -2,19 +2,18 @@ package com.example.cinemates.view.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
 import com.example.cinemates.databinding.ListItemSectionBinding
-import com.example.cinemates.model.SectionActor
-import com.example.cinemates.model.SectionMovie
-import com.example.cinemates.model.SectionTvShow
+import com.example.cinemates.model.*
 import com.example.cinemates.util.inflater
 
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class SectionAdapter(private val sections: MutableList<Any>) : RecyclerView.Adapter<SectionViewHolder>() {
+class SectionAdapter(private val sections: MutableList<Section<*>>) : RecyclerView.Adapter<SectionViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionViewHolder {
         return when (viewType) {
@@ -43,3 +42,4 @@ class SectionAdapter(private val sections: MutableList<Any>) : RecyclerView.Adap
         }
     }
 }
+

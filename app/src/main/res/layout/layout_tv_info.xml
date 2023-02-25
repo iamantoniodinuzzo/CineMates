@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="tv"
+            type="com.example.cinemates.model.TvShow" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.indisparte.linearlayoutinfo.LinearInfoView
+            android:id="@+id/originalTitle"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content"
+            app:title="Original title"
+            app:value="@{tv.name}" />
+
+        <com.indisparte.linearlayoutinfo.LinearInfoView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content"
+            app:title="Status"
+            app:value="@{tv.status}" />
+
+
+        <com.indisparte.linearlayoutinfo.LinearInfoView
+            android:id="@+id/originalLanguage"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content"
+            app:title="Original language"
+            app:value="@{tv.original_language}" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -81,20 +81,20 @@
                 android:layout_below="@id/chip_group"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Movie Info"
+                android:text="TvShow Info"
                 android:textColor="@color/alabaster"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <include
                 android:id="@+id/tv_info"
-                layout="@layout/layout_movie_info"
+                layout="@layout/layout_tv_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textTitleInfo"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
-                app:movie="@{tv}" />
+                app:tv="@{tv}" />
 
 
             <TextView

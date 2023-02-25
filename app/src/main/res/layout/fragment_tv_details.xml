@@ -33,7 +33,7 @@
                 app:expandedTitleMarginStart="10dp"
                 app:expandedTitleTextColor="@android:color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="@{tv.title}">
+                app:title="@{tv.name}">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.example.cinemates.view.ui.home
 
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.lifecycle.*
 import com.example.cinemates.R
@@ -31,11 +32,22 @@ constructor(
     private val state: SavedStateHandle
 ) : ViewModel() {
 
-    private val _trendingMovies = MutableStateFlow<List<Movie>>(emptyList())
-    val trendingMovies: Flow<List<Movie>> get() = _trendingMovies
+    init {
+        getPopularMovies()
+        getUpcomingMovies()
+        getTopRatedMovies()
+        getTrendingMovies()
+        getTrendingTvShow()
+        getPopularTvShow()
+        getTvShowOnTheAir()
+        getTrendingPerson()
+    }
 
-    private val _tvShowOnTheAir = MutableStateFlow<List<TvShow>>(emptyList())
-    val tvShowOnTheAir: Flow<List<TvShow>> get() = _tvShowOnTheAir
+    private val _trendingMovies = MutableLiveData<List<Movie>>()
+    val trendingMovies: LiveData<List<Movie>> get() = _trendingMovies
+
+    private val _tvShowOnTheAir = MutableLiveData<List<TvShow>>()
+    val tvShowOnTheAir: LiveData<List<TvShow>> get() = _tvShowOnTheAir
 
     private val _trendingTvShow = MutableLiveData<List<TvShow>>()
     val trendingTvShow: LiveData<List<TvShow>> get() = _trendingTvShow
@@ -153,9 +165,8 @@ constructor(
 
     private fun getPopularMovies() = viewModelScope.launch {
         try {
-            movieRepository.getSpecificMovieList(MovieListSpecification.POPULAR.name)
+            movieRepository.getSpecificMovieList(MovieListSpecification.POPULAR.value)
                 .collectLatest { movies ->
-
                     _popularMovies.postValue(movies)
 
                 }
@@ -167,7 +178,7 @@ constructor(
 
     private fun getTopRatedMovies() = viewModelScope.launch {
         try {
-            movieRepository.getSpecificMovieList(MovieListSpecification.TOP_RATED.name)
+            movieRepository.getSpecificMovieList(MovieListSpecification.TOP_RATED.value)
                 .collectLatest { movies ->
 
                     _topRatedMovies.postValue(movies)
@@ -181,7 +192,7 @@ constructor(
 
     private fun getUpcomingMovies() = viewModelScope.launch {
         try {
-            movieRepository.getSpecificMovieList(MovieListSpecification.UPCOMING.name)
+            movieRepository.getSpecificMovieList(MovieListSpecification.UPCOMING.value)
                 .collectLatest { movies ->
 
                     _upcomingMovies.postValue(movies)

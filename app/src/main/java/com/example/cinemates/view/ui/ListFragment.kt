@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.example.cinemates.view.ui.adapter.MultipleViewSizeAdapter
 import com.example.cinemates.databinding.FragmentListingItemsBinding
+import com.example.cinemates.view.ui.adapter.BaseAdapter
 
 /**
  * A fragment in which a list of elements is shown which have multiple views depending on the layout of the list.
@@ -15,7 +17,8 @@ import com.example.cinemates.databinding.FragmentListingItemsBinding
  * @param adapter The adapter constructor
  * @author Antonio Di Nuzzo (Indisparte)
  */
-open class ListFragment<T, A : MultipleViewSizeAdapter<T>>(var adapter: A) : Fragment() {
+open class ListFragment<T,VB : ViewDataBinding, A : BaseAdapter<T, VB>>(val adapter: A) :
+    Fragment() {
     private var _binding: FragmentListingItemsBinding? = null
     protected val binding: FragmentListingItemsBinding
         get() = _binding!!

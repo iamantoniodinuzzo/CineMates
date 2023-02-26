@@ -16,11 +16,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
-import com.example.cinemates.view.ui.adapter.MovieAdapter
 import com.example.cinemates.databinding.FragmentFilterableBinding
 import com.example.cinemates.databinding.LayoutCustomDialogRandomBinding
 import com.example.cinemates.model.Movie
 import com.example.cinemates.util.getLong
+import com.example.cinemates.view.ui.adapter.MovieAdapter
 import com.google.android.material.transition.MaterialSharedAxis
 
 class FilterableFragment : Fragment() {
@@ -65,7 +65,7 @@ class FilterableFragment : Fragment() {
             recyclerView.adapter = adapter
 
             viewModel.movies.observe(viewLifecycleOwner) { movies ->
-                adapter.addItems(movies)
+                adapter.updateItems(movies)
                 setFabVisibility(movies)
             }
 

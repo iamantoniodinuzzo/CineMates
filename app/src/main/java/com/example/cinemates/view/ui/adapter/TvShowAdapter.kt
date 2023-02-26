@@ -1,92 +1,34 @@
 package com.example.cinemates.view.ui.adapter
 
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
-import com.example.cinemates.NavGraphDirections
-import com.example.cinemates.databinding.ListItemTvLongBinding
-import com.example.cinemates.databinding.ListItemTvSmallBinding
-import com.example.cinemates.model.TvShow
-import com.example.cinemates.util.ViewSize
-import com.example.cinemates.util.inflater
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class TvShowAdapter : MultipleViewSizeAdapter<TvShow>() {
-    private val diffCallback = object : DiffUtil.ItemCallback<TvShow>() {
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
+import com.example.cinemates.NavGraphDirections
+import com.example.cinemates.R
+import com.example.cinemates.databinding.ListItemMovieSmallBinding
+import com.example.cinemates.databinding.ListItemTvSmallBinding
+import com.example.cinemates.model.Movie
+import com.example.cinemates.model.TvShow
 
-        override fun areItemsTheSame(oldItem: TvShow, newItem: TvShow): Boolean {
-            return oldItem.id == newItem.id
-        }
+class TvShowAdapter : BaseAdapter<TvShow, ListItemTvSmallBinding>(R.layout.list_item_tv_small, emptyList()) {
 
-        override fun areContentsTheSame(oldItem: TvShow, newItem: TvShow): Boolean {
-            return oldItem == newItem
-        }
-
-    }
-    private val dataList = AsyncListDiffer(this, diffCallback)
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowViewHolder {
-        return when (viewSize) {
-            ViewSize.LONG -> TvShowLongViewHolder(parent inflater ListItemTvLongBinding::inflate)
-            ViewSize.SMALL -> TvShowSmallViewHolder(parent inflater ListItemTvSmallBinding::inflate)
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = DataBindingUtil.inflate<ListItemTvSmallBinding>(inflater, itemLayoutResId, parent, false)
+        return BaseViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<TvShow>, position: Int) {
-        holder.bind(dataList.currentList[position])
-    }
-
-    override fun getItemCount(): Int {
-        return dataList.currentList.size
-    }
-
-    override fun addItems(items: List<TvShow>) {
-        dataList.submitList(items)
-    }
-
-    abstract inner class TvShowViewHolder(
-        binding: ViewDataBinding
-    ) : BaseViewHolder<TvShow>(binding) {
-
-        abstract override fun bind(items: TvShow)
-        protected fun onClick(view: View, tvShow: TvShow) {
-            val action = NavGraphDirections.actionGlobalTvDetailsFragment(tvShow)
+    override fun onBindItem(binding: ListItemTvSmallBinding, item: TvShow) {
+        binding.tv = item
+        binding.root.setOnClickListener {view->
+            val action = NavGraphDirections.actionGlobalTvDetailsFragment(item)
             Navigation.findNavController(view).navigate(action)
         }
-    }
 
-    inner class TvShowLongViewHolder(
-        private val binding: ListItemTvLongBinding,
-    ) : TvShowViewHolder(binding) {
-        override fun bind(items: TvShow) {
-            binding.apply {
-                tv = items
-                executePendingBindings()
-                root.setOnClickListener {
-                    onClick(it, items)
-                }
-            }
-        }
     }
-
-    inner class TvShowSmallViewHolder(
-        private val binding: ListItemTvSmallBinding,
-    ) : TvShowViewHolder(binding) {
-        override fun bind(items: TvShow) {
-            binding.apply {
-                tv = items
-                executePendingBindings()
-                root.setOnClickListener {
-                    onClick(it, items)
-                }
-            }
-        }
-    }
-
 }

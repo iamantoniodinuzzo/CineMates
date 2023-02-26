@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.cinemates.view.ui.adapter.MovieAdapter
+import com.example.cinemates.databinding.ListItemMovieSmallBinding
 import com.example.cinemates.model.Movie
 import com.example.cinemates.view.ui.ListFragment
+import com.example.cinemates.view.ui.adapter.MovieAdapter
 
-class MovieSimilarFragment : ListFragment<Movie, MovieAdapter>(MovieAdapter()) {
+class MovieSimilarFragment : ListFragment<Movie,ListItemMovieSmallBinding, MovieAdapter>(MovieAdapter()) {
 
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
@@ -18,7 +19,7 @@ class MovieSimilarFragment : ListFragment<Movie, MovieAdapter>(MovieAdapter()) {
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.similarMovies.collect { similar ->
-                adapter.addItems(similar)
+                adapter.updateItems(similar)
                 binding.counter = similar.size
             }
         }

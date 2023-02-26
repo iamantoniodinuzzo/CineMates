@@ -11,13 +11,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.cinemates.view.ui.adapter.MovieAdapter
-import com.example.cinemates.databinding.FragmentMovieAboutBinding
 import com.example.cinemates.databinding.FragmentTvAboutBinding
 import com.example.cinemates.view.ui.adapter.TvShowAdapter
 import com.example.cinemates.view.ui.adapter.VideoAdapter
-import com.example.cinemates.view.ui.details.movie.MovieDetailsViewModel
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class TvAboutFragment() : Fragment() {
@@ -74,7 +70,7 @@ class TvAboutFragment() : Fragment() {
                             Log.d(TAG, "onViewCreated: getting trailers")
                             showTrailerSection(trailers.isNotEmpty())
                             if (trailers.isNotEmpty()) {
-                                videoAdapter.items = trailers
+                                videoAdapter.updateItems(trailers)
                             }
                         }
                     }

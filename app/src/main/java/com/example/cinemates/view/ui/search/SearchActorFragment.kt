@@ -6,22 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.cinemates.view.ui.adapter.ActorAdapter
 import com.example.cinemates.databinding.FragmentSearchActorBinding
 import com.example.cinemates.model.Cast
 import com.example.cinemates.util.ViewSize
+import com.example.cinemates.view.ui.adapter.ActorAdapter
+import com.example.cinemates.view.ui.adapter.PersonAdapter
 
 class SearchActorFragment : Fragment() {
     private var _binding: FragmentSearchActorBinding? = null
     private val binding: FragmentSearchActorBinding
         get() = _binding!!
     private val viewModel: SearchViewModel by activityViewModels()
-    private lateinit var adapter: ActorAdapter
+    private lateinit var adapter: PersonAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = ActorAdapter()
-        adapter.viewSize = ViewSize.LONG
+        adapter = PersonAdapter()
     }
 
     override fun onCreateView(
@@ -41,7 +41,7 @@ class SearchActorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.queriedActors.observe(viewLifecycleOwner) { persons ->
-            adapter.addItems(persons as List<Cast>)
+            adapter.updateItems(persons)
         }
 
     }

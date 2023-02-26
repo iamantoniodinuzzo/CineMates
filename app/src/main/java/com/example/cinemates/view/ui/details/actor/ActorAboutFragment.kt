@@ -11,6 +11,7 @@ import com.example.cinemates.databinding.FragmentActorAboutBinding
 import com.example.cinemates.databinding.ListItemPosterBinding
 import com.example.cinemates.model.Image
 import com.example.cinemates.util.inflater
+import com.example.cinemates.view.ui.adapter.PosterAdapter
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
@@ -20,22 +21,11 @@ class ActorAboutFragment : Fragment() {
     private val binding: FragmentActorAboutBinding
         get() = _binding!!
     private val viewModel: ActorDetailsViewModel by activityViewModels()
-    private lateinit var posterAdapter: BaseAdapter<Image, ListItemPosterBinding>
+    private lateinit var posterAdapter: PosterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        posterAdapter = BaseAdapter(
-            expressionOnCreateViewHolder = { viewGroup ->
-                viewGroup inflater ListItemPosterBinding::inflate
-            },
-            expressionViewHolderBinding = { poster, binding ->
-                binding.apply {
-                    path = poster.file_path
-                    root.setOnClickListener {
-                        //TODO open download page
-                    }
-                }
-            })
+        posterAdapter = PosterAdapter()
     }
 
     override fun onCreateView(
@@ -59,7 +49,7 @@ class ActorAboutFragment : Fragment() {
                 binding.person = selectedPerson
             }
             images.observe(viewLifecycleOwner) { images ->
-                posterAdapter.dataList = images
+                posterAdapter.updateItems(images)
             }
         }
     }

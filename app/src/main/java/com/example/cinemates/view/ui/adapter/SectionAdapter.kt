@@ -1,22 +1,36 @@
 package com.example.cinemates.view.ui.adapter
 
+import android.graphics.Color
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cinemates.CineMatesApp
 import com.example.cinemates.databinding.ListItemSectionBinding
 import com.example.cinemates.model.*
+import com.example.cinemates.util.VibrationUtils
 import com.example.cinemates.util.inflater
+import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.*
 
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class SectionAdapter(private val sections: MutableList<Section<*>>) : RecyclerView.Adapter<SectionViewHolder>() {
+class SectionAdapter(
+    private val sections: MutableList<Section<*>>,
+    private val dragListener: OnStartDragListener
+) : RecyclerView.Adapter<SectionViewHolder>(), ItemTouchHelperAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionViewHolder {
         return when (viewType) {
-            0 -> SectionMovieViewHolder(parent inflater ListItemSectionBinding::inflate)
-            1 -> SectionTvViewHolder(parent inflater ListItemSectionBinding::inflate)
-            2 -> SectionActorViewHolder(parent inflater ListItemSectionBinding::inflate)
+            0 -> SectionMovieViewHolder(
+                parent inflater ListItemSectionBinding::inflate,
+                dragListener
+            )
+            1 -> SectionTvViewHolder(parent inflater ListItemSectionBinding::inflate, dragListener)
+            2 -> SectionActorViewHolder(
+                parent inflater ListItemSectionBinding::inflate,
+                dragListener
+            )
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -38,5 +52,26 @@ class SectionAdapter(private val sections: MutableList<Section<*>>) : RecyclerVi
             else -> throw IllegalArgumentException("Invalid data type")
         }
     }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
+        Collections.swap(sections, fromPosition, toPosition)
+        notifyItemMoved(fromPosition, toPosition)
+        return true
+    }
+
+    override fun onRowSelected(holder: SectionViewHolder) {
+        holder.binding.root.setBackgroundColor(Color.GRAY)
+        VibrationUtils.vibrate(100)
+    }
+
+    override fun onRowClear(holder: SectionViewHolder) {
+        holder.binding.root.setBackgroundColor(Color.TRANSPARENT)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        TODO("Not yet implemented")
+    }
+
+
 }
 

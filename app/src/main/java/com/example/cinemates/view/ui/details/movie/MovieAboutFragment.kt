@@ -11,10 +11,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.cinemates.view.ui.adapter.MovieAdapter
 import com.example.cinemates.databinding.FragmentMovieAboutBinding
+import com.example.cinemates.view.ui.adapter.MovieAdapter
 import com.example.cinemates.view.ui.adapter.VideoAdapter
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class MovieAboutFragment() : Fragment() {
@@ -71,7 +70,7 @@ class MovieAboutFragment() : Fragment() {
                             Log.d(TAG, "onViewCreated: getting trailers")
                             showTrailerSection(trailers.isNotEmpty())
                             if (trailers.isNotEmpty()) {
-                                videoAdapter.items = trailers
+                                videoAdapter.updateItems( trailers)
                             }
                         }
                     }
@@ -101,7 +100,7 @@ class MovieAboutFragment() : Fragment() {
                         viewModel.partsOfCollection.collect { parts ->
                             if (parts.isNotEmpty()) {
                                 Log.d(TAG, "onViewCreated: add parts size ${parts.size}")
-                                movieAdapter.addItems(parts)
+                                movieAdapter.updateItems(parts)
                             }
 
                         }

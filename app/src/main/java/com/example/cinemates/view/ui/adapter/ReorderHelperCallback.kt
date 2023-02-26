@@ -1,7 +1,13 @@
 package com.example.cinemates.view.ui.adapter
 
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cinemates.CineMatesApp
+import com.example.cinemates.R
 
 
 /**
@@ -30,6 +36,7 @@ class ReorderHelperCallback(val adapter: ItemTouchHelperAdapter) : ItemTouchHelp
         return true
     }
 
+
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
         if (actionState !== ItemTouchHelper.ACTION_STATE_IDLE) {
             if (viewHolder is SectionViewHolder) {
@@ -50,9 +57,62 @@ class ReorderHelperCallback(val adapter: ItemTouchHelperAdapter) : ItemTouchHelp
         }
     }
 
+    override fun onChildDraw(
+        c: Canvas,
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder,
+        dX: Float,
+        dY: Float,
+        actionState: Int,
+        isCurrentlyActive: Boolean
+    ) {
+        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+
+        val itemView = viewHolder.itemView
+        val background = ColorDrawable(Color.RED)
+        val intrinsicWidth = background.intrinsicWidth
+        val intrinsicHeight = background.intrinsicHeight
+
+        // Draw the red background for the delete action.
+        if (dX > 0) {
+            background.setBounds(
+                itemView.left,
+                itemView.top,
+                itemView.left + dX.toInt() + intrinsicWidth,
+                itemView.bottom
+            )
+        } else {
+            background.setBounds(
+                itemView.right + dX.toInt() - intrinsicWidth,
+                itemView.top,
+                itemView.right,
+                itemView.bottom
+            )
+        }
+        background.draw(c)
+
+        // Draw the delete icon on top of the red background.
+        val deleteIcon =
+            ContextCompat.getDrawable(CineMatesApp.getContext(), R.drawable.ic_baseline_delete_24)!!
+        val deleteIconMargin = (itemView.height - deleteIcon.intrinsicHeight) / 2
+        val deleteIconTop = itemView.top + (itemView.height - deleteIcon.intrinsicHeight) / 2
+        val deleteIconBottom = deleteIconTop + deleteIcon.intrinsicHeight
+        if (dX > 0) {
+            val deleteIconLeft = itemView.left + deleteIconMargin
+            val deleteIconRight = itemView.left + deleteIconMargin + deleteIcon.intrinsicWidth
+            deleteIcon.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
+        } else {
+            val deleteIconLeft = itemView.right - deleteIconMargin - deleteIcon.intrinsicWidth
+            val deleteIconRight = itemView.right - deleteIconMargin
+            deleteIcon.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
+        }
+        deleteIcon.draw(c)
+    }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        TODO("Not yet implemented")
+        // Remove the item from the adapter's dataset.
+        val position = viewHolder.adapterPosition
+        adapter.removeItem(position)
     }
 
 }
@@ -80,7 +140,6 @@ interface ItemTouchHelperAdapter {
      * @param toPosition   Then resolved position of the moved item.
      * @return True if the item was moved to the new adapter position.
      *
-     *
      * see RecyclerView#getAdapterPositionFor(RecyclerView.ViewHolder)
      * see RecyclerView.ViewHolder#getAdapterPosition()
      */
@@ -90,12 +149,10 @@ interface ItemTouchHelperAdapter {
     /**
      * Called when an item has been dismissed by a swipe.<br></br>
      * <br></br>
-     * Implementations should call {link RecyclerView.Adapter#notifyItemRemoved(int)} after
+     * Implementations should call {link RecyclerView.Adapter#notifyItemRemoved(int)}after
      * adjusting the underlying data to reflect this removal.
      *
      * @param position The position of the item dismissed.
-     *
-     *
      * see RecyclerView#getAdapterPositionFor(RecyclerView.ViewHolder)
      * see RecyclerView.ViewHolder#getAdapterPosition()
      */
@@ -103,4 +160,5 @@ interface ItemTouchHelperAdapter {
 
     fun onRowSelected(holder: SectionViewHolder)
     fun onRowClear(holder: SectionViewHolder)
+    fun removeItem(position: Int)
 }

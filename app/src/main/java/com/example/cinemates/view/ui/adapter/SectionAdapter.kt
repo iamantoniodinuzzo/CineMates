@@ -8,6 +8,8 @@ import com.example.cinemates.databinding.ListItemSectionBinding
 import com.example.cinemates.model.*
 import com.example.cinemates.util.VibrationUtils
 import com.example.cinemates.util.inflater
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.youtube.player.internal.v
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
 
@@ -70,6 +72,11 @@ class SectionAdapter(
 
     override fun onItemDismiss(position: Int) {
         TODO("Not yet implemented")
+    }
+
+    override fun removeItem(position: Int) {
+        //TODO Cause IndexOutOfBoundException
+        sections.removeAt(position)
     }
 
 

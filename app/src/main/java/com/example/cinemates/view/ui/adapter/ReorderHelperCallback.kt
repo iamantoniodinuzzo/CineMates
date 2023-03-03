@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.Callback.makeMovementFlags
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.CineMatesApp
 import com.example.cinemates.R
@@ -13,13 +14,14 @@ import com.example.cinemates.R
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class ReorderHelperCallback(val adapter: ItemTouchHelperAdapter) : ItemTouchHelper.Callback() {
+class ReorderHelperCallback(val adapter: ItemTouchHelperAdapter) : ItemTouchHelper.Callback()
+{
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
         val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
-        val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
+        val swipeFlags = 0
         return makeMovementFlags(dragFlags, swipeFlags)
     }
 
@@ -57,7 +59,8 @@ class ReorderHelperCallback(val adapter: ItemTouchHelperAdapter) : ItemTouchHelp
         }
     }
 
-    override fun onChildDraw(
+    //draw red canva when swipe to right
+   /* override fun onChildDraw(
         c: Canvas,
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
@@ -81,14 +84,14 @@ class ReorderHelperCallback(val adapter: ItemTouchHelperAdapter) : ItemTouchHelp
                 itemView.left + dX.toInt() + intrinsicWidth,
                 itemView.bottom
             )
-        } else {
+        } *//*else {
             background.setBounds(
                 itemView.right + dX.toInt() - intrinsicWidth,
                 itemView.top,
                 itemView.right,
                 itemView.bottom
             )
-        }
+        }*//*
         background.draw(c)
 
         // Draw the delete icon on top of the red background.
@@ -101,18 +104,20 @@ class ReorderHelperCallback(val adapter: ItemTouchHelperAdapter) : ItemTouchHelp
             val deleteIconLeft = itemView.left + deleteIconMargin
             val deleteIconRight = itemView.left + deleteIconMargin + deleteIcon.intrinsicWidth
             deleteIcon.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
-        } else {
+        }*//* else {
             val deleteIconLeft = itemView.right - deleteIconMargin - deleteIcon.intrinsicWidth
             val deleteIconRight = itemView.right - deleteIconMargin
             deleteIcon.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
-        }
+        }*//*
         deleteIcon.draw(c)
-    }
+    }*/
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         // Remove the item from the adapter's dataset.
-        val position = viewHolder.adapterPosition
-        adapter.removeItem(position)
+      /*  val position = viewHolder.adapterPosition
+        if (direction == ItemTouchHelper.RIGHT) {
+            adapter.onItemDismiss(position)
+        }*/
     }
 
 }
@@ -160,5 +165,4 @@ interface ItemTouchHelperAdapter {
 
     fun onRowSelected(holder: SectionViewHolder)
     fun onRowClear(holder: SectionViewHolder)
-    fun removeItem(position: Int)
 }

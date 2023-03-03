@@ -71,12 +71,8 @@ class SectionAdapter(
     }
 
     override fun onItemDismiss(position: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun removeItem(position: Int) {
-        //TODO Cause IndexOutOfBoundException
-        sections.removeAt(position)
+        /*sections.removeAt(position)
+        notifyItemRemoved(position)*/
     }
 
 

@@ -81,19 +81,6 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_backdrop"
                         tools:text="Tv Show name" />
 
-                    <TextView
-                        android:id="@+id/tv_season_counter"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:text='@{"Seasons "+tv.number_of_seasons+" -Episodes"+tv.number_of_episodes}'
-                        android:textColor="@color/geyser"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/tv_poster"
-                        app:layout_constraintTop_toBottomOf="@id/tv_title"
-                        tools:text="Seasons 1 - Episodes 34" />
-
                     <com.google.android.material.chip.Chip
                         android:id="@+id/watch_providers"
                         android:layout_width="wrap_content"
@@ -111,6 +98,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"

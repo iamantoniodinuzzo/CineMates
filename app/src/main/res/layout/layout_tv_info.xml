@@ -47,6 +47,22 @@
             app:title="First air date"
             app:value="@{tv.first_air_date}" />
 
+        <com.indisparte.linearlayoutinfo.LinearInfoView
+            android:id="@+id/numberOfEpisodes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:title="Episodes"
+            app:value="@{String.valueOf(tv.number_of_episodes)}" />
+
+        <com.indisparte.linearlayoutinfo.LinearInfoView
+            android:id="@+id/numberOfSeasons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:title="Seasons"
+            app:value="@{String.valueOf(tv.number_of_seasons)}" />
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

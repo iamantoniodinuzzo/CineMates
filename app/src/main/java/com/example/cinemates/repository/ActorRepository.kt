@@ -47,6 +47,6 @@ constructor(
     fun isPersonFavorite(id: Int) = personDao.isPersonFavorite(id)
     suspend fun insertPerson(person: Person) = personDao.insert(person)
     suspend fun updatePerson(person: Person) = personDao.update(person)
-   suspend fun deletePerson(person: Person) = personDao.delete(person)
+    suspend fun deletePerson(person: Person) = personDao.delete(person)
 
 }

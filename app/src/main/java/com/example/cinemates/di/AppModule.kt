@@ -34,7 +34,7 @@ object AppModule {
             context,
             AppDatabase::class.java,
             DATABASE_NAME
-        ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration().build()
 
     @Singleton
     @Provides
@@ -48,19 +48,30 @@ object AppModule {
     @Provides
     fun providePersonDao(db: AppDatabase): PersonDao = db.personDao()
 
-
     @Singleton
     @Provides
-    fun provideQueryMap(): HashMap<String, String> {
-        val result: HashMap<String, String> = HashMap()
-        result["language"] =
-            Locale.getDefault().language
-        result["append_to_response"] = "images"
-        result["include_image_language"] =
-            Locale.getDefault().language
-        result["page"] = "1"
+    fun provideQueryMap(): Map<String, String> {
+        val result: MutableMap<String, String> = HashMap()
+
+        // Add default language parameter
+        result["language"] = Locale.getDefault().language
+
+        // Add default page parameter
+        addQueryParam(result, "page", "1")
+
+        // Add default append_to_response parameter
+        addQueryParam(result, "append_to_response", "images")
+
+        // Add default include_image_language parameter
+        addQueryParam(result, "include_image_language", Locale.getDefault().language)
 
         return result
+    }
+
+    private fun addQueryParam(queryMap: MutableMap<String, String>, key: String, value: String) {
+        if (!queryMap.containsKey(key)) {
+            queryMap[key] = value
+        }
     }
 
 }

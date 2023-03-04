@@ -29,10 +29,6 @@ constructor(
         emit(onAir)
     }
 
-    fun getGenreList(): Flow<List<Genre>> = flow {
-        val genres = tvShowService.getGenreList(queryMap).results
-        emit(genres)
-    }
 
     fun getTrendingTvShow(mediaType: String, timeWindow: String): Flow<List<TvShow>> =
         flow {

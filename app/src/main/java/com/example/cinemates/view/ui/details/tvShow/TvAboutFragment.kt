@@ -77,10 +77,12 @@ class TvAboutFragment() : Fragment() {
                     launch {
                         viewModel.selectedTv.collect {selectedTv->
                             tv = selectedTv
-                            customChipsView.setChipsList(
-                                selectedTv.genres,
-                                textGetter = { genre -> genre.name }
-                            )
+                            if (selectedTv != null) {
+                                customChipsView.setChipsList(
+                                    selectedTv.genres,
+                                    textGetter = { genre -> genre.name }
+                                )
+                            }
                         }
                     }
 

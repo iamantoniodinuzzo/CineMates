@@ -71,8 +71,8 @@ class SectionAdapter(
     }
 
     override fun onItemDismiss(position: Int) {
-        /*sections.removeAt(position)
-        notifyItemRemoved(position)*/
+        sections.removeAt(position)
+        notifyItemRemoved(position)
     }
 
 

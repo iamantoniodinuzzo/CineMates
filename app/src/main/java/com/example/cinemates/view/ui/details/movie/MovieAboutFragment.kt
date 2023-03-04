@@ -78,60 +78,55 @@ class MovieAboutFragment() : Fragment() {
                 transformationLayout.finishTransform()
             }
 
-            viewLifecycleOwner.lifecycleScope.launch {
-                lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
 
-                    launch {
-                        viewModel.selectedMovie.collect { selectedMovie ->
-                            movie = selectedMovie
-                            chipGroupGenres.setChipsList(
-                                selectedMovie.genres,
-                                textGetter = { genre -> genre.name }
-                            )
-                        }
-                    }
-
-                    launch {
-                        viewModel.videos.collect { trailers ->
-                            Log.d(TAG, "onViewCreated: getting trailers")
-                            showTrailerSection(trailers.isNotEmpty())
-                            if (trailers.isNotEmpty()) {
-                                videoAdapter.updateItems(trailers)
-                            }
-                        }
-                    }
-
-                    launch {
-                        viewModel.posters.collect { posters ->
-                            showPostersShower(posters.isNotEmpty())
-                            if (posters.isNotEmpty()) {
-                                posterCounter = posters.size
-                                postersShower.path = posters.random().file_path
-                            }
-                        }
-                    }
-
-                    launch {
-                        viewModel.backdrops.collect { backdrops ->
-                            showBackdropShower(backdrops.isNotEmpty())
-                            if (backdrops.isNotEmpty()) {
-                                backdropCounter = backdrops.size
-                                backdropsShower.path = backdrops.random().file_path
-                            }
-                        }
-                    }
-
-
-                    launch {
-                        viewModel.partsOfCollection.collect { parts ->
-                            if (parts.isNotEmpty()) {
-                                Log.d(TAG, "onViewCreated: add parts size ${parts.size}")
-                                movieAdapter.updateItems(parts)
-                            }
-
-                        }
+                viewModel.selectedMovie.collect { selectedMovie ->
+                    movie = selectedMovie
+                    if (selectedMovie != null) {
+                        chipGroupGenres.setChipsList(
+                            selectedMovie.genres,
+                            textGetter = { genre -> genre.name }
+                        )
                     }
                 }
+
+                viewModel.videos.collect { trailers ->
+                    showTrailerSection(trailers.isNotEmpty())
+                    if (trailers.isNotEmpty()) {
+                        videoAdapter.updateItems(trailers)
+                    }
+                }
+
+
+                viewModel.posters.collect { posters ->
+                    showPostersShower(posters.isNotEmpty())
+                    if (posters.isNotEmpty()) {
+                        posterCounter = posters.size
+                        postersShower.path = posters.random().file_path
+                    }
+                }
+
+
+
+                viewModel.backdrops.collect { backdrops ->
+                    showBackdropShower(backdrops.isNotEmpty())
+                    if (backdrops.isNotEmpty()) {
+                        backdropCounter = backdrops.size
+                        backdropsShower.path = backdrops.random().file_path
+                    }
+                }
+
+
+
+                viewModel.partsOfCollection.collect { parts ->
+                    if (parts.isNotEmpty()) {
+                        Log.d(TAG, "onViewCreated: add parts size ${parts.size}")
+                        movieAdapter.updateItems(parts)
+                    }
+
+                }
+
+
             }
         }
 
@@ -151,7 +146,7 @@ class MovieAboutFragment() : Fragment() {
     }
 
     // Disable ViewPager2 from intercepting touch events of RecyclerView
-    private fun enableInnerScrollViewPager(recyclerView: RecyclerView){
+    private fun enableInnerScrollViewPager(recyclerView: RecyclerView) {
         recyclerView.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener() {
             override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
                 val action = e.actionMasked

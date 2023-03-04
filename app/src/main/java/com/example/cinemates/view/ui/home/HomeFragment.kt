@@ -19,9 +19,9 @@ import kotlinx.coroutines.flow.observeOn
 /**
  *@author Antonio Di Nuzzo (Indisparte)
  */
+private val TAG = HomeFragment::class.simpleName
 @AndroidEntryPoint
 class HomeFragment : Fragment(), OnStartDragListener {
-    private val TAG = HomeFragment::class.simpleName
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding
         get() = _binding!!

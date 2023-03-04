@@ -125,6 +125,5 @@ class ActorDetailsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        viewModel.onDestroyFragment()
     }
 }

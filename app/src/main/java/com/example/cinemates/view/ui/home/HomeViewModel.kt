@@ -33,180 +33,85 @@ constructor(
 ) : ViewModel() {
 
     init {
-        getPopularMovies()
-        getUpcomingMovies()
-        getTopRatedMovies()
-        getTrendingMovies()
-        getTrendingTvShow()
-        getPopularTvShow()
-        getTvShowOnTheAir()
-        getTrendingPerson()
+        fetchData()
     }
 
-    private val _trendingMovies = MutableLiveData<List<Movie>>()
-    val trendingMovies: LiveData<List<Movie>> get() = _trendingMovies
 
-    private val _tvShowOnTheAir = MutableLiveData<List<TvShow>>()
-    val tvShowOnTheAir: LiveData<List<TvShow>> get() = _tvShowOnTheAir
+    val trendingMovies: MutableLiveData<List<Movie>> = MutableLiveData()
 
-    private val _trendingTvShow = MutableLiveData<List<TvShow>>()
-    val trendingTvShow: LiveData<List<TvShow>> get() = _trendingTvShow
+    val tvShowOnTheAir: MutableLiveData<List<TvShow>> = MutableLiveData()
 
-    private val _trendingPerson = MutableLiveData<List<Person>>()
-    val trendingPerson: LiveData<List<Person>> get() = _trendingPerson
+    val trendingTvShow: MutableLiveData<List<TvShow>> = MutableLiveData()
 
-    private val _popularMovies = MutableLiveData<List<Movie>>()
-    val popularMovies: LiveData<List<Movie>> get() = _popularMovies
+    val trendingPerson: MutableLiveData<List<Person>> = MutableLiveData()
 
-    private val _popularTvShow = MutableLiveData<List<TvShow>>()
-    val popularTvShow: LiveData<List<TvShow>> get() = _popularTvShow
+    val popularMovies: MutableLiveData<List<Movie>> = MutableLiveData()
 
-    private val _topRatedMovies = MutableLiveData<List<Movie>>()
-    val topRatedMovies: LiveData<List<Movie>> get() = _topRatedMovies
+    val popularTvShow: MutableLiveData<List<TvShow>> = MutableLiveData()
 
-    private val _upcomingMovies = MutableLiveData<List<Movie>>()
-    val upcomingMovies: LiveData<List<Movie>> get() = _upcomingMovies
+    val topRatedMovies: MutableLiveData<List<Movie>> = MutableLiveData()
 
-    private val movieListSpecification: MutableStateFlow<String> =
-        MutableStateFlow(MovieListSpecification.POPULAR.value)
+    val upcomingMovies: MutableLiveData<List<Movie>> = MutableLiveData()
 
     companion object {
         enum class MovieListSpecification(@StringRes val nameResource: Int, val value: String) {
             POPULAR(R.string.chip_popular, "popular"),
-            TOP_RATED(R.string.chip_top_rated,"top_rated"),
+            TOP_RATED(R.string.chip_top_rated, "top_rated"),
             UPCOMING(R.string.chip_upcoming, "upcoming")
         }
     }
 
-    val movieListBySpecification = combine(
-        movieListSpecification
-    ) { (query) ->
-        MovieSpecificationParam(query)
-    }.flatMapLatest {
-        movieRepository.getSpecificMovieList(it.query)
-    }
-
-    //set query in SavedStateHandle
-    fun setMovieListSpecification(query: MovieListSpecification) {
-        state["query"] = query.value
-        movieListSpecification.value =
-            state.getLiveData("query", MovieListSpecification.POPULAR.value).value.toString()
-    }
-
-    fun getTvShowOnTheAir() = viewModelScope.launch {
-        try {
-            tvShowRepository.getOnTheAir().collectLatest { tvShow ->
-
-                _tvShowOnTheAir.value = tvShow
-
-            }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
-        }
-    }
-
-    private fun getPopularTvShow() = viewModelScope.launch {
-        try {
-            tvShowRepository.getPopularTvShow().collectLatest { tvShow ->
-
-                _popularTvShow.postValue(tvShow)
-
-            }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
-        }
-    }
-
-    private fun getTrendingTvShow() = viewModelScope.launch {
-        try {
-            tvShowRepository.getTrendingTvShow(
-                MediaType.TV.toString(),
-                TimeWindow.WEEK.toString()
-            ).collectLatest { tvShow ->
-
-                _trendingTvShow.postValue(tvShow)
-
-            }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
-        }
-    }
-
-    private fun getTrendingMovies() = viewModelScope.launch {
-        try {
-            movieRepository.getTrendingMovies(
-                MediaType.MOVIE.toString(),
-                TimeWindow.WEEK.toString()
-            ).collectLatest { movies ->
-
-                _trendingMovies.value = movies
-
-            }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
-        }
-
-    }
-
-    private fun getTrendingPerson() = viewModelScope.launch {
-        try {
-            actorRepository.getTrendingPerson(
-                MediaType.PERSON.toString(),
-                TimeWindow.WEEK.toString()
-            ).collectLatest { people ->
-                _trendingPerson.postValue(people)
-
-            }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
-        }
-
-    }
-
-    private fun getPopularMovies() = viewModelScope.launch {
-        try {
+    private fun fetchData() {
+        viewModelScope.launch {
             movieRepository.getSpecificMovieList(MovieListSpecification.POPULAR.value)
-                .collectLatest { movies ->
-                    _popularMovies.postValue(movies)
-
+                .collectLatest { popular ->
+                    popularMovies.value = popular
                 }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
-        }
-
-    }
-
-    private fun getTopRatedMovies() = viewModelScope.launch {
-        try {
-            movieRepository.getSpecificMovieList(MovieListSpecification.TOP_RATED.value)
-                .collectLatest { movies ->
-
-                    _topRatedMovies.postValue(movies)
-
-                }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
-        }
-
-    }
-
-    private fun getUpcomingMovies() = viewModelScope.launch {
-        try {
             movieRepository.getSpecificMovieList(MovieListSpecification.UPCOMING.value)
-                .collectLatest { movies ->
-
-                    _upcomingMovies.postValue(movies)
+                .collectLatest { upcoming ->
+                    upcomingMovies.value = upcoming
+                }
+            movieRepository.getSpecificMovieList(MovieListSpecification.TOP_RATED.value)
+                .collectLatest { topRated ->
+                    topRatedMovies.value = topRated
+                }
+            movieRepository.getTrendingMovies(MediaType.MOVIE.value, TimeWindow.WEEK.value)
+                .collectLatest { trending ->
+                    trendingMovies.value = trending
+                }
+            tvShowRepository.getTrendingTvShow(MediaType.TV.value, TimeWindow.WEEK.value)
+                .collectLatest { trending ->
+                    trendingTvShow.value = trending
+                }
+            tvShowRepository.getPopularTvShow().collectLatest { popular ->
+                popularTvShow.value = popular
+            }
+            tvShowRepository.getOnTheAir().collectLatest { onTheAir ->
+                tvShowOnTheAir.value = onTheAir
+            }
+            actorRepository.getTrendingPerson(MediaType.PERSON.value, TimeWindow.WEEK.value)
+                .collectLatest { trending ->
+                    trendingPerson.value = trending
 
                 }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
         }
-
     }
+
+    /* val movieListBySpecification = combine(
+         movieListSpecification
+     ) { (query) ->
+         MovieSpecificationParam(query)
+     }.flatMapLatest {
+         movieRepository.getSpecificMovieList(it.query)
+     }
+
+     //set query in SavedStateHandle
+     fun setMovieListSpecification(query: MovieListSpecification) {
+         state["query"] = query.value
+         movieListSpecification.value =
+             state.getLiveData("query", MovieListSpecification.POPULAR.value).value.toString()
+     }
+     }*/
+
 
 }
-
-data class MovieSpecificationParam(
-    val query: String
-)
-

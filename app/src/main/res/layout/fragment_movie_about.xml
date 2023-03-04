@@ -57,22 +57,7 @@
                 android:textColor="@color/geyser"
                 android:textSize="14sp"
                 android:textStyle="bold" />
-<!--
-            <HorizontalScrollView
-                android:id="@+id/chip_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textTitleGenres"
-                android:padding="10dp">
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chipGroupGenres"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:genres="@{movie.genres}"
-                    app:singleLine="true"
-                    app:singleSelection="true" />
-            </HorizontalScrollView>-->
             <com.indisparte.horizontalchipview.HorizontalChipView
                 android:id="@+id/chiGroupGenres"
                 android:layout_width="match_parent"

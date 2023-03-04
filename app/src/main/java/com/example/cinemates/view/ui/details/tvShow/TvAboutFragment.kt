@@ -3,6 +3,7 @@ package com.example.cinemates.view.ui.details.tvShow
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -12,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_tv_about.*
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentTvAboutBinding
@@ -52,10 +54,13 @@ class TvAboutFragment() : Fragment() {
         binding.apply {
             trailers.adapter = videoAdapter
 
-            val customChipsView: com.indisparte.horizontalchipview.HorizontalChipView<Genre> = view.findViewById<com.indisparte.horizontalchipview.HorizontalChipView<Genre>>(R.id.chipGroupGenres)
+            val customChipsView: HorizontalChipView<Genre> = view.findViewById<HorizontalChipView<Genre>>(R.id.chipGroupGenres)
             customChipsView.onChipClicked = { genre ->
                 Toast.makeText(requireContext(), "Soon - Search ${genre.name} genre", Toast.LENGTH_SHORT).show()
             }
+
+            enableInnerScrollViewPager(trailers)
+
 //            collectionContent.collectionParts.adapter = movieAdapter
 
             /*   collectionCover.root.setOnClickListener {
@@ -123,6 +128,22 @@ class TvAboutFragment() : Fragment() {
             }
         }
 
+    }
+
+    // Disable ViewPager2 from intercepting touch events of RecyclerView
+    private fun enableInnerScrollViewPager(recyclerView: RecyclerView){
+        recyclerView.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener() {
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                val action = e.actionMasked
+                when (action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // Disallow ViewPager2 to intercept touch events of RecyclerView
+                        rv.parent.requestDisallowInterceptTouchEvent(true)
+                    }
+                }
+                return false
+            }
+        })
     }
 
     private fun FragmentTvAboutBinding.showBackdropShower(notEmpty: Boolean) {

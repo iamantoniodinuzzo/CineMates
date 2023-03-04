@@ -73,7 +73,7 @@
                     app:singleLine="true"
                     app:singleSelection="true" />
             </HorizontalScrollView>-->
-            <com.example.cinemates.model.HorizontalChipView
+            <com.indisparte.horizontalchipview.HorizontalChipView
                 android:id="@+id/chiGroupGenres"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

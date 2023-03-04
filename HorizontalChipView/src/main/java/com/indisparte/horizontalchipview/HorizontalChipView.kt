@@ -1,11 +1,9 @@
-package com.example.cinemates.model
+package com.indisparte.horizontalchipview
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.HorizontalScrollView
-import com.bumptech.glide.Glide.init
-import com.example.cinemates.R
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 

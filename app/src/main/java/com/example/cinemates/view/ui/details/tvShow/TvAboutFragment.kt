@@ -12,13 +12,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_tv_about.*
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentTvAboutBinding
 import com.example.cinemates.model.Genre
-import com.example.cinemates.model.HorizontalChipView
+import com.indisparte.horizontalchipview.HorizontalChipView
 import com.example.cinemates.view.ui.adapter.TvShowAdapter
 import com.example.cinemates.view.ui.adapter.VideoAdapter
 import kotlinx.coroutines.launch
@@ -54,7 +52,7 @@ class TvAboutFragment() : Fragment() {
         binding.apply {
             trailers.adapter = videoAdapter
 
-            val customChipsView: HorizontalChipView<Genre> = view.findViewById<HorizontalChipView<Genre>>(R.id.chipGroupGenres)
+            val customChipsView: com.indisparte.horizontalchipview.HorizontalChipView<Genre> = view.findViewById<com.indisparte.horizontalchipview.HorizontalChipView<Genre>>(R.id.chipGroupGenres)
             customChipsView.onChipClicked = { genre ->
                 Toast.makeText(requireContext(), "Soon - Search ${genre.name} genre", Toast.LENGTH_SHORT).show()
             }

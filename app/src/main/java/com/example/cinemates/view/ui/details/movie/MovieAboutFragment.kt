@@ -15,8 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentMovieAboutBinding
 import com.example.cinemates.model.Genre
-import com.example.cinemates.model.HorizontalChipView
-import com.example.cinemates.model.Movie
+import com.indisparte.horizontalchipview.HorizontalChipView
 import com.example.cinemates.view.ui.adapter.MovieAdapter
 import com.example.cinemates.view.ui.adapter.VideoAdapter
 import kotlinx.coroutines.launch
@@ -55,8 +54,8 @@ class MovieAboutFragment() : Fragment() {
             collectionContent.collectionParts.adapter = movieAdapter
 
 
-            val chipGroupGenres: HorizontalChipView<Genre> =
-                view.findViewById<HorizontalChipView<Genre>>(R.id.chiGroupGenres)
+            val chipGroupGenres: com.indisparte.horizontalchipview.HorizontalChipView<Genre> =
+                view.findViewById<com.indisparte.horizontalchipview.HorizontalChipView<Genre>>(R.id.chiGroupGenres)
 
             chipGroupGenres.onChipClicked = { genre ->
                 // TODO: Implement search on click of genre, open search view

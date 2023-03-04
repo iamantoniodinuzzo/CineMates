@@ -83,7 +83,7 @@
                 android:textStyle="bold"
                 android:visibility="@{person.also_known_as.empty? View.GONE:View.VISIBLE}" />
 
-            <com.example.cinemates.model.HorizontalChipView
+            <com.indisparte.horizontalchipview.HorizontalChipView
                 android:id="@+id/chipGroupKnownAs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

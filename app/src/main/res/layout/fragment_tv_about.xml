@@ -58,7 +58,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <com.example.cinemates.model.HorizontalChipView
+            <com.indisparte.horizontalchipview.HorizontalChipView
                 android:id="@+id/chipGroupGenres"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -8,14 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.cinemates.R
-import com.example.cinemates.view.ui.adapter.BaseAdapter
 import com.example.cinemates.databinding.FragmentActorAboutBinding
-import com.example.cinemates.databinding.ListItemPosterBinding
-import com.example.cinemates.model.HorizontalChipView
-import com.example.cinemates.model.Image
-import com.example.cinemates.util.inflater
+import com.indisparte.horizontalchipview.HorizontalChipView
 import com.example.cinemates.view.ui.adapter.PosterAdapter
-import com.google.android.youtube.player.internal.n
 import kotlinx.android.synthetic.main.fragment_actor_about.*
 
 /**
@@ -48,7 +43,7 @@ class ActorAboutFragment : Fragment() {
         binding.apply {
             binding.images.adapter = posterAdapter
             binding.images.setEmptyView(binding.emptyViewRecommended.root)
-            val chipsGroupKnowAs: HorizontalChipView<String> =
+            val chipsGroupKnowAs: com.indisparte.horizontalchipview.HorizontalChipView<String> =
                 view.findViewById(R.id.chipGroupKnownAs)
 
             chipsGroupKnowAs.onChipClicked = { knownAsName ->

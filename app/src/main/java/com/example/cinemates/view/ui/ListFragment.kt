@@ -4,13 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cinemates.R
-import com.example.cinemates.view.ui.adapter.MultipleViewSizeAdapter
 import com.example.cinemates.databinding.FragmentListingItemsBinding
 import com.example.cinemates.view.ui.adapter.BaseAdapter
 

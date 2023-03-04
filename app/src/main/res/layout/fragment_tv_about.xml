@@ -57,7 +57,7 @@
                 android:textColor="@color/geyser"
                 android:textSize="14sp"
                 android:textStyle="bold" />
-
+<!--
             <HorizontalScrollView
                 android:id="@+id/chip_group"
                 android:layout_width="match_parent"
@@ -72,13 +72,19 @@
                     app:genres="@{tv.genres}"
                     app:singleLine="true"
                     app:singleSelection="true" />
-            </HorizontalScrollView>
+            </HorizontalScrollView>-->
+            <com.example.cinemates.model.HorizontalChipView
+                android:id="@+id/chips_horizontal_view"
+                android:layout_width="match_parent"
+                android:layout_below="@id/textTitleGenres"
+                android:padding="10dp"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/textTitleInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/chip_group"
+                android:layout_below="@id/chips_horizontal_view"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="TvShow Info"

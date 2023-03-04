@@ -5,20 +5,26 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentMovieAboutBinding
+import com.example.cinemates.model.Genre
+import com.example.cinemates.model.HorizontalChipView
+import com.example.cinemates.model.Movie
 import com.example.cinemates.view.ui.adapter.MovieAdapter
 import com.example.cinemates.view.ui.adapter.VideoAdapter
 import kotlinx.coroutines.launch
 
+private val TAG = MovieAboutFragment::class.simpleName
+
 class MovieAboutFragment() : Fragment() {
 
-    private val TAG = MovieAboutFragment::class.simpleName
     private var _binding: FragmentMovieAboutBinding? = null
     private val binding: FragmentMovieAboutBinding
         get() = _binding!!
@@ -48,6 +54,18 @@ class MovieAboutFragment() : Fragment() {
             trailers.adapter = videoAdapter
             collectionContent.collectionParts.adapter = movieAdapter
 
+
+            val chipGroupGenres: HorizontalChipView<Genre> =
+                view.findViewById<HorizontalChipView<Genre>>(R.id.chiGroupGenres)
+            chipGroupGenres.onChipClicked = { genre ->
+                // TODO: Implement search on click of genre, open search view
+                Toast.makeText(
+                    requireContext(),
+                    "Soon - Search ${genre.name} genre",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
             collectionCover.root.setOnClickListener {
                 transformationLayout.startTransform()
             }
@@ -60,8 +78,12 @@ class MovieAboutFragment() : Fragment() {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
 
                     launch {
-                        viewModel.selectedMovie.collect {
-                            movie = it
+                        viewModel.selectedMovie.collect { selectedMovie ->
+                            movie = selectedMovie
+                            chipGroupGenres.setChipsList(
+                                selectedMovie.genres,
+                                textGetter = { genre -> genre.name }
+                            )
                         }
                     }
 
@@ -70,7 +92,7 @@ class MovieAboutFragment() : Fragment() {
                             Log.d(TAG, "onViewCreated: getting trailers")
                             showTrailerSection(trailers.isNotEmpty())
                             if (trailers.isNotEmpty()) {
-                                videoAdapter.updateItems( trailers)
+                                videoAdapter.updateItems(trailers)
                             }
                         }
                     }

@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 /**
@@ -17,7 +18,7 @@ import javax.inject.Inject
  * @author Jon Areas
  * Created 24/08/2022
  */
-
+private val TAG = MovieDetailsViewModel::class.simpleName
 @HiltViewModel
 class MovieDetailsViewModel
 @Inject
@@ -25,7 +26,7 @@ constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private val TAG = MovieDetailsViewModel::class.simpleName
+
     //It was decided to use a MutableSharedFlow rather than a MutableStateFlow
     //because the latter involves an initial value that must be set.
     private val _selectedMovie = MutableSharedFlow<Movie>(
@@ -36,7 +37,6 @@ constructor(
     val selectedMovie: Flow<Movie> = _selectedMovie.distinctUntilChanged()
 
     val partsOfCollection: MutableStateFlow<List<Movie>> = MutableStateFlow(emptyList())
-
 
 
     /**

@@ -33,6 +33,7 @@ data class TvShow(
     val vote_average: Double,
     val vote_count: Int
 ):java.io.Serializable{
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is TvShow) return false

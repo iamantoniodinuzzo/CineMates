@@ -13,6 +13,8 @@ import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
 import com.example.cinemates.view.ui.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentTvDetailsBinding
+import com.example.cinemates.model.Genre
+import com.example.cinemates.model.HorizontalChipView
 import com.example.cinemates.model.TvShow
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialSharedAxis
@@ -78,6 +80,8 @@ class TvDetailsFragment : Fragment() {
                 Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
             }
             viewModel.onDetailsFragmentReady(selectedTv.id)
+
+
             initializeViewPager()
         }
 

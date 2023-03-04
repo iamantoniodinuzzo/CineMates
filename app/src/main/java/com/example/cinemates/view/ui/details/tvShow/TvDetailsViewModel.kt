@@ -1,5 +1,6 @@
 package com.example.cinemates.view.ui.details.tvShow
 
+import android.provider.MediaStore.Audio.Genres
 import androidx.lifecycle.*
 import com.example.cinemates.model.*
 import com.example.cinemates.repository.TvShowRepository
@@ -33,6 +34,7 @@ constructor(
     )
 
     val selectedTv: Flow<TvShow> = _selectedTv.distinctUntilChanged()
+    var tvShowGenres: List<Genre> = listOf()
 
 //    val partsOfCollection: MutableStateFlow<List<Movie>> = MutableStateFlow(emptyList())
 
@@ -49,8 +51,9 @@ constructor(
      */
     private fun getTvDetails(id: Int) {
         tvShowRepository.getTvShowDetails(id)
-            .mapLatest { movie ->
-                _selectedTv.tryEmit(movie)
+            .mapLatest { tv ->
+                _selectedTv.tryEmit(tv)
+                tvShowGenres = tv.genres
 //                checkIfMovieIsAPartOfACollection(movie.belongs_to_collection)
             }
             .launchIn(viewModelScope)

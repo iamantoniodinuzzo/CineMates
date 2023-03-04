@@ -5,13 +5,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.fragment_tv_about.*
+import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentTvAboutBinding
+import com.example.cinemates.model.Genre
+import com.example.cinemates.model.HorizontalChipView
 import com.example.cinemates.view.ui.adapter.TvShowAdapter
 import com.example.cinemates.view.ui.adapter.VideoAdapter
 import kotlinx.coroutines.launch
@@ -46,15 +53,25 @@ class TvAboutFragment() : Fragment() {
 
         binding.apply {
             trailers.adapter = videoAdapter
+
+            val customChipsView: HorizontalChipView<Genre> =
+                binding.chipsHorizontalView as HorizontalChipView<Genre>
+            customChipsView.onChipClicked = { genre ->
+                Toast.makeText(requireContext(), "Soon - Search ${genre.name} genre", Toast.LENGTH_SHORT).show()
+            }
+             customChipsView.setChipsList(
+                 viewModel.tvShowGenres,
+                 textGetter = { genre -> genre.name }
+             )
 //            collectionContent.collectionParts.adapter = movieAdapter
 
-         /*   collectionCover.root.setOnClickListener {
-                transformationLayout.startTransform()
-            }
+            /*   collectionCover.root.setOnClickListener {
+                   transformationLayout.startTransform()
+               }
 
-            collectionContent.root.setOnClickListener {
-                transformationLayout.finishTransform()
-            }*/
+               collectionContent.root.setOnClickListener {
+                   transformationLayout.finishTransform()
+               }*/
 
             viewLifecycleOwner.lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -96,15 +113,15 @@ class TvAboutFragment() : Fragment() {
                     }
 
 
-                   /* launch {
-                        viewModel.partsOfCollection.collect { parts ->
-                            if (parts.isNotEmpty()) {
-                                Log.d(TAG, "onViewCreated: add parts size ${parts.size}")
-                                movieAdapter.addItems(parts)
-                            }
+                    /* launch {
+                         viewModel.partsOfCollection.collect { parts ->
+                             if (parts.isNotEmpty()) {
+                                 Log.d(TAG, "onViewCreated: add parts size ${parts.size}")
+                                 movieAdapter.addItems(parts)
+                             }
 
-                        }
-                    }*/
+                         }
+                     }*/
                 }
             }
         }

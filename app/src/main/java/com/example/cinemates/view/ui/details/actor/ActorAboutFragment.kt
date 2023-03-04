@@ -4,14 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.cinemates.R
 import com.example.cinemates.view.ui.adapter.BaseAdapter
 import com.example.cinemates.databinding.FragmentActorAboutBinding
 import com.example.cinemates.databinding.ListItemPosterBinding
+import com.example.cinemates.model.HorizontalChipView
 import com.example.cinemates.model.Image
 import com.example.cinemates.util.inflater
 import com.example.cinemates.view.ui.adapter.PosterAdapter
+import com.google.android.youtube.player.internal.n
+import kotlinx.android.synthetic.main.fragment_actor_about.*
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
@@ -43,15 +48,28 @@ class ActorAboutFragment : Fragment() {
         binding.apply {
             binding.images.adapter = posterAdapter
             binding.images.setEmptyView(binding.emptyViewRecommended.root)
-        }
-        viewModel.apply {
-            actor.observe(viewLifecycleOwner) { selectedPerson ->
-                binding.person = selectedPerson
+            val chipsGroupKnowAs: HorizontalChipView<String> =
+                view.findViewById(R.id.chipGroupKnownAs)
+
+            chipsGroupKnowAs.onChipClicked = { knownAsName ->
+                Toast.makeText(
+                    requireContext(),
+                    "Soon - Pronunciation of $knownAsName",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-            images.observe(viewLifecycleOwner) { images ->
+            viewModel.actor.observe(viewLifecycleOwner) { selectedPerson ->
+                binding.person = selectedPerson
+                chipGroupKnownAs.setChipsList(
+                    selectedPerson.also_known_as,
+                    textGetter = { it }
+                )
+            }
+            viewModel.images.observe(viewLifecycleOwner) { images ->
                 posterAdapter.updateItems(images)
             }
         }
+
     }
 
 

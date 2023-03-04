@@ -34,7 +34,7 @@ object AppModule {
             context,
             AppDatabase::class.java,
             DATABASE_NAME
-        ).allowMainThreadQueries().build()
+        ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
 
     @Singleton
     @Provides

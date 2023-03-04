@@ -54,15 +54,10 @@ class TvAboutFragment() : Fragment() {
         binding.apply {
             trailers.adapter = videoAdapter
 
-            val customChipsView: HorizontalChipView<Genre> =
-                binding.chipsHorizontalView as HorizontalChipView<Genre>
+            val customChipsView: HorizontalChipView<Genre> = view.findViewById<HorizontalChipView<Genre>>(R.id.chipGroupGenres)
             customChipsView.onChipClicked = { genre ->
                 Toast.makeText(requireContext(), "Soon - Search ${genre.name} genre", Toast.LENGTH_SHORT).show()
             }
-             customChipsView.setChipsList(
-                 viewModel.tvShowGenres,
-                 textGetter = { genre -> genre.name }
-             )
 //            collectionContent.collectionParts.adapter = movieAdapter
 
             /*   collectionCover.root.setOnClickListener {
@@ -77,8 +72,12 @@ class TvAboutFragment() : Fragment() {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
 
                     launch {
-                        viewModel.selectedTv.collect {
-                            tv = it
+                        viewModel.selectedTv.collect {selectedTv->
+                            tv = selectedTv
+                            customChipsView.setChipsList(
+                                selectedTv.genres,
+                                textGetter = { genre -> genre.name }
+                            )
                         }
                     }
 

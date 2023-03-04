@@ -34,7 +34,6 @@ constructor(
     )
 
     val selectedTv: Flow<TvShow> = _selectedTv.distinctUntilChanged()
-    var tvShowGenres: List<Genre> = listOf()
 
 //    val partsOfCollection: MutableStateFlow<List<Movie>> = MutableStateFlow(emptyList())
 
@@ -53,7 +52,6 @@ constructor(
         tvShowRepository.getTvShowDetails(id)
             .mapLatest { tv ->
                 _selectedTv.tryEmit(tv)
-                tvShowGenres = tv.genres
 //                checkIfMovieIsAPartOfACollection(movie.belongs_to_collection)
             }
             .launchIn(viewModelScope)

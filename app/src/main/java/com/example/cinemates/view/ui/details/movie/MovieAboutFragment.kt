@@ -57,6 +57,7 @@ class MovieAboutFragment() : Fragment() {
 
             val chipGroupGenres: HorizontalChipView<Genre> =
                 view.findViewById<HorizontalChipView<Genre>>(R.id.chiGroupGenres)
+            
             chipGroupGenres.onChipClicked = { genre ->
                 // TODO: Implement search on click of genre, open search view
                 Toast.makeText(

@@ -8,20 +8,18 @@ import com.example.cinemates.model.Movie
 import com.example.cinemates.model.Person
 import com.example.cinemates.repository.ActorRepository
 import com.example.cinemates.repository.MovieRepository
+import com.example.cinemates.repository.TvShowRepository
 import com.example.cinemates.util.Sort
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-private const val TAG = "SearchViewModel"
+private val TAG = SearchViewModel::class.simpleName
 
 /**
- * Shared between [SearchMovieFragment] [SearchActorFragment]
+ * Shared between [SearchFragment]
  * @author Antonio Di Nuzzo
  * Created 24/08/2022
  */
@@ -30,17 +28,13 @@ class SearchViewModel
 @Inject
 constructor(
     private val movieRepository: MovieRepository,
-    private val actorRepository: ActorRepository
+    private val actorRepository: ActorRepository,
+    private val tvShowRepository: TvShowRepository
 ) : ViewModel() {
 
-    private val _query = MutableLiveData<String>()
-    val query: LiveData<String> get() = _query
+    private val _query = MutableStateFlow<String?>(null)
+    val query: Flow<String?> get() = _query
 
-    private val _queriedMovies = MutableLiveData<List<Movie>>()
-    val queriedMovies: LiveData<List<Movie>> get() = _queriedMovies
-
-    private val _queriedActors = MutableLiveData<List<Person>>()
-    val queriedActors: LiveData<List<Person>> get() = _queriedActors
 
     init {
         clearQuery()
@@ -48,36 +42,27 @@ constructor(
 
     fun setQuery(query: String) {
         _query.value = query
-        searchMovies(query)
-        searchActors(query)
     }
 
+    val searchedActors = query.flatMapLatest { query ->
+        query?.let {
+            actorRepository.getPeoplesBySearch(it)
+        } ?: emptyFlow()
+    }
 
-    private fun searchActors(query: String) = viewModelScope.launch {
-        try {
-            movieRepository.getMoviesBySearch(query).collectLatest { movies ->
+    val searchedMovies = query.flatMapLatest { query ->
+        query?.let {
+            movieRepository.getMoviesBySearch(it)
+        } ?: emptyFlow()
+    }
 
-                _queriedMovies.value = movies
-
-            }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
-        }
+    val searchedTvShow = query.flatMapLatest { query ->
+        query?.let {
+            tvShowRepository.getTvShowBySearch(it)
+        } ?: emptyFlow()
 
     }
 
-    private fun searchMovies(query: String) = viewModelScope.launch {
-        try {
-            actorRepository.getPeoplesBySearch(query).collectLatest { response ->
-
-                _queriedActors.value = response
-
-            }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
-        }
-
-    }
 
     private fun clearQuery() {
         _query.value = ""

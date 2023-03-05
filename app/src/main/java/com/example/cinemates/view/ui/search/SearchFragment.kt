@@ -27,8 +27,6 @@ class SearchFragment : Fragment() {
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
-    private lateinit var searchMovieFragment: SearchMovieFragment
-    private lateinit var searchActorsFragment: SearchActorFragment
     private val viewModel: SearchViewModel by activityViewModels()
     private var layoutGrid = false
 
@@ -36,8 +34,6 @@ class SearchFragment : Fragment() {
         super.onCreate(savedInstanceState)
         linearLayoutManager = LinearLayoutManager(context)
         gridLayoutManager = GridLayoutManager(context, 3)
-        searchMovieFragment = SearchMovieFragment()
-        searchActorsFragment = SearchActorFragment()
 
         setupMotionAnimations()
     }
@@ -59,7 +55,6 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupTabLayout()
         updateToolbar()
 
         binding.apply {
@@ -115,19 +110,6 @@ class SearchFragment : Fragment() {
         Toast.makeText(context, "Soon!", Toast.LENGTH_SHORT).show()
         /*searchMovieFragment!!.changeLayout(layoutManager)
         searchActorsFragment!!.changeLayout(layoutManager)*/
-    }
-
-    private fun setupTabLayout() {
-        val viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
-        viewPagerAdapter.addFragment(searchMovieFragment)
-        viewPagerAdapter.addFragment(searchActorsFragment)
-        binding.viewPager.adapter = viewPagerAdapter
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            when (position) {
-                0 -> tab.text = "Movies"
-                1 -> tab.text = "Actors"
-            }
-        }.attach()
     }
 
     override fun onDestroyView() {

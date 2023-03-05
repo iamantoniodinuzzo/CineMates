@@ -24,6 +24,8 @@
                 layout="@layout/layout_movie_poster"
                 android:layout_width="100dp"
                 android:layout_height="150dp"
+                app:path="@{movie.poster_path}"
+                app:vote="@{movie.vote_average}"
                 android:layout_margin="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +50,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/geyser"
                     android:textSize="14sp"
+                    android:text="@{movie.release_date}"
                     android:textStyle="bold"
                     tools:text="2010" />
 
@@ -58,6 +61,7 @@
                     android:autoSizeTextType="uniform"
                     android:textColor="@color/alabaster"
                     android:textSize="24sp"
+                    android:text="@{movie.title}"
                     android:textStyle="bold"
                     tools:text="Movie Title" />
 

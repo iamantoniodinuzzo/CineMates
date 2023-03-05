@@ -40,7 +40,7 @@ class SearchFragment : Fragment() {
     private lateinit var personAdapter: PersonAdapter
     private lateinit var tvShowAdapter: TvShowAdapter
     private val viewModel: SearchViewModel by activityViewModels()
-    private var layoutGrid = false
+    private var layoutGrid = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,6 +82,7 @@ class SearchFragment : Fragment() {
                     R.id.menu_switch_grid -> switchLayout(gridLayoutManager)
                     R.id.menu_switch_list -> switchLayout(linearLayoutManager)
                 }
+                layoutGrid = !layoutGrid
                 updateToolbar()
                 false
             }
@@ -135,6 +136,7 @@ class SearchFragment : Fragment() {
 
             // Set up the filter chips
             recyclerView.adapter = movieAdapter
+            recyclerView.layoutManager = gridLayoutManager
             var lastCheckedId = -1
             chipGroup.setOnCheckedChangeListener { _, checkedId ->
                 if (checkedId == lastCheckedId) {
@@ -155,19 +157,17 @@ class SearchFragment : Fragment() {
 
     //Change menu icon in toolbar showing list or grid view
     private fun updateToolbar() {
-        layoutGrid = !layoutGrid
         val gridView = binding.toolbar.menu.findItem(R.id.menu_switch_grid)
-        gridView.isVisible = layoutGrid
+        gridView.isVisible = !layoutGrid
         val listView = binding.toolbar.menu.findItem(R.id.menu_switch_list)
-        listView.isVisible = !layoutGrid
-//        val filterView = binding.toolbar.menu.findItem(R.id.menu_filter)
-//        filterView.isVisible = false
+        listView.isVisible = layoutGrid
     }
 
-    private fun switchLayout(layoutManager: RecyclerView.LayoutManager?) {
-        Toast.makeText(context, "Soon!", Toast.LENGTH_SHORT).show()
-        /*searchMovieFragment!!.changeLayout(layoutManager)
-        searchActorsFragment!!.changeLayout(layoutManager)*/
+    private fun switchLayout(layoutManager: RecyclerView.LayoutManager) {
+        binding.recyclerView.layoutManager = layoutManager
+        tvShowAdapter.toggleLayoutType()
+        movieAdapter.toggleLayoutType()
+        personAdapter.toggleLayoutType()
     }
 
     override fun onDestroyView() {

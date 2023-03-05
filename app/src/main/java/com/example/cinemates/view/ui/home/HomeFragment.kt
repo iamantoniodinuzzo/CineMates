@@ -2,6 +2,7 @@ package com.example.cinemates.view.ui.home
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -20,6 +21,7 @@ import kotlinx.coroutines.flow.observeOn
  *@author Antonio Di Nuzzo (Indisparte)
  */
 private val TAG = HomeFragment::class.simpleName
+
 @AndroidEntryPoint
 class HomeFragment : Fragment(), OnStartDragListener {
     private var _binding: FragmentHomeBinding? = null
@@ -73,7 +75,6 @@ class HomeFragment : Fragment(), OnStartDragListener {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
 
-
             val adapter = SectionAdapter(sections, this@HomeFragment)
             sectionRv.adapter = adapter
             val callback: ItemTouchHelper.Callback = ReorderHelperCallback(adapter)
@@ -119,25 +120,6 @@ class HomeFragment : Fragment(), OnStartDragListener {
             adapter.notifyDataSetChanged()
         }
     }
-
-    @Deprecated("Deprecated in Java")
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_home, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.searchFragment -> {
-                findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

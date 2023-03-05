@@ -16,7 +16,7 @@ class TvShowRepository
 @Inject
 constructor(
     private val tvShowService: TvShowService,
-    private val queryMap: HashMap<String,String>
+    private val queryMap: MutableMap<String,String>
 ) {
 
     fun getPopularTvShow(): Flow<List<TvShow>> = flow {

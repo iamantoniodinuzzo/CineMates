@@ -18,10 +18,10 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            app:menu="@menu/menu_customizable_fragment"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/lynch_100"
             app:layout_scrollFlags="scroll|enterAlways"
+            app:menu="@menu/menu_customizable_fragment"
             app:navigationIcon="@drawable/ic_outline_arrow_back_24"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
@@ -41,22 +41,52 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
-            style="@style/Tab_Layout_Small"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:chipSpacingHorizontal="16dp"
+        app:singleSelection="true"
+        android:padding="5dp"
+        app:selectionRequired="true"
+        android:clipToPadding="false"
+        app:checkedChip="@id/movies_chip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
+        <com.google.android.material.chip.Chip
+            android:id="@+id/movies_chip"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Movies" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/actors_chip"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actors" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/tv_show_chip"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TV Show" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/list_item_movie_long"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chip_group" />
 </androidx.constraintlayout.widget.ConstraintLayout>

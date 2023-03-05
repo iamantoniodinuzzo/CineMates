@@ -7,23 +7,16 @@ package com.example.cinemates.view.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
-import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
-import com.example.cinemates.databinding.ListItemCrewLongBinding
-import com.example.cinemates.databinding.ListItemCrewSmallBinding
-import com.example.cinemates.databinding.ListItemMovieSmallBinding
-import com.example.cinemates.databinding.ListItemPersonSmallBinding
 import com.example.cinemates.databinding.ListItemPosterBinding
-import com.example.cinemates.databinding.ListItemTvSmallBinding
 import com.example.cinemates.model.*
 
-class PosterAdapter : BaseAdapter<Image, ListItemPosterBinding>(R.layout.list_item_poster, emptyList()) {
+class PosterAdapter : SingleViewAdapter<Image, ListItemPosterBinding>(R.layout.list_item_poster, emptyList()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate<ListItemPosterBinding>(inflater, itemLayoutResId, parent, false)
-        return BaseViewHolder(binding)
+        return SingleViewHolder(binding)
     }
 
     override fun onBindItem(binding: ListItemPosterBinding, item: Image) {

@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/discoverFragment"
-        android:icon="@drawable/ic_outline_dashboard_24"
+        android:icon="@drawable/ic_outline_search_24"
         android:title="Discover" />
     <item
         android:id="@+id/savedFragment"

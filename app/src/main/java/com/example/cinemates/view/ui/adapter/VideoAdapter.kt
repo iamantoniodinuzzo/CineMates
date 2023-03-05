@@ -10,21 +10,17 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
-import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
-import com.example.cinemates.databinding.ListItemMovieSmallBinding
 import com.example.cinemates.databinding.ListItemYtVideoBinding
-import com.example.cinemates.model.Movie
 import com.example.cinemates.model.Video
 import com.example.cinemates.util.YOUTUBE_COM_WATCH_V
 
-class VideoAdapter : BaseAdapter<Video, ListItemYtVideoBinding>(R.layout.list_item_yt_video, emptyList()) {
+class VideoAdapter : SingleViewAdapter<Video, ListItemYtVideoBinding>(R.layout.list_item_yt_video, emptyList()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate<ListItemYtVideoBinding>(inflater, itemLayoutResId, parent, false)
-        return BaseViewHolder(binding)
+        return SingleViewHolder(binding)
     }
 
     override fun onBindItem(binding: ListItemYtVideoBinding, item: Video) {

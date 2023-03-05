@@ -7,28 +7,23 @@ package com.example.cinemates.view.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
-import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
-import com.example.cinemates.databinding.ListItemCrewLongBinding
-import com.example.cinemates.databinding.ListItemCrewSmallBinding
 import com.example.cinemates.databinding.ListItemFilterBinding
-import com.example.cinemates.databinding.ListItemMovieSmallBinding
-import com.example.cinemates.databinding.ListItemPersonSmallBinding
-import com.example.cinemates.databinding.ListItemTvSmallBinding
 import com.example.cinemates.model.*
 import com.example.cinemates.view.ui.discover.DiscoverFragmentDirections
 
 class FilterAdapter :
-    BaseAdapter<Filter, ListItemFilterBinding>(R.layout.list_item_filter, emptyList()) {
+    SingleViewAdapter<Filter, ListItemFilterBinding>(R.layout.list_item_filter, emptyList()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding =
             DataBindingUtil.inflate<ListItemFilterBinding>(inflater, itemLayoutResId, parent, false)
-        return BaseViewHolder(binding)
+        return SingleViewHolder(binding)
     }
+
 
     override fun onBindItem(binding: ListItemFilterBinding, item: Filter) {
         binding.filter = item
@@ -37,6 +32,6 @@ class FilterAdapter :
                 DiscoverFragmentDirections.actionDiscoverFragmentToFilterFragment(item)
             Navigation.findNavController(view).navigate(action)
         }
-
     }
+
 }

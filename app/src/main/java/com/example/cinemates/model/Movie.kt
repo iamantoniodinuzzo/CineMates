@@ -72,6 +72,14 @@ class Movie(
             } else ""
         }
 
+    val formattedGenres: String
+        get() {
+            return if (genres.isNotEmpty()) {
+                val result = genres.map { genre -> genre.name }
+                result.joinToString(separator = ", ")
+            }else "Not specified"
+        }
+
     val formattedBudget: String
         get() {
             return if (budget != 0) {

@@ -13,14 +13,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
 import com.example.cinemates.R
-import com.example.cinemates.view.ui.adapter.BaseAdapter
 import com.example.cinemates.databinding.EditTextLayoutBinding
 import com.example.cinemates.databinding.FragmentDiscoverBinding
-import com.example.cinemates.databinding.ListItemFilterBinding
-import com.example.cinemates.model.Filter
 import com.example.cinemates.util.Sort
 import com.example.cinemates.util.getLong
-import com.example.cinemates.util.inflater
 import com.example.cinemates.view.ui.MainActivity
 import com.example.cinemates.view.dbviewmodel.DbFilterViewModel
 import com.example.cinemates.view.ui.adapter.FilterAdapter

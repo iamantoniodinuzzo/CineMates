@@ -50,7 +50,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideQueryMap(): Map<String, String> {
+    fun provideQueryMap(): MutableMap<String, String> {
         val result: MutableMap<String, String> = HashMap()
 
         // Add default language parameter

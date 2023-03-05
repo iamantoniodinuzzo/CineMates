@@ -17,7 +17,7 @@ class ActorRepository
 constructor(
     private val actorService: ActorService,
     private val personDao: PersonDao,
-    private val queryMap: HashMap<String, String>
+    private val queryMap: MutableMap<String, String>
 ) {
 
 

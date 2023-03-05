@@ -23,6 +23,7 @@ class TvCrewFragment : ListFragment<Crew, ListItemCrewLongBinding,CrewAdapter>(C
 
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            adapter.toggleLayoutType()
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 viewModel.crew.collectLatest {crew->
                     adapter.updateItems(crew)

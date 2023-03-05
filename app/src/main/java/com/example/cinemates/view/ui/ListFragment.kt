@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemates.databinding.FragmentListingItemsBinding
 import com.example.cinemates.view.ui.adapter.BaseAdapter
@@ -42,7 +43,7 @@ open class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T>>(val adapter
     private fun setupRecyclerView() {
         binding.apply {
             // Set the RecyclerView to use a linear layout by default
-            binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),3)
             binding.recyclerView.adapter = adapter
             counter = adapter.itemCount
         }

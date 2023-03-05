@@ -9,3 +9,4 @@ dependencyResolutionManagement {
 rootProject.name = "CineMates"
 include ':app'
 include ':LinearLayoutInfo'
+include ':HorizontalChipView'

@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.cinemates.view.ui.adapter.MovieAdapter
+import com.example.cinemates.databinding.ListItemMovieSmallBinding
 import com.example.cinemates.model.Movie
 import com.example.cinemates.view.ui.ListFragment
+import com.example.cinemates.view.ui.adapter.MovieAdapter
 import kotlinx.coroutines.flow.collectLatest
 
-class MovieRecommendedFragment : ListFragment<Movie, MovieAdapter>(MovieAdapter()) {
+class MovieRecommendedFragment : ListFragment<Movie, ListItemMovieSmallBinding,MovieAdapter>(MovieAdapter()) {
 
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
@@ -19,7 +20,7 @@ class MovieRecommendedFragment : ListFragment<Movie, MovieAdapter>(MovieAdapter(
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.recommendedMovies.collectLatest { recommended ->
-                adapter.addItems(recommended)
+                adapter.updateItems(recommended)
                 binding.counter = recommended.size
             }
         }

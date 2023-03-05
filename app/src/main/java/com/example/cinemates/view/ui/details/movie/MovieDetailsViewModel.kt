@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 /**
@@ -17,6 +18,7 @@ import javax.inject.Inject
  * @author Jon Areas
  * Created 24/08/2022
  */
+private val TAG = MovieDetailsViewModel::class.simpleName
 
 @HiltViewModel
 class MovieDetailsViewModel
@@ -25,18 +27,10 @@ constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private val TAG = MovieDetailsViewModel::class.simpleName
-    //It was decided to use a MutableSharedFlow rather than a MutableStateFlow
-    //because the latter involves an initial value that must be set.
-    private val _selectedMovie = MutableSharedFlow<Movie>(
-        replay = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
-
-    val selectedMovie: Flow<Movie> = _selectedMovie.distinctUntilChanged()
+    private val _selectedMovie = MutableStateFlow<Movie?>(null)
+    val selectedMovie: Flow<Movie?> get() = _selectedMovie
 
     val partsOfCollection: MutableStateFlow<List<Movie>> = MutableStateFlow(emptyList())
-
 
 
     /**
@@ -50,13 +44,14 @@ constructor(
         If it is successful, it initializes the variable containing the parts of the collection
      */
     private fun getMovieDetails(movieId: Int) {
-        movieRepository.getMovieDetails(movieId)
-            .mapLatest { movie ->
-                _selectedMovie.tryEmit(movie)
+        viewModelScope.launch {
+            movieRepository.getMovieDetails(movieId).collectLatest { movie ->
+                _selectedMovie.value = movie
                 checkIfMovieIsAPartOfACollection(movie.belongs_to_collection)
             }
-            .launchIn(viewModelScope)
+        }
     }
+
 
     private fun checkIfMovieIsAPartOfACollection(
         belongs_to_collection: Collection?
@@ -65,60 +60,47 @@ constructor(
             getMoviesBelongCollection(belongs_to_collection.id)
     }
 
-    val similarMovies = combine(
-        selectedMovie
-    ) { (query) ->
-        SelectedMovie(query)
-    }.flatMapLatest {
-        movieRepository.getSimilarMovies(it.movie.id)
+    val similarMovies = selectedMovie.flatMapLatest { movie ->
+        movie?.let {
+            movieRepository.getSimilarMovies(it.id)
+        } ?: emptyFlow()
     }
 
-    val recommendedMovies = combine(
-        selectedMovie
-    ) { (query) ->
-        SelectedMovie(query)
-    }.flatMapLatest {
-        movieRepository.getRecommendedMovies(it.movie.id)
+    val recommendedMovies = selectedMovie.flatMapLatest { movie ->
+        movie?.let {
+            movieRepository.getRecommendedMovies(it.id)
+        } ?: emptyFlow()
     }
 
-    val videos = combine(
-        selectedMovie
-    ) { (query) ->
-        SelectedMovie(query)
-    }.flatMapLatest {
-        movieRepository.getVideos(it.movie.id)
+    val videos = selectedMovie.flatMapLatest { movie ->
+        movie?.let {
+            movieRepository.getVideos(it.id)
+        } ?: emptyFlow()
     }
 
-    val posters = combine(
-        selectedMovie
-    ) { (query) ->
-        SelectedMovie(query)
-    }.flatMapLatest {
-        movieRepository.getPosters(it.movie.id)
+    val posters = selectedMovie.flatMapLatest { movie ->
+        movie?.let {
+            movieRepository.getPosters(it.id)
+        } ?: emptyFlow()
     }
 
-    val backdrops = combine(
-        selectedMovie
-    ) { (query) ->
-        SelectedMovie(query)
-    }.flatMapLatest {
-        movieRepository.getBackdrops(it.movie.id)
+    val backdrops = selectedMovie.flatMapLatest { movie ->
+        movie?.let {
+            movieRepository.getBackdrops(it.id)
+        } ?: emptyFlow()
     }
 
-    val cast = combine(
-        selectedMovie
-    ) { (query) ->
-        SelectedMovie(query)
-    }.flatMapLatest {
-        movieRepository.getMovieCast(it.movie.id)
+    val cast = selectedMovie.flatMapLatest { movie ->
+        movie?.let {
+            movieRepository.getMovieCast(it.id)
+        } ?: emptyFlow()
     }
 
-    val crew = combine(
-        selectedMovie
-    ) { (query) ->
-        SelectedMovie(query)
-    }.flatMapLatest {
-        movieRepository.getMovieCrew(it.movie.id)
+    val crew = selectedMovie.flatMapLatest { movie ->
+        movie?.let {
+            movieRepository.getMovieCrew(it.id)
+
+        } ?: emptyFlow()
     }
 
 
@@ -129,5 +111,3 @@ constructor(
     }
 
 }
-
-private data class SelectedMovie(val movie: Movie)

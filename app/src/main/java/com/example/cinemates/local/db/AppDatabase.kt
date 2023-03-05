@@ -16,7 +16,7 @@ import com.example.cinemates.local.dao.PersonDao
  */
 @Database(
     entities = [Movie::class, Person::class, Filter::class],
-    version = 13,
+    version = 14,
     exportSchema = false
 )
 @TypeConverters(

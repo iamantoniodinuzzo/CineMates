@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.cinemates.view.ui.adapter.MovieAdapter
 import com.example.cinemates.databinding.FragmentSearchMovieBinding
+import com.example.cinemates.view.ui.adapter.MovieAdapter
 
 class SearchMovieFragment : Fragment() {
     private var _binding: FragmentSearchMovieBinding? = null
@@ -39,7 +39,7 @@ class SearchMovieFragment : Fragment() {
             recyclerView.setEmptyView(emptyView.root)
         }
         viewModel.queriedMovies.observe(viewLifecycleOwner) { movies ->
-            adapter.addItems(movies)
+            adapter.updateItems(movies)
         }
 
     }

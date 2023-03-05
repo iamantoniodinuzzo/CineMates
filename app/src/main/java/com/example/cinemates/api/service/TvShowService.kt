@@ -18,61 +18,60 @@ import retrofit2.http.QueryMap
 interface TvShowService {
 
     @GET("tv/popular")
-    suspend fun getPopular(@QueryMap queries: HashMap<String, String>): GenericResponse<TvShow>
+    suspend fun getPopular(@QueryMap queries: Map<String, String>): GenericResponse<TvShow>
 
     @GET("tv/on_the_air")
     suspend fun getOnTheAir(
-        @QueryMap queries: HashMap<String, String>
+        @QueryMap queries: Map<String, String>
     ): GenericResponse<TvShow>
 
 
     @GET("tv/{tv_id}")
     suspend fun getMovieDetails(
         @Path("tv_id") id: Int,
-        @QueryMap queries: HashMap<String, String>
+        @QueryMap queries: Map<String, String>
     ): TvShow
 
     @GET("tv/{tv_id}/credits")
     suspend fun getMovieCredits(
         @Path("tv_id") id: Int,
-        @QueryMap queries: HashMap<String, String>
+        @QueryMap queries: Map<String, String>
     ): CreditsResponse
 
     @GET("tv/{tv_id}/similar")
     suspend fun getSimilar(
         @Path("tv_id") id: Int,
-        @QueryMap queries: HashMap<String, String>
+        @QueryMap queries: Map<String, String>
     ): GenericResponse<TvShow>
-
 
 
     @GET("tv/{tv_id}/videos")
     suspend fun getVideos(
         @Path("tv_id") id: Int,
-        @QueryMap queries: HashMap<String, String>
+        @QueryMap queries: Map<String, String>
     ): GenericResponse<Video>
 
 
     @GET("tv/{tv_id}/images")
     suspend fun getImages(
         @Path("tv_id") id: Int,
-        @QueryMap queries: HashMap<String, String>
+        @QueryMap queries: Map<String, String>
     ): ImagesResponse
 
 
     @GET("search/tv")
-    suspend fun getTvShowBySearch(@QueryMap queries: HashMap<String, String>): GenericResponse<TvShow>
+    suspend fun getTvShowBySearch(@QueryMap queries: Map<String, String>): GenericResponse<TvShow>
 
     @GET("discover/tv")
-    suspend fun getTvShowByDiscover(@QueryMap queries: HashMap<String, String>): GenericResponse<TvShow>
+    suspend fun getTvShowByDiscover(@QueryMap queries: Map<String, String>): GenericResponse<TvShow>
 
     @GET("genre/tv/list")
-    suspend fun getGenreList(@QueryMap queries: HashMap<String, String>): GenericResponse<Genre>
+    suspend fun getGenreList(@QueryMap queries: Map<String, String>): GenericResponse<Genre>
 
     @GET("trending/{media_type}/{time_window}")
     suspend fun getTrendingMedia(
         @Path("media_type") media_type: String,
         @Path("time_window") time_window: String,
-        @QueryMap queries: HashMap<String, String>
+        @QueryMap queries: Map<String, String>
     ): GenericResponse<TvShow>
 }

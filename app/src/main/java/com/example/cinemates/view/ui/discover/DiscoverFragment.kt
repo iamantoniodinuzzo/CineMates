@@ -23,6 +23,7 @@ import com.example.cinemates.util.getLong
 import com.example.cinemates.util.inflater
 import com.example.cinemates.view.ui.MainActivity
 import com.example.cinemates.view.dbviewmodel.DbFilterViewModel
+import com.example.cinemates.view.ui.adapter.FilterAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -38,31 +39,16 @@ class DiscoverFragment : Fragment() {
         get() = _binding!!
     private val mRnd = Random()
     private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit var adapter: BaseAdapter<Filter, ListItemFilterBinding>
+    private lateinit var adapter: FilterAdapter
     private val discoverViewModel: DiscoverViewModel by activityViewModels()
     private val dbFilterViewModel: DbFilterViewModel by activityViewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       /* slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
-        slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)*/
-        adapter = BaseAdapter(
-            expressionOnCreateViewHolder = { viewGroup ->
-                viewGroup inflater ListItemFilterBinding::inflate
-            },
-            expressionViewHolderBinding = { filter, binding ->
-                binding.apply {
-                    setFilter(filter)
-                    root.setOnClickListener {
-                        val action =
-                            DiscoverFragmentDirections.actionDiscoverFragmentToFilterFragment(filter)
-                        findNavController().navigate(action)
-                    }
-                }
-
-            }
-        )
+        /* slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
+         slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)*/
+        adapter = FilterAdapter()
         setupMotionAnimations()
     }
 
@@ -162,7 +148,7 @@ class DiscoverFragment : Fragment() {
         }
 
         dbFilterViewModel.filters.observe(viewLifecycleOwner) { filters ->
-            adapter.dataList = filters as MutableList<Filter>?
+            adapter.updateItems(filters)
         }
 
     }

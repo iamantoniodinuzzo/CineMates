@@ -16,25 +16,25 @@ interface ActorService {
     @GET("person/{person_id}")
     suspend fun getActorDetails(
         @Path("person_id") id: Int,
-        @QueryMap queries: HashMap<String, String>
+        @QueryMap queries: Map<String, String>
     ): Person
 
     @GET("person/{person_id}/images")
     suspend fun getActorImages(
         @Path("person_id") id: Int,
-        @QueryMap queries: HashMap<String, String>
+        @QueryMap queries: Map<String, String>
     ): ActorImageResponse
 
 
     @GET("search/person")
-    suspend fun getPeoplesBySearch(@QueryMap queries: HashMap<String, String>): GenericResponse<Cast>
+    suspend fun getPeoplesBySearch(@QueryMap queries: Map<String, String>): GenericResponse<Cast>
 
 
     @GET("trending/{media_type}/{time_window}")
     suspend fun getTrendingPerson(
         @Path("media_type") media_type: String,
         @Path("time_window") time_window: String,
-        @QueryMap queries: HashMap<String, String>
+        @QueryMap queries: Map<String, String>
     ): GenericResponse<Person>
 
 }

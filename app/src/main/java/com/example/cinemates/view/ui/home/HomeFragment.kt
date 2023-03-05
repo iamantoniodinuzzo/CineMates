@@ -6,8 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.databinding.FragmentHomeBinding
 import com.example.cinemates.model.*
+import com.example.cinemates.view.ui.adapter.OnStartDragListener
+import com.example.cinemates.view.ui.adapter.ReorderHelperCallback
 import com.example.cinemates.view.ui.adapter.SectionAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.observeOn
@@ -15,13 +19,14 @@ import kotlinx.coroutines.flow.observeOn
 /**
  *@author Antonio Di Nuzzo (Indisparte)
  */
+private val TAG = HomeFragment::class.simpleName
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
-    private val TAG = HomeFragment::class.simpleName
+class HomeFragment : Fragment(), OnStartDragListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding
         get() = _binding!!
     private val viewModel: HomeViewModel by viewModels()
+    private var mItemTouchHelper: ItemTouchHelper? = null
     private lateinit var sectionMoviePopular: SectionMovie
     private lateinit var sectionMovieTopRated: SectionMovie
     private lateinit var sectionMovieUpcoming: SectionMovie
@@ -69,7 +74,12 @@ class HomeFragment : Fragment() {
         binding.apply {
 
 
-            val adapter = SectionAdapter(sections)
+            val adapter = SectionAdapter(sections, this@HomeFragment)
+
+            val callback: ItemTouchHelper.Callback = ReorderHelperCallback(adapter)
+            mItemTouchHelper = ItemTouchHelper(callback)
+            mItemTouchHelper?.attachToRecyclerView(sectionRv)
+
             sectionRv.adapter = adapter
             viewModel.popularMovies.observe(requireActivity()) { popular ->
                 sectionMoviePopular.items = popular
@@ -111,6 +121,12 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onStartDrag(viewHolder: RecyclerView.ViewHolder?) {
+        viewHolder?.let {
+            mItemTouchHelper?.startDrag(it)
+        }
     }
 
 }

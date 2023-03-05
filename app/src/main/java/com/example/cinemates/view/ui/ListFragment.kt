@@ -4,18 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.example.cinemates.view.ui.adapter.MultipleViewSizeAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemates.databinding.FragmentListingItemsBinding
+import com.example.cinemates.view.ui.adapter.BaseAdapter
 
 /**
  * A fragment in which a list of elements is shown which have multiple views depending on the layout of the list.
  * @param T The type of objects contained in the recyclerview
- * @param A The adapter must extend [MultipleViewSizeAdapter]
+ * @param A The adapter must extend [BaseAdapter]
  * @param adapter The adapter constructor
  * @author Antonio Di Nuzzo (Indisparte)
  */
-open class ListFragment<T, A : MultipleViewSizeAdapter<T>>(var adapter: A) : Fragment() {
+open class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T, VB>>(val adapter: A) :
+    Fragment() {
     private var _binding: FragmentListingItemsBinding? = null
     protected val binding: FragmentListingItemsBinding
         get() = _binding!!
@@ -32,12 +35,19 @@ open class ListFragment<T, A : MultipleViewSizeAdapter<T>>(var adapter: A) : Fra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+       setupRecyclerView()
+    }
+
+    private fun setupRecyclerView() {
         binding.apply {
-            recyclerView.adapter = adapter
-            recyclerView.setEmptyView(emptyView.root)
+            // Set the RecyclerView to use a linear layout by default
+            binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            binding.recyclerView.adapter = adapter
             counter = adapter.itemCount
         }
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

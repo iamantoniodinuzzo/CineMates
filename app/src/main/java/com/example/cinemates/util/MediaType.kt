@@ -5,7 +5,7 @@ package com.example.cinemates.util
  * Created 28/05/2022 at 10:30
  */
 enum class MediaType(
-    var value: String
+    val value: String
 ) {
     ALL("all"), MOVIE("movie"), TV("tv"), PERSON("person");
 

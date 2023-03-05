@@ -1,5 +1,6 @@
 package com.example.cinemates.view.ui.details.tvShow
 
+import android.provider.MediaStore.Audio.Genres
 import androidx.lifecycle.*
 import com.example.cinemates.model.*
 import com.example.cinemates.repository.TvShowRepository
@@ -15,6 +16,7 @@ import javax.inject.Inject
  * @author Jon Areas
  * Created 24/08/2022
  */
+private val TAG = TvDetailsViewModel::class.simpleName
 
 @HiltViewModel
 class TvDetailsViewModel
@@ -23,100 +25,63 @@ constructor(
     private val tvShowRepository: TvShowRepository
 ) : ViewModel() {
 
-    private val TAG = TvDetailsViewModel::class.simpleName
+    private val _selectedTv = MutableStateFlow<TvShow?>(null)
 
-    //It was decided to use a MutableSharedFlow rather than a MutableStateFlow
-    //because the latter involves an initial value that must be set.
-    private val _selectedTv = MutableSharedFlow<TvShow>(
-        replay = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
-
-    val selectedTv: Flow<TvShow> = _selectedTv.distinctUntilChanged()
-
-//    val partsOfCollection: MutableStateFlow<List<Movie>> = MutableStateFlow(emptyList())
-
+    val selectedTv: Flow<TvShow?> get() = _selectedTv
 
     /**
-     * Retrieves additional information about the selected movie
+     * Retrieves additional information about the selected tvShow
      */
     fun onDetailsFragmentReady(id: Int) =
         getTvDetails(id)
 
     /*
-        Through the film id , it retrieves the details and checks if the film is part of a collection.
-        If it is successful, it initializes the variable containing the parts of the collection
+        Through the show id , it retrieves the details.
      */
     private fun getTvDetails(id: Int) {
-        tvShowRepository.getTvShowDetails(id)
-            .mapLatest { movie ->
-                _selectedTv.tryEmit(movie)
-//                checkIfMovieIsAPartOfACollection(movie.belongs_to_collection)
-            }
-            .launchIn(viewModelScope)
+        viewModelScope.launch {
+            tvShowRepository.getTvShowDetails(id)
+                .collectLatest { tv ->
+                    _selectedTv.value = tv
+                }
+        }
+
     }
 
-    /* private fun checkIfMovieIsAPartOfACollection(
-         belongs_to_collection: Collection?
-     ) {
-         if (belongs_to_collection != null)
-             getMoviesBelongCollection(belongs_to_collection.id)
-     }
- */
-    val similarTvShow = combine(
-        selectedTv
-    ) { (query) ->
-        SelectedTv(query)
-    }.flatMapLatest {
-        tvShowRepository.getSimilarTvShow(it.tvShow.id)
+    val similarTvShow = selectedTv.flatMapLatest { tv ->
+        tv?.let {
+            tvShowRepository.getSimilarTvShow(it.id)
+        } ?: emptyFlow()
     }
 
-    /*val recommendedMovies = combine(
-        selectedTv
-    ) { (query) ->
-        SelectedTv(query)
-    }.flatMapLatest {
-        tvShowRepository.getRecommendedMovies(it.tvShow.id)
-    }*/
-
-    val videos = combine(
-        selectedTv
-    ) { (query) ->
-        SelectedTv(query)
-    }.flatMapLatest {
-        tvShowRepository.getVideos(it.tvShow.id)
+    val videos = selectedTv.flatMapLatest { tv ->
+        tv?.let {
+            tvShowRepository.getVideos(it.id)
+        } ?: emptyFlow()
     }
 
-    val posters = combine(
-        selectedTv
-    ) { (query) ->
-        SelectedTv(query)
-    }.flatMapLatest {
-        tvShowRepository.getPosters(it.tvShow.id)
+    val posters = selectedTv.flatMapLatest { tv ->
+        tv?.let {
+            tvShowRepository.getPosters(it.id)
+        } ?: emptyFlow()
     }
 
-    val backdrops = combine(
-        selectedTv
-    ) { (query) ->
-        SelectedTv(query)
-    }.flatMapLatest {
-        tvShowRepository.getBackdrops(it.tvShow.id)
+    val backdrops = selectedTv.flatMapLatest { tv ->
+        tv?.let {
+            tvShowRepository.getBackdrops(it.id)
+        } ?: emptyFlow()
     }
 
-    val cast = combine(
-        selectedTv
-    ) { (query) ->
-        SelectedTv(query)
-    }.flatMapLatest {
-        tvShowRepository.getTvShowCast(it.tvShow.id)
+    val cast = selectedTv.flatMapLatest { tv ->
+        tv?.let {
+            tvShowRepository.getTvShowCast(it.id)
+        } ?: emptyFlow()
     }
 
-    val crew = combine(
-        selectedTv
-    ) { (query) ->
-        SelectedTv(query)
-    }.flatMapLatest {
-        tvShowRepository.getTvShowCrew(it.tvShow.id)
+    val crew = selectedTv.flatMapLatest { tv ->
+        tv?.let {
+            tvShowRepository.getTvShowCrew(it.id)
+        } ?: emptyFlow()
     }
 
 //Todo get parts
@@ -127,5 +92,3 @@ constructor(
      }*/
 
 }
-
-private data class SelectedTv(val tvShow: TvShow)

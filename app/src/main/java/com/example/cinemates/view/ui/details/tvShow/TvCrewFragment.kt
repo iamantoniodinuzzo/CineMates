@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cinemates.databinding.ListItemCrewLongBinding
 import com.example.cinemates.model.Crew
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.view.ui.ListFragment
@@ -13,14 +14,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class TvCrewFragment : ListFragment<Crew, CrewAdapter>(CrewAdapter()) {
+class TvCrewFragment : ListFragment<Crew, ListItemCrewLongBinding,CrewAdapter>(CrewAdapter()) {
 
     private val viewModel: TvDetailsViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        adapter.viewSize = ViewSize.LONG
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,7 +25,7 @@ class TvCrewFragment : ListFragment<Crew, CrewAdapter>(CrewAdapter()) {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 viewModel.crew.collectLatest {crew->
-                    adapter.addItems(crew)
+                    adapter.updateItems(crew)
                     counter = crew.size
                 }
             }

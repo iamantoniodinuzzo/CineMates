@@ -16,7 +16,7 @@ class Movie(
     @TypeConverters(Converters::class)
     val belongs_to_collection: Collection?,
     @TypeConverters(Converters::class)
-    val genres: List<Genre>?,
+    val genres: List<Genre> = listOf(),
     @PrimaryKey
     val id: Int,
     val poster_path: String?,
@@ -107,7 +107,7 @@ class Movie(
         }
 
     constructor(
-        genres: List<Genre>?,
+        genres: List<Genre>,
         belongs_to_collection: Collection?,
         id: Int,
         original_title: String,

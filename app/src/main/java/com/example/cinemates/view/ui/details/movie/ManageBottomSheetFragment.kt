@@ -54,7 +54,9 @@ class ManageBottomSheetFragment : BottomSheetDialogFragment() {
              */
             viewLifecycleOwner.lifecycleScope.launch {
                 movieViewModel.selectedMovie.collectLatest {
-                    movie = dbViewModel.getMovie(it.id) ?: it
+                    if (it != null) {
+                        movie = dbViewModel.getMovie(it.id) ?: it
+                    }
                 }
             }
 

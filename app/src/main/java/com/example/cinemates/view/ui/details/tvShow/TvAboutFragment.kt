@@ -3,21 +3,24 @@ package com.example.cinemates.view.ui.details.tvShow
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.cinemates.view.ui.adapter.MovieAdapter
-import com.example.cinemates.databinding.FragmentMovieAboutBinding
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.fragment_tv_about.*
+import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentTvAboutBinding
+import com.example.cinemates.model.Genre
+import com.indisparte.horizontalchipview.HorizontalChipView
 import com.example.cinemates.view.ui.adapter.TvShowAdapter
 import com.example.cinemates.view.ui.adapter.VideoAdapter
-import com.example.cinemates.view.ui.details.movie.MovieDetailsViewModel
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class TvAboutFragment() : Fragment() {
@@ -50,22 +53,36 @@ class TvAboutFragment() : Fragment() {
 
         binding.apply {
             trailers.adapter = videoAdapter
-//            collectionContent.collectionParts.adapter = movieAdapter
 
-         /*   collectionCover.root.setOnClickListener {
-                transformationLayout.startTransform()
+            val customChipsView: HorizontalChipView<Genre> = view.findViewById<HorizontalChipView<Genre>>(R.id.chipGroupGenres)
+            customChipsView.onChipClicked = { genre ->
+                Toast.makeText(requireContext(), "Soon - Search ${genre.name} genre", Toast.LENGTH_SHORT).show()
             }
 
-            collectionContent.root.setOnClickListener {
-                transformationLayout.finishTransform()
-            }*/
+            enableInnerScrollViewPager(trailers)
+
+//            collectionContent.collectionParts.adapter = movieAdapter
+
+            /*   collectionCover.root.setOnClickListener {
+                   transformationLayout.startTransform()
+               }
+
+               collectionContent.root.setOnClickListener {
+                   transformationLayout.finishTransform()
+               }*/
 
             viewLifecycleOwner.lifecycleScope.launch {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
 
                     launch {
-                        viewModel.selectedTv.collect {
-                            tv = it
+                        viewModel.selectedTv.collect {selectedTv->
+                            tv = selectedTv
+                            if (selectedTv != null) {
+                                customChipsView.setChipsList(
+                                    selectedTv.genres,
+                                    textGetter = { genre -> genre.name }
+                                )
+                            }
                         }
                     }
 
@@ -74,7 +91,7 @@ class TvAboutFragment() : Fragment() {
                             Log.d(TAG, "onViewCreated: getting trailers")
                             showTrailerSection(trailers.isNotEmpty())
                             if (trailers.isNotEmpty()) {
-                                videoAdapter.items = trailers
+                                videoAdapter.updateItems(trailers)
                             }
                         }
                     }
@@ -100,19 +117,35 @@ class TvAboutFragment() : Fragment() {
                     }
 
 
-                   /* launch {
-                        viewModel.partsOfCollection.collect { parts ->
-                            if (parts.isNotEmpty()) {
-                                Log.d(TAG, "onViewCreated: add parts size ${parts.size}")
-                                movieAdapter.addItems(parts)
-                            }
+                    /* launch {
+                         viewModel.partsOfCollection.collect { parts ->
+                             if (parts.isNotEmpty()) {
+                                 Log.d(TAG, "onViewCreated: add parts size ${parts.size}")
+                                 movieAdapter.addItems(parts)
+                             }
 
-                        }
-                    }*/
+                         }
+                     }*/
                 }
             }
         }
 
+    }
+
+    // Disable ViewPager2 from intercepting touch events of RecyclerView
+    private fun enableInnerScrollViewPager(recyclerView: RecyclerView){
+        recyclerView.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener() {
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                val action = e.actionMasked
+                when (action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // Disallow ViewPager2 to intercept touch events of RecyclerView
+                        rv.parent.requestDisallowInterceptTouchEvent(true)
+                    }
+                }
+                return false
+            }
+        })
     }
 
     private fun FragmentTvAboutBinding.showBackdropShower(notEmpty: Boolean) {

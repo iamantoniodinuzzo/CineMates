@@ -3,6 +3,7 @@ plugins {
     id 'androidx.navigation.safeargs'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
@@ -60,6 +61,7 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:$legacy"
     implementation "androidx.fragment:fragment-ktx:$fragment_ktx"
     implementation project(path: ':LinearLayoutInfo')
+    implementation project(path: ':HorizontalChipView')
     testImplementation "junit:junit:$junit"
     androidTestImplementation "androidx.test.ext:junit:$junit_android"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_android"

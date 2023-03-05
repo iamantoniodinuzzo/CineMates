@@ -7,7 +7,7 @@ import com.example.cinemates.model.Person
 import com.example.cinemates.repository.ActorRepository
 import com.example.cinemates.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,40 +24,33 @@ constructor(
     private val movieRepository: MovieRepository,
 ) : ViewModel() {
 
-    private val _actor = MutableLiveData<Person>()
-    val actor: LiveData<Person> get() = _actor
-
-    val movies: MutableLiveData<List<Movie>> =
-        Transformations.switchMap(_actor) { actor ->
-            movieRepository.getMoviesByActor(actor.id.toString()).asLiveData()
-        }as MutableLiveData<List<Movie>>
-
-    val images: MutableLiveData<List<Image>> =
-        Transformations.switchMap(_actor) { actor ->
-            actorRepository.getImages(actor.id).asLiveData()
-        }as MutableLiveData<List<Image>>
+    private val _actor = MutableStateFlow<Person?>(null)
+    val actor: Flow<Person?> get() = _actor
 
     fun onDetailsFragmentReady(personId: Int) {
         getActorDetails(personId)
     }
 
-     fun onDestroyFragment() {
-        super.onCleared()
-        movies.value = listOf()
-        images.value = listOf()
-    }
-
-
-    private fun getActorDetails(id: Int) = viewModelScope.launch {
-        try {
+    private fun getActorDetails(id: Int) {
+        viewModelScope.launch {
             actorRepository.getActorDetails(id).collectLatest { person ->
-
-                _actor.postValue(person)
-
+                _actor.value = person
             }
-        } catch (throwable: Throwable) {
-            throwable.printStackTrace()
         }
-
     }
+
+    val movies = actor.flatMapLatest { actor ->
+        actor?.let {
+            movieRepository.getMoviesByActor(it.id.toString())
+        } ?: emptyFlow()
+    }
+
+    val images = actor.flatMapLatest { actor ->
+        actor?.let {
+            actorRepository.getImages(it.id)
+        } ?: emptyFlow()
+    }
+
+
+
 }

@@ -33,11 +33,11 @@
 
             <com.indisparte.linearlayoutinfo.LinearInfoView
                 android:id="@+id/birthday"
-                app:hideIfValueEmpty="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/age"
                 android:layout_marginBottom="10dp"
+                app:hideIfValueEmpty="true"
                 app:title="Born on"
                 app:value="@{person.formattedBirthday}" />
 
@@ -55,8 +55,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/deathDate"
-                app:hideIfValueEmpty="true"
                 android:layout_marginBottom="10dp"
+                app:hideIfValueEmpty="true"
                 app:title="From"
                 app:value="@{person.place_of_birth}" />
 
@@ -64,10 +64,10 @@
                 android:id="@+id/biography"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hideIfValueEmpty="true"
                 android:layout_below="@id/birthPlace"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
+                app:hideIfValueEmpty="true"
                 app:title="Biography"
                 app:value="@{person.biography}" />
 
@@ -83,26 +83,19 @@
                 android:textStyle="bold"
                 android:visibility="@{person.also_known_as.empty? View.GONE:View.VISIBLE}" />
 
-            <HorizontalScrollView
-                android:id="@+id/chip_group"
+            <com.indisparte.horizontalchipview.HorizontalChipView
+                android:id="@+id/chipGroupKnownAs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/knownAsTitle">
+                android:layout_below="@id/knownAsTitle"
+                android:padding="10dp" />
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chipGroupNames"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:knownAs="@{person.also_known_as}"
-                    app:singleLine="true"
-                    app:singleSelection="true" />
-            </HorizontalScrollView>
 
             <TextView
                 android:id="@+id/imageTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_below="@id/chip_group"
+                android:layout_below="@id/chipGroupKnownAs"
                 android:layout_marginTop="10dp"
                 android:text="Images"
                 android:textColor="@color/white"

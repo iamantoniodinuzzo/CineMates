@@ -4,30 +4,33 @@ package com.example.cinemates.view.ui.adapter
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.navigation.Navigation
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
-import com.example.cinemates.databinding.ListItemMovieSmallBinding
+import com.example.cinemates.databinding.ListItemPersonLongBinding
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
-import com.example.cinemates.databinding.ListItemTvSmallBinding
-import com.example.cinemates.model.Movie
+import com.example.cinemates.model.Cast
 import com.example.cinemates.model.Person
-import com.example.cinemates.model.TvShow
 
-class PersonAdapter : BaseAdapter<Person, ListItemPersonSmallBinding>(R.layout.list_item_person_small, emptyList()) {
+class PersonAdapter :
+    MultipleViewSizeAdapter<Person, ListItemPersonLongBinding, ListItemPersonSmallBinding>(
+        R.layout.list_item_person_long, R.layout.list_item_person_small,
+        emptyList()
+    ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<ListItemPersonSmallBinding>(inflater, itemLayoutResId, parent, false)
-        return BaseViewHolder(binding)
+    override fun onBindLongItem(binding: ListItemPersonLongBinding, item: Person) {
+        binding.actor = item as Cast
+        navigateToDetails(binding, item)
     }
 
-    override fun onBindItem(binding: ListItemPersonSmallBinding, item: Person) {
+    override fun onBindSmallItem(binding: ListItemPersonSmallBinding, item: Person) {
         binding.person = item
-        binding.root.setOnClickListener {view->
+        navigateToDetails(binding, item)
+    }
+
+    private fun navigateToDetails(binding: ViewDataBinding, item: Person) {
+        binding.root.setOnClickListener { view ->
             val action = NavGraphDirections.actionGlobalActorDetailsFragment(item)
             Navigation.findNavController(view).navigate(action)
         }

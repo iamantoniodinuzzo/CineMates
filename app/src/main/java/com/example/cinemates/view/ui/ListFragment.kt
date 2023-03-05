@@ -9,15 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemates.databinding.FragmentListingItemsBinding
 import com.example.cinemates.view.ui.adapter.BaseAdapter
+import com.example.cinemates.view.ui.adapter.SingleViewAdapter
 
 /**
  * A fragment in which a list of elements is shown which have multiple views depending on the layout of the list.
  * @param T The type of objects contained in the recyclerview
- * @param A The adapter must extend [BaseAdapter]
+ * @param A The adapter must extend [SingleViewAdapter]
  * @param adapter The adapter constructor
  * @author Antonio Di Nuzzo (Indisparte)
  */
-open class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T, VB>>(val adapter: A) :
+open class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T>>(val adapter: A) :
     Fragment() {
     private var _binding: FragmentListingItemsBinding? = null
     protected val binding: FragmentListingItemsBinding

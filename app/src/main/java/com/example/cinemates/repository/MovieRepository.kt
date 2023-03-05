@@ -17,7 +17,7 @@ class MovieRepository
 constructor(
     private val movieService: MovieService,
     private val movieDao: MovieDao,
-    private val queryMap: HashMap<String, String>
+    private val queryMap: MutableMap<String, String>
 ) {
 
     /**

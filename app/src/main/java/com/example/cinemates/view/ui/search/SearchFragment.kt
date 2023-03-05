@@ -2,6 +2,7 @@ package com.example.cinemates.view.ui.search
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,9 @@ import com.example.cinemates.view.ui.adapter.TvShowAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+
+private val TAG = SearchFragment::class.simpleName
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
@@ -106,19 +110,38 @@ class SearchFragment : Fragment() {
 
             //listen viewModel changes
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                viewModel.searchedActors.collectLatest { actors ->
-                    personAdapter.updateItems(actors)
+                launch {
+                    viewModel.searchedMovies.collect { movies ->
+                        Log.d(TAG, "onViewCreated: movies -> $movies")
+                        movieAdapter.updateItems(movies)
+                    }
                 }
-                viewModel.searchedMovies.collectLatest { movies ->
-                    movieAdapter.updateItems(movies)
+                launch {
+
+                    viewModel.searchedActors.collect { actors ->
+                        Log.d(TAG, "onViewCreated: actors -> $actors")
+                        personAdapter.updateItems(actors)
+                    }
                 }
-                viewModel.searchedTvShow.collectLatest { tvShow ->
-                    tvShowAdapter.updateItems(tvShow)
+
+                launch {
+                    viewModel.searchedTvShow.collect { tvShow ->
+                        Log.d(TAG, "onViewCreated: tvShow -> $tvShow")
+                        tvShowAdapter.updateItems(tvShow)
+                    }
                 }
+
             }
 
             // Set up the filter chips
+            recyclerView.adapter = movieAdapter
+            var lastCheckedId = -1
             chipGroup.setOnCheckedChangeListener { _, checkedId ->
+                if (checkedId == lastCheckedId) {
+                    // The same chip has been selected twice.
+                    return@setOnCheckedChangeListener
+                }
+                lastCheckedId = checkedId
                 val adapter = when (checkedId) {
                     R.id.movies_chip -> movieAdapter
                     R.id.actors_chip -> personAdapter
@@ -130,25 +153,25 @@ class SearchFragment : Fragment() {
         }
     }
 
-        //Change menu icon in toolbar showing list or grid view
-        private fun updateToolbar() {
-            layoutGrid = !layoutGrid
-            val gridView = binding.toolbar.menu.findItem(R.id.menu_switch_grid)
-            gridView.isVisible = layoutGrid
-            val listView = binding.toolbar.menu.findItem(R.id.menu_switch_list)
-            listView.isVisible = !layoutGrid
+    //Change menu icon in toolbar showing list or grid view
+    private fun updateToolbar() {
+        layoutGrid = !layoutGrid
+        val gridView = binding.toolbar.menu.findItem(R.id.menu_switch_grid)
+        gridView.isVisible = layoutGrid
+        val listView = binding.toolbar.menu.findItem(R.id.menu_switch_list)
+        listView.isVisible = !layoutGrid
 //        val filterView = binding.toolbar.menu.findItem(R.id.menu_filter)
 //        filterView.isVisible = false
-        }
-
-        private fun switchLayout(layoutManager: RecyclerView.LayoutManager?) {
-            Toast.makeText(context, "Soon!", Toast.LENGTH_SHORT).show()
-            /*searchMovieFragment!!.changeLayout(layoutManager)
-            searchActorsFragment!!.changeLayout(layoutManager)*/
-        }
-
-        override fun onDestroyView() {
-            super.onDestroyView()
-            _binding = null
-        }
     }
+
+    private fun switchLayout(layoutManager: RecyclerView.LayoutManager?) {
+        Toast.makeText(context, "Soon!", Toast.LENGTH_SHORT).show()
+        /*searchMovieFragment!!.changeLayout(layoutManager)
+        searchActorsFragment!!.changeLayout(layoutManager)*/
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}

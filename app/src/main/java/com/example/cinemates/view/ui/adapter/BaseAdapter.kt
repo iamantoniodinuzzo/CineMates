@@ -45,6 +45,7 @@ abstract class BaseAdapter<T, VB : ViewDataBinding>(
         val diffResult = DiffUtil.calculateDiff(DiffCallback(items, newItems))
         items = newItems
         diffResult.dispatchUpdatesTo(this)
+        notifyDataSetChanged()
     }
 
     inner class BaseViewHolder(private val binding: VB) : RecyclerView.ViewHolder(binding.root) {

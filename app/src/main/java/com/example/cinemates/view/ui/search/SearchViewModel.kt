@@ -41,7 +41,7 @@ constructor(
     }
 
     fun setQuery(query: String) {
-        _query.value = query
+        _query.value = query.trim()
     }
 
     val searchedActors = query.flatMapLatest { query ->

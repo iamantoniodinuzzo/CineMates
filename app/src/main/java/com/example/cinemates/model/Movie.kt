@@ -22,13 +22,13 @@ class Movie(
     val poster_path: String?,
     val release_date: String?,
     val runtime: Int?,
-    val title: String,
-    val vote_average: Double,
+    val title: String?,
+    val vote_average: Double?,
     var personalStatus: PersonalStatus = PersonalStatus.EMPTY,
     var favorite: Boolean = false,
-    val original_title: String,
+    val original_title: String?,
     @Ignore
-    val original_language: String,
+    val original_language: String?,
     @Ignore
     val homepage: String?,
     @Ignore
@@ -38,25 +38,25 @@ class Movie(
     @Ignore
     val overview: String?,
     @Ignore
-    val budget: Int,
+    val budget: Int?,
     @Ignore
-    val popularity: Double,
+    val popularity: Double?,
     @Ignore
-    val adult: Boolean,
+    val adult: Boolean?,
     @Ignore
-    val revenue: Int,
+    val revenue: Int?,
     @Ignore
     val status: String?,
     @Ignore
     val tagline: String?,
     @Ignore
-    val video: Boolean,
+    val video: Boolean?,
     @Ignore
-    val vote_count: Int,
+    val vote_count: Int?,
     @Ignore
-    val production_companies: List<ProductionCompany>,
+    val production_companies: List<ProductionCompany>?,
     @Ignore
-    val production_countries: List<ProductionCountry>
+    val production_countries: List<ProductionCountry>?
 ) : Serializable {
 
     val formattedRuntime: String
@@ -77,31 +77,28 @@ class Movie(
             return if (genres.isNotEmpty()) {
                 val result = genres.map { genre -> genre.name }
                 result.joinToString(separator = ", ")
-            }else "Not specified"
+            } else "Not specified"
         }
+
+    private fun formattedMoney(toFormat: Int?): String {
+        return if (toFormat != 0) {
+            val current = Locale.getDefault()
+            val format = NumberFormat.getCurrencyInstance()
+            format.maximumFractionDigits = 0
+            format.currency =
+                Currency.getInstance(Currency.getInstance(current).currencyCode)
+            format.format(toFormat)
+        } else "Not specified"
+    }
 
     val formattedBudget: String
         get() {
-            return if (budget != 0) {
-                val current = Locale.getDefault()
-                val format = NumberFormat.getCurrencyInstance()
-                format.maximumFractionDigits = 0
-                format.currency =
-                    Currency.getInstance(Currency.getInstance(current).currencyCode)
-                format.format(budget)
-            } else ""
+            return formattedMoney(budget)
         }
 
     val formattedRevenue: String
         get() {
-            return if (revenue != 0) {
-                val current = Locale.getDefault()
-                val format = NumberFormat.getCurrencyInstance()
-                format.maximumFractionDigits = 0
-                format.currency =
-                    Currency.getInstance(Currency.getInstance(current).currencyCode)
-                format.format(revenue)
-            } else ""
+            return formattedMoney(revenue)
         }
 
     val formattedReleaseDate: String
@@ -111,7 +108,7 @@ class Movie(
                     LocalDate.parse(release_date, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                 val pattern = DateTimeFormatter.ofPattern("MMM yyyy")
                 pattern.format(localDate)
-            } else ""
+            } else "Not specified"
         }
 
     constructor(
@@ -128,8 +125,8 @@ class Movie(
         favorite: Boolean
     ) : this(
         belongs_to_collection, genres, id, poster_path, release_date, runtime, title, vote_average,
-        personalStatus, favorite, original_title, "", "", "", "",
-        "", 0, 0.0, false, 0, "", "", false, 0, listOf(), listOf()
+        personalStatus, favorite, original_title, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null
     )
 
     override fun hashCode(): Int {

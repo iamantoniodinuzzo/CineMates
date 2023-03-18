@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.cinemates.model.Filter
-import com.example.cinemates.repository.DbFilterRepository
+import com.example.cinemates.repository.FilterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,18 +14,18 @@ import javax.inject.Inject
 class DbFilterViewModel
 @Inject
 constructor(
-    private val dbFilterRepository: DbFilterRepository
+    private val filterRepository: FilterRepository
 ) : ViewModel() {
 
 
-    val filters: LiveData<List<Filter>> =dbFilterRepository.getFilters().asLiveData()
+    val filters: LiveData<List<Filter>> =filterRepository.getFilters().asLiveData()
 
     fun insertFilter(filter: Filter) = viewModelScope.launch {
-        dbFilterRepository.insertFilter(filter)
+        filterRepository.insertFilter(filter)
     }
 
     fun deleteFilter(filter: Filter) = viewModelScope.launch {
-        dbFilterRepository.deleteFilter(filter)
+        filterRepository.deleteFilter(filter)
     }
 
 

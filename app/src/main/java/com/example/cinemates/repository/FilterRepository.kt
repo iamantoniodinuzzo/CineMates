@@ -2,10 +2,9 @@ package com.example.cinemates.repository
 
 import com.example.cinemates.model.Filter
 import com.example.cinemates.local.dao.FilterDao
-import com.example.cinemates.local.db.AppDatabase
 import javax.inject.Inject
 
-class DbFilterRepository
+class FilterRepository
 @Inject
 constructor(
     private val filterDao: FilterDao

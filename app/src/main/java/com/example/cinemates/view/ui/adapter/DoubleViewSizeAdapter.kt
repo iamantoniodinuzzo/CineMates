@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.DiffUtil
 import com.example.cinemates.util.ViewSize
 
 /**
  * A generic base adapter for RecyclerView that uses DiffUtil, Data Binding, and View Binding,
- * for a recyclerview that displays objects with two view type
+ * for a recyclerview that displays objects with two view type.
  *
  * @param T The type of data to be displayed in the RecyclerView.
  * @param VDBLong The type of ViewDataBinding used in the RecyclerView item layout for Long view type.
@@ -20,14 +19,14 @@ import com.example.cinemates.util.ViewSize
  *
  * @author Antonio Di Nuzzo (Indisparte)
  */
-abstract class MultipleViewSizeAdapter<T, VDBLong : ViewDataBinding, VDBSmall : ViewDataBinding>(
+abstract class DoubleViewSizeAdapter<T, VDBLong : ViewDataBinding, VDBSmall : ViewDataBinding>(
     private val longItemLayoutResId: Int,
     private val smallItemLayoutResId: Int,
     items: List<T>
 ) : BaseAdapter<T>(items) {
 
 
-    private var currentLayoutType: ViewSize = ViewSize.SMALL
+    var currentLayoutType: ViewSize = ViewSize.SMALL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MultipleViewViewHolder {
         return when (viewType) {
@@ -59,7 +58,7 @@ abstract class MultipleViewSizeAdapter<T, VDBLong : ViewDataBinding, VDBSmall : 
 
     /**
      * Switches between two layout
-     * */
+     */
     fun toggleLayoutType() {
         currentLayoutType = when (currentLayoutType) {
             ViewSize.LONG -> ViewSize.SMALL

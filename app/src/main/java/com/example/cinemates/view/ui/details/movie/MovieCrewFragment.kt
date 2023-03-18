@@ -28,7 +28,7 @@ class MovieCrewFragment : ListFragment<Crew, ListItemCrewLongBinding, CrewAdapte
 
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            adapter.toggleLayoutType()
+            adapter.currentLayoutType = ViewSize.LONG
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 viewModel.crew.collectLatest {crew->
                     adapter.updateItems(crew)

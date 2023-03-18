@@ -4,9 +4,6 @@ package com.example.cinemates.view.ui.adapter
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.Navigation
 import com.example.cinemates.NavGraphDirections
@@ -16,7 +13,7 @@ import com.example.cinemates.databinding.ListItemTvSmallBinding
 import com.example.cinemates.model.TvShow
 
 class TvShowAdapter :
-    MultipleViewSizeAdapter<TvShow, ListItemTvLongBinding, ListItemTvSmallBinding>(
+    DoubleViewSizeAdapter<TvShow, ListItemTvLongBinding, ListItemTvSmallBinding>(
         R.layout.list_item_tv_long,
         R.layout.list_item_tv_small,
         emptyList()

@@ -14,7 +14,7 @@ import com.example.cinemates.model.Cast
 import com.example.cinemates.model.Person
 
 class PersonAdapter :
-    MultipleViewSizeAdapter<Person, ListItemPersonLongBinding, ListItemPersonSmallBinding>(
+    DoubleViewSizeAdapter<Person, ListItemPersonLongBinding, ListItemPersonSmallBinding>(
         R.layout.list_item_person_long, R.layout.list_item_person_small,
         emptyList()
     ) {

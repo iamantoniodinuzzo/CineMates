@@ -13,7 +13,7 @@ import com.example.cinemates.databinding.ListItemPersonSmallBinding
 import com.example.cinemates.model.Cast
 
 class ActorAdapter :
-    MultipleViewSizeAdapter<Cast, ListItemPersonLongBinding, ListItemPersonSmallBinding>(
+    DoubleViewSizeAdapter<Cast, ListItemPersonLongBinding, ListItemPersonSmallBinding>(
         R.layout.list_item_person_long,
         R.layout.list_item_person_small,
         emptyList()

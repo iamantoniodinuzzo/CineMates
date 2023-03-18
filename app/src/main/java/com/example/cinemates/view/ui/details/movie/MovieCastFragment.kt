@@ -22,7 +22,7 @@ class MovieCastFragment : ListFragment<Cast, ListItemPersonLongBinding, ActorAda
 
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            adapter.toggleLayoutType()
+            adapter.currentLayoutType = ViewSize.LONG
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
                 viewModel.cast.collectLatest {cast->
                     adapter.updateItems(cast)

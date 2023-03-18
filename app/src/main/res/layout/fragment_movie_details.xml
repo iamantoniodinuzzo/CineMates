@@ -14,12 +14,10 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout2"
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -31,9 +29,9 @@
                 app:collapsedTitleTextColor="@color/geyser"
                 app:contentScrim="@color/lynch_100"
                 app:expandedTitleMarginStart="10dp"
+                app:titleCollapseMode="fade"
                 app:expandedTitleTextColor="@android:color/transparent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="@{movie.title}">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -81,19 +79,6 @@
                         app:layout_constraintTop_toBottomOf="@id/movie_backdrop"
                         tools:text="Movie title" />
 
-                    <TextView
-                        android:id="@+id/movie_release_date"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:text='@{movie.formattedReleaseDate+" - "+movie.formattedRuntime}'
-                        android:textColor="@color/geyser"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/movie_poster"
-                        app:layout_constraintTop_toBottomOf="@id/movie_title"
-                        tools:text="@tools:sample/date/mmddyy" />
-
                     <com.google.android.material.chip.Chip
                         android:id="@+id/watch_providers"
                         android:layout_width="wrap_content"
@@ -118,6 +103,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:layout_marginBottom="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
+                    app:title="@{movie.title}"
                     app:navigationIcon="@drawable/ic_round_arrow_back_24" />
 
 
@@ -148,8 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_margin="16dp"
             android:backgroundTint="@color/vermilion_100"
             android:src="@drawable/ic_baseline_add_24" />
 

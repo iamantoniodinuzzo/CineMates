@@ -15,8 +15,10 @@ import com.example.cinemates.R
 import com.example.cinemates.view.ui.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentMovieDetailsBinding
 import com.example.cinemates.model.Movie
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialSharedAxis
+import kotlin.math.abs
 
 /**
  * @author Antonio Di Nuzzo
@@ -80,6 +82,21 @@ class MovieDetailsFragment : Fragment() {
                 Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
             }
             viewModel.onDetailsFragmentReady(selectedMovie.id)
+
+            //Hide and show FAB when scrolling
+            appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+                if (verticalOffset == 0) {
+                    // Fully expanded state
+                    fab.show()
+                } else if (abs(verticalOffset) >= appBarLayout.totalScrollRange) {
+                    // Fully collapsed state
+                    fab.hide()
+                } else {
+                    // Somewhere in between
+                    fab.show()
+                }
+            }
+
             initializeViewPager()
         }
 

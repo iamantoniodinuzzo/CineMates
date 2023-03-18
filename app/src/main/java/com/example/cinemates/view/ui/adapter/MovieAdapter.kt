@@ -13,7 +13,7 @@ import com.example.cinemates.databinding.ListItemMovieSmallBinding
 import com.example.cinemates.model.Movie
 
 class MovieAdapter :
-    MultipleViewSizeAdapter<Movie, ListItemMovieLongBinding, ListItemMovieSmallBinding>(
+    DoubleViewSizeAdapter<Movie, ListItemMovieLongBinding, ListItemMovieSmallBinding>(
         R.layout.list_item_movie_long,
         R.layout.list_item_movie_small,
         emptyList()

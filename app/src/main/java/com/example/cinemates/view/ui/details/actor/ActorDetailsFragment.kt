@@ -75,6 +75,7 @@ class ActorDetailsFragment : Fragment() {
         binding.apply {
             viewPager.adapter = viewPagerAdapter
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                //TODO update name of tab with StringRes
                 when (position) {
                     0 -> tab.text = "About"
                     1 -> tab.text = "Movies"
@@ -104,21 +105,21 @@ class ActorDetailsFragment : Fragment() {
     }
 
     private fun updateThisPerson(fab: FloatingActionButton) {
-        if (dbViewModel.setAsFavorite(args.person)) {
+       /* if (dbViewModel.setAsFavorite(args.person)) {
             Toast.makeText(context, "Added to favorites", Toast.LENGTH_SHORT).show()
             fab.setImageResource(R.drawable.ic_favorite_filled)
         } else {
             Toast.makeText(context, "Removed from favorites", Toast.LENGTH_SHORT).show()
             fab.setImageResource(R.drawable.ic_favorite_border)
-        }
+        }*/
     }
 
     private fun customizeFab(fab: FloatingActionButton) {
-        if (dbViewModel.isMyFavoritePerson(args.person)) {
+      /*  if (dbViewModel.isMyFavoritePerson(args.person)) {
             fab.setImageResource(R.drawable.ic_favorite_filled)
         } else {
             fab.setImageResource(R.drawable.ic_favorite_border)
-        }
+        }*/
 
     }
 

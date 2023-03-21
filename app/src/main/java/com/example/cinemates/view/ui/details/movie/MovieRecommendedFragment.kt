@@ -18,7 +18,7 @@ class MovieRecommendedFragment : ListFragment<Movie, ListItemMovieSmallBinding,M
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.recommendedMovies.collectLatest { recommended ->
                 adapter.updateItems(recommended)
                 binding.counter = recommended.size

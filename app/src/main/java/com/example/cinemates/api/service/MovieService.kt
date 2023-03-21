@@ -37,13 +37,13 @@ interface MovieService {
     ): GenericResponse<Movie>
 
     @GET("movie/{movie_id}")
-    suspend fun getMovieDetails(
+    suspend fun getDetails(
         @Path("movie_id") id: Int,
         @QueryMap queries: Map<String, String>
     ): Movie
 
     @GET("movie/{movie_id}/credits")
-    suspend fun getMovieCredits(
+    suspend fun getCredits(
         @Path("movie_id") id: Int,
         @QueryMap queries: Map<String, String>
     ): CreditsResponse
@@ -80,17 +80,16 @@ interface MovieService {
     ): Collection
 
     @GET("search/movie")
-    suspend fun getMoviesBySearch(@QueryMap queries: Map<String, String>): GenericResponse<Movie>
+    suspend fun getBySearch(@QueryMap queries: Map<String, String>): GenericResponse<Movie>
 
     @GET("discover/movie")
-    suspend fun getMoviesByDiscover(@QueryMap queries: Map<String, String>): GenericResponse<Movie>
+    suspend fun getByDiscover(@QueryMap queries: Map<String, String>): GenericResponse<Movie>
 
     @GET("genre/movie/list")
     suspend fun getGenreList(@QueryMap queries: Map<String, String>): GenericResponse<Genre>
 
-    @GET("trending/{media_type}/{time_window}")
-    suspend fun getTrendingMovies(
-        @Path("media_type") media_type: String,
+    @GET("trending/movie/{time_window}")
+    suspend fun getTrending(
         @Path("time_window") time_window: String,
         @QueryMap queries: Map<String, String>
     ): GenericResponse<Movie>

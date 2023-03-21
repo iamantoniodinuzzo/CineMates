@@ -1,11 +1,9 @@
 package com.example.cinemates.view.ui.details.tvShow
 
-import android.provider.MediaStore.Audio.Genres
 import androidx.lifecycle.*
 import com.example.cinemates.model.*
 import com.example.cinemates.repository.TvShowRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -40,7 +38,7 @@ constructor(
      */
     private fun getTvDetails(id: Int) {
         viewModelScope.launch {
-            tvShowRepository.getTvShowDetails(id)
+            tvShowRepository.getDetails(id)
                 .collectLatest { tv ->
                     _selectedTv.value = tv
                 }
@@ -50,7 +48,7 @@ constructor(
 
     val similarTvShow = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepository.getSimilarTvShow(it.id)
+            tvShowRepository.getSimilar(it.id)
         } ?: emptyFlow()
     }
 
@@ -74,13 +72,13 @@ constructor(
 
     val cast = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepository.getTvShowCast(it.id)
+            tvShowRepository.getCast(it.id)
         } ?: emptyFlow()
     }
 
     val crew = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepository.getTvShowCrew(it.id)
+            tvShowRepository.getCrew(it.id)
         } ?: emptyFlow()
     }
 

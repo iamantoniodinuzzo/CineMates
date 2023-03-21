@@ -20,7 +20,7 @@ class ActorMoviesFragment : ListFragment<Movie,ListItemMovieSmallBinding,MovieAd
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.movies.collect { moviesByActor ->
                 adapter.updateItems(moviesByActor)
                 binding.counter = moviesByActor.size

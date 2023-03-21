@@ -10,16 +10,14 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentMovieAboutBinding
 import com.example.cinemates.model.Genre
-import com.indisparte.horizontalchipview.HorizontalChipView
 import com.example.cinemates.view.ui.adapter.MovieAdapter
 import com.example.cinemates.view.ui.adapter.VideoAdapter
+import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.launch
 
 private val TAG = MovieAboutFragment::class.simpleName
@@ -78,54 +76,59 @@ class MovieAboutFragment() : Fragment() {
                 transformationLayout.finishTransform()
             }
 
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
 
-                viewModel.selectedMovie.collect { selectedMovie ->
-                    movie = selectedMovie
-                    if (selectedMovie != null) {
-                        chipGroupGenres.setChipsList(
-                            selectedMovie.genres,
-                            textGetter = { genre -> genre.name }
-                        )
+                launch {
+                    viewModel.selectedMovie.collect { selectedMovie ->
+                        movie = selectedMovie
+                        if (selectedMovie != null) {
+                            chipGroupGenres.setChipsList(
+                                selectedMovie.genres,
+                                textGetter = { genre -> genre.name }
+                            )
+                        }
                     }
                 }
 
-                viewModel.videos.collect { trailers ->
-                    showTrailerSection(trailers.isNotEmpty())
-                    if (trailers.isNotEmpty()) {
-                        videoAdapter.updateItems(trailers)
+                launch {
+                    viewModel.videos.collect { trailers ->
+                        showTrailerSection(trailers.isNotEmpty())
+                        if (trailers.isNotEmpty()) {
+                            videoAdapter.updateItems(trailers)
+                        }
                     }
                 }
-
-
-                viewModel.posters.collect { posters ->
-                    showPostersShower(posters.isNotEmpty())
-                    if (posters.isNotEmpty()) {
-                        posterCounter = posters.size
-                        postersShower.path = posters.random().file_path
-                    }
-                }
-
-
-
-                viewModel.backdrops.collect { backdrops ->
-                    showBackdropShower(backdrops.isNotEmpty())
-                    if (backdrops.isNotEmpty()) {
-                        backdropCounter = backdrops.size
-                        backdropsShower.path = backdrops.random().file_path
+                launch {
+                    viewModel.posters.collect { posters ->
+                        showPostersShower(posters.isNotEmpty())
+                        if (posters.isNotEmpty()) {
+                            posterCounter = posters.size
+                            postersShower.path = posters.random().file_path
+                        }
                     }
                 }
 
 
-
-                viewModel.partsOfCollection.collect { parts ->
-                    if (parts.isNotEmpty()) {
-                        Log.d(TAG, "onViewCreated: add parts size ${parts.size}")
-                        movieAdapter.updateItems(parts)
+                launch {
+                    viewModel.backdrops.collect { backdrops ->
+                        showBackdropShower(backdrops.isNotEmpty())
+                        if (backdrops.isNotEmpty()) {
+                            backdropCounter = backdrops.size
+                            backdropsShower.path = backdrops.random().file_path
+                        }
                     }
-
                 }
 
+
+                launch {
+                    viewModel.partsOfCollection.collect { parts ->
+                        if (parts.isNotEmpty()) {
+                            Log.d(TAG, "onViewCreated: add parts size ${parts.size}")
+                            movieAdapter.updateItems(parts)
+                        }
+
+                    }
+                }
 
             }
         }

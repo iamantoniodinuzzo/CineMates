@@ -71,8 +71,7 @@ class TvAboutFragment() : Fragment() {
                    transformationLayout.finishTransform()
                }*/
 
-            viewLifecycleOwner.lifecycleScope.launch {
-                lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
 
                     launch {
                         viewModel.selectedTv.collect {selectedTv->
@@ -126,7 +125,7 @@ class TvAboutFragment() : Fragment() {
 
                          }
                      }*/
-                }
+
             }
         }
 

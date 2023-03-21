@@ -23,8 +23,8 @@ class TvCastFragment : ListFragment<Cast,ListItemPersonLongBinding, ActorAdapter
 
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            adapter.toggleLayoutType()
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            adapter.currentLayoutType = ViewSize.LONG
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.cast.collectLatest {cast->
                     adapter.updateItems(cast)
                     counter = cast.size

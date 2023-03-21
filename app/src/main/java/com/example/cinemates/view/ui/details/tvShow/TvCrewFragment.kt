@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class TvCrewFragment : ListFragment<Crew, ListItemCrewLongBinding,CrewAdapter>(CrewAdapter()) {
+class TvCrewFragment : ListFragment<Crew, ListItemCrewLongBinding, CrewAdapter>(CrewAdapter()) {
 
     private val viewModel: TvDetailsViewModel by activityViewModels()
 
@@ -23,9 +23,9 @@ class TvCrewFragment : ListFragment<Crew, ListItemCrewLongBinding,CrewAdapter>(C
 
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            adapter.toggleLayoutType()
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                viewModel.crew.collectLatest {crew->
+            adapter.currentLayoutType =ViewSize.LONG
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+                viewModel.crew.collectLatest { crew ->
                     adapter.updateItems(crew)
                     counter = crew.size
                 }

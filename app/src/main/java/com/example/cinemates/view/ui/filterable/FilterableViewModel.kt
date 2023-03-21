@@ -32,7 +32,7 @@ constructor(
     fun setFilter(filter: Filter) = getFilteredMovies(filter)
 
     private fun getFilteredMovies(filter: Filter) {
-        movieRepository.getDiscoverableMovies(filter)
+        movieRepository.getDiscoverable(filter)
             .mapLatest { movies ->
                 _movies.postValue(movies)
             }

@@ -17,7 +17,7 @@ class TvSimilarFragment : ListFragment<TvShow,ListItemTvSmallBinding, TvShowAdap
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.similarTvShow.collect { similar ->
                 adapter.updateItems(similar)
                 binding.counter = similar.size

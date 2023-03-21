@@ -17,7 +17,7 @@ class MovieSimilarFragment : ListFragment<Movie,ListItemMovieSmallBinding, Movie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.similarMovies.collect { similar ->
                 adapter.updateItems(similar)
                 binding.counter = similar.size

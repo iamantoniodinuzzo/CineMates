@@ -110,7 +110,7 @@ class SearchFragment : Fragment() {
             })
 
             //listen viewModel changes
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 launch {
                     viewModel.searchedMovies.collect { movies ->
                         Log.d(TAG, "onViewCreated: movies -> $movies")

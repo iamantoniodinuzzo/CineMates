@@ -1,8 +1,6 @@
 package com.example.cinemates.view.ui.details.actor
 
 import androidx.lifecycle.*
-import com.example.cinemates.model.Image
-import com.example.cinemates.model.Movie
 import com.example.cinemates.model.Person
 import com.example.cinemates.repository.ActorRepository
 import com.example.cinemates.repository.MovieRepository
@@ -41,7 +39,7 @@ constructor(
 
     val movies = actor.flatMapLatest { actor ->
         actor?.let {
-            movieRepository.getMoviesByActor(it.id.toString())
+            movieRepository.getByActor(it.id.toString())
         } ?: emptyFlow()
     }
 

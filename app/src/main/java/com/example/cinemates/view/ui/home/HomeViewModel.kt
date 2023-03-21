@@ -1,8 +1,10 @@
 package com.example.cinemates.view.ui.home
 
-import android.util.Log
 import androidx.annotation.StringRes
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.cinemates.R
 import com.example.cinemates.model.Movie
 import com.example.cinemates.model.Person
@@ -13,7 +15,7 @@ import com.example.cinemates.repository.TvShowRepository
 import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.TimeWindow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,7 +38,7 @@ constructor(
         fetchData()
     }
 
-
+//TODO MutableStateFlow
     val trendingMovies: MutableLiveData<List<Movie>> = MutableLiveData()
 
     val tvShowOnTheAir: MutableLiveData<List<TvShow>> = MutableLiveData()
@@ -57,61 +59,64 @@ constructor(
         enum class MovieListSpecification(@StringRes val nameResource: Int, val value: String) {
             POPULAR(R.string.chip_popular, "popular"),
             TOP_RATED(R.string.chip_top_rated, "top_rated"),
-            UPCOMING(R.string.chip_upcoming, "upcoming")
+            UPCOMING(R.string.chip_upcoming, "upcoming"),
+            ON_AIR(R.string.chip_on_air, "on_the_air")
         }
     }
 
     private fun fetchData() {
         viewModelScope.launch {
-            movieRepository.getSpecificMovieList(MovieListSpecification.POPULAR.value)
-                .collectLatest { popular ->
-                    popularMovies.value = popular
-                }
-            movieRepository.getSpecificMovieList(MovieListSpecification.UPCOMING.value)
-                .collectLatest { upcoming ->
-                    upcomingMovies.value = upcoming
-                }
-            movieRepository.getSpecificMovieList(MovieListSpecification.TOP_RATED.value)
-                .collectLatest { topRated ->
-                    topRatedMovies.value = topRated
-                }
-            movieRepository.getTrendingMovies(MediaType.MOVIE.value, TimeWindow.WEEK.value)
-                .collectLatest { trending ->
-                    trendingMovies.value = trending
-                }
-            tvShowRepository.getTrendingTvShow(MediaType.TV.value, TimeWindow.WEEK.value)
-                .collectLatest { trending ->
-                    trendingTvShow.value = trending
-                }
-            tvShowRepository.getPopularTvShow().collectLatest { popular ->
-                popularTvShow.value = popular
+            launch {
+                movieRepository.getSpecificMovieList(MovieListSpecification.POPULAR.value)
+                    .collectLatest { popular ->
+                        popularMovies.value = popular
+                    }
             }
-            tvShowRepository.getOnTheAir().collectLatest { onTheAir ->
-                tvShowOnTheAir.value = onTheAir
+            launch {
+                movieRepository.getSpecificMovieList(MovieListSpecification.UPCOMING.value)
+                    .collectLatest { upcoming ->
+                        upcomingMovies.value = upcoming
+                    }
             }
-            actorRepository.getTrendingPerson(MediaType.PERSON.value, TimeWindow.WEEK.value)
-                .collectLatest { trending ->
-                    trendingPerson.value = trending
+            launch {
+                movieRepository.getSpecificMovieList(MovieListSpecification.TOP_RATED.value)
+                    .collectLatest { topRated ->
+                        topRatedMovies.value = topRated
+                    }
+            }
+            launch {
+                movieRepository.getTrending(TimeWindow.WEEK.value)
+                    .collectLatest { trending ->
+                        trendingMovies.value = trending
+                    }
+            }
+            launch {
+                tvShowRepository.getTrending(TimeWindow.WEEK.value)
+                    .collectLatest { trending ->
+                        trendingTvShow.value = trending
+                    }
+            }
+            launch {
+                tvShowRepository.getSpecificTVList(MovieListSpecification.POPULAR.value)
+                    .collectLatest { popular ->
+                        popularTvShow.value = popular
+                    }
+            }
+            launch {
+                tvShowRepository.getSpecificTVList(MovieListSpecification.ON_AIR.value)
+                    .collectLatest { onTheAir ->
+                        tvShowOnTheAir.value = onTheAir
+                    }
+            }
+            launch {
+                actorRepository.getTrendingPerson(MediaType.PERSON.value, TimeWindow.WEEK.value)
+                    .collectLatest { trending ->
+                        trendingPerson.value = trending
 
-                }
+                    }
+            }
         }
     }
-
-    /* val movieListBySpecification = combine(
-         movieListSpecification
-     ) { (query) ->
-         MovieSpecificationParam(query)
-     }.flatMapLatest {
-         movieRepository.getSpecificMovieList(it.query)
-     }
-
-     //set query in SavedStateHandle
-     fun setMovieListSpecification(query: MovieListSpecification) {
-         state["query"] = query.value
-         movieListSpecification.value =
-             state.getLiveData("query", MovieListSpecification.POPULAR.value).value.toString()
-     }
-     }*/
 
 
 }

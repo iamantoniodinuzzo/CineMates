@@ -1,15 +1,12 @@
 package com.example.cinemates.view.ui.details.movie
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.cinemates.model.*
 import com.example.cinemates.model.Collection
 import com.example.cinemates.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 /**
@@ -45,7 +42,7 @@ constructor(
      */
     private fun getMovieDetails(movieId: Int) {
         viewModelScope.launch {
-            movieRepository.getMovieDetails(movieId).collectLatest { movie ->
+            movieRepository.getDetails(movieId).collectLatest { movie ->
                 _selectedMovie.value = movie
                 checkIfMovieIsAPartOfACollection(movie.belongs_to_collection)
             }
@@ -62,13 +59,13 @@ constructor(
 
     val similarMovies = selectedMovie.flatMapLatest { movie ->
         movie?.let {
-            movieRepository.getSimilarMovies(it.id)
+            movieRepository.getSimilar(it.id)
         } ?: emptyFlow()
     }
 
     val recommendedMovies = selectedMovie.flatMapLatest { movie ->
         movie?.let {
-            movieRepository.getRecommendedMovies(it.id)
+            movieRepository.getRecommended(it.id)
         } ?: emptyFlow()
     }
 
@@ -92,13 +89,13 @@ constructor(
 
     val cast = selectedMovie.flatMapLatest { movie ->
         movie?.let {
-            movieRepository.getMovieCast(it.id)
+            movieRepository.getCast(it.id)
         } ?: emptyFlow()
     }
 
     val crew = selectedMovie.flatMapLatest { movie ->
         movie?.let {
-            movieRepository.getMovieCrew(it.id)
+            movieRepository.getCrew(it.id)
 
         } ?: emptyFlow()
     }

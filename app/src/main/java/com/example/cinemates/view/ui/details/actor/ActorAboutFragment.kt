@@ -64,19 +64,23 @@ class ActorAboutFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
 
-                viewModel.actor.collect { selectedPerson ->
-                    binding.person = selectedPerson
-                    if (selectedPerson != null) {
-                        chipGroupKnownAs.setChipsList(
-                            selectedPerson.also_known_as,
-                            textGetter = { it }
-                        )
+                launch {
+                    viewModel.actor.collect { selectedPerson ->
+                        binding.person = selectedPerson
+                        if (selectedPerson != null) {
+                            chipGroupKnownAs.setChipsList(
+                                selectedPerson.also_known_as,
+                                textGetter = { it }
+                            )
+                        }
                     }
                 }
-                viewModel.images.collect { images ->
-                    posterAdapter.updateItems(images)
+                launch {
+                    viewModel.images.collect { images ->
+                        posterAdapter.updateItems(images)
+                    }
                 }
             }
 

@@ -3,11 +3,8 @@ package com.example.cinemates.repository
 import com.example.cinemates.model.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.util.*
 import javax.inject.Inject
 import com.example.cinemates.api.service.TvShowService
-import retrofit2.http.QueryMap
-import kotlin.collections.HashMap
 
 /**
  * @author Antonio Di Nuzzo
@@ -19,20 +16,14 @@ constructor(
     private val queryMap: MutableMap<String,String>
 ) {
 
-    fun getPopularTvShow(): Flow<List<TvShow>> = flow {
-        val popular = tvShowService.getPopular(queryMap).results
-        emit(popular)
+    fun getSpecificTVList(specification: String) = flow {
+        val movieList = tvShowService.getListOfSpecificTv(specification, queryMap).results
+        emit(movieList)
     }
 
-    fun getOnTheAir(): Flow<List<TvShow>> = flow {
-        val onAir = tvShowService.getOnTheAir(queryMap).results
-        emit(onAir)
-    }
-
-
-    fun getTrendingTvShow(mediaType: String, timeWindow: String): Flow<List<TvShow>> =
+    fun getTrending(timeWindow: String): Flow<List<TvShow>> =
         flow {
-            val trending = tvShowService.getTrendingMedia(mediaType, timeWindow, queryMap).results
+            val trending = tvShowService.getTrending(timeWindow, queryMap).results
             emit(trending)
         }
 
@@ -42,17 +33,17 @@ constructor(
         emit(videos)
     }
 
-    fun getTvShowDetails(movieId: Int): Flow<TvShow> = flow {
-        emit(tvShowService.getMovieDetails(movieId, queryMap))
+    fun getDetails(movieId: Int): Flow<TvShow> = flow {
+        emit(tvShowService.getDetails(movieId, queryMap))
     }
 
 
-    fun getSimilarTvShow(movieId: Int): Flow<List<TvShow>> = flow {
+    fun getSimilar(movieId: Int): Flow<List<TvShow>> = flow {
         val similarMovies = tvShowService.getSimilar(movieId, queryMap).results
         emit(similarMovies)
     }
 
-    fun getDiscoverableTvShow(filter: Filter): Flow<List<TvShow>> = flow {
+    fun getDiscoverable(filter: Filter): Flow<List<TvShow>> = flow {
         queryMap["sort_by"] =
             filter.sortBy.toString()
         queryMap["with_genres"] =
@@ -60,7 +51,7 @@ constructor(
                 .toString()
                 .replace("[", "")
                 .replace("]", "")
-        val movies = tvShowService.getTvShowByDiscover(queryMap).results
+        val movies = tvShowService.getByDiscover(queryMap).results
         emit(movies)
     }
 
@@ -74,20 +65,20 @@ constructor(
         emit(backdrops)
     }
 
-    fun getTvShowCast(movieId: Int): Flow<List<Cast>> = flow {
-        val cast = tvShowService.getMovieCredits(movieId, queryMap).cast
+    fun getCast(movieId: Int): Flow<List<Cast>> = flow {
+        val cast = tvShowService.getCredits(movieId, queryMap).cast
         emit(cast)
     }
 
-    fun getTvShowCrew(movieId: Int): Flow<List<Crew>> = flow {
-        val cast = tvShowService.getMovieCredits(movieId, queryMap).crew
+    fun getCrew(movieId: Int): Flow<List<Crew>> = flow {
+        val cast = tvShowService.getCredits(movieId, queryMap).crew
         emit(cast)
     }
 
 
-    fun getTvShowBySearch(query: String): Flow<List<TvShow>> = flow {
+    fun getBySearch(query: String): Flow<List<TvShow>> = flow {
         queryMap["query"] = query
-        emit(tvShowService.getTvShowBySearch(queryMap).results)
+        emit(tvShowService.getBySearch(queryMap).results)
     }
 
     /*  fun getTvShowByActor(with_cast: String): Flow<List<TvShow>> = flow {

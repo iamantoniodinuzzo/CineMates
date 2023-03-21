@@ -29,7 +29,7 @@ class MovieCrewFragment : ListFragment<Crew, ListItemCrewLongBinding, CrewAdapte
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             adapter.currentLayoutType = ViewSize.LONG
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated{
                 viewModel.crew.collectLatest {crew->
                     adapter.updateItems(crew)
                     counter = crew.size

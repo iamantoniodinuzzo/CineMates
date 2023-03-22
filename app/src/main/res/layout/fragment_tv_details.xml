@@ -31,6 +31,7 @@
                 app:collapsedTitleTextColor="@color/geyser"
                 app:contentScrim="@color/lynch_100"
                 app:expandedTitleMarginStart="10dp"
+                app:titleCollapseMode="fade"
                 app:expandedTitleTextColor="@android:color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:title="@{tv.name}">

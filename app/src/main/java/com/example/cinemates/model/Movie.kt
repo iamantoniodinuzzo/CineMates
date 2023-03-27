@@ -64,26 +64,21 @@ class Movie(
 
     val formattedBudget: String
         get() {
-            return if (budget != 0) {
-                val current = Locale.getDefault()
-                val format = NumberFormat.getCurrencyInstance()
-                format.maximumFractionDigits = 0
-                format.currency =
-                    Currency.getInstance(Currency.getInstance(current).currencyCode)
-                format.format(budget)
-            } else ""
+            return formatMoney()
         }
+
+    private fun formatMoney() = if (budget != 0) {
+        val current = Locale.getDefault()
+        val format = NumberFormat.getCurrencyInstance()
+        format.maximumFractionDigits = 0
+        format.currency =
+            Currency.getInstance(Currency.getInstance(current).currencyCode)
+        format.format(budget)
+    } else ""
 
     val formattedRevenue: String
         get() {
-            return if (revenue != 0) {
-                val current = Locale.getDefault()
-                val format = NumberFormat.getCurrencyInstance()
-                format.maximumFractionDigits = 0
-                format.currency =
-                    Currency.getInstance(Currency.getInstance(current).currencyCode)
-                format.format(revenue)
-            } else ""
+            return formatMoney()
         }
 
     val formattedReleaseDate: String

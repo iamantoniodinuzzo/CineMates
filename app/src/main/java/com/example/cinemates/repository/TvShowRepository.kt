@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.flow
 import java.util.*
 import javax.inject.Inject
 import com.example.cinemates.api.service.TvShowService
+import com.example.cinemates.local.dao.TvDao
 import retrofit2.http.QueryMap
 import kotlin.collections.HashMap
 
@@ -16,6 +17,7 @@ class TvShowRepository
 @Inject
 constructor(
     private val tvShowService: TvShowService,
+    private val tvDao: TvDao,
     private val queryMap: MutableMap<String,String>
 ) {
 

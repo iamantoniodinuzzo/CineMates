@@ -1,6 +1,6 @@
 package com.example.cinemates.model
 
-import java.io.Serializable
+import com.example.cinemates.util.MediaType
 import java.text.NumberFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -8,32 +8,50 @@ import java.util.*
 
 class Movie(
     val belongs_to_collection: Collection?,
-    val genres: List<Genre> = listOf(),
-     val id: Int,
-    val poster_path: String?,
+    genres: List<Genre> = listOf(),
+    id: Int,
+    poster_path: String,
     val release_date: String?,
     val runtime: Int?,
-    val title: String,
-    val vote_average: Double,
-    var personalStatus: PersonalStatus = PersonalStatus.EMPTY,
-    var favorite: Boolean = false,
+    title: String,
+    vote_average: Double,
+    personalStatus: PersonalStatus = PersonalStatus.EMPTY,
+    favorite: Boolean = false,
     val original_title: String,
-    val original_language: String,
-    val homepage: String?,
+    original_language: String,
+    homepage: String,
     val imdb_id: String?,
-    val backdrop_path: String?,
-    val overview: String?,
+    backdrop_path: String,
+    overview: String,
     val budget: Int,
-    val popularity: Double,
+    popularity: Double,
     val adult: Boolean,
     val revenue: Int,
-    val status: String?,
-    val tagline: String?,
+    status: String,
+    tagline: String,
     val video: Boolean,
-    val vote_count: Int,
-    val production_companies: List<ProductionCompany>,
-    val production_countries: List<ProductionCountry>
-) : Serializable {
+    vote_count: Int,
+     production_companies: List<ProductionCompany>,
+     production_countries: List<ProductionCountry>
+) : Media(
+    backdrop_path,
+    genres,
+    id,
+    original_language,
+    poster_path,
+    popularity,
+    vote_average,
+    vote_count,
+    title,
+    personalStatus,
+    favorite,
+    tagline,
+    status,
+    overview,
+    homepage,
+    production_companies,
+    production_countries
+) {
 
     val formattedRuntime: String
         get() {
@@ -53,7 +71,7 @@ class Movie(
             return if (genres.isNotEmpty()) {
                 val result = genres.map { genre -> genre.name }
                 result.joinToString(separator = ", ")
-            }else "Not specified"
+            } else "Not specified"
         }
 
     val formattedBudget: String
@@ -85,27 +103,9 @@ class Movie(
             } else ""
         }
 
-    override fun hashCode(): Int {
-        return id.hashCode()
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Movie
-
-        if (id != other.id) return false
-
-        return true
+    override fun getType(): MediaType {
+        return MediaType.MOVIE
     }
 
 
-}
-
-
-enum class PersonalStatus(
-    val status: Int
-) {
-    TO_SEE(1), SEEN(0), EMPTY(2);
 }

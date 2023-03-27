@@ -10,13 +10,6 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentProfileBinding
 import com.example.cinemates.databinding.LayoutSectionStatsBinding
-import com.example.cinemates.model.Movie
-import com.example.cinemates.model.Person
-import com.example.cinemates.model.PersonalStatus
-import com.example.cinemates.model.Section
-import com.example.cinemates.util.ViewSize
-import com.example.cinemates.view.dbviewmodel.DbMovieViewModel
-import com.example.cinemates.view.dbviewmodel.DbPersonViewModel
 import com.example.cinemates.util.getLong
 import com.google.android.material.transition.MaterialFade
 import com.google.android.material.transition.MaterialFadeThrough
@@ -30,8 +23,6 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding: FragmentProfileBinding
         get() = _binding!!
-    private val dbMovieViewModel: DbMovieViewModel by activityViewModels()
-    private val dbPersonViewModel: DbPersonViewModel by activityViewModels()
 
     /*private lateinit var adapter: SectionRecyclerViewAdapter
 
@@ -71,9 +62,6 @@ class ProfileFragment : Fragment() {
           /*  recyclerView.adapter = adapter
             adapter.addItems(sectionList)*/
 
-            setCounter(statHours, "Total Hours", dbMovieViewModel.getTotalHoursOf(PersonalStatus.EMPTY))
-            setCounter(statWatchedCounter, "Movies Seen", dbMovieViewModel.getSizeOf(PersonalStatus.SEEN))
-            setCounter(statToSeeCounter, "Movies To See", dbMovieViewModel.getSizeOf(PersonalStatus.TO_SEE))
         }
 //        movieSection.liveData = dbMovieViewModel.favorites
 //        personSection.liveData = dbPersonViewModel.persons

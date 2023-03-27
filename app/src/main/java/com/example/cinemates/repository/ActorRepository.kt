@@ -1,7 +1,6 @@
 package com.example.cinemates.repository
 
 import com.example.cinemates.api.service.ActorService
-import com.example.cinemates.local.dao.PersonDao
 import com.example.cinemates.model.Image
 import com.example.cinemates.model.Person
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +15,6 @@ class ActorRepository
 @Inject
 constructor(
     private val actorService: ActorService,
-    private val personDao: PersonDao,
     private val queryMap: MutableMap<String, String>
 ) {
 
@@ -43,10 +41,5 @@ constructor(
         emit(images)
     }
 
-    fun getPersons() = personDao.getAll()
-    fun isPersonFavorite(id: Int) = personDao.isPersonFavorite(id)
-    suspend fun insertPerson(person: Person) = personDao.insert(person)
-    suspend fun updatePerson(person: Person) = personDao.update(person)
-    suspend fun deletePerson(person: Person) = personDao.delete(person)
 
 }

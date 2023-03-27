@@ -18,7 +18,6 @@ import com.example.cinemates.databinding.FragmentDiscoverBinding
 import com.example.cinemates.util.Sort
 import com.example.cinemates.util.getLong
 import com.example.cinemates.view.ui.MainActivity
-import com.example.cinemates.view.dbviewmodel.DbFilterViewModel
 import com.example.cinemates.view.ui.adapter.FilterAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
@@ -37,7 +36,6 @@ class DiscoverFragment : Fragment() {
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var adapter: FilterAdapter
     private val discoverViewModel: DiscoverViewModel by activityViewModels()
-    private val dbFilterViewModel: DbFilterViewModel by activityViewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -143,9 +141,6 @@ class DiscoverFragment : Fragment() {
             recyclerView.setEmptyView(emptyView.root)
         }
 
-        dbFilterViewModel.filters.observe(viewLifecycleOwner) { filters ->
-            adapter.updateItems(filters)
-        }
 
     }
 
@@ -162,7 +157,6 @@ class DiscoverFragment : Fragment() {
                     discoverViewModel.filterBuilder.value?.name(name)
                     val filter = discoverViewModel.filterBuilder.value?.build()
                     if (filter != null) {
-                        dbFilterViewModel.insertFilter(filter)
                         clearSelection()
                         Toast.makeText(
                             context,

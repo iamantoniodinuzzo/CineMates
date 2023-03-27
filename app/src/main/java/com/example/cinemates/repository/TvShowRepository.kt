@@ -81,11 +81,5 @@ constructor(
         emit(tvShowService.getBySearch(queryMap).results)
     }
 
-    /*  fun getTvShowByActor(with_cast: String): Flow<List<TvShow>> = flow {
-         sMap["with_cast"] = with_cast
-         emit(tvShowService.getTvShowByDiscover(sMap).results)
-     }
- */
-
 }
 

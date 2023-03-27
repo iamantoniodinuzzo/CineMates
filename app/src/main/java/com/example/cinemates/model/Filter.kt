@@ -1,23 +1,19 @@
 package com.example.cinemates.model
 
+import androidx.databinding.adapters.Converters
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.example.cinemates.local.db.Converters
 import com.example.cinemates.util.Sort
 import java.io.Serializable
 
 @Entity
 class Filter constructor(
     val name: String,
-    @TypeConverters(Converters::class)
     val sortBy: Sort,
-    @TypeConverters(Converters::class)
     val withGenres: List<Int>,
-    @TypeConverters(Converters::class)
     val withCast: List<Int>,
 ) : Serializable {
-    @PrimaryKey(autoGenerate = true)
     var id: Int? = null
 
     data class Builder(

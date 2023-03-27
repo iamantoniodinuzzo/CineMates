@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.cinemates.databinding.FragmentManageBottomsheetBinding
 import com.example.cinemates.model.Movie
 import com.example.cinemates.model.PersonalStatus
-import com.example.cinemates.view.dbviewmodel.DbMovieViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.flow.collectLatest
@@ -26,7 +25,6 @@ class ManageBottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentManageBottomsheetBinding? = null
     private val binding: FragmentManageBottomsheetBinding
         get() = _binding!!
-    private val dbViewModel: DbMovieViewModel by activityViewModels()
     private val movieViewModel: MovieDetailsViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -55,7 +53,7 @@ class ManageBottomSheetFragment : BottomSheetDialogFragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 movieViewModel.selectedMovie.collectLatest {
                     if (it != null) {
-                        movie = dbViewModel.getMovie(it.id) ?: it
+                        movie = it
                     }
                 }
             }
@@ -70,7 +68,6 @@ class ManageBottomSheetFragment : BottomSheetDialogFragment() {
             }
 
             watchlistBtn.setOnClickListener {
-                dbViewModel.updatePersonalStatus(movie, PersonalStatus.TO_SEE)
 
 //                makeResultToast(result, "Watch list")
 
@@ -78,7 +75,6 @@ class ManageBottomSheetFragment : BottomSheetDialogFragment() {
             }
 
             watchedBtn.setOnClickListener {
-                dbViewModel.updatePersonalStatus(movie, PersonalStatus.SEEN)
 
 //                makeResultToast(result, "Watched list")
 

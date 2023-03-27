@@ -2,7 +2,6 @@ package com.example.cinemates.repository
 
 import com.example.cinemates.model.*
 import com.example.cinemates.api.service.MovieService
-import com.example.cinemates.local.dao.MovieDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -15,7 +14,6 @@ class MovieRepository
 @Inject
 constructor(
     private val movieService: MovieService,
-    private val movieDao: MovieDao,
     private val queryMap: MutableMap<String, String>
 ) {
 
@@ -106,18 +104,6 @@ constructor(
         queryMap["with_cast"] = with_cast
         emit(movieService.getByDiscover(queryMap).results)
     }
-
-
-    fun getMovies() = movieDao.getAll()
-    fun getMovie(id: Int) = movieDao.getById(id)
-    fun getToSeeMovies() = movieDao.getMoviesWithThisPersonalStatus(PersonalStatus.TO_SEE)
-    fun getSeenMovies() = movieDao.getMoviesWithThisPersonalStatus(PersonalStatus.SEEN)
-    fun getFavoriteMovies() = movieDao.getFavoriteMovies()
-    fun isMovieFavorite(id: Int) = movieDao.isFavorite(id)
-    fun isMovieToSee(id: Int) = movieDao.isThisPersonalStatus(id,PersonalStatus.TO_SEE)
-    fun isMovieSeen(id: Int) = movieDao.isThisPersonalStatus(id,PersonalStatus.SEEN)
-    suspend fun insertMovie(movie: Movie) = movieDao.insert(movie)
-    suspend fun deleteMovie(movie: Movie) = movieDao.delete(movie)
 
 
 }

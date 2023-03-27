@@ -15,7 +15,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
 import com.example.cinemates.view.ui.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentActorDetailsBinding
-import com.example.cinemates.view.dbviewmodel.DbPersonViewModel
 import com.example.cinemates.util.getLong
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
@@ -26,7 +25,6 @@ class ActorDetailsFragment : Fragment() {
     private var _binding: FragmentActorDetailsBinding? = null
     private val binding: FragmentActorDetailsBinding
         get() = _binding!!
-    private val dbViewModel: DbPersonViewModel by activityViewModels()
     private val viewModel: ActorDetailsViewModel by activityViewModels()
     private val args: ActorDetailsFragmentArgs by navArgs()
     private lateinit var viewPagerAdapter: ViewPagerAdapter

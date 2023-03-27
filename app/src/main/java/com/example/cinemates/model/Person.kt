@@ -9,32 +9,19 @@ import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
-@Entity
 open class Person(
-    @Ignore
     val adult: Boolean,
-    @Ignore
     val also_known_as: List<String>,
-    @Ignore
     val biography: String?,
-    @Ignore
     val birthday: String?,
-    @Ignore
     val deathday: String?,
-    @Ignore
     val gender: Int?,
-    @Ignore
     val homepage: String?,
-    @PrimaryKey
     val id: Int,
-    @Ignore
     val imdb_id: String?,
-    @Ignore
     val known_for_department: String,
     val name: String,
-    @Ignore
     val place_of_birth: String?,
-    @Ignore
     val popularity: Double,
     val profile_path: String?,
 ) : Serializable {
@@ -81,7 +68,6 @@ open class Person(
             } else ""
         }
 
-    @Ignore
     constructor(
         adult: Boolean,
         gender: Int?,
@@ -103,6 +89,18 @@ open class Person(
         false, arrayListOf(), null, null, null, null, null, id, null,
         "", name, null, 0.0, profile_path
     )
+
+    constructor(
+        adult: Boolean,
+        gender: Int?,
+        id: Int,
+        known_for_department: String,
+        name: String,
+        popularity: Double,
+        profile_path: String?,
+        also_known_as: List<String>
+    ) : this(adult, gender, id, known_for_department, name, popularity, profile_path)
+
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

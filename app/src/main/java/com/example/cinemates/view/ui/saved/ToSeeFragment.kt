@@ -6,7 +6,6 @@ import androidx.fragment.app.activityViewModels
 import com.example.cinemates.databinding.ListItemMovieSmallBinding
 import com.example.cinemates.model.Movie
 import com.example.cinemates.view.ui.ListFragment
-import com.example.cinemates.view.dbviewmodel.DbMovieViewModel
 import com.example.cinemates.view.ui.adapter.MovieAdapter
 
 /**
@@ -14,7 +13,6 @@ import com.example.cinemates.view.ui.adapter.MovieAdapter
  * Created 25/07/2022 at 08:24
  */
 class ToSeeFragment : ListFragment<Movie, ListItemMovieSmallBinding,MovieAdapter>(MovieAdapter()) {
-    private val dbViewModel: DbMovieViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

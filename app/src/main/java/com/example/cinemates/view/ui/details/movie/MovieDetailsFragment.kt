@@ -37,7 +37,7 @@ class MovieDetailsFragment : Fragment() {
     private lateinit var movieSimilarFragment: MovieSimilarFragment
     private lateinit var movieRecommendedFragment: MovieRecommendedFragment
     private lateinit var viewPagerAdapter: ViewPagerAdapter
-    private val viewModel: MovieDetailsViewModel by activityViewModels()
+    private val viewModel: MovieDetailsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +70,7 @@ class MovieDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val selectedMovie: Movie = args.movie
+        viewModel.onDetailsFragmentReady(selectedMovie.id)
 
         binding.apply {
             movie = selectedMovie
@@ -81,7 +82,6 @@ class MovieDetailsFragment : Fragment() {
             watchProviders.setOnClickListener { _ ->
                 Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
             }
-            viewModel.onDetailsFragmentReady(selectedMovie.id)
 
             //Hide and show FAB when scrolling
             appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->

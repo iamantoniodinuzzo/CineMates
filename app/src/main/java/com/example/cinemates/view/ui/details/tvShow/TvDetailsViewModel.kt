@@ -24,7 +24,8 @@ constructor(
 ) : ViewModel() {
 
     private val _selectedTv = MutableStateFlow<TvShow?>(null)
-
+    private val _episodeGroupDetail = MutableStateFlow<EpisodeGroup?>(null)
+    val episodeGroupDetail: Flow<EpisodeGroup?> get() = _episodeGroupDetail
     val selectedTv: Flow<TvShow?> get() = _selectedTv
 
     /**
@@ -82,11 +83,19 @@ constructor(
         } ?: emptyFlow()
     }
 
-//Todo get parts
-    /* private fun getMoviesBelongCollection(collectionId: Int) = viewModelScope.launch {
-         tvShowRepository.getCollection(collectionId).collect {
-             partsOfCollection.value = it.parts
-         }
-     }*/
+    val episodeGroup = selectedTv.flatMapLatest { tv ->
+        tv?.let {
+            tvShowRepository.getEpisodeGroups(tv.id)
+        } ?: emptyFlow()
+    }
+
+    fun getEpisodeGroupDetails(id: String){
+        viewModelScope.launch {
+            tvShowRepository.getEpisodeGroupsDetails(id).collectLatest {
+                _episodeGroupDetail.value = it
+            }
+        }
+    }
+
 
 }

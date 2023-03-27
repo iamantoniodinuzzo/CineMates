@@ -121,10 +121,10 @@ class MovieAboutFragment() : Fragment() {
 
 
                 launch {
-                    viewModel.partsOfCollection.collect { parts ->
-                        if (parts.isNotEmpty()) {
-                            Log.d(TAG, "onViewCreated: add parts size ${parts.size}")
-                            movieAdapter.updateItems(parts)
+                    viewModel.collection.collect { collection ->
+                        if (collection.parts.isNotEmpty()) {
+                            Log.d(TAG, "onViewCreated: add collection size ${collection.parts.size}")
+                            movieAdapter.updateItems(collection.parts)
                         }
 
                     }

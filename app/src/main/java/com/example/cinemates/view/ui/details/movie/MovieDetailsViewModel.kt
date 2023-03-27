@@ -27,8 +27,6 @@ constructor(
     private val _selectedMovie = MutableStateFlow<Movie?>(null)
     val selectedMovie: Flow<Movie?> get() = _selectedMovie
 
-    val partsOfCollection: MutableStateFlow<List<Movie>> = MutableStateFlow(emptyList())
-
 
     /**
      * Retrieves additional information about the selected movie
@@ -44,18 +42,16 @@ constructor(
         viewModelScope.launch {
             movieRepository.getDetails(movieId).collectLatest { movie ->
                 _selectedMovie.value = movie
-                checkIfMovieIsAPartOfACollection(movie.belongs_to_collection)
             }
         }
     }
 
-
-    private fun checkIfMovieIsAPartOfACollection(
-        belongs_to_collection: Collection?
-    ) {
-        if (belongs_to_collection != null)
-            getMoviesBelongCollection(belongs_to_collection.id)
-    }
+    val collection =
+        selectedMovie.flatMapLatest { movie ->
+            movie?.belongs_to_collection?.let {
+                movieRepository.getCollection(it.id)
+            } ?: emptyFlow()
+        }
 
     val similarMovies = selectedMovie.flatMapLatest { movie ->
         movie?.let {
@@ -100,11 +96,5 @@ constructor(
         } ?: emptyFlow()
     }
 
-
-    private fun getMoviesBelongCollection(collectionId: Int) = viewModelScope.launch {
-        movieRepository.getCollection(collectionId).collect {
-            partsOfCollection.value = it.parts
-        }
-    }
 
 }

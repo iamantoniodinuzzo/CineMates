@@ -12,6 +12,8 @@ data class EpisodeGroup(
     val episodeCount: Int,
     @SerialName("group_count")
     val groupCount: Int,
+    @SerialName("groups")
+    val groups: List<Group>,
     @SerialName("id")
     val id: String,
     @SerialName("name")
@@ -20,4 +22,8 @@ data class EpisodeGroup(
     val network: Network,
     @SerialName("type")
     val type: Int
-)
+){
+    override fun toString(): String {
+        return "EpisodeGroup(description='$description', episodeCount=$episodeCount, groupCount=$groupCount, groups=$groups, id='$id', name='$name', network=$network, type=$type)"
+    }
+}

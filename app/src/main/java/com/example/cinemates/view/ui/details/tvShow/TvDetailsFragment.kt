@@ -71,7 +71,6 @@ class TvDetailsFragment : Fragment() {
             fab.setOnClickListener {
                 //Open bottomSheetFragment
                 Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
-//                findNavController().navigate(R.id.action_tvDetailsFragment_to_bottomSheetFragment)
             }
             watchProviders.setOnClickListener { _ ->
                 Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()

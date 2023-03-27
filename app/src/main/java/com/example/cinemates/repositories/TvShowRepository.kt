@@ -1,10 +1,10 @@
 package com.example.cinemates.repositories
 
+import com.example.cinemates.api.service.TvShowService
 import com.example.cinemates.model.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
-import com.example.cinemates.api.service.TvShowService
 
 /**
  * @author Antonio Di Nuzzo
@@ -13,7 +13,7 @@ class TvShowRepository
 @Inject
 constructor(
     private val tvShowService: TvShowService,
-    private val queryMap: MutableMap<String,String>
+    private val queryMap: MutableMap<String, String>
 ) {
 
     fun getSpecificTVList(specification: String) = flow {
@@ -28,18 +28,18 @@ constructor(
         }
 
 
-    fun getVideos(movieId: Int): Flow<List<Video>> = flow {
-        val videos = tvShowService.getVideos(movieId, queryMap).results
+    fun getVideos(id: Int): Flow<List<Video>> = flow {
+        val videos = tvShowService.getVideos(id, queryMap).results
         emit(videos)
     }
 
-    fun getDetails(movieId: Int): Flow<TvShow> = flow {
-        emit(tvShowService.getDetails(movieId, queryMap))
+    fun getDetails(id: Int): Flow<TvShow> = flow {
+        emit(tvShowService.getDetails(id, queryMap))
     }
 
 
-    fun getSimilar(movieId: Int): Flow<List<TvShow>> = flow {
-        val similarMovies = tvShowService.getSimilar(movieId, queryMap).results
+    fun getSimilar(id: Int): Flow<List<TvShow>> = flow {
+        val similarMovies = tvShowService.getSimilar(id, queryMap).results
         emit(similarMovies)
     }
 
@@ -55,23 +55,23 @@ constructor(
         emit(movies)
     }
 
-    fun getPosters(movieId: Int): Flow<List<Image>> = flow {
-        val posters = tvShowService.getImages(movieId, queryMap).posters
+    fun getPosters(id: Int): Flow<List<Image>> = flow {
+        val posters = tvShowService.getImages(id, queryMap).posters
         emit(posters)
     }
 
-    fun getBackdrops(movieId: Int): Flow<List<Image>> = flow {
-        val backdrops = tvShowService.getImages(movieId, queryMap).backdrops
+    fun getBackdrops(id: Int): Flow<List<Image>> = flow {
+        val backdrops = tvShowService.getImages(id, queryMap).backdrops
         emit(backdrops)
     }
 
-    fun getCast(movieId: Int): Flow<List<Cast>> = flow {
-        val cast = tvShowService.getCredits(movieId, queryMap).cast
+    fun getCast(id: Int): Flow<List<Cast>> = flow {
+        val cast = tvShowService.getCredits(id, queryMap).cast
         emit(cast)
     }
 
-    fun getCrew(movieId: Int): Flow<List<Crew>> = flow {
-        val cast = tvShowService.getCredits(movieId, queryMap).crew
+    fun getCrew(id: Int): Flow<List<Crew>> = flow {
+        val cast = tvShowService.getCredits(id, queryMap).crew
         emit(cast)
     }
 
@@ -81,8 +81,13 @@ constructor(
         emit(tvShowService.getBySearch(queryMap).results)
     }
 
-    fun getEpisodeGroups(id:Int):Flow<List<EpisodeGroup>> = flow {
+    fun getEpisodeGroups(id: Int): Flow<List<EpisodeGroup>> = flow {
         val episodesGroup = tvShowService.getEpisodesGroup(id, queryMap).results
+        emit(episodesGroup)
+    }
+
+    fun getEpisodeGroupsDetails(episodeGroupId: String): Flow<EpisodeGroup> = flow {
+        val episodesGroup = tvShowService.getEpisodeGroupDetails(episodeGroupId, queryMap)
         emit(episodesGroup)
     }
 

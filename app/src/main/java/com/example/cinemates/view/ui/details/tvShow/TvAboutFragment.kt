@@ -10,11 +10,8 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_tv_about.*
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentTvAboutBinding
 import com.example.cinemates.model.Genre
@@ -61,16 +58,6 @@ class TvAboutFragment() : Fragment() {
 
             enableInnerScrollViewPager(trailers)
 
-//            collectionContent.collectionParts.adapter = movieAdapter
-
-            /*   collectionCover.root.setOnClickListener {
-                   transformationLayout.startTransform()
-               }
-
-               collectionContent.root.setOnClickListener {
-                   transformationLayout.finishTransform()
-               }*/
-
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
 
                     launch {
@@ -87,7 +74,6 @@ class TvAboutFragment() : Fragment() {
 
                     launch {
                         viewModel.videos.collect { trailers ->
-                            Log.d(TAG, "onViewCreated: getting trailers")
                             showTrailerSection(trailers.isNotEmpty())
                             if (trailers.isNotEmpty()) {
                                 videoAdapter.updateItems(trailers)
@@ -116,15 +102,21 @@ class TvAboutFragment() : Fragment() {
                     }
 
 
-                    /* launch {
-                         viewModel.partsOfCollection.collect { parts ->
-                             if (parts.isNotEmpty()) {
-                                 Log.d(TAG, "onViewCreated: add parts size ${parts.size}")
-                                 movieAdapter.addItems(parts)
+                     launch {
+                         viewModel.episodeGroup.collect { episodeGroups ->
+                             if (episodeGroups.isNotEmpty()) {
+                                 Log.d(TAG, "onViewCreated: add episodeGroups size $episodeGroups")
+                                 // TODO: Show episode groups
+                                 viewModel.getEpisodeGroupDetails(episodeGroups[0].id)
                              }
 
                          }
-                     }*/
+                     }
+                viewModel.episodeGroupDetail.collect{
+                    it?.let {
+                        Log.d(TAG, "onViewCreated: $it")
+                    }
+                }
 
             }
         }

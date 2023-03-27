@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinemates.model.Filter
 import com.example.cinemates.model.Movie
-import com.example.cinemates.repository.MovieRepository
+import com.example.cinemates.repositories.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.mapLatest

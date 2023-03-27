@@ -2,7 +2,7 @@ package com.example.cinemates.view.ui.details.tvShow
 
 import androidx.lifecycle.*
 import com.example.cinemates.model.*
-import com.example.cinemates.repository.TvShowRepository
+import com.example.cinemates.repositories.TvShowRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

@@ -2,8 +2,8 @@ package com.example.cinemates.view.ui.details.actor
 
 import androidx.lifecycle.*
 import com.example.cinemates.model.Person
-import com.example.cinemates.repository.ActorRepository
-import com.example.cinemates.repository.MovieRepository
+import com.example.cinemates.repositories.ActorRepository
+import com.example.cinemates.repositories.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -19,7 +19,6 @@ class ActorDetailsViewModel
 @Inject
 constructor(
     private val actorRepository: ActorRepository,
-    private val movieRepository: MovieRepository,
 ) : ViewModel() {
 
     private val _actor = MutableStateFlow<Person?>(null)
@@ -39,7 +38,7 @@ constructor(
 
     val movies = actor.flatMapLatest { actor ->
         actor?.let {
-            movieRepository.getByActor(it.id.toString())
+            actorRepository.getMovieCredits(it.id)
         } ?: emptyFlow()
     }
 

@@ -1,9 +1,9 @@
 package com.example.cinemates.view.ui.search
 
 import androidx.lifecycle.ViewModel
-import com.example.cinemates.repository.ActorRepository
-import com.example.cinemates.repository.MovieRepository
-import com.example.cinemates.repository.TvShowRepository
+import com.example.cinemates.repositories.ActorRepository
+import com.example.cinemates.repositories.MovieRepository
+import com.example.cinemates.repositories.TvShowRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject

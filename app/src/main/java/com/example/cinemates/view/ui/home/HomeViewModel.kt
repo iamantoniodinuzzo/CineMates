@@ -9,9 +9,9 @@ import com.example.cinemates.R
 import com.example.cinemates.model.Movie
 import com.example.cinemates.model.Person
 import com.example.cinemates.model.TvShow
-import com.example.cinemates.repository.ActorRepository
-import com.example.cinemates.repository.MovieRepository
-import com.example.cinemates.repository.TvShowRepository
+import com.example.cinemates.repositories.ActorRepository
+import com.example.cinemates.repositories.MovieRepository
+import com.example.cinemates.repositories.TvShowRepository
 import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.TimeWindow
 import dagger.hilt.android.lifecycle.HiltViewModel

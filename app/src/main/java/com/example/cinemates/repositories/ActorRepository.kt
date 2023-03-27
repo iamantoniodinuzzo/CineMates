@@ -1,11 +1,11 @@
-package com.example.cinemates.repository
+package com.example.cinemates.repositories
 
 import com.example.cinemates.api.service.ActorService
 import com.example.cinemates.model.Image
+import com.example.cinemates.model.Movie
 import com.example.cinemates.model.Person
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -28,6 +28,11 @@ constructor(
     fun getActorDetails(personId: Int): Flow<Person> = flow {
         val actor = actorService.getActorDetails(personId, queryMap)
         emit(actor)
+    }
+
+    fun getMovieCredits(id:Int):Flow<List<Movie>> = flow{
+        val movies = actorService.getMovieCredits(id, queryMap).results
+        emit(movies)
     }
 
     fun getPeoplesBySearch(query: String): Flow<List<Person>> = flow {

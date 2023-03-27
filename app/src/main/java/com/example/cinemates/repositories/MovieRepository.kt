@@ -1,4 +1,4 @@
-package com.example.cinemates.repository
+package com.example.cinemates.repositories
 
 import com.example.cinemates.model.*
 import com.example.cinemates.api.service.MovieService

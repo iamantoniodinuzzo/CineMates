@@ -1,9 +1,9 @@
 package com.example.cinemates.view.ui.details.actor
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.cinemates.model.Person
 import com.example.cinemates.repositories.ActorRepository
-import com.example.cinemates.repositories.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -38,7 +38,7 @@ constructor(
 
     val movies = actor.flatMapLatest { actor ->
         actor?.let {
-            actorRepository.getMovieCredits(it.id)
+            actorRepository.getMoviesByActor(it.id)
         } ?: emptyFlow()
     }
 
@@ -48,6 +48,17 @@ constructor(
         } ?: emptyFlow()
     }
 
+    val cast = actor.flatMapLatest { actor ->
+        actor?.let {
+            actorRepository.getActorCharacters(it.id)
+        } ?: emptyFlow()
+    }
+
+    val crew = actor.flatMapLatest { actor->
+        actor?.let {
+            actorRepository.getActorCrewWork(it.id)
+        }?: emptyFlow()
+    }
 
 
 }

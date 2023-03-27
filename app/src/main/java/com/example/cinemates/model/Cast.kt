@@ -27,4 +27,10 @@ class Cast(
         false, null, id, "", name, 0.0, profile_path, 0,
         "", "", 0, ""
     )
+
+    override fun toString(): String {
+        return "Cast(cast_id=$cast_id, character='$character', credit_id='$credit_id', order=$order, original_name='$original_name')"
+    }
+
+
 }

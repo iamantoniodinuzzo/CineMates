@@ -1,6 +1,7 @@
 package com.example.cinemates.view.ui.details.movie
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +10,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
-import com.example.cinemates.view.ui.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentMovieDetailsBinding
 import com.example.cinemates.model.Movie
-import com.google.android.material.appbar.AppBarLayout
+import com.example.cinemates.view.ui.adapter.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialSharedAxis
+import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 /**
@@ -37,7 +39,7 @@ class MovieDetailsFragment : Fragment() {
     private lateinit var movieSimilarFragment: MovieSimilarFragment
     private lateinit var movieRecommendedFragment: MovieRecommendedFragment
     private lateinit var viewPagerAdapter: ViewPagerAdapter
-    private val viewModel: MovieDetailsViewModel by viewModels()
+    private val viewModel: MovieDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,11 +71,17 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val selectedMovie: Movie = args.movie
-        viewModel.onDetailsFragmentReady(selectedMovie.id)
+        viewModel.onDetailsFragmentReady(args.movie.id)
 
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            launch {
+                viewModel.selectedMovie.collect { selectedMovie ->
+                    Log.d("TAG", "onViewCreated: ${selectedMovie.toString()}")
+                    binding.movie = selectedMovie
+                }
+            }
+        }
         binding.apply {
-            movie = selectedMovie
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             fab.setOnClickListener {
                 //Open bottomSheetFragment
@@ -99,7 +107,6 @@ class MovieDetailsFragment : Fragment() {
 
             initializeViewPager()
         }
-
 
 
     }

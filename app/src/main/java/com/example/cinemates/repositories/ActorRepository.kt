@@ -1,9 +1,8 @@
 package com.example.cinemates.repositories
 
 import com.example.cinemates.api.service.ActorService
-import com.example.cinemates.model.Image
-import com.example.cinemates.model.Movie
-import com.example.cinemates.model.Person
+import com.example.cinemates.api.service.MovieService
+import com.example.cinemates.model.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -15,6 +14,7 @@ class ActorRepository
 @Inject
 constructor(
     private val actorService: ActorService,
+    private val movieService: MovieService,
     private val queryMap: MutableMap<String, String>
 ) {
 
@@ -30,8 +30,19 @@ constructor(
         emit(actor)
     }
 
-    fun getMovieCredits(id:Int):Flow<List<Movie>> = flow{
-        val movies = actorService.getMovieCredits(id, queryMap).results
+    fun getActorCharacters(id:Int):Flow<List<Cast>> = flow{
+        val castList = actorService.getMovieCredits(id, queryMap).cast
+        emit(castList)
+    }
+
+    fun getActorCrewWork(id:Int):Flow<List<Crew>> = flow {
+        val crew = actorService.getMovieCredits(id,queryMap).crew
+        emit(crew)
+    }
+
+    fun getMoviesByActor(id: Int):Flow<List<Movie>> = flow {
+        queryMap["with_cast"] = id.toString()
+        val movies = movieService.getByDiscover(queryMap).results
         emit(movies)
     }
 

@@ -1,6 +1,7 @@
 package com.example.cinemates.api.service
 
 import com.example.cinemates.api.response.ActorImageResponse
+import com.example.cinemates.api.response.CreditsResponse
 import com.example.cinemates.api.response.GenericResponse
 import com.example.cinemates.model.Cast
 import com.example.cinemates.model.Movie
@@ -30,7 +31,7 @@ interface ActorService {
     suspend fun getMovieCredits(
         @Path("person_id") id: Int,
         @QueryMap queries: Map<String, String>
-    ): GenericResponse<Movie>
+    ): CreditsResponse
 
     @GET("search/person")
     suspend fun getPeoplesBySearch(@QueryMap queries: Map<String, String>): GenericResponse<Cast>

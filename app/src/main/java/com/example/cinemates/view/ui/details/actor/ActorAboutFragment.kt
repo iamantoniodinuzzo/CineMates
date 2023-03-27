@@ -18,6 +18,7 @@ import com.example.cinemates.databinding.FragmentActorAboutBinding
 import com.indisparte.horizontalchipview.HorizontalChipView
 import com.example.cinemates.view.ui.adapter.PosterAdapter
 import kotlinx.android.synthetic.main.fragment_actor_about.*
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 /**
@@ -80,6 +81,20 @@ class ActorAboutFragment : Fragment() {
                 launch {
                     viewModel.images.collect { images ->
                         posterAdapter.updateItems(images)
+                    }
+                }
+
+                launch {
+                    viewModel.cast.collectLatest { castList->
+                        Log.d(TAG, "onViewCreated: $castList")
+                        // TODO: Show actor characters
+                    }
+                }
+
+                launch {
+                    viewModel.crew.collectLatest { crewList->
+                        Log.d(TAG, "onViewCreated: $crewList")
+                        // TODO: Show actor crew works
                     }
                 }
             }

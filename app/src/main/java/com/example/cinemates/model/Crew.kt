@@ -20,4 +20,8 @@ class Crew(
     name = name,
     popularity = popularity,
     profile_path = profile_path
-)
+){
+    override fun toString(): String {
+        return "Crew(credit_id='$credit_id', department='$department', job='$job', original_name='$original_name')"
+    }
+}

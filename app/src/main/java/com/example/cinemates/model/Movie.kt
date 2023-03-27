@@ -102,6 +102,10 @@ class Movie(
         return true
     }
 
+    override fun toString(): String {
+        return "Movie(belongs_to_collection=$belongs_to_collection, genres=$genres, id=$id, poster_path=$poster_path, release_date=$release_date, runtime=$runtime, title=$title, vote_average=$vote_average, personalStatus=$personalStatus, favorite=$favorite, original_title=$original_title, original_language=$original_language, homepage=$homepage, imdb_id=$imdb_id, backdrop_path=$backdrop_path, overview=$overview, budget=$budget, popularity=$popularity, adult=$adult, revenue=$revenue, status=$status, tagline=$tagline, video=$video, vote_count=$vote_count, production_companies=$production_companies, production_countries=$production_countries)"
+    }
+
 
 }
 enum class PersonalStatus(

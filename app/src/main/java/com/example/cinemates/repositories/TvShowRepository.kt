@@ -81,5 +81,10 @@ constructor(
         emit(tvShowService.getBySearch(queryMap).results)
     }
 
+    fun getEpisodeGroups(id:Int):Flow<List<EpisodeGroup>> = flow {
+        val episodesGroup = tvShowService.getEpisodesGroup(id, queryMap).results
+        emit(episodesGroup)
+    }
+
 }
 

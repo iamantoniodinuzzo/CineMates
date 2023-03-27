@@ -1,12 +1,13 @@
 package com.example.cinemates.api.service
 
 
-import com.example.cinemates.model.TvShow
-import com.example.cinemates.model.Genre
-import com.example.cinemates.model.Video
 import com.example.cinemates.api.response.CreditsResponse
 import com.example.cinemates.api.response.GenericResponse
 import com.example.cinemates.api.response.ImagesResponse
+import com.example.cinemates.model.EpisodeGroup
+import com.example.cinemates.model.Genre
+import com.example.cinemates.model.TvShow
+import com.example.cinemates.model.Video
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
@@ -70,4 +71,11 @@ interface TvShowService {
         @Path("time_window") time_window: String,
         @QueryMap queries: Map<String, String>
     ): GenericResponse<TvShow>
+
+    @GET("tv/{tv_id}/episode_groups")
+    suspend fun getEpisodesGroup(
+        @Path("tv_id") id: Int,
+        @QueryMap queries: Map<String, String>
+    ): GenericResponse<EpisodeGroup>
+
 }

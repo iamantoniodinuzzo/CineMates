@@ -13,12 +13,9 @@ import java.util.*
 
 @Entity
 class Movie(
-    @TypeConverters(Converters::class)
-    val belongs_to_collection: Collection?,
-    @TypeConverters(Converters::class)
-    val genres: List<Genre> = listOf(),
-    @PrimaryKey
-    val id: Int,
+@Ignore val belongs_to_collection: Collection?,
+@TypeConverters(Converters::class) val genres: List<Genre> = listOf(),
+    @PrimaryKey val id: Int,
     val poster_path: String?,
     val release_date: String?,
     val runtime: Int?,
@@ -27,36 +24,21 @@ class Movie(
     var personalStatus: PersonalStatus = PersonalStatus.EMPTY,
     var favorite: Boolean = false,
     val original_title: String,
-    @Ignore
-    val original_language: String,
-    @Ignore
-    val homepage: String?,
-    @Ignore
-    val imdb_id: String?,
-    @Ignore
-    val backdrop_path: String?,
-    @Ignore
-    val overview: String?,
-    @Ignore
-    val budget: Int,
-    @Ignore
-    val popularity: Double,
-    @Ignore
-    val adult: Boolean,
-    @Ignore
-    val revenue: Int,
-    @Ignore
-    val status: String?,
-    @Ignore
-    val tagline: String?,
-    @Ignore
-    val video: Boolean,
-    @Ignore
-    val vote_count: Int,
-    @Ignore
-    val production_companies: List<ProductionCompany>,
-    @Ignore
-    val production_countries: List<ProductionCountry>
+    @Ignore val original_language: String,
+    @Ignore val homepage: String?,
+    @Ignore val imdb_id: String?,
+    @Ignore val backdrop_path: String?,
+    @Ignore val overview: String?,
+    @Ignore val budget: Int,
+    @Ignore val popularity: Double,
+    @Ignore val adult: Boolean,
+    @Ignore val revenue: Int,
+    @Ignore val status: String?,
+    @Ignore val tagline: String?,
+    @Ignore val video: Boolean,
+    @Ignore val vote_count: Int,
+    @Ignore val production_companies: List<ProductionCompany>,
+    @Ignore val production_countries: List<ProductionCountry>
 ) : Serializable {
 
     val formattedRuntime: String

@@ -6,9 +6,6 @@ import kotlinx.coroutines.flow.flow
 import java.util.*
 import javax.inject.Inject
 import com.example.cinemates.api.service.TvShowService
-import com.example.cinemates.local.dao.TvDao
-import retrofit2.http.QueryMap
-import kotlin.collections.HashMap
 
 /**
  * @author Antonio Di Nuzzo
@@ -17,7 +14,6 @@ class TvShowRepository
 @Inject
 constructor(
     private val tvShowService: TvShowService,
-    private val tvDao: TvDao,
     private val queryMap: MutableMap<String,String>
 ) {
 
@@ -91,12 +87,6 @@ constructor(
         queryMap["query"] = query
         emit(tvShowService.getTvShowBySearch(queryMap).results)
     }
-
-    /*  fun getTvShowByActor(with_cast: String): Flow<List<TvShow>> = flow {
-         sMap["with_cast"] = with_cast
-         emit(tvShowService.getTvShowByDiscover(sMap).results)
-     }
- */
 
 }
 

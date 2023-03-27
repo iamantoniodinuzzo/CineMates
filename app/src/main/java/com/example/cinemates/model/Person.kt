@@ -9,32 +9,19 @@ import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
-@Entity
 open class Person(
-    @Ignore
     val adult: Boolean,
-    @Ignore
     val also_known_as: List<String>,
-    @Ignore
     val biography: String?,
-    @Ignore
     val birthday: String?,
-    @Ignore
     val deathday: String?,
-    @Ignore
     val gender: Int?,
-    @Ignore
     val homepage: String?,
-    @PrimaryKey
     val id: Int,
-    @Ignore
     val imdb_id: String?,
-    @Ignore
     val known_for_department: String,
     val name: String,
-    @Ignore
     val place_of_birth: String?,
-    @Ignore
     val popularity: Double,
     val profile_path: String?,
 ) : Serializable {

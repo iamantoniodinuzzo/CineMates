@@ -1,21 +1,15 @@
 package com.example.cinemates.model
 
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.example.cinemates.local.db.Converters
 import java.io.Serializable
 import java.text.NumberFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-@Entity
 class Movie(
-@Ignore val belongs_to_collection: Collection?,
-@TypeConverters(Converters::class) val genres: List<Genre> = listOf(),
-    @PrimaryKey val id: Int,
+    val belongs_to_collection: Collection?,
+    val genres: List<Genre> = listOf(),
+     val id: Int,
     val poster_path: String?,
     val release_date: String?,
     val runtime: Int?,
@@ -24,21 +18,21 @@ class Movie(
     var personalStatus: PersonalStatus = PersonalStatus.EMPTY,
     var favorite: Boolean = false,
     val original_title: String,
-    @Ignore val original_language: String,
-    @Ignore val homepage: String?,
-    @Ignore val imdb_id: String?,
-    @Ignore val backdrop_path: String?,
-    @Ignore val overview: String?,
-    @Ignore val budget: Int,
-    @Ignore val popularity: Double,
-    @Ignore val adult: Boolean,
-    @Ignore val revenue: Int,
-    @Ignore val status: String?,
-    @Ignore val tagline: String?,
-    @Ignore val video: Boolean,
-    @Ignore val vote_count: Int,
-    @Ignore val production_companies: List<ProductionCompany>,
-    @Ignore val production_countries: List<ProductionCountry>
+    val original_language: String,
+    val homepage: String?,
+    val imdb_id: String?,
+    val backdrop_path: String?,
+    val overview: String?,
+    val budget: Int,
+    val popularity: Double,
+    val adult: Boolean,
+    val revenue: Int,
+    val status: String?,
+    val tagline: String?,
+    val video: Boolean,
+    val vote_count: Int,
+    val production_companies: List<ProductionCompany>,
+    val production_countries: List<ProductionCountry>
 ) : Serializable {
 
     val formattedRuntime: String
@@ -91,24 +85,6 @@ class Movie(
             } else ""
         }
 
-    constructor(
-        genres: List<Genre>,
-        belongs_to_collection: Collection?,
-        id: Int,
-        original_title: String,
-        poster_path: String?,
-        release_date: String?,
-        runtime: Int?,
-        title: String,
-        vote_average: Double,
-        personalStatus: PersonalStatus = PersonalStatus.EMPTY,
-        favorite: Boolean
-    ) : this(
-        belongs_to_collection, genres, id, poster_path, release_date, runtime, title, vote_average,
-        personalStatus, favorite, original_title, "", "", "", "",
-        "", 0, 0.0, false, 0, "", "", false, 0, listOf(), listOf()
-    )
-
     override fun hashCode(): Int {
         return id.hashCode()
     }
@@ -128,7 +104,6 @@ class Movie(
 }
 
 
-@TypeConverters(Converters::class)
 enum class PersonalStatus(
     val status: Int
 ) {

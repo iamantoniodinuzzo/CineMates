@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import com.example.cinemates.R
 import com.example.cinemates.databinding.ListItemFilterBinding
 import com.example.cinemates.model.*
-import com.example.cinemates.view.ui.discover.DiscoverFragmentDirections
+import com.example.cinemates.ui.discover.DiscoverFragmentDirections
 
 class FilterAdapter :
     SingleViewAdapter<Filter, ListItemFilterBinding>(R.layout.list_item_filter, emptyList()) {

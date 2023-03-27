@@ -19,13 +19,13 @@ data class Episode(
     @SerialName("overview")
     val overview: String,
     @SerialName("production_code")
-    val productionCode: Any,
+    val productionCode: Any?,
     @SerialName("season_number")
     val seasonNumber: Int,
     @SerialName("show_id")
     val showId: Int,
     @SerialName("still_path")
-    val stillPath: String,
+    val stillPath: String?,
     @SerialName("vote_average")
     val voteAverage: Int,
     @SerialName("vote_count")

@@ -1,8 +1,6 @@
 package com.example.cinemates.model
 
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.Period
@@ -11,23 +9,28 @@ import java.util.stream.Collectors
 
 open class Person(
     val adult: Boolean,
-    val also_known_as: List<String>,
+    @SerializedName("also_known_as")
+    val alsoKnownAs: List<String>,
     val biography: String?,
-    val birthday: String?,
-    val deathday: String?,
+    private val birthday: String?,
+    private val deathday: String?,
     val gender: Int?,
     val homepage: String?,
     val id: Int,
-    val imdb_id: String?,
-    val known_for_department: String,
+    @SerializedName("imdb_id")
+    val imdbId: String?,
+    @SerializedName("known_for_department")
+    val knownForDepartment: String,
     val name: String,
-    val place_of_birth: String?,
+    @SerializedName("place_of_birth")
+    val placeOfBirth: String?,
     val popularity: Double,
-    val profile_path: String?,
+    @SerializedName("profile_path")
+    val profilePath: String?,
 ) : Serializable {
 
     val knownAs: String
-        get() = also_known_as.stream().collect(Collectors.joining(" - "))
+        get() = alsoKnownAs.stream().collect(Collectors.joining(" - "))
 
     val age: String
         get() {
@@ -113,7 +116,7 @@ open class Person(
     }
 
     override fun toString(): String {
-        return "Person(birthday=$birthday, deathDay=$deathday, gender=$gender, id=$id, name='$name', profile_path=$profile_path)"
+        return "Person(birthday=$birthday, deathDay=$deathday, gender=$gender, id=$id, name='$name', profile_path=$profilePath)"
     }
 
 }

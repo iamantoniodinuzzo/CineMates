@@ -1,8 +1,12 @@
 package com.example.cinemates.model
 
+import com.google.gson.annotations.SerializedName
+
 data class ProductionCompany(
     val id: Int,
-    val logo_path: String,
+    @SerializedName("logo_path")
+    val logoPath: String,
     val name: String,
-    val origin_country: String
+    @SerializedName("origin_country")
+    val originalCountry: String
 )

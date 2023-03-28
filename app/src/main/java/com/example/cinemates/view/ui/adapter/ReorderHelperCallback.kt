@@ -1,14 +1,7 @@
 package com.example.cinemates.view.ui.adapter
 
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.ItemTouchHelper.Callback.makeMovementFlags
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemates.CineMatesApp
-import com.example.cinemates.R
 
 
 /**

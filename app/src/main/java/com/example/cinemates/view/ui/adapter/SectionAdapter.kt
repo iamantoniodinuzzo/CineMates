@@ -3,14 +3,10 @@ package com.example.cinemates.view.ui.adapter
 import android.graphics.Color
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemates.CineMatesApp
 import com.example.cinemates.databinding.ListItemSectionBinding
 import com.example.cinemates.model.*
 import com.example.cinemates.util.VibrationUtils
 import com.example.cinemates.util.inflater
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.youtube.player.internal.v
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
 
 

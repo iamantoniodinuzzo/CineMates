@@ -8,7 +8,7 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import androidx.core.content.ContextCompat.getSystemService
-import com.example.cinemates.CineMatesApp
+import com.example.cinemates.di.component.CineMatesApp
 
 object VibrationUtils {
 

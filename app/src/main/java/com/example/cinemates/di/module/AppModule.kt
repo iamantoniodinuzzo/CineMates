@@ -1,4 +1,4 @@
-package com.example.cinemates.di
+package com.example.cinemates.di.module
 
 import dagger.Module
 import dagger.Provides

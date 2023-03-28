@@ -1,4 +1,4 @@
-package com.example.cinemates.di
+package com.example.cinemates.di.module
 
 import com.example.cinemates.api.AuthenticationInterceptor
 import com.example.cinemates.api.service.ActorService

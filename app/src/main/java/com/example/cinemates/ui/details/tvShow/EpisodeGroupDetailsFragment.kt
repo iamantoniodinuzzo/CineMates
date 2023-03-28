@@ -8,12 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.databinding.FragmentEpisodeGroupDetailsBinding
 import com.example.cinemates.model.Group
-import com.example.cinemates.ui.adapter.EpisodeAdapter
+import com.example.cinemates.model.section.Section
+import com.example.cinemates.model.section.SectionEpisodesGroup
+import com.example.cinemates.ui.adapter.SectionAdapter
 import kotlinx.coroutines.flow.collectLatest
 
 private val TAG = EpisodeGroupDetailsFragment::class.simpleName
@@ -27,11 +30,13 @@ class EpisodeGroupDetailsFragment : Fragment() {
         get() = _binding!!
     private val tvDetailsViewModel: TvDetailsViewModel by activityViewModels()
     private val args: EpisodeGroupDetailsFragmentArgs by navArgs()
-    private lateinit var episodeAdapter: EpisodeAdapter
+    private lateinit var groupSectionAdapter: SectionAdapter
+    private lateinit var listOfGroups:MutableList<Section<*>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        episodeAdapter = EpisodeAdapter()
+        groupSectionAdapter = SectionAdapter(mutableListOf(), null)
+        listOfGroups = mutableListOf()
     }
 
     override fun onCreateView(
@@ -44,7 +49,7 @@ class EpisodeGroupDetailsFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             Navigation.findNavController(it).navigateUp()
         }
-        binding.recyclerView.adapter = episodeAdapter
+        binding.recyclerView.adapter = groupSectionAdapter
 
         return binding.root
     }
@@ -56,12 +61,15 @@ class EpisodeGroupDetailsFragment : Fragment() {
             tvDetailsViewModel.getEpisodeGroupDetails(args.episodeGroupId)
             tvDetailsViewModel.episodeGroupDetail.collectLatest { episodeGroup ->
                 episodeGroup?.let {
+                    // TODO: for each group of episode create a section with respective episodes
                     Log.d(TAG, "onViewCreated, episode group size ${episodeGroup.groups.size}")
                     binding.episodeGroup = it
                     for (group: Group in episodeGroup.groups) {
                         Log.d(TAG, "onViewCreated: $group")
-                        episodeAdapter.updateItems(group.episodes)
+                        listOfGroups.add(SectionEpisodesGroup(group.name, group.episodes))
                     }
+                    groupSectionAdapter.updateItems(listOfGroups)
+
                 }
 
             }
@@ -70,6 +78,7 @@ class EpisodeGroupDetailsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        tvDetailsViewModel.onFragmentDestroyed()
         _binding = null
     }
 

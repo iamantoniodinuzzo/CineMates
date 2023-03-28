@@ -34,6 +34,8 @@ constructor(
     fun onDetailsFragmentReady(id: Int) =
         getTvDetails(id)
 
+    fun onFragmentDestroyed() = viewModelScope.launch { _episodeGroupDetail.value = null }
+
     /*
         Through the show id , it retrieves the details.
      */
@@ -90,9 +92,7 @@ constructor(
     }
 
 
-
-
-    fun getEpisodeGroupDetails(id: String){
+    fun getEpisodeGroupDetails(id: String) {
         viewModelScope.launch {
             tvShowRepository.getEpisodeGroupDetails(id).collectLatest {
                 _episodeGroupDetail.value = it

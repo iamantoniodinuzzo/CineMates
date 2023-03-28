@@ -18,6 +18,6 @@ data class Group(
     val order: Int
 ){
     override fun toString(): String {
-        return "Group(episodes=$episodes, id='$id', locked=$locked, name='$name', order=$order)"
+        return "Group(name='$name',episodes=$episodes, id='$id', locked=$locked,  order=$order)"
     }
 }

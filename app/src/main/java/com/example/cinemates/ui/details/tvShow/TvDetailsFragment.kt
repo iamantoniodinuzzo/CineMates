@@ -74,7 +74,6 @@ class TvDetailsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.selectedTv.collectLatest { selectedTv ->
                 binding.tv = selectedTv
-                Log.d(TAG, "onViewCreated: $selectedTv")
             }
         }
 

@@ -81,12 +81,12 @@ constructor(
         emit(tvShowService.getBySearch(queryMap).results)
     }
 
-    fun getEpisodeGroups(id: Int): Flow<List<EpisodeGroup>> = flow {
+    fun getEpisodeGroup(id: Int): Flow<List<EpisodeGroup>> = flow {
         val episodesGroup = tvShowService.getEpisodesGroup(id, queryMap).results
         emit(episodesGroup)
     }
 
-    fun getEpisodeGroupsDetails(episodeGroupId: String): Flow<EpisodeGroup> = flow {
+    fun getEpisodeGroupDetails(episodeGroupId: String): Flow<EpisodeGroup> = flow {
         val episodesGroup = tvShowService.getEpisodeGroupDetails(episodeGroupId, queryMap)
         emit(episodesGroup)
     }

@@ -76,7 +76,7 @@ interface TvShowService {
     suspend fun getEpisodesGroup(
         @Path("tv_id") id: Int,
         @QueryMap queries: Map<String, String>
-    ): GenericResponse<EpisodeGroup>
+    ):GenericResponse< EpisodeGroup>
 
     @GET("tv/episode_group/{id}")
     suspend fun getEpisodeGroupDetails(

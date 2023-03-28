@@ -91,11 +91,23 @@
         <action
             android:id="@+id/action_tvDetailsFragment_to_bottomSheetFragment"
             app:destination="@id/bottomSheetFragment" />
+        <action
+            android:id="@+id/action_tvDetailsFragment_to_episodeGroupDetailsFragment"
+            app:destination="@id/episodeGroupDetailsFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_tvDetailsFragment"
         app:destination="@id/tvDetailsFragment"
         app:popUpTo="@id/tvDetailsFragment"
         app:popUpToInclusive="true"/>
+    <fragment
+        android:id="@+id/episodeGroupDetailsFragment"
+        tools:layout="@layout/fragment_episode_group_details"
+        android:name="com.example.cinemates.ui.details.tvShow.EpisodeGroupDetailsFragment"
+        android:label="EpisodeGroupDetailsFragment" >
+        <argument
+            android:name="episodeGroupId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

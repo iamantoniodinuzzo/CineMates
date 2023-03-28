@@ -83,15 +83,18 @@ constructor(
         } ?: emptyFlow()
     }
 
-    val episodeGroup = selectedTv.flatMapLatest { tv ->
+    val episodeGroupList = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepository.getEpisodeGroups(tv.id)
+            tvShowRepository.getEpisodeGroup(tv.id)
         } ?: emptyFlow()
     }
 
+
+
+
     fun getEpisodeGroupDetails(id: String){
         viewModelScope.launch {
-            tvShowRepository.getEpisodeGroupsDetails(id).collectLatest {
+            tvShowRepository.getEpisodeGroupDetails(id).collectLatest {
                 _episodeGroupDetail.value = it
             }
         }

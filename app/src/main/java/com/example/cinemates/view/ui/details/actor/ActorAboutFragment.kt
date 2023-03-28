@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentActorAboutBinding
@@ -72,7 +70,7 @@ class ActorAboutFragment : Fragment() {
                         binding.person = selectedPerson
                         if (selectedPerson != null) {
                             chipGroupKnownAs.setChipsList(
-                                selectedPerson.also_known_as,
+                                selectedPerson.alsoKnownAs,
                                 textGetter = { it }
                             )
                         }

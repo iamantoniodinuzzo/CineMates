@@ -20,7 +20,7 @@ class PosterAdapter : SingleViewAdapter<Image, ListItemPosterBinding>(R.layout.l
     }
 
     override fun onBindItem(binding: ListItemPosterBinding, item: Image) {
-        binding.path = item.file_path
+        binding.path = item.filePath
         binding.root.setOnClickListener {view->
             /*val action = NavGraphDirections.actionGlobalActorDetailsFragment(item)
             Navigation.findNavController(view).navigate(action)*/

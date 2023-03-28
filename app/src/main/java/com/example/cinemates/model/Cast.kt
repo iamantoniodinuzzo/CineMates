@@ -1,5 +1,7 @@
 package com.example.cinemates.model
 
+import com.google.gson.annotations.SerializedName
+
 class Cast(
     adult: Boolean,
     gender: Int?,
@@ -7,12 +9,15 @@ class Cast(
     known_for_department: String,
     name: String,
     popularity: Double,
-    profile_path: String?,
-    val cast_id: Int,
+    profilePath: String?,
+    @SerializedName("cast_id")
+    val castId: Int,
     val character: String,
-    val credit_id: String,
+    @SerializedName("credit_id")
+    val creditId: String,
     val order: Int,
-    val original_name: String
+    @SerializedName("original_name")
+    val originalName: String
 ) : Person(
     adult = adult,
     gender = gender,
@@ -20,7 +25,7 @@ class Cast(
     known_for_department = known_for_department,
     name = name,
     popularity = popularity,
-    profile_path = profile_path,
+    profile_path = profilePath,
     also_known_as = listOf()
 ) {
     constructor(id: Int, name: String, profile_path: String?) : this(
@@ -29,7 +34,7 @@ class Cast(
     )
 
     override fun toString(): String {
-        return "Cast(cast_id=$cast_id, character='$character', credit_id='$credit_id', order=$order, original_name='$original_name')"
+        return "Cast(cast_id=$castId, character='$character', credit_id='$creditId', order=$order, original_name='$originalName')"
     }
 
 

@@ -86,7 +86,7 @@ class TvAboutFragment() : Fragment() {
                             showPostersShower(posters.isNotEmpty())
                             if (posters.isNotEmpty()) {
                                 posterCounter = posters.size
-                                postersShower.path = posters.random().file_path
+                                postersShower.path = posters.random().filePath
                             }
                         }
                     }
@@ -96,7 +96,7 @@ class TvAboutFragment() : Fragment() {
                             showBackdropShower(backdrops.isNotEmpty())
                             if (backdrops.isNotEmpty()) {
                                 backdropCounter = backdrops.size
-                                backdropsShower.path = backdrops.random().file_path
+                                backdropsShower.path = backdrops.random().filePath
                             }
                         }
                     }

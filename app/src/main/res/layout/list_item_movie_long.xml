@@ -28,8 +28,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:path="@{movie.poster_path}"
-                app:vote="@{movie.vote_average}" />
+                app:path="@{movie.posterPath}"
+                app:vote="@{movie.voteAverage}" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="0dp"
@@ -48,7 +48,7 @@
                     android:id="@+id/textHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{movie.release_date}"
+                    android:text="@{movie.releaseDate}"
                     android:textColor="@color/geyser"
                     android:textSize="14sp"
                     android:textStyle="bold"

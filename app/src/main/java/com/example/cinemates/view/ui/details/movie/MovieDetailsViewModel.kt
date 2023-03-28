@@ -2,7 +2,6 @@ package com.example.cinemates.view.ui.details.movie
 
 import androidx.lifecycle.*
 import com.example.cinemates.model.*
-import com.example.cinemates.model.Collection
 import com.example.cinemates.repositories.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -48,7 +47,7 @@ constructor(
 
     val collection =
         selectedMovie.flatMapLatest { movie ->
-            movie?.belongs_to_collection?.let {
+            movie?.belongsToCollection?.let {
                 movieRepository.getCollection(it.id)
             } ?: emptyFlow()
         }

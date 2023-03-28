@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
@@ -104,7 +103,7 @@ class MovieAboutFragment() : Fragment() {
                         showPostersShower(posters.isNotEmpty())
                         if (posters.isNotEmpty()) {
                             posterCounter = posters.size
-                            postersShower.path = posters.random().file_path
+                            postersShower.path = posters.random().filePath
                         }
                     }
                 }
@@ -115,7 +114,7 @@ class MovieAboutFragment() : Fragment() {
                         showBackdropShower(backdrops.isNotEmpty())
                         if (backdrops.isNotEmpty()) {
                             backdropCounter = backdrops.size
-                            backdropsShower.path = backdrops.random().file_path
+                            backdropsShower.path = backdrops.random().filePath
                         }
                     }
                 }

@@ -19,32 +19,32 @@ class Movie(
     private val runtime: Int?,
     val title: String?,
     @SerializedName("vote_average")
-    val voteAverage: Double?,
+    val voteAverage: Double,
     var personalStatus: PersonalStatus = PersonalStatus.EMPTY,
     var favorite: Boolean = false,
     @SerializedName("original_title")
-    val originalTitle: String?,
+    val originalTitle: String,
     @SerializedName("original_language")
-    val originalLanguage: String?,
-    val homepage: String?,
+    val originalLanguage: String,
+    val homepage: String,
     @SerializedName("imdb_id")
     val imdbId: String?,
     @SerializedName("backdrop_path")
     val backdropPath: String?,
     val overview: String?,
-    val budget: Int?,
-    val popularity: Double?,
-    val adult: Boolean?,
+    val budget: Int,
+    val popularity: Double,
+    val adult: Boolean,
     val revenue: Int?,
-    val status: String?,
+    val status: String,
     val tagline: String?,
-    val video: Boolean?,
+    val video: Boolean,
     @SerializedName("vote_count")
-    val voteCount: Int?,
+    val voteCount: Int,
     @SerializedName("production_companies")
-    val productionCompanies: List<ProductionCompany>?,
+    val productionCompanies: List<ProductionCompany>,
     @SerializedName("production_countries")
-    val productionCountries: List<ProductionCountry>?
+    val productionCountries: List<ProductionCountry>
 ) : Serializable {
 
     val formattedRuntime: String

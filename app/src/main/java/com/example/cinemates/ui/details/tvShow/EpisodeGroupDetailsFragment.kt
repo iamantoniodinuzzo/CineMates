@@ -12,8 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.databinding.FragmentEpisodeGroupDetailsBinding
-import com.example.cinemates.model.Episode
 import com.example.cinemates.model.Group
+import com.example.cinemates.ui.adapter.EpisodeAdapter
 import kotlinx.coroutines.flow.collectLatest
 
 private val TAG = EpisodeGroupDetailsFragment::class.simpleName
@@ -27,6 +27,12 @@ class EpisodeGroupDetailsFragment : Fragment() {
         get() = _binding!!
     private val tvDetailsViewModel: TvDetailsViewModel by activityViewModels()
     private val args: EpisodeGroupDetailsFragmentArgs by navArgs()
+    private lateinit var episodeAdapter: EpisodeAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        episodeAdapter = EpisodeAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +44,7 @@ class EpisodeGroupDetailsFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             Navigation.findNavController(it).navigateUp()
         }
+        binding.recyclerView.adapter = episodeAdapter
 
         return binding.root
     }
@@ -52,8 +59,7 @@ class EpisodeGroupDetailsFragment : Fragment() {
                     binding.episodeGroup = it
                     for (group: Group in episodeGroup.groups) {
                         Log.d(TAG, "onViewCreated: $group")
-                        for (episode: Episode in group.episodes)
-                            Log.d(TAG, "onViewCreated: $episode")
+                        episodeAdapter.updateItems(group.episodes)
                     }
                 }
 

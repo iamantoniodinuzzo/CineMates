@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="episode"
+            type="com.example.cinemates.model.Episode" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:elevation="4dp"
+        app:cardBackgroundColor="@color/mirage_100"
+        app:cardCornerRadius="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/poster"
+                layout="@layout/layout_movie_poster"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:layout_margin="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:path="@{episode.stillPath}"
+                app:vote="@{episode.voteAverage}" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutCompat2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/poster"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.236">
+
+                <TextView
+                    android:id="@+id/textHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{episode.formattedAirDate+", Ep."+episode.episodeNumber+" - Seas."+episode.seasonNumber}'
+                    android:textColor="@color/geyser"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="@tools:sample/date/mmddyy" />
+
+                <TextView
+                    android:id="@+id/textTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="@{episode.name}"
+                    android:textColor="@color/alabaster"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Episode name" />
+
+                <com.borjabravo.readmoretextview.ReadMoreTextView
+                    android:id="@+id/readMoreTextV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/alabaster"
+                    android:textSize="14sp"
+                    app:colorClickableText="@color/vermilion_100"
+                    app:loadText="@{episode.overview}"
+                    app:trimLength="200"
+                    app:trimMode="trimModeLength"
+                    tools:text="@tools:sample/lorem/random" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!--  <View
+                  android:layout_width="0dp"
+                  android:layout_height="2dp"
+                  android:layout_marginStart="16dp"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginEnd="12dp"
+                  android:background="@color/geyser"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toEndOf="@+id/poster"
+                  app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2" />
+  -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

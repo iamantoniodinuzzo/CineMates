@@ -28,8 +28,8 @@
 
                 <include
                     layout="@layout/layout_movie_poster"
-                    app:path="@{movie.poster_path}"
-                    app:vote="@{movie.vote_average}"/>
+                    app:path="@{movie.posterPath}"
+                    app:vote="@{movie.voteAverage}"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -1,5 +1,7 @@
 package com.example.cinemates.model
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * @author Antonio Di Nuzzo
  * Created 21/04/2022 at 15:39
@@ -10,7 +12,8 @@ class Video(
     var type: String,
     var name: String,
     var site: String,
-    var published_at: String,
+    @SerializedName("published_at")
+    var publishedAt: String,
     var isOfficial: Boolean
 ) {
 
@@ -23,7 +26,7 @@ class Video(
                 ", type='" + type + '\'' +
                 ", name='" + name + '\'' +
                 ", site='" + site + '\'' +
-                ", published_at='" + published_at + '\'' +
+                ", published_at='" + publishedAt + '\'' +
                 ", official=" + isOfficial +
                 '}'
     }
@@ -37,7 +40,7 @@ class Video(
         if (type != other.type) return false
         if (name != other.name) return false
         if (site != other.site) return false
-        if (published_at != other.published_at) return false
+        if (publishedAt != other.publishedAt) return false
         if (isOfficial != other.isOfficial) return false
 
         return true
@@ -49,7 +52,7 @@ class Video(
         result = 31 * result + type.hashCode()
         result = 31 * result + name.hashCode()
         result = 31 * result + site.hashCode()
-        result = 31 * result + published_at.hashCode()
+        result = 31 * result + publishedAt.hashCode()
         result = 31 * result + isOfficial.hashCode()
         return result
     }

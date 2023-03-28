@@ -1,5 +1,6 @@
 package com.example.cinemates.ui.adapter
 
+import android.util.Log
 import androidx.navigation.Navigation
 import com.example.cinemates.R
 import com.example.cinemates.databinding.ListItemEpisodeGroupBinding

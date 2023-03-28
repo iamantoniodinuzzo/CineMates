@@ -56,6 +56,7 @@ class EpisodeGroupDetailsFragment : Fragment() {
             tvDetailsViewModel.getEpisodeGroupDetails(args.episodeGroupId)
             tvDetailsViewModel.episodeGroupDetail.collectLatest { episodeGroup ->
                 episodeGroup?.let {
+                    Log.d(TAG, "onViewCreated, episode group size ${episodeGroup.groups.size}")
                     binding.episodeGroup = it
                     for (group: Group in episodeGroup.groups) {
                         Log.d(TAG, "onViewCreated: $group")

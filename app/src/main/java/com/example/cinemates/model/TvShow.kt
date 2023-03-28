@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class TvShow(
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @SerializedName("created_by")
     val createdBy: List<CreatedBy>,
     @SerializedName("episode_run_time")
@@ -24,7 +24,7 @@ data class TvShow(
     val name: String,
     val networks: List<Network>,
     @SerializedName("next_episode_to_air")
-    val nextEpisodeToAir: Episode,
+    val nextEpisodeToAir: Episode?,
     @SerializedName("number_of_episodes")
     val numberOfEpisodes: Int,
     @SerializedName("number_of_seasons")
@@ -38,7 +38,7 @@ data class TvShow(
     val overview: String,
     val popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerializedName("production_companies")
     val productionCompanies: List<ProductionCompany>,
     @SerializedName("production_countries")

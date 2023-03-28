@@ -32,10 +32,10 @@ class Movie(
     @SerializedName("backdrop_path")
     val backdropPath: String?,
     val overview: String?,
-    val budget: Int,
+    val budget: Long,
     val popularity: Double,
     val adult: Boolean,
-    val revenue: Int?,
+    val revenue: Long?,
     val status: String,
     val tagline: String?,
     val video: Boolean,
@@ -68,15 +68,14 @@ class Movie(
             } else "Not specified"
         }
 
-    private fun formattedMoney(toFormat: Int?): String {
-        return if (toFormat != 0) {
+    private fun formattedMoney(toFormat: Long): String {
             val current = Locale.getDefault()
             val format = NumberFormat.getCurrencyInstance()
             format.maximumFractionDigits = 0
             format.currency =
                 Currency.getInstance(Currency.getInstance(current).currencyCode)
-            format.format(toFormat)
-        } else "Not specified"
+            return format.format(toFormat)
+
     }
 
     val formattedBudget: String
@@ -86,7 +85,9 @@ class Movie(
 
     val formattedRevenue: String
         get() {
-            return formattedMoney(revenue)
+            return revenue?.let {
+                formattedMoney(revenue)
+            }?: "Not specified"
         }
 
     val formattedReleaseDate: String

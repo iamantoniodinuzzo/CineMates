@@ -1,4 +1,4 @@
-package com.example.cinemates.model
+package com.example.cinemates.model.section
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)

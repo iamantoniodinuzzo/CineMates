@@ -6,9 +6,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.databinding.ListItemSectionBinding
-import com.example.cinemates.model.SectionMovie
-import com.example.cinemates.model.SectionPersons
-import com.example.cinemates.model.SectionTvShow
+import com.example.cinemates.model.section.SectionMovie
+import com.example.cinemates.model.section.SectionPersons
+import com.example.cinemates.model.section.SectionTvShow
 import com.example.cinemates.util.DoubleTouchListener
 
 

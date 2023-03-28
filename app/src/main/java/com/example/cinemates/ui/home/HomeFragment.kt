@@ -7,7 +7,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.databinding.FragmentHomeBinding
-import com.example.cinemates.model.*
+import com.example.cinemates.model.section.Section
+import com.example.cinemates.model.section.SectionMovie
+import com.example.cinemates.model.section.SectionPersons
+import com.example.cinemates.model.section.SectionTvShow
 import com.example.cinemates.ui.adapter.OnStartDragListener
 import com.example.cinemates.ui.adapter.ReorderHelperCallback
 import com.example.cinemates.ui.adapter.SectionAdapter

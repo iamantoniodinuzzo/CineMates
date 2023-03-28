@@ -13,7 +13,7 @@ import com.example.cinemates.R
 import com.example.cinemates.model.Genre
 import com.example.cinemates.model.PersonalStatus
 import com.example.cinemates.model.ProductionCompany
-import com.example.cinemates.model.Section
+import com.example.cinemates.model.section.Section
 import com.example.cinemates.util.IMAGE_BASE_URL_W500
 import com.example.cinemates.util.IMAGE_BASE_URL_W780
 import com.example.cinemates.util.YT_API_KEY

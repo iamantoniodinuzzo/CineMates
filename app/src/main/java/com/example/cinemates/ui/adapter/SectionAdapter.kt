@@ -4,7 +4,10 @@ import android.graphics.Color
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.databinding.ListItemSectionBinding
-import com.example.cinemates.model.*
+import com.example.cinemates.model.section.Section
+import com.example.cinemates.model.section.SectionMovie
+import com.example.cinemates.model.section.SectionPersons
+import com.example.cinemates.model.section.SectionTvShow
 import com.example.cinemates.util.VibrationUtils
 import com.example.cinemates.util.inflater
 import java.util.*

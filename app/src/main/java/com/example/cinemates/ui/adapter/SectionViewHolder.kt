@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.databinding.ListItemSectionBinding
+import com.example.cinemates.model.section.SectionEpisodesGroup
 import com.example.cinemates.model.section.SectionMovie
 import com.example.cinemates.model.section.SectionPersons
 import com.example.cinemates.model.section.SectionTvShow
@@ -26,7 +27,7 @@ sealed class SectionViewHolder(
 
 }
 
-class SectionMovieViewHolder(binding: ListItemSectionBinding, dragListener: OnStartDragListener) :
+class SectionMovieViewHolder(binding: ListItemSectionBinding, dragListener: OnStartDragListener?) :
     SectionViewHolder(binding, dragListener) {
 
     override fun bind(section: Any) {
@@ -52,7 +53,7 @@ class SectionMovieViewHolder(binding: ListItemSectionBinding, dragListener: OnSt
     }
 }
 
-class SectionTvViewHolder(binding: ListItemSectionBinding, dragListener: OnStartDragListener) :
+class SectionTvViewHolder(binding: ListItemSectionBinding, dragListener: OnStartDragListener?) :
     SectionViewHolder(binding, dragListener) {
     override fun bind(section: Any) {
         section as SectionTvShow
@@ -78,7 +79,7 @@ class SectionTvViewHolder(binding: ListItemSectionBinding, dragListener: OnStart
     }
 }
 
-class SectionActorViewHolder(binding: ListItemSectionBinding, dragListener: OnStartDragListener) :
+class SectionActorViewHolder(binding: ListItemSectionBinding, dragListener: OnStartDragListener?) :
     SectionViewHolder(binding, dragListener) {
     override fun bind(section: Any) {
         section as SectionPersons
@@ -96,6 +97,31 @@ class SectionActorViewHolder(binding: ListItemSectionBinding, dragListener: OnSt
             override fun onDoubleClick(v: View, event: MotionEvent) {
                 if (event.action == MotionEvent.ACTION_DOWN) {
                     dragStartDragListener?.onStartDrag(this@SectionActorViewHolder)
+                }
+            }
+
+        })
+    }
+}
+
+class SectionEpisodeViewHolder(binding: ListItemSectionBinding, dragListener: OnStartDragListener?) :
+    SectionViewHolder(binding, dragListener) {
+    override fun bind(section: Any) {
+        section as SectionEpisodesGroup
+        binding.section = section
+
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val episodeAdapter = EpisodeAdapter()
+            episodeAdapter.updateItems(section.items)
+            adapter = episodeAdapter
+        }
+
+
+        binding.root.setOnTouchListener(object : DoubleTouchListener() {
+            override fun onDoubleClick(v: View, event: MotionEvent) {
+                if (event.action == MotionEvent.ACTION_DOWN) {
+                    dragStartDragListener?.onStartDrag(this@SectionEpisodeViewHolder)
                 }
             }
 

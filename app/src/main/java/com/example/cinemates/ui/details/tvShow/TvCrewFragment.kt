@@ -3,6 +3,7 @@ package com.example.cinemates.ui.details.tvShow
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemates.databinding.ListItemCrewLongBinding

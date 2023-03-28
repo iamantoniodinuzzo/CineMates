@@ -20,7 +20,7 @@
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
             app:title="Original title"
-            app:value="@{movie.original_title}" />
+            app:value="@{movie.originalTitle}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/status"
@@ -45,7 +45,7 @@
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
             app:title="Original language"
-            app:value="@{movie.original_language}" />
+            app:value="@{movie.originalLanguage}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/budget"

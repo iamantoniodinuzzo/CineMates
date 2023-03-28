@@ -1,62 +1,50 @@
 package com.example.cinemates.model
 
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.example.cinemates.local.db.Converters
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.text.NumberFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-@Entity
 class Movie(
-    @TypeConverters(Converters::class)
-    val belongs_to_collection: Collection?,
-    @TypeConverters(Converters::class)
+    @SerializedName("belongs_to_collection")
+    val belongsToCollection: Collection?,
     val genres: List<Genre> = listOf(),
-    @PrimaryKey
     val id: Int,
-    val poster_path: String?,
-    val release_date: String?,
-    val runtime: Int?,
+    @SerializedName("poster_path")
+    val posterPath: String?,
+    @SerializedName("release_date")
+    val releaseDate: String?,
+    private val runtime: Int?,
     val title: String?,
-    val vote_average: Double?,
+    @SerializedName("vote_average")
+    val voteAverage: Double,
     var personalStatus: PersonalStatus = PersonalStatus.EMPTY,
     var favorite: Boolean = false,
-    val original_title: String?,
-    @Ignore
-    val original_language: String?,
-    @Ignore
-    val homepage: String?,
-    @Ignore
-    val imdb_id: String?,
-    @Ignore
-    val backdrop_path: String?,
-    @Ignore
+    @SerializedName("original_title")
+    val originalTitle: String,
+    @SerializedName("original_language")
+    val originalLanguage: String,
+    val homepage: String,
+    @SerializedName("imdb_id")
+    val imdbId: String?,
+    @SerializedName("backdrop_path")
+    val backdropPath: String?,
     val overview: String?,
-    @Ignore
-    val budget: Int?,
-    @Ignore
-    val popularity: Double?,
-    @Ignore
-    val adult: Boolean?,
-    @Ignore
-    val revenue: Int?,
-    @Ignore
-    val status: String?,
-    @Ignore
+    val budget: Long,
+    val popularity: Double,
+    val adult: Boolean,
+    val revenue: Long?,
+    val status: String,
     val tagline: String?,
-    @Ignore
-    val video: Boolean?,
-    @Ignore
-    val vote_count: Int?,
-    @Ignore
-    val production_companies: List<ProductionCompany>?,
-    @Ignore
-    val production_countries: List<ProductionCountry>?
+    val video: Boolean,
+    @SerializedName("vote_count")
+    val voteCount: Int,
+    @SerializedName("production_companies")
+    val productionCompanies: List<ProductionCompany>,
+    @SerializedName("production_countries")
+    val productionCountries: List<ProductionCountry>
 ) : Serializable {
 
     val formattedRuntime: String
@@ -80,15 +68,14 @@ class Movie(
             } else "Not specified"
         }
 
-    private fun formattedMoney(toFormat: Int?): String {
-        return if (toFormat != 0) {
+    private fun formattedMoney(toFormat: Long): String {
             val current = Locale.getDefault()
             val format = NumberFormat.getCurrencyInstance()
             format.maximumFractionDigits = 0
             format.currency =
                 Currency.getInstance(Currency.getInstance(current).currencyCode)
-            format.format(toFormat)
-        } else "Not specified"
+            return format.format(toFormat)
+
     }
 
     val formattedBudget: String
@@ -98,36 +85,20 @@ class Movie(
 
     val formattedRevenue: String
         get() {
-            return formattedMoney(revenue)
+            return revenue?.let {
+                formattedMoney(revenue)
+            }?: "Not specified"
         }
 
     val formattedReleaseDate: String
         get() {
-            return if (release_date != null) {
+            return if (releaseDate != null) {
                 val localDate =
-                    LocalDate.parse(release_date, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                    LocalDate.parse(releaseDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                 val pattern = DateTimeFormatter.ofPattern("MMM yyyy")
                 pattern.format(localDate)
             } else "Not specified"
         }
-
-    constructor(
-        genres: List<Genre>,
-        belongs_to_collection: Collection?,
-        id: Int,
-        original_title: String,
-        poster_path: String?,
-        release_date: String?,
-        runtime: Int?,
-        title: String,
-        vote_average: Double,
-        personalStatus: PersonalStatus = PersonalStatus.EMPTY,
-        favorite: Boolean
-    ) : this(
-        belongs_to_collection, genres, id, poster_path, release_date, runtime, title, vote_average,
-        personalStatus, favorite, original_title, null, null, null, null,
-        null, null, null, null, null, null, null, null, null, null, null
-    )
 
     override fun hashCode(): Int {
         return id.hashCode()
@@ -144,11 +115,13 @@ class Movie(
         return true
     }
 
+    override fun toString(): String {
+        return "Movie(belongs_to_collection=$belongsToCollection, genres=$genres, id=$id, poster_path=$posterPath, release_date=$releaseDate, runtime=$runtime, title=$title, vote_average=$voteAverage, personalStatus=$personalStatus, favorite=$favorite, original_title=$originalTitle, original_language=$originalLanguage, homepage=$homepage, imdb_id=$imdbId, backdrop_path=$backdropPath, overview=$overview, budget=$budget, popularity=$popularity, adult=$adult, revenue=$revenue, status=$status, tagline=$tagline, video=$video, vote_count=$voteCount, production_companies=$productionCompanies, production_countries=$productionCountries)"
+    }
+
 
 }
 
-
-@TypeConverters(Converters::class)
 enum class PersonalStatus(
     val status: Int
 ) {

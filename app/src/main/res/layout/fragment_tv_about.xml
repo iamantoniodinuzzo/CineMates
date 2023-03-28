@@ -28,7 +28,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.ui.details.movie.MovieInfoFragment">
+            tools:context=".ui.ui.details.movie.MovieInfoFragment">
 
 
             <com.borjabravo.readmoretextview.ReadMoreTextView
@@ -132,13 +132,13 @@
                     android:id="@+id/posters_shower"
                     layout="@layout/list_item_poster"
                     app:counter="@{poster_counter}"
-                    app:path="@{tv.poster_path}" />
+                    app:path="@{tv.posterPath}" />
 
                 <include
                     android:id="@+id/backdrops_shower"
                     layout="@layout/list_item_backdrop"
                     app:counter="@{backdrop_counter}"
-                    app:path="@{tv.backdrop_path}" />
+                    app:path="@{tv.backdropPath}" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

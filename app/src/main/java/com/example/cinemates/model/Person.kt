@@ -13,14 +13,14 @@ open class Person(
     val alsoKnownAs: List<String>,
     val biography: String?,
     private val birthday: String?,
-    private val deathday: String?,
+    private val deathDay: String?,
     val gender: Int?,
     val homepage: String?,
     val id: Int,
     @SerializedName("imdb_id")
     val imdbId: String?,
     @SerializedName("known_for_department")
-    val knownForDepartment: String,
+    val knownForDepartment: String?,
     val name: String,
     @SerializedName("place_of_birth")
     val placeOfBirth: String?,
@@ -34,7 +34,7 @@ open class Person(
 
     val age: String
         get() {
-            return if (deathday == null && birthday!=null) {
+            return if (deathDay == null && birthday != null) {
                 val birthdayDate = LocalDate.parse(birthday)
                 val age = Period.between(
                     birthdayDate,
@@ -43,13 +43,13 @@ open class Person(
                 age.toString()
             } else if (birthday != null) {
                 val birthdayDate = LocalDate.parse(birthday)
-                val deathDayDate = LocalDate.parse(deathday)
+                val deathDayDate = LocalDate.parse(deathDay)
                 val age = Period.between(
                     birthdayDate,
                     deathDayDate
                 ).years
                 age.toString()
-            }else ""
+            } else ""
         }
     val formattedBirthday: String
         get() {
@@ -63,9 +63,9 @@ open class Person(
 
     val formattedDeathday: String
         get() {
-            return if (deathday != null) {
+            return if (deathDay != null) {
                 val localDate =
-                    LocalDate.parse(deathday, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                    LocalDate.parse(deathDay, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                 val pattern = DateTimeFormatter.ofPattern("dd MMM, yyyy")
                 pattern.format(localDate)
             } else ""
@@ -104,6 +104,23 @@ open class Person(
         also_known_as: List<String>
     ) : this(adult, gender, id, known_for_department, name, popularity, profile_path)
 
+    constructor(gender: Int?, id: Int, name: String, profilePath: String?) : this(
+        false,
+        listOf(),
+        null,
+        null,
+        null,
+        gender,
+        null,
+        id,
+        null,
+        null,
+        name,
+        null,
+        0.0,
+        profilePath
+    )
+
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -116,7 +133,7 @@ open class Person(
     }
 
     override fun toString(): String {
-        return "Person(birthday=$birthday, deathDay=$deathday, gender=$gender, id=$id, name='$name', profile_path=$profilePath)"
+        return "Person(birthday=$birthday, deathDay=$deathDay, gender=$gender, id=$id, name='$name', profile_path=$profilePath)"
     }
 
 }

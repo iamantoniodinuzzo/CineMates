@@ -20,7 +20,7 @@ data class TvShow(
     @SerializedName("last_air_date")
     val lastAirDate: String,
     @SerializedName("last_episode_to_air")
-    val lastEpisodeToAir: LastEpisodeToAir,
+    val lastEpisodeToAir: Episode,
     val name: String,
     val networks: List<Network>,
     @SerializedName("next_episode_to_air")

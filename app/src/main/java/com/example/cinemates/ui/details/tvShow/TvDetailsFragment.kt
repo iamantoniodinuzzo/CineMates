@@ -1,6 +1,7 @@
 package com.example.cinemates.ui.details.tvShow
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +9,16 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
-import com.example.cinemates.ui.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentTvDetailsBinding
-import com.example.cinemates.model.TvShow
+import com.example.cinemates.ui.adapter.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialSharedAxis
+import kotlinx.coroutines.flow.collectLatest
+
+private val TAG = TvDetailsFragment::class.simpleName
 
 /**
  * @author Antonio Di Nuzzo
@@ -31,6 +35,7 @@ class TvDetailsFragment : Fragment() {
     private lateinit var tvCastFragment: TvCastFragment
     private lateinit var tvCrewFragment: TvCrewFragment
     private lateinit var tvSimilarFragment: TvSimilarFragment
+    private lateinit var tvCreatedByFragment: TvCreatedByFragment
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private val viewModel: TvDetailsViewModel by activityViewModels()
 
@@ -41,6 +46,7 @@ class TvDetailsFragment : Fragment() {
         tvCastFragment = TvCastFragment()
         tvCrewFragment = TvCrewFragment()
         tvSimilarFragment = TvSimilarFragment()
+        tvCreatedByFragment = TvCreatedByFragment()
 
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
             interpolator = FastOutSlowInInterpolator()
@@ -63,10 +69,16 @@ class TvDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val selectedTv: TvShow = args.tv
+        viewModel.onDetailsFragmentReady(args.tv.id)
+
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.selectedTv.collectLatest { selectedTv ->
+                binding.tv = selectedTv
+                Log.d(TAG, "onViewCreated: $selectedTv")
+            }
+        }
 
         binding.apply {
-            tv = selectedTv
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             fab.setOnClickListener {
                 //Open bottomSheetFragment
@@ -75,7 +87,6 @@ class TvDetailsFragment : Fragment() {
             watchProviders.setOnClickListener { _ ->
                 Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
             }
-            viewModel.onDetailsFragmentReady(selectedTv.id)
 
 
             initializeViewPager()
@@ -90,6 +101,7 @@ class TvDetailsFragment : Fragment() {
         viewPagerAdapter.addFragment(tvCastFragment)
         viewPagerAdapter.addFragment(tvCrewFragment)
         viewPagerAdapter.addFragment(tvSimilarFragment)
+        viewPagerAdapter.addFragment(tvCreatedByFragment)
         binding.apply {
             viewPager.adapter = viewPagerAdapter
             //viewPager.isUserInputEnabled = false
@@ -99,6 +111,7 @@ class TvDetailsFragment : Fragment() {
                     1 -> tab.text = "Cast"
                     2 -> tab.text = "Crew"
                     3 -> tab.text = "Similar"
+                    4 -> tab.text = "Created by"
                 }
             }.attach()
         }

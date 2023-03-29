@@ -23,9 +23,10 @@ import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+private  val TAG = TvAboutFragment::class.simpleName
+
 class TvAboutFragment() : Fragment() {
 
-    private val TAG = TvAboutFragment::class.simpleName
     private var _binding: FragmentTvAboutBinding? = null
     private val binding: FragmentTvAboutBinding
         get() = _binding!!
@@ -74,10 +75,10 @@ class TvAboutFragment() : Fragment() {
 
                 launch {
                     viewModel.selectedTv.collect { selectedTv ->
-                        tv = selectedTv
-                        if (selectedTv != null) {
+                        selectedTv?.let {
+                            tv = it
                             customChipsView.setChipsList(
-                                selectedTv.genres,
+                                it.genres,
                                 textGetter = { genre -> genre.name }
                             )
                         }

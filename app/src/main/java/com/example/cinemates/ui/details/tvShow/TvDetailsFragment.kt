@@ -18,6 +18,7 @@ import com.example.cinemates.ui.adapter.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.flow.collectLatest
+import kotlin.math.abs
 
 private val TAG = TvDetailsFragment::class.simpleName
 
@@ -86,6 +87,20 @@ class TvDetailsFragment : Fragment() {
             }
             watchProviders.setOnClickListener { _ ->
                 Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
+            }
+
+            //Hide and show FAB when scrolling
+            appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+                if (verticalOffset == 0) {
+                    // Fully expanded state
+                    fab.show()
+                } else if (abs(verticalOffset) >= appBarLayout.totalScrollRange) {
+                    // Fully collapsed state
+                    fab.hide()
+                } else {
+                    // Somewhere in between
+                    fab.show()
+                }
             }
 
 

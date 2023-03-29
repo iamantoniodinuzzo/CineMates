@@ -30,6 +30,14 @@
             app:title="Status"
             app:value="@{tv.status}" />
 
+        <com.indisparte.linearlayoutinfo.LinearInfoView
+            android:id="@+id/tagline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:title="Tagline"
+            app:value="@{tv.tagline}" />
+
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/originalLanguage"
@@ -45,7 +53,15 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             app:title="First air date"
-            app:value="@{tv.firstAirDate}" />
+            app:value="@{tv.formattedFirstAirDate}" />
+
+        <com.indisparte.linearlayoutinfo.LinearInfoView
+            android:id="@+id/lastAirDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:title="Last air date"
+            app:value="@{tv.formattedLastAirDate}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/numberOfEpisodes"

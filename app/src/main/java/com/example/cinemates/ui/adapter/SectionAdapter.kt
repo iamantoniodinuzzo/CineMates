@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.databinding.ListItemSectionBinding
+import com.example.cinemates.databinding.ListItemSectionCollassableBinding
 import com.example.cinemates.model.section.*
 import com.example.cinemates.util.VibrationUtils
 import com.example.cinemates.util.inflater
@@ -32,7 +33,7 @@ class SectionAdapter(
                 dragListener
             )
             3 -> SectionEpisodeViewHolder(
-                parent inflater ListItemSectionBinding::inflate,
+                parent inflater ListItemSectionCollassableBinding::inflate,
                 dragListener
             )
             else -> throw IllegalArgumentException("Invalid view type")

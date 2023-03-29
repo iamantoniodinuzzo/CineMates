@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="24sp"
+                android:text="@{section.title}"
                 android:autoSizeMaxTextSize="24sp"
                 android:autoSizeMinTextSize="12sp"
                 android:autoSizeStepGranularity="2sp"
@@ -35,11 +36,16 @@
                 android:textStyle="bold"
                 tools:text="@tools:sample/full_names" />
 
-            <Button
+            <ToggleButton
                 android:id="@+id/collapseButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Collapse" />
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="@drawable/toggle_selector"
+                android:button="@null"
+                android:drawablePadding="8dp"
+                android:padding="16dp"
+                android:textOff=""
+                android:textOn="" />
 
         </LinearLayout>
 

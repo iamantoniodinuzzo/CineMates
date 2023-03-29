@@ -2,7 +2,6 @@ package com.example.cinemates.ui.adapter
 
 import android.view.MotionEvent
 import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -19,7 +18,7 @@ import com.example.cinemates.util.DoubleTouchListener
  * @author Antonio Di Nuzzo (Indisparte)
  */
 sealed class SectionViewHolder(
-    val binding: ListItemSectionBinding,
+    open val binding: ViewBinding,
     val dragStartDragListener: OnStartDragListener? = null
 ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -27,9 +26,12 @@ sealed class SectionViewHolder(
 
 }
 
-class SectionMovieViewHolder(binding: ListItemSectionBinding, dragListener: OnStartDragListener?) :
+class SectionMovieViewHolder(
+    override val binding: ListItemSectionBinding,
+    dragListener: OnStartDragListener?
+) :
     SectionViewHolder(binding, dragListener) {
-     val recyclerView: RecyclerView = binding.recyclerView
+    val recyclerView: RecyclerView = binding.recyclerView
 
     override fun bind(section: Any) {
         section as SectionMovie
@@ -55,7 +57,10 @@ class SectionMovieViewHolder(binding: ListItemSectionBinding, dragListener: OnSt
     }
 }
 
-class SectionTvViewHolder(binding: ListItemSectionBinding, dragListener: OnStartDragListener?) :
+class SectionTvViewHolder(
+    override val binding: ListItemSectionBinding,
+    dragListener: OnStartDragListener?
+) :
     SectionViewHolder(binding, dragListener) {
     override fun bind(section: Any) {
         section as SectionTvShow
@@ -82,7 +87,10 @@ class SectionTvViewHolder(binding: ListItemSectionBinding, dragListener: OnStart
     }
 }
 
-class SectionActorViewHolder(binding: ListItemSectionBinding, dragListener: OnStartDragListener?) :
+class SectionActorViewHolder(
+    override val binding: ListItemSectionBinding,
+    dragListener: OnStartDragListener?
+) :
     SectionViewHolder(binding, dragListener) {
     override fun bind(section: Any) {
         section as SectionPersons
@@ -107,18 +115,29 @@ class SectionActorViewHolder(binding: ListItemSectionBinding, dragListener: OnSt
     }
 }
 
-// TODO: Change this binding with ListItemSectionCollapsable
-class SectionEpisodeViewHolder(binding: ListItemSectionBinding, dragListener: OnStartDragListener?) :
+class SectionEpisodeViewHolder(
+    override val binding: ListItemSectionCollassableBinding,
+    dragListener: OnStartDragListener?
+) :
     SectionViewHolder(binding, dragListener) {
-    override fun bind(section: Any) {
-        section as SectionEpisodesGroup
-        binding.section = section
+    override fun bind(item: Any) {
+        item as SectionEpisodesGroup
+        binding.apply {
+            section = item
+            recyclerView.apply {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                val episodeAdapter = EpisodeAdapter()
+                episodeAdapter.updateItems(item.items)
+                adapter = episodeAdapter
+            }
+            collapseButton.setOnClickListener {
+                if (recyclerView.visibility == View.VISIBLE) {
+                    recyclerView.visibility = View.GONE
+                } else {
+                    recyclerView.visibility = View.VISIBLE
+                }
+            }
 
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            val episodeAdapter = EpisodeAdapter()
-            episodeAdapter.updateItems(section.items)
-            adapter = episodeAdapter
         }
 
 

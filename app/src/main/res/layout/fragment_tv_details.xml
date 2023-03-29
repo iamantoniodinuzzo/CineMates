@@ -19,7 +19,8 @@
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout2"
+            android:id="@+id/appBarLayout"
+            android:background="@color/mirage_100"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -86,8 +87,7 @@
                         android:id="@+id/watch_providers"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="?attr/actionBarSize"
-                        android:layout_marginEnd="20dp"
+                        android:layout_margin="20dp"
                         android:backgroundTint="@color/lynch_90"
                         android:clickable="true"
                         android:padding="10dp"
@@ -95,8 +95,8 @@
                         android:textColor="@color/alabaster"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintBottom_toTopOf="@+id/tv_title"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

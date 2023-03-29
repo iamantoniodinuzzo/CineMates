@@ -1,6 +1,7 @@
 package com.example.cinemates.ui.adapter
 
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.ToggleButton
@@ -78,26 +79,7 @@ fun loadImageLong(view: ImageView, url: String?) {
         .into(view)
 
 }
-@BindingAdapter("isFavorite")
-fun isFavorite(view: ToggleButton, value: Boolean) {
-    view.isChecked = value
-}
 
-@BindingAdapter("toSee")
-fun setStatusToSee(view: ToggleButton, value: PersonalStatus?) {
-    if (value != null)
-        view.isChecked = (value == PersonalStatus.TO_SEE)
-    else
-        view.isChecked = (value == PersonalStatus.EMPTY)
-}
-
-@BindingAdapter("seen")
-fun setStatusSeen(view: ToggleButton, value: PersonalStatus?) {
-    if (value != null)
-        view.isChecked = (value == PersonalStatus.SEEN)
-    else
-        view.isChecked = (value == PersonalStatus.EMPTY)
-}
 
 
 @BindingAdapter("loadText")
@@ -140,42 +122,7 @@ fun formatAsHtml(view: TextView, section: Section<*>?) {
     view.text = section?.title
 }
 
-@BindingAdapter("genres")
-fun setGenresChip(chipGroup: ChipGroup, genres: List<Genre>?) {
-    if (genres != null) {
-        chipGroup.removeAllViews()
-        for ((id, name) in genres) {
-            val chip = Chip(chipGroup.context)
-            val drawable = ChipDrawable.createFromAttributes(
-                chipGroup.context, null,
-                0, R.style.Widget_MaterialComponents_Chip_Action
-            )
-            chip.setChipDrawable(drawable)
-            chip.text = name
-            chip.id = id
-            chipGroup.addView(chip)
-        }
-    }
-}
 
-
-
-@BindingAdapter("knownAs")
-fun setKnownAsChips(chipGroup: ChipGroup, names: List<String>?) {
-    if (names != null) {
-        chipGroup.removeAllViews()
-        for (name in names) {
-            val chip = Chip(chipGroup.context)
-            val drawable = ChipDrawable.createFromAttributes(
-                chipGroup.context, null,
-                0, R.style.Widget_MaterialComponents_Chip_Action
-            )
-            chip.setChipDrawable(drawable)
-            chip.text = name
-            chipGroup.addView(chip)
-        }
-    }
-}
 
 @BindingAdapter("production_companies")
 fun setProductionCompanies(view: TextView, productionCompanies: ArrayList<ProductionCompany>?) {

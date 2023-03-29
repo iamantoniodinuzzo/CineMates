@@ -1,37 +1,41 @@
 package com.example.cinemates.model
 
+import com.google.gson.annotations.SerializedName
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class Episode(
-    @SerialName("air_date")
-    val airDate: String,
-    @SerialName("episode_number")
+    @SerializedName("air_date")
+    private val airDate: String?,
+    @SerializedName("episode_number")
     val episodeNumber: Int,
-    @SerialName("id")
     val id: Int,
-    @SerialName("name")
     val name: String,
-    @SerialName("order")
-    val order: Int,
-    @SerialName("overview")
     val overview: String,
-    @SerialName("production_code")
-    val productionCode: Any?,
-    @SerialName("season_number")
+    val production_code: String,
+    @SerializedName("season_number")
     val seasonNumber: Int,
-    @SerialName("show_id")
-    val showId: Int,
-    @SerialName("still_path")
-    val stillPath: String?,
-    @SerialName("vote_average")
-    val voteAverage: Int,
-    @SerialName("vote_count")
+    @SerializedName("still_path")
+    val stillPath: String,
+    @SerializedName("vote_average")
+    val voteAverage: Double,
+    @SerializedName("vote_count")
     val voteCount: Int
-){
+) {
+
+    val formattedAirDate: String
+        get() {
+            return airDate?.let {
+                val localDate =
+                    LocalDate.parse(airDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                val pattern = DateTimeFormatter.ofPattern("MMM yyyy")
+                 pattern.format(localDate)
+            }?: "Not specified"
+
+
+        }
+
     override fun toString(): String {
-        return "Episode(airDate='$airDate', episodeNumber=$episodeNumber, id=$id, name='$name', order=$order, overview='$overview', productionCode=$productionCode, seasonNumber=$seasonNumber, showId=$showId, stillPath='$stillPath', voteAverage=$voteAverage, voteCount=$voteCount)"
+        return "Episode(airDate='$airDate', episodeNumber=$episodeNumber, id=$id, name='$name', overview='$overview', production_code='$production_code', seasonNumber=$seasonNumber, stillPath='$stillPath', voteAverage=$voteAverage, voteCount=$voteCount)"
     }
 }

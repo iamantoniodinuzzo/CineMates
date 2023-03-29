@@ -1,6 +1,8 @@
 package com.example.cinemates.model
 
 import com.google.gson.annotations.SerializedName
+import java.text.SimpleDateFormat
+import java.util.*
 
 data class TvShow(
     @SerializedName("backdrop_path")
@@ -10,7 +12,7 @@ data class TvShow(
     @SerializedName("episode_run_time")
     val episodeRunTime: List<Int>,
     @SerializedName("first_air_date")
-    val firstAirDate: String,
+    private val firstAirDate: String,
     val genres: List<Genre>,
     val homepage: String,
     val id: Int,
@@ -18,9 +20,9 @@ data class TvShow(
     val inProduction: Boolean,
     val languages: List<String>,
     @SerializedName("last_air_date")
-    val lastAirDate: String,
+    private val lastAirDate: String,
     @SerializedName("last_episode_to_air")
-    val lastEpisodeToAir: LastEpisodeToAir,
+    val lastEpisodeToAir: Episode,
     val name: String,
     val networks: List<Network>,
     @SerializedName("next_episode_to_air")
@@ -53,7 +55,26 @@ data class TvShow(
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-):java.io.Serializable{
+) : java.io.Serializable {
+
+
+    val formattedFirstAirDate: String
+        get() {
+            return formatDate(firstAirDate)
+        }
+
+    val formattedLastAirDate: String
+        get() {
+            return formatDate(lastAirDate)
+        }
+
+    private fun formatDate(dateToFormat: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+
+        val date = inputFormat.parse(dateToFormat)
+        return date?.let { outputFormat.format(it) } ?: "Not specified"
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -67,4 +88,9 @@ data class TvShow(
     override fun hashCode(): Int {
         return id
     }
+
+    override fun toString(): String {
+        return "TvShow(backdropPath=$backdropPath, createdBy=$createdBy, episodeRunTime=$episodeRunTime, firstAirDate='$firstAirDate', genres=$genres, homepage='$homepage', id=$id, inProduction=$inProduction, languages=$languages, lastAirDate='$lastAirDate', lastEpisodeToAir=$lastEpisodeToAir, name='$name', networks=$networks, nextEpisodeToAir=$nextEpisodeToAir, numberOfEpisodes=$numberOfEpisodes, numberOfSeasons=$numberOfSeasons, originCountry=$originCountry, originalLanguage='$originalLanguage', originalName='$originalName', overview='$overview', popularity=$popularity, posterPath=$posterPath, productionCompanies=$productionCompanies, productionCountries=$productionCountries, seasons=$seasons, spokenLanguages=$spokenLanguages, status='$status', tagline='$tagline', type='$type', voteAverage=$voteAverage, voteCount=$voteCount)"
+    }
+
 }

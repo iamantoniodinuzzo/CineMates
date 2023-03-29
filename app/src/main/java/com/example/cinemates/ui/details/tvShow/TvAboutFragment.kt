@@ -10,23 +10,28 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentTvAboutBinding
 import com.example.cinemates.model.Genre
-import com.indisparte.horizontalchipview.HorizontalChipView
+import com.example.cinemates.ui.adapter.EpisodeGroupAdapter
 import com.example.cinemates.ui.adapter.TvShowAdapter
 import com.example.cinemates.ui.adapter.VideoAdapter
+import com.indisparte.horizontalchipview.HorizontalChipView
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
+private  val TAG = TvAboutFragment::class.simpleName
 
 class TvAboutFragment() : Fragment() {
 
-    private val TAG = TvAboutFragment::class.simpleName
     private var _binding: FragmentTvAboutBinding? = null
     private val binding: FragmentTvAboutBinding
         get() = _binding!!
     private lateinit var videoAdapter: VideoAdapter
+    private lateinit var episodeGroupAdapter: EpisodeGroupAdapter
     private lateinit var tvAdapter: TvShowAdapter
     private val viewModel: TvDetailsViewModel by activityViewModels()
 
@@ -34,6 +39,7 @@ class TvAboutFragment() : Fragment() {
         super.onCreate(savedInstanceState)
         videoAdapter = VideoAdapter()
         tvAdapter = TvShowAdapter()
+        episodeGroupAdapter = EpisodeGroupAdapter()
     }
 
     override fun onCreateView(
@@ -50,71 +56,68 @@ class TvAboutFragment() : Fragment() {
 
         binding.apply {
             trailers.adapter = videoAdapter
+            episodeGroups.adapter = episodeGroupAdapter
 
-            val customChipsView: HorizontalChipView<Genre> = view.findViewById<HorizontalChipView<Genre>>(R.id.chipGroupGenres)
+            val customChipsView: HorizontalChipView<Genre> =
+                view.findViewById<HorizontalChipView<Genre>>(R.id.chipGroupGenres)
             customChipsView.onChipClicked = { genre ->
-                Toast.makeText(requireContext(), "Soon - Search ${genre.name} genre", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Soon - Search ${genre.name} genre",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             enableInnerScrollViewPager(trailers)
+            enableInnerScrollViewPager(episodeGroups)
 
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
 
-                    launch {
-                        viewModel.selectedTv.collect {selectedTv->
-                            tv = selectedTv
-                            if (selectedTv != null) {
-                                customChipsView.setChipsList(
-                                    selectedTv.genres,
-                                    textGetter = { genre -> genre.name }
-                                )
-                            }
+                launch {
+                    viewModel.selectedTv.collect { selectedTv ->
+                        selectedTv?.let {
+                            tv = it
+                            customChipsView.setChipsList(
+                                it.genres,
+                                textGetter = { genre -> genre.name }
+                            )
                         }
                     }
+                }
 
-                    launch {
-                        viewModel.videos.collect { trailers ->
-                            showTrailerSection(trailers.isNotEmpty())
-                            if (trailers.isNotEmpty()) {
-                                videoAdapter.updateItems(trailers)
-                            }
+                launch {
+                    viewModel.videos.collect { trailers ->
+                        showTrailerSection(trailers.isNotEmpty())
+                        if (trailers.isNotEmpty()) {
+                            videoAdapter.updateItems(trailers)
                         }
                     }
+                }
 
-                    launch {
-                        viewModel.posters.collect { posters ->
-                            showPostersShower(posters.isNotEmpty())
-                            if (posters.isNotEmpty()) {
-                                posterCounter = posters.size
-                                postersShower.path = posters.random().filePath
-                            }
+                launch {
+                    viewModel.posters.collect { posters ->
+                        showPostersShower(posters.isNotEmpty())
+                        if (posters.isNotEmpty()) {
+                            posterCounter = posters.size
+                            postersShower.path = posters.random().filePath
                         }
                     }
+                }
 
-                    launch {
-                        viewModel.backdrops.collect { backdrops ->
-                            showBackdropShower(backdrops.isNotEmpty())
-                            if (backdrops.isNotEmpty()) {
-                                backdropCounter = backdrops.size
-                                backdropsShower.path = backdrops.random().filePath
-                            }
+                launch {
+                    viewModel.backdrops.collect { backdrops ->
+                        showBackdropShower(backdrops.isNotEmpty())
+                        if (backdrops.isNotEmpty()) {
+                            backdropCounter = backdrops.size
+                            backdropsShower.path = backdrops.random().filePath
                         }
                     }
+                }
 
+                launch {
+                    viewModel.episodeGroupList.collectLatest { list ->
+                        episodeGroupAdapter.updateItems(list)
 
-                     launch {
-                         viewModel.episodeGroup.collect { episodeGroups ->
-                             if (episodeGroups.isNotEmpty()) {
-                                 Log.d(TAG, "onViewCreated: add episodeGroups size $episodeGroups")
-                                 // TODO: Show episode groups
-                                 viewModel.getEpisodeGroupDetails(episodeGroups[0].id)
-                             }
-
-                         }
-                     }
-                viewModel.episodeGroupDetail.collect{
-                    it?.let {
-                        Log.d(TAG, "onViewCreated: $it")
                     }
                 }
 
@@ -124,7 +127,7 @@ class TvAboutFragment() : Fragment() {
     }
 
     // Disable ViewPager2 from intercepting touch events of RecyclerView
-    private fun enableInnerScrollViewPager(recyclerView: RecyclerView){
+    private fun enableInnerScrollViewPager(recyclerView: RecyclerView) {
         recyclerView.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener() {
             override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
                 val action = e.actionMasked

@@ -87,7 +87,7 @@
                         android:id="@+id/watch_providers"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
+                        android:layout_margin="10dp"
                         android:backgroundTint="@color/lynch_90"
                         android:clickable="true"
                         android:padding="10dp"

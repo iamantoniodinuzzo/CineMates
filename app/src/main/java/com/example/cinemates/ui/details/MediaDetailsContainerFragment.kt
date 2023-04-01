@@ -16,7 +16,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
 /**
- * @param mapOfFragments Map of fragments to display in viewPager.[Map<Fragment,String>]
+ * A base class for implementing a container of other fragments shown via viewPager and tab layout
+ *
+ * @param mapOfFragments Map of fragments to display in viewPager.
  * @author Antonio Di Nuzzo
  * @author Jon Areas
  * Created 26/05/2022 at 15:44

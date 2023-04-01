@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="tv"
+            name="media"
             type="com.example.cinemates.model.Media" />
 
         <import type="android.view.View" />
@@ -14,9 +14,7 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -32,17 +30,16 @@
                 app:collapsedTitleTextColor="@color/geyser"
                 app:contentScrim="@color/lynch_100"
                 app:expandedTitleMarginStart="10dp"
-                app:titleCollapseMode="fade"
                 app:expandedTitleTextColor="@android:color/transparent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="@{tv.title}">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:titleCollapseMode="fade">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <include
-                        android:id="@+id/tv_poster"
+                        android:id="@+id/media_poster"
                         layout="@layout/list_item_poster"
                         android:layout_width="100dp"
                         android:layout_height="150dp"
@@ -51,15 +48,15 @@
                         android:elevation="4dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:path="@{tv.posterPath}" />
+                        app:path="@{media.posterPath}" />
 
 
                     <ImageView
-                        android:id="@+id/tv_backdrop"
+                        android:id="@+id/media_backdrop"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="centerCrop"
-                        app:imageUrlLong="@{tv.backdropPath}"
+                        app:imageUrlLong="@{media.backdropPath}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -67,21 +64,21 @@
 
 
                     <TextView
-                        android:id="@+id/tv_title"
+                        android:id="@+id/media_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_marginHorizontal="20dp"
                         android:layout_marginTop="10dp"
                         android:maxLines="2"
-                        android:text="@{tv.title}"
+                        android:text="@{media.title}"
                         android:textColor="@color/alabaster"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/tv_poster"
-                        app:layout_constraintTop_toBottomOf="@id/tv_backdrop"
-                        tools:text="Tv Show name" />
+                        app:layout_constraintStart_toEndOf="@id/media_poster"
+                        app:layout_constraintTop_toBottomOf="@id/media_backdrop"
+                        tools:text="Media title" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/watch_providers"
@@ -95,11 +92,10 @@
                         android:textColor="@color/alabaster"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/tv_title"
+                        app:layout_constraintBottom_toTopOf="@+id/media_title"
                         app:layout_constraintEnd_toEndOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -107,7 +103,8 @@
                     android:layout_height="?attr/actionBarSize"
                     android:layout_marginBottom="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/ic_round_arrow_back_24" />
+                    app:navigationIcon="@drawable/ic_round_arrow_back_24"
+                    app:title="@{media.title}" />
 
 
                 <com.google.android.material.tabs.TabLayout
@@ -137,8 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_margin="16dp"
             android:backgroundTint="@color/vermilion_100"
             android:src="@drawable/ic_baseline_add_24" />
 

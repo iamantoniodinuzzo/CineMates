@@ -6,7 +6,6 @@ import com.example.cinemates.databinding.ListItemEpisodeGroupBinding
 import com.example.cinemates.databinding.ListItemEpisodeLongBinding
 import com.example.cinemates.model.Episode
 import com.example.cinemates.model.EpisodeGroup
-import com.example.cinemates.ui.details.tvShow.TvDetailsFragmentDirections
 
 
 /**

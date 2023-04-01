@@ -1,5 +1,6 @@
 package com.example.cinemates.model
 
+import com.example.cinemates.util.MediaType
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.text.NumberFormat
@@ -10,6 +11,7 @@ import java.util.*
  * @author Antonio Di Nuzzo (Indisparte)
  */
 open class Media(
+    val mediaType: MediaType,
     val id: Int,
     val title: String?,
     @SerializedName("poster_path")
@@ -75,6 +77,7 @@ open class Media(
     override fun toString(): String {
         return "Media(id=$id, title=$title, posterPath=$posterPath, backdropPath=$backdropPath, voteAverage=$voteAverage, originalTitle='$originalTitle', originalLanguage='$originalLanguage', homepage='$homepage', overview=$overview, popularity=$popularity, status='$status', tagline=$tagline, voteCount=$voteCount, productionCompanies=$productionCompanies, productionCountries=$productionCountries, favorite=$favorite, personalStatus=$personalStatus, genres=$genres)"
     }
+
 
 
 }

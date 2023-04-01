@@ -1,5 +1,6 @@
 package com.example.cinemates.model
 
+import com.example.cinemates.util.MediaType
 import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
 import java.util.*
@@ -51,6 +52,7 @@ class TvShow(
     favorite: Boolean = false,
     voteCount: Int
 ) : Media(
+    MediaType.TV,
     id,
     name,
     posterPath,

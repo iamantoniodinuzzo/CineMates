@@ -1,5 +1,6 @@
 package com.example.cinemates.model
 
+import com.example.cinemates.util.MediaType
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -34,6 +35,7 @@ class Movie(
     productionCompanies: List<ProductionCompany>,
     productionCountries: List<ProductionCountry>
 ) : Media(
+    MediaType.MOVIE,
     id,
     title,
     posterPath,

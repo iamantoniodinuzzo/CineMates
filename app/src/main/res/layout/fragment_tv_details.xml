@@ -7,7 +7,7 @@
 
         <variable
             name="tv"
-            type="com.example.cinemates.model.TvShow" />
+            type="com.example.cinemates.model.Media" />
 
         <import type="android.view.View" />
     </data>
@@ -35,7 +35,7 @@
                 app:titleCollapseMode="fade"
                 app:expandedTitleTextColor="@android:color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="@{tv.name}">
+                app:title="@{tv.title}">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -74,7 +74,7 @@
                         android:layout_marginHorizontal="20dp"
                         android:layout_marginTop="10dp"
                         android:maxLines="2"
-                        android:text="@{tv.name}"
+                        android:text="@{tv.title}"
                         android:textColor="@color/alabaster"
                         android:textSize="24sp"
                         android:textStyle="bold"

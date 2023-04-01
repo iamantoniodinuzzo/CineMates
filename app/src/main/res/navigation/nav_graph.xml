@@ -56,7 +56,7 @@
         tools:layout="@layout/fragment_movie_details">
         <argument
             android:name="movie"
-            app:argType="com.example.cinemates.model.Movie" />
+            app:argType="com.example.cinemates.model.Media" />
         <action
             android:id="@+id/action_movieDetailsFragment_to_bottomSheetFragment"
             app:destination="@id/bottomSheetFragment" />
@@ -87,7 +87,7 @@
         tools:layout="@layout/fragment_tv_details">
         <argument
             android:name="tv"
-            app:argType="com.example.cinemates.model.TvShow" />
+            app:argType="com.example.cinemates.model.Media" />
         <action
             android:id="@+id/action_tvDetailsFragment_to_bottomSheetFragment"
             app:destination="@id/bottomSheetFragment" />

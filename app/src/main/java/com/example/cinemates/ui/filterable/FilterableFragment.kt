@@ -97,9 +97,9 @@ class FilterableFragment : Fragment() {
         poster.movie = movie
         dialog.setContentView(poster.root)
         poster.root.setOnClickListener {
-            val action = NavGraphDirections.actionGlobalMovieDetailsFragment(movie)
+           /* val action = NavGraphDirections.actionGlobalMovieDetailsFragment(movie)
             findNavController().navigate(action)
-            dialog.dismiss()
+            dialog.dismiss()*/
         }
         dialog.show()
     }

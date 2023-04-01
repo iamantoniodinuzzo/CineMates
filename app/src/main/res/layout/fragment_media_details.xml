@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="movie"
-            type="com.example.cinemates.model.Movie" />
+            name="media"
+            type="com.example.cinemates.model.Media" />
 
         <import type="android.view.View" />
     </data>
@@ -39,7 +39,7 @@
                     android:layout_height="match_parent">
 
                     <include
-                        android:id="@+id/movie_poster"
+                        android:id="@+id/media_poster"
                         layout="@layout/list_item_poster"
                         android:layout_width="100dp"
                         android:layout_height="150dp"
@@ -48,15 +48,15 @@
                         android:elevation="4dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:path="@{movie.posterPath}" />
+                        app:path="@{media.posterPath}" />
 
 
                     <ImageView
-                        android:id="@+id/movie_backdrop"
+                        android:id="@+id/media_backdrop"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="centerCrop"
-                        app:imageUrlLong="@{movie.backdropPath}"
+                        app:imageUrlLong="@{media.backdropPath}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -64,21 +64,21 @@
 
 
                     <TextView
-                        android:id="@+id/movie_title"
+                        android:id="@+id/media_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_marginHorizontal="20dp"
                         android:layout_marginTop="10dp"
                         android:maxLines="2"
-                        android:text="@{movie.title}"
+                        android:text="@{media.title}"
                         android:textColor="@color/alabaster"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/movie_poster"
-                        app:layout_constraintTop_toBottomOf="@id/movie_backdrop"
-                        tools:text="Movie title" />
+                        app:layout_constraintStart_toEndOf="@id/media_poster"
+                        app:layout_constraintTop_toBottomOf="@id/media_backdrop"
+                        tools:text="Media title" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/watch_providers"
@@ -92,7 +92,7 @@
                         android:textColor="@color/alabaster"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/movie_title"
+                        app:layout_constraintBottom_toTopOf="@+id/media_title"
                         app:layout_constraintEnd_toEndOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -104,7 +104,7 @@
                     android:layout_marginBottom="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
                     app:navigationIcon="@drawable/ic_round_arrow_back_24"
-                    app:title="@{movie.title}" />
+                    app:title="@{media.title}" />
 
 
                 <com.google.android.material.tabs.TabLayout

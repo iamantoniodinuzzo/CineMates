@@ -50,18 +50,6 @@
         android:label="BottomSheetFragment"
         tools:layout="@layout/fragment_manage_bottomsheet" />
     <fragment
-        android:id="@+id/movieDetailsFragment"
-        android:name="com.example.cinemates.ui.details.movie.MovieDetailsFragment"
-        android:label="MovieDetailsFragment"
-        tools:layout="@layout/fragment_movie_details">
-        <argument
-            android:name="movie"
-            app:argType="com.example.cinemates.model.Movie" />
-        <action
-            android:id="@+id/action_movieDetailsFragment_to_bottomSheetFragment"
-            app:destination="@id/bottomSheetFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/actorDetailsFragment"
         android:name="com.example.cinemates.ui.details.actor.ActorDetailsFragment"
         android:label="ActorDetailsFragment"
@@ -71,43 +59,42 @@
             app:argType="com.example.cinemates.model.Person" />
     </fragment>
     <action
-        android:id="@+id/action_global_movieDetailsFragment"
-        app:destination="@id/movieDetailsFragment"
-        app:popUpTo="@id/movieDetailsFragment"
-        app:popUpToInclusive="true" />
-    <action
         android:id="@+id/action_global_actorDetailsFragment"
         app:destination="@id/actorDetailsFragment"
         app:popUpTo="@id/actorDetailsFragment"
         app:popUpToInclusive="true" />
     <fragment
-        android:id="@+id/tvDetailsFragment"
-        android:name="com.example.cinemates.ui.details.tvShow.TvDetailsFragment"
-        android:label="TvDetailsFragment"
-        tools:layout="@layout/fragment_tv_details">
-        <argument
-            android:name="tv"
-            app:argType="com.example.cinemates.model.TvShow" />
-        <action
-            android:id="@+id/action_tvDetailsFragment_to_bottomSheetFragment"
-            app:destination="@id/bottomSheetFragment" />
-        <action
-            android:id="@+id/action_tvDetailsFragment_to_episodeGroupDetailsFragment"
-            app:destination="@id/episodeGroupDetailsFragment" />
-    </fragment>
-    <action
-        android:id="@+id/action_global_tvDetailsFragment"
-        app:destination="@id/tvDetailsFragment"
-        app:popUpTo="@id/tvDetailsFragment"
-        app:popUpToInclusive="true"/>
-    <fragment
         android:id="@+id/episodeGroupDetailsFragment"
-        tools:layout="@layout/fragment_episode_group_details"
         android:name="com.example.cinemates.ui.details.tvShow.EpisodeGroupDetailsFragment"
-        android:label="EpisodeGroupDetailsFragment" >
+        android:label="EpisodeGroupDetailsFragment"
+        tools:layout="@layout/fragment_episode_group_details">
         <argument
             android:name="episodeGroupId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.example.cinemates.ui.details.movie.MovieDetailsContainerFragment"
+        android:label="MovieDetailsFragment"
+        tools:layout="@layout/fragment_media_details">
+        <argument
+            android:name="media"
+            app:argType="com.example.cinemates.model.Media" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvDetailsFragment"
+        android:name="com.example.cinemates.ui.details.tvShow.TvDetailsContainerFragment"
+        android:label="TvDetailsFragment"
+        tools:layout="@layout/fragment_media_details">
+        <argument
+            android:name="media"
+            app:argType="com.example.cinemates.model.Media" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_movieDetailsFragment"
+        app:destination="@id/movieDetailsFragment" />
+    <action
+        android:id="@+id/action_global_tvDetailsFragment"
+        app:destination="@id/tvDetailsFragment" />
 
 </navigation>

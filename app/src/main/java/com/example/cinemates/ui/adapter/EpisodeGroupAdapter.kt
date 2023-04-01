@@ -5,7 +5,6 @@ import androidx.navigation.Navigation
 import com.example.cinemates.R
 import com.example.cinemates.databinding.ListItemEpisodeGroupBinding
 import com.example.cinemates.model.EpisodeGroup
-import com.example.cinemates.ui.details.tvShow.TvDetailsFragmentDirections
 
 
 /**
@@ -18,11 +17,11 @@ class EpisodeGroupAdapter : SingleViewAdapter<EpisodeGroup, ListItemEpisodeGroup
     override fun onBindItem(binding: ListItemEpisodeGroupBinding, item: EpisodeGroup) {
         binding.episodeGroup = item
         binding.root.setOnClickListener {
-            val action =
+           /* val action =
                 TvDetailsFragmentDirections.actionTvDetailsFragmentToEpisodeGroupDetailsFragment(
                     item.id
                 )
-               Navigation.findNavController(it).navigate(action)
+               Navigation.findNavController(it).navigate(action)*/
         }
     }
 

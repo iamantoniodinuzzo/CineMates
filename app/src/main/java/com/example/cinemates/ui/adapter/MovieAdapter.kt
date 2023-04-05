@@ -9,14 +9,13 @@ import androidx.navigation.Navigation
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
 import com.example.cinemates.databinding.ListItemMediaLongBinding
-import com.example.cinemates.databinding.ListItemMovieLongBinding
-import com.example.cinemates.databinding.ListItemMovieSmallBinding
+import com.example.cinemates.databinding.ListItemMediaSmallBinding
 import com.example.cinemates.model.Movie
 
 class MovieAdapter :
-    DoubleViewSizeAdapter<Movie, ListItemMediaLongBinding, ListItemMovieSmallBinding>(
+    DoubleViewSizeAdapter<Movie, ListItemMediaLongBinding, ListItemMediaSmallBinding>(
         R.layout.list_item_media_long,
-        R.layout.list_item_movie_small,
+        R.layout.list_item_media_small,
         emptyList()
     ) {
 
@@ -26,8 +25,8 @@ class MovieAdapter :
         navigateToDetails(binding, item)
     }
 
-    override fun onBindSmallItem(binding: ListItemMovieSmallBinding, item: Movie) {
-        binding.movie = item
+    override fun onBindSmallItem(binding: ListItemMediaSmallBinding, item: Movie) {
+        binding.media = item
         navigateToDetails(binding, item)
     }
 

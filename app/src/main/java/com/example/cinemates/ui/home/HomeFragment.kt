@@ -1,11 +1,15 @@
 package com.example.cinemates.ui.home
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentHomeBinding
 import com.example.cinemates.model.section.Section
 import com.example.cinemates.model.section.SectionMovie
@@ -79,6 +83,15 @@ class HomeFragment : Fragment(), OnStartDragListener {
             val callback: ItemTouchHelper.Callback = ReorderHelperCallback(adapter)
             mItemTouchHelper = ItemTouchHelper(callback)
             mItemTouchHelper?.attachToRecyclerView(sectionRv)
+
+            toolbar.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.search -> Navigation.findNavController(view)
+                        .navigate(R.id.action_homeFragment_to_searchFragment)
+
+                }
+                false
+            }
 
             observeViewModel(adapter)
 

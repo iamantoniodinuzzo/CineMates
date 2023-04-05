@@ -94,7 +94,7 @@ class FilterableFragment : Fragment() {
             layoutInflater
         )
         val movie: Movie = viewModel.getRandomMovie()!!
-        poster.movie = movie
+        poster.media = movie
         dialog.setContentView(poster.root)
         poster.root.setOnClickListener {
            /* val action = NavGraphDirections.actionGlobalMovieDetailsFragment(movie)

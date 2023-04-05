@@ -30,7 +30,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:focusedByDefault="true"
                 android:imeOptions="actionSearch"
                 android:inputType="text"

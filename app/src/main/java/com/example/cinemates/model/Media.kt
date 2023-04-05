@@ -13,7 +13,7 @@ import java.util.*
 open  class Media(
     val mediaType: MediaType,
     val id: Int,
-    val title: String?,
+    val title: String,
     @SerializedName("poster_path")
     val posterPath: String?,
     @SerializedName("backdrop_path")

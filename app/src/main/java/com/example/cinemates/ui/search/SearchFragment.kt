@@ -2,7 +2,6 @@ package com.example.cinemates.ui.search
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,6 @@ import com.example.cinemates.ui.adapter.TvShowAdapter
 import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.launch
 
-private val TAG = SearchFragment::class.simpleName
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
@@ -105,28 +103,29 @@ class SearchFragment : Fragment() {
                 }
             })
 
-
-
+            viewModel.setLayoutManager(gridLayoutManager)
             //listen viewModel changes
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 launch {
                     viewModel.searchedMovies.collect { movies ->
-                        Log.d(TAG, "onViewCreated: movies -> $movies")
                         movieAdapter.updateItems(movies)
                     }
                 }
                 launch {
-
                     viewModel.searchedActors.collect { actors ->
-                        Log.d(TAG, "onViewCreated: actors -> $actors")
                         personAdapter.updateItems(actors)
                     }
                 }
 
                 launch {
                     viewModel.searchedTvShow.collect { tvShow ->
-                        Log.d(TAG, "onViewCreated: tvShow -> $tvShow")
                         tvShowAdapter.updateItems(tvShow)
+                    }
+                }
+
+                launch {
+                    viewModel.layoutManager.collect {
+                        recyclerView.layoutManager = it
                     }
                 }
 
@@ -134,7 +133,6 @@ class SearchFragment : Fragment() {
 
             // Set up the filter chips
             recyclerView.adapter = movieAdapter
-            recyclerView.layoutManager = gridLayoutManager
             var lastCheckedId = -1
             chipGroup.setOnCheckedChangeListener { _, checkedId ->
                 if (checkedId == lastCheckedId) {
@@ -162,7 +160,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun switchLayout(layoutManager: RecyclerView.LayoutManager) {
-        binding.recyclerView.layoutManager = layoutManager
+        viewModel.setLayoutManager(layoutManager)
         tvShowAdapter.toggleLayoutType()
         movieAdapter.toggleLayoutType()
         personAdapter.toggleLayoutType()

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.cinemates.databinding.ListItemMovieSmallBinding
+import com.example.cinemates.databinding.ListItemMediaSmallBinding
 import com.example.cinemates.model.Movie
 import com.example.cinemates.ui.ListFragment
 import com.example.cinemates.ui.adapter.MovieAdapter
@@ -14,7 +14,7 @@ private val TAG = ActorMoviesFragment::class.simpleName
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class ActorMoviesFragment : ListFragment<Movie, ListItemMovieSmallBinding, MovieAdapter>(
+class ActorMoviesFragment : ListFragment<Movie, ListItemMediaSmallBinding, MovieAdapter>(
     MovieAdapter()
 ) {
 

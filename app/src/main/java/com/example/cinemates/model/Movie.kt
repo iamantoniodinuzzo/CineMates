@@ -13,7 +13,7 @@ class Movie(
     @SerializedName("release_date")
     val releaseDate: String?,
     private val runtime: Int?,
-    title: String?,
+    title: String,
     voteAverage: Double,
     personalStatus: PersonalStatus = PersonalStatus.EMPTY,
     favorite: Boolean = false,

@@ -10,7 +10,7 @@ import java.util.*
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-open class Media(
+open  class Media(
     val mediaType: MediaType,
     val id: Int,
     val title: String?,
@@ -37,8 +37,16 @@ open class Media(
     val productionCountries: List<ProductionCountry>,
     var favorite: Boolean = false,
     var personalStatus: PersonalStatus = PersonalStatus.EMPTY,
-    val genres: List<Genre> = listOf()
+    val genres: List<Genre>? = listOf()
 ) : Serializable {
+
+    val formattedGenres: String
+        get() {
+            return genres?.let {
+                val result = it.map { genre -> genre.name }
+                result.joinToString(separator = ", ")
+            } ?: "Not specified"
+        }
 
     protected fun formattedMoney(toFormat: Long): String {
         val current = Locale.getDefault()
@@ -79,8 +87,8 @@ open class Media(
     }
 
 
-
 }
+
 enum class PersonalStatus(
     val status: Int
 ) {

@@ -82,10 +82,12 @@ class MovieAboutFragment() : Fragment() {
                     viewModel.selectedMovie.collect { selectedMovie ->
                         movie = selectedMovie
                         if (selectedMovie != null) {
-                            chipGroupGenres.setChipsList(
-                                selectedMovie.genres,
-                                textGetter = { genre -> genre.name }
-                            )
+                            selectedMovie.genres?.let {
+                                chipGroupGenres.setChipsList(
+                                    it,
+                                    textGetter = { genre -> genre.name }
+                                )
+                            }
                         }
                     }
                 }

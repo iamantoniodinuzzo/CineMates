@@ -5,11 +5,12 @@ import com.example.cinemates.repositories.ActorRepository
 import com.example.cinemates.repositories.MovieRepository
 import com.example.cinemates.repositories.TvShowRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
-
-private val TAG = SearchViewModel::class.simpleName
 
 /**
  * Shared between [SearchFragment]
@@ -28,6 +29,8 @@ constructor(
     private val _query = MutableStateFlow<String?>(null)
     val query: Flow<String?> get() = _query
 
+    // TODO: layoutmanager attached to rcv 
+
 
     init {
         clearQuery()
@@ -39,19 +42,28 @@ constructor(
 
     val searchedActors = query.flatMapLatest { query ->
         query?.let {
-            actorRepository.getPeoplesBySearch(it)
+            if (it.isBlank())
+                emptyFlow()
+            else
+                actorRepository.getPeoplesBySearch(it)
         } ?: emptyFlow()
     }
 
     val searchedMovies = query.flatMapLatest { query ->
         query?.let {
-            movieRepository.getBySearch(it)
+            if (it.isBlank())
+                emptyFlow()
+            else
+                movieRepository.getBySearch(it)
         } ?: emptyFlow()
     }
 
     val searchedTvShow = query.flatMapLatest { query ->
         query?.let {
-            tvShowRepository.getBySearch(it)
+            if (it.isBlank())
+                emptyFlow()
+            else
+                tvShowRepository.getBySearch(it)
         } ?: emptyFlow()
 
     }

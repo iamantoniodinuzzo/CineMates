@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="tv"
-            type="com.example.cinemates.model.TvShow" />
+            name="media"
+            type="com.example.cinemates.model.Media" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,6 +25,8 @@
                 android:layout_width="100dp"
                 android:layout_height="150dp"
                 android:layout_margin="20dp"
+                app:vote="@{media.voteAverage}"
+                app:path="@{media.posterPath}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +51,8 @@
                     android:textColor="@color/geyser"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    tools:text="2010" />
+                    android:text="@{media.status}"
+                    tools:text="Released" />
 
                 <TextView
                     android:id="@+id/textTitle"
@@ -59,7 +62,8 @@
                     android:textColor="@color/alabaster"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    tools:text="Tv Title" />
+                    android:text="@{media.title}"
+                    tools:text="Media Title" />
 
                 <TextView
                     android:id="@+id/textSubtitle"
@@ -67,6 +71,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/geyser"
                     android:textSize="14sp"
+                    android:text="@{media.formattedGenres}"
                     android:textStyle="bold"
                     tools:text="Genre1, Genre2, Genre3" />
             </androidx.appcompat.widget.LinearLayoutCompat>

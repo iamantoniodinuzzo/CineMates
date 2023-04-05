@@ -96,14 +96,16 @@ class SearchFragment : Fragment() {
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
                     //NOTE set this query into viewModel
-                    viewModel.setQuery(query)
                     return false
                 }
 
                 override fun onQueryTextChange(query: String): Boolean {
+                    viewModel.setQuery(query)
                     return false
                 }
             })
+
+
 
             //listen viewModel changes
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {

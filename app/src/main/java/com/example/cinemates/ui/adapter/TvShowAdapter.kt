@@ -8,20 +8,21 @@ import androidx.databinding.ViewDataBinding
 import androidx.navigation.Navigation
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
+import com.example.cinemates.databinding.ListItemMediaLongBinding
 import com.example.cinemates.databinding.ListItemTvLongBinding
 import com.example.cinemates.databinding.ListItemTvSmallBinding
 import com.example.cinemates.model.TvShow
 
 class TvShowAdapter :
-    DoubleViewSizeAdapter<TvShow, ListItemTvLongBinding, ListItemTvSmallBinding>(
-        R.layout.list_item_tv_long,
+    DoubleViewSizeAdapter<TvShow, ListItemMediaLongBinding, ListItemTvSmallBinding>(
+        R.layout.list_item_media_long,
         R.layout.list_item_tv_small,
         emptyList()
     ) {
 
 
-    override fun onBindLongItem(binding: ListItemTvLongBinding, item: TvShow) {
-        binding.tv = item
+    override fun onBindLongItem(binding: ListItemMediaLongBinding, item: TvShow) {
+        binding.media = item
         navigateToDetails(binding, item)
     }
 

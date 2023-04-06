@@ -1,7 +1,6 @@
 package com.example.cinemates.ui.search
 
 import androidx.lifecycle.ViewModel
-import com.bumptech.glide.Glide.init
 import com.example.cinemates.repositories.ActorRepository
 import com.example.cinemates.repositories.MovieRepository
 import com.example.cinemates.repositories.TvShowRepository
@@ -30,7 +29,8 @@ constructor(
     private val _query = MutableStateFlow<String?>(null)
     val query: Flow<String?> get() = _query
 
-     var isGridLayout = true
+    private val _isGridLayout = MutableStateFlow<Boolean?>(true)
+    val isGridLayout: Flow<Boolean?> get() = _isGridLayout
 
     init {
         clearQuery()
@@ -40,6 +40,9 @@ constructor(
         _query.value = query.trim()
     }
 
+    fun setIsGridLayout(value: Boolean) {
+        _isGridLayout.value = value
+    }
 
     val searchedActors = query.flatMapLatest { query ->
         query?.let {

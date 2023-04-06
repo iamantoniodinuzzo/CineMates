@@ -4,21 +4,18 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.view.MenuItemCompat.setOnActionExpandListener
-import androidx.databinding.adapters.SearchViewBindingAdapter.setOnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentSearchBinding
 import com.example.cinemates.ui.adapter.MovieAdapter
@@ -26,7 +23,6 @@ import com.example.cinemates.ui.adapter.PersonAdapter
 import com.example.cinemates.ui.adapter.TvShowAdapter
 import com.example.cinemates.util.ViewSize
 import com.google.android.material.transition.MaterialFadeThrough
-import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.coroutines.launch
 
 
@@ -74,7 +70,6 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateToolbar()
 
         binding.apply {
             // Listen menu item click and change layout into recyclerview
@@ -82,12 +77,9 @@ class SearchFragment : Fragment() {
             toolbar.apply {
                 setOnMenuItemClickListener { item ->
                     when (item.itemId) {
-                        R.id.menu_switch_grid -> switchLayout()
-                        R.id.menu_switch_list -> switchLayout()
+                        R.id.menu_switch_grid -> viewModel.setIsGridLayout(true)
+                        R.id.menu_switch_list -> viewModel.setIsGridLayout(false)
                     }
-                    viewModel.isGridLayout = !viewModel.isGridLayout
-                    updateToolbar()
-                    updateLayoutType()
                     false
                 }
 
@@ -138,37 +130,29 @@ class SearchFragment : Fragment() {
                     }
                 }
 
-            }
+                launch {
+                    viewModel.isGridLayout.collect {
+                        it?.let {
+                            if (it) {
+                                updateLayout(
+                                    GridLayoutManager(requireContext(), SPAN_COLUMN),
+                                    ViewSize.SMALL
+                                )
+                            } else {
+                                updateLayout(LinearLayoutManager(requireContext()), ViewSize.LONG)
+                            }
+                            val gridView = toolbar.menu.findItem(R.id.menu_switch_grid)
+                            gridView.isVisible = !it
+                            val listView = toolbar.menu.findItem(R.id.menu_switch_list)
+                            listView.isVisible = it
 
-            selectedLayoutManager = if (viewModel.isGridLayout) {
-                GridLayoutManager(requireContext(), SPAN_COLUMN)
-            } else {
-//                    isGridLayout = false
-                LinearLayoutManager(requireContext())
-            }
-            recyclerView.layoutManager = selectedLayoutManager
+                            recyclerView.layoutManager = selectedLayoutManager
 
-            //Restore the state if necessary
-            /*if (savedInstanceState != null) {
-                Log.d(SearchFragment::class.simpleName, "onViewCreated: Esiste uno stato precedente, lo ripristino")
-                isGridLayout = savedInstanceState.getBoolean(IS_GRID_LAYOUT)
-                selectedLayoutManager = if (isGridLayout) {
-                    GridLayoutManager(requireContext(), SPAN_COLUMN)
-                } else {
-//                    isGridLayout = false
-                    LinearLayoutManager(requireContext())
+                        }
+                    }
                 }
-                recyclerView.layoutManager = selectedLayoutManager
-            }else{
-                //set up RecyclerView
-                Log.d(SearchFragment::class.simpleName, "onViewCreated: NON Esiste uno stato precedente")
-                recyclerView.adapter = movieAdapter
-                selectedLayoutManager = GridLayoutManager(requireContext(), SPAN_COLUMN)
-                recyclerView.layoutManager = selectedLayoutManager
-                Log.d(SearchFragment::class.simpleName, "onViewCreated: Ho aggiunto movieAdapter e GridLayout")
 
-            }*/
-
+            }
 
             // Set up the filter chips
             var lastCheckedId = -1
@@ -189,47 +173,53 @@ class SearchFragment : Fragment() {
         }
     }
 
-  /*  override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        // TODO: Questo metodo nonviene mai richiamato
-        Log.d(SearchFragment::class.simpleName, "onSaveInstanceState: Salvo lo stato")
-        outState.putBoolean(IS_GRID_LAYOUT, isGridLayout)
-    }
-*/
-
-
-    //Change menu icon in toolbar showing list or grid view
-    private fun updateToolbar() {
-        Log.d(SearchFragment::class.simpleName, "isGridLayout? ${viewModel.isGridLayout} aggiorno la toolbar")
-        val gridView = binding.toolbar.menu.findItem(R.id.menu_switch_grid)
-        gridView.isVisible = !viewModel.isGridLayout
-        val listView = binding.toolbar.menu.findItem(R.id.menu_switch_list)
-        listView.isVisible = viewModel.isGridLayout
+    private fun updateLayout(layoutManager: LayoutManager, viewSize: ViewSize) {
+        Log.d(
+            SearchFragment::class.simpleName,
+            "updateLayoutType: Small View"
+        )
+        selectedLayoutManager = layoutManager
+        tvShowAdapter.currentLayoutType = viewSize
+        movieAdapter.currentLayoutType = viewSize
+        personAdapter.currentLayoutType = viewSize
     }
 
-    private fun updateLayoutType() {
-        if (viewModel.isGridLayout){
-            Log.d(SearchFragment::class.simpleName, "updateLayoutType: Small View")
-            tvShowAdapter.currentLayoutType = ViewSize.SMALL
-            movieAdapter.currentLayoutType = ViewSize.SMALL
-            personAdapter.currentLayoutType = ViewSize.SMALL
-        }else{
-            Log.d(SearchFragment::class.simpleName, "updateLayoutType: Long View")
-            tvShowAdapter.currentLayoutType = ViewSize.LONG
-            movieAdapter.currentLayoutType = ViewSize.LONG
-            personAdapter.currentLayoutType = ViewSize.LONG
-        }
-    }
 
-    private fun switchLayout() {
-        Log.d(SearchFragment::class.simpleName, "switchLayout: Cambio layout manager")
-        selectedLayoutManager = if (selectedLayoutManager is GridLayoutManager) {
-            LinearLayoutManager(requireContext())
-        } else {
-            GridLayoutManager(requireContext(), SPAN_COLUMN)
-        }
-        binding.recyclerView.layoutManager = selectedLayoutManager
-    }
+    /* //Change menu icon in toolbar showing list or grid view
+     private fun updateToolbar() {
+         Log.d(
+             SearchFragment::class.simpleName,
+             "isGridLayout? ${viewModel.isGridLayout} aggiorno la toolbar"
+         )
+         val gridView = binding.toolbar.menu.findItem(R.id.menu_switch_grid)
+         gridView.isVisible = !viewModel.isGridLayout
+         val listView = binding.toolbar.menu.findItem(R.id.menu_switch_list)
+         listView.isVisible = viewModel.isGridLayout
+     }*/
+
+    /* private fun updateLayoutType() {
+         if (viewModel.isGridLayout){
+             Log.d(SearchFragment::class.simpleName, "updateLayoutType: Small View")
+             tvShowAdapter.currentLayoutType = ViewSize.SMALL
+             movieAdapter.currentLayoutType = ViewSize.SMALL
+             personAdapter.currentLayoutType = ViewSize.SMALL
+         }else{
+             Log.d(SearchFragment::class.simpleName, "updateLayoutType: Long View")
+             tvShowAdapter.currentLayoutType = ViewSize.LONG
+             movieAdapter.currentLayoutType = ViewSize.LONG
+             personAdapter.currentLayoutType = ViewSize.LONG
+         }
+     }*/
+
+    /* private fun switchLayout() {
+         Log.d(SearchFragment::class.simpleName, "switchLayout: Cambio layout manager")
+         selectedLayoutManager = if (selectedLayoutManager is GridLayoutManager) {
+             LinearLayoutManager(requireContext())
+         } else {
+             GridLayoutManager(requireContext(), SPAN_COLUMN)
+         }
+         binding.recyclerView.layoutManager = selectedLayoutManager
+     }*/
 
     override fun onDestroyView() {
         super.onDestroyView()

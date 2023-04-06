@@ -1,6 +1,7 @@
 package com.example.cinemates.ui.search
 
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.repositories.ActorRepository
 import com.example.cinemates.repositories.MovieRepository
 import com.example.cinemates.repositories.TvShowRepository
@@ -31,6 +32,8 @@ constructor(
 
     private val _isGridLayout = MutableStateFlow<Boolean?>(true)
     val isGridLayout: Flow<Boolean?> get() = _isGridLayout
+
+
 
     init {
         clearQuery()
@@ -73,8 +76,9 @@ constructor(
     }
 
 
-    private fun clearQuery() {
+    fun clearQuery() {
         _query.value = ""
+
     }
 
 }

@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.bumptech.glide.Glide.init
 import com.example.cinemates.repositories.ActorRepository
 import com.example.cinemates.repositories.MovieRepository
 import com.example.cinemates.repositories.TvShowRepository
+import com.example.cinemates.ui.adapter.MovieAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -35,6 +37,8 @@ constructor(
 
     private val _query = MutableStateFlow<String?>(null)
     val query: Flow<String?> get() = _query
+
+
 
     init {
         clearQuery()

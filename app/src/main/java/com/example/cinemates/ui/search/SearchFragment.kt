@@ -2,6 +2,7 @@ package com.example.cinemates.ui.search
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -11,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.MenuItemCompat.setOnActionExpandListener
+import androidx.databinding.adapters.SearchViewBindingAdapter.setOnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -22,7 +24,9 @@ import com.example.cinemates.databinding.FragmentSearchBinding
 import com.example.cinemates.ui.adapter.MovieAdapter
 import com.example.cinemates.ui.adapter.PersonAdapter
 import com.example.cinemates.ui.adapter.TvShowAdapter
+import com.example.cinemates.util.ViewSize
 import com.google.android.material.transition.MaterialFadeThrough
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.coroutines.launch
 
 
@@ -30,6 +34,7 @@ private const val IS_GRID_LAYOUT = "isGridLayout"
 private const val SPAN_COLUMN = 3
 
 class SearchFragment : Fragment() {
+
     private var _binding: FragmentSearchBinding? = null
     private val binding: FragmentSearchBinding
         get() = _binding!!
@@ -80,7 +85,9 @@ class SearchFragment : Fragment() {
                         R.id.menu_switch_grid -> switchLayout()
                         R.id.menu_switch_list -> switchLayout()
                     }
+                    isGridLayout = !isGridLayout
                     updateToolbar()
+                    updateLayoutType()
                     false
                 }
 
@@ -100,11 +107,11 @@ class SearchFragment : Fragment() {
                 setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String): Boolean {
                         //NOTE set this query into viewModel
+                        viewModel.setQuery(query)
                         return false
                     }
 
                     override fun onQueryTextChange(query: String): Boolean {
-                        viewModel.setQuery(query)
                         return false
                     }
                 })
@@ -136,18 +143,23 @@ class SearchFragment : Fragment() {
 
             //Restore the state if necessary
             if (savedInstanceState != null) {
+                Log.d(SearchFragment::class.simpleName, "onViewCreated: Esiste uno stato precedente, lo ripristino")
                 isGridLayout = savedInstanceState.getBoolean(IS_GRID_LAYOUT)
                 selectedLayoutManager = if (isGridLayout) {
                     GridLayoutManager(requireContext(), SPAN_COLUMN)
                 } else {
+//                    isGridLayout = false
                     LinearLayoutManager(requireContext())
                 }
                 recyclerView.layoutManager = selectedLayoutManager
             }else{
                 //set up RecyclerView
+                Log.d(SearchFragment::class.simpleName, "onViewCreated: NON Esiste uno stato precedente")
                 recyclerView.adapter = movieAdapter
                 selectedLayoutManager = GridLayoutManager(requireContext(), SPAN_COLUMN)
                 recyclerView.layoutManager = selectedLayoutManager
+                Log.d(SearchFragment::class.simpleName, "onViewCreated: Ho aggiunto movieAdapter e GridLayout")
+
             }
 
 
@@ -172,28 +184,44 @@ class SearchFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBoolean(IS_GRID_LAYOUT, selectedLayoutManager is GridLayoutManager)
+        // TODO: Questo metodo nonviene mai richiamato
+        Log.d(SearchFragment::class.simpleName, "onSaveInstanceState: Salvo lo stato")
+        outState.putBoolean(IS_GRID_LAYOUT, isGridLayout)
     }
+
 
 
     //Change menu icon in toolbar showing list or grid view
     private fun updateToolbar() {
+        Log.d(SearchFragment::class.simpleName, "isGridLayout? $isGridLayout aggiorno la toolbar")
         val gridView = binding.toolbar.menu.findItem(R.id.menu_switch_grid)
         gridView.isVisible = !isGridLayout
         val listView = binding.toolbar.menu.findItem(R.id.menu_switch_list)
         listView.isVisible = isGridLayout
     }
 
+    private fun updateLayoutType() {
+        if (isGridLayout){
+            Log.d(SearchFragment::class.simpleName, "updateLayoutType: Small View")
+            tvShowAdapter.currentLayoutType = ViewSize.SMALL
+            movieAdapter.currentLayoutType = ViewSize.SMALL
+            personAdapter.currentLayoutType = ViewSize.SMALL
+        }else{
+            Log.d(SearchFragment::class.simpleName, "updateLayoutType: Long View")
+            tvShowAdapter.currentLayoutType = ViewSize.LONG
+            movieAdapter.currentLayoutType = ViewSize.LONG
+            personAdapter.currentLayoutType = ViewSize.LONG
+        }
+    }
+
     private fun switchLayout() {
+        Log.d(SearchFragment::class.simpleName, "switchLayout: Cambio layout manager")
         selectedLayoutManager = if (selectedLayoutManager is GridLayoutManager) {
             LinearLayoutManager(requireContext())
         } else {
             GridLayoutManager(requireContext(), SPAN_COLUMN)
         }
         binding.recyclerView.layoutManager = selectedLayoutManager
-        tvShowAdapter.toggleLayoutType()
-        movieAdapter.toggleLayoutType()
-        personAdapter.toggleLayoutType()
     }
 
     override fun onDestroyView() {

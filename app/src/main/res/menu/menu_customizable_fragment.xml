@@ -11,13 +11,13 @@
         android:id="@+id/menu_switch_list"
         android:icon="@drawable/ic_round_view_list_24"
         android:iconTint="@color/geyser"
-        android:title="List"
+        android:title="List layout"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_switch_grid"
         android:icon="@drawable/ic_round_view_module_24"
         android:iconTint="@color/geyser"
-        android:title="Grid"
+        android:title="Grid layout"
         android:visible="false"
         app:showAsAction="always" />
 </menu>

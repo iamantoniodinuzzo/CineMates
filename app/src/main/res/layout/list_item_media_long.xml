@@ -4,15 +4,15 @@
     <data>
 
         <variable
-            name="movie"
-            type="com.example.cinemates.model.Movie" />
+            name="media"
+            type="com.example.cinemates.model.Media" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="182dp"
         app:cardBackgroundColor="@android:color/transparent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,15 +21,15 @@
 
             <include
                 android:id="@+id/poster"
-                layout="@layout/layout_movie_poster"
+                layout="@layout/layout_media_poster"
                 android:layout_width="100dp"
                 android:layout_height="150dp"
                 android:layout_margin="20dp"
+                app:vote="@{media.voteAverage}"
+                app:path="@{media.posterPath}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:path="@{movie.posterPath}"
-                app:vote="@{movie.voteAverage}" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="0dp"
@@ -48,33 +48,43 @@
                     android:id="@+id/textHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{movie.releaseDate}"
                     android:textColor="@color/geyser"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    tools:text="2010" />
+                    android:text="@{media.status}"
+                    tools:text="Released" />
 
                 <TextView
                     android:id="@+id/textTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autoSizeTextType="uniform"
-                    android:text="@{movie.title}"
                     android:textColor="@color/alabaster"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"
-                    tools:text="Movie Title" />
+                    android:text="@{media.title}"
+                    tools:text="Media Title" />
 
                 <TextView
                     android:id="@+id/textSubtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{movie.formattedGenres}"
                     android:textColor="@color/geyser"
                     android:textSize="14sp"
-                    android:textStyle="normal"
+                    android:text="@{media.formattedGenres}"
+                    android:textStyle="bold"
                     tools:text="Genre1, Genre2, Genre3" />
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <ImageView
+                android:id="@+id/iconMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:src="@drawable/ic_baseline_more_vert_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/alabaster" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"

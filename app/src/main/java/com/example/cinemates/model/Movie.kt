@@ -13,7 +13,7 @@ class Movie(
     @SerializedName("release_date")
     val releaseDate: String?,
     private val runtime: Int?,
-    title: String?,
+    title: String,
     voteAverage: Double,
     personalStatus: PersonalStatus = PersonalStatus.EMPTY,
     favorite: Boolean = false,
@@ -69,13 +69,7 @@ class Movie(
             } else ""
         }
 
-    val formattedGenres: String
-        get() {
-            return if (genres.isNotEmpty()) {
-                val result = genres.map { genre -> genre.name }
-                result.joinToString(separator = ", ")
-            } else "Not specified"
-        }
+
 
     val formattedBudget: String
         get() {

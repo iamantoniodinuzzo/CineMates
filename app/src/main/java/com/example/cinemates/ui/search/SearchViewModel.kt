@@ -1,19 +1,11 @@
 package com.example.cinemates.ui.search
 
-import android.app.Application
-import android.content.Context
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.bumptech.glide.Glide.init
 import com.example.cinemates.repositories.ActorRepository
 import com.example.cinemates.repositories.MovieRepository
 import com.example.cinemates.repositories.TvShowRepository
-import com.example.cinemates.ui.adapter.MovieAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.emptyFlow
@@ -38,7 +30,7 @@ constructor(
     private val _query = MutableStateFlow<String?>(null)
     val query: Flow<String?> get() = _query
 
-
+     var isGridLayout = true
 
     init {
         clearQuery()

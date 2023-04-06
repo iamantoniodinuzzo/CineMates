@@ -44,7 +44,7 @@ class SearchFragment : Fragment() {
     private lateinit var personAdapter: PersonAdapter
     private lateinit var tvShowAdapter: TvShowAdapter
     private val viewModel: SearchViewModel by activityViewModels()
-    private var isGridLayout = true
+//    private var isGridLayout = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,7 +85,7 @@ class SearchFragment : Fragment() {
                         R.id.menu_switch_grid -> switchLayout()
                         R.id.menu_switch_list -> switchLayout()
                     }
-                    isGridLayout = !isGridLayout
+                    viewModel.isGridLayout = !viewModel.isGridLayout
                     updateToolbar()
                     updateLayoutType()
                     false
@@ -140,9 +140,16 @@ class SearchFragment : Fragment() {
 
             }
 
+            selectedLayoutManager = if (viewModel.isGridLayout) {
+                GridLayoutManager(requireContext(), SPAN_COLUMN)
+            } else {
+//                    isGridLayout = false
+                LinearLayoutManager(requireContext())
+            }
+            recyclerView.layoutManager = selectedLayoutManager
 
             //Restore the state if necessary
-            if (savedInstanceState != null) {
+            /*if (savedInstanceState != null) {
                 Log.d(SearchFragment::class.simpleName, "onViewCreated: Esiste uno stato precedente, lo ripristino")
                 isGridLayout = savedInstanceState.getBoolean(IS_GRID_LAYOUT)
                 selectedLayoutManager = if (isGridLayout) {
@@ -160,7 +167,7 @@ class SearchFragment : Fragment() {
                 recyclerView.layoutManager = selectedLayoutManager
                 Log.d(SearchFragment::class.simpleName, "onViewCreated: Ho aggiunto movieAdapter e GridLayout")
 
-            }
+            }*/
 
 
             // Set up the filter chips
@@ -182,26 +189,26 @@ class SearchFragment : Fragment() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
+  /*  override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         // TODO: Questo metodo nonviene mai richiamato
         Log.d(SearchFragment::class.simpleName, "onSaveInstanceState: Salvo lo stato")
         outState.putBoolean(IS_GRID_LAYOUT, isGridLayout)
     }
-
+*/
 
 
     //Change menu icon in toolbar showing list or grid view
     private fun updateToolbar() {
-        Log.d(SearchFragment::class.simpleName, "isGridLayout? $isGridLayout aggiorno la toolbar")
+        Log.d(SearchFragment::class.simpleName, "isGridLayout? ${viewModel.isGridLayout} aggiorno la toolbar")
         val gridView = binding.toolbar.menu.findItem(R.id.menu_switch_grid)
-        gridView.isVisible = !isGridLayout
+        gridView.isVisible = !viewModel.isGridLayout
         val listView = binding.toolbar.menu.findItem(R.id.menu_switch_list)
-        listView.isVisible = isGridLayout
+        listView.isVisible = viewModel.isGridLayout
     }
 
     private fun updateLayoutType() {
-        if (isGridLayout){
+        if (viewModel.isGridLayout){
             Log.d(SearchFragment::class.simpleName, "updateLayoutType: Small View")
             tvShowAdapter.currentLayoutType = ViewSize.SMALL
             movieAdapter.currentLayoutType = ViewSize.SMALL

@@ -3,11 +3,14 @@ package com.example.cinemates.ui.search
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.MenuItemCompat.setOnActionExpandListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,23 +26,23 @@ import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.launch
 
 
+private const val IS_GRID_LAYOUT = "isGridLayout"
+private const val SPAN_COLUMN = 3
+
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding: FragmentSearchBinding
         get() = _binding!!
 
-    private lateinit var linearLayoutManager: LinearLayoutManager
-    private lateinit var gridLayoutManager: GridLayoutManager
+    private lateinit var selectedLayoutManager: RecyclerView.LayoutManager
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var personAdapter: PersonAdapter
     private lateinit var tvShowAdapter: TvShowAdapter
     private val viewModel: SearchViewModel by activityViewModels()
-    private var layoutGrid = true
+    private var isGridLayout = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        linearLayoutManager = LinearLayoutManager(context)
-        gridLayoutManager = GridLayoutManager(context, 3)
 
         //init adapters
         movieAdapter = MovieAdapter()
@@ -71,39 +74,44 @@ class SearchFragment : Fragment() {
         binding.apply {
             // Listen menu item click and change layout into recyclerview
             // owned by SearchActor & SearchMovie fragment
-            toolbar.setOnMenuItemClickListener { item ->
-                when (item.itemId) {
-                    R.id.menu_switch_grid -> switchLayout(gridLayoutManager)
-                    R.id.menu_switch_list -> switchLayout(linearLayoutManager)
+            toolbar.apply {
+                setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.menu_switch_grid -> switchLayout()
+                        R.id.menu_switch_list -> switchLayout()
+                    }
+                    updateToolbar()
+                    false
                 }
-                layoutGrid = !layoutGrid
-                updateToolbar()
-                false
+
+                //close keyboard when back button pressed
+                setNavigationOnClickListener { view ->
+                    (requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                        view.windowToken,
+                        0
+                    )
+                    requireActivity().onBackPressed()
+                }
             }
 
-            //close keyboard when back button pressed
-            toolbar.setNavigationOnClickListener { view ->
-                (requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                    view.windowToken,
-                    0
-                )
-                requireActivity().onBackPressed()
+            //Set query parameter and open keyboard default
+            searchView.apply {
+                isIconified = false
+                setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String): Boolean {
+                        //NOTE set this query into viewModel
+                        return false
+                    }
+
+                    override fun onQueryTextChange(query: String): Boolean {
+                        viewModel.setQuery(query)
+                        return false
+                    }
+                })
+
             }
 
-            //Set query parameter
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    //NOTE set this query into viewModel
-                    return false
-                }
 
-                override fun onQueryTextChange(query: String): Boolean {
-                    viewModel.setQuery(query)
-                    return false
-                }
-            })
-
-            viewModel.setLayoutManager(gridLayoutManager)
             //listen viewModel changes
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 launch {
@@ -123,16 +131,27 @@ class SearchFragment : Fragment() {
                     }
                 }
 
-                launch {
-                    viewModel.layoutManager.collect {
-                        recyclerView.layoutManager = it
-                    }
-                }
-
             }
 
+
+            //Restore the state if necessary
+            if (savedInstanceState != null) {
+                isGridLayout = savedInstanceState.getBoolean(IS_GRID_LAYOUT)
+                selectedLayoutManager = if (isGridLayout) {
+                    GridLayoutManager(requireContext(), SPAN_COLUMN)
+                } else {
+                    LinearLayoutManager(requireContext())
+                }
+                recyclerView.layoutManager = selectedLayoutManager
+            }else{
+                //set up RecyclerView
+                recyclerView.adapter = movieAdapter
+                selectedLayoutManager = GridLayoutManager(requireContext(), SPAN_COLUMN)
+                recyclerView.layoutManager = selectedLayoutManager
+            }
+
+
             // Set up the filter chips
-            recyclerView.adapter = movieAdapter
             var lastCheckedId = -1
             chipGroup.setOnCheckedChangeListener { _, checkedId ->
                 if (checkedId == lastCheckedId) {
@@ -151,16 +170,27 @@ class SearchFragment : Fragment() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(IS_GRID_LAYOUT, selectedLayoutManager is GridLayoutManager)
+    }
+
+
     //Change menu icon in toolbar showing list or grid view
     private fun updateToolbar() {
         val gridView = binding.toolbar.menu.findItem(R.id.menu_switch_grid)
-        gridView.isVisible = !layoutGrid
+        gridView.isVisible = !isGridLayout
         val listView = binding.toolbar.menu.findItem(R.id.menu_switch_list)
-        listView.isVisible = layoutGrid
+        listView.isVisible = isGridLayout
     }
 
-    private fun switchLayout(layoutManager: RecyclerView.LayoutManager) {
-        viewModel.setLayoutManager(layoutManager)
+    private fun switchLayout() {
+        selectedLayoutManager = if (selectedLayoutManager is GridLayoutManager) {
+            LinearLayoutManager(requireContext())
+        } else {
+            GridLayoutManager(requireContext(), SPAN_COLUMN)
+        }
+        binding.recyclerView.layoutManager = selectedLayoutManager
         tvShowAdapter.toggleLayoutType()
         movieAdapter.toggleLayoutType()
         personAdapter.toggleLayoutType()

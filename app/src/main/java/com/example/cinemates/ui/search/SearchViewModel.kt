@@ -36,21 +36,14 @@ constructor(
     private val _query = MutableStateFlow<String?>(null)
     val query: Flow<String?> get() = _query
 
-    private val _layoutManager = MutableStateFlow<LayoutManager?>(null)
-    val layoutManager: Flow<LayoutManager?> get() = _layoutManager
-
     init {
         clearQuery()
     }
-
 
     fun setQuery(query: String) {
         _query.value = query.trim()
     }
 
-    fun setLayoutManager(layoutManager: LayoutManager) {
-        _layoutManager.value = layoutManager
-    }
 
     val searchedActors = query.flatMapLatest { query ->
         query?.let {

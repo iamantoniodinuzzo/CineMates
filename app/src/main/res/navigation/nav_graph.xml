@@ -62,7 +62,7 @@
         android:id="@+id/action_global_actorDetailsFragment"
         app:destination="@id/actorDetailsFragment"
         app:popUpTo="@id/actorDetailsFragment"
-        app:popUpToInclusive="true" />
+        app:popUpToSaveState="true" />
     <fragment
         android:id="@+id/episodeGroupDetailsFragment"
         android:name="com.example.cinemates.ui.details.tvShow.EpisodeGroupDetailsFragment"

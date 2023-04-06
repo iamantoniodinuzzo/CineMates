@@ -1,17 +1,11 @@
 package com.example.cinemates.ui.search
 
-import android.app.Application
-import android.content.Context
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.repositories.ActorRepository
 import com.example.cinemates.repositories.MovieRepository
 import com.example.cinemates.repositories.TvShowRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.emptyFlow
@@ -36,20 +30,21 @@ constructor(
     private val _query = MutableStateFlow<String?>(null)
     val query: Flow<String?> get() = _query
 
-    private val _layoutManager = MutableStateFlow<LayoutManager?>(null)
-    val layoutManager: Flow<LayoutManager?> get() = _layoutManager
+    private val _isGridLayout = MutableStateFlow<Boolean?>(true)
+    val isGridLayout: Flow<Boolean?> get() = _isGridLayout
+
+
 
     init {
         clearQuery()
     }
 
-
     fun setQuery(query: String) {
         _query.value = query.trim()
     }
 
-    fun setLayoutManager(layoutManager: LayoutManager) {
-        _layoutManager.value = layoutManager
+    fun setIsGridLayout(value: Boolean) {
+        _isGridLayout.value = value
     }
 
     val searchedActors = query.flatMapLatest { query ->
@@ -81,8 +76,9 @@ constructor(
     }
 
 
-    private fun clearQuery() {
+    fun clearQuery() {
         _query.value = ""
+
     }
 
 }

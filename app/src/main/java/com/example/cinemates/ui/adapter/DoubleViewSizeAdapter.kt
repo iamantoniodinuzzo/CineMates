@@ -27,6 +27,10 @@ abstract class DoubleViewSizeAdapter<T, VDBLong : ViewDataBinding, VDBSmall : Vi
 
 
     var currentLayoutType: ViewSize = ViewSize.SMALL
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MultipleViewViewHolder {
         return when (viewType) {

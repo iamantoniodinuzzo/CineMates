@@ -4,6 +4,6 @@
         <attr name="emptyText" format="string" />
         <attr name="emptyTextSize" format="dimension" />
         <attr name="emptyTextColor" format="color"/>
-        />
+        <attr name="icon" format="reference"/>
     </declare-styleable>
 </resources>

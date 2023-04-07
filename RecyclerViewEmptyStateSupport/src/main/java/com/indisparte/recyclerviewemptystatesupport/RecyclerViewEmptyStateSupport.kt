@@ -2,12 +2,14 @@ package com.indisparte.recyclerviewemptystatesupport
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.recyclerviewemptystatesupport.databinding.RecyclerViewEmptyStateSupportBinding
 
@@ -43,6 +45,7 @@ class RecyclerViewEmptyStateSupport constructor(
             field = value
             emptyTextView.text = value
         }
+
     private var emptyTextSize: Float = 18f
         set(value) {
             field = value
@@ -66,6 +69,11 @@ class RecyclerViewEmptyStateSupport constructor(
             recyclerViewEmptyState.layoutManager = value
         }
 
+    var icon: Drawable? = null
+    set(value){
+        field =value
+    }
+
     init {
         context.theme.obtainStyledAttributes(
             attrs,
@@ -87,6 +95,9 @@ class RecyclerViewEmptyStateSupport constructor(
                         R.styleable.RecyclerViewEmptyStateSupport_emptyTextColor,
                         context.getColor(R.color.white)
                     )
+
+               /* val drawableResId = getResourceId(R.styleable.RecyclerViewEmptyStateSupport_icon, -1);
+                icon = AppCompatResources.getDrawable(context, drawableResId)*/
 
             } finally {
                 recycle()

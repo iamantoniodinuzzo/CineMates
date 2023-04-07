@@ -33,26 +33,26 @@ class RecyclerViewEmptyStateSupport constructor(
 
     private val emptyView: LinearLayout
         get() = binding.emptyView
-    private val emptyTextView: TextView
+     private val emptyTextView: TextView
         get() = binding.noContentText
-    private val emptyImageView: ImageView
+     private val emptyImageView: ImageView
         get() = binding.noContentImage
-    private val recyclerViewEmptyState: RecyclerViewEmptyState
+     private val recyclerViewEmptyState: RecyclerViewEmptyState
         get() = binding.recyclerView
 
-    private var emptyText: String = context.getString(R.string.empty_result_message)
+     var emptyText: String = context.getString(R.string.empty_result_message)
         set(value) {
             field = value
             emptyTextView.text = value
         }
 
-    private var emptyTextSize: Float = 18f
+     var emptyTextSize: Float = 18f
         set(value) {
             field = value
             emptyTextView.textSize = value
         }
 
-    private var emptyTextColor: Int = context.getColor(R.color.white)
+    var emptyTextColor: Int = context.getColor(R.color.white)
         set(value) {
             field = value
             emptyTextView.setTextColor(value)
@@ -69,10 +69,13 @@ class RecyclerViewEmptyStateSupport constructor(
             recyclerViewEmptyState.layoutManager = value
         }
 
-    var icon: Drawable? = null
-    set(value){
-        field =value
-    }
+    var icon: Drawable? = AppCompatResources.getDrawable(context, R.drawable.ic_empty)
+        set(value) {
+            field = value
+            value?.let {
+                emptyImageView.setImageDrawable(it)
+            }
+        }
 
     init {
         context.theme.obtainStyledAttributes(
@@ -96,8 +99,11 @@ class RecyclerViewEmptyStateSupport constructor(
                         context.getColor(R.color.white)
                     )
 
-               /* val drawableResId = getResourceId(R.styleable.RecyclerViewEmptyStateSupport_icon, -1);
-                icon = AppCompatResources.getDrawable(context, drawableResId)*/
+                val drawableResId = getResourceId(
+                    R.styleable.RecyclerViewEmptyStateSupport_icon,
+                    R.drawable.ic_empty
+                );
+                icon = AppCompatResources.getDrawable(context, drawableResId)
 
             } finally {
                 recycle()

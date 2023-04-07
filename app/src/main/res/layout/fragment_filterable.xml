@@ -69,7 +69,7 @@
             android:contentDescription="Random movie"
             android:src="@drawable/ic_shuffle" />
 
-        <com.example.cinemates.util.RecyclerViewEmptySupport
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

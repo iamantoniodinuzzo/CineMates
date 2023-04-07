@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RecyclerViewEmptyStateSupport">
+        <attr name="emptyText" format="string" />
+        <attr name="emptyTextSize" format="dimension" />
+        <attr name="emptyTextColor" format="color"/>
+        />
+    </declare-styleable>
+</resources>

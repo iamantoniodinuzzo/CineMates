@@ -140,7 +140,6 @@ class DiscoverFragment : Fragment() {
 
             //Custom filters RecyclerView
             recyclerView.adapter = adapter
-            recyclerView.setEmptyView(emptyView.root)
         }
 
         dbFilterViewModel.filters.observe(viewLifecycleOwner) { filters ->

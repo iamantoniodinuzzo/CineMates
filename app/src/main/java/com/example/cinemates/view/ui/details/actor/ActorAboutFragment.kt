@@ -51,7 +51,6 @@ class ActorAboutFragment : Fragment() {
 
         binding.apply {
             binding.images.adapter = posterAdapter
-            binding.images.setEmptyView(binding.emptyViewRecommended.root)
             val chipsGroupKnowAs: HorizontalChipView<String> =
                 view.findViewById(R.id.chipGroupKnownAs)
 

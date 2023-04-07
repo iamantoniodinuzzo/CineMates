@@ -1,8 +1,6 @@
 package com.example.cinemates.ui.home
 
 import androidx.annotation.StringRes
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinemates.R
@@ -15,6 +13,8 @@ import com.example.cinemates.repositories.TvShowRepository
 import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.TimeWindow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,22 +37,42 @@ constructor(
         fetchData()
     }
 
-    // TODO: change to mutable stateflow
-    val trendingMovies: MutableLiveData<List<Movie>> = MutableLiveData()
+    private val _trendingMovies = MutableStateFlow<List<Movie>?>(listOf())
+    val trendingMovies: Flow<List<Movie>?> get() = _trendingMovies
 
-    val tvShowOnTheAir: MutableLiveData<List<TvShow>> = MutableLiveData()
+    //    val trendingMovies: MutableLiveData<List<Movie>> = MutableLiveData()
+    private val _tvShowOnTheAir = MutableStateFlow<List<TvShow>?>(listOf())
+    val tvShowOnTheAir: Flow<List<TvShow>?> get() = _tvShowOnTheAir
 
-    val trendingTvShow: MutableLiveData<List<TvShow>> = MutableLiveData()
+//    val tvShowOnTheAir: MutableLiveData<List<TvShow>> = MutableLiveData()
 
-    val trendingPerson: MutableLiveData<List<Person>> = MutableLiveData()
+    private val _trendingTvShow = MutableStateFlow<List<TvShow>?>(listOf())
+    val trendingTvShow: Flow<List<TvShow>?> get() = _trendingTvShow
 
-    val popularMovies: MutableLiveData<List<Movie>> = MutableLiveData()
+//    val trendingTvShow: MutableLiveData<List<TvShow>> = MutableLiveData()
 
-    val popularTvShow: MutableLiveData<List<TvShow>> = MutableLiveData()
+    private val _trendingPerson = MutableStateFlow<List<Person>?>(listOf())
+    val trendingPerson: Flow<List<Person>?> get() = _trendingPerson
+//    val trendingPerson: MutableLiveData<List<Person>> = MutableLiveData()
 
-    val topRatedMovies: MutableLiveData<List<Movie>> = MutableLiveData()
+    private val _popularMovies = MutableStateFlow<List<Movie>?>(listOf())
+    val popularMovies: Flow<List<Movie>?> get() = _popularMovies
+//    val popularMovies: MutableLiveData<List<Movie>> = MutableLiveData()
 
-    val upcomingMovies: MutableLiveData<List<Movie>> = MutableLiveData()
+    private val _popularTvShow = MutableStateFlow<List<TvShow>?>(listOf())
+    val popularTvShow: Flow<List<TvShow>?> get() = _popularTvShow
+
+//    val popularTvShow: MutableLiveData<List<TvShow>> = MutableLiveData()
+
+    private val _topRatedMovies = MutableStateFlow<List<Movie>?>(listOf())
+    val topRatedMovies: Flow<List<Movie>?> get() = _topRatedMovies
+
+//    val topRatedMovies: MutableLiveData<List<Movie>> = MutableLiveData()
+
+    private val _upcomingMovies = MutableStateFlow<List<Movie>?>(listOf())
+    val upcomingMovies: Flow<List<Movie>?> get() = _upcomingMovies
+
+//    val upcomingMovies: MutableLiveData<List<Movie>> = MutableLiveData()
 
     companion object {
         enum class MovieListSpecification(@StringRes val nameResource: Int, val value: String) {
@@ -68,49 +88,49 @@ constructor(
             launch {
                 movieRepository.getSpecificMovieList(MovieListSpecification.POPULAR.value)
                     .collectLatest { popular ->
-                        popularMovies.value = popular
+                        _popularMovies.value = popular
                     }
             }
             launch {
                 movieRepository.getSpecificMovieList(MovieListSpecification.UPCOMING.value)
                     .collectLatest { upcoming ->
-                        upcomingMovies.value = upcoming
+                        _upcomingMovies.value = upcoming
                     }
             }
             launch {
                 movieRepository.getSpecificMovieList(MovieListSpecification.TOP_RATED.value)
                     .collectLatest { topRated ->
-                        topRatedMovies.value = topRated
+                        _topRatedMovies.value = topRated
                     }
             }
             launch {
                 movieRepository.getTrending(TimeWindow.WEEK.value)
                     .collectLatest { trending ->
-                        trendingMovies.value = trending
+                        _trendingMovies.value = trending
                     }
             }
             launch {
                 tvShowRepository.getTrending(TimeWindow.WEEK.value)
                     .collectLatest { trending ->
-                        trendingTvShow.value = trending
+                        _trendingTvShow.value = trending
                     }
             }
             launch {
                 tvShowRepository.getSpecificTVList(MovieListSpecification.POPULAR.value)
                     .collectLatest { popular ->
-                        popularTvShow.value = popular
+                        _popularTvShow.value = popular
                     }
             }
             launch {
                 tvShowRepository.getSpecificTVList(MovieListSpecification.ON_AIR.value)
                     .collectLatest { onTheAir ->
-                        tvShowOnTheAir.value = onTheAir
+                        _tvShowOnTheAir.value = onTheAir
                     }
             }
             launch {
                 actorRepository.getTrendingPerson(MediaType.PERSON.value, TimeWindow.WEEK.value)
                     .collectLatest { trending ->
-                        trendingPerson.value = trending
+                        _trendingPerson.value = trending
 
                     }
             }

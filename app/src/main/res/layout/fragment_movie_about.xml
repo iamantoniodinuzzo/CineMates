@@ -28,7 +28,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.ui.details.movie.MovieInfoFragment">
+            tools:context=".ui.ui.details.movie.MovieInfoFragment">
 
 
             <com.borjabravo.readmoretextview.ReadMoreTextView
@@ -102,7 +102,7 @@
                     android:layout_height="200dp"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="10dp"
-                    app:collection="@{movie.belongs_to_collection}" />
+                    app:collection="@{movie.belongsToCollection}" />
             </com.skydoves.transformationlayout.TransformationLayout>
 
             <include
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:visibility="gone"
-                app:collection="@{movie.belongs_to_collection}"
+                app:collection="@{movie.belongsToCollection}"
                 android:layout_centerInParent="true" />
 
             <TextView
@@ -158,13 +158,13 @@
                     android:id="@+id/posters_shower"
                     layout="@layout/list_item_poster"
                     app:counter="@{poster_counter}"
-                    app:path="@{movie.poster_path}" />
+                    app:path="@{movie.posterPath}" />
 
                 <include
                     android:id="@+id/backdrops_shower"
                     layout="@layout/list_item_backdrop"
                     app:counter="@{backdrop_counter}"
-                    app:path="@{movie.backdrop_path}" />
+                    app:path="@{movie.backdropPath}" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -24,7 +24,7 @@
 
             <include
                 layout="@layout/layout_person_avatar"
-                app:path="@{actor.profile_path}" />
+                app:path="@{actor.profilePath}" />
 
             <TextView
                 android:id="@+id/tvTitle"

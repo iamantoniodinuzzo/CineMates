@@ -1,10 +1,13 @@
 package com.example.cinemates.model
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
 open class Image(
-    var file_path: String,
+    @SerializedName("file_path")
+    var filePath: String,
     var height: Int,
     var width: Int
 ) {

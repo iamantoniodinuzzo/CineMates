@@ -28,7 +28,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.ui.details.movie.MovieInfoFragment">
+            tools:context=".ui.ui.details.movie.MovieInfoFragment">
 
 
             <com.borjabravo.readmoretextview.ReadMoreTextView
@@ -87,12 +87,33 @@
                 android:layout_marginTop="10dp"
                 app:tv="@{tv}" />
 
+            <TextView
+                android:id="@+id/episode_group_section"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_info"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Episode groups"
+                android:textColor="@color/alabaster"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.example.cinemates.util.RecyclerViewEmptySupport
+                android:id="@+id/episode_groups"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/episode_group_section"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_item_episode_group" />
 
             <TextView
                 android:id="@+id/trailer_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_info"
+                android:layout_below="@id/episode_groups"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="Trailers"
@@ -132,13 +153,13 @@
                     android:id="@+id/posters_shower"
                     layout="@layout/list_item_poster"
                     app:counter="@{poster_counter}"
-                    app:path="@{tv.poster_path}" />
+                    app:path="@{tv.posterPath}" />
 
                 <include
                     android:id="@+id/backdrops_shower"
                     layout="@layout/list_item_backdrop"
                     app:counter="@{backdrop_counter}"
-                    app:path="@{tv.backdrop_path}" />
+                    app:path="@{tv.backdropPath}" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

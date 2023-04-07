@@ -18,8 +18,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp">
+            android:layout_margin="10dp"
+            android:layout_height="match_parent">
 
             <com.indisparte.linearlayoutinfo.LinearInfoView
                 android:id="@+id/biography"
@@ -68,7 +68,7 @@
                 android:layout_marginBottom="10dp"
                 app:hideIfValueEmpty="true"
                 app:title="From"
-                app:value="@{person.place_of_birth}" />
+                app:value="@{person.placeOfBirth}" />
 
 
             <TextView
@@ -81,12 +81,13 @@
                 android:textColor="@color/geyser"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:visibility="@{person.also_known_as.empty? View.GONE:View.VISIBLE}" />
+                android:visibility="@{person.alsoKnownAs.empty? View.GONE:View.VISIBLE}" />
 
             <com.indisparte.horizontalchipview.HorizontalChipView
                 android:id="@+id/chipGroupKnownAs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="false"
                 android:layout_below="@id/knownAsTitle"
                 android:padding="10dp" />
 

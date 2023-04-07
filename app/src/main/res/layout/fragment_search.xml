@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.search.SearchFragment">
+    tools:context=".ui.search.SearchFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -30,7 +30,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:focusedByDefault="true"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
@@ -88,6 +87,7 @@
         app:icon="@drawable/ic_space"
         app:emptyTextColor="@color/alabaster"
         app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/list_item_media_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chip_group" />

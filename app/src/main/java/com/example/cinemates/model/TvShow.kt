@@ -1,49 +1,91 @@
 package com.example.cinemates.model
 
-data class TvShow(
-    val backdrop_path: String,
-    val created_by: List<CreatedBy>,
-    val episode_run_time: List<Int>,
-    val first_air_date: String,
-    val genres: List<Genre>,
-    val homepage: String,
-    val id: Int,
-    val in_production: Boolean,
+import com.example.cinemates.util.MediaType
+import com.google.gson.annotations.SerializedName
+import java.text.SimpleDateFormat
+import java.util.*
+
+class TvShow(
+    backdropPath: String?,
+    @SerializedName("created_by")
+    val createdBy: List<CreatedBy>,
+    @SerializedName("episode_run_time")
+    val episodeRunTime: List<Int>,
+    @SerializedName("first_air_date")
+    private val firstAirDate: String,
+    genres: List<Genre>,
+    homepage: String,
+    id: Int,
+    @SerializedName("in_production")
+    val inProduction: Boolean,
     val languages: List<String>,
-    val last_air_date: String,
-    val last_episode_to_air: LastEpisodeToAir,
+    @SerializedName("last_air_date")
+    private val lastAirDate: String,
+    @SerializedName("last_episode_to_air")
+    val lastEpisodeToAir: Episode,
     val name: String,
     val networks: List<Network>,
-    val next_episode_to_air: Any,
-    val number_of_episodes: Int,
-    val number_of_seasons: Int,
-    val origin_country: List<String>,
-    val original_language: String,
-    val original_name: String,
-    val overview: String,
-    val popularity: Double,
-    val poster_path: String,
-    val production_companies: List<ProductionCompany>,
-    val production_countries: List<ProductionCountry>,
+    @SerializedName("next_episode_to_air")
+    val nextEpisodeToAir: Episode?,
+    @SerializedName("number_of_episodes")
+    val numberOfEpisodes: Int,
+    @SerializedName("number_of_seasons")
+    val numberOfSeasons: Int,
+    @SerializedName("origin_country")
+    val originCountry: List<String>,
+    originalLanguage: String,
+    @SerializedName("original_name")
+    val originalName: String,
+    overview: String,
+    popularity: Double,
+    posterPath: String?,
+    productionCompanies: List<ProductionCompany>,
+    productionCountries: List<ProductionCountry>,
     val seasons: List<Season>,
-    val spoken_languages: List<SpokenLanguage>,
-    val status: String,
-    val tagline: String,
+    @SerializedName("spoken_languages")
+    val spokenLanguages: List<SpokenLanguage>,
+    status: String,
+    tagline: String,
     val type: String,
-    val vote_average: Double,
-    val vote_count: Int
-):java.io.Serializable{
+    voteAverage: Double,
+    personalStatus: PersonalStatus = PersonalStatus.EMPTY,
+    favorite: Boolean = false,
+    voteCount: Int
+) : Media(
+    MediaType.TV,
+    id,
+    name,
+    posterPath,
+    backdropPath,
+    voteAverage,
+    originalName,
+    originalLanguage,
+    homepage,
+    overview,
+    popularity,
+    status,
+    tagline,
+    voteCount,
+    productionCompanies,
+    productionCountries,
+    favorite,
+    personalStatus,
+    genres
+) {
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is TvShow) return false
 
-        if (id != other.id) return false
+    val formattedFirstAirDate: String
+        get() {
+            return formatDate(firstAirDate)
+        }
 
-        return true
+    val formattedLastAirDate: String
+        get() {
+            return formatDate(lastAirDate)
+        }
+
+    override fun toString(): String {
+        return "TvShow(backdropPath=$backdropPath, createdBy=$createdBy, episodeRunTime=$episodeRunTime, firstAirDate='$firstAirDate', genres=$genres, homepage='$homepage', id=$id, inProduction=$inProduction, languages=$languages, lastAirDate='$lastAirDate', lastEpisodeToAir=$lastEpisodeToAir, name='$name', networks=$networks, nextEpisodeToAir=$nextEpisodeToAir, numberOfEpisodes=$numberOfEpisodes, numberOfSeasons=$numberOfSeasons, originCountry=$originCountry, originalLanguage='$originalLanguage', originalName='$originalName', overview='$overview', popularity=$popularity, posterPath=$posterPath, productionCompanies=$productionCompanies, productionCountries=$productionCountries, seasons=$seasons, spokenLanguages=$spokenLanguages, status='$status', tagline='$tagline', type='$type', voteAverage=$voteAverage, voteCount=$voteCount)"
     }
 
-    override fun hashCode(): Int {
-        return id
-    }
 }

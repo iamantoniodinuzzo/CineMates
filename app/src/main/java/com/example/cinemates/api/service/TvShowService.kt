@@ -1,12 +1,13 @@
 package com.example.cinemates.api.service
 
 
-import com.example.cinemates.model.TvShow
-import com.example.cinemates.model.Genre
-import com.example.cinemates.model.Video
 import com.example.cinemates.api.response.CreditsResponse
 import com.example.cinemates.api.response.GenericResponse
 import com.example.cinemates.api.response.ImagesResponse
+import com.example.cinemates.model.EpisodeGroup
+import com.example.cinemates.model.Genre
+import com.example.cinemates.model.TvShow
+import com.example.cinemates.model.Video
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
@@ -17,23 +18,20 @@ import retrofit2.http.QueryMap
  */
 interface TvShowService {
 
-    @GET("tv/popular")
-    suspend fun getPopular(@QueryMap queries: Map<String, String>): GenericResponse<TvShow>
-
-    @GET("tv/on_the_air")
-    suspend fun getOnTheAir(
-        @QueryMap queries: Map<String, String>
+    @GET("tv/{filter}")
+    suspend fun getListOfSpecificTv(
+        @Path("filter") filter: String,
+        @QueryMap queryMap: Map<String, String>
     ): GenericResponse<TvShow>
 
-
     @GET("tv/{tv_id}")
-    suspend fun getMovieDetails(
+    suspend fun getDetails(
         @Path("tv_id") id: Int,
         @QueryMap queries: Map<String, String>
     ): TvShow
 
     @GET("tv/{tv_id}/credits")
-    suspend fun getMovieCredits(
+    suspend fun getCredits(
         @Path("tv_id") id: Int,
         @QueryMap queries: Map<String, String>
     ): CreditsResponse
@@ -60,18 +58,29 @@ interface TvShowService {
 
 
     @GET("search/tv")
-    suspend fun getTvShowBySearch(@QueryMap queries: Map<String, String>): GenericResponse<TvShow>
+    suspend fun getBySearch(@QueryMap queries: Map<String, String>): GenericResponse<TvShow>
 
     @GET("discover/tv")
-    suspend fun getTvShowByDiscover(@QueryMap queries: Map<String, String>): GenericResponse<TvShow>
+    suspend fun getByDiscover(@QueryMap queries: Map<String, String>): GenericResponse<TvShow>
 
     @GET("genre/tv/list")
     suspend fun getGenreList(@QueryMap queries: Map<String, String>): GenericResponse<Genre>
 
-    @GET("trending/{media_type}/{time_window}")
-    suspend fun getTrendingMedia(
-        @Path("media_type") media_type: String,
+    @GET("trending/tv/{time_window}")
+    suspend fun getTrending(
         @Path("time_window") time_window: String,
         @QueryMap queries: Map<String, String>
     ): GenericResponse<TvShow>
+
+    @GET("tv/{tv_id}/episode_groups")
+    suspend fun getEpisodesGroup(
+        @Path("tv_id") id: Int,
+        @QueryMap queries: Map<String, String>
+    ):GenericResponse< EpisodeGroup>
+
+    @GET("tv/episode_group/{id}")
+    suspend fun getEpisodeGroupDetails(
+        @Path("id") id: String,
+        @QueryMap queries: Map<String, String>
+    ):EpisodeGroup
 }

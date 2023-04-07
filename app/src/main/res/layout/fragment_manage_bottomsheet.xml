@@ -27,7 +27,6 @@
                 android:background="@android:color/transparent"
                 android:drawableTop="@drawable/ic_seen_icon"
                 android:textAllCaps="false"
-                app:seen="@{movie.personalStatus}"
                 android:textColor="@color/alabaster"
                 android:textOff="Add to watched"
                 android:textOn="Added to watched" />
@@ -40,7 +39,6 @@
                 android:background="@android:color/transparent"
                 android:drawableTop="@drawable/ic_favorite_state"
                 android:textAllCaps="false"
-                app:isFavorite="@{movie.favorite}"
                 android:textColor="@color/alabaster"
                 android:textOff="Add to favorite"
                 android:textOn="Added to favorite" />
@@ -53,7 +51,6 @@
                 android:background="@android:color/transparent"
                 android:drawableTop="@drawable/ic_watchlist_icon"
                 android:textAllCaps="false"
-                app:toSee="@{movie.personalStatus}"
                 android:textColor="@color/alabaster"
                 android:textOff="Add to watch list"
                 android:textOn="Added to watch list" />

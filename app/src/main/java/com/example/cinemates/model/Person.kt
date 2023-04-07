@@ -1,50 +1,40 @@
 package com.example.cinemates.model
 
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
-@Entity
 open class Person(
-    @Ignore
     val adult: Boolean,
-    @Ignore
-    val also_known_as: List<String>,
-    @Ignore
+    @SerializedName("also_known_as")
+    val alsoKnownAs: List<String>,
     val biography: String?,
-    @Ignore
-    val birthday: String?,
-    @Ignore
-    val deathday: String?,
-    @Ignore
+    private val birthday: String?,
+    private val deathDay: String?,
     val gender: Int?,
-    @Ignore
     val homepage: String?,
-    @PrimaryKey
     val id: Int,
-    @Ignore
-    val imdb_id: String?,
-    @Ignore
-    val known_for_department: String,
+    @SerializedName("imdb_id")
+    val imdbId: String?,
+    @SerializedName("known_for_department")
+    val knownForDepartment: String?,
     val name: String,
-    @Ignore
-    val place_of_birth: String?,
-    @Ignore
+    @SerializedName("place_of_birth")
+    val placeOfBirth: String?,
     val popularity: Double,
-    val profile_path: String?,
+    @SerializedName("profile_path")
+    val profilePath: String?,
 ) : Serializable {
 
     val knownAs: String
-        get() = also_known_as.stream().collect(Collectors.joining(" - "))
+        get() = alsoKnownAs.stream().collect(Collectors.joining(" - "))
 
     val age: String
         get() {
-            return if (deathday == null && birthday!=null) {
+            return if (deathDay == null && birthday != null) {
                 val birthdayDate = LocalDate.parse(birthday)
                 val age = Period.between(
                     birthdayDate,
@@ -53,13 +43,13 @@ open class Person(
                 age.toString()
             } else if (birthday != null) {
                 val birthdayDate = LocalDate.parse(birthday)
-                val deathDayDate = LocalDate.parse(deathday)
+                val deathDayDate = LocalDate.parse(deathDay)
                 val age = Period.between(
                     birthdayDate,
                     deathDayDate
                 ).years
                 age.toString()
-            }else ""
+            } else ""
         }
     val formattedBirthday: String
         get() {
@@ -73,15 +63,14 @@ open class Person(
 
     val formattedDeathday: String
         get() {
-            return if (deathday != null) {
+            return if (deathDay != null) {
                 val localDate =
-                    LocalDate.parse(deathday, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                    LocalDate.parse(deathDay, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                 val pattern = DateTimeFormatter.ofPattern("dd MMM, yyyy")
                 pattern.format(localDate)
             } else ""
         }
 
-    @Ignore
     constructor(
         adult: Boolean,
         gender: Int?,
@@ -104,6 +93,35 @@ open class Person(
         "", name, null, 0.0, profile_path
     )
 
+    constructor(
+        adult: Boolean,
+        gender: Int?,
+        id: Int,
+        known_for_department: String,
+        name: String,
+        popularity: Double,
+        profile_path: String?,
+        also_known_as: List<String>
+    ) : this(adult, gender, id, known_for_department, name, popularity, profile_path)
+
+    constructor(gender: Int?, id: Int, name: String, profilePath: String?) : this(
+        false,
+        listOf(),
+        null,
+        null,
+        null,
+        gender,
+        null,
+        id,
+        null,
+        null,
+        name,
+        null,
+        0.0,
+        profilePath
+    )
+
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Person) return false
@@ -115,7 +133,7 @@ open class Person(
     }
 
     override fun toString(): String {
-        return "Person(birthday=$birthday, deathDay=$deathday, gender=$gender, id=$id, name='$name', profile_path=$profile_path)"
+        return "Person(birthday=$birthday, deathDay=$deathDay, gender=$gender, id=$id, name='$name', profile_path=$profilePath)"
     }
 
 }

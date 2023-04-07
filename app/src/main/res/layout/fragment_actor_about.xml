@@ -21,6 +21,16 @@
             android:layout_margin="10dp"
             android:layout_height="match_parent">
 
+            <com.indisparte.linearlayoutinfo.LinearInfoView
+                android:id="@+id/biography"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/birthPlace"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:hideIfValueEmpty="true"
+                app:title="Biography"
+                app:value="@{person.biography}" />
 
             <com.indisparte.linearlayoutinfo.LinearInfoView
                 android:id="@+id/age"
@@ -60,16 +70,6 @@
                 app:title="From"
                 app:value="@{person.placeOfBirth}" />
 
-            <com.indisparte.linearlayoutinfo.LinearInfoView
-                android:id="@+id/biography"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/birthPlace"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                app:hideIfValueEmpty="true"
-                app:title="Biography"
-                app:value="@{person.biography}" />
 
             <TextView
                 android:id="@+id/knownAsTitle"
@@ -109,7 +109,7 @@
                 android:layout_below="@id/imageTitle"
                 android:layout_marginTop="10dp">
 
-                <com.example.cinemates.util.RecyclerViewEmptySupport
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/images"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

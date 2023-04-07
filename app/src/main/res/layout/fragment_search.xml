@@ -79,13 +79,17 @@
             android:text="TV Show" />
     </com.google.android.material.chip.ChipGroup>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.indisparte.recyclerviewemptystatesupport.RecyclerViewEmptyStateSupport
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:emptyText="Nothing here!"
+        app:icon="@drawable/ic_space"
+        app:emptyTextColor="@color/alabaster"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/list_item_media_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chip_group" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

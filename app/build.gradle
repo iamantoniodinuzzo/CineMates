@@ -55,13 +55,15 @@ android {
 
 dependencies {
 
+    implementation project(path: ':LinearLayoutInfo')
+    implementation project(path: ':HorizontalChipView')
+    implementation project(path: ':RecyclerViewEmptyStateSupport')
+
     implementation "androidx.appcompat:appcompat:$appcompat"
     implementation "com.google.android.material:material:$material"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout"
     implementation "androidx.legacy:legacy-support-v4:$legacy"
     implementation "androidx.fragment:fragment-ktx:$fragment_ktx"
-    implementation project(path: ':LinearLayoutInfo')
-    implementation project(path: ':HorizontalChipView')
     testImplementation "junit:junit:$junit"
     androidTestImplementation "androidx.test.ext:junit:$junit_android"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_android"

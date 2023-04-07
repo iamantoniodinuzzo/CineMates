@@ -87,7 +87,6 @@
         app:icon="@drawable/ic_space"
         app:emptyTextColor="@color/alabaster"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/list_item_media_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chip_group" />

@@ -31,14 +31,13 @@ constructor(
     private val movieRepository: MovieRepository,
     private val actorRepository: ActorRepository,
     private val tvShowRepository: TvShowRepository,
-    private val state: SavedStateHandle
 ) : ViewModel() {
 
     init {
         fetchData()
     }
 
-//TODO MutableStateFlow
+    // TODO: change to mutable stateflow
     val trendingMovies: MutableLiveData<List<Movie>> = MutableLiveData()
 
     val tvShowOnTheAir: MutableLiveData<List<TvShow>> = MutableLiveData()

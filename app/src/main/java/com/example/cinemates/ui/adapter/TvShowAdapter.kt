@@ -16,7 +16,6 @@ class TvShowAdapter :
     DoubleViewSizeAdapter<TvShow, ListItemMediaLongBinding, ListItemMediaSmallBinding>(
         R.layout.list_item_media_long,
         R.layout.list_item_media_small,
-        emptyList()
     ) {
 
 

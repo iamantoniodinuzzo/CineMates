@@ -16,7 +16,6 @@ class MovieAdapter :
     DoubleViewSizeAdapter<Movie, ListItemMediaLongBinding, ListItemMediaSmallBinding>(
         R.layout.list_item_media_long,
         R.layout.list_item_media_small,
-        emptyList()
     ) {
 
 

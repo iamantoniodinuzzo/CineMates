@@ -12,14 +12,12 @@ import androidx.databinding.ViewDataBinding
  * @param T The type of data to be displayed in the RecyclerView.
  * @param VB The type of ViewDataBinding used in the RecyclerView item layout.
  * @param itemLayoutResId The layout resource ID of the RecyclerView item layout.
- * @param items The initial list of data items to display in the RecyclerView.
  *
  * @author Antonio Di Nuzzo (Indisparte)
  */
 abstract class SingleViewAdapter<T, VB : ViewDataBinding>(
     val itemLayoutResId: Int,
-    items: List<T>
-) : BaseAdapter<T>(items) {
+) : BaseAdapter<T>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
         val inflater = LayoutInflater.from(parent.context)

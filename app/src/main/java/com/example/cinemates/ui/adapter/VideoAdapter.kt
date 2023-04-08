@@ -15,7 +15,7 @@ import com.example.cinemates.databinding.ListItemYtVideoBinding
 import com.example.cinemates.model.Video
 import com.example.cinemates.util.YOUTUBE_COM_WATCH_V
 
-class VideoAdapter : SingleViewAdapter<Video, ListItemYtVideoBinding>(R.layout.list_item_yt_video, emptyList()) {
+class VideoAdapter : SingleViewAdapter<Video, ListItemYtVideoBinding>(R.layout.list_item_yt_video, ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
         val inflater = LayoutInflater.from(parent.context)

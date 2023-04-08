@@ -1,11 +1,13 @@
 package com.example.cinemates.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +21,9 @@ import com.example.cinemates.ui.adapter.OnStartDragListener
 import com.example.cinemates.ui.adapter.ReorderHelperCallback
 import com.example.cinemates.ui.adapter.SectionAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 
 /**
  *@author Antonio Di Nuzzo (Indisparte)
@@ -80,6 +85,7 @@ class HomeFragment : Fragment(), OnStartDragListener {
 
             val adapter = SectionAdapter(sections, this@HomeFragment)
             sectionRv.adapter = adapter
+
             val callback: ItemTouchHelper.Callback = ReorderHelperCallback(adapter)
             mItemTouchHelper = ItemTouchHelper(callback)
             mItemTouchHelper?.attachToRecyclerView(sectionRv)
@@ -93,45 +99,68 @@ class HomeFragment : Fragment(), OnStartDragListener {
                 false
             }
 
-            observeViewModel(adapter)
+            observeViewModel().invokeOnCompletion {
+                Log.d(TAG, "Observation terminated, updating adapter")
+                adapter.updateItems(sections)
+            }
+
+
 
         }
     }
 
-    private fun observeViewModel(adapter: SectionAdapter) {
-        viewModel.popularMovies.observe(requireActivity()) { popular ->
-            sectionMoviePopular.items = popular
-            adapter.notifyDataSetChanged()
+    private fun observeViewModel() =
+        lifecycleScope.launchWhenCreated {
+
+            withTimeout(1000) {
+                launch {
+                    viewModel.popularMovies.collectLatest { popular ->
+                        sectionMoviePopular.items = popular
+                    }
+                }
+
+                launch {
+                    viewModel.topRatedMovies.collectLatest { topRated ->
+                        sectionMovieTopRated.items = topRated
+                    }
+                }
+
+                launch {
+                    viewModel.upcomingMovies.collectLatest { upcoming ->
+                        sectionMovieUpcoming.items = upcoming
+                    }
+                }
+
+                launch {
+                    viewModel.trendingPerson.collectLatest { trendingPersons ->
+                        sectionTrendingPerson.items = trendingPersons
+                    }
+                }
+
+                launch {
+                    viewModel.trendingMovies.collectLatest { trendingMovies ->
+                        sectionTrendingMovie.items = trendingMovies
+                    }
+                }
+                launch {
+                    viewModel.trendingTvShow.collectLatest { trendingTvShow ->
+                        sectionTrendingTvShow.items = trendingTvShow
+                    }
+                }
+
+                launch {
+                    viewModel.popularTvShow.collectLatest { popularTvShow ->
+                        sectionPopularTvShow.items = popularTvShow
+                    }
+                }
+                launch {
+                    viewModel.tvShowOnTheAir.collectLatest { tvShowOnTheAir ->
+                        sectionTvShowOnAir.items = tvShowOnTheAir
+                    }
+                }
+            }
+
         }
-        viewModel.topRatedMovies.observe(requireActivity()) { topRated ->
-            sectionMovieTopRated.items = topRated
-            adapter.notifyDataSetChanged()
-        }
-        viewModel.upcomingMovies.observe(requireActivity()) { upcoming ->
-            sectionMovieUpcoming.items = upcoming
-            adapter.notifyDataSetChanged()
-        }
-        viewModel.trendingPerson.observe(requireActivity()) { trendingPersons ->
-            sectionTrendingPerson.items = trendingPersons
-            adapter.notifyDataSetChanged()
-        }
-        viewModel.trendingMovies.observe(requireActivity()) { trendingMovies ->
-            sectionTrendingMovie.items = trendingMovies
-            adapter.notifyDataSetChanged()
-        }
-        viewModel.trendingTvShow.observe(requireActivity()) { trendingTvShow ->
-            sectionTrendingTvShow.items = trendingTvShow
-            adapter.notifyDataSetChanged()
-        }
-        viewModel.popularTvShow.observe(requireActivity()) { popularTvShow ->
-            sectionPopularTvShow.items = popularTvShow
-            adapter.notifyDataSetChanged()
-        }
-        viewModel.tvShowOnTheAir.observe(requireActivity()) { onAir ->
-            sectionTvShowOnAir.items = onAir
-            adapter.notifyDataSetChanged()
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

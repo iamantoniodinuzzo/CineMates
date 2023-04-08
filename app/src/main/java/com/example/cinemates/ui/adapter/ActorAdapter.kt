@@ -16,7 +16,6 @@ class ActorAdapter :
     DoubleViewSizeAdapter<Cast, ListItemPersonLongBinding, ListItemPersonSmallBinding>(
         R.layout.list_item_person_long,
         R.layout.list_item_person_small,
-        emptyList()
     ) {
 
 

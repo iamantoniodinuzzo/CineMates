@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import javax.inject.Inject
 
 /**
@@ -37,42 +38,33 @@ constructor(
         fetchData()
     }
 
-    private val _trendingMovies = MutableStateFlow<List<Movie>?>(listOf())
-    val trendingMovies: Flow<List<Movie>?> get() = _trendingMovies
+    private val _trendingMovies = MutableStateFlow<List<Movie>>(listOf())
+    val trendingMovies: Flow<List<Movie>> get() = _trendingMovies
 
-    //    val trendingMovies: MutableLiveData<List<Movie>> = MutableLiveData()
-    private val _tvShowOnTheAir = MutableStateFlow<List<TvShow>?>(listOf())
-    val tvShowOnTheAir: Flow<List<TvShow>?> get() = _tvShowOnTheAir
+    private val _tvShowOnTheAir = MutableStateFlow<List<TvShow>>(listOf())
+    val tvShowOnTheAir: Flow<List<TvShow>> get() = _tvShowOnTheAir
 
-//    val tvShowOnTheAir: MutableLiveData<List<TvShow>> = MutableLiveData()
 
-    private val _trendingTvShow = MutableStateFlow<List<TvShow>?>(listOf())
-    val trendingTvShow: Flow<List<TvShow>?> get() = _trendingTvShow
+    private val _trendingTvShow = MutableStateFlow<List<TvShow>>(listOf())
+    val trendingTvShow: Flow<List<TvShow>> get() = _trendingTvShow
 
-//    val trendingTvShow: MutableLiveData<List<TvShow>> = MutableLiveData()
 
-    private val _trendingPerson = MutableStateFlow<List<Person>?>(listOf())
-    val trendingPerson: Flow<List<Person>?> get() = _trendingPerson
-//    val trendingPerson: MutableLiveData<List<Person>> = MutableLiveData()
+    private val _trendingPerson = MutableStateFlow<List<Person>>(listOf())
+    val trendingPerson: Flow<List<Person>> get() = _trendingPerson
 
-    private val _popularMovies = MutableStateFlow<List<Movie>?>(listOf())
-    val popularMovies: Flow<List<Movie>?> get() = _popularMovies
-//    val popularMovies: MutableLiveData<List<Movie>> = MutableLiveData()
+    private val _popularMovies = MutableStateFlow<List<Movie>>(listOf())
+    val popularMovies: Flow<List<Movie>> get() = _popularMovies
 
-    private val _popularTvShow = MutableStateFlow<List<TvShow>?>(listOf())
-    val popularTvShow: Flow<List<TvShow>?> get() = _popularTvShow
+    private val _popularTvShow = MutableStateFlow<List<TvShow>>(listOf())
+    val popularTvShow: Flow<List<TvShow>> get() = _popularTvShow
 
-//    val popularTvShow: MutableLiveData<List<TvShow>> = MutableLiveData()
 
-    private val _topRatedMovies = MutableStateFlow<List<Movie>?>(listOf())
-    val topRatedMovies: Flow<List<Movie>?> get() = _topRatedMovies
+    private val _topRatedMovies = MutableStateFlow<List<Movie>>(listOf())
+    val topRatedMovies: Flow<List<Movie>> get() = _topRatedMovies
 
-//    val topRatedMovies: MutableLiveData<List<Movie>> = MutableLiveData()
+    private val _upcomingMovies = MutableStateFlow<List<Movie>>(listOf())
+    val upcomingMovies: Flow<List<Movie>> get() = _upcomingMovies
 
-    private val _upcomingMovies = MutableStateFlow<List<Movie>?>(listOf())
-    val upcomingMovies: Flow<List<Movie>?> get() = _upcomingMovies
-
-//    val upcomingMovies: MutableLiveData<List<Movie>> = MutableLiveData()
 
     companion object {
         enum class MovieListSpecification(@StringRes val nameResource: Int, val value: String) {
@@ -85,54 +77,56 @@ constructor(
 
     private fun fetchData() {
         viewModelScope.launch {
-            launch {
-                movieRepository.getSpecificMovieList(MovieListSpecification.POPULAR.value)
-                    .collectLatest { popular ->
-                        _popularMovies.value = popular
-                    }
-            }
-            launch {
-                movieRepository.getSpecificMovieList(MovieListSpecification.UPCOMING.value)
-                    .collectLatest { upcoming ->
-                        _upcomingMovies.value = upcoming
-                    }
-            }
-            launch {
-                movieRepository.getSpecificMovieList(MovieListSpecification.TOP_RATED.value)
-                    .collectLatest { topRated ->
-                        _topRatedMovies.value = topRated
-                    }
-            }
-            launch {
-                movieRepository.getTrending(TimeWindow.WEEK.value)
-                    .collectLatest { trending ->
-                        _trendingMovies.value = trending
-                    }
-            }
-            launch {
-                tvShowRepository.getTrending(TimeWindow.WEEK.value)
-                    .collectLatest { trending ->
-                        _trendingTvShow.value = trending
-                    }
-            }
-            launch {
-                tvShowRepository.getSpecificTVList(MovieListSpecification.POPULAR.value)
-                    .collectLatest { popular ->
-                        _popularTvShow.value = popular
-                    }
-            }
-            launch {
-                tvShowRepository.getSpecificTVList(MovieListSpecification.ON_AIR.value)
-                    .collectLatest { onTheAir ->
-                        _tvShowOnTheAir.value = onTheAir
-                    }
-            }
-            launch {
-                actorRepository.getTrendingPerson(MediaType.PERSON.value, TimeWindow.WEEK.value)
-                    .collectLatest { trending ->
-                        _trendingPerson.value = trending
+            withTimeout(1000) {
+                launch {
+                    movieRepository.getSpecificMovieList(MovieListSpecification.POPULAR.value)
+                        .collectLatest { popular ->
+                            _popularMovies.value = popular
+                        }
+                }
+                launch {
+                    movieRepository.getSpecificMovieList(MovieListSpecification.UPCOMING.value)
+                        .collectLatest { upcoming ->
+                            _upcomingMovies.value = upcoming
+                        }
+                }
+                launch {
+                    movieRepository.getSpecificMovieList(MovieListSpecification.TOP_RATED.value)
+                        .collectLatest { topRated ->
+                            _topRatedMovies.value = topRated
+                        }
+                }
+                launch {
+                    movieRepository.getTrending(TimeWindow.WEEK.value)
+                        .collectLatest { trending ->
+                            _trendingMovies.value = trending
+                        }
+                }
+                launch {
+                    tvShowRepository.getTrending(TimeWindow.WEEK.value)
+                        .collectLatest { trending ->
+                            _trendingTvShow.value = trending
+                        }
+                }
+                launch {
+                    tvShowRepository.getSpecificTVList(MovieListSpecification.POPULAR.value)
+                        .collectLatest { popular ->
+                            _popularTvShow.value = popular
+                        }
+                }
+                launch {
+                    tvShowRepository.getSpecificTVList(MovieListSpecification.ON_AIR.value)
+                        .collectLatest { onTheAir ->
+                            _tvShowOnTheAir.value = onTheAir
+                        }
+                }
+                launch {
+                    actorRepository.getTrendingPerson(MediaType.PERSON.value, TimeWindow.WEEK.value)
+                        .collectLatest { trending ->
+                            _trendingPerson.value = trending
 
-                    }
+                        }
+                }
             }
         }
     }

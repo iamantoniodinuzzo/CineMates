@@ -15,15 +15,13 @@ import com.example.cinemates.util.ViewSize
  * @param VDBSmall The type of ViewDataBinding used in the RecyclerView item layout for Small view type.
  * @param longItemLayoutResId The layout resource ID of the RecyclerView item layout for Long view type.
  * @param smallItemLayoutResId The layout resource ID of the RecyclerView item layout for Small view type.
- * @param items The initial list of data items to display in the RecyclerView.
  *
  * @author Antonio Di Nuzzo (Indisparte)
  */
 abstract class DoubleViewSizeAdapter<T, VDBLong : ViewDataBinding, VDBSmall : ViewDataBinding>(
     private val longItemLayoutResId: Int,
     private val smallItemLayoutResId: Int,
-    items: List<T>
-) : BaseAdapter<T>(items) {
+) : BaseAdapter<T>() {
 
 
     var currentLayoutType: ViewSize = ViewSize.SMALL

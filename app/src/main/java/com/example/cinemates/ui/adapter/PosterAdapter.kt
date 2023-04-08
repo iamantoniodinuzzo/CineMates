@@ -11,7 +11,7 @@ import com.example.cinemates.R
 import com.example.cinemates.databinding.ListItemPosterBinding
 import com.example.cinemates.model.*
 
-class PosterAdapter : SingleViewAdapter<Image, ListItemPosterBinding>(R.layout.list_item_poster, emptyList()) {
+class PosterAdapter : SingleViewAdapter<Image, ListItemPosterBinding>(R.layout.list_item_poster) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
         val inflater = LayoutInflater.from(parent.context)

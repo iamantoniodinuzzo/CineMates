@@ -12,7 +12,6 @@ import com.example.cinemates.model.EpisodeGroup
  */
 class EpisodeGroupAdapter : SingleViewAdapter<EpisodeGroup, ListItemEpisodeGroupBinding>(
     R.layout.list_item_episode_group,
-    listOf()
 ) {
     override fun onBindItem(binding: ListItemEpisodeGroupBinding, item: EpisodeGroup) {
         binding.episodeGroup = item

@@ -7,9 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-abstract class BaseAdapter<T>(var items:List<T>) :
+abstract class BaseAdapter<T> :
     RecyclerView.Adapter<BaseAdapter<T>.BaseViewHolder>() {
 
+    var items:List<T> = listOf()
+    set(value) {
+        field= value
+        notifyDataSetChanged()
+    }
     abstract inner class BaseViewHolder(val binding: ViewDataBinding) :
         RecyclerView.ViewHolder(binding.root) {
         abstract fun bind(item: T)

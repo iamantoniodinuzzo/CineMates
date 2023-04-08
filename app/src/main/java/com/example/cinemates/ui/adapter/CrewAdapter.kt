@@ -17,7 +17,6 @@ class CrewAdapter :
     DoubleViewSizeAdapter<Crew, ListItemCrewLongBinding, ListItemPersonSmallBinding>(
         R.layout.list_item_crew_long,
         R.layout.list_item_person_small,
-        emptyList()
     ) {
 
 

@@ -14,7 +14,7 @@ import com.example.cinemates.model.*
 import com.example.cinemates.ui.discover.DiscoverFragmentDirections
 
 class FilterAdapter :
-    SingleViewAdapter<Filter, ListItemFilterBinding>(R.layout.list_item_filter, emptyList()) {
+    SingleViewAdapter<Filter, ListItemFilterBinding>(R.layout.list_item_filter,) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
         val inflater = LayoutInflater.from(parent.context)

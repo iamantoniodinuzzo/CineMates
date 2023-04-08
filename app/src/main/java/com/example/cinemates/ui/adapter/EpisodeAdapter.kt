@@ -13,7 +13,6 @@ import com.example.cinemates.model.EpisodeGroup
  */
 class EpisodeAdapter : SingleViewAdapter<Episode, ListItemEpisodeLongBinding>(
     R.layout.list_item_episode_long,
-    listOf()
 ) {
     override fun onBindItem(binding: ListItemEpisodeLongBinding, item: Episode) {
         binding.episode = item

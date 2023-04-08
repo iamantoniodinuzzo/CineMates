@@ -49,6 +49,7 @@ class SectionAdapter(
         val diffResult = DiffUtil.calculateDiff(BaseAdapter.DiffCallback(sections, newItems))
         sections = newItems
         diffResult.dispatchUpdatesTo(this)
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: SectionViewHolder, position: Int) {

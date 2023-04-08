@@ -16,7 +16,6 @@ import com.example.cinemates.model.Person
 class PersonAdapter :
     DoubleViewSizeAdapter<Person, ListItemPersonLongBinding, ListItemPersonSmallBinding>(
         R.layout.list_item_person_long, R.layout.list_item_person_small,
-        emptyList()
     ) {
 
     override fun onBindLongItem(binding: ListItemPersonLongBinding, item: Person) {

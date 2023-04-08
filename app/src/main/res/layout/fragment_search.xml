@@ -59,21 +59,21 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/movies_chip"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
+            style="@style/CustomFilterChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Movies" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/actors_chip"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
+            style="@style/CustomFilterChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Actors" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/tv_show_chip"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
+            style="@style/CustomFilterChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TV Show" />

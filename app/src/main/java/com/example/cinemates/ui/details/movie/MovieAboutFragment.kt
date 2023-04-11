@@ -105,29 +105,6 @@ class MovieAboutFragment() : Fragment() {
                         }
                     }
                 }
-                launch {
-                    viewModel.posters.collect { posters ->
-                        showPostersShower(posters.isNotEmpty())
-                        if (posters.isNotEmpty()) {
-                            posterCounter = posters.size
-                            postersShower.path = posters.random().filePath
-                            this@MovieAboutFragment.posters = posters.toTypedArray()
-                        }
-                    }
-                }
-
-
-                launch {
-                    viewModel.backdrops.collect { backdrops ->
-                        showBackdropShower(backdrops.isNotEmpty())
-                        if (backdrops.isNotEmpty()) {
-                            backdropCounter = backdrops.size
-                            backdropsShower.path = backdrops.random().filePath
-                            backdrop = backdrops.toTypedArray()
-                        }
-                    }
-                }
-
 
                 launch {
                     viewModel.collection.collect { collection ->
@@ -143,26 +120,11 @@ class MovieAboutFragment() : Fragment() {
                 }
 
             }
-            postersShower.root.setOnClickListener {
-                val action = NavGraphDirections.actionGlobalMediaImagesFragment(posters)
-                Navigation.findNavController(view).navigate(action)
 
-            }
-            backdropsShower.root.setOnClickListener {
-                val action = NavGraphDirections.actionGlobalMediaImagesFragment(backdrop)
-                Navigation.findNavController(view).navigate(action)
-            }
         }
 
     }
 
-    private fun FragmentMovieAboutBinding.showBackdropShower(notEmpty: Boolean) {
-        backdropsShower.root.isVisible = notEmpty
-    }
-
-    private fun FragmentMovieAboutBinding.showPostersShower(notEmpty: Boolean) {
-        postersShower.root.isVisible = notEmpty
-    }
 
     private fun FragmentMovieAboutBinding.showTrailerSection(isNotEmpty: Boolean) {
         trailerTitle.isVisible = isNotEmpty

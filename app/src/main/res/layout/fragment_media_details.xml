@@ -71,7 +71,7 @@
                         android:layout_marginHorizontal="20dp"
                         android:layout_marginTop="10dp"
                         android:maxLines="2"
-                        android:text="@{media.title}"
+                        android:text="@{media.displayTitle}"
                         android:textColor="@color/alabaster"
                         android:textSize="24sp"
                         android:textStyle="bold"
@@ -104,7 +104,7 @@
                     android:layout_marginBottom="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
                     app:navigationIcon="@drawable/ic_round_arrow_back_24"
-                    app:title="@{media.title}" />
+                    app:title="@{media.displayTitle}" />
 
 
                 <com.google.android.material.tabs.TabLayout

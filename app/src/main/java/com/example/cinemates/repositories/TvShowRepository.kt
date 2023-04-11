@@ -17,8 +17,8 @@ constructor(
 ) {
 
     fun getSpecificTVList(specification: String) = flow {
-        val movieList = tvShowService.getListOfSpecificTv(specification, queryMap).results
-        emit(movieList)
+        val specificTvShowList = tvShowService.getListOfSpecificTv(specification, queryMap).results
+        emit(specificTvShowList)
     }
 
     fun getTrending(timeWindow: String): Flow<List<TvShow>> =
@@ -39,8 +39,8 @@ constructor(
 
 
     fun getSimilar(id: Int): Flow<List<TvShow>> = flow {
-        val similarMovies = tvShowService.getSimilar(id, queryMap).results
-        emit(similarMovies)
+        val similarTvShow = tvShowService.getSimilar(id, queryMap).results
+        emit(similarTvShow)
     }
 
     fun getDiscoverable(filter: Filter): Flow<List<TvShow>> = flow {
@@ -71,8 +71,8 @@ constructor(
     }
 
     fun getCrew(id: Int): Flow<List<Crew>> = flow {
-        val cast = tvShowService.getCredits(id, queryMap).crew
-        emit(cast)
+        val crews = tvShowService.getCredits(id, queryMap).crew
+        emit(crews)
     }
 
 
@@ -87,8 +87,8 @@ constructor(
     }
 
     fun getEpisodeGroupDetails(episodeGroupId: String): Flow<EpisodeGroup> = flow {
-        val episodesGroup = tvShowService.getEpisodeGroupDetails(episodeGroupId, queryMap)
-        emit(episodesGroup)
+        val episodesGroupDetails = tvShowService.getEpisodeGroupDetails(episodeGroupId, queryMap)
+        emit(episodesGroupDetails)
     }
 
 }

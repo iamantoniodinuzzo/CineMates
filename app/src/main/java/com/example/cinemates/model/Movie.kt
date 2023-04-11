@@ -1,6 +1,7 @@
 package com.example.cinemates.model
 
 import com.example.cinemates.util.MediaType
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -38,6 +39,7 @@ class Movie(
     MediaType.MOVIE,
     id,
     title,
+    null,
     posterPath,
     backdropPath,
     voteAverage,
@@ -89,9 +91,6 @@ class Movie(
         }
 
 
-    override fun toString(): String {
-        return "Movie(belongs_to_collection=$belongsToCollection, genres=$genres, id=$id, poster_path=$posterPath, release_date=$releaseDate, runtime=$runtime, title=$title, vote_average=$voteAverage, personalStatus=$personalStatus, favorite=$favorite, original_title=$originalTitle, original_language=$originalLanguage, homepage=$homepage, imdb_id=$imdbId, backdrop_path=$backdropPath, overview=$overview, budget=$budget, popularity=$popularity, adult=$adult, revenue=$revenue, status=$status, tagline=$tagline, video=$video, vote_count=$voteCount, production_companies=$productionCompanies, production_countries=$productionCountries)"
-    }
 
 
 }

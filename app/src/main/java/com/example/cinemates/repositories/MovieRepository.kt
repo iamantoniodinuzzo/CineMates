@@ -73,6 +73,12 @@ constructor(
         emit(posters)
     }
 
+    fun getImages(movieId: Int):Flow<List<Image>> = flow {
+        val posters = movieService.getImages(movieId, queryMap).posters
+        val backdrop = movieService.getImages(movieId,queryMap).backdrops
+        val result = (posters+backdrop).shuffled()
+        emit(result)
+    }
     fun getBackdrops(movieId: Int): Flow<List<Image>> = flow {
         val backdrops = movieService.getImages(movieId, queryMap).backdrops
         emit(backdrops)

@@ -60,7 +60,7 @@
     </fragment>
     <action
         android:id="@+id/action_global_actorDetailsFragment"
-        app:destination="@id/actorDetailsFragment"/>
+        app:destination="@id/actorDetailsFragment" />
     <fragment
         android:id="@+id/episodeGroupDetailsFragment"
         android:name="com.example.cinemates.ui.details.tvShow.EpisodeGroupDetailsFragment"
@@ -94,5 +94,17 @@
     <action
         android:id="@+id/action_global_tvDetailsFragment"
         app:destination="@id/tvDetailsFragment" />
+    <dialog
+        android:id="@+id/mediaImagesFragment"
+        android:name="com.example.cinemates.ui.details.MediaImagesFragment"
+        android:label="Images"
+        tools:layout="@layout/fragment_listing_items">
+        <argument
+            android:name="images"
+            app:argType="com.example.cinemates.model.Image[]" />
+    </dialog>
+    <action
+        android:id="@+id/action_global_mediaImagesFragment"
+        app:destination="@id/mediaImagesFragment" />
 
 </navigation>

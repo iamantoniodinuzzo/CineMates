@@ -6,7 +6,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.cinemates.databinding.ListItemMediaSmallBinding
 import com.example.cinemates.model.Movie
-import com.example.cinemates.ui.ListFragment
+import com.example.cinemates.common.ListFragment
 import com.example.cinemates.ui.adapter.MovieAdapter
 import kotlinx.coroutines.flow.collectLatest
 

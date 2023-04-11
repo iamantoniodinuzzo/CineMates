@@ -21,7 +21,7 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         MovieAboutFragment() to "About",
         MovieCastFragment() to "Cast",
         MovieCrewFragment() to "Crew",
-        MovieSimilarFragment() to "Similar"
+        MovieSimilarFragment() to "Similar",
     )
 ) {
     private val args: MovieDetailsContainerFragmentArgs by navArgs()

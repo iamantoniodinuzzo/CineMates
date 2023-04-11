@@ -13,8 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentActorAboutBinding
+import com.example.cinemates.ui.adapter.ImageAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView
-import com.example.cinemates.ui.adapter.PosterAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -28,11 +28,11 @@ class ActorAboutFragment : Fragment() {
     private val binding: FragmentActorAboutBinding
         get() = _binding!!
     private val viewModel: ActorDetailsViewModel by activityViewModels()
-    private lateinit var posterAdapter: PosterAdapter
+    private lateinit var posterAdapter: ImageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        posterAdapter = PosterAdapter()
+        posterAdapter = ImageAdapter()
     }
 
     override fun onCreateView(
@@ -76,7 +76,7 @@ class ActorAboutFragment : Fragment() {
                 }
                 launch {
                     viewModel.images.collect { images ->
-                        posterAdapter.updateItems(images)
+                        posterAdapter.items = images
                     }
                 }
 

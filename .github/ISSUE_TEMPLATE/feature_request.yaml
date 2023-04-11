@@ -1,9 +1,7 @@
 name: 🚀 Feature Request
-description: Suggest an idea for this project
-title: "<title>"
+description: Suggest an feature / idea for this project
+title: "[Feature Request / Suggestion]: "
 labels: ["enhancement"]
-assignees:
-  - Indisparte
 body:
   - type: checkboxes
     attributes:
@@ -13,8 +11,10 @@ body:
         - label: Yes I looked it up and made sure to list it among the projects in case I found it.
           required: true
   - type: textarea
+    id: Suggestion
     attributes:
-      label: Is your feature request related to a problem? Please describe.
+      label: Suggestion / Feature Request
+      description: Describe the feature(s) you would like to see added.
       placeholder: |
         A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
     validations:

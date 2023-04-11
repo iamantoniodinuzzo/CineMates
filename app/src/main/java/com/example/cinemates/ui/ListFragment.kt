@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.cinemates.databinding.FragmentListingItemsBinding
-import com.example.cinemates.ui.adapter.BaseAdapter
-import com.example.cinemates.ui.adapter.SingleViewAdapter
+import com.example.cinemates.common.BaseAdapter
+import com.example.cinemates.common.SingleViewAdapter
+import com.example.cinemates.common.BaseFragment
 
 /**
  * A fragment in which a list of elements is shown which have multiple views depending on the layout of the list.
@@ -19,7 +19,7 @@ import com.example.cinemates.ui.adapter.SingleViewAdapter
  * @author Antonio Di Nuzzo (Indisparte)
  */
 open class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T>>(val adapter: A) :
-    Fragment() {
+    BaseFragment() {
     private var _binding: FragmentListingItemsBinding? = null
     protected val binding: FragmentListingItemsBinding
         get() = _binding!!

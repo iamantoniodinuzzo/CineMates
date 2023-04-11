@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentMediaDetailsBinding
 import com.example.cinemates.ui.adapter.ViewPagerAdapter
+import com.example.cinemates.common.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
@@ -25,7 +23,7 @@ import kotlin.math.abs
  */
 @AndroidEntryPoint
 open class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fragment, String>) :
-    Fragment() {
+    BaseFragment() {
 
     constructor() : this(mapOf())
 
@@ -36,19 +34,7 @@ open class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fragmen
 
     protected lateinit var viewPagerAdapter: ViewPagerAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-
-        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-            interpolator = FastOutSlowInInterpolator()
-            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
-        }
-        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-            interpolator = FastOutSlowInInterpolator()
-            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

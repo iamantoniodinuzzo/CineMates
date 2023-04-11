@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.cinemates.R
+import com.example.cinemates.common.SingleViewAdapter
 import com.example.cinemates.databinding.ListItemYtVideoBinding
 import com.example.cinemates.model.Video
 import com.example.cinemates.util.YOUTUBE_COM_WATCH_V

@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
@@ -16,19 +15,17 @@ import com.example.cinemates.R
 import com.example.cinemates.databinding.EditTextLayoutBinding
 import com.example.cinemates.databinding.FragmentDiscoverBinding
 import com.example.cinemates.util.Sort
-import com.example.cinemates.util.getLong
 import com.example.cinemates.ui.MainActivity
 import com.example.cinemates.ui.adapter.FilterAdapter
+import com.example.cinemates.common.BaseFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.transition.MaterialFadeThrough
-import com.google.android.material.transition.MaterialSharedAxis
 import com.google.android.material.transition.platform.MaterialElevationScale
 import java.util.*
 
-class DiscoverFragment : Fragment() {
+class DiscoverFragment : BaseFragment() {
     private var _binding: FragmentDiscoverBinding? = null
     private val binding: FragmentDiscoverBinding
         get() = _binding!!
@@ -40,19 +37,9 @@ class DiscoverFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /* slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in)
-         slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out)*/
         adapter = FilterAdapter()
-        setupMotionAnimations()
     }
 
-    private fun setupMotionAnimations() {
-        enterTransition = MaterialFadeThrough()
-        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
-            interpolator = FastOutSlowInInterpolator()
-            duration = resources.getLong(R.integer.material_motion_duration_long_2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

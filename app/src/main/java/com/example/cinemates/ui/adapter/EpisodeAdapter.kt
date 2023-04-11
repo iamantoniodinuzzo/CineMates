@@ -1,11 +1,9 @@
 package com.example.cinemates.ui.adapter
 
-import androidx.navigation.Navigation
 import com.example.cinemates.R
-import com.example.cinemates.databinding.ListItemEpisodeGroupBinding
+import com.example.cinemates.common.SingleViewAdapter
 import com.example.cinemates.databinding.ListItemEpisodeLongBinding
 import com.example.cinemates.model.Episode
-import com.example.cinemates.model.EpisodeGroup
 
 
 /**

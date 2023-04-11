@@ -8,22 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.view.animation.LinearInterpolator
 import androidx.core.view.doOnPreDraw
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentFilterableBinding
 import com.example.cinemates.databinding.LayoutCustomDialogRandomBinding
 import com.example.cinemates.model.Movie
-import com.example.cinemates.util.getLong
 import com.example.cinemates.ui.adapter.MovieAdapter
-import com.google.android.material.transition.MaterialSharedAxis
+import com.example.cinemates.common.BaseFragment
 
-class FilterableFragment : Fragment() {
+class FilterableFragment : BaseFragment() {
     private var _binding: FragmentFilterableBinding? = null
     private val binding: FragmentFilterableBinding
         get() = _binding!!
@@ -35,10 +30,6 @@ class FilterableFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = MovieAdapter()
-        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
-            interpolator = LinearInterpolator()
-            duration = resources.getLong(R.integer.material_motion_duration_long_2)
-        }
     }
 
     override fun onCreateView(

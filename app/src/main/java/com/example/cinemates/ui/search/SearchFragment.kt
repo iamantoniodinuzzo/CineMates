@@ -28,7 +28,6 @@ import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.launch
 
 
-private const val IS_GRID_LAYOUT = "isGridLayout"
 private const val SPAN_COLUMN = 3
 
 class SearchFragment : Fragment() {
@@ -42,7 +41,6 @@ class SearchFragment : Fragment() {
     private lateinit var personAdapter: PersonAdapter
     private lateinit var tvShowAdapter: TvShowAdapter
     private val viewModel: SearchViewModel by activityViewModels()
-//    private var isGridLayout = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -29,6 +29,7 @@ class SavedFragment : Fragment() {
     private var mLinearLayoutManager: LinearLayoutManager? = null
     private var mGridLayoutManager: GridLayoutManager? = null
     private var layoutGrid = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         toSeeFragment = ToSeeFragment()

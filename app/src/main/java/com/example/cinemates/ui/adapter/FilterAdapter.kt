@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.example.cinemates.R
+import com.example.cinemates.common.SingleViewAdapter
 import com.example.cinemates.databinding.ListItemFilterBinding
 import com.example.cinemates.model.*
 import com.example.cinemates.ui.discover.DiscoverFragmentDirections

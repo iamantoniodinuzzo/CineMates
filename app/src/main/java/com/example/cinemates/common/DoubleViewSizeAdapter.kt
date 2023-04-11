@@ -1,4 +1,4 @@
-package com.example.cinemates.ui.adapter
+package com.example.cinemates.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cinemates.common.BaseAdapter
 import com.example.cinemates.databinding.ListItemSectionBinding
 import com.example.cinemates.databinding.ListItemSectionCollassableBinding
 import com.example.cinemates.model.section.*

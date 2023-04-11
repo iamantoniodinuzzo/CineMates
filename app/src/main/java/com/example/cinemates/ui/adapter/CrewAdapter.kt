@@ -8,6 +8,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.navigation.Navigation
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
+import com.example.cinemates.common.DoubleViewSizeAdapter
 import com.example.cinemates.databinding.ListItemCrewLongBinding
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
 import com.example.cinemates.model.Crew

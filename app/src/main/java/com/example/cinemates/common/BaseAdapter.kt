@@ -1,4 +1,4 @@
-package com.example.cinemates.ui.adapter
+package com.example.cinemates.common
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil

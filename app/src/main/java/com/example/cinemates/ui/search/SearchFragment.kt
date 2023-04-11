@@ -6,37 +6,32 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnticipateOvershootInterpolator
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
-import androidx.databinding.adapters.SearchViewBindingAdapter.setOnQueryTextListener
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentSearchBinding
 import com.example.cinemates.ui.adapter.MovieAdapter
 import com.example.cinemates.ui.adapter.PersonAdapter
 import com.example.cinemates.ui.adapter.TvShowAdapter
+import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.util.ViewSize
-import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.launch
 
 
 private const val SPAN_COLUMN = 3
 
-class SearchFragment : Fragment() {
+class SearchFragment : BaseFragment() {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding: FragmentSearchBinding
         get() = _binding!!
 
-    private lateinit var selectedLayoutManager: RecyclerView.LayoutManager
+    private lateinit var selectedLayoutManager: LayoutManager
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var personAdapter: PersonAdapter
     private lateinit var tvShowAdapter: TvShowAdapter
@@ -44,20 +39,13 @@ class SearchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         //init adapters
         movieAdapter = MovieAdapter()
         personAdapter = PersonAdapter()
         tvShowAdapter = TvShowAdapter()
-
-        setupMotionAnimations()
     }
 
-    private fun setupMotionAnimations() {
-        val fadeThroughTransition: Any = MaterialFadeThrough()
-            .setInterpolator(AnticipateOvershootInterpolator())
-        enterTransition = fadeThroughTransition
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

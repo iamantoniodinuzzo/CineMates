@@ -36,11 +36,6 @@ class SavedFragment : Fragment() {
         seenFragment = SeenFragment()
         mLinearLayoutManager = LinearLayoutManager(context)
         mGridLayoutManager = GridLayoutManager(context, 3)
-        setupMotionAnimations()
-    }
-
-    private fun setupMotionAnimations() {
-        enterTransition = MaterialElevationScale(true)
     }
 
     override fun onCreateView(

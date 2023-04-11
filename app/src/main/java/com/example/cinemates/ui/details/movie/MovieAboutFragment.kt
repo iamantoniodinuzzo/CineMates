@@ -11,10 +11,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentMovieAboutBinding
 import com.example.cinemates.model.Genre
+import com.example.cinemates.model.Image
 import com.example.cinemates.ui.adapter.MovieAdapter
 import com.example.cinemates.ui.adapter.VideoAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView
@@ -30,6 +33,8 @@ class MovieAboutFragment() : Fragment() {
     private lateinit var videoAdapter: VideoAdapter
     private lateinit var movieAdapter: MovieAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
+    private var posters: Array<Image> = emptyArray()
+    private var backdrop: Array<Image> = emptyArray()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,32 +105,14 @@ class MovieAboutFragment() : Fragment() {
                         }
                     }
                 }
-                launch {
-                    viewModel.posters.collect { posters ->
-                        showPostersShower(posters.isNotEmpty())
-                        if (posters.isNotEmpty()) {
-                            posterCounter = posters.size
-                            postersShower.path = posters.random().filePath
-                        }
-                    }
-                }
-
-
-                launch {
-                    viewModel.backdrops.collect { backdrops ->
-                        showBackdropShower(backdrops.isNotEmpty())
-                        if (backdrops.isNotEmpty()) {
-                            backdropCounter = backdrops.size
-                            backdropsShower.path = backdrops.random().filePath
-                        }
-                    }
-                }
-
 
                 launch {
                     viewModel.collection.collect { collection ->
                         if (collection.parts.isNotEmpty()) {
-                            Log.d(TAG, "onViewCreated: add collection size ${collection.parts.size}")
+                            Log.d(
+                                TAG,
+                                "onViewCreated: add collection size ${collection.parts.size}"
+                            )
                             movieAdapter.updateItems(collection.parts)
                         }
 
@@ -133,17 +120,11 @@ class MovieAboutFragment() : Fragment() {
                 }
 
             }
+
         }
 
     }
 
-    private fun FragmentMovieAboutBinding.showBackdropShower(notEmpty: Boolean) {
-        backdropsShower.root.isVisible = notEmpty
-    }
-
-    private fun FragmentMovieAboutBinding.showPostersShower(notEmpty: Boolean) {
-        postersShower.root.isVisible = notEmpty
-    }
 
     private fun FragmentMovieAboutBinding.showTrailerSection(isNotEmpty: Boolean) {
         trailerTitle.isVisible = isNotEmpty

@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * Is shared between  [MovieCastFragment] [MovieImagesFragment] [MovieInfoFragment]
+ * Is shared between  [MovieCastFragment] [MediaImagesFragment] [MovieInfoFragment]
  * @author Antonio Di Nuzzo
  * @author Jon Areas
  * Created 24/08/2022
@@ -44,6 +44,13 @@ constructor(
             }
         }
     }
+
+    val images =
+        selectedMovie.flatMapLatest { movie ->
+            movie?.let {
+                movieRepository.getImages(movie.id)
+            } ?: emptyFlow()
+        }
 
     val collection =
         selectedMovie.flatMapLatest { movie ->

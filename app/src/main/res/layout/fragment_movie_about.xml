@@ -9,14 +9,6 @@
             name="movie"
             type="com.example.cinemates.model.Movie" />
 
-        <variable
-            name="poster_counter"
-            type="Integer" />
-
-        <variable
-            name="backdrop_counter"
-            type="Integer" />
-
         <import type="android.view.View" />
     </data>
 
@@ -27,8 +19,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".ui.ui.details.movie.MovieInfoFragment">
+            android:layout_height="match_parent">
 
 
             <com.borjabravo.readmoretextview.ReadMoreTextView
@@ -63,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textTitleGenres"
-                android:padding="10dp"/>
+                android:padding="10dp" />
 
             <TextView
                 android:id="@+id/textTitleInfo"
@@ -110,9 +101,9 @@
                 layout="@layout/layout_collection_content"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:layout_centerInParent="true"
                 android:visibility="gone"
-                app:collection="@{movie.belongsToCollection}"
-                android:layout_centerInParent="true" />
+                app:collection="@{movie.belongsToCollection}" />
 
             <TextView
                 android:id="@+id/trailer_title"
@@ -134,40 +125,6 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_yt_video" />
-
-            <TextView
-                android:id="@+id/media_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/trailers"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:text="Media"
-                android:textColor="@color/alabaster"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/media_title"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <include
-                    android:id="@+id/posters_shower"
-                    layout="@layout/list_item_poster"
-                    app:counter="@{poster_counter}"
-                    app:path="@{movie.posterPath}" />
-
-                <include
-                    android:id="@+id/backdrops_shower"
-                    layout="@layout/list_item_backdrop"
-                    app:counter="@{backdrop_counter}"
-                    app:path="@{movie.backdropPath}" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
 
         </RelativeLayout>
 

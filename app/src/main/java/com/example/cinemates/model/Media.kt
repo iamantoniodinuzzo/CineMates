@@ -10,10 +10,11 @@ import java.util.*
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-open  class Media(
+open class Media(
     val mediaType: MediaType,
     val id: Int,
-    val title: String,
+    private val title: String?,
+    private val name: String?,
     @SerializedName("poster_path")
     val posterPath: String?,
     @SerializedName("backdrop_path")
@@ -46,6 +47,15 @@ open  class Media(
                 val result = it.map { genre -> genre.name }
                 result.joinToString(separator = ", ")
             } ?: "Not specified"
+        }
+    val displayTitle: String
+        get() {
+            if (title != null)
+                return title
+            else
+                if (name != null)
+                    return name
+            return ""
         }
 
     protected fun formattedMoney(toFormat: Long): String {

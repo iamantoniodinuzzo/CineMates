@@ -1,6 +1,7 @@
 package com.example.cinemates.model
 
 import com.example.cinemates.util.MediaType
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,7 +24,7 @@ class TvShow(
     private val lastAirDate: String,
     @SerializedName("last_episode_to_air")
     val lastEpisodeToAir: Episode,
-    val name: String,
+    name: String,
     val networks: List<Network>,
     @SerializedName("next_episode_to_air")
     val nextEpisodeToAir: Episode?,
@@ -54,6 +55,7 @@ class TvShow(
 ) : Media(
     MediaType.TV,
     id,
+    null,
     name,
     posterPath,
     backdropPath,
@@ -84,8 +86,6 @@ class TvShow(
             return formatDate(lastAirDate)
         }
 
-    override fun toString(): String {
-        return "TvShow(backdropPath=$backdropPath, createdBy=$createdBy, episodeRunTime=$episodeRunTime, firstAirDate='$firstAirDate', genres=$genres, homepage='$homepage', id=$id, inProduction=$inProduction, languages=$languages, lastAirDate='$lastAirDate', lastEpisodeToAir=$lastEpisodeToAir, name='$name', networks=$networks, nextEpisodeToAir=$nextEpisodeToAir, numberOfEpisodes=$numberOfEpisodes, numberOfSeasons=$numberOfSeasons, originCountry=$originCountry, originalLanguage='$originalLanguage', originalName='$originalName', overview='$overview', popularity=$popularity, posterPath=$posterPath, productionCompanies=$productionCompanies, productionCountries=$productionCountries, seasons=$seasons, spokenLanguages=$spokenLanguages, status='$status', tagline='$tagline', type='$type', voteAverage=$voteAverage, voteCount=$voteCount)"
-    }
+   
 
 }

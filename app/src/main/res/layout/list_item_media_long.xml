@@ -62,7 +62,7 @@
                     android:textColor="@color/alabaster"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:text="@{media.title}"
+                    android:text="@{media.displayTitle}"
                     tools:text="Media Title" />
 
                 <TextView

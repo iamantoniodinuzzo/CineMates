@@ -1,36 +1,18 @@
-name: 🚀 Feature Request
+name: 🚀 Feature request
 description: Suggest an feature / idea for this project
 title: "[Feature Request / Suggestion]: "
 labels: ["enhancement"]
 body:
-  - type: checkboxes
+  - type: markdown
     attributes:
-      label: Is there a project named like this repo?
-      description: Please search to see if project named like this repo and if exists set.
-      options:
-        - label: Yes I looked it up and made sure to list it among the projects in case I found it.
-          required: true
+      value: |
+        We appreciate your feedback on how to improve this project. Please be sure to include as much details & any resources if possible!
   - type: textarea
     id: Suggestion
     attributes:
       label: Suggestion / Feature Request
       description: Describe the feature(s) you would like to see added.
-      placeholder: |
-        A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+      placeholder: Tell us your suggestion
+      value: "Your suggestion here"
     validations:
       required: true
-  - type: textarea
-    attributes:
-      label: Describe alternatives you have considered.
-      placeholder: |
-        A clear and concise description of any alternative solutions or features you've considered.
-    validations:
-      required: false
-  - type: textarea
-    attributes:
-      label: Additional Context
-      placeholder: |
-       Add any other context or screenshots about the feature request here.
-    validations:
-      required: false
- 

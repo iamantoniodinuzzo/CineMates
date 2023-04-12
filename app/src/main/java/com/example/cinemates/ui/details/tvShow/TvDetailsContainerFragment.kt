@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.ui.details.MediaDetailsContainerFragment
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 private val TAG = TvDetailsContainerFragment::class.simpleName
 
@@ -35,10 +36,24 @@ class TvDetailsContainerFragment : MediaDetailsContainerFragment(
         viewModel.onDetailsFragmentReady(args.media.id)
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.selectedTv.collectLatest { selectedTv ->
-                Log.d(TAG, "onViewCreated: ${selectedTv.toString()}")
-                binding.media = selectedTv
+            launch {
+                viewModel.selectedTv.collectLatest { selectedTv ->
+                    Log.d(TAG, "onViewCreated: ${selectedTv.toString()}")
+                    binding.media = selectedTv
+                }
             }
+
+            launch {
+                viewModel.posters.collectLatest {
+                    this@TvDetailsContainerFragment.posters = it
+                }
+            }
+            launch {
+                viewModel.backdrops.collectLatest {
+                    this@TvDetailsContainerFragment.backdrops= it
+                }
+            }
+
         }
 
     }

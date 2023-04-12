@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.ui.details.MediaDetailsContainerFragment
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 private val TAG = MovieDetailsContainerFragment::class.simpleName
@@ -33,21 +34,22 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         super.onViewCreated(view, savedInstanceState)
         viewModel.onDetailsFragmentReady(args.media.id)
 
-        // TODO: Carosello poster, se si clicca si apre il bottom sheet con i poster
-        binding.mediaPoster.root.setOnClickListener{
-            Toast.makeText(requireContext(), "Open bottom sheet - Posters", Toast.LENGTH_SHORT).show()
-        }
-
-        // TODO: Carosello di backdrop, se si clicca si apre il bottomsheet con i backdrop
-        binding.mediaBackdrop.setOnClickListener{
-            Toast.makeText(requireContext(), "Open bottom sheet - Backdrops", Toast.LENGTH_SHORT).show()
-
-        }
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             launch {
                 viewModel.selectedMovie.collect { selectedMovie ->
                     Log.d("TAG", "onViewCreated: ${selectedMovie.toString()}")
                     binding.media = selectedMovie
+                }
+            }
+
+            launch {
+                viewModel.posters.collectLatest {
+                    this@MovieDetailsContainerFragment.posters = it
+                }
+            }
+            launch {
+                viewModel.backdrops.collectLatest {
+                    this@MovieDetailsContainerFragment.backdrops= it
                 }
             }
         }

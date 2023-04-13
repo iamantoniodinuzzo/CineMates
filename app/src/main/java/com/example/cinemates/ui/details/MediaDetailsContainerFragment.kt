@@ -26,28 +26,17 @@ import kotlin.math.abs
  */
 @AndroidEntryPoint
 abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fragment, String>) :
-    BaseFragment() {
+    BaseFragment<FragmentMediaDetailsBinding>() {
 
     constructor() : this(mapOf())
 
-    private var _binding: FragmentMediaDetailsBinding? = null
-    protected val binding: FragmentMediaDetailsBinding
-        get() = _binding!!
-
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMediaDetailsBinding
+        get() = FragmentMediaDetailsBinding::inflate
 
     protected lateinit var viewPagerAdapter: ViewPagerAdapter
     protected var posters: List<Image>? = null
     protected var backdrops: List<Image>? = null
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        _binding = FragmentMediaDetailsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -115,9 +104,5 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fra
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 }

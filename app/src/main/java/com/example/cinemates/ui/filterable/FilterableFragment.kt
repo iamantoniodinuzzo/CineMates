@@ -18,10 +18,11 @@ import com.example.cinemates.model.Movie
 import com.example.cinemates.ui.adapter.MovieAdapter
 import com.example.cinemates.common.BaseFragment
 
-class FilterableFragment : BaseFragment() {
-    private var _binding: FragmentFilterableBinding? = null
-    private val binding: FragmentFilterableBinding
-        get() = _binding!!
+class FilterableFragment : BaseFragment<FragmentFilterableBinding>() {
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentFilterableBinding
+        get() = FragmentFilterableBinding::inflate
+
     private val viewModel: FilterableViewModel by activityViewModels()
     private val args: FilterableFragmentArgs by navArgs()
     private lateinit var adapter: MovieAdapter
@@ -30,15 +31,6 @@ class FilterableFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = MovieAdapter()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentFilterableBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
 
@@ -95,8 +87,5 @@ class FilterableFragment : BaseFragment() {
         dialog.show()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 }

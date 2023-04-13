@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentEpisodeGroupDetailsBinding
 import com.example.cinemates.model.Group
 import com.example.cinemates.model.section.Section
@@ -24,10 +25,11 @@ private val TAG = EpisodeGroupDetailsFragment::class.simpleName
 /**
  *@author Antonio Di Nuzzo (Indisparte)
  */
-class EpisodeGroupDetailsFragment : Fragment() {
-    private var _binding: FragmentEpisodeGroupDetailsBinding? = null
-    private val binding: FragmentEpisodeGroupDetailsBinding
-        get() = _binding!!
+class EpisodeGroupDetailsFragment : BaseFragment<FragmentEpisodeGroupDetailsBinding>() {
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentEpisodeGroupDetailsBinding
+        get() = FragmentEpisodeGroupDetailsBinding::inflate
+
     private val tvDetailsViewModel: TvDetailsViewModel by activityViewModels()
     private val args: EpisodeGroupDetailsFragmentArgs by navArgs()
     private lateinit var groupSectionAdapter: SectionAdapter
@@ -44,7 +46,6 @@ class EpisodeGroupDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentEpisodeGroupDetailsBinding.inflate(inflater, container, false)
 
         binding.toolbar.setNavigationOnClickListener {
             Navigation.findNavController(it).navigateUp()
@@ -74,12 +75,6 @@ class EpisodeGroupDetailsFragment : Fragment() {
 
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        tvDetailsViewModel.onFragmentDestroyed()
-        _binding = null
     }
 
 }

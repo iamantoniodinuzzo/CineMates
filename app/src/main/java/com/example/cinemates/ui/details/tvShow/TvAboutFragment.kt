@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
+import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentTvAboutBinding
 import com.example.cinemates.model.Genre
 import com.example.cinemates.ui.adapter.EpisodeGroupAdapter
@@ -23,13 +24,11 @@ import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-private  val TAG = TvAboutFragment::class.simpleName
+class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
 
-class TvAboutFragment() : Fragment() {
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTvAboutBinding
+        get() = FragmentTvAboutBinding::inflate
 
-    private var _binding: FragmentTvAboutBinding? = null
-    private val binding: FragmentTvAboutBinding
-        get() = _binding!!
     private lateinit var videoAdapter: VideoAdapter
     private lateinit var episodeGroupAdapter: EpisodeGroupAdapter
     private lateinit var tvAdapter: TvShowAdapter
@@ -42,14 +41,7 @@ class TvAboutFragment() : Fragment() {
         episodeGroupAdapter = EpisodeGroupAdapter()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentTvAboutBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -157,10 +149,6 @@ class TvAboutFragment() : Fragment() {
         binding.trailers.isVisible = isNotEmpty
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 
 }

@@ -25,11 +25,10 @@ import kotlinx.coroutines.launch
 
 private const val SPAN_COLUMN = 3
 
-class SearchFragment : BaseFragment() {
+class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
-    private var _binding: FragmentSearchBinding? = null
-    private val binding: FragmentSearchBinding
-        get() = _binding!!
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSearchBinding
+        get() = FragmentSearchBinding::inflate
 
     private lateinit var selectedLayoutManager: LayoutManager
     private lateinit var movieAdapter: MovieAdapter
@@ -46,15 +45,6 @@ class SearchFragment : BaseFragment() {
     }
 
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSearchBinding.inflate(layoutInflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -176,9 +166,4 @@ class SearchFragment : BaseFragment() {
 
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewModel.clearQuery()
-        _binding = null
-    }
 }

@@ -12,6 +12,7 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
+import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.ui.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentActorDetailsBinding
 import com.example.cinemates.util.getLong
@@ -20,10 +21,11 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 
-class ActorDetailsFragment : Fragment() {
-    private var _binding: FragmentActorDetailsBinding? = null
-    private val binding: FragmentActorDetailsBinding
-        get() = _binding!!
+class ActorDetailsFragment : BaseFragment<FragmentActorDetailsBinding>() {
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentActorDetailsBinding
+        get() = FragmentActorDetailsBinding::inflate
+
     private val viewModel: ActorDetailsViewModel by activityViewModels()
     private val args: ActorDetailsFragmentArgs by navArgs()
     private lateinit var viewPagerAdapter: ViewPagerAdapter
@@ -33,19 +35,6 @@ class ActorDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-            interpolator = AnticipateOvershootInterpolator()
-            duration = resources.getLong(R.integer.material_motion_duration_medium_2)
-        }
-        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-            interpolator = AnticipateOvershootInterpolator()
-            duration = resources.getLong(R.integer.material_motion_duration_long_2)
-        }
-        returnTransition = MaterialFadeThrough()
-        exitTransition = MaterialFadeThrough().apply {
-            interpolator = FastOutSlowInInterpolator()
-            duration = resources.getLong(R.integer.material_motion_duration_short_1)
-        }
         actorAboutFragment = ActorAboutFragment()
         actorMoviesFragment = ActorMoviesFragment()
     }
@@ -55,11 +44,6 @@ class ActorDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentActorDetailsBinding.inflate(
-            inflater,
-            container,
-            false
-        )
 
         initializeViewPager()
         return binding.root
@@ -120,8 +104,4 @@ class ActorDetailsFragment : Fragment() {
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

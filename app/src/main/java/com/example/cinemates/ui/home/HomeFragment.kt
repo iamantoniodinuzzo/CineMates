@@ -5,13 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
+import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentHomeBinding
 import com.example.cinemates.model.section.Section
 import com.example.cinemates.model.section.SectionMovie
@@ -21,6 +21,7 @@ import com.example.cinemates.ui.adapter.OnStartDragListener
 import com.example.cinemates.ui.adapter.ReorderHelperCallback
 import com.example.cinemates.ui.adapter.SectionAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.layout_tv_info.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
@@ -31,10 +32,11 @@ import kotlinx.coroutines.withTimeout
 private val TAG = HomeFragment::class.simpleName
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), OnStartDragListener {
-    private var _binding: FragmentHomeBinding? = null
-    private val binding: FragmentHomeBinding
-        get() = _binding!!
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnStartDragListener {
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
+        get() = FragmentHomeBinding::inflate
+
     private val viewModel: HomeViewModel by viewModels()
     private var mItemTouchHelper: ItemTouchHelper? = null
     private lateinit var sectionMoviePopular: SectionMovie
@@ -69,15 +71,6 @@ class HomeFragment : Fragment(), OnStartDragListener {
         )
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -99,11 +92,11 @@ class HomeFragment : Fragment(), OnStartDragListener {
                 false
             }
 
+
             observeViewModel().invokeOnCompletion {
                 Log.d(TAG, "Observation terminated, updating adapter")
                 adapter.updateItems(sections)
             }
-
 
 
         }
@@ -162,10 +155,6 @@ class HomeFragment : Fragment(), OnStartDragListener {
 
         }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     override fun onStartDrag(viewHolder: RecyclerView.ViewHolder?) {
         viewHolder?.let {

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.example.cinemates.R
+import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentProfileBinding
 import com.example.cinemates.databinding.LayoutSectionStatsBinding
 import com.example.cinemates.util.getLong
@@ -18,11 +19,10 @@ import com.google.android.material.transition.MaterialSharedAxis
  * @author Antonio Di Nuzzo
  * Created 28/08/2022 at 10:13
  */
-class ProfileFragment : Fragment() {
-    private var _binding: FragmentProfileBinding? = null
-    private val binding: FragmentProfileBinding
-        get() = _binding!!
+class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentProfileBinding
+        get() = FragmentProfileBinding::inflate
     /*private lateinit var adapter: SectionRecyclerViewAdapter
 
     //Sections
@@ -33,27 +33,6 @@ class ProfileFragment : Fragment() {
     private val sectionList: List<Section<*>> =
         listOf(movieSection, personSection)*/
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        adapter = SectionRecyclerViewAdapter(this)
-        enterTransition = MaterialFadeThrough()
-        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
-            interpolator = FastOutSlowInInterpolator()
-            duration = resources.getLong(R.integer.material_motion_duration_long_2)
-        }
-        exitTransition = MaterialFade()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
-
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -72,10 +51,7 @@ class ProfileFragment : Fragment() {
         stats.statContent.text = value.toString()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 
 
 }

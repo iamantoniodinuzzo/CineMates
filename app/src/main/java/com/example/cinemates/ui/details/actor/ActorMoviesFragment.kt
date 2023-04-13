@@ -27,7 +27,6 @@ class ActorMoviesFragment : ListFragment<Movie, ListItemMediaSmallBinding, Movie
             launch {
                 viewModel.movies.collect { moviesByActor ->
                     adapter.updateItems(moviesByActor)
-                    binding.counter = moviesByActor.size
                 }
             }
 

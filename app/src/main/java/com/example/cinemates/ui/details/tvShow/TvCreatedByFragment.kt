@@ -28,7 +28,6 @@ class TvCreatedByFragment : ListFragment<Cast, ListItemPersonLongBinding, ActorA
                     if (tv != null) {
                         adapter.updateItems(tv.createdBy)
                     }
-                    counter = tv?.createdBy?.size
                 }
             }
         }

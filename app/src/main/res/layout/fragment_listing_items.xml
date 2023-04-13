@@ -1,50 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="counter"
-            type="Integer" />
-    </data>
-
-    <androidx.core.widget.NestedScrollView
+    <com.indisparte.recyclerviewemptystatesupport.RecyclerViewEmptyStateSupport
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <TextView
-                android:id="@+id/item_counter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:text='@{counter>1?counter+" items":counter+" item"}'
-                android:textColor="@color/alabaster"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:text='@tools:sample/us_zipcodes' />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/item_counter"
-                android:layout_centerInParent="true"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3"
-                tools:listitem="@layout/list_item_media_small" />
-
-            <include
-                android:id="@+id/empty_view"
-                layout="@layout/layout_empty_recycler" />
-        </RelativeLayout>
-    </androidx.core.widget.NestedScrollView>
+        android:layout_height="match_parent"
+        app:emptyText="Nothing here!"
+        app:icon="@drawable/ic_space"
+        app:emptyTextColor="@color/alabaster" />
 </layout>

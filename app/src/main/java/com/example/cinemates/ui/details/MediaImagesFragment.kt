@@ -50,18 +50,18 @@ class MediaImagesFragment : BottomSheetDialogFragment() {
     private fun setupRecyclerView() {
         binding.apply {
             val images = args.images.asList()
-            val imageType = images[0].imageType
-            if (imageType == ImageType.BACKDROP){
-                recyclerView.layoutManager =
-                    LinearLayoutManager(requireContext())
-            }else if (imageType == ImageType.POSTER){
-                recyclerView.layoutManager =
-                    GridLayoutManager(requireContext(),3)
+            if(images.isNotEmpty()) {
+                val imageType = images[0].imageType
+                if (imageType == ImageType.BACKDROP) {
+                    recyclerView.layoutManager =
+                        LinearLayoutManager(requireContext())
+                } else if (imageType == ImageType.POSTER) {
+                    recyclerView.layoutManager =
+                        GridLayoutManager(requireContext(), 3)
+                }
+                recyclerView.adapter = adapter
+                adapter.items = images
             }
-            recyclerView.adapter = adapter
-            counter = adapter.itemCount
-            adapter.items = images
-            binding.counter = images.size
         }
     }
 

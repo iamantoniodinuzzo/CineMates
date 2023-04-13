@@ -22,7 +22,6 @@ class MovieSimilarFragment : ListFragment<Movie, ListItemMediaSmallBinding, Movi
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.similarMovies.collect { similar ->
                 adapter.updateItems(similar)
-                binding.counter = similar.size
             }
         }
 

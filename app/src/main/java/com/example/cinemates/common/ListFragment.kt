@@ -22,18 +22,16 @@ abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T>>(val ada
         get() = FragmentListingItemsBinding::inflate
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       setupRecyclerView()
+        setupRecyclerView()
     }
 
     private fun setupRecyclerView() {
         binding.apply {
             // Set the RecyclerView to use a linear layout by default
-            binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),3)
-            binding.recyclerView.adapter = adapter
-            counter = adapter.itemCount
+            recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+            recyclerView.adapter = adapter
         }
     }
 

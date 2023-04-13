@@ -23,7 +23,6 @@ class MovieRecommendedFragment : ListFragment<Movie, ListItemMediaSmallBinding, 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.recommendedMovies.collectLatest { recommended ->
                 adapter.updateItems(recommended)
-                binding.counter = recommended.size
             }
         }
 

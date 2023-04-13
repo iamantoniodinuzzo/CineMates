@@ -25,7 +25,6 @@ class MovieCastFragment : ListFragment<Cast, ListItemPersonLongBinding, ActorAda
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.cast.collectLatest {cast->
                     adapter.updateItems(cast)
-                    counter = cast.size
                 }
             }
         }

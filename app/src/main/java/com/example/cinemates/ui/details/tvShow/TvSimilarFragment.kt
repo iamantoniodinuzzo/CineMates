@@ -20,7 +20,6 @@ class TvSimilarFragment : ListFragment<TvShow, ListItemMediaSmallBinding, TvShow
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.similarTvShow.collect { similar ->
                 adapter.updateItems(similar)
-                binding.counter = similar.size
             }
         }
 

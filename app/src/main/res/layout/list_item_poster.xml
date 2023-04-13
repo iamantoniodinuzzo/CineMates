@@ -16,12 +16,13 @@
         <import type="android.view.View" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="100dp"
         android:layout_height="150dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:cardCornerRadius="5dp">
+        app:cardElevation="4dp"
+        app:cardCornerRadius="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -49,5 +50,5 @@
                 android:visibility="@{counter!=0 || counter!= null?View.VISIBLE:View.GONE}"
                 tools:text="20 poster" />
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -25,10 +25,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.platform.MaterialElevationScale
 import java.util.*
 
-class DiscoverFragment : BaseFragment() {
-    private var _binding: FragmentDiscoverBinding? = null
-    private val binding: FragmentDiscoverBinding
-        get() = _binding!!
+class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDiscoverBinding
+        get() = FragmentDiscoverBinding::inflate
+
     private val mRnd = Random()
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var adapter: FilterAdapter
@@ -40,15 +41,6 @@ class DiscoverFragment : BaseFragment() {
         adapter = FilterAdapter()
     }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentDiscoverBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -242,8 +234,5 @@ class DiscoverFragment : BaseFragment() {
         return Color.rgb(red, green, blue)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 }

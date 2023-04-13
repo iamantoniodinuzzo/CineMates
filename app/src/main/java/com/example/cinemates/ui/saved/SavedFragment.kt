@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
+import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.ui.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentSavedBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -20,10 +21,11 @@ import com.google.android.material.transition.MaterialElevationScale
  * @author Jon Areas
  * Created 22/07/2022 at 12:32
  */
-class SavedFragment : Fragment() {
-    private var _binding: FragmentSavedBinding? = null
-    private val binding: FragmentSavedBinding
-        get() = _binding!!
+class SavedFragment : BaseFragment<FragmentSavedBinding>() {
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSavedBinding
+        get() = FragmentSavedBinding::inflate
+
     private lateinit var toSeeFragment: ToSeeFragment
     private lateinit var seenFragment: SeenFragment
     private var mLinearLayoutManager: LinearLayoutManager? = null
@@ -38,14 +40,6 @@ class SavedFragment : Fragment() {
         mGridLayoutManager = GridLayoutManager(context, 3)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentSavedBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -97,8 +91,4 @@ class SavedFragment : Fragment() {
         seenFragment.changeLayout(layoutManager);*/
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

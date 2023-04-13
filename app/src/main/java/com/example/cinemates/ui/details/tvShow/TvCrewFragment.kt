@@ -13,7 +13,6 @@ import com.example.cinemates.ui.adapter.CrewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
-@AndroidEntryPoint
 class TvCrewFragment : ListFragment<Crew, ListItemCrewLongBinding, CrewAdapter>(CrewAdapter()) {
 
     private val viewModel: TvDetailsViewModel by activityViewModels()

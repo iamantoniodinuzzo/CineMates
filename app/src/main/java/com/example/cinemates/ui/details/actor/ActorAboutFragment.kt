@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
+import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentActorAboutBinding
 import com.example.cinemates.ui.adapter.ImageAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView
@@ -23,10 +24,11 @@ import kotlinx.coroutines.launch
  */
 private val TAG = ActorAboutFragment::class.simpleName
 
-class ActorAboutFragment : Fragment() {
-    private var _binding: FragmentActorAboutBinding? = null
-    private val binding: FragmentActorAboutBinding
-        get() = _binding!!
+class ActorAboutFragment : BaseFragment<FragmentActorAboutBinding>() {
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentActorAboutBinding
+        get() = FragmentActorAboutBinding::inflate
+
     private val viewModel: ActorDetailsViewModel by activityViewModels()
     private lateinit var posterAdapter: ImageAdapter
 
@@ -35,14 +37,6 @@ class ActorAboutFragment : Fragment() {
         posterAdapter = ImageAdapter()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentActorAboutBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -115,8 +109,5 @@ class ActorAboutFragment : Fragment() {
         })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 }

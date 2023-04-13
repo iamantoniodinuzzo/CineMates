@@ -16,20 +16,12 @@ import com.example.cinemates.databinding.FragmentListingItemsBinding
  * @author Antonio Di Nuzzo (Indisparte)
  */
 abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T>>(val adapter: A) :
-    BaseFragment() {
-    private var _binding: FragmentListingItemsBinding? = null
-    protected val binding: FragmentListingItemsBinding
-        get() = _binding!!
+    BaseFragment<FragmentListingItemsBinding>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentListingItemsBinding.inflate(inflater, container, false)
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentListingItemsBinding
+        get() = FragmentListingItemsBinding::inflate
 
-        return binding.root
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,11 +37,5 @@ abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T>>(val ada
         }
     }
 
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 }

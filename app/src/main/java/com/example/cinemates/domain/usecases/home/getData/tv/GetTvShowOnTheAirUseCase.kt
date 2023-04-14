@@ -11,7 +11,7 @@ import javax.inject.Inject
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class GetPopularTvShowUseCase
+class GetTvShowOnTheAirUseCase
 @Inject
 constructor(
     private val tvShowRepository: TvShowRepository,
@@ -19,7 +19,7 @@ constructor(
 ) {
 
     operator fun invoke(): Flow<List<Media>> {
-        return tvShowRepository.getSpecificTVList("popular").map {
+        return tvShowRepository.getSpecificTVList("on_the_air").map {
             it.map(tvToMediaMapper::map)
         }
     }

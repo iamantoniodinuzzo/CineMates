@@ -1,10 +1,10 @@
 package com.example.cinemates.di.module
 
-import com.example.cinemates.api.AuthenticationInterceptor
-import com.example.cinemates.api.service.ActorService
-import com.example.cinemates.api.service.MovieService
-import com.example.cinemates.api.service.TvShowService
-import com.example.cinemates.util.BASE_URL
+import com.example.cinemates.data.remote.AuthenticationInterceptor
+import com.example.cinemates.data.remote.service.ActorService
+import com.example.cinemates.data.remote.service.MovieService
+import com.example.cinemates.data.remote.service.TvShowService
+import com.example.cinemates.data.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

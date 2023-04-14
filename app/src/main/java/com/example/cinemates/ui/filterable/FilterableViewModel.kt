@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinemates.model.Filter
 import com.example.cinemates.model.Movie
-import com.example.cinemates.repositories.MovieRepository
+import com.example.cinemates.data.remote.repository.MovieRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.mapLatest
@@ -23,7 +23,7 @@ private const val TAG = "FilterableViewModel"
 class FilterableViewModel
 @Inject
 constructor(
-    private val movieRepository: MovieRepository
+    private val movieRepositoryImpl: MovieRepositoryImpl
 ) : ViewModel() {
 
     private val _movies = MutableLiveData<List<Movie>>()
@@ -32,7 +32,7 @@ constructor(
     fun setFilter(filter: Filter) = getFilteredMovies(filter)
 
     private fun getFilteredMovies(filter: Filter) {
-        movieRepository.getDiscoverable(filter)
+        movieRepositoryImpl.getDiscoverable(filter)
             .mapLatest { movies ->
                 _movies.postValue(movies)
             }

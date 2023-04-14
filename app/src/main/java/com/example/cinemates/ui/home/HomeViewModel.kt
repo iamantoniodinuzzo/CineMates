@@ -7,9 +7,9 @@ import com.example.cinemates.R
 import com.example.cinemates.model.Movie
 import com.example.cinemates.model.Person
 import com.example.cinemates.model.TvShow
-import com.example.cinemates.repositories.ActorRepository
-import com.example.cinemates.repositories.MovieRepository
-import com.example.cinemates.repositories.TvShowRepository
+import com.example.cinemates.data.remote.repository.ActorRepositoryImpl
+import com.example.cinemates.data.remote.repository.MovieRepositoryImpl
+import com.example.cinemates.data.remote.repository.TvShowRepositoryImpl
 import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.TimeWindow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,9 +29,9 @@ import javax.inject.Inject
 class HomeViewModel
 @Inject
 constructor(
-    private val movieRepository: MovieRepository,
-    private val actorRepository: ActorRepository,
-    private val tvShowRepository: TvShowRepository,
+    private val movieRepositoryImpl: MovieRepositoryImpl,
+    private val actorRepositoryImpl: ActorRepositoryImpl,
+    private val tvShowRepositoryImpl: TvShowRepositoryImpl,
 ) : ViewModel() {
 
     init {
@@ -79,49 +79,49 @@ constructor(
         viewModelScope.launch {
             withTimeout(1000) {
                 launch {
-                    movieRepository.getSpecificMovieList(MovieListSpecification.POPULAR.value)
+                    movieRepositoryImpl.getSpecificMovieList(MovieListSpecification.POPULAR.value)
                         .collectLatest { popular ->
                             _popularMovies.value = popular
                         }
                 }
                 launch {
-                    movieRepository.getSpecificMovieList(MovieListSpecification.UPCOMING.value)
+                    movieRepositoryImpl.getSpecificMovieList(MovieListSpecification.UPCOMING.value)
                         .collectLatest { upcoming ->
                             _upcomingMovies.value = upcoming
                         }
                 }
                 launch {
-                    movieRepository.getSpecificMovieList(MovieListSpecification.TOP_RATED.value)
+                    movieRepositoryImpl.getSpecificMovieList(MovieListSpecification.TOP_RATED.value)
                         .collectLatest { topRated ->
                             _topRatedMovies.value = topRated
                         }
                 }
                 launch {
-                    movieRepository.getTrending(TimeWindow.WEEK.value)
+                    movieRepositoryImpl.getTrending(TimeWindow.WEEK.value)
                         .collectLatest { trending ->
                             _trendingMovies.value = trending
                         }
                 }
                 launch {
-                    tvShowRepository.getTrending(TimeWindow.WEEK.value)
+                    tvShowRepositoryImpl.getTrending(TimeWindow.WEEK.value)
                         .collectLatest { trending ->
                             _trendingTvShow.value = trending
                         }
                 }
                 launch {
-                    tvShowRepository.getSpecificTVList(MovieListSpecification.POPULAR.value)
+                    tvShowRepositoryImpl.getSpecificTVList(MovieListSpecification.POPULAR.value)
                         .collectLatest { popular ->
                             _popularTvShow.value = popular
                         }
                 }
                 launch {
-                    tvShowRepository.getSpecificTVList(MovieListSpecification.ON_AIR.value)
+                    tvShowRepositoryImpl.getSpecificTVList(MovieListSpecification.ON_AIR.value)
                         .collectLatest { onTheAir ->
                             _tvShowOnTheAir.value = onTheAir
                         }
                 }
                 launch {
-                    actorRepository.getTrendingPerson(MediaType.PERSON.value, TimeWindow.WEEK.value)
+                    actorRepositoryImpl.getTrendingPerson(MediaType.PERSON.value, TimeWindow.WEEK.value)
                         .collectLatest { trending ->
                             _trendingPerson.value = trending
 

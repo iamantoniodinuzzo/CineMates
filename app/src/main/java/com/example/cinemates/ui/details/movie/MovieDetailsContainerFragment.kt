@@ -20,8 +20,8 @@ private val TAG = MovieDetailsContainerFragment::class.simpleName
 class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     mapOf(
         MovieAboutFragment() to "About",
-        MovieCastFragment() to "Cast",
-        MovieCrewFragment() to "Crew",
+        MovieCastFragment() to "CastDTO",
+        MovieCrewFragment() to "CrewDTO",
         MovieSimilarFragment() to "Similar",
     )
 ) {

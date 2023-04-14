@@ -62,7 +62,7 @@ class EpisodeGroupDetailsFragment : BaseFragment<FragmentEpisodeGroupDetailsBind
             tvDetailsViewModel.getEpisodeGroupDetails(args.episodeGroupId)
             tvDetailsViewModel.episodeGroupDetail.collectLatest { episodeGroup ->
                 episodeGroup?.let {
-                    // TODO: for each group of episode create a section with respective episodes
+                    // TODO: for each group of episode create a section with respective episodeDTOS
                     Log.d(TAG, "onViewCreated, episode group size ${episodeGroup.groups.size}")
                     binding.episodeGroup = it
                     for (group: Group in episodeGroup.groups) {

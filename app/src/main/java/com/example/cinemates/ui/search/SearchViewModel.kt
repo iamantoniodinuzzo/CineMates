@@ -1,10 +1,9 @@
 package com.example.cinemates.ui.search
 
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemates.repositories.ActorRepository
-import com.example.cinemates.repositories.MovieRepository
-import com.example.cinemates.repositories.TvShowRepository
+import com.example.cinemates.data.remote.repository.ActorRepositoryImpl
+import com.example.cinemates.data.remote.repository.MovieRepositoryImpl
+import com.example.cinemates.data.remote.repository.TvShowRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,9 +21,9 @@ import javax.inject.Inject
 class SearchViewModel
 @Inject
 constructor(
-    private val movieRepository: MovieRepository,
-    private val actorRepository: ActorRepository,
-    private val tvShowRepository: TvShowRepository,
+    private val movieRepositoryImpl: MovieRepositoryImpl,
+    private val actorRepositoryImpl: ActorRepositoryImpl,
+    private val tvShowRepositoryImpl: TvShowRepositoryImpl,
 ) : ViewModel() {
 
     private val _query = MutableStateFlow<String?>(null)
@@ -52,7 +51,7 @@ constructor(
             if (it.isBlank())
                 emptyFlow()
             else
-                actorRepository.getPeoplesBySearch(it)
+                actorRepositoryImpl.getPeoplesBySearch(it)
         } ?: emptyFlow()
     }
 
@@ -61,7 +60,7 @@ constructor(
             if (it.isBlank())
                 emptyFlow()
             else
-                movieRepository.getBySearch(it)
+                movieRepositoryImpl.getBySearch(it)
         } ?: emptyFlow()
     }
 
@@ -70,7 +69,7 @@ constructor(
             if (it.isBlank())
                 emptyFlow()
             else
-                tvShowRepository.getBySearch(it)
+                tvShowRepositoryImpl.getBySearch(it)
         } ?: emptyFlow()
 
     }

@@ -55,10 +55,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnStartDragListener {
         sectionMovieTopRated = SectionMovie("Movies Top rated", mutableListOf())
         sectionMovieUpcoming = SectionMovie("Movies Upcoming", mutableListOf())
         sectionTrendingPerson = SectionPersons("Trending persons", mutableListOf())
-        sectionTrendingMovie = SectionMovie("Trending Movie", mutableListOf())
-        sectionTrendingTvShow = SectionTvShow("Trending TvShow", mutableListOf())
-        sectionPopularTvShow = SectionTvShow("Popular TvShow", mutableListOf())
-        sectionTvShowOnAir = SectionTvShow("TvShow On Air", mutableListOf())
+        sectionTrendingMovie = SectionMovie("Trending MovieDTO", mutableListOf())
+        sectionTrendingTvShow = SectionTvShow("Trending TvShowDTO", mutableListOf())
+        sectionPopularTvShow = SectionTvShow("Popular TvShowDTO", mutableListOf())
+        sectionTvShowOnAir = SectionTvShow("TvShowDTO On Air", mutableListOf())
         sections = mutableListOf(
             sectionMoviePopular,
             sectionMovieUpcoming,

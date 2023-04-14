@@ -26,10 +26,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     /*private lateinit var adapter: SectionRecyclerViewAdapter
 
     //Sections
-    private val movieSection: Section<Movie> =
-        Section("Favorites", "Movies", Movie::class.java, null, ViewSize.SMALL)
-    private val personSection: Section<Person> =
-        Section("Favorites", "Actors", Person::class.java, null, ViewSize.SMALL)
+    private val movieSection: Section<MovieDTO> =
+        Section("Favorites", "Movies", MovieDTO::class.java, null, ViewSize.SMALL)
+    private val personSection: Section<PersonDTO> =
+        Section("Favorites", "Actors", PersonDTO::class.java, null, ViewSize.SMALL)
     private val sectionList: List<Section<*>> =
         listOf(movieSection, personSection)*/
 

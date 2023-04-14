@@ -3,7 +3,7 @@ package com.example.cinemates.ui.details.actor
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinemates.model.Person
-import com.example.cinemates.repositories.ActorRepository
+import com.example.cinemates.data.remote.repository.ActorRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class ActorDetailsViewModel
 @Inject
 constructor(
-    private val actorRepository: ActorRepository,
+    private val actorRepositoryImpl: ActorRepositoryImpl,
 ) : ViewModel() {
 
     private val _actor = MutableStateFlow<Person?>(null)
@@ -30,7 +30,7 @@ constructor(
 
     private fun getActorDetails(id: Int) {
         viewModelScope.launch {
-            actorRepository.getActorDetails(id).collectLatest { person ->
+            actorRepositoryImpl.getActorDetails(id).collectLatest { person ->
                 _actor.value = person
             }
         }
@@ -38,25 +38,25 @@ constructor(
 
     val movies = actor.flatMapLatest { actor ->
         actor?.let {
-            actorRepository.getMoviesByActor(it.id)
+            actorRepositoryImpl.getMoviesByActor(it.id)
         } ?: emptyFlow()
     }
 
     val images = actor.flatMapLatest { actor ->
         actor?.let {
-            actorRepository.getImages(it.id)
+            actorRepositoryImpl.getImages(it.id)
         } ?: emptyFlow()
     }
 
     val cast = actor.flatMapLatest { actor ->
         actor?.let {
-            actorRepository.getActorCharacters(it.id)
+            actorRepositoryImpl.getActorCharacters(it.id)
         } ?: emptyFlow()
     }
 
     val crew = actor.flatMapLatest { actor->
         actor?.let {
-            actorRepository.getActorCrewWork(it.id)
+            actorRepositoryImpl.getActorCrewWork(it.id)
         }?: emptyFlow()
     }
 

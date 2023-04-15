@@ -1,7 +1,6 @@
 package com.example.cinemates.data.remote.response.movie
 
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
 data class CollectionDTO(
     @SerializedName("backdrop_path")

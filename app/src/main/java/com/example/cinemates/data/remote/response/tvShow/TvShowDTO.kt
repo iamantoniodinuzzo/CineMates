@@ -1,83 +1,64 @@
 package com.example.cinemates.data.remote.response.tvShow
 
+
 import com.example.cinemates.data.remote.response.GenreDTO
 import com.example.cinemates.data.remote.response.ProductionCompanyDTO
 import com.example.cinemates.data.remote.response.ProductionCountryDTO
 import com.example.cinemates.data.remote.response.SpokenLanguageDTO
-import com.example.cinemates.domain.model.*
-import com.google.gson.annotations.SerializedName
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.cinemates.domain.model.Season
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class TvShowDTO(
-    @SerializedName("backdrop_path")
-    val backdropPath: String?,
-    @SerializedName("created_by")
-    val createdBy: List<CreatedByDTO>,
-    @SerializedName("episode_run_time")
-    val episodeRunTime: List<Int>,
-    @SerializedName("first_air_date")
-    private val firstAirDate: String,
-    val genre: List<GenreDTO>,
-    val homepage: String,
-    val id: Int,
-    @SerializedName("in_production")
-    val inProduction: Boolean,
-    val languages: List<String>,
-    @SerializedName("last_air_date")
-    private val lastAirDate: String,
-    @SerializedName("last_episode_to_air")
-    val lastEpisodeToAir: EpisodeDTO?,
-    val name: String,
-    val network: List<NetworkDTO>,
-    @SerializedName("next_episode_to_air")
-    val nextEpisodeToAir: EpisodeDTO?,
-    @SerializedName("number_of_episodes")
-    val numberOfEpisodes: Int,
-    @SerializedName("number_of_seasons")
-    val numberOfSeasons: Int,
-    @SerializedName("origin_country")
-    val originCountry: List<String>,
-    @SerializedName("original_language")
-    val originalLanguage: String,
-    @SerializedName("original_name")
-    val originalName: String,
-    val overview: String,
-    val popularity: Double,
-    @SerializedName("poster_path")
-    val posterPath: String?,
-    @SerializedName("production_companies")
-    val productionCompanies: List<ProductionCompanyDTO>,
-    @SerializedName("production_countries")
-    val productionCountries: List<ProductionCountryDTO>,
-    val season: List<SeasonDTO>,
-    @SerializedName("spoken_languages")
-    val spokenLanguage: List<SpokenLanguageDTO>,
-    val status: String,
-    val tagline: String,
-    val type: String,
-    @SerializedName("vote_average")
-    val voteAverage: Double,
-    @SerializedName("vote_count")
-    val voteCount: Int
-){
-    private fun formatDate(dateToFormat: String): String {
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
-
-        val date = inputFormat.parse(dateToFormat)
-        return date?.let { outputFormat.format(it) } ?: "Not specified"
-    }
-
-
-    val formattedFirstAirDate: String
-        get() {
-            return formatDate(firstAirDate)
-        }
-
-    val formattedLastAirDate: String
-        get() {
-            return formatDate(lastAirDate)
-        }
-
-}
+    @SerialName("backdrop_path")
+    val backdropPath: String = "",
+    @SerialName("created_by")
+    val createdBy: List<CreatedByDTO> = listOf(),
+    @SerialName("episode_run_time")
+    val episodeRunTime: List<Int> = listOf(),
+    @SerialName("first_air_date")
+    val firstAirDate: String = "",
+    val genres: List<GenreDTO> = listOf(),
+    val homepage: String = "",
+    val id: Int = 0,
+    @SerialName("in_production")
+    val inProduction: Boolean = false,
+    val languages: List<String> = listOf(),
+    @SerialName("last_air_date")
+    val lastAirDate: String = "",
+    @SerialName("last_episode_to_air")
+    val lastEpisodeToAir: EpisodeDTO? = null,
+    val name: String = "",
+    val networks: List<NetworkDTO> = listOf(),
+    @SerialName("next_episode_to_air")
+    val nextEpisodeToAir: Any? = null,
+    @SerialName("number_of_episodes")
+    val numberOfEpisodes: Int = 0,
+    @SerialName("number_of_seasons")
+    val numberOfSeasons: Int = 0,
+    @SerialName("origin_country")
+    val originCountry: List<String> = listOf(),
+    @SerialName("original_language")
+    val originalLanguage: String = "",
+    @SerialName("original_name")
+    val originalName: String = "",
+    val overview: String = "",
+    val popularity: Double = 0.0,
+    @SerialName("poster_path")
+    val posterPath: String = "",
+    @SerialName("production_companies")
+    val productionCompanies: List<ProductionCompanyDTO> = listOf(),
+    @SerialName("production_countries")
+    val productionCountries: List<ProductionCountryDTO> = listOf(),
+    val seasons: List<Season> = listOf(),
+    @SerialName("spoken_languages")
+    val spokenLanguages: List<SpokenLanguageDTO> = listOf(),
+    val status: String = "",
+    val tagline: String = "",
+    val type: String = "",
+    @SerialName("vote_average")
+    val voteAverage: Double = 0.0,
+    @SerialName("vote_count")
+    val voteCount: Int = 0
+)

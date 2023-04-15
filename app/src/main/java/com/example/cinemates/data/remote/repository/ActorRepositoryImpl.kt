@@ -1,7 +1,6 @@
 package com.example.cinemates.data.remote.repository
 
 import com.example.cinemates.data.remote.response.image.ImageDTO
-import com.example.cinemates.data.remote.response.movie.MovieDTO
 import com.example.cinemates.data.remote.service.ActorService
 import com.example.cinemates.data.remote.service.MovieService
 import kotlinx.coroutines.flow.Flow

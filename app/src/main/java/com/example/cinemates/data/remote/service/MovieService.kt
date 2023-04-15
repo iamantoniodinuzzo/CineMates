@@ -1,13 +1,10 @@
 package com.example.cinemates.data.remote.service
 
 
-import android.graphics.Movie
-import android.provider.MediaStore
 import com.example.cinemates.data.remote.response.GenericResponse
 import com.example.cinemates.data.remote.response.GenreDTO
 import com.example.cinemates.data.remote.response.image.ImagesResponse
 import com.example.cinemates.data.remote.response.movie.CollectionDTO
-import com.example.cinemates.data.remote.response.movie.MovieDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -1,7 +1,5 @@
 package com.example.cinemates.domain.model
 
-import com.example.cinemates.data.remote.response.movie.MovieDTO
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class Collection(

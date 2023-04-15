@@ -3,7 +3,6 @@ package com.example.cinemates.data.remote.repository
 import com.example.cinemates.data.remote.response.GenreDTO
 import com.example.cinemates.data.remote.response.image.ImageDTO
 import com.example.cinemates.data.remote.response.movie.CollectionDTO
-import com.example.cinemates.data.remote.response.movie.MovieDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import com.example.cinemates.data.remote.service.MovieService
 import com.example.cinemates.domain.model.Filter

@@ -3,7 +3,6 @@ package com.example.cinemates.data.remote.repository
 import com.example.cinemates.data.remote.response.image.ImageDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import com.example.cinemates.data.remote.response.tvShow.EpisodeGroupDTO
-import com.example.cinemates.data.remote.response.tvShow.TvShowDTO
 import com.example.cinemates.domain.model.Filter
 import kotlinx.coroutines.flow.Flow
 

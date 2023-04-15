@@ -67,7 +67,7 @@ constructor(
         genreMap[53] = "Thriller"
         genreMap[10752] = "War"
         genreMap[37] = "Western"
-        genreMap[10770] = "TV MovieDTO"
+        genreMap[10770] = "TV MovieDetailsDTO"
         return genreMap
     }
 

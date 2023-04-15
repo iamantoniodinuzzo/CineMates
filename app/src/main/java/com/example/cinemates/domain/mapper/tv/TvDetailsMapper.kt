@@ -1,6 +1,5 @@
 package com.example.cinemates.domain.mapper.tv
 
-import com.example.cinemates.data.remote.response.tvShow.TvShowDTO
 import com.example.cinemates.domain.mapper.GenreMapper
 import com.example.cinemates.domain.mapper.Mapper
 import com.example.cinemates.domain.mapper.ProductionCompaniesMapper

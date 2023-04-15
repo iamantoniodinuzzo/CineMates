@@ -1,7 +1,5 @@
 package com.example.cinemates.data.remote.repository
 
-import com.example.cinemates.data.remote.response.credits.CastDTO
-import com.example.cinemates.data.remote.response.credits.CrewDTO
 import com.example.cinemates.data.remote.response.image.ImageDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import com.example.cinemates.data.remote.response.tvShow.EpisodeGroupDTO

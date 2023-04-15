@@ -1,6 +1,5 @@
 package com.example.cinemates.domain.mapper.credits
 
-import com.example.cinemates.data.remote.response.credits.CastDTO
 import com.example.cinemates.domain.mapper.Mapper
 import com.example.cinemates.domain.model.Cast
 

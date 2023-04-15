@@ -1,10 +1,7 @@
 package com.example.cinemates.data.remote.service
 
 import com.example.cinemates.data.remote.response.credits.ActorImageResponse
-import com.example.cinemates.data.remote.response.credits.CreditsResponse
 import com.example.cinemates.data.remote.response.GenericResponse
-import com.example.cinemates.data.remote.response.credits.CastDTO
-import com.example.cinemates.data.remote.response.credits.PersonDTO
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap

@@ -2,7 +2,6 @@ package com.example.cinemates.data.remote.service
 
 
 import android.provider.MediaStore
-import com.example.cinemates.data.remote.response.credits.CreditsResponse
 import com.example.cinemates.data.remote.response.GenericResponse
 import com.example.cinemates.data.remote.response.GenreDTO
 import com.example.cinemates.data.remote.response.image.ImagesResponse

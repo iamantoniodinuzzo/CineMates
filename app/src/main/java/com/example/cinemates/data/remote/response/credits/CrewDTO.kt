@@ -1,31 +1,28 @@
 package com.example.cinemates.data.remote.response.credits
 
-import com.google.gson.annotations.SerializedName
+
+import kotlinx.serialization.SerialName
 
 class CrewDTO(
-    adult: Boolean,
-    gender: Int?,
-    id: Int,
-    knownForDepartment: String,
-    name: String,
-    popularity: Double,
-    profilePath: String?,
-    @SerializedName("credit_id")
-    val creditId: String,
-    val department: String,
-    val job: String,
-    @SerializedName("original_name")
-    val originalName: String
+    adult: Boolean = false,
+    @SerialName("credit_id")
+    val creditId: String = "",
+    val department: String = "",
+    gender: Int = 0,
+    id: Int = 0,
+    val job: String = "",
+    knownForDepartment: String = "",
+    name: String = "",
+    @SerialName("original_name")
+    val originalName: String = "",
+    popularity: Double = 0.0,
+    profilePath: String? = ""
 ) : PersonDTO(
-    adult = adult,
-    gender = gender,
-    id = id,
-    known_for_department = knownForDepartment,
-    name = name,
-    popularity = popularity,
-    profile_path = profilePath
-){
-    override fun toString(): String {
-        return "CrewDTO(credit_id='$creditId', department='$department', job='$job', original_name='$originalName')"
-    }
-}
+    adult,
+    id,
+    knownForDepartment,
+    name,
+    popularity,
+    profilePath,
+    gender
+)

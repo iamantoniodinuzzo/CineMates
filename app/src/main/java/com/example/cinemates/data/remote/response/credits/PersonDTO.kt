@@ -3,6 +3,8 @@ package com.example.cinemates.data.remote.response.credits
 
 import kotlinx.serialization.SerialName
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.Period
 import java.util.*
 
 /**
@@ -63,6 +65,13 @@ open class PersonDTO(
         return outputFormat.format(formattedDate)
     }
 
+    fun calculateAge(dateOfBirth: String, currentDate: String): String {
+        val birthDate = LocalDate.parse(dateOfBirth)
+        val today = LocalDate.parse(currentDate)
+        val age = Period.between(birthDate, today).years
+        return age.toString()
+    }
+
     val formattedGender: String
         get() {
             return if (gender == 1) {
@@ -82,6 +91,15 @@ open class PersonDTO(
             return deathDay?.let {
                 formatDate(it)
             } ?: ""
+        }
+
+    val age: String
+        get() {
+            return if (deathDay == null || deathDay.isEmpty()) {
+                calculateAge(birthday, LocalDate.now().toString())
+            } else {
+                calculateAge(birthday, deathDay)
+            }
         }
 }
 

@@ -14,9 +14,9 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentEpisodeGroupDetailsBinding
-import com.example.cinemates.model.Group
-import com.example.cinemates.model.section.Section
-import com.example.cinemates.model.section.SectionEpisodesGroup
+import com.example.cinemates.domain.model.Group
+import com.example.cinemates.domain.model.section.Section
+import com.example.cinemates.domain.model.section.SectionEpisodesGroup
 import com.example.cinemates.ui.adapter.SectionAdapter
 import kotlinx.coroutines.flow.collectLatest
 
@@ -66,7 +66,6 @@ class EpisodeGroupDetailsFragment : BaseFragment<FragmentEpisodeGroupDetailsBind
                     Log.d(TAG, "onViewCreated, episode group size ${episodeGroup.groups.size}")
                     binding.episodeGroup = it
                     for (group: Group in episodeGroup.groups) {
-                        Log.d(TAG, "onViewCreated: $group")
                         listOfGroups.add(SectionEpisodesGroup(group.name, group.episodes))
                     }
                     groupSectionAdapter.updateItems(listOfGroups)

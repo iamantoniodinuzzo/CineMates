@@ -20,8 +20,8 @@ private val TAG = MovieDetailsContainerFragment::class.simpleName
 class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     mapOf(
         MovieAboutFragment() to "About",
-        MovieCastFragment() to "CastDTO",
-        MovieCrewFragment() to "CrewDTO",
+        MovieCastFragment() to "Cast",
+        MovieCrewFragment() to "Crew",
         MovieSimilarFragment() to "Similar",
     )
 ) {
@@ -36,7 +36,6 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             launch {
                 viewModel.selectedMovie.collect { selectedMovie ->
-                    Log.d("TAG", "onViewCreated: ${selectedMovie.toString()}")
                     binding.media = selectedMovie
                 }
             }

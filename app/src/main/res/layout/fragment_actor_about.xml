@@ -116,10 +116,6 @@
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/list_item_poster" />
-
-                <include
-                    android:id="@+id/empty_view_recommended"
-                    layout="@layout/layout_empty_recycler" />
             </RelativeLayout>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

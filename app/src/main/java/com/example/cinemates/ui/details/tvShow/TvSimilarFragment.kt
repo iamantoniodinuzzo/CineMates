@@ -5,11 +5,11 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.cinemates.databinding.ListItemMediaSmallBinding
-import com.example.cinemates.model.TvShow
 import com.example.cinemates.common.ListFragment
-import com.example.cinemates.ui.adapter.TvShowAdapter
+import com.example.cinemates.domain.model.Media
+import com.example.cinemates.ui.adapter.MediaAdapter
 
-class TvSimilarFragment : ListFragment<TvShow, ListItemMediaSmallBinding, TvShowAdapter>(TvShowAdapter()) {
+class TvSimilarFragment : ListFragment<Media, ListItemMediaSmallBinding, MediaAdapter>(MediaAdapter()) {
 
     private val viewModel: TvDetailsViewModel by activityViewModels()
 
@@ -20,7 +20,6 @@ class TvSimilarFragment : ListFragment<TvShow, ListItemMediaSmallBinding, TvShow
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.similarTvShow.collect { similar ->
                 adapter.updateItems(similar)
-                binding.counter = similar.size
             }
         }
 

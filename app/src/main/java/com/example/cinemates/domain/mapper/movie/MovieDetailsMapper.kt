@@ -1,5 +1,7 @@
 package com.example.cinemates.domain.mapper.movie
 
+import com.example.cinemates.data.remote.response.movie.MovieDTO
+import com.example.cinemates.data.remote.response.movie.MovieDetailsDTO
 import com.example.cinemates.domain.mapper.GenreMapper
 import com.example.cinemates.domain.mapper.Mapper
 import com.example.cinemates.domain.mapper.ProductionCompaniesMapper
@@ -17,11 +19,11 @@ class MovieDetailsMapper
     private val productionCompaniesMapper: ProductionCompaniesMapper,
     private val productionCountryMapper: ProductionCountryMapper,
     private val collectionMapper: CollectionMapper
-) : Mapper<MovieDTO, Movie> {
-    override fun map(input: MovieDTO): Movie {
+) : Mapper<MovieDetailsDTO, Movie> {
+    override fun map(input: MovieDetailsDTO): Movie {
         return Movie(
             belongsToCollection = input.belongsToCollection?.let { collectionMapper.map(it) },
-            genres = input.genre.map { genreMapper.map(it) },
+            genres = input.genres.map { genreMapper.map(it) },
             id = input.id,
             posterPath = input.posterPath,
             releaseDate = input.formattedReleaseDate,

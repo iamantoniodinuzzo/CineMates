@@ -56,7 +56,7 @@
         tools:layout="@layout/fragment_actor_details">
         <argument
             android:name="person"
-            app:argType="com.example.cinemates.domain.model.Media" />
+            app:argType="com.example.cinemates.domain.model.Person" />
     </fragment>
     <action
         android:id="@+id/action_global_actorDetailsFragment"

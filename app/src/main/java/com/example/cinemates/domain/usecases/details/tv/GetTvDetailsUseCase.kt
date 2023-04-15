@@ -5,11 +5,11 @@ import com.example.cinemates.domain.mapper.credits.CastMapper
 import com.example.cinemates.domain.mapper.credits.CrewMapper
 import com.example.cinemates.domain.mapper.image.ImageMapper
 import com.example.cinemates.domain.mapper.trailer.TrailerMapper
-import com.example.cinemates.domain.mapper.tv.CreatedByToPersonMapper
+import com.example.cinemates.domain.mapper.tv.EpisodeGroupDetailsMapper
+import com.example.cinemates.domain.mapper.tv.EpisodeGroupMapper
 import com.example.cinemates.domain.mapper.tv.TvDetailsMapper
 import com.example.cinemates.domain.mapper.tv.TvToMediaMapper
 import com.example.cinemates.domain.model.*
-import com.example.cinemates.domain.model.Collection
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -28,6 +28,8 @@ constructor(
     private val crewMapper: CrewMapper,
     private val imageMapper: ImageMapper,
     private val trailerMapper: TrailerMapper,
+    private val episodeGroupMapper: EpisodeGroupMapper,
+    private val episodeGroupDetailsMapper: EpisodeGroupDetailsMapper
 ) {
     fun getTvDetails(tvId: Int): Flow<TvShow> {
         return tvShowRepository.getDetails(tvId).map(tvDetailsMapper::map)
@@ -66,6 +68,18 @@ constructor(
     fun getTrailers(tvId: Int): Flow<List<Video>> {
         return tvShowRepository.getVideos(tvId).map {
             it.map(trailerMapper::map)
+        }
+    }
+
+    fun getEpisodeGroups(tvId: Int): Flow<List<EpisodeGroup>> {
+        return tvShowRepository.getEpisodeGroup(tvId).map {
+            it.map(episodeGroupMapper::map)
+        }
+    }
+
+    fun getEpisodeGroupDetails(episodeGroupId:String):Flow<EpisodeGroupDetails>{
+        return tvShowRepository.getEpisodeGroupDetails(episodeGroupId).map {
+            episodeGroupDetailsMapper.map(it)
         }
     }
 

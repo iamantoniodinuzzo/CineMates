@@ -3,6 +3,7 @@ package com.example.cinemates.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinemates.domain.model.Media
+import com.example.cinemates.domain.model.Person
 import com.example.cinemates.domain.usecases.home.HomeUseCaseContainer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -24,8 +25,8 @@ constructor(
 ) : ViewModel() {
 
 
-    private val _trendingActors = MutableStateFlow<List<Media>?>(null)
-    val trendingActors: Flow<List<Media>?> get() = _trendingActors
+    private val _trendingActors = MutableStateFlow<List<Person>?>(null)
+    val trendingActors: Flow<List<Person>?> get() = _trendingActors
     private val _tvSHowOnTheAir = MutableStateFlow<List<Media>?>(null)
     val tvSHowOnTheAir: Flow<List<Media>?> get() = _tvSHowOnTheAir
     private val _trendingTvShow = MutableStateFlow<List<Media>?>(null)

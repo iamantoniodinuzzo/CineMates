@@ -13,7 +13,7 @@ import com.example.cinemates.databinding.ListItemMediaLongBinding
 import com.example.cinemates.databinding.ListItemMediaSmallBinding
 import com.example.cinemates.domain.model.Media
 
-class MovieAdapter :
+class MediaAdapter :
     DoubleViewSizeAdapter<Media, ListItemMediaLongBinding, ListItemMediaSmallBinding>(
         R.layout.list_item_media_long,
         R.layout.list_item_media_small,

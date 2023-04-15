@@ -98,7 +98,7 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fra
             viewPager.adapter = viewPagerAdapter
             //viewPager.isUserInputEnabled = false
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.text = mapOfFragments.values.toList()[position].toString()
+                tab.text = mapOfFragments.values.toList()[position]
             }.attach()
         }
 

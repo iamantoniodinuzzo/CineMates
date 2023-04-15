@@ -17,7 +17,7 @@ constructor(
     private val movieRepository: MovieRepository,
     private val mediaMapper: MovieToMediaMapper
 ) {
-    suspend operator fun invoke(): Flow<List<Media>> {
+    operator fun invoke(): Flow<List<Media>> {
         return movieRepository.getSpecificMovieList("upcoming").map {
             it.map(mediaMapper::map)
         }

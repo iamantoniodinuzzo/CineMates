@@ -1,24 +1,21 @@
 package com.example.cinemates.ui.details.tvShow
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentTvAboutBinding
-import com.example.cinemates.model.Genre
+import com.example.cinemates.domain.model.Genre
 import com.example.cinemates.ui.adapter.EpisodeGroupAdapter
-import com.example.cinemates.ui.adapter.TvShowAdapter
+import com.example.cinemates.ui.adapter.MediaAdapter
 import com.example.cinemates.ui.adapter.VideoAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.flow.collectLatest
@@ -31,13 +28,13 @@ class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
 
     private lateinit var videoAdapter: VideoAdapter
     private lateinit var episodeGroupAdapter: EpisodeGroupAdapter
-    private lateinit var tvAdapter: TvShowAdapter
+    private lateinit var mediaAdapter: MediaAdapter
     private val viewModel: TvDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         videoAdapter = VideoAdapter()
-        tvAdapter = TvShowAdapter()
+        mediaAdapter = MediaAdapter()
         episodeGroupAdapter = EpisodeGroupAdapter()
     }
 

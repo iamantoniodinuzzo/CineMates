@@ -20,7 +20,7 @@ class CreatedByMapper : Mapper<CreatedByDTO, CreatedBy> {
             gender = gender,
             id = input.id,
             name = input.name,
-            profilePath = input.profilePath.toString()
+            profilePath = input.profilePath
         )
     }
 

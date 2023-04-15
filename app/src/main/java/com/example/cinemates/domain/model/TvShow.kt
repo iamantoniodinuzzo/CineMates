@@ -1,14 +1,16 @@
 package com.example.cinemates.domain.model
 
+import com.example.cinemates.util.MediaType
 
-data class TvShow(
-    val backdropPath: String?,
+
+class TvShow(
+     backdropPath: String?,
     val createdBy: List<CreatedBy>,
     val episodeRunTime: List<String>,
     val firstAirDate: String,
     val genres: List<Genre>,
     val homepage: String,
-    val id: Int,
+    id: Int,
     val inProduction: Boolean,
     val languages: List<String>,
     val lastAirDate: String,
@@ -23,12 +25,19 @@ data class TvShow(
     val originalName: String,
     val overview: String,
     val popularity: Double,
-    val posterPath: String?,
+     posterPath: String?,
     val productionCompanies: List<ProductionCompany>,
     val productionCountries: List<ProductionCountry>,
     val seasons: List<Season>,
     val status: String,
     val tagline: String,
     val type: String,
-    val voteAverage: Double,
+     voteAverage: Double,
+) : Media(
+    MediaType.TV,
+    id,
+    name,
+    posterPath,
+    backdropPath,
+    voteAverage
 )

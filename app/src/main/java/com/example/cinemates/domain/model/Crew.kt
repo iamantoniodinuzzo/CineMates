@@ -1,8 +1,12 @@
 package com.example.cinemates.domain.model
 
-data class Crew(
-    val id: Int,
+ class Crew(
+     id: Int,
     val job: String,
-    val name: String ,
-    val profilePath: String
+     name: String ,
+     profilePath: String
+):Person(
+    id,
+    name,
+    profilePath
 )

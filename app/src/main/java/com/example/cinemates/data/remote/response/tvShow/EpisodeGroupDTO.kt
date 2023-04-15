@@ -13,6 +13,6 @@ data class EpisodeGroupDTO(
     val groupCount: Int = 0,
     val id: String = "",
     val name: String = "",
-    val network: NetworkDTO? = null,
+    val network: NetworkDTO,
     val type: Int = 0
 )

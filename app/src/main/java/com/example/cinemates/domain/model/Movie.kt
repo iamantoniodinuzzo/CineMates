@@ -1,21 +1,23 @@
 package com.example.cinemates.domain.model
 
+import com.example.cinemates.util.MediaType
+
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-data class Movie(
+class Movie(
     val belongsToCollection: Collection?,
-    val genres: List<Genre> ,
-    val id: Int,
-    val posterPath: String?,
+    val genres: List<Genre>,
+    id: Int,
+    posterPath: String?,
     val releaseDate: String,
     val runtime: String,
-    val title: String,
-    val voteAverage: Double,
+    title: String,
+    voteAverage: Double,
     val originalTitle: String,
     val originalLanguage: String,
     val homepage: String,
-    val backdropPath: String?,
+    backdropPath: String?,
     val overview: String?,
     val budget: String,
     val popularity: Double,
@@ -26,4 +28,11 @@ data class Movie(
     val video: Boolean,
     val productionCompanies: List<ProductionCompany>,
     val productionCountries: List<ProductionCountry>
+) : Media(
+    MediaType.MOVIE,
+    id,
+    title,
+    posterPath,
+    backdropPath,
+    voteAverage
 )

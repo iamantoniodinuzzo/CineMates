@@ -1,12 +1,15 @@
 package com.example.cinemates.domain.model
 
+import android.os.Parcelable
 import com.example.cinemates.util.MediaType
+import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-data class Media(
+
+open class Media(
     val mediaType: MediaType,
     val id: Int,
     val title: String,
@@ -29,6 +32,4 @@ data class Media(
 
         return true
     }
-
-
 }

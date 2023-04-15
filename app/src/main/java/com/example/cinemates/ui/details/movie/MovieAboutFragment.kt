@@ -8,18 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentMovieAboutBinding
 import com.example.cinemates.domain.model.Genre
 import com.example.cinemates.domain.model.Image
-import com.example.cinemates.ui.adapter.MovieAdapter
+import com.example.cinemates.ui.adapter.MediaAdapter
 import com.example.cinemates.ui.adapter.VideoAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.launch
@@ -32,7 +29,7 @@ class MovieAboutFragment: BaseFragment<FragmentMovieAboutBinding>() {
         get() = FragmentMovieAboutBinding::inflate
 
     private lateinit var videoAdapter: VideoAdapter
-    private lateinit var movieAdapter: MovieAdapter
+    private lateinit var mMediaAdapter: MediaAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
     private var posters: Array<Image> = emptyArray()
     private var backdrop: Array<Image> = emptyArray()
@@ -40,7 +37,7 @@ class MovieAboutFragment: BaseFragment<FragmentMovieAboutBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         videoAdapter = VideoAdapter()
-        movieAdapter = MovieAdapter()
+        mMediaAdapter = MediaAdapter()
     }
 
 
@@ -50,7 +47,7 @@ class MovieAboutFragment: BaseFragment<FragmentMovieAboutBinding>() {
 
         binding.apply {
             trailers.adapter = videoAdapter
-            collectionContent.collectionParts.adapter = movieAdapter
+            collectionContent.collectionParts.adapter = mMediaAdapter
 
 
             val chipGroupGenres: HorizontalChipView<Genre> =
@@ -107,7 +104,7 @@ class MovieAboutFragment: BaseFragment<FragmentMovieAboutBinding>() {
                                 TAG,
                                 "onViewCreated: add collection size ${collection.parts.size}"
                             )
-                            movieAdapter.updateItems(collection.parts)
+                            mMediaAdapter.updateItems(collection.parts)
                         }
 
                     }

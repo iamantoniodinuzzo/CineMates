@@ -9,20 +9,20 @@ import androidx.navigation.Navigation
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
 import com.example.cinemates.common.DoubleViewSizeAdapter
-import com.example.cinemates.databinding.ListItemPersonLongBinding
+import com.example.cinemates.databinding.ListItemCrewLongBinding
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
-import com.example.cinemates.domain.model.Cast
+import com.example.cinemates.domain.model.CreatedBy
+import com.example.cinemates.domain.model.Crew
 import com.example.cinemates.domain.model.Media
-import com.example.cinemates.domain.model.Person
 
-class ActorAdapter :
-    DoubleViewSizeAdapter<Cast, ListItemPersonLongBinding, ListItemPersonSmallBinding>(
-        R.layout.list_item_person_long,
+class CreatedByAdapter :
+    DoubleViewSizeAdapter<CreatedBy, ListItemCrewLongBinding, ListItemPersonSmallBinding>(
+        R.layout.list_item_crew_long,
         R.layout.list_item_person_small,
     ) {
 
 
-    private fun navigateToDetails(binding: ViewDataBinding, item: Cast) {
+    private fun navigateToDetails(binding: ViewDataBinding, item: CreatedBy) {
         binding.root.setOnClickListener { view ->
             val action = NavGraphDirections.actionGlobalActorDetailsFragment(item)
             Navigation.findNavController(view).navigate(action)
@@ -30,13 +30,16 @@ class ActorAdapter :
 
     }
 
-    override fun onBindLongItem(binding: ListItemPersonLongBinding, item: Cast) {
-        binding.actor = item
+    override fun onBindLongItem(binding: ListItemCrewLongBinding, item: CreatedBy) {
+        binding.crew = item as Crew
         navigateToDetails(binding, item)
     }
 
-    override fun onBindSmallItem(binding: ListItemPersonSmallBinding, item: Cast) {
+    override fun onBindSmallItem(binding: ListItemPersonSmallBinding, item: CreatedBy) {
         binding.person = item
         navigateToDetails(binding, item)
+
     }
+
+
 }

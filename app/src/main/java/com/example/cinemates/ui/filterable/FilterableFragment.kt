@@ -15,7 +15,7 @@ import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentFilterableBinding
 import com.example.cinemates.databinding.LayoutCustomDialogRandomBinding
 import com.example.cinemates.model.Movie
-import com.example.cinemates.ui.adapter.MovieAdapter
+import com.example.cinemates.ui.adapter.MediaAdapter
 import com.example.cinemates.common.BaseFragment
 
 class FilterableFragment : BaseFragment<FragmentFilterableBinding>() {
@@ -25,12 +25,12 @@ class FilterableFragment : BaseFragment<FragmentFilterableBinding>() {
 
     private val viewModel: FilterableViewModel by activityViewModels()
     private val args: FilterableFragmentArgs by navArgs()
-    private lateinit var adapter: MovieAdapter
+    private lateinit var adapter: MediaAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = MovieAdapter()
+        adapter = MediaAdapter()
     }
 
 

@@ -18,7 +18,7 @@ constructor(
     private val movieRepository: MovieRepository,
     private val mediaMapper: MovieToMediaMapper
 ) {
-    suspend operator fun invoke(): Flow<List<Media>> {
+    operator fun invoke(): Flow<List<Media>> {
         return movieRepository.getTrending(TimeWindow.WEEK.value).map {
             it.map(mediaMapper::map)
         }

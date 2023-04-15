@@ -1,5 +1,6 @@
 package com.example.cinemates.domain.mapper.credits
 
+import com.example.cinemates.data.remote.response.credits.PersonDTO
 import com.example.cinemates.domain.mapper.Mapper
 import com.example.cinemates.domain.model.PersonDetails
 
@@ -9,28 +10,22 @@ import com.example.cinemates.domain.model.PersonDetails
  */
 class PersonDetailsMapper : Mapper<PersonDTO, PersonDetails> {
     override fun map(input: PersonDTO): PersonDetails {
-        val gender = if (input.gender == 1) {
-            "Female"
-        } else {
-            "Male"
-        }
         return PersonDetails(
             adult = input.adult,
             alsoKnownAs = input.alsoKnownAs,
-            biography = input.biography.toString(),
+            biography = input.biography,
             birthday = input.formattedBirthday,
-            deathDay = input.formattedDeathday,
-            gender = gender,
+            deathDay = input.formattedDeathDay,
+            gender = input.formattedGender,
             homepage = input.homepage.toString(),
             id = input.id,
-            imdbId = input.imdbId.toString(),
-            knownForDepartment = input.knownForDepartment.toString(),
+            imdbId = input.imdbId,
+            knownForDepartment = input.knownForDepartment,
             name = input.name,
-            placeOfBirth = input.placeOfBirth.toString(),
+            placeOfBirth = input.placeOfBirth,
             popularity = input.popularity,
             profilePath = input.profilePath,
             age = input.age
-
         )
     }
 

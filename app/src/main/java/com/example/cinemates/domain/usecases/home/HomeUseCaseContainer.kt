@@ -1,6 +1,6 @@
 package com.example.cinemates.domain.usecases.home
 
-import com.example.cinemates.domain.usecases.home.getData.GetTrendingActorsUseCase
+import com.example.cinemates.domain.usecases.home.getData.GetTrendingPersonUseCase
 import com.example.cinemates.domain.usecases.home.getData.movie.GetPopularMoviesUseCase
 import com.example.cinemates.domain.usecases.home.getData.movie.GetTopRatedMoviesUseCase
 import com.example.cinemates.domain.usecases.home.getData.movie.GetTrendingMoviesUseCase
@@ -24,5 +24,5 @@ constructor(
     val getPopularTvShowUseCase: GetPopularTvShowUseCase,
     val getTrendingTvShowUseCase: GetTrendingTvShowUseCase,
     val getTvShowOnTheAirUseCase: GetTvShowOnTheAirUseCase,
-    val getTrendingActorsUseCase: GetTrendingActorsUseCase,
+    val getTrendingActorsUseCase: GetTrendingPersonUseCase,
 )

@@ -1,8 +1,9 @@
 package com.example.cinemates.ui.details.tvShow
 
 import androidx.lifecycle.*
-import com.example.cinemates.model.*
-import com.example.cinemates.data.remote.repository.TvShowRepositoryImpl
+import com.example.cinemates.domain.model.EpisodeGroupDetails
+import com.example.cinemates.domain.model.TvShow
+import com.example.cinemates.domain.usecases.details.tv.GetTvDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -20,13 +21,13 @@ private val TAG = TvDetailsViewModel::class.simpleName
 class TvDetailsViewModel
 @Inject
 constructor(
-    private val tvShowRepositoryImpl: TvShowRepositoryImpl
+    private val getTvShowDetailsUseCase: GetTvDetailsUseCase
 ) : ViewModel() {
 
     private val _selectedTv = MutableStateFlow<TvShow?>(null)
-    private val _episodeGroupDetail = MutableStateFlow<EpisodeGroup?>(null)
-    val episodeGroupDetail: Flow<EpisodeGroup?> get() = _episodeGroupDetail
     val selectedTv: Flow<TvShow?> get() = _selectedTv
+    private val _episodeGroupDetail = MutableStateFlow<EpisodeGroupDetails?>(null)
+    val episodeGroupDetail: Flow<EpisodeGroupDetails?> get() = _episodeGroupDetail
 
     /**
      * Retrieves additional information about the selected tvShow
@@ -41,7 +42,7 @@ constructor(
      */
     private fun getTvDetails(id: Int) {
         viewModelScope.launch {
-            tvShowRepositoryImpl.getDetails(id)
+            getTvShowDetailsUseCase.getTvDetails(id)
                 .collectLatest { tv ->
                     _selectedTv.value = tv
                 }
@@ -51,50 +52,50 @@ constructor(
 
     val similarTvShow = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepositoryImpl.getSimilar(it.id)
+            getTvShowDetailsUseCase.getSimilarTvs(it.id)
         } ?: emptyFlow()
     }
 
     val videos = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepositoryImpl.getVideos(it.id)
+            getTvShowDetailsUseCase.getTrailers(it.id)
         } ?: emptyFlow()
     }
 
     val posters = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepositoryImpl.getPosters(it.id)
+            getTvShowDetailsUseCase.getPosters(it.id)
         } ?: emptyFlow()
     }
 
     val backdrops = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepositoryImpl.getBackdrops(it.id)
+            getTvShowDetailsUseCase.getBackdrops(it.id)
         } ?: emptyFlow()
     }
 
     val cast = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepositoryImpl.getCast(it.id)
+            getTvShowDetailsUseCase.getTvCast(it.id)
         } ?: emptyFlow()
     }
 
     val crew = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepositoryImpl.getCrew(it.id)
+            getTvShowDetailsUseCase.getTvCrew(it.id)
         } ?: emptyFlow()
     }
 
     val episodeGroupList = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepositoryImpl.getEpisodeGroup(tv.id)
+            getTvShowDetailsUseCase.getEpisodeGroups(tv.id)
         } ?: emptyFlow()
     }
 
 
-    fun getEpisodeGroupDetails(id: String) {
+    fun getEpisodeGroupDetails(episodeGroupId: String) {
         viewModelScope.launch {
-            tvShowRepositoryImpl.getEpisodeGroupDetails(id).collectLatest {
+            getTvShowDetailsUseCase.getEpisodeGroupDetails(episodeGroupId).collectLatest {
                 _episodeGroupDetail.value = it
             }
         }

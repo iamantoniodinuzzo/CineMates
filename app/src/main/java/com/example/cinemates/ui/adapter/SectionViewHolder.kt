@@ -40,9 +40,9 @@ class SectionMovieViewHolder(
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            val movieAdapter = MovieAdapter()
-            movieAdapter.updateItems(section.items)
-            adapter = movieAdapter
+            val mediaAdapter = MediaAdapter()
+            mediaAdapter.updateItems(section.items)
+            adapter = mediaAdapter
         }
 
         binding.root.setOnTouchListener(object : DoubleTouchListener() {

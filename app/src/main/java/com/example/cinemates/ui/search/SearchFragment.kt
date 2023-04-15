@@ -30,17 +30,17 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         get() = FragmentSearchBinding::inflate
 
     private lateinit var selectedLayoutManager: LayoutManager
-    private lateinit var mMediaAdapter: MediaAdapter
+    private lateinit var movieAdapter: MediaAdapter
     private lateinit var personAdapter: PersonAdapter
-    private lateinit var tvShowAdapter: TvShowAdapter
+    private lateinit var tvShowAdapter: MediaAdapter
     private val viewModel: SearchViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //init adapters
-        mMediaAdapter = MediaAdapter()
+        movieAdapter = MediaAdapter()
         personAdapter = PersonAdapter()
-        tvShowAdapter = TvShowAdapter()
+        tvShowAdapter = MediaAdapter()
     }
 
 
@@ -87,12 +87,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
             }
 
-
             //listen viewModel changes
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 launch {
                     viewModel.searchedMovies.collect { movies ->
-                        mMediaAdapter.updateItems(movies)
+                        movieAdapter.updateItems(movies)
                     }
                 }
                 launch {
@@ -130,7 +129,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 }
 
             }
-            recyclerView.adapter = mMediaAdapter
+            recyclerView.adapter = movieAdapter
 
 
             // Set up the filter chips
@@ -142,7 +141,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 }
                 lastCheckedId = checkedId
                 val adapter = when (checkedId) {
-                    R.id.movies_chip -> mMediaAdapter
+                    R.id.movies_chip -> movieAdapter
                     R.id.actors_chip -> personAdapter
                     R.id.tv_show_chip -> tvShowAdapter
                     else -> throw IllegalArgumentException("Invalid filter chip ID")
@@ -159,7 +158,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         )
         selectedLayoutManager = layoutManager
         tvShowAdapter.currentLayoutType = viewSize
-        mMediaAdapter.currentLayoutType = viewSize
+        movieAdapter.currentLayoutType = viewSize
         personAdapter.currentLayoutType = viewSize
     }
 

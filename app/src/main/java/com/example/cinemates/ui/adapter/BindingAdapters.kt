@@ -24,7 +24,7 @@ import java.util.*
  * @author Antonio Di Nuzzo
  * Created 20/05/2022 at 11:40
  */
-const val TAG = "BindingAdapters"
+private const val TAG = "BindingAdapters"
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, url: String?) {

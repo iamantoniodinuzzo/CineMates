@@ -1,9 +1,7 @@
 package com.example.cinemates.ui.search
 
 import androidx.lifecycle.ViewModel
-import com.example.cinemates.data.remote.repository.ActorRepositoryImpl
-import com.example.cinemates.data.remote.repository.MovieRepositoryImpl
-import com.example.cinemates.data.remote.repository.TvShowRepositoryImpl
+import com.example.cinemates.domain.usecases.search.GetSearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,9 +19,7 @@ import javax.inject.Inject
 class SearchViewModel
 @Inject
 constructor(
-    private val movieRepositoryImpl: MovieRepositoryImpl,
-    private val actorRepositoryImpl: ActorRepositoryImpl,
-    private val tvShowRepositoryImpl: TvShowRepositoryImpl,
+    private val getSearchUseCase: GetSearchUseCase
 ) : ViewModel() {
 
     private val _query = MutableStateFlow<String?>(null)
@@ -31,8 +27,6 @@ constructor(
 
     private val _isGridLayout = MutableStateFlow<Boolean?>(true)
     val isGridLayout: Flow<Boolean?> get() = _isGridLayout
-
-
 
     init {
         clearQuery()
@@ -51,7 +45,7 @@ constructor(
             if (it.isBlank())
                 emptyFlow()
             else
-                actorRepositoryImpl.getPeoplesBySearch(it)
+                getSearchUseCase.getSearchedPerson(it)
         } ?: emptyFlow()
     }
 
@@ -60,7 +54,7 @@ constructor(
             if (it.isBlank())
                 emptyFlow()
             else
-                movieRepositoryImpl.getBySearch(it)
+                getSearchUseCase.getSearchedMovies(it)
         } ?: emptyFlow()
     }
 
@@ -69,13 +63,13 @@ constructor(
             if (it.isBlank())
                 emptyFlow()
             else
-                tvShowRepositoryImpl.getBySearch(it)
+                getSearchUseCase.getSearchedTv(it)
         } ?: emptyFlow()
 
     }
 
 
-    fun clearQuery() {
+    private fun clearQuery() {
         _query.value = ""
 
     }

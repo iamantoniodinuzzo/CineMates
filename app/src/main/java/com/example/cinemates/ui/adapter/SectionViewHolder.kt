@@ -69,7 +69,7 @@ class SectionTvViewHolder(
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            val tvShowAdapter = TvShowAdapter()
+            val tvShowAdapter = MediaAdapter()
             tvShowAdapter.updateItems(section.items)
             adapter = tvShowAdapter
         }

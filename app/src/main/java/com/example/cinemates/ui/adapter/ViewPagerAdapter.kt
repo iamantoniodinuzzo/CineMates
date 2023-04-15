@@ -13,7 +13,6 @@ class ViewPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
         fragments.add(fragment)
     }
 
-
     override fun createFragment(position: Int): Fragment = fragments.elementAt(position)
 
 

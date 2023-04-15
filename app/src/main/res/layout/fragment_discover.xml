@@ -77,9 +77,6 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/list_item_filter" />
 
-                <include
-                    android:id="@+id/empty_view"
-                    layout="@layout/layout_empty_recycler" />
             </RelativeLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
 

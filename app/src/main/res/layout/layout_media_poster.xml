@@ -11,13 +11,14 @@
             type="Double" />
     </data>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/alabaster"
         app:cardCornerRadius="10dp"
+        android:elevation="4dp"
         tools:showIn="@layout/list_item_media_small">
 
         <RelativeLayout
@@ -42,5 +43,5 @@
         </RelativeLayout>
 
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

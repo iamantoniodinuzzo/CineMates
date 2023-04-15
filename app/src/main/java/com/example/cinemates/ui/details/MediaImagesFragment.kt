@@ -59,9 +59,7 @@ class MediaImagesFragment : BottomSheetDialogFragment() {
                     GridLayoutManager(requireContext(),3)
             }
             recyclerView.adapter = adapter
-            counter = adapter.itemCount
             adapter.items = images
-            binding.counter = images.size
         }
     }
 

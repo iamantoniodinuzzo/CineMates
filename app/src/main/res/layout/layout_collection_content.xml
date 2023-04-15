@@ -12,7 +12,7 @@
         <import type="android.view.View" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:elevation="4dp"
@@ -41,7 +41,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/collectionParts"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/collection_title"
                 android:layout_centerInParent="true"
                 android:orientation="horizontal"
@@ -50,5 +50,5 @@
 
 
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

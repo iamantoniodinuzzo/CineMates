@@ -6,6 +6,8 @@ import com.example.cinemates.data.remote.response.common.GenreDTO
 import com.example.cinemates.data.remote.response.credits.CreditsResponse
 import com.example.cinemates.data.remote.response.image.ImagesResponse
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
+import com.example.cinemates.data.remote.response.tvShow.EpisodeGroupDTO
+import com.example.cinemates.data.remote.response.tvShow.EpisodeGroupDetailsDTO
 import com.example.cinemates.data.remote.response.tvShow.TvShowDTO
 import com.example.cinemates.data.remote.response.tvShow.TvShowDetailsDTO
 import retrofit2.http.GET
@@ -82,5 +84,5 @@ interface TvShowService {
     suspend fun getEpisodeGroupDetails(
         @Path("id") id: String,
         @QueryMap queries: Map<String, String>
-    ):EpisodeGroupDTO
+    ): EpisodeGroupDetailsDTO
 }

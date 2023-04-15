@@ -16,10 +16,11 @@
         <import type="android.view.View" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="250dp"
         android:layout_height="150dp"
         android:layout_marginEnd="10dp"
+        android:elevation="4dp"
         android:layout_marginBottom="10dp"
         app:cardCornerRadius="10dp">
 
@@ -48,5 +49,5 @@
                 android:visibility="@{counter!=0 || counter!= null?View.VISIBLE:View.GONE}"
                 tools:text="20 backdrops" />
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

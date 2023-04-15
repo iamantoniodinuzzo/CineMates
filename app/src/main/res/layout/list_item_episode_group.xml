@@ -19,7 +19,7 @@
         android:layout_height="150dp"
         android:elevation="4dp"
         app:cardBackgroundColor="@color/lynch_100"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"

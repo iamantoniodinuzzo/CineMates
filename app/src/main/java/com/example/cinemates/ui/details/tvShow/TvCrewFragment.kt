@@ -26,7 +26,6 @@ class TvCrewFragment : ListFragment<Crew, ListItemCrewLongBinding, CrewAdapter>(
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.crew.collectLatest { crew ->
                     adapter.updateItems(crew)
-                    counter = crew.size
                 }
             }
         }

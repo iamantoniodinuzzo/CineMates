@@ -31,9 +31,8 @@ abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T>>(val ada
     private fun setupRecyclerView() {
         binding.apply {
             // Set the RecyclerView to use a linear layout by default
-            binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),3)
-            binding.recyclerView.adapter = adapter
-            counter = adapter.itemCount
+            recyclerView.layoutManager = GridLayoutManager(requireContext(),3)
+            recyclerView.adapter = adapter
         }
     }
 

@@ -12,11 +12,12 @@
         <import type="android.view.View" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:elevation="4dp"
         android:visibility="@{collection!=null? View.VISIBLE : View.GONE}"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -42,5 +43,5 @@
                 android:textStyle="bold"
                 tools:text="Belong to collection" />
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -14,7 +14,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentFilterableBinding
 import com.example.cinemates.databinding.LayoutCustomDialogRandomBinding
-import com.example.cinemates.model.Movie
 import com.example.cinemates.ui.adapter.MediaAdapter
 import com.example.cinemates.common.BaseFragment
 
@@ -39,7 +38,7 @@ class FilterableFragment : BaseFragment<FragmentFilterableBinding>() {
 
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
-        viewModel.setFilter(args.filter)
+//        viewModel.setFilter(args.filter)
         binding.apply {
             filter = args.filter
 
@@ -49,25 +48,25 @@ class FilterableFragment : BaseFragment<FragmentFilterableBinding>() {
 
             viewModel.movies.observe(viewLifecycleOwner) { movies ->
                 adapter.updateItems(movies)
-                setFabVisibility(movies)
+//                setFabVisibility(movies)
             }
 
             shuffle.setOnClickListener {
-                showCustomDialog()
+//                showCustomDialog()
             }
         }
 
     }
 
-    private fun FragmentFilterableBinding.setFabVisibility(movies: List<Movie>) {
+   /* private fun FragmentFilterableBinding.setFabVisibility(movies: List<Movie>) {
         if (movies.isNotEmpty()) {
             shuffle.visibility = View.VISIBLE
         } else {
             shuffle.visibility = View.INVISIBLE
         }
-    }
+    }*/
 
-    private fun showCustomDialog() {
+   /* private fun showCustomDialog() {
 
         val dialog = Dialog(requireContext(), R.style.AppDialogTheme)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -80,12 +79,12 @@ class FilterableFragment : BaseFragment<FragmentFilterableBinding>() {
         poster.media = movie
         dialog.setContentView(poster.root)
         poster.root.setOnClickListener {
-           /* val action = NavGraphDirections.actionGlobalMovieDetailsFragment(movie)
+           *//* val action = NavGraphDirections.actionGlobalMovieDetailsFragment(movie)
             findNavController().navigate(action)
-            dialog.dismiss()*/
+            dialog.dismiss()*//*
         }
         dialog.show()
-    }
+    }*/
 
 
 }

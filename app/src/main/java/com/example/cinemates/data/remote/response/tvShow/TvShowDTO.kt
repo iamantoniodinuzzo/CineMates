@@ -1,7 +1,7 @@
 package com.example.cinemates.data.remote.response.tvShow
 
 
-import com.example.cinemates.data.remote.response.GenreDTO
+import com.example.cinemates.data.remote.response.common.GenreDTO
 import kotlinx.serialization.SerialName
 import java.text.SimpleDateFormat
 import java.util.*

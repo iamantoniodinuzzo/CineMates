@@ -1,4 +1,4 @@
-package com.example.cinemates.data.remote.response
+package com.example.cinemates.data.remote.response.common
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,11 +1,5 @@
 package com.example.cinemates.domain.model
 
-import com.example.cinemates.data.remote.response.ProductionCompanyDTO
-import com.example.cinemates.data.remote.response.ProductionCountryDTO
-import java.text.NumberFormat
-import java.text.SimpleDateFormat
-import java.util.*
-
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */

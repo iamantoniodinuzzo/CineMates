@@ -2,9 +2,12 @@ package com.example.cinemates.data.remote.service
 
 
 import com.example.cinemates.data.remote.response.GenericResponse
-import com.example.cinemates.data.remote.response.GenreDTO
+import com.example.cinemates.data.remote.response.common.GenreDTO
+import com.example.cinemates.data.remote.response.credits.CreditsResponse
 import com.example.cinemates.data.remote.response.image.ImagesResponse
 import com.example.cinemates.data.remote.response.movie.CollectionDTO
+import com.example.cinemates.data.remote.response.movie.MovieDTO
+import com.example.cinemates.data.remote.response.movie.MovieDetailsDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -29,7 +32,7 @@ interface MovieService {
     suspend fun getDetails(
         @Path("movie_id") id: Int,
         @QueryMap queries: Map<String, String>
-    ): MovieDTO
+    ): MovieDetailsDTO
 
     @GET("movie/{movie_id}/credits")
     suspend fun getCredits(

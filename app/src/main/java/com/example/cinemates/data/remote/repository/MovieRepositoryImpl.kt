@@ -1,6 +1,6 @@
 package com.example.cinemates.data.remote.repository
 
-import com.example.cinemates.data.remote.response.GenreDTO
+import com.example.cinemates.data.remote.response.common.GenreDTO
 import com.example.cinemates.data.remote.response.image.ImageDTO
 import com.example.cinemates.data.remote.response.movie.CollectionDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO

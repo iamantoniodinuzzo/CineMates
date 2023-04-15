@@ -1,6 +1,6 @@
 package com.example.cinemates.domain.mapper
 
-import com.example.cinemates.data.remote.response.ProductionCompanyDTO
+import com.example.cinemates.data.remote.response.common.ProductionCompanyDTO
 import com.example.cinemates.domain.model.ProductionCompany
 
 

@@ -1,4 +1,4 @@
-package com.example.cinemates.data.remote.response
+package com.example.cinemates.data.remote.response.common
 
 import java.io.Serializable
 

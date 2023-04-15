@@ -1,10 +1,9 @@
 package com.example.cinemates.domain.model
 
-data class Cast(
+
+class Cast(
+    val character: String,
     val id: Int,
     val name: String,
-    val profilePath: String,
-    val castId: Int,
-    val character: String,
-    val creditId: String,
+    val profilePath: String
 )

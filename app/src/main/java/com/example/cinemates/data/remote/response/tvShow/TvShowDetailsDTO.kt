@@ -1,13 +1,11 @@
 package com.example.cinemates.data.remote.response.tvShow
 
 
-import com.example.cinemates.data.remote.response.GenreDTO
-import com.example.cinemates.data.remote.response.ProductionCompanyDTO
-import com.example.cinemates.data.remote.response.ProductionCountryDTO
-import com.example.cinemates.data.remote.response.SpokenLanguageDTO
-import com.example.cinemates.domain.model.Season
+import com.example.cinemates.data.remote.response.common.GenreDTO
+import com.example.cinemates.data.remote.response.common.ProductionCompanyDTO
+import com.example.cinemates.data.remote.response.common.ProductionCountryDTO
+import com.example.cinemates.data.remote.response.common.SpokenLanguageDTO
 import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 class TvShowDetailsDTO(
     backdropPath: String = "",

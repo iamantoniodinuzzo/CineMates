@@ -11,9 +11,7 @@ import com.example.cinemates.R
 import com.example.cinemates.common.DoubleViewSizeAdapter
 import com.example.cinemates.databinding.ListItemCrewLongBinding
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
-import com.example.cinemates.domain.model.Crew
 import com.example.cinemates.domain.model.Media
-import com.example.cinemates.domain.model.Person
 
 class CrewAdapter :
     DoubleViewSizeAdapter<Media, ListItemCrewLongBinding, ListItemPersonSmallBinding>(

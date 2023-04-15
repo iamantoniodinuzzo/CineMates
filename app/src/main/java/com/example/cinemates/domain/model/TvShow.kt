@@ -4,7 +4,7 @@ package com.example.cinemates.domain.model
 data class TvShow(
     val backdropPath: String?,
     val createdBy: List<CreatedBy>,
-    val episodeRunTime: List<Int>,
+    val episodeRunTime: List<String>,
     val firstAirDate: String,
     val genres: List<Genre>,
     val homepage: String,

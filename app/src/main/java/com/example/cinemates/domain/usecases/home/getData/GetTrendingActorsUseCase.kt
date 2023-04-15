@@ -2,9 +2,7 @@ package com.example.cinemates.domain.usecases.home.getData
 
 import com.example.cinemates.data.remote.repository.ActorRepository
 import com.example.cinemates.domain.mapper.credits.CastToMediaMapper
-import com.example.cinemates.domain.mapper.credits.CastToPersonMapper
 import com.example.cinemates.domain.model.Media
-import com.example.cinemates.domain.model.Person
 import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.TimeWindow
 import kotlinx.coroutines.flow.Flow

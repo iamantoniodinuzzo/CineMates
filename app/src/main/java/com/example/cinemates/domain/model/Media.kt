@@ -9,9 +9,10 @@ import java.io.Serializable
 data class Media(
     val mediaType: MediaType,
     val id: Int,
-    val title: String?,
+    val title: String,
     val posterPath: String?,
-    val backdropPath: String?
+    val backdropPath: String?,
+    val voteAverage:Double,
 ) : Serializable {
 
     override fun hashCode(): Int {

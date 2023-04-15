@@ -17,8 +17,8 @@ import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentMovieAboutBinding
-import com.example.cinemates.model.Genre
-import com.example.cinemates.model.Image
+import com.example.cinemates.domain.model.Genre
+import com.example.cinemates.domain.model.Image
 import com.example.cinemates.ui.adapter.MovieAdapter
 import com.example.cinemates.ui.adapter.VideoAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView

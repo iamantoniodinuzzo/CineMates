@@ -7,7 +7,7 @@
 
         <variable
             name="episodeGroup"
-            type="com.example.cinemates.model.EpisodeGroup" />
+            type="com.example.cinemates.domain.model.EpisodeGroup" />
         <variable
             name="view"
             type="android.view.View" />

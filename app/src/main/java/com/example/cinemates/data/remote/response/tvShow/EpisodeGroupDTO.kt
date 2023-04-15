@@ -20,8 +20,4 @@ data class EpisodeGroupDTO(
     val networkDTO: NetworkDTO,
     @SerialName("type")
     val type: Int
-){
-    override fun toString(): String {
-        return "EpisodeGroupDTO(description='$description', episodeCount=$episodeCount, groupCount=$groupCount, groupDTOS=$groupDTOS, id='$id', name='$name', networkDTO=$networkDTO, type=$type)"
-    }
-}
+)

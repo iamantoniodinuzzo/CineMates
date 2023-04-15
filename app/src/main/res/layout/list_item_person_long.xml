@@ -8,7 +8,7 @@
 
         <variable
             name="actor"
-            type="com.example.cinemates.model.Cast" />
+            type="com.example.cinemates.domain.model.Cast" />
     </data>
 
 

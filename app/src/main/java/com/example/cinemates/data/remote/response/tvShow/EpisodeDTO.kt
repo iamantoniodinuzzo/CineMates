@@ -34,8 +34,4 @@ data class EpisodeDTO(
 
 
         }
-
-    override fun toString(): String {
-        return "EpisodeDTO(airDate='$airDate', episodeNumber=$episodeNumber, id=$id, name='$name', overview='$overview', production_code='$production_code', seasonNumber=$seasonNumber, stillPath='$stillPath', voteAverage=$voteAverage, voteCount=$voteCount)"
-    }
 }

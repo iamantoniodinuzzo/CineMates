@@ -5,7 +5,7 @@
 
         <variable
             name="media"
-            type="com.example.cinemates.model.Media" />
+            type="com.example.cinemates.domain.model.Media" />
     </data>
 
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"

@@ -11,16 +11,17 @@ import com.example.cinemates.R
 import com.example.cinemates.common.DoubleViewSizeAdapter
 import com.example.cinemates.databinding.ListItemPersonLongBinding
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
-import com.example.cinemates.model.Cast
+import com.example.cinemates.domain.model.Cast
+import com.example.cinemates.domain.model.Media
 
 class ActorAdapter :
-    DoubleViewSizeAdapter<Cast, ListItemPersonLongBinding, ListItemPersonSmallBinding>(
+    DoubleViewSizeAdapter<Media, ListItemPersonLongBinding, ListItemPersonSmallBinding>(
         R.layout.list_item_person_long,
         R.layout.list_item_person_small,
     ) {
 
 
-    private fun navigateToDetails(binding: ViewDataBinding, item: Cast) {
+    private fun navigateToDetails(binding: ViewDataBinding, item: Media) {
         binding.root.setOnClickListener { view ->
             val action = NavGraphDirections.actionGlobalActorDetailsFragment(item)
             Navigation.findNavController(view).navigate(action)
@@ -28,12 +29,12 @@ class ActorAdapter :
 
     }
 
-    override fun onBindLongItem(binding: ListItemPersonLongBinding, item: Cast) {
+    override fun onBindLongItem(binding: ListItemPersonLongBinding, item: Media) {
         binding.actor = item
         navigateToDetails(binding, item)
     }
 
-    override fun onBindSmallItem(binding: ListItemPersonSmallBinding, item: Cast) {
+    override fun onBindSmallItem(binding: ListItemPersonSmallBinding, item: Media) {
         binding.person = item
         navigateToDetails(binding, item)
     }

@@ -7,7 +7,7 @@
 
         <variable
             name="video"
-            type="com.example.cinemates.model.Video" />
+            type="com.example.cinemates.domain.model.Video" />
     </data>
 
     <RelativeLayout

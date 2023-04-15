@@ -7,7 +7,7 @@
 
         <variable
             name="person"
-            type="com.example.cinemates.model.Person" />
+            type="com.example.cinemates.domain.model.PersonDetails" />
 
         <import type="android.view.View" />
     </data>
@@ -18,8 +18,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_margin="10dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
             <com.indisparte.linearlayoutinfo.LinearInfoView
                 android:id="@+id/biography"
@@ -49,7 +49,7 @@
                 android:layout_marginBottom="10dp"
                 app:hideIfValueEmpty="true"
                 app:title="Born on"
-                app:value="@{person.formattedBirthday}" />
+                app:value="@{person.birthday}" />
 
             <com.indisparte.linearlayoutinfo.LinearInfoView
                 android:id="@+id/deathDate"
@@ -58,7 +58,7 @@
                 android:layout_below="@id/birthday"
                 app:hideIfValueEmpty="true"
                 app:title="Died on"
-                app:value="@{person.formattedDeathday}" />
+                app:value="@{person.deathDay}" />
 
             <com.indisparte.linearlayoutinfo.LinearInfoView
                 android:id="@+id/birthPlace"
@@ -87,8 +87,8 @@
                 android:id="@+id/chipGroupKnownAs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipToPadding="false"
                 android:layout_below="@id/knownAsTitle"
+                android:clipToPadding="false"
                 android:padding="10dp" />
 
 

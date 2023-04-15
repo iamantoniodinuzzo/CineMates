@@ -5,7 +5,7 @@
 
         <variable
             name="movie"
-            type="com.example.cinemates.model.Movie" />
+            type="com.example.cinemates.domain.model.Movie" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,7 +37,7 @@
             app:title="Runtime"
             android:layout_marginBottom="10dp"
             app:hideIfValueEmpty="true"
-            app:value="@{movie.formattedRuntime}" />
+            app:value="@{movie.runtime}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/originalLanguage"
@@ -54,7 +54,7 @@
             android:layout_marginBottom="10dp"
             app:title="Budget"
             app:hideIfValueEmpty="true"
-            app:value="@{movie.formattedBudget}" />
+            app:value="@{movie.budget}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/revenue"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             app:title="Revenue"
             app:hideIfValueEmpty="true"
-            app:value="@{movie.formattedRevenue}" />
+            app:value="@{movie.revenue}" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

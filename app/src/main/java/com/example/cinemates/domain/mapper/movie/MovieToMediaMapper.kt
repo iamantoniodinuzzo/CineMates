@@ -16,7 +16,8 @@ class MovieToMediaMapper: Mapper<MovieDTO, Media> {
             id = input.id,
             title= input.title,
             posterPath =  input.posterPath,
-            backdropPath = input.backdropPath
+            backdropPath = input.backdropPath,
+            voteAverage = input.voteAverage
         )
     }
 

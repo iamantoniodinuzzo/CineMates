@@ -7,5 +7,4 @@ data class Cast(
     val castId: Int,
     val character: String,
     val creditId: String,
-
-    )
+)

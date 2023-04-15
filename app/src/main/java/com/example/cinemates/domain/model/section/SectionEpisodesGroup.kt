@@ -1,7 +1,6 @@
 package com.example.cinemates.domain.model.section
 
-import com.example.cinemates.model.Episode
-import com.example.cinemates.model.Movie
+import com.example.cinemates.domain.model.Episode
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)

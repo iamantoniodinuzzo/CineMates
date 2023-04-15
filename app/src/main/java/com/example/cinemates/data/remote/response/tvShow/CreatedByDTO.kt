@@ -1,11 +1,9 @@
 package com.example.cinemates.data.remote.response.tvShow
 
-import com.example.cinemates.data.remote.response.credits.CastDTO
-
-class CreatedByDTO(
-    creditId: String,
-    gender: Int,
-    id: Int,
-    name: String,
-    profilePath: String
-) : CastDTO(creditId, gender, id, name, profilePath)
+data class CreatedByDTO(
+    val creditId: String,
+    val gender: Int,
+    val id: Int,
+    val name: String,
+    val profilePath: String
+)

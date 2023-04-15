@@ -9,7 +9,8 @@ import kotlinx.android.parcel.Parcelize
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
+@Parcelize
 data class Image(
     val filePath: String,
     val imageType: ImageType
-)
+):Parcelable

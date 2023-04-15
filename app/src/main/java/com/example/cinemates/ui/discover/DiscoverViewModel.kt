@@ -61,7 +61,7 @@ constructor(
         genreMap[36] = "History"
         genreMap[27] = "Horror"
         genreMap[10402] = "Music"
-        genreMap[9648] = "Mystery"
+        genreMap[9648] = "TopRated"
         genreMap[10749] = "Romance"
         genreMap[878] = "Science Fiction"
         genreMap[53] = "Thriller"

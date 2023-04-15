@@ -10,8 +10,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.cinemates.data.remote.response.image.ImageType
 import com.example.cinemates.databinding.FragmentListingItemsBinding
-import com.example.cinemates.model.ImageType
 import com.example.cinemates.ui.adapter.ImageAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

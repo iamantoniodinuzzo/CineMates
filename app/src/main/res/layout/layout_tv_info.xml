@@ -5,7 +5,7 @@
 
         <variable
             name="tv"
-            type="com.example.cinemates.model.TvShow" />
+            type="com.example.cinemates.domain.model.TvShow" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             app:title="First air date"
-            app:value="@{tv.formattedFirstAirDate}" />
+            app:value="@{tv.firstAirDate}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/lastAirDate"
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             app:title="Last air date"
-            app:value="@{tv.formattedLastAirDate}" />
+            app:value="@{tv.lastAirDate}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/numberOfEpisodes"

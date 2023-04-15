@@ -11,26 +11,27 @@ import com.example.cinemates.R
 import com.example.cinemates.common.DoubleViewSizeAdapter
 import com.example.cinemates.databinding.ListItemMediaLongBinding
 import com.example.cinemates.databinding.ListItemMediaSmallBinding
-import com.example.cinemates.model.TvShow
+import com.example.cinemates.domain.model.Media
+import com.example.cinemates.domain.model.TvShow
 
 class TvShowAdapter :
-    DoubleViewSizeAdapter<TvShow, ListItemMediaLongBinding, ListItemMediaSmallBinding>(
+    DoubleViewSizeAdapter<Media, ListItemMediaLongBinding, ListItemMediaSmallBinding>(
         R.layout.list_item_media_long,
         R.layout.list_item_media_small,
     ) {
 
 
-    override fun onBindLongItem(binding: ListItemMediaLongBinding, item: TvShow) {
+    override fun onBindLongItem(binding: ListItemMediaLongBinding, item: Media) {
         binding.media = item
         navigateToDetails(binding, item)
     }
 
-    override fun onBindSmallItem(binding: ListItemMediaSmallBinding, item: TvShow) {
+    override fun onBindSmallItem(binding: ListItemMediaSmallBinding, item: Media) {
         binding.media = item
         navigateToDetails(binding, item)
     }
 
-    private fun navigateToDetails(binding: ViewDataBinding, item: TvShow) {
+    private fun navigateToDetails(binding: ViewDataBinding, item: Media) {
         binding.root.setOnClickListener { view ->
             val action = NavGraphDirections.actionGlobalTvDetailsFragment(item)
             Navigation.findNavController(view).navigate(action)

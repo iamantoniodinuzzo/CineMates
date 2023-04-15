@@ -42,7 +42,7 @@
         tools:layout="@layout/fragment_filterable">
         <argument
             android:name="filter"
-            app:argType="com.example.cinemates.model.Filter" />
+            app:argType="com.example.cinemates.domain.model.Filter" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetFragment"
@@ -56,7 +56,7 @@
         tools:layout="@layout/fragment_actor_details">
         <argument
             android:name="person"
-            app:argType="com.example.cinemates.model.Person" />
+            app:argType="com.example.cinemates.domain.model.Media" />
     </fragment>
     <action
         android:id="@+id/action_global_actorDetailsFragment"
@@ -77,7 +77,7 @@
         tools:layout="@layout/fragment_media_details">
         <argument
             android:name="media"
-            app:argType="com.example.cinemates.model.Media" />
+            app:argType="com.example.cinemates.domain.model.Media" />
     </fragment>
     <fragment
         android:id="@+id/tvDetailsFragment"
@@ -86,7 +86,7 @@
         tools:layout="@layout/fragment_media_details">
         <argument
             android:name="media"
-            app:argType="com.example.cinemates.model.Media" />
+            app:argType="com.example.cinemates.domain.model.Media" />
     </fragment>
     <action
         android:id="@+id/action_global_movieDetailsFragment"
@@ -101,7 +101,7 @@
         tools:layout="@layout/fragment_listing_items">
         <argument
             android:name="images"
-            app:argType="com.example.cinemates.model.Image[]" />
+            app:argType="com.example.cinemates.domain.model.Image[]" />
     </dialog>
     <action
         android:id="@+id/action_global_mediaImagesFragment"

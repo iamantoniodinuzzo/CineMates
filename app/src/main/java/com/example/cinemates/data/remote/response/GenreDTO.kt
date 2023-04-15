@@ -5,4 +5,4 @@ import java.io.Serializable
 data class GenreDTO(
     val id: Int,
     val name: String,
-):Serializable
+)

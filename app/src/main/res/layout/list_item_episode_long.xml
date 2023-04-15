@@ -7,7 +7,7 @@
 
         <variable
             name="episode"
-            type="com.example.cinemates.model.Episode" />
+            type="com.example.cinemates.domain.model.Episode" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -53,7 +53,7 @@
                     android:id="@+id/textHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text='@{episode.formattedAirDate+", Ep."+episode.episodeNumber+" - Seas."+episode.seasonNumber}'
+                    android:text='@{episode.airDate+", Ep."+episode.episodeNumber+" - Seas."+episode.seasonNumber}'
                     android:textColor="@color/geyser"
                     android:textSize="14sp"
                     android:textStyle="bold"

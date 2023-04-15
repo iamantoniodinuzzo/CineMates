@@ -16,7 +16,8 @@ class TvToMediaMapper : Mapper<TvShowDTO, Media> {
             id = input.id,
             title = input.name,
             backdropPath = input.backdropPath,
-            posterPath = input.posterPath
+            posterPath = input.posterPath,
+            voteAverage = input.voteAverage
         )
     }
 

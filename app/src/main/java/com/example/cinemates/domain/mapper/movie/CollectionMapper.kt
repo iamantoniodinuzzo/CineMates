@@ -12,14 +12,14 @@ import javax.inject.Inject
 class CollectionMapper
 @Inject
 constructor(
-    private val movieDetailsMapper: MovieDetailsMapper
+    private val movieToMediaMapper: MovieToMediaMapper
 ): Mapper<CollectionDTO, Collection> {
     override fun map(input: CollectionDTO): Collection {
         return Collection(
             backdropPath = input.backdropPath,
             id = input.id,
             name = input.name,
-            parts = input.parts.map { movieDetailsMapper.map(it) },
+            parts = input.parts.map { movieToMediaMapper.map(it) },
             posterPath = input.posterPath
         )
     }

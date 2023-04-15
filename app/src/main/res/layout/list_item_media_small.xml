@@ -7,7 +7,7 @@
 
         <variable
             name="media"
-            type="com.example.cinemates.model.Media" />
+            type="com.example.cinemates.domain.model.Media" />
     </data>
 
     <LinearLayout
@@ -46,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:lines="2"
-                        android:text="@{media.displayTitle}"
+                        android:text="@{media.title}"
                         tools:text="Media Title" />
 
                 </LinearLayout>

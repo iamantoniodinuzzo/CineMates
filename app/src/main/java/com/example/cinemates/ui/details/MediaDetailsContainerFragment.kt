@@ -10,7 +10,7 @@ import androidx.navigation.Navigation
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentMediaDetailsBinding
-import com.example.cinemates.model.Image
+import com.example.cinemates.domain.model.Image
 import com.example.cinemates.ui.adapter.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint

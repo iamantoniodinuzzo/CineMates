@@ -5,7 +5,7 @@
 
         <variable
             name="media"
-            type="com.example.cinemates.model.Media" />
+            type="com.example.cinemates.domain.model.Media" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -44,7 +44,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.128">
 
-                <TextView
+               <!-- <TextView
                     android:id="@+id/textHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:text="@{media.status}"
-                    tools:text="Released" />
+                    tools:text="Released" />-->
 
                 <TextView
                     android:id="@+id/textTitle"
@@ -62,18 +62,18 @@
                     android:textColor="@color/alabaster"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:text="@{media.displayTitle}"
+                    android:text="@{media.title}"
                     tools:text="Media Title" />
 
-                <TextView
+              <!--  <TextView
                     android:id="@+id/textSubtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/geyser"
                     android:textSize="14sp"
-                    android:text="@{media.formattedGenres}"
+                    android:text="@{media.genres}"
                     android:textStyle="bold"
-                    tools:text="Genre1, Genre2, Genre3" />
+                    tools:text="Genre1, Genre2, Genre3" />-->
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <ImageView

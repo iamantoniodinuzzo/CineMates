@@ -7,7 +7,7 @@ import com.example.cinemates.data.remote.response.image.ImageDTO
  * Created 19/06/2022 at 10:05
  */
 class ImagesResponse(
-    var id: Int,
-    var backdrops: List<ImageDTO>,
-    var posters: List<ImageDTO>
+    val id: Int,
+    val backdrops: List<ImageDTO>,
+    val posters: List<ImageDTO>
 )

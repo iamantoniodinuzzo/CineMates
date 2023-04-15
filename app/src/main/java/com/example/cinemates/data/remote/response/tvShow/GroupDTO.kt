@@ -14,8 +14,4 @@ data class GroupDTO(
     val name: String,
     @SerialName("order")
     val order: Int
-) {
-    override fun toString(): String {
-        return "GroupDTO(name='$name',id='$id', locked=$locked,  order=$order, episodeDTOS=$episodeDTOS)"
-    }
-}
+)

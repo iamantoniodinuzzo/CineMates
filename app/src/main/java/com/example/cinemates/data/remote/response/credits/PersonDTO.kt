@@ -7,7 +7,7 @@ import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
-open class PersonDTO(
+data class PersonDTO(
     val adult: Boolean,
     @SerializedName("also_known_as")
     val alsoKnownAs: List<String>,

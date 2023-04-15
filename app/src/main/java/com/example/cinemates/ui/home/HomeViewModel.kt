@@ -1,23 +1,15 @@
 package com.example.cinemates.ui.home
 
-import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinemates.R
-import com.example.cinemates.model.Movie
-import com.example.cinemates.model.Person
-import com.example.cinemates.model.TvShow
-import com.example.cinemates.data.remote.repository.ActorRepositoryImpl
-import com.example.cinemates.data.remote.repository.MovieRepositoryImpl
-import com.example.cinemates.data.remote.repository.TvShowRepositoryImpl
-import com.example.cinemates.util.MediaType
-import com.example.cinemates.util.TimeWindow
+import com.example.cinemates.domain.model.Media
+import com.example.cinemates.domain.model.Person
+import com.example.cinemates.domain.usecases.home.HomeUseCaseContainer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeout
 import javax.inject.Inject
 
 /**
@@ -29,104 +21,105 @@ import javax.inject.Inject
 class HomeViewModel
 @Inject
 constructor(
-    private val movieRepositoryImpl: MovieRepositoryImpl,
-    private val actorRepositoryImpl: ActorRepositoryImpl,
-    private val tvShowRepositoryImpl: TvShowRepositoryImpl,
+    private val homeUseCaseContainer: HomeUseCaseContainer,
 ) : ViewModel() {
+
+
+    private val _trendingActors = MutableStateFlow<List<Media>?>(null)
+    val trendingActors: Flow<List<Media>?> get() = _trendingActors
+    private val _tvSHowOnTheAir = MutableStateFlow<List<Media>?>(null)
+    val tvSHowOnTheAir: Flow<List<Media>?> get() = _tvSHowOnTheAir
+    private val _trendingTvShow = MutableStateFlow<List<Media>?>(null)
+    val trendingTvShow: Flow<List<Media>?> get() = _trendingTvShow
+    private val _popularTvShow = MutableStateFlow<List<Media>?>(null)
+    val popularTvShow: Flow<List<Media>?> get() = _popularTvShow
+    private val _upcomingMovies = MutableStateFlow<List<Media>?>(null)
+    val upcomingMovies: Flow<List<Media>?> get() = _upcomingMovies
+    private val _trendingMovies = MutableStateFlow<List<Media>?>(null)
+    val trendingMovies: Flow<List<Media>?> get() = _trendingMovies
+    private val _topRatedMovies = MutableStateFlow<List<Media>?>(null)
+    val topRatedMovies: Flow<List<Media>?> get() = _topRatedMovies
+    private val _popularMovies = MutableStateFlow<List<Media>?>(null)
+    val popularMovies: Flow<List<Media>?> get() = _popularMovies
+
 
     init {
         fetchData()
     }
 
-    private val _trendingMovies = MutableStateFlow<List<Movie>>(listOf())
-    val trendingMovies: Flow<List<Movie>> get() = _trendingMovies
+    private fun fetchData() {
+        getPopularMovies()
+        getTopRatedMovies()
+        getTrendingMovies()
+        getUpcomingMovies()
+        getPopularTvShow()
+        getTrendingTvShow()
+        getOnTheAirTvShow()
+        getTrendingActors()
 
-    private val _tvShowOnTheAir = MutableStateFlow<List<TvShow>>(listOf())
-    val tvShowOnTheAir: Flow<List<TvShow>> get() = _tvShowOnTheAir
+    }
 
-
-    private val _trendingTvShow = MutableStateFlow<List<TvShow>>(listOf())
-    val trendingTvShow: Flow<List<TvShow>> get() = _trendingTvShow
-
-
-    private val _trendingPerson = MutableStateFlow<List<Person>>(listOf())
-    val trendingPerson: Flow<List<Person>> get() = _trendingPerson
-
-    private val _popularMovies = MutableStateFlow<List<Movie>>(listOf())
-    val popularMovies: Flow<List<Movie>> get() = _popularMovies
-
-    private val _popularTvShow = MutableStateFlow<List<TvShow>>(listOf())
-    val popularTvShow: Flow<List<TvShow>> get() = _popularTvShow
-
-
-    private val _topRatedMovies = MutableStateFlow<List<Movie>>(listOf())
-    val topRatedMovies: Flow<List<Movie>> get() = _topRatedMovies
-
-    private val _upcomingMovies = MutableStateFlow<List<Movie>>(listOf())
-    val upcomingMovies: Flow<List<Movie>> get() = _upcomingMovies
-
-
-    companion object {
-        enum class MovieListSpecification(@StringRes val nameResource: Int, val value: String) {
-            POPULAR(R.string.chip_popular, "popular"),
-            TOP_RATED(R.string.chip_top_rated, "top_rated"),
-            UPCOMING(R.string.chip_upcoming, "upcoming"),
-            ON_AIR(R.string.chip_on_air, "on_the_air")
+    private fun getTrendingActors() {
+        viewModelScope.launch {
+            homeUseCaseContainer.getTrendingActorsUseCase().collectLatest { list ->
+                _trendingActors.value = list
+            }
         }
     }
 
-    private fun fetchData() {
-        viewModelScope.launch {
-            withTimeout(1000) {
-                launch {
-                    movieRepositoryImpl.getSpecificMovieList(MovieListSpecification.POPULAR.value)
-                        .collectLatest { popular ->
-                            _popularMovies.value = popular
-                        }
-                }
-                launch {
-                    movieRepositoryImpl.getSpecificMovieList(MovieListSpecification.UPCOMING.value)
-                        .collectLatest { upcoming ->
-                            _upcomingMovies.value = upcoming
-                        }
-                }
-                launch {
-                    movieRepositoryImpl.getSpecificMovieList(MovieListSpecification.TOP_RATED.value)
-                        .collectLatest { topRated ->
-                            _topRatedMovies.value = topRated
-                        }
-                }
-                launch {
-                    movieRepositoryImpl.getTrending(TimeWindow.WEEK.value)
-                        .collectLatest { trending ->
-                            _trendingMovies.value = trending
-                        }
-                }
-                launch {
-                    tvShowRepositoryImpl.getTrending(TimeWindow.WEEK.value)
-                        .collectLatest { trending ->
-                            _trendingTvShow.value = trending
-                        }
-                }
-                launch {
-                    tvShowRepositoryImpl.getSpecificTVList(MovieListSpecification.POPULAR.value)
-                        .collectLatest { popular ->
-                            _popularTvShow.value = popular
-                        }
-                }
-                launch {
-                    tvShowRepositoryImpl.getSpecificTVList(MovieListSpecification.ON_AIR.value)
-                        .collectLatest { onTheAir ->
-                            _tvShowOnTheAir.value = onTheAir
-                        }
-                }
-                launch {
-                    actorRepositoryImpl.getTrendingPerson(MediaType.PERSON.value, TimeWindow.WEEK.value)
-                        .collectLatest { trending ->
-                            _trendingPerson.value = trending
 
-                        }
-                }
+    private fun getOnTheAirTvShow() {
+        viewModelScope.launch {
+            homeUseCaseContainer.getTvShowOnTheAirUseCase().collectLatest { list ->
+                _tvSHowOnTheAir.value = list
+            }
+        }
+    }
+
+    private fun getTrendingTvShow() {
+        viewModelScope.launch {
+            homeUseCaseContainer.getTrendingTvShowUseCase().collectLatest { list ->
+                _trendingTvShow.value = list
+            }
+        }
+    }
+
+    private fun getPopularTvShow() {
+        viewModelScope.launch {
+            homeUseCaseContainer.getPopularTvShowUseCase().collectLatest { list ->
+                _popularTvShow.value = list
+            }
+        }
+    }
+
+    private fun getUpcomingMovies() {
+        viewModelScope.launch {
+            homeUseCaseContainer.getUpcomingMoviesUseCase().collectLatest { list ->
+                _upcomingMovies.value = list
+            }
+        }
+    }
+
+    private fun getTrendingMovies() {
+        viewModelScope.launch {
+            homeUseCaseContainer.getTrendingMoviesUseCase().collectLatest { list ->
+                _trendingMovies.value = list
+            }
+        }
+    }
+
+    private fun getTopRatedMovies() {
+        viewModelScope.launch {
+            homeUseCaseContainer.getTopRatedMoviesUseCase().collectLatest { list ->
+                _topRatedMovies.value = list
+            }
+        }
+    }
+
+    private fun getPopularMovies() {
+        viewModelScope.launch {
+            homeUseCaseContainer.getPopularMoviesUseCase().collectLatest { list ->
+                _popularMovies.value = list
             }
         }
     }

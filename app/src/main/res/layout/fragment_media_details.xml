@@ -7,7 +7,7 @@
 
         <variable
             name="media"
-            type="com.example.cinemates.model.Media" />
+            type="com.example.cinemates.domain.model.Media" />
 
         <import type="android.view.View" />
     </data>
@@ -71,7 +71,7 @@
                         android:layout_marginHorizontal="20dp"
                         android:layout_marginTop="10dp"
                         android:maxLines="2"
-                        android:text="@{media.displayTitle}"
+                        android:text="@{media.title}"
                         android:textColor="@color/alabaster"
                         android:textSize="24sp"
                         android:textStyle="bold"
@@ -104,7 +104,7 @@
                     android:layout_marginBottom="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
                     app:navigationIcon="@drawable/ic_round_arrow_back_24"
-                    app:title="@{media.displayTitle}" />
+                    app:title="@{media.title}" />
 
 
                 <com.google.android.material.tabs.TabLayout

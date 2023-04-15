@@ -11,17 +11,18 @@ import com.example.cinemates.R
 import com.example.cinemates.common.DoubleViewSizeAdapter
 import com.example.cinemates.databinding.ListItemCrewLongBinding
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
-import com.example.cinemates.model.Crew
-import com.example.cinemates.model.Person
+import com.example.cinemates.domain.model.Crew
+import com.example.cinemates.domain.model.Media
+import com.example.cinemates.domain.model.Person
 
 class CrewAdapter :
-    DoubleViewSizeAdapter<Crew, ListItemCrewLongBinding, ListItemPersonSmallBinding>(
+    DoubleViewSizeAdapter<Media, ListItemCrewLongBinding, ListItemPersonSmallBinding>(
         R.layout.list_item_crew_long,
         R.layout.list_item_person_small,
     ) {
 
 
-    private fun navigateToDetails(binding: ViewDataBinding, item: Person) {
+    private fun navigateToDetails(binding: ViewDataBinding, item: Media) {
         binding.root.setOnClickListener { view ->
             val action = NavGraphDirections.actionGlobalActorDetailsFragment(item)
             Navigation.findNavController(view).navigate(action)
@@ -29,12 +30,12 @@ class CrewAdapter :
 
     }
 
-    override fun onBindLongItem(binding: ListItemCrewLongBinding, item: Crew) {
+    override fun onBindLongItem(binding: ListItemCrewLongBinding, item: Media) {
         binding.crew = item
         navigateToDetails(binding, item)
     }
 
-    override fun onBindSmallItem(binding: ListItemPersonSmallBinding, item: Crew) {
+    override fun onBindSmallItem(binding: ListItemPersonSmallBinding, item: Media) {
         binding.person = item
         navigateToDetails(binding, item)
 

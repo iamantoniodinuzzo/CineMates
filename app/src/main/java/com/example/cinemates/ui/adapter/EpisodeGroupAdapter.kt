@@ -3,7 +3,7 @@ package com.example.cinemates.ui.adapter
 import com.example.cinemates.R
 import com.example.cinemates.common.SingleViewAdapter
 import com.example.cinemates.databinding.ListItemEpisodeGroupBinding
-import com.example.cinemates.model.EpisodeGroup
+import com.example.cinemates.domain.model.EpisodeGroup
 
 
 /**

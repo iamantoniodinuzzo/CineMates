@@ -1,7 +1,9 @@
 package com.example.cinemates.domain.usecases.home.getData
 
 import com.example.cinemates.data.remote.repository.ActorRepository
+import com.example.cinemates.domain.mapper.credits.CastToMediaMapper
 import com.example.cinemates.domain.mapper.credits.CastToPersonMapper
+import com.example.cinemates.domain.model.Media
 import com.example.cinemates.domain.model.Person
 import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.TimeWindow
@@ -17,12 +19,13 @@ class GetTrendingActorsUseCase
 @Inject
 constructor(
     private val actorRepository: ActorRepository,
-    private val castToPersonMapper: CastToPersonMapper
+    private val castToMediaMapper: CastToMediaMapper
 ) {
-    operator fun invoke(): Flow<List<Person>> {
-        return actorRepository.getTrendingPerson(MediaType.PERSON.value,TimeWindow.WEEK.value).map {
-            it.map(castToPersonMapper::map)
-        }
+    operator fun invoke(): Flow<List<Media>> {
+        return actorRepository.getTrendingPerson(MediaType.PERSON.value, TimeWindow.WEEK.value)
+            .map {
+                it.map(castToMediaMapper::map)
+            }
     }
 
 }

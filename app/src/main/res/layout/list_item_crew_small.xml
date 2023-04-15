@@ -8,7 +8,7 @@
 
         <variable
             name="crew"
-            type="com.example.cinemates.model.Crew" />
+            type="com.example.cinemates.domain.model.Crew" />
     </data>
 
     <RelativeLayout

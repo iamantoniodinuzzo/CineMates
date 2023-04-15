@@ -13,7 +13,7 @@ import java.util.*
 data class MovieDTO(
     @SerializedName("belongs_to_collection")
     val belongsToCollection: CollectionDTO?,
-    val genre: List<GenreDTO> = listOf(),
+    val genre: List<GenreDTO>,
     val id: Int,
     @SerializedName("poster_path")
     val posterPath: String?,
@@ -33,7 +33,7 @@ data class MovieDTO(
     @SerializedName("backdrop_path")
     val backdropPath: String?,
     val overview: String?,
-    private val budget: Long,
+    private val budget: Long?,
     val popularity: Double,
     val adult: Boolean,
     private val revenue: Long?,
@@ -78,16 +78,17 @@ data class MovieDTO(
         }
 
 
-
     val formattedBudget: String
         get() {
-            return formattedMoney(budget)
+            return budget?.let{
+                formattedMoney(it)
+            }?:"Not specified"
         }
 
     val formattedRevenue: String
         get() {
             return revenue?.let {
-                formattedMoney(revenue)
+                formattedMoney(it)
             } ?: "Not specified"
         }
 

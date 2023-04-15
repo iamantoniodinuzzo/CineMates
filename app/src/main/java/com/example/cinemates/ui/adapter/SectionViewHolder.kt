@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.cinemates.databinding.ListItemSectionBinding
 import com.example.cinemates.databinding.ListItemSectionCollassableBinding
-import com.example.cinemates.model.section.SectionEpisodesGroup
-import com.example.cinemates.model.section.SectionMovie
-import com.example.cinemates.model.section.SectionPersons
-import com.example.cinemates.model.section.SectionTvShow
+import com.example.cinemates.domain.model.section.SectionEpisodesGroup
+import com.example.cinemates.domain.model.section.SectionMovie
+import com.example.cinemates.domain.model.section.SectionPersons
+import com.example.cinemates.domain.model.section.SectionTvShow
 import com.example.cinemates.util.DoubleTouchListener
 
 

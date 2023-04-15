@@ -7,5 +7,6 @@ data class NetworkDTO(
     @SerializedName("logo_path")
     val logoPath: String?,
     val name: String,
-    val origin_country: String
+    @SerializedName("origin_country")
+    val originCountry: String
 )

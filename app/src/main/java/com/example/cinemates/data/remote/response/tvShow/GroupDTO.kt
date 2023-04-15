@@ -1,17 +1,13 @@
 package com.example.cinemates.data.remote.response.tvShow
 
 
-import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class GroupDTO(
-    @SerialName("episodeDTOS")
-    val episodeDTOS: List<EpisodeDTO>,
-    @SerialName("id")
-    val id: String,
-    @SerialName("locked")
-    val locked: Boolean,
-    @SerialName("name")
-    val name: String,
-    @SerialName("order")
-    val order: Int
+    val episodes: List<EpisodeDTO> = listOf(),
+    val id: String = "",
+    val locked: Boolean = false,
+    val name: String = "",
+    val order: Int = 0
 )

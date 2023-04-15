@@ -1,6 +1,10 @@
 package com.example.cinemates.data.remote.repository
 
+import com.example.cinemates.data.remote.response.credits.CastDTO
+import com.example.cinemates.data.remote.response.credits.CrewDTO
+import com.example.cinemates.data.remote.response.credits.PersonDTO
 import com.example.cinemates.data.remote.response.image.ImageDTO
+import com.example.cinemates.data.remote.response.movie.MovieDTO
 import com.example.cinemates.data.remote.service.ActorService
 import com.example.cinemates.data.remote.service.MovieService
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +18,6 @@ class ActorRepositoryImpl
 @Inject
 constructor(
     private val actorService: ActorService,
-    private val movieService: MovieService,
     private val queryMap: MutableMap<String, String>
 ) : ActorRepository {
 
@@ -40,11 +43,7 @@ constructor(
         emit(crew)
     }
 
-    override fun getMoviesByActor(id: Int):Flow<List<MovieDTO>> = flow {
-        queryMap["with_cast"] = id.toString()
-        val movies = movieService.getByDiscover(queryMap).results
-        emit(movies)
-    }
+
 
     override fun getPeoplesBySearch(query: String): Flow<List<PersonDTO>> = flow {
         queryMap["query"] = query

@@ -1,8 +1,13 @@
 package com.example.cinemates.data.remote.repository
 
+import com.example.cinemates.data.remote.response.credits.CastDTO
+import com.example.cinemates.data.remote.response.credits.CrewDTO
 import com.example.cinemates.data.remote.response.image.ImageDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import com.example.cinemates.data.remote.response.tvShow.EpisodeGroupDTO
+import com.example.cinemates.data.remote.response.tvShow.EpisodeGroupDetailsDTO
+import com.example.cinemates.data.remote.response.tvShow.TvShowDTO
+import com.example.cinemates.data.remote.response.tvShow.TvShowDetailsDTO
 import com.example.cinemates.data.remote.service.TvShowService
 import com.example.cinemates.domain.model.Filter
 import kotlinx.coroutines.flow.Flow
@@ -36,7 +41,7 @@ constructor(
         emit(videos)
     }
 
-    override fun getDetails(id: Int): Flow<TvShowDTO> = flow {
+    override fun getDetails(id: Int): Flow<TvShowDetailsDTO> = flow {
         emit(tvShowService.getDetails(id, queryMap))
     }
 
@@ -89,7 +94,7 @@ constructor(
         emit(episodesGroup)
     }
 
-    override fun getEpisodeGroupDetails(episodeGroupId: String): Flow<EpisodeGroupDTO> = flow {
+    override fun getEpisodeGroupDetails(episodeGroupId: String): Flow<EpisodeGroupDetailsDTO> = flow {
         val episodesGroupDetails = tvShowService.getEpisodeGroupDetails(episodeGroupId, queryMap)
         emit(episodesGroupDetails)
     }

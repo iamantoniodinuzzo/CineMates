@@ -1,6 +1,6 @@
 package com.example.cinemates.data.remote
 
-import com.example.cinemates.BuildConfig.TMDB_API_KEY
+import com.example.cinemates.data.TMDb_API_KEY
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
@@ -16,7 +16,7 @@ class AuthenticationInterceptor @Inject constructor() : Interceptor {
         val request = chain.request()
         val newUrl = request.url
             .newBuilder()
-            .addQueryParameter("api_key", TMDB_API_KEY)
+            .addQueryParameter("api_key", TMDb_API_KEY)
             .build()
 
         val newRequest = request

@@ -1,8 +1,12 @@
 package com.example.cinemates.data.remote.repository
 
 import com.example.cinemates.data.remote.response.common.GenreDTO
+import com.example.cinemates.data.remote.response.credits.CastDTO
+import com.example.cinemates.data.remote.response.credits.CrewDTO
 import com.example.cinemates.data.remote.response.image.ImageDTO
 import com.example.cinemates.data.remote.response.movie.CollectionDTO
+import com.example.cinemates.data.remote.response.movie.MovieDTO
+import com.example.cinemates.data.remote.response.movie.MovieDetailsDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import com.example.cinemates.data.remote.service.MovieService
 import com.example.cinemates.domain.model.Filter
@@ -44,7 +48,7 @@ constructor(
         emit(videos)
     }
 
-    override fun getDetails(movieId: Int): Flow<MovieDTO> = flow {
+    override fun getDetails(movieId: Int): Flow<MovieDetailsDTO> = flow {
         emit(movieService.getDetails(movieId, queryMap))
     }
 
@@ -114,6 +118,11 @@ constructor(
         emit(movieService.getByDiscover(queryMap).results)
     }
 
+    override fun getMoviesByActor(actorId: Int):Flow<List<MovieDTO>> = flow {
+        queryMap["with_cast"] = actorId.toString()
+        val movies = movieService.getByDiscover(queryMap).results
+        emit(movies)
+    }
 
 }
 

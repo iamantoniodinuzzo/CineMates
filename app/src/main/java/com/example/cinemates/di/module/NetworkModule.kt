@@ -52,7 +52,6 @@ object NetworkModule {
             .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
 
     @Singleton

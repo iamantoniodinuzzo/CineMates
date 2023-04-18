@@ -13,37 +13,46 @@ import java.util.*
 open class MovieDTO(
     val adult: Boolean = false,
     @SerialName("backdrop_path")
-    val backdropPath: String = "",
+    val backdropPath: String?,
     @SerialName("genre_ids")
-    val genres: List<GenreDTO> = listOf(),
-    val id: Int = 0,
+    val genres: List<GenreDTO> ,
+    val id: Int ,
     @SerialName("original_language")
-    val originalLanguage: String = "",
+    val originalLanguage: String ,
     @SerialName("original_title")
-    val originalTitle: String = "",
-    val overview: String = "",
-    val popularity: Double = 0.0,
+    val originalTitle: String,
+    val overview: String,
+    val popularity: Double,
     @SerialName("poster_path")
-    val posterPath: String? = "",
+    val posterPath: String?,
     @SerialName("release_date")
-    private val releaseDate: String = "",
-    val title: String = "",
+    private val releaseDate: String,
+    val title: String ,
     val video: Boolean = false,
     @SerialName("vote_average")
-    val voteAverage: Double = 0.0,
+    val voteAverage: Double ,
     @SerialName("vote_count")
-    val voteCount: Int = 0
+    val voteCount: Int
 ) {
     private fun formatDate(date: String): String {
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val outputFormat = SimpleDateFormat.getDateInstance()
-        val formattedDate = inputFormat.parse(date)
-        return outputFormat.format(formattedDate)
+        return if(date.isNotEmpty()) {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val outputFormat = SimpleDateFormat.getDateInstance()
+            val formattedDate = inputFormat.parse(date)
+            outputFormat.format(formattedDate)
+        }else{
+            "Not specified"
+        }
+    }
+
+    override fun toString(): String {
+        return "MovieDTO(adult=$adult, backdropPath='$backdropPath', genres=$genres, id=$id, originalLanguage='$originalLanguage', originalTitle='$originalTitle', overview='$overview', popularity=$popularity, posterPath=$posterPath, releaseDate='$releaseDate', title='$title', video=$video, voteAverage=$voteAverage, voteCount=$voteCount)"
     }
 
     val formattedReleaseDate: String
         get() {
             return formatDate(releaseDate)
         }
+
 
 }

@@ -3,13 +3,14 @@ package com.example.cinemates.domain.mapper.tv
 import com.example.cinemates.data.remote.response.tvShow.EpisodeGroupDTO
 import com.example.cinemates.domain.mapper.Mapper
 import com.example.cinemates.domain.model.EpisodeGroup
+import com.example.cinemates.domain.model.EpisodeGroupDetails
 import javax.inject.Inject
 
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class EpisodeGroupMapper
+/*class EpisodeGroupMapper
 @Inject
 constructor(
     private val networkMapper: NetworkMapper
@@ -25,4 +26,15 @@ constructor(
         )
     }
 
+}*/
+
+fun EpisodeGroupDTO.mapToEpisodeGroup():EpisodeGroup{
+    return EpisodeGroup(
+        description = this.description,
+        episodeCount = this.episodeCount,
+        groupCount = this.groupCount,
+        id = this.id,
+        name = this.name,
+        network = this.network.mapToNetwork()
+    )
 }

@@ -8,6 +8,7 @@ import com.example.cinemates.domain.model.Video
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
+/*
 class TrailerMapper : Mapper<VideoDTO, Video> {
     override fun map(input: VideoDTO): Video {
         return Video(
@@ -20,4 +21,15 @@ class TrailerMapper : Mapper<VideoDTO, Video> {
         )
     }
 
+}*/
+
+fun VideoDTO.mapToVideo():Video{
+    return Video(
+        id = this.id,
+        key = this.key,
+        type = this.type,
+        name = this.name,
+        site = this.site,
+        isOfficial = this.isOfficial
+    )
 }

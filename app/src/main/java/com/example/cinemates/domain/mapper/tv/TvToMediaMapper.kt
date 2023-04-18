@@ -9,7 +9,7 @@ import com.example.cinemates.util.MediaType
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class TvToMediaMapper : Mapper<TvShowDTO, Media> {
+/*class TvToMediaMapper : Mapper<TvShowDTO, Media> {
     override fun map(input: TvShowDTO): Media {
         return Media(
             mediaType = MediaType.TV,
@@ -21,4 +21,15 @@ class TvToMediaMapper : Mapper<TvShowDTO, Media> {
         )
     }
 
+}*/
+
+fun TvShowDTO.mapToMedia():Media{
+    return Media(
+        mediaType = MediaType.TV,
+        id = this.id,
+        title = this.name,
+        backdropPath = this.backdropPath,
+        posterPath = this.posterPath,
+        voteAverage = this.voteAverage
+    )
 }

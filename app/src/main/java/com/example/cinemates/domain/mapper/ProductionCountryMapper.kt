@@ -7,11 +7,17 @@ import com.example.cinemates.domain.model.ProductionCountry
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class ProductionCountryMapper : Mapper<ProductionCountryDTO, ProductionCountry> {
+/*class ProductionCountryMapper : Mapper<ProductionCountryDTO, ProductionCountry> {
     override fun map(input: ProductionCountryDTO): ProductionCountry {
         return ProductionCountry(
             name = input.name
         )
     }
 
+}*/
+
+fun ProductionCountryDTO.mapToProductionCountry(): ProductionCountry {
+    return ProductionCountry(
+        name = this.name
+    )
 }

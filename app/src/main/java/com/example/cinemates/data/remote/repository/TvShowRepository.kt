@@ -15,8 +15,8 @@ import kotlinx.coroutines.flow.Flow
  * @author Antonio Di Nuzzo (Indisparte)
  */
 interface TvShowRepository {
-    fun getSpecificTVList(specification: String): Flow<List<TvShowDTO>>
-    fun getTrending(timeWindow: String): Flow<List<TvShowDTO>>
+     fun getSpecificTVList(specification: String): Flow<List<TvShowDTO>>
+     fun getTrending(timeWindow: String): Flow<List<TvShowDTO>>
     fun getVideos(id: Int): Flow<List<VideoDTO>>
     fun getDetails(id: Int): Flow<TvShowDetailsDTO>
     fun getSimilar(id: Int): Flow<List<TvShowDTO>>

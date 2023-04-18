@@ -24,12 +24,12 @@ constructor(
     private val queryMap: MutableMap<String, String>
 ) : TvShowRepository {
 
-    override fun getSpecificTVList(specification: String) = flow {
+    override  fun getSpecificTVList(specification: String) = flow {
         val specificTvShowList = tvShowService.getListOfSpecificTv(specification, queryMap).results
         emit(specificTvShowList)
     }
 
-    override fun getTrending(timeWindow: String): Flow<List<TvShowDTO>> =
+    override  fun getTrending(timeWindow: String): Flow<List<TvShowDTO>> =
         flow {
             val trending = tvShowService.getTrending(timeWindow, queryMap).results
             emit(trending)

@@ -7,7 +7,7 @@ import com.example.cinemates.domain.model.Genre
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class GenreMapper:Mapper<GenreDTO, Genre> {
+/*class GenreMapper:Mapper<GenreDTO, Genre> {
     override fun map(input: GenreDTO): Genre {
         return Genre(
             id = input.id,
@@ -15,4 +15,11 @@ class GenreMapper:Mapper<GenreDTO, Genre> {
         )
     }
 
+}*/
+
+fun GenreDTO.mapToGenre():Genre{
+    return Genre(
+        id = this.id,
+        name =  this.name
+    )
 }

@@ -1,7 +1,7 @@
 package com.example.cinemates.domain.usecases.home.getData.tv
 
 import com.example.cinemates.data.remote.repository.TvShowRepository
-import com.example.cinemates.domain.mapper.tv.TvToMediaMapper
+import com.example.cinemates.domain.mapper.tv.mapToMedia
 import com.example.cinemates.domain.model.Media
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -15,12 +15,11 @@ class GetPopularTvShowUseCase
 @Inject
 constructor(
     private val tvShowRepository: TvShowRepository,
-    private val tvToMediaMapper: TvToMediaMapper
 ) {
 
-    operator fun invoke(): Flow<List<Media>> {
-        return tvShowRepository.getSpecificTVList("popular").map {
-            it.map(tvToMediaMapper::map)
+     operator fun invoke(): Flow<List<Media>> {
+        return tvShowRepository.getSpecificTVList("popular").map { tvShowListDTO ->
+            tvShowListDTO.map { it.mapToMedia() }
         }
     }
 

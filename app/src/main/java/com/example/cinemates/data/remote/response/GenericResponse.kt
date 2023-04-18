@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 /**
  * @author Antonio Di Nuzzo
  */
-abstract class GenericResponse<T>(
+class GenericResponse<T>(
     val page: Int?,
     @SerialName(value = "total_pages")
     val totalPages: Int?,

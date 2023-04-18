@@ -22,7 +22,7 @@ constructor(
 ) : ActorRepository {
 
 
-    override fun getTrendingPerson(mediaType: String, timeWindow: String): Flow<List<PersonDTO>> =
+    override  fun getTrendingPerson(mediaType: String, timeWindow: String): Flow<List<PersonDTO>> =
         flow {
             val trending = actorService.getTrendingPerson(mediaType, timeWindow, queryMap).results
             emit(trending)

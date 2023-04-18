@@ -30,7 +30,7 @@ class MovieDetailsDTO(
     @SerialName("production_countries")
     val productionCountries: List<ProductionCountryDTO> = listOf(),
     releaseDate: String = "",
-    private val revenue: Int = 0,
+    private val revenue: Long = 0,
     private val runtime: Int = 0,
     @SerialName("spoken_languages")
     val spokenLanguages: List<SpokenLanguageDTO> = listOf(),
@@ -56,7 +56,7 @@ class MovieDetailsDTO(
     voteAverage,
     voteCount
 ) {
-    private fun formatCurrency(number: Int, locale: Locale = Locale.getDefault()): String {
+    private fun formatCurrency(number: Long, locale: Locale = Locale.getDefault()): String {
         val formatter = NumberFormat.getCurrencyInstance(locale)
         return formatter.format(number)
     }
@@ -70,7 +70,7 @@ class MovieDetailsDTO(
     val formattedBudget: String
         get() {
             return if (budget != 0) {
-                formatCurrency(budget)
+                formatCurrency(budget.toLong())
             } else {
                 "Not specified"
             }
@@ -78,11 +78,8 @@ class MovieDetailsDTO(
 
     val formattedRevenue: String
         get() {
-            return if (revenue != 0) {
-                formatCurrency(revenue)
-            } else {
-                "Not specified"
-            }
+            return formatCurrency(revenue)
+
         }
 
     val formattedRuntime: String

@@ -8,7 +8,7 @@ import com.example.cinemates.domain.model.Network
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class NetworkMapper : Mapper<NetworkDTO, Network> {
+/*class NetworkMapper : Mapper<NetworkDTO, Network> {
     override fun map(input: NetworkDTO): Network {
         return Network(
             id = input.id,
@@ -17,4 +17,12 @@ class NetworkMapper : Mapper<NetworkDTO, Network> {
         )
     }
 
+}*/
+
+fun NetworkDTO.mapToNetwork():Network{
+    return Network(
+        id = this.id,
+        logoPath = this.logoPath,
+        name = this.name
+    )
 }

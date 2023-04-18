@@ -9,7 +9,7 @@ import javax.inject.Inject
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class GroupMapper
+/*class GroupMapper
 @Inject
 constructor(
     private val episodeMapper: EpisodeMapper
@@ -26,4 +26,16 @@ constructor(
         )
     }
 
+}*/
+
+fun GroupDTO.mapToGroup():Group{
+    return Group(
+        episodes = this.episodes.map {
+            it.mapToEpisode()
+        },
+        id = this.id,
+        locked = this.locked,
+        name = this.name,
+        order = this.order,
+    )
 }

@@ -1,13 +1,13 @@
 package com.example.cinemates.domain.usecases.details.movie
 
 import com.example.cinemates.data.remote.repository.MovieRepository
-import com.example.cinemates.domain.mapper.credits.CastMapper
-import com.example.cinemates.domain.mapper.credits.CrewMapper
-import com.example.cinemates.domain.mapper.image.ImageMapper
-import com.example.cinemates.domain.mapper.movie.CollectionMapper
-import com.example.cinemates.domain.mapper.movie.MovieDetailsMapper
-import com.example.cinemates.domain.mapper.movie.MovieToMediaMapper
-import com.example.cinemates.domain.mapper.trailer.TrailerMapper
+import com.example.cinemates.domain.mapper.credits.mapToCast
+import com.example.cinemates.domain.mapper.credits.mapToCrew
+import com.example.cinemates.domain.mapper.image.mapToImage
+import com.example.cinemates.domain.mapper.movie.mapToCollection
+import com.example.cinemates.domain.mapper.movie.mapToMedia
+import com.example.cinemates.domain.mapper.movie.mapToMovie
+import com.example.cinemates.domain.mapper.trailer.mapToVideo
 import com.example.cinemates.domain.model.*
 import com.example.cinemates.domain.model.Collection
 import kotlinx.coroutines.flow.Flow
@@ -22,55 +22,48 @@ class GetMovieDetailsUseCase
 @Inject
 constructor(
     private val movieRepository: MovieRepository,
-    private val movieToMediaMapper: MovieToMediaMapper,
-    private val movieDetailsMapper: MovieDetailsMapper,
-    private val castMapper: CastMapper,
-    private val crewMapper: CrewMapper,
-    private val imageMapper: ImageMapper,
-    private val trailerMapper: TrailerMapper,
-    private val collectionMapper: CollectionMapper
 ) {
     fun getMovieDetails(movieId: Int): Flow<Movie> {
-        return movieRepository.getDetails(movieId).map(movieDetailsMapper::map)
+        return movieRepository.getDetails(movieId).map { it.mapToMovie() }
     }
 
     fun getMovieCast(movieId: Int): Flow<List<Cast>> {
-        return movieRepository.getCast(movieId).map {
-            it.map(castMapper::map)
+        return movieRepository.getCast(movieId).map { castDTOList ->
+            castDTOList.map { it.mapToCast() }
         }
     }
 
     fun getMovieCrew(movieId: Int): Flow<List<Crew>> {
-        return movieRepository.getCrew(movieId).map {
-            it.map(crewMapper::map)
+        return movieRepository.getCrew(movieId).map { creDTOList ->
+            creDTOList.map { it.mapToCrew() }
         }
     }
 
     fun getSimilarMovies(movieId: Int): Flow<List<Media>> {
-        return movieRepository.getSimilar(movieId).map {
-            it.map(movieToMediaMapper::map)
+        return movieRepository.getSimilar(movieId).map { movieDTOList ->
+            movieDTOList.map { it.mapToMedia() }
         }
     }
 
     fun getPosters(movieId: Int): Flow<List<Image>> {
-        return movieRepository.getPosters(movieId).map {
-            it.map(imageMapper::map)
+        return movieRepository.getPosters(movieId).map { imageDTOList ->
+            imageDTOList.map { it.mapToImage() }
         }
     }
 
     fun getBackdrops(movieId: Int): Flow<List<Image>> {
-        return movieRepository.getBackdrops(movieId).map {
-            it.map(imageMapper::map)
+        return movieRepository.getBackdrops(movieId).map { imageDTOList ->
+            imageDTOList.map { it.mapToImage() }
         }
     }
 
     fun getTrailers(movieId: Int): Flow<List<Video>> {
-        return movieRepository.getVideos(movieId).map {
-            it.map(trailerMapper::map)
+        return movieRepository.getVideos(movieId).map { videoDTOList ->
+            videoDTOList.map { it.mapToVideo() }
         }
     }
 
-    fun getCollection(collectionId:Int):Flow<Collection>{
-        return movieRepository.getCollection(collectionId).map(collectionMapper::map)
+    fun getCollection(collectionId: Int): Flow<Collection> {
+        return movieRepository.getCollection(collectionId).map { it.mapToCollection() }
     }
 }

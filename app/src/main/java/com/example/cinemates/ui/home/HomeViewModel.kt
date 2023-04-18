@@ -24,7 +24,6 @@ constructor(
     private val homeUseCaseContainer: HomeUseCaseContainer,
 ) : ViewModel() {
 
-
     private val _trendingActors = MutableStateFlow<List<Person>?>(null)
     val trendingActors: Flow<List<Person>?> get() = _trendingActors
     private val _tvSHowOnTheAir = MutableStateFlow<List<Media>?>(null)

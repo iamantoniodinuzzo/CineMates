@@ -1,15 +1,12 @@
 package com.example.cinemates.domain.mapper.movie
 
 import com.example.cinemates.data.remote.response.movie.CollectionDTO
-import com.example.cinemates.domain.mapper.Mapper
-
 import com.example.cinemates.domain.model.Collection
-import javax.inject.Inject
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class CollectionMapper
+/*class CollectionMapper
 @Inject
 constructor(
     private val movieToMediaMapper: MovieToMediaMapper
@@ -24,4 +21,14 @@ constructor(
         )
     }
 
+}*/
+
+fun CollectionDTO.mapToCollection(): Collection {
+    return Collection(
+        backdropPath = this.backdropPath,
+        id = this.id,
+        name = this.name,
+        parts = this.parts.map { it.mapToMedia() },
+        posterPath = this.posterPath
+    )
 }

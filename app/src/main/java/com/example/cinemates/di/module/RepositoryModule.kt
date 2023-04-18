@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.components.SingletonComponent
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
@@ -14,20 +15,20 @@ import dagger.hilt.android.scopes.ViewModelScoped
 @InstallIn(ViewModelComponent::class)
 abstract class RepositoryModule {
 
-    @ViewModelScoped
     @Binds
+    @ViewModelScoped
     abstract fun bindMovieRepository(
         movieRepositoryImpl: MovieRepositoryImpl
     ): MovieRepository
 
-    @ViewModelScoped
     @Binds
+    @ViewModelScoped
     abstract fun bindTvShowRepository(
         tvShowRepositoryImpl: TvShowRepositoryImpl
     ): TvShowRepository
 
-    @ViewModelScoped
     @Binds
+    @ViewModelScoped
     abstract fun bindActorRepository(
         actorRepositoryImpl: ActorRepositoryImpl
     ): ActorRepository

@@ -8,7 +8,7 @@ import com.example.cinemates.domain.model.CreatedBy
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class CreatedByMapper : Mapper<CreatedByDTO, CreatedBy> {
+/*class CreatedByMapper : Mapper<CreatedByDTO, CreatedBy> {
     override fun map(input: CreatedByDTO): CreatedBy {
         val gender = if (input.gender == 1) {
             "Female"
@@ -24,4 +24,19 @@ class CreatedByMapper : Mapper<CreatedByDTO, CreatedBy> {
         )
     }
 
+}*/
+
+fun CreatedByDTO.mapToCreatedBy():CreatedBy{
+    val gender = if (this.gender == 1) {
+        "Female"
+    } else {
+        "Male"
+    }
+    return CreatedBy(
+        creditId = this.creditId,
+        gender = gender,
+        id = this.id,
+        name = this.name,
+        profilePath = this.profilePath
+    )
 }

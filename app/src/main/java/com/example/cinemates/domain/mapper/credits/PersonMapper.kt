@@ -9,7 +9,7 @@ import com.example.cinemates.domain.model.PersonDetails
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class PersonMapper : Mapper<PersonDTO, Person> {
+/*class PersonMapper : Mapper<PersonDTO, Person> {
     override fun map(input: PersonDTO): Person {
         return Person(
             id = input.id,
@@ -18,4 +18,12 @@ class PersonMapper : Mapper<PersonDTO, Person> {
         )
     }
 
+}*/
+
+fun PersonDTO.mapToPerson():Person{
+    return Person(
+        id = this.id,
+        name = this.name,
+        profilePath = this.profilePath,
+    )
 }

@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.Flow
 interface MovieRepository {
 
     //Get Popular,TopRated and Upcoming movies
-    fun getSpecificMovieList(specification: String): Flow<List<MovieDTO>>
+     fun getSpecificMovieList(specification: String): Flow<List<MovieDTO>>
     fun getGenreList(): Flow<List<GenreDTO>>
     fun getTrending(timeWindow: String): Flow<List<MovieDTO>>
     fun getVideos(movieId: Int): Flow<List<VideoDTO>>

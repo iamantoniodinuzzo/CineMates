@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
  * @author Antonio Di Nuzzo (Indisparte)
  */
 interface ActorRepository {
-    fun getTrendingPerson(mediaType: String, timeWindow: String): Flow<List<PersonDTO>>
+     fun getTrendingPerson(mediaType: String, timeWindow: String): Flow<List<PersonDTO>>
     fun getActorDetails(personId: Int): Flow<PersonDTO>
     fun getActorCharacters(id: Int): Flow<List<CastDTO>>
     fun getActorCrewWork(id: Int): Flow<List<CrewDTO>>

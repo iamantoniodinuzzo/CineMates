@@ -36,6 +36,7 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             launch {
                 viewModel.selectedMovie.collect { selectedMovie ->
+                    Log.d(TAG, "Media details: ${selectedMovie?.posterPath}")
                     binding.media = selectedMovie
                 }
             }

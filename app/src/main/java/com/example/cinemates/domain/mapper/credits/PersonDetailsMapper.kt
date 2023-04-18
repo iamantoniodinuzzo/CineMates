@@ -8,6 +8,7 @@ import com.example.cinemates.domain.model.PersonDetails
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
+/*
 class PersonDetailsMapper : Mapper<PersonDTO, PersonDetails> {
     override fun map(input: PersonDTO): PersonDetails {
         return PersonDetails(
@@ -29,4 +30,25 @@ class PersonDetailsMapper : Mapper<PersonDTO, PersonDetails> {
         )
     }
 
+}
+*/
+
+fun PersonDTO.mapToPersonDetails():PersonDetails{
+    return PersonDetails(
+        adult = this.adult,
+        alsoKnownAs = this.alsoKnownAs,
+        biography = this.biography,
+        birthday = this.formattedBirthday,
+        deathDay = this.formattedDeathDay,
+        gender = this.formattedGender,
+        homepage = this.homepage.toString(),
+        id = this.id,
+        imdbId = this.imdbId,
+        knownForDepartment = this.knownForDepartment,
+        name = this.name,
+        placeOfBirth = this.placeOfBirth,
+        popularity = this.popularity,
+        profilePath = this.profilePath,
+        age = this.age
+    )
 }

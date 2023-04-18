@@ -27,7 +27,7 @@ constructor(
     /**
      * Get Popular,TopRated and Upcoming movies
      */
-    override fun getSpecificMovieList(specification: String) = flow {
+    override  fun getSpecificMovieList(specification: String) = flow {
         val movieList = movieService.getListOfSpecificMovies(specification, queryMap).results
         emit(movieList)
     }
@@ -37,7 +37,7 @@ constructor(
         emit(genres)
     }
 
-    override fun getTrending(timeWindow: String): Flow<List<MovieDTO>> = flow {
+    override  fun getTrending(timeWindow: String): Flow<List<MovieDTO>> = flow {
         val trending = movieService.getTrending(timeWindow, queryMap).results
         emit(trending)
     }

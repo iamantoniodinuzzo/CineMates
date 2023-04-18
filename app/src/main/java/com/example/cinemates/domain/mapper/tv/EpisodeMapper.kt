@@ -8,7 +8,7 @@ import com.example.cinemates.domain.model.Episode
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class EpisodeMapper : Mapper<EpisodeDTO, Episode> {
+/*class EpisodeMapper : Mapper<EpisodeDTO, Episode> {
     override fun map(input: EpisodeDTO): Episode {
         return Episode(
             airDate = input.formattedAirDate,
@@ -22,4 +22,17 @@ class EpisodeMapper : Mapper<EpisodeDTO, Episode> {
         )
     }
 
+}*/
+
+fun EpisodeDTO.mapToEpisode():Episode{
+    return Episode(
+        airDate = this.formattedAirDate,
+        episodeNumber = this.episodeNumber,
+        id = this.id,
+        name = this.name,
+        overview = this.overview,
+        seasonNumber = this.seasonNumber,
+        stillPath = this.stillPath,
+        voteAverage = this.voteAverage
+    )
 }

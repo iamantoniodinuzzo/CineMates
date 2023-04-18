@@ -35,4 +35,8 @@ class Movie(
     posterPath,
     backdropPath,
     voteAverage
-)
+){
+    override fun toString(): String {
+        return "Movie(belongsToCollection=$belongsToCollection, genres=$genres, releaseDate='$releaseDate', runtime='$runtime', originalTitle='$originalTitle', originalLanguage='$originalLanguage', homepage='$homepage', overview=$overview, budget='$budget', popularity=$popularity, adult=$adult, revenue='$revenue', status='$status', tagline=$tagline, video=$video, productionCompanies=$productionCompanies, productionCountries=$productionCountries)"
+    }
+}

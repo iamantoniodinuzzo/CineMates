@@ -11,7 +11,7 @@ import javax.inject.Inject
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class EpisodeGroupDetailsMapper
+/*class EpisodeGroupDetailsMapper
 @Inject
 constructor(
     private val networkMapper: NetworkMapper,
@@ -32,4 +32,19 @@ constructor(
         )
     }
 
+}*/
+
+fun EpisodeGroupDetailsDTO.mapToEpisodeGroupDetails():EpisodeGroupDetails{
+    return EpisodeGroupDetails(
+        description = this.description,
+        episodeCount = this.episodeCount,
+        groupCount = this.groupCount,
+        id = this.id,
+        name = this.name,
+        network = this.network.mapToNetwork(),
+        type = this.type,
+        groups = this.groups.map {
+            it.mapToGroup()
+        }
+    )
 }

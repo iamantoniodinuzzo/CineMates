@@ -32,4 +32,9 @@ open class Media(
 
         return true
     }
+
+    override fun toString(): String {
+        return "Media(mediaType=$mediaType, id=$id, title='$title', posterPath=$posterPath, backdropPath=$backdropPath, voteAverage=$voteAverage)"
+    }
+
 }

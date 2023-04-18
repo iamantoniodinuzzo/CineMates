@@ -2,10 +2,7 @@ package com.example.cinemates.domain.mapper.movie
 
 import com.example.cinemates.data.remote.response.movie.MovieDTO
 import com.example.cinemates.data.remote.response.movie.MovieDetailsDTO
-import com.example.cinemates.domain.mapper.GenreMapper
-import com.example.cinemates.domain.mapper.Mapper
-import com.example.cinemates.domain.mapper.ProductionCompaniesMapper
-import com.example.cinemates.domain.mapper.ProductionCountryMapper
+import com.example.cinemates.domain.mapper.*
 import com.example.cinemates.domain.model.Movie
 import javax.inject.Inject
 
@@ -13,7 +10,7 @@ import javax.inject.Inject
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class MovieDetailsMapper
+/*class MovieDetailsMapper
 @Inject constructor(
     private val genreMapper: GenreMapper,
     private val productionCompaniesMapper: ProductionCompaniesMapper,
@@ -47,4 +44,31 @@ class MovieDetailsMapper
         )
     }
 
+}*/
+
+fun MovieDetailsDTO.mapToMovie():Movie{
+    return Movie(
+        belongsToCollection = this.belongsToCollection?.mapToCollection(),
+        genres = this.genres.map { it.mapToGenre() },
+        id = this.id,
+        posterPath = this.posterPath,
+        releaseDate = this.formattedReleaseDate,
+        runtime = this.formattedRuntime,
+        title = this.title,
+        voteAverage = this.voteAverage,
+        originalTitle = this.originalTitle,
+        originalLanguage = this.originalLanguage,
+        homepage = this.homepage,
+        backdropPath = this.backdropPath,
+        overview = this.overview,
+        budget = this.formattedBudget,
+        popularity = this.popularity,
+        adult = this.adult,
+        revenue = this.formattedRevenue,
+        status = this.status,
+        tagline = this.tagline,
+        video = this.video,
+        productionCompanies = this.productionCompanies.map { it.mapToProductionCompany() },
+        productionCountries = this.productionCountries.map { it.mapToProductionCountry() }
+    )
 }

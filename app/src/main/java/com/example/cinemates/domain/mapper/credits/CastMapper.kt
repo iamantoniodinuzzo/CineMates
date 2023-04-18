@@ -8,7 +8,7 @@ import com.example.cinemates.domain.model.Cast
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class CastMapper:Mapper<CastDTO, Cast> {
+/*class CastMapper:Mapper<CastDTO, Cast> {
     override fun map(input: CastDTO): Cast {
         return Cast(
             id = input.id,
@@ -18,4 +18,13 @@ class CastMapper:Mapper<CastDTO, Cast> {
         )
     }
 
+}*/
+
+fun CastDTO.mapToCast():Cast{
+    return Cast(
+        id = this.id,
+        name = this.name,
+        profilePath = this.profilePath.toString(),
+        character = this.character,
+    )
 }

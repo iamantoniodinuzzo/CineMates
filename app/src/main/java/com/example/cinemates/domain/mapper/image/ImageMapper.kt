@@ -8,7 +8,7 @@ import com.example.cinemates.domain.model.Image
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class ImageMapper : Mapper<ImageDTO, Image> {
+/*class ImageMapper : Mapper<ImageDTO, Image> {
     override fun map(input: ImageDTO): Image {
         return Image(
             filePath = input.filePath,
@@ -16,4 +16,11 @@ class ImageMapper : Mapper<ImageDTO, Image> {
         )
     }
 
+}*/
+
+fun ImageDTO.mapToImage():Image{
+    return Image(
+        filePath = this.filePath,
+        imageType = this.imageType
+    )
 }

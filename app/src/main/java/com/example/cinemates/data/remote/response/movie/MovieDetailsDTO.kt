@@ -76,21 +76,24 @@ class MovieDetailsDTO(
             return if (budget != 0) {
                 formatCurrency(budget.toLong())
             } else {
-                "Not specified"
+                ""
             }
         }
 
     val formattedRevenue: String
         get() {
-            return formatCurrency(revenue)
-
+            return if (revenue > 0) {
+                formatCurrency(revenue)
+            } else {
+                ""
+            }
         }
 
     val formattedRuntime: String
         get() {
             return runtime?.let {
                 formatTimeMeasurement(runtime)
-            } ?: "Not specified"
+            } ?: ""
 
         }
 }

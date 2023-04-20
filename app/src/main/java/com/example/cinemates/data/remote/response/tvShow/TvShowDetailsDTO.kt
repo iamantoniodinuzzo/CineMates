@@ -9,9 +9,9 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 
 class TvShowDetailsDTO(
-    backdropPath: String = "",
+    backdropPath: String?,
     @SerializedName("created_by")
-    val createdBy: List<CreatedByDTO> = listOf(),
+    val createdBy: List<CreatedByDTO>,
     @SerializedName("episode_run_time")
     private val episodeRunTime: List<Int>,
     firstAirDate: String ,
@@ -28,7 +28,7 @@ class TvShowDetailsDTO(
     name: String ,
     val networks: List<NetworkDTO>,
     @SerializedName("next_episode_to_air")
-    val nextEpisodeToAir: EpisodeDTO? = null,
+    val nextEpisodeToAir: EpisodeDTO?,
     @SerializedName("number_of_episodes")
     val numberOfEpisodes: Int,
     @SerializedName("number_of_seasons")

@@ -66,13 +66,13 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fra
 
             mediaPoster.root.setOnClickListener {
                 posters?.let {
-                    showAllImages(it.toTypedArray())
+                    displayImages(it.toTypedArray())
                 }
             }
 
             mediaBackdrop.setOnClickListener {
                 backdrops?.let {
-                    showAllImages(it.toTypedArray())
+                    displayImages(it.toTypedArray())
                 }
             }
 
@@ -82,7 +82,7 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fra
         }
     }
 
-    private fun showAllImages(image: Array<Image>) {
+    private fun displayImages(image: Array<Image>) {
         val action = NavGraphDirections.actionGlobalMediaImagesFragment(image)
         Navigation.findNavController(requireView()).navigate(action)
     }

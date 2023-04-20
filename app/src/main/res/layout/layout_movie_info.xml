@@ -17,16 +17,18 @@
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/originalTitle"
             android:layout_width="match_parent"
-            android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Original title"
             app:value="@{movie.originalTitle}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/status"
             android:layout_width="match_parent"
-            android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Status"
             app:value="@{movie.status}" />
 
@@ -34,16 +36,17 @@
             android:id="@+id/runtime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="Runtime"
             android:layout_marginBottom="10dp"
             app:hideIfValueEmpty="true"
+            app:title="Runtime"
             app:value="@{movie.runtime}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/originalLanguage"
             android:layout_width="match_parent"
-            android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Original language"
             app:value="@{movie.originalLanguage}" />
 
@@ -52,16 +55,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            app:title="Budget"
             app:hideIfValueEmpty="true"
+            app:title="Budget"
             app:value="@{movie.budget}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/revenue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="Revenue"
             app:hideIfValueEmpty="true"
+            app:title="Revenue"
             app:value="@{movie.revenue}" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

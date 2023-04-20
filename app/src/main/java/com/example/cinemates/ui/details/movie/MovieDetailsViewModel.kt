@@ -42,12 +42,6 @@ constructor(
         }
     }
 
-    /*  val images =
-          selectedMovie.flatMapLatest { movie ->
-              movie?.let {
-                  getMovieDetailsUseCase.get(movie.id)
-              } ?: emptyFlow()
-          }*/
 
     val collection =
         selectedMovie.flatMapLatest { movie ->

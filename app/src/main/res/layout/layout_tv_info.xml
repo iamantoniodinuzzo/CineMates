@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Original title"
             app:value="@{tv.originalName}" />
 
@@ -27,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Status"
             app:value="@{tv.status}" />
 
@@ -35,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Tagline"
             app:value="@{tv.tagline}" />
 
@@ -44,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Original language"
             app:value="@{tv.originalLanguage}" />
 
@@ -52,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="First air date"
             app:value="@{tv.firstAirDate}" />
 
@@ -60,6 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Last air date"
             app:value="@{tv.lastAirDate}" />
 
@@ -68,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Episodes"
             app:value="@{String.valueOf(tv.numberOfEpisodes)}" />
 
@@ -76,6 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Seasons"
             app:value="@{String.valueOf(tv.numberOfSeasons)}" />
 

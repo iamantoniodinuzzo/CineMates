@@ -1,24 +1,24 @@
 package com.example.cinemates.data.remote.response.credits
 
+import com.google.gson.annotations.SerializedName
 
-import kotlinx.serialization.SerialName
 
 class CastDTO(
-    adult: Boolean = false,
-    @SerialName("cast_id")
-    val castId: Int = 0,
-    val character: String = "",
-    @SerialName("credit_id")
-    val creditId: String = "",
-    gender: Int = 0,
-    id: Int = 0,
-    knownForDepartment: String = "",
-    name: String = "",
-    val order: Int = 0,
-    @SerialName("original_name")
-    val originalName: String = "",
-    popularity: Double = 0.0,
-    profilePath: String? = null
+    adult: Boolean ,
+    @SerializedName("cast_id")
+    val castId: Int,
+    val character: String,
+    @SerializedName("credit_id")
+    val creditId: String,
+    gender: Int?,
+    id: Int,
+    knownForDepartment: String,
+    name: String,
+    val order: Int,
+    @SerializedName("original_name")
+    val originalName: String,
+    popularity: Double,
+    profilePath: String?
 ) : PersonDTO(
     adult,
     id,

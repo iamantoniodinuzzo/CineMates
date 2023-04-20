@@ -14,5 +14,6 @@ data class VideoDTO(
     val site: String,
     @SerializedName("published_at")
     val publishedAt: String,
+    @SerializedName("is_official")
     val isOfficial: Boolean
 )

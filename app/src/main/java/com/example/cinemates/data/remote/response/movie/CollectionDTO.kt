@@ -8,7 +8,7 @@ data class CollectionDTO(
     val id: Int,
     val name: String,
     val overview: String,
-    val parts: List<MovieDTO>,
+    val parts: List<MovieDTO>?,
     @SerializedName("poster_path")
-    val posterPath: String
+    val posterPath: String?
 )

@@ -1,7 +1,7 @@
 package com.example.cinemates.data.remote.response.credits
 
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
@@ -13,24 +13,24 @@ import java.util.*
  */
 open class PersonDTO(
     val adult: Boolean = false,
-    @SerialName("also_known_as")
+    @SerializedName("also_known_as")
     val alsoKnownAs: List<String> = listOf(),
     val biography: String = "",
     private val birthday: String = "",
-    @SerialName("deathday")
+    @SerializedName("deathday")
     private val deathDay: String? = "",
-    private val gender: Int = 0,
+    private val gender: Int?,
     val homepage: String? = "",
     val id: Int = 0,
-    @SerialName("imdb_id")
+    @SerializedName("imdb_id")
     val imdbId: String = "",
-    @SerialName("known_for_department")
+    @SerializedName("known_for_department")
     val knownForDepartment: String = "",
     val name: String = "",
-    @SerialName("place_of_birth")
+    @SerializedName("place_of_birth")
     val placeOfBirth: String = "",
     val popularity: Double = 0.0,
-    @SerialName("profile_path")
+    @SerializedName("profile_path")
     val profilePath: String? = ""
 ) {
     constructor(
@@ -40,7 +40,7 @@ open class PersonDTO(
         name: String,
         popularity: Double,
         profilePath: String?,
-        gender: Int
+        gender: Int?
     ) : this(
         adult,
         listOf(),
@@ -65,7 +65,7 @@ open class PersonDTO(
         return outputFormat.format(formattedDate)
     }
 
-    fun calculateAge(dateOfBirth: String, currentDate: String): String {
+    private fun calculateAge(dateOfBirth: String, currentDate: String): String {
         val birthDate = LocalDate.parse(dateOfBirth)
         val today = LocalDate.parse(currentDate)
         val age = Period.between(birthDate, today).years
@@ -74,10 +74,16 @@ open class PersonDTO(
 
     val formattedGender: String
         get() {
-            return if (gender == 1) {
-                "Female"
-            } else {
-                "Male"
+            return when (gender) {
+                1 -> {
+                    "Female"
+                }
+                2 -> {
+                    "Male"
+                }
+                else -> {
+                    "Other"
+                }
             }
         }
 

@@ -1,15 +1,15 @@
 package com.example.cinemates.data.remote.response.tvShow
 
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
 data class EpisodeGroupDTO(
     val description: String = "",
-    @SerialName("episode_count")
+    @SerializedName("episode_count")
     val episodeCount: Int = 0,
-    @SerialName("group_count")
+    @SerializedName("group_count")
     val groupCount: Int = 0,
     val id: String = "",
     val name: String = "",

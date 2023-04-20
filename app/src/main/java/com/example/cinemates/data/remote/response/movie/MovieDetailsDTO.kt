@@ -5,41 +5,45 @@ import com.example.cinemates.data.remote.response.common.GenreDTO
 import com.example.cinemates.data.remote.response.common.ProductionCompanyDTO
 import com.example.cinemates.data.remote.response.common.ProductionCountryDTO
 import com.example.cinemates.data.remote.response.common.SpokenLanguageDTO
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import java.text.NumberFormat
 import java.util.*
 
+enum class Status {
+    Rumored, Planned, InProduction, PostProduction, Released, Canceled
+}
+
 class MovieDetailsDTO(
-    adult: Boolean = false,
-    backdropPath: String = "",
-    @SerialName("belongs_to_collection")
-    val belongsToCollection: CollectionDTO? = null,
-    private val budget: Int = 0,
-    genres: List<GenreDTO> = listOf(),
-    val homepage: String = "",
+    adult: Boolean,
+    backdropPath: String,
+    @SerializedName("belongs_to_collection")
+    val belongsToCollection: CollectionDTO?,
+    private val budget: Int,
+    genres: List<GenreDTO>,
+    val homepage: String?,
     id: Int = 0,
-    @SerialName("imdb_id")
-    val imdbId: String = "",
-    originalLanguage: String = "",
-    originalTitle: String = "",
-    overview: String = "",
-    popularity: Double = 0.0,
-    posterPath: String? = "",
-    @SerialName("production_companies")
-    val productionCompanies: List<ProductionCompanyDTO> = listOf(),
-    @SerialName("production_countries")
-    val productionCountries: List<ProductionCountryDTO> = listOf(),
-    releaseDate: String = "",
-    private val revenue: Long = 0,
-    private val runtime: Int = 0,
-    @SerialName("spoken_languages")
-    val spokenLanguages: List<SpokenLanguageDTO> = listOf(),
-    val status: String = "",
-    val tagline: String = "",
-    title: String = "",
-    video: Boolean = false,
-    voteAverage: Double = 0.0,
-    voteCount: Int = 0
+    @SerializedName("imdb_id")
+    val imdbId: String?,
+    originalLanguage: String,
+    originalTitle: String,
+    overview: String,
+    popularity: Double,
+    posterPath: String?,
+    @SerializedName("production_companies")
+    val productionCompanies: List<ProductionCompanyDTO>?,
+    @SerializedName("production_countries")
+    val productionCountries: List<ProductionCountryDTO>?,
+    releaseDate: String,
+    private val revenue: Long,
+    private val runtime: Int?,
+    @SerializedName("spoken_languages")
+    val spokenLanguages: List<SpokenLanguageDTO>?,
+    val status: String,
+    val tagline: String?,
+    title: String,
+    video: Boolean,
+    voteAverage: Double,
+    voteCount: Int
 ) : MovieDTO(
     adult,
     backdropPath,
@@ -84,10 +88,9 @@ class MovieDetailsDTO(
 
     val formattedRuntime: String
         get() {
-            return if (runtime != 0) {
+            return runtime?.let {
                 formatTimeMeasurement(runtime)
-            } else {
-                "Not specified"
-            }
+            } ?: "Not specified"
+
         }
 }

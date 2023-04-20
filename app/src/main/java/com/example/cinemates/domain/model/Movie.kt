@@ -11,7 +11,7 @@ class Movie(
     id: Int,
     posterPath: String?,
     val releaseDate: String,
-    val runtime: String,
+    val runtime: String?,
     title: String,
     voteAverage: Double,
     val originalTitle: String,
@@ -26,8 +26,8 @@ class Movie(
     val status: String,
     val tagline: String?,
     val video: Boolean,
-    val productionCompanies: List<ProductionCompany>,
-    val productionCountries: List<ProductionCountry>
+    val productionCompanies: List<ProductionCompany>?,
+    val productionCountries: List<ProductionCountry>?
 ) : Media(
     MediaType.MOVIE,
     id,

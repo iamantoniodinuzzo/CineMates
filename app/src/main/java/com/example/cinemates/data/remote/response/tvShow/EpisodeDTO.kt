@@ -12,7 +12,8 @@ data class EpisodeDTO(
     val id: Int,
     val name: String,
     val overview: String,
-    val production_code: String,
+    @SerializedName("production_code")
+    val productionCode: String,
     @SerializedName("season_number")
     val seasonNumber: Int,
     @SerializedName("still_path")

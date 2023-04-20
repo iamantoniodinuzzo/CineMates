@@ -1,7 +1,6 @@
 package com.example.cinemates.ui.details.movie
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -23,13 +22,13 @@ import kotlinx.coroutines.launch
 
 private val TAG = MovieAboutFragment::class.simpleName
 
-class MovieAboutFragment: BaseFragment<FragmentMovieAboutBinding>() {
+class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieAboutBinding
         get() = FragmentMovieAboutBinding::inflate
 
     private lateinit var videoAdapter: VideoAdapter
-    private lateinit var mMediaAdapter: MediaAdapter
+    private lateinit var mediaAdapter: MediaAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
     private var posters: Array<Image> = emptyArray()
     private var backdrop: Array<Image> = emptyArray()
@@ -37,9 +36,8 @@ class MovieAboutFragment: BaseFragment<FragmentMovieAboutBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         videoAdapter = VideoAdapter()
-        mMediaAdapter = MediaAdapter()
+        mediaAdapter = MediaAdapter()
     }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,7 +45,7 @@ class MovieAboutFragment: BaseFragment<FragmentMovieAboutBinding>() {
 
         binding.apply {
             trailers.adapter = videoAdapter
-            collectionContent.collectionParts.adapter = mMediaAdapter
+            collectionContent.collectionParts.adapter = mediaAdapter
 
 
             val chipGroupGenres: HorizontalChipView<Genre> =
@@ -99,13 +97,11 @@ class MovieAboutFragment: BaseFragment<FragmentMovieAboutBinding>() {
 
                 launch {
                     viewModel.collection.collect { collection ->
-                        if (collection.parts.isNotEmpty()) {
-                            Log.d(
-                                TAG,
-                                "onViewCreated: add collection size ${collection.parts.size}"
-                            )
-                            mMediaAdapter.updateItems(collection.parts)
-                        }
+                        collection?.let {
+                            mediaAdapter.updateItems(it.parts)
+                        } 
+
+
 
                     }
                 }

@@ -4,9 +4,9 @@ package com.example.cinemates.data.remote.response.tvShow
 import kotlinx.serialization.Serializable
 
 data class GroupDTO(
-    val episodes: List<EpisodeDTO> = listOf(),
-    val id: String = "",
-    val locked: Boolean = false,
-    val name: String = "",
-    val order: Int = 0
+    val episodes: List<EpisodeDTO> ,
+    val id: String ,
+    val locked: Boolean ,
+    val name: String ,
+    val order: Int
 )

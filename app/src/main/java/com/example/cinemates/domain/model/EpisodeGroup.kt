@@ -1,5 +1,7 @@
 package com.example.cinemates.domain.model
 
+import com.example.cinemates.data.remote.response.tvShow.Type
+
 
 data class EpisodeGroup(
     val description: String,
@@ -8,5 +10,5 @@ data class EpisodeGroup(
     val id: String,
     val name: String,
     val network: Network,
-    val type: Int = 0
+    val type: Type
 )

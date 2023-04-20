@@ -8,21 +8,6 @@ import com.example.cinemates.domain.model.Season
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-/*class SeasonMapper : Mapper<SeasonDTO, Season> {
-    override fun map(input: SeasonDTO): Season {
-        return Season(
-            airDate = input.airDate,
-            episodeCount = input.episodeCount,
-            id = input.id,
-            name = input.name,
-            overview = input.overview,
-            posterPath = input.posterPath,
-            seasonNumber = input.seasonNumber
-        )
-    }
-
-}*/
-
 fun SeasonDTO.mapToSeason():Season{
     return Season(
         airDate = this.airDate,

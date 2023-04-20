@@ -13,44 +13,44 @@ class TvShowDetailsDTO(
     @SerializedName("created_by")
     val createdBy: List<CreatedByDTO> = listOf(),
     @SerializedName("episode_run_time")
-    private val episodeRunTime: List<Int> = listOf(),
-    firstAirDate: String = "",
-    genres: List<GenreDTO> = listOf(),
-    val homepage: String = "",
-    id: Int = 0,
+    private val episodeRunTime: List<Int>,
+    firstAirDate: String ,
+    genres: List<GenreDTO> ,
+    val homepage: String ,
+    id: Int ,
     @SerializedName("in_production")
-    val inProduction: Boolean = false,
-    val languages: List<String> = listOf(),
+    val inProduction: Boolean ,
+    val languages: List<String> ,
     @SerializedName("last_air_date")
-    val lastAirDate: String = "",
+    val lastAirDate: String ,
     @SerializedName("last_episode_to_air")
-    val lastEpisodeToAir: EpisodeDTO? = null,
-    name: String = "",
-    val networks: List<NetworkDTO> = listOf(),
+    val lastEpisodeToAir: EpisodeDTO? ,
+    name: String ,
+    val networks: List<NetworkDTO>,
     @SerializedName("next_episode_to_air")
     val nextEpisodeToAir: EpisodeDTO? = null,
     @SerializedName("number_of_episodes")
-    val numberOfEpisodes: Int = 0,
+    val numberOfEpisodes: Int,
     @SerializedName("number_of_seasons")
-    val numberOfSeasons: Int = 0,
-    originCountry: List<String> = listOf(),
-    originalLanguage: String = "",
-    originalName: String = "",
-    overview: String = "",
-    popularity: Double = 0.0,
-    posterPath: String = "",
+    val numberOfSeasons: Int,
+    originCountry: List<String>,
+    originalLanguage: String ,
+    originalName: String,
+    overview: String,
+    popularity: Double,
+    posterPath: String?,
     @SerializedName("production_companies")
-    val productionCompanies: List<ProductionCompanyDTO> = listOf(),
+    val productionCompanies: List<ProductionCompanyDTO>,
     @SerializedName("production_countries")
-    val productionCountries: List<ProductionCountryDTO> = listOf(),
-    val seasons: List<SeasonDTO> = listOf(),
+    val productionCountries: List<ProductionCountryDTO>,
+    val seasons: List<SeasonDTO> ,
     @SerializedName("spoken_languages")
-    val spokenLanguages: List<SpokenLanguageDTO> = listOf(),
-    val status: String = "",
-    val tagline: String = "",
-    val type: String = "",
-    voteAverage: Double = 0.0,
-    voteCount: Int = 0
+    val spokenLanguages: List<SpokenLanguageDTO>,
+    val status: String,
+    val tagline: String,
+    val type: String,
+    voteAverage: Double,
+    voteCount: Int
 ) : TvShowDTO(
     backdropPath,
     firstAirDate,

@@ -13,27 +13,27 @@ import java.util.*
  */
 open class TvShowDTO(
     @SerializedName("backdrop_path")
-    val backdropPath: String = "",
+    val backdropPath: String?,
     @SerializedName("first_air_date")
-    private val firstAirDate: String = "",
+    private val firstAirDate: String,
     @SerialName("genre_ids")
-    val genres: List<GenreDTO> = listOf(),
-    val id: Int = 0,
-    val name: String = "",
+    val genres: List<GenreDTO> ,
+    val id: Int,
+    val name: String,
     @SerializedName("origin_country")
-    val originCountry: List<String> = listOf(),
+    val originCountry: List<String>,
     @SerializedName("original_language")
-    val originalLanguage: String = "",
+    val originalLanguage: String,
     @SerializedName("original_name")
-    val originalName: String = "",
-    val overview: String = "",
-    val popularity: Double = 0.0,
+    val originalName: String,
+    val overview: String,
+    val popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: String = "",
+    val posterPath: String?,
     @SerializedName("vote_average")
-    val voteAverage: Double = 0.0,
+    val voteAverage: Double,
     @SerializedName("vote_count")
-    val voteCount: Int = 0
+    val voteCount: Int
 ) {
     private fun formatDate(date: String): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())

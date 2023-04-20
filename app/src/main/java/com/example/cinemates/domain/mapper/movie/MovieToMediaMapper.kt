@@ -14,8 +14,8 @@ fun MovieDTO.mapToMedia():Media{
         mediaType = MediaType.MOVIE,
         id = this.id,
         title= this.title,
-        posterPath =  this.posterPath,
-        backdropPath = this.backdropPath,
+        posterPath =  this.posterPath?:"",
+        backdropPath = this.backdropPath?:"",
         voteAverage = this.voteAverage
     )
 }

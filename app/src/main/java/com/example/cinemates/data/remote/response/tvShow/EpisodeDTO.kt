@@ -13,11 +13,11 @@ data class EpisodeDTO(
     val name: String,
     val overview: String,
     @SerializedName("production_code")
-    val productionCode: String,
+    val productionCode: String?,
     @SerializedName("season_number")
     val seasonNumber: Int,
     @SerializedName("still_path")
-    val stillPath: String,
+    val stillPath: String?,
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")

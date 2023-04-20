@@ -58,4 +58,9 @@ class TvDetailsContainerFragment : MediaDetailsContainerFragment(
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.onFragmentDestroyed()
+    }
+
 }

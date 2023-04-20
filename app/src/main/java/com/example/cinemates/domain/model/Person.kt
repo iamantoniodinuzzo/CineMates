@@ -12,6 +12,6 @@ import java.io.Serializable
 open class Person(
     val id: Int ,
     val name: String,
-    val profilePath: String?
+    val profilePath: String
 ): Serializable
 

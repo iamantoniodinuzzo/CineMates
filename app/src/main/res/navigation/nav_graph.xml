@@ -90,9 +90,11 @@
     </fragment>
     <action
         android:id="@+id/action_global_movieDetailsFragment"
+        app:popUpToInclusive="true"
         app:destination="@id/movieDetailsFragment" />
     <action
         android:id="@+id/action_global_tvDetailsFragment"
+        app:popUpToInclusive="true"
         app:destination="@id/tvDetailsFragment" />
     <dialog
         android:id="@+id/mediaImagesFragment"

@@ -2,7 +2,7 @@ package com.example.cinemates.domain.model
 
 
 data class Episode(
-    val airDate: String?,
+    val airDate: String,
     val episodeNumber: Int,
     val id: Int,
     val name: String,

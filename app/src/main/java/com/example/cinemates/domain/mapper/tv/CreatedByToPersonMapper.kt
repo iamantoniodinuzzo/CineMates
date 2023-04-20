@@ -8,23 +8,11 @@ import com.example.cinemates.domain.model.Crew
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-/*class CreatedByToPersonMapper : Mapper<CreatedByDTO, Crew> {
-    override fun map(input: CreatedByDTO): Crew {
-        return Crew(
-            id = input.id,
-            name = input.name,
-            profilePath = input.profilePath,
-            job = ""
-        )
-    }
-
-}*/
-
 fun CreatedByDTO.toCrew(): Crew {
     return Crew(
         id = this.id,
         name = this.name,
-        profilePath = this.profilePath,
+        profilePath = this.profilePath?:"",
         job = ""
     )
 }

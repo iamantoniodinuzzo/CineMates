@@ -4,7 +4,7 @@ import com.example.cinemates.util.MediaType
 
 
 class TvShow(
-     backdropPath: String?,
+    backdropPath: String,
     val createdBy: List<CreatedBy>,
     val episodeRunTime: List<String>,
     val firstAirDate: String,
@@ -25,14 +25,14 @@ class TvShow(
     val originalName: String,
     val overview: String,
     val popularity: Double,
-     posterPath: String?,
+    posterPath: String,
     val productionCompanies: List<ProductionCompany>,
     val productionCountries: List<ProductionCountry>,
     val seasons: List<Season>,
     val status: String,
     val tagline: String,
     val type: String,
-     voteAverage: Double,
+    voteAverage: Double,
 ) : Media(
     MediaType.TV,
     id,

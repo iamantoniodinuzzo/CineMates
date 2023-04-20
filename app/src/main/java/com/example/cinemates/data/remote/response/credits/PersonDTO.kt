@@ -12,26 +12,26 @@ import java.util.*
  * @author Antonio Di Nuzzo (Indisparte)
  */
 open class PersonDTO(
-    val adult: Boolean = false,
+    val adult: Boolean,
     @SerializedName("also_known_as")
-    val alsoKnownAs: List<String> = listOf(),
+    val alsoKnownAs: List<String>,
     val biography: String = "",
-    private val birthday: String = "",
+    private val birthday: String?,
     @SerializedName("deathday")
-    private val deathDay: String? = "",
+    private val deathDay: String?,
     private val gender: Int?,
-    val homepage: String? = "",
-    val id: Int = 0,
+    val homepage: String?,
+    val id: Int,
     @SerializedName("imdb_id")
-    val imdbId: String = "",
+    val imdbId: String,
     @SerializedName("known_for_department")
-    val knownForDepartment: String = "",
-    val name: String = "",
+    val knownForDepartment: String,
+    val name: String,
     @SerializedName("place_of_birth")
-    val placeOfBirth: String = "",
-    val popularity: Double = 0.0,
+    val placeOfBirth: String?,
+    val popularity: Double,
     @SerializedName("profile_path")
-    val profilePath: String? = ""
+    val profilePath: String?
 ) {
     constructor(
         adult: Boolean,
@@ -55,6 +55,27 @@ open class PersonDTO(
         name,
         "",
         popularity,
+        profilePath
+    )
+
+    constructor(
+        id: Int,
+        name: String,
+        profilePath: String?
+    ) : this(
+        false,
+        listOf(),
+        "",
+        "",
+        "",
+        3,
+        "",
+        id,
+        "",
+        "",
+        name,
+        "",
+        0.0,
         profilePath
     )
 
@@ -89,7 +110,9 @@ open class PersonDTO(
 
     val formattedBirthday: String
         get() {
-            return formatDate(birthday)
+            return birthday?.let {
+                formatDate(it)
+            } ?: ""
         }
 
     val formattedDeathDay: String
@@ -101,11 +124,14 @@ open class PersonDTO(
 
     val age: String
         get() {
-            return if (deathDay == null || deathDay.isEmpty()) {
+            return if (birthday != null && deathDay != null) {
+                calculateAge(birthday, deathDay)
+            } else if (deathDay == null && birthday != null) {
                 calculateAge(birthday, LocalDate.now().toString())
             } else {
-                calculateAge(birthday, deathDay)
+                ""
             }
+
         }
 }
 

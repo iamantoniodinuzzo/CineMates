@@ -101,8 +101,9 @@ dependencies {
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
-    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:$rx_java_retrofit_adapter"
     implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor"
+    implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.3"
+
 
     // Lifecycle Kotlin Extensions
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_ktx"
@@ -114,7 +115,6 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room"
     implementation "androidx.room:room-ktx:$room"
     kapt "androidx.room:room-compiler:$room"
-    implementation "androidx.room:room-rxjava3:$room"
 
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide"

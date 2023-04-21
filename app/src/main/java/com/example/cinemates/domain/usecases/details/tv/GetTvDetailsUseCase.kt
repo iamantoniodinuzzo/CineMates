@@ -25,6 +25,7 @@ constructor(
 ) {
     fun getTvDetails(tvId: Int): Flow<TvShow> {
         return tvShowRepository.getDetails(tvId).map { it.mapToTvShow() }
+
     }
 
     fun getTvCast(tvId: Int): Flow<List<Cast>> {
@@ -74,7 +75,6 @@ constructor(
             it.mapToEpisodeGroupDetails()
         }
     }
-
 
 
 }

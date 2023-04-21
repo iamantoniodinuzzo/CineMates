@@ -4,6 +4,8 @@ package com.example.cinemates.ui.adapter
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
+import android.util.Log
+import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.Navigation
 import com.example.cinemates.NavGraphDirections
@@ -23,25 +25,27 @@ class MediaAdapter :
 
     override fun onBindLongItem(binding: ListItemMediaLongBinding, item: Media) {
         binding.media = item
-        navigateToDetails(binding, item)
+        binding.root.setOnClickListener{
+            navigateToDetails(it, item)
+        }
     }
 
     override fun onBindSmallItem(binding: ListItemMediaSmallBinding, item: Media) {
         binding.media = item
-        navigateToDetails(binding, item)
+        binding.root.setOnClickListener {
+            navigateToDetails(it,item)
+        }
     }
 
-    private fun navigateToDetails(binding: ViewDataBinding, item: Media) {
-        binding.root.setOnClickListener { view ->
-            val action = when (item.mediaType) {
-                MediaType.MOVIE -> NavGraphDirections.actionGlobalMovieDetailsFragment(item)
-                MediaType.TV -> NavGraphDirections.actionGlobalTvDetailsFragment(item)
-                else -> {
-                    throw UnsupportedOperationException()
-                }
+    private fun navigateToDetails(view: View, item: Media) {
+        val action = when (item.mediaType) {
+            MediaType.MOVIE -> NavGraphDirections.actionGlobalMovieDetailsFragment(item)
+            MediaType.TV -> NavGraphDirections.actionGlobalTvDetailsFragment(item)
+            else -> {
+                throw UnsupportedOperationException()
             }
-            Navigation.findNavController(view).navigate(action)
         }
+        Navigation.findNavController(view).navigate(action)
 
     }
 }

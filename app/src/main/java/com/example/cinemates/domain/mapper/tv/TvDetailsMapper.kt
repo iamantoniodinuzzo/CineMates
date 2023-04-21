@@ -14,7 +14,7 @@ fun TvShowDetailsDTO.mapToTvShow():TvShow{
         createdBy = this.createdBy.map { it.mapToCreatedBy()},
         episodeRunTime = this.formattedEpisodesRuntime,
         firstAirDate = this.formattedFirstAirDate,
-        genres = this.genreIds.map { it.mapToGenre() },
+        genres = this.genres.map { it.mapToGenre() },
         homepage = this.homepage,
         id = this.id,
         inProduction = this.inProduction,

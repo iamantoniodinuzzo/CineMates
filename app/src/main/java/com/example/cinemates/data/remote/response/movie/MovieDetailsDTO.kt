@@ -9,10 +9,6 @@ import com.google.gson.annotations.SerializedName
 import java.text.NumberFormat
 import java.util.*
 
-enum class Status {
-    Rumored, Planned, InProduction, PostProduction, Released, Canceled
-}
-
 class MovieDetailsDTO(
     adult: Boolean,
     backdropPath: String,

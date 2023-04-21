@@ -1,6 +1,7 @@
 package com.example.cinemates.ui.details.actor
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +16,10 @@ import com.example.cinemates.domain.model.Person
 import com.example.cinemates.ui.adapter.ViewPagerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
+@AndroidEntryPoint
 class ActorDetailsFragment : BaseFragment<FragmentActorDetailsBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentActorDetailsBinding
@@ -35,36 +38,11 @@ class ActorDetailsFragment : BaseFragment<FragmentActorDetailsBinding>() {
         actorMoviesFragment = ActorMoviesFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-
-        initializeViewPager()
-        return binding.root
-    }
-
-    private fun initializeViewPager() {
-        viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
-        viewPagerAdapter.addFragment(actorAboutFragment)
-        viewPagerAdapter.addFragment(actorMoviesFragment)
-        binding.apply {
-            viewPager.adapter = viewPagerAdapter
-            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                //TODO update name of tab with StringRes
-                when (position) {
-                    0 -> tab.text = "About"
-                    1 -> tab.text = "Movies"
-                }
-            }.attach()
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
+        initializeViewPager()
+
         viewModel.onDetailsFragmentReady(args.person.id)
 
         binding.apply {
@@ -87,6 +65,22 @@ class ActorDetailsFragment : BaseFragment<FragmentActorDetailsBinding>() {
             }
         }
 
+    }
+
+    private fun initializeViewPager() {
+        viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
+        viewPagerAdapter.addFragment(actorAboutFragment)
+        viewPagerAdapter.addFragment(actorMoviesFragment)
+        binding.apply {
+            viewPager.adapter = viewPagerAdapter
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                //TODO update name of tab with StringRes
+                when (position) {
+                    0 -> tab.text = "About"
+                    1 -> tab.text = "Movies"
+                }
+            }.attach()
+        }
     }
 
     private fun updateThisPerson(fab: FloatingActionButton) {

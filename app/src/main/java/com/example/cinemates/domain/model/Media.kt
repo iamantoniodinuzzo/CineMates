@@ -1,8 +1,6 @@
 package com.example.cinemates.domain.model
 
-import android.os.Parcelable
 import com.example.cinemates.util.MediaType
-import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 /**
@@ -15,7 +13,7 @@ open class Media(
     val title: String,
     val posterPath: String,
     val backdropPath: String,
-    val voteAverage:Double,
+    val voteAverage: Double,
 ) : Serializable {
 
     override fun hashCode(): Int {
@@ -34,7 +32,7 @@ open class Media(
     }
 
     override fun toString(): String {
-        return "Media(mediaType=$mediaType, id=$id, title='$title', posterPath=$posterPath, backdropPath=$backdropPath, voteAverage=$voteAverage)"
+        return "Media(mediaType=${mediaType.value}, id=$id, title=$title, posterPath=$posterPath, backdropPath=$backdropPath, voteAverage=$voteAverage)"
     }
 
 }

@@ -15,7 +15,7 @@ open class PersonDTO(
     val adult: Boolean,
     @SerializedName("also_known_as")
     val alsoKnownAs: List<String>,
-    val biography: String = "",
+    val biography: String,
     private val birthday: String?,
     @SerializedName("deathday")
     private val deathDay: String?,

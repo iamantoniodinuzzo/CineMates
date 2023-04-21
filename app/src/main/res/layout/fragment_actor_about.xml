@@ -19,13 +19,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:padding="10dp">
 
             <com.indisparte.linearlayoutinfo.LinearInfoView
                 android:id="@+id/biography"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/birthPlace"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 app:hideIfValueEmpty="true"
@@ -36,6 +35,7 @@
                 android:id="@+id/age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/biography"
                 android:layout_marginBottom="10dp"
                 app:hideIfValueEmpty="true"
                 app:title="Age"
@@ -75,7 +75,7 @@
                 android:id="@+id/knownAsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/biography"
+                android:layout_below="@id/birthPlace"
                 android:layout_marginTop="10dp"
                 android:text="Also known as"
                 android:textColor="@color/geyser"
@@ -113,6 +113,7 @@
                     android:id="@+id/images"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clipToPadding="false"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/list_item_poster" />

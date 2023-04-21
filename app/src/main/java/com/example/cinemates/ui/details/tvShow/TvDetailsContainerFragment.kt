@@ -38,7 +38,7 @@ class TvDetailsContainerFragment : MediaDetailsContainerFragment(
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             launch {
                 viewModel.selectedTv.collectLatest { selectedTv ->
-                    Log.d(TAG, "onViewCreated: ${selectedTv.toString()}")
+                    Log.d(TAG, "Tv Details: ${selectedTv.toString()}")
                     binding.media = selectedTv
                 }
             }

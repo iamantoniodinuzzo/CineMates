@@ -1,9 +1,9 @@
 package com.example.cinemates.data.remote.response.tvShow
 
-
 import com.example.cinemates.data.remote.response.common.GenreDTO
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -13,11 +13,11 @@ import java.util.*
  */
 open class TvShowDTO(
     @SerializedName("backdrop_path")
-    val backdropPath: String?,
+    val backdropPath: String,
     @SerializedName("first_air_date")
     private val firstAirDate: String,
     @SerialName("genre_ids")
-    val genres: List<GenreDTO> ,
+    val genreIds: List<GenreDTO>,
     val id: Int,
     val name: String,
     @SerializedName("origin_country")
@@ -29,7 +29,7 @@ open class TvShowDTO(
     val overview: String,
     val popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: String?,
+    val posterPath: String,
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")

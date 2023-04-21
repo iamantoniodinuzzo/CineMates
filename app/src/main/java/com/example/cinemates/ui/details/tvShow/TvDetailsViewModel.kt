@@ -1,5 +1,6 @@
 package com.example.cinemates.ui.details.tvShow
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.cinemates.domain.model.EpisodeGroupDetails
 import com.example.cinemates.domain.model.TvShow

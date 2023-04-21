@@ -98,10 +98,6 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$dagger_hilt"
     kapt "com.google.dagger:hilt-compiler:$dagger_hilt"
 
-    //RxJava
-    implementation "io.reactivex.rxjava3:rxandroid:$rx_java"
-    implementation "io.reactivex.rxjava3:rxjava:$rx_java"
-
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"

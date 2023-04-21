@@ -1,5 +1,6 @@
 package com.example.cinemates.data.remote.repository
 
+import android.util.Log
 import com.example.cinemates.data.remote.response.credits.CastDTO
 import com.example.cinemates.data.remote.response.credits.CrewDTO
 import com.example.cinemates.data.remote.response.image.ImageDTO
@@ -42,7 +43,9 @@ constructor(
     }
 
     override fun getDetails(id: Int): Flow<TvShowDetailsDTO> = flow {
-        emit(tvShowService.getDetails(id, queryMap))
+        val tvShowDetails =tvShowService.getDetails(id, queryMap)
+        Log.d("TvShowRepositoryImpl", "getDetails: $tvShowDetails")
+        emit(tvShowDetails)
     }
 
 

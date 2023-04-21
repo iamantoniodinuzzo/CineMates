@@ -1,50 +1,52 @@
 package com.example.cinemates.data.remote.response.tvShow
 
-
 import com.example.cinemates.data.remote.response.common.GenreDTO
 import com.example.cinemates.data.remote.response.common.ProductionCompanyDTO
 import com.example.cinemates.data.remote.response.common.ProductionCountryDTO
 import com.example.cinemates.data.remote.response.common.SpokenLanguageDTO
-import com.google.gson.annotations.SerializedName
+import com.example.cinemates.domain.model.*
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 class TvShowDetailsDTO(
-    backdropPath: String?,
-    @SerializedName("created_by")
+    backdropPath: String,
+    @SerialName("created_by")
     val createdBy: List<CreatedByDTO>,
-    @SerializedName("episode_run_time")
+    @SerialName("episode_run_time")
     private val episodeRunTime: List<Int>,
-    firstAirDate: String ,
-    genres: List<GenreDTO> ,
-    val homepage: String ,
-    id: Int ,
-    @SerializedName("in_production")
-    val inProduction: Boolean ,
-    val languages: List<String> ,
-    @SerializedName("last_air_date")
-    val lastAirDate: String ,
-    @SerializedName("last_episode_to_air")
-    val lastEpisodeToAir: EpisodeDTO? ,
-    name: String ,
+    @SerialName("first_air_date")
+    val firstAirDate: String,
+    genres: List<GenreDTO>,
+    val homepage: String,
+    id: Int,
+    @SerialName("in_production")
+    val inProduction: Boolean,
+    val languages: List<String>,
+    @SerialName("last_air_date")
+    val lastAirDate: String,
+    @SerialName("last_episode_to_air")
+    val lastEpisodeToAir: EpisodeDTO,
+    name: String,
     val networks: List<NetworkDTO>,
-    @SerializedName("next_episode_to_air")
+    @SerialName("next_episode_to_air")
     val nextEpisodeToAir: EpisodeDTO?,
-    @SerializedName("number_of_episodes")
+    @SerialName("number_of_episodes")
     val numberOfEpisodes: Int,
-    @SerializedName("number_of_seasons")
+    @SerialName("number_of_seasons")
     val numberOfSeasons: Int,
     originCountry: List<String>,
-    originalLanguage: String ,
+    originalLanguage: String,
     originalName: String,
     overview: String,
     popularity: Double,
-    posterPath: String?,
-    @SerializedName("production_companies")
+    posterPath: String,
+    @SerialName("production_companies")
     val productionCompanies: List<ProductionCompanyDTO>,
-    @SerializedName("production_countries")
+    @SerialName("production_countries")
     val productionCountries: List<ProductionCountryDTO>,
-    val seasons: List<SeasonDTO> ,
-    @SerializedName("spoken_languages")
+    val seasons: List<SeasonDTO>,
+    @SerialName("spoken_languages")
     val spokenLanguages: List<SpokenLanguageDTO>,
     val status: String,
     val tagline: String,

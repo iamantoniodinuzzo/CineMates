@@ -1,10 +1,8 @@
 package com.example.cinemates.domain.mapper.tv
 
-import com.example.cinemates.data.remote.response.tvShow.TvShowDTO
 import com.example.cinemates.data.remote.response.tvShow.TvShowDetailsDTO
 import com.example.cinemates.domain.mapper.*
 import com.example.cinemates.domain.model.TvShow
-import javax.inject.Inject
 
 
 /**
@@ -22,7 +20,7 @@ fun TvShowDetailsDTO.mapToTvShow():TvShow{
         inProduction = this.inProduction,
         languages = this.languages,
         lastAirDate = this.lastAirDate,
-        lastEpisodeToAir = this.lastEpisodeToAir?.mapToEpisode(),
+        lastEpisodeToAir = this.lastEpisodeToAir.mapToEpisode(),
         name = this.name,
         network = this.networks.map { it.mapToNetwork() },
         nextEpisodeToAir = this.nextEpisodeToAir?.mapToEpisode(),

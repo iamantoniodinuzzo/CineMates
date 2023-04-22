@@ -35,14 +35,14 @@ open class MovieDTO(
     @SerializedName("vote_count")
     val voteCount: Int
 ) {
-    private fun dateFormatter(date: String): String {
+    protected fun dateFormatter(date: String): String {
         return if (date.isNotEmpty()) {
             val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val outputFormat = SimpleDateFormat.getDateInstance()
             val formattedDate = inputFormat.parse(date)
             outputFormat.format(formattedDate)
         } else {
-            "Not specified"
+            ""
         }
     }
 

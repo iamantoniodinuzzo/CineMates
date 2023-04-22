@@ -44,7 +44,6 @@ constructor(
 
     override fun getDetails(id: Int): Flow<TvShowDetailsDTO> = flow {
         val tvShowDetails =tvShowService.getDetails(id, queryMap)
-        Log.d("TvShowRepositoryImpl", "getDetails: $tvShowDetails")
         emit(tvShowDetails)
     }
 

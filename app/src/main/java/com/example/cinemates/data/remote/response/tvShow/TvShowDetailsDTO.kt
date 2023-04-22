@@ -10,7 +10,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 class TvShowDetailsDTO(
-    backdropPath: String,
+    backdropPath: String?,
     @SerializedName("created_by")
     val createdBy: List<CreatedByDTO>,
     @SerializedName("episode_run_time")
@@ -40,7 +40,7 @@ class TvShowDetailsDTO(
     originalName: String,
     overview: String,
     popularity: Double,
-    posterPath: String,
+    posterPath: String?,
     @SerializedName("production_companies")
     val productionCompanies: List<ProductionCompanyDTO>,
     @SerializedName("production_countries")

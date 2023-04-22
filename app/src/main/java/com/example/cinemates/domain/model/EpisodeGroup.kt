@@ -11,4 +11,4 @@ data class EpisodeGroup(
     val name: String,
     val network: Network?,
     val type: Type
-)
+):java.io.Serializable

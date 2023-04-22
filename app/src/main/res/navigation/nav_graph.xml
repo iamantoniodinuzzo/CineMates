@@ -67,8 +67,8 @@
         android:label="EpisodeGroupDetailsFragment"
         tools:layout="@layout/fragment_episode_group_details">
         <argument
-            android:name="episodeGroupId"
-            app:argType="string" />
+            android:name="episode_group"
+            app:argType="com.example.cinemates.domain.model.EpisodeGroup" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailsFragment"
@@ -87,6 +87,9 @@
         <argument
             android:name="media"
             app:argType="com.example.cinemates.domain.model.Media" />
+        <action
+            android:id="@+id/action_tvDetailsFragment_to_episodeGroupDetailsFragment"
+            app:destination="@id/episodeGroupDetailsFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_movieDetailsFragment"

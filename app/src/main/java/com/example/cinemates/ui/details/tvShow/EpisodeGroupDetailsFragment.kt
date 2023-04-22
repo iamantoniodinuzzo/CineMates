@@ -6,9 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -18,6 +16,7 @@ import com.example.cinemates.domain.model.Group
 import com.example.cinemates.domain.model.section.Section
 import com.example.cinemates.domain.model.section.SectionEpisodesGroup
 import com.example.cinemates.ui.adapter.SectionAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 private val TAG = EpisodeGroupDetailsFragment::class.simpleName
@@ -25,6 +24,7 @@ private val TAG = EpisodeGroupDetailsFragment::class.simpleName
 /**
  *@author Antonio Di Nuzzo (Indisparte)
  */
+@AndroidEntryPoint
 class EpisodeGroupDetailsFragment : BaseFragment<FragmentEpisodeGroupDetailsBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentEpisodeGroupDetailsBinding
@@ -33,7 +33,7 @@ class EpisodeGroupDetailsFragment : BaseFragment<FragmentEpisodeGroupDetailsBind
     private val tvDetailsViewModel: TvDetailsViewModel by activityViewModels()
     private val args: EpisodeGroupDetailsFragmentArgs by navArgs()
     private lateinit var groupSectionAdapter: SectionAdapter
-    private lateinit var listOfGroups:MutableList<Section<*>>
+    private lateinit var listOfGroups: MutableList<Section<*>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,25 +41,19 @@ class EpisodeGroupDetailsFragment : BaseFragment<FragmentEpisodeGroupDetailsBind
         listOfGroups = mutableListOf()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.toolbar.setNavigationOnClickListener {
             Navigation.findNavController(it).navigateUp()
         }
         binding.recyclerView.adapter = groupSectionAdapter
 
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launchWhenStarted {
 
-            tvDetailsViewModel.getEpisodeGroupDetails(args.episodeGroupId)
+            tvDetailsViewModel.getEpisodeGroupDetails(args.episodeGroup.id)
             tvDetailsViewModel.episodeGroupDetail.collectLatest { episodeGroup ->
                 episodeGroup?.let {
                     // TODO: for each group of episode create a section with respective episodeDTOS

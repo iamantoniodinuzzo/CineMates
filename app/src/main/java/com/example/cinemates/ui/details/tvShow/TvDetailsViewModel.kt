@@ -44,7 +44,6 @@ constructor(
     private fun getTvDetails(id: Int) {
         viewModelScope.launch {
             getTvShowDetailsUseCase.getTvDetails(id).collectLatest { tv ->
-                Log.d(TAG, "getTvDetails: ${tv.title}")
                     _selectedTv.value = tv
                 }
         }

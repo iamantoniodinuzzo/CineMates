@@ -18,6 +18,7 @@ import com.example.cinemates.ui.adapter.EpisodeGroupAdapter
 import com.example.cinemates.ui.adapter.MediaAdapter
 import com.example.cinemates.ui.adapter.VideoAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView
+import kotlinx.android.synthetic.main.fragment_movie_about.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -44,7 +45,7 @@ class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            trailers.adapter = videoAdapter
+            tvTrailers.adapter = videoAdapter
             episodeGroups.adapter = episodeGroupAdapter
 
             val customChipsView: HorizontalChipView<Genre> =
@@ -57,7 +58,7 @@ class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
                 ).show()
             }
 
-            enableInnerScrollViewPager(trailers)
+            enableInnerScrollViewPager(tvTrailers)
             enableInnerScrollViewPager(episodeGroups)
 
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
@@ -143,7 +144,7 @@ class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
 
     private fun FragmentTvAboutBinding.showTrailerSection(isNotEmpty: Boolean) {
         trailerTitle.isVisible = isNotEmpty
-        binding.trailers.isVisible = isNotEmpty
+        binding.tvTrailers.isVisible = isNotEmpty
     }
 
 

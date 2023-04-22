@@ -51,14 +51,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnStartDragListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sectionMoviePopular = SectionMovie("Movies popular", listOf())
+        sectionMoviePopular = SectionMovie("Movies Popular", listOf())
         sectionMovieTopRated = SectionMovie("Movies Top rated", mutableListOf())
         sectionMovieUpcoming = SectionMovie("Movies Upcoming", mutableListOf())
         sectionTrendingPerson = SectionPersons("Trending persons", mutableListOf())
-        sectionTrendingMovie = SectionMovie("Trending MovieDetailsDTO", mutableListOf())
-        sectionTrendingTvShow = SectionTvShow("Trending TvShowDetailsDTO", mutableListOf())
-        sectionPopularTvShow = SectionTvShow("Popular TvShowDetailsDTO", mutableListOf())
-        sectionTvShowOnAir = SectionTvShow("TvShowDetailsDTO On Air", mutableListOf())
+        sectionTrendingMovie = SectionMovie("Trending Movies", mutableListOf())
+        sectionTrendingTvShow = SectionTvShow("Trending TvShow", mutableListOf())
+        sectionPopularTvShow = SectionTvShow("Popular TvShow", mutableListOf())
+        sectionTvShowOnAir = SectionTvShow("TvShow On Air", mutableListOf())
         sections = mutableListOf(
             sectionMoviePopular,
             sectionMovieUpcoming,
@@ -94,7 +94,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnStartDragListener {
 
 
             observeViewModel().invokeOnCompletion {
-                Log.d(TAG, "Observation terminated, updating adapter")
                 adapter.updateItems(sections)
             }
 

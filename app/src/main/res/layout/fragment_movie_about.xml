@@ -56,24 +56,12 @@
                 android:layout_below="@id/textTitleGenres"
                 android:padding="10dp" />
 
-            <TextView
-                android:id="@+id/textTitleInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/chiGroupGenres"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:text="Movie Info"
-                android:textColor="@color/alabaster"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
             <include
                 android:id="@+id/movie_info"
                 layout="@layout/layout_movie_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textTitleInfo"
+                android:layout_below="@id/chiGroupGenres"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
                 app:movie="@{movie}" />

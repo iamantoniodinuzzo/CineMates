@@ -11,6 +11,7 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
+            app:popUpTo="@id/homeFragment"
             app:destination="@id/searchFragment" />
     </fragment>
     <fragment
@@ -60,6 +61,7 @@
     </fragment>
     <action
         android:id="@+id/action_global_actorDetailsFragment"
+        app:popUpTo="@id/actorDetailsFragment"
         app:destination="@id/actorDetailsFragment" />
     <fragment
         android:id="@+id/episodeGroupDetailsFragment"
@@ -89,15 +91,18 @@
             app:argType="com.example.cinemates.domain.model.Media" />
         <action
             android:id="@+id/action_tvDetailsFragment_to_episodeGroupDetailsFragment"
+            app:popUpTo="@id/tvDetailsFragment"
             app:destination="@id/episodeGroupDetailsFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_movieDetailsFragment"
         app:popUpToInclusive="true"
+        app:popUpTo="@id/movieDetailsFragment"
         app:destination="@id/movieDetailsFragment" />
     <action
         android:id="@+id/action_global_tvDetailsFragment"
         app:popUpToInclusive="true"
+        app:popUpTo="@id/tvDetailsFragment"
         app:destination="@id/tvDetailsFragment" />
     <dialog
         android:id="@+id/mediaImagesFragment"
@@ -110,6 +115,7 @@
     </dialog>
     <action
         android:id="@+id/action_global_mediaImagesFragment"
-        app:destination="@id/mediaImagesFragment" />
+        app:destination="@id/mediaImagesFragment"
+        app:popUpToInclusive="true"/>
 
 </navigation>

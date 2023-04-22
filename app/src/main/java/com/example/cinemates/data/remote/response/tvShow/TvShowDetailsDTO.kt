@@ -15,8 +15,7 @@ class TvShowDetailsDTO(
     val createdBy: List<CreatedByDTO>,
     @SerializedName("episode_run_time")
     private val episodeRunTime: List<Int>,
-    @SerializedName("first_air_date")
-    val firstAirDate: String,
+    firstAirDate: String,
     genres: List<GenreDTO>,
     val homepage: String,
     id: Int,
@@ -28,7 +27,7 @@ class TvShowDetailsDTO(
     @SerializedName("last_episode_to_air")
     val lastEpisodeToAir: EpisodeDTO,
     name: String,
-    val networks: List<NetworkDTO>,
+    val networks: List<NetworkDTO>?,
     @SerializedName("next_episode_to_air")
     val nextEpisodeToAir: EpisodeDTO?,
     @SerializedName("number_of_episodes")

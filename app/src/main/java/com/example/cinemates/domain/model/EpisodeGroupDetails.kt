@@ -14,6 +14,6 @@ data class EpisodeGroupDetails(
     val groups: List<Group> ,
     val id: String ,
     val name: String ,
-    val network: Network,
+    val network: Network?,
     val type: Type
 )

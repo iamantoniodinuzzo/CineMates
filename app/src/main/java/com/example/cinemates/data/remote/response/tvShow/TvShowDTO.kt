@@ -14,7 +14,7 @@ open class TvShowDTO(
     @SerializedName("backdrop_path")
     val backdropPath: String?,
     @SerializedName("first_air_date")
-    private val firstAirDate: String,
+    protected val firstAirDate: String,
     @SerialName("genre_ids")
     val genres: List<GenreDTO>,
     val id: Int,

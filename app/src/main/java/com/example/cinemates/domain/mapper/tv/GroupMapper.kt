@@ -1,9 +1,7 @@
 package com.example.cinemates.domain.mapper.tv
 
 import com.example.cinemates.data.remote.response.tvShow.GroupDTO
-import com.example.cinemates.domain.mapper.Mapper
 import com.example.cinemates.domain.model.Group
-import javax.inject.Inject
 
 
 /**

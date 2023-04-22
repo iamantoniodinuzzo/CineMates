@@ -34,7 +34,7 @@ fun TvShowDetailsDTO.mapToTvShow():TvShow{
         posterPath = this.posterPath?:"",
         productionCompanies = this.productionCompanies.map { it.mapToProductionCompany() },
         productionCountries = this.productionCountries.map { it.mapToProductionCountry() },
-        seasons = this.seasons.map { it.mapToSeason() },
+        seasons = this.seasons?.map { it.mapToSeason() }?: listOf(),
         status = this.status,
         tagline = this.tagline,
         type = this.type,

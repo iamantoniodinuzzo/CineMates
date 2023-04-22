@@ -30,8 +30,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     private lateinit var videoAdapter: VideoAdapter
     private lateinit var mediaAdapter: MediaAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
-    private var posters: Array<Image> = emptyArray()
-    private var backdrop: Array<Image> = emptyArray()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

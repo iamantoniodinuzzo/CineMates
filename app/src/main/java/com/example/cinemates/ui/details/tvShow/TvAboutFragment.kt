@@ -14,6 +14,7 @@ import com.example.cinemates.R
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentTvAboutBinding
 import com.example.cinemates.domain.model.Genre
+import com.example.cinemates.domain.model.Image
 import com.example.cinemates.ui.adapter.EpisodeGroupAdapter
 import com.example.cinemates.ui.adapter.MediaAdapter
 import com.example.cinemates.ui.adapter.VideoAdapter
@@ -86,25 +87,7 @@ class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
                     }
                 }
 
-                launch {
-                    viewModel.posters.collect { posters ->
-                        showPostersShower(posters.isNotEmpty())
-                        if (posters.isNotEmpty()) {
-                            posterCounter = posters.size
-                            postersShower.path = posters.random().filePath
-                        }
-                    }
-                }
 
-                launch {
-                    viewModel.backdrops.collect { backdrops ->
-                        showBackdropShower(backdrops.isNotEmpty())
-                        if (backdrops.isNotEmpty()) {
-                            backdropCounter = backdrops.size
-                            backdropsShower.path = backdrops.random().filePath
-                        }
-                    }
-                }
 
                 launch {
                     viewModel.episodeGroupList.collectLatest { list ->
@@ -132,14 +115,6 @@ class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
                 return false
             }
         })
-    }
-
-    private fun FragmentTvAboutBinding.showBackdropShower(notEmpty: Boolean) {
-        backdropsShower.root.isVisible = notEmpty
-    }
-
-    private fun FragmentTvAboutBinding.showPostersShower(notEmpty: Boolean) {
-        postersShower.root.isVisible = notEmpty
     }
 
     private fun FragmentTvAboutBinding.showTrailerSection(isNotEmpty: Boolean) {

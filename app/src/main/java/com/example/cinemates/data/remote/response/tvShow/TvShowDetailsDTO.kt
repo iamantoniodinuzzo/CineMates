@@ -44,7 +44,7 @@ class TvShowDetailsDTO(
     val productionCompanies: List<ProductionCompanyDTO>,
     @SerializedName("production_countries")
     val productionCountries: List<ProductionCountryDTO>,
-    val seasons: List<SeasonDTO>,
+    val seasons: List<SeasonDTO>?,
     @SerializedName("spoken_languages")
     val spokenLanguages: List<SpokenLanguageDTO>,
     val status: String,

@@ -14,7 +14,7 @@ open class TvShowDTO(
     @SerializedName("backdrop_path")
     val backdropPath: String?,
     @SerializedName("first_air_date")
-    private val firstAirDate: String,
+    protected val firstAirDate: String,
     @SerialName("genre_ids")
     val genres: List<GenreDTO>,
     val id: Int,
@@ -34,7 +34,7 @@ open class TvShowDTO(
     @SerializedName("vote_count")
     val voteCount: Int
 ) {
-    private fun formatDate(date: String): String {
+    protected fun dateFormatter(date: String): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val outputFormat = SimpleDateFormat.getDateInstance()
         val formattedDate = inputFormat.parse(date)
@@ -44,7 +44,7 @@ open class TvShowDTO(
     val formattedFirstAirDate: String
         get() {
             return if (firstAirDate.isNotEmpty()) {
-                formatDate(firstAirDate)
+                dateFormatter(firstAirDate)
             } else {
                 ""
             }

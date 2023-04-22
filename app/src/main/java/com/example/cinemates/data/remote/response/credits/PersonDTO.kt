@@ -18,8 +18,8 @@ open class PersonDTO(
     val biography: String,
     private val birthday: String?,
     @SerializedName("deathday")
-    private val deathDay: String?,
-    private val gender: Int?,
+    protected val deathDay: String?,
+    protected val gender: Int?,
     val homepage: String?,
     val id: Int,
     @SerializedName("imdb_id")
@@ -61,7 +61,8 @@ open class PersonDTO(
     constructor(
         id: Int,
         name: String,
-        profilePath: String?
+        profilePath: String?,
+        gender: Int?
     ) : this(
         false,
         listOf(),

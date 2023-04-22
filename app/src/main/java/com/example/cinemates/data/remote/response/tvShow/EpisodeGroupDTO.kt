@@ -15,7 +15,7 @@ open class EpisodeGroupDTO(
     val groupCount: Int ,
     val id: String ,
     val name: String,
-    val network: NetworkDTO,
+    val network: NetworkDTO?,
     private val type: Int
 ) {
     val episodeGroupType: Type

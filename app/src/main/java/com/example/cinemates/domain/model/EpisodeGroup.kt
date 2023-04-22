@@ -9,6 +9,6 @@ data class EpisodeGroup(
     val groupCount: Int,
     val id: String,
     val name: String,
-    val network: Network,
+    val network: Network?,
     val type: Type
 )

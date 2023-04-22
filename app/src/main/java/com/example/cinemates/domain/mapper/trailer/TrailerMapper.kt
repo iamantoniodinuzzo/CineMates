@@ -1,7 +1,6 @@
 package com.example.cinemates.domain.mapper.trailer
 
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
-import com.example.cinemates.domain.mapper.Mapper
 import com.example.cinemates.domain.model.Video
 
 

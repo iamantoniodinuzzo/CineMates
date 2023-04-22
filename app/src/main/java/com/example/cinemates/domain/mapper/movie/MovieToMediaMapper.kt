@@ -1,7 +1,6 @@
 package com.example.cinemates.domain.mapper.movie
 
 import com.example.cinemates.data.remote.response.movie.MovieDTO
-import com.example.cinemates.domain.mapper.Mapper
 import com.example.cinemates.domain.model.Media
 import com.example.cinemates.util.MediaType
 

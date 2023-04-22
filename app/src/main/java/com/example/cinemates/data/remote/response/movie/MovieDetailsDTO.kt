@@ -26,14 +26,14 @@ class MovieDetailsDTO(
     popularity: Double,
     posterPath: String?,
     @SerializedName("production_companies")
-    val productionCompanies: List<ProductionCompanyDTO>?,
+    val productionCompanies: List<ProductionCompanyDTO>,
     @SerializedName("production_countries")
-    val productionCountries: List<ProductionCountryDTO>?,
+    val productionCountries: List<ProductionCountryDTO>,
     releaseDate: String,
     private val revenue: Long,
     private val runtime: Int?,
     @SerializedName("spoken_languages")
-    val spokenLanguages: List<SpokenLanguageDTO>?,
+    val spokenLanguages: List<SpokenLanguageDTO>,
     val status: String,
     val tagline: String?,
     title: String,

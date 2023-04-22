@@ -33,6 +33,7 @@ class TvShow(
     val tagline: String,
     val type: String,
     voteAverage: Double,
+    val spokenLanguage : List<SpokenLanguage>
 ) : Media(
     MediaType.TV,
     id,

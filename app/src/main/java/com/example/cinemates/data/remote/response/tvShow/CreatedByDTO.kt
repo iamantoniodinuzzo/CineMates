@@ -6,10 +6,10 @@ import com.google.gson.annotations.SerializedName
 class CreatedByDTO(
     @SerializedName("credit_id")
     val creditId: String,
-    val gender: Int,
+    gender: Int?,
     id: Int,
     name: String,
     profilePath: String?
 ) : PersonDTO(
-    id, name, profilePath
+    id, name, profilePath, gender
 )

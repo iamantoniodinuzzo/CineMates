@@ -11,7 +11,7 @@ import com.example.cinemates.domain.model.TvShow
 fun TvShowDetailsDTO.mapToTvShow():TvShow{
     return TvShow(
         backdropPath = this.backdropPath?:"",
-        createdBy = this.createdBy.map { it.mapToCreatedBy()},
+        createdBy = this.createdBy.map {  it.mapToCreatedBy() },
         episodeRunTime = this.formattedEpisodesRuntime,
         firstAirDate = this.formattedFirstAirDate,
         genres = this.genres.map { it.mapToGenre() },
@@ -22,7 +22,7 @@ fun TvShowDetailsDTO.mapToTvShow():TvShow{
         lastAirDate = this.lastAirDate,
         lastEpisodeToAir = this.lastEpisodeToAir.mapToEpisode(),
         name = this.name,
-        network = this.networks.map { it.mapToNetwork() },
+        network = this.networks?.map { it.mapToNetwork() }?: listOf(),
         nextEpisodeToAir = this.nextEpisodeToAir?.mapToEpisode(),
         numberOfEpisodes = this.numberOfEpisodes,
         numberOfSeasons = this.numberOfSeasons,
@@ -38,6 +38,7 @@ fun TvShowDetailsDTO.mapToTvShow():TvShow{
         status = this.status,
         tagline = this.tagline,
         type = this.type,
-        voteAverage = this.voteAverage
+        voteAverage = this.voteAverage,
+        spokenLanguage = this.spokenLanguages.map { it.mapToSpokenLanguage() }
     )
 }

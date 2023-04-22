@@ -33,9 +33,7 @@ fun MovieDetailsDTO.mapToMovie(): Movie {
         status = this.status,
         tagline = this.tagline?:"",
         video = this.video,
-        productionCompanies = this.productionCompanies?.map { it.mapToProductionCompany() }
-            ?: listOf(),
-        productionCountries = this.productionCountries?.map { it.mapToProductionCountry() }
-            ?: listOf()
+        productionCompanies = this.productionCompanies.map { it.mapToProductionCompany() },
+        productionCountries = this.productionCountries.map { it.mapToProductionCountry() }
     )
 }

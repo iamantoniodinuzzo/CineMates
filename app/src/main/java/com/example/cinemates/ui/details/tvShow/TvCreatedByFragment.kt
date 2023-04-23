@@ -1,6 +1,7 @@
 package com.example.cinemates.ui.details.tvShow
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +13,7 @@ import com.example.cinemates.domain.model.CreatedBy
 import com.example.cinemates.ui.adapter.CreatedByAdapter
 import kotlinx.coroutines.flow.collectLatest
 
+private val TAG = TvCreatedByFragment::class.simpleName
 class TvCreatedByFragment : ListFragment<CreatedBy, ListItemPersonLongBinding, CreatedByAdapter>(
     CreatedByAdapter()
 ) {
@@ -27,9 +29,12 @@ class TvCreatedByFragment : ListFragment<CreatedBy, ListItemPersonLongBinding, C
             adapter.currentLayoutType = ViewSize.LONG
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.selectedTv.collectLatest {tv->
-                    if (tv != null) {
+                    tv?.let{
+
+                        Log.d(TAG, "created by : ${tv.createdBy} ")
                         adapter.updateItems(tv.createdBy)
                     }
+
                 }
             }
         }

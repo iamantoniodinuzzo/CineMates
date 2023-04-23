@@ -10,14 +10,15 @@ import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
 import com.example.cinemates.common.DoubleViewSizeAdapter
 import com.example.cinemates.databinding.ListItemCrewLongBinding
+import com.example.cinemates.databinding.ListItemPersonLongBinding
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
 import com.example.cinemates.domain.model.CreatedBy
 import com.example.cinemates.domain.model.Crew
 import com.example.cinemates.domain.model.Media
 
 class CreatedByAdapter :
-    DoubleViewSizeAdapter<CreatedBy, ListItemCrewLongBinding, ListItemPersonSmallBinding>(
-        R.layout.list_item_crew_long,
+    DoubleViewSizeAdapter<CreatedBy, ListItemPersonLongBinding, ListItemPersonSmallBinding>(
+        R.layout.list_item_person_long,
         R.layout.list_item_person_small,
     ) {
 
@@ -30,8 +31,8 @@ class CreatedByAdapter :
 
     }
 
-    override fun onBindLongItem(binding: ListItemCrewLongBinding, item: CreatedBy) {
-        binding.crew = item as Crew
+    override fun onBindLongItem(binding: ListItemPersonLongBinding, item: CreatedBy) {
+        binding.person = item
         navigateToDetails(binding, item)
     }
 

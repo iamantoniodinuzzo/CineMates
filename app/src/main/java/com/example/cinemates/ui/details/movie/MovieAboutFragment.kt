@@ -20,10 +20,9 @@ import com.example.cinemates.ui.adapter.VideoAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.launch
 
-private val TAG = MovieAboutFragment::class.simpleName
 
 class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
-    
+
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieAboutBinding
         get() = FragmentMovieAboutBinding::inflate
 

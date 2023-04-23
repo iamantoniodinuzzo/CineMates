@@ -10,7 +10,6 @@ import com.example.cinemates.ui.details.MediaDetailsContainerFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-private val TAG = MovieDetailsContainerFragment::class.simpleName
 
 /**
  * @author Antonio Di Nuzzo

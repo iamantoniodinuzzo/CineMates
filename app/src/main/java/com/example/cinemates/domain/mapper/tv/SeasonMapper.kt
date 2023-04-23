@@ -14,7 +14,7 @@ fun SeasonDTO.mapToSeason():Season{
         id = this.id,
         name = this.name,
         overview = this.overview,
-        posterPath = this.posterPath,
+        posterPath = this.posterPath?:"",
         seasonNumber = this.seasonNumber
     )
 }

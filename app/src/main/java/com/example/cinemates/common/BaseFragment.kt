@@ -1,6 +1,7 @@
 package com.example.cinemates.common
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.flow.Flow
 
+private val TAG = BaseFragment::class.simpleName
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
@@ -28,6 +30,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate called")
         setupMotionAnimations()
     }
 
@@ -37,11 +40,12 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = bindingInflater(inflater, container, false)
+        Log.d(TAG, "onCreateView set binding")
         return binding.root;
     }
 
     /**
-     * Show a snackbar with a message
+     * Show a Snack bar with a message
      */
     protected fun showMessage(message: String?) {
         Snackbar.make(
@@ -65,7 +69,8 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
 
     override fun onDestroyView() {
-        _binding = null
         super.onDestroyView()
+        _binding = null
+        Log.d(TAG, "onDestroyView called, binding is null")
     }
 }

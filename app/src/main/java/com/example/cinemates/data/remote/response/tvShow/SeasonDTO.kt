@@ -11,7 +11,7 @@ data class SeasonDTO(
     val name: String,
     val overview: String,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerializedName("season_number")
     val seasonNumber: Int
 )

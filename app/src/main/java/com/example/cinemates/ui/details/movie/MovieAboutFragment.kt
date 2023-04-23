@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 private val TAG = MovieAboutFragment::class.simpleName
 
 class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
-
+    
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieAboutBinding
         get() = FragmentMovieAboutBinding::inflate
 
@@ -73,13 +73,11 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 launch {
                     viewModel.selectedMovie.collect { selectedMovie ->
                         movie = selectedMovie
-                        if (selectedMovie != null) {
-                            selectedMovie.genres?.let {
-                                chipGroupGenres.setChipsList(
-                                    it,
-                                    textGetter = { genre -> genre.name }
-                                )
-                            }
+                        selectedMovie?.genres?.let {
+                            chipGroupGenres.setChipsList(
+                                it,
+                                textGetter = { genre -> genre.name }
+                            )
                         }
                     }
                 }
@@ -95,9 +93,9 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
                 launch {
                     viewModel.collection.collect { collection ->
-                        collection?.let {
+                        collection.let {
                             mediaAdapter.updateItems(it.parts)
-                        } 
+                        }
 
 
 

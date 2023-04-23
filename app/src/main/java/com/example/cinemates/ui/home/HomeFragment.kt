@@ -176,4 +176,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnStartDragListener {
         }
     }
 
+
 }

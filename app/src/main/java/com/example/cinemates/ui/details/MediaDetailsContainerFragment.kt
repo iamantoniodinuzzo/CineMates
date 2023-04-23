@@ -1,6 +1,7 @@
 package com.example.cinemates.ui.details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
+private val TAG = MediaDetailsContainerFragment::class.simpleName
 /**
  * A base class for implementing a container of other fragments shown via viewPager and tab layout
  *
@@ -24,7 +26,6 @@ import kotlin.math.abs
  * @author Jon Areas
  * Created 26/05/2022 at 15:44
  */
-@AndroidEntryPoint
 abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fragment, String>) :
     BaseFragment<FragmentMediaDetailsBinding>() {
 
@@ -40,7 +41,7 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.d(TAG, "onViewCreated called")
         binding.apply {
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             fab.setOnClickListener {

@@ -9,7 +9,7 @@ import com.example.cinemates.domain.model.Season
  */
 fun SeasonDTO.mapToSeason():Season{
     return Season(
-        airDate = this.airDate,
+        airDate = this.airDate?:"",
         episodeCount = this.episodeCount,
         id = this.id,
         name = this.name,

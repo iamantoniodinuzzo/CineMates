@@ -18,7 +18,6 @@ import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.flow.Flow
 
 private val TAG = BaseFragment::class.simpleName
-
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
@@ -30,7 +29,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate called")
         setupMotionAnimations()
     }
 
@@ -40,7 +38,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = bindingInflater(inflater, container, false)
-        Log.d(TAG, "onCreateView set binding")
+        Log.d(TAG, "onCreateView called")
         return binding.root;
     }
 
@@ -70,7 +68,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d(TAG, "onDestroyView called")
         _binding = null
-        Log.d(TAG, "onDestroyView called, binding is null")
     }
 }

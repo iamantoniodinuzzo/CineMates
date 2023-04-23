@@ -93,9 +93,15 @@
     </fragment>
     <action
         android:id="@+id/action_global_movieDetailsFragment"
+        app:popUpToInclusive="true"
+        app:popUpToSaveState="true"
+        app:popUpTo="@id/movieDetailsFragment"
         app:destination="@id/movieDetailsFragment" />
     <action
         android:id="@+id/action_global_tvDetailsFragment"
+        app:popUpToSaveState="true"
+        app:popUpToInclusive="true"
+        app:popUpTo="@id/tvDetailsFragment"
         app:destination="@id/tvDetailsFragment" />
     <dialog
         android:id="@+id/mediaImagesFragment"

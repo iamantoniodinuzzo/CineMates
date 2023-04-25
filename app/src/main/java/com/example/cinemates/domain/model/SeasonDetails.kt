@@ -1,12 +1,13 @@
 package com.example.cinemates.domain.model
 
 
-open class Season(
+import com.example.cinemates.data.remote.response.tvShow.SeasonEpisodeDTO
+
+data class SeasonDetails(
     val airDate: String,
-    val episodeCount: Int,
-    val id: Int,
+    val seasonEpisodes: List<SeasonEpisode>,
     val name: String,
     val overview: String,
     val posterPath: String,
     val seasonNumber: Int
-):java.io.Serializable
+)

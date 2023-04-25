@@ -4,10 +4,7 @@ import com.example.cinemates.data.remote.response.credits.CastDTO
 import com.example.cinemates.data.remote.response.credits.CrewDTO
 import com.example.cinemates.data.remote.response.image.ImageDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
-import com.example.cinemates.data.remote.response.tvShow.EpisodeGroupDTO
-import com.example.cinemates.data.remote.response.tvShow.EpisodeGroupDetailsDTO
-import com.example.cinemates.data.remote.response.tvShow.TvShowDTO
-import com.example.cinemates.data.remote.response.tvShow.TvShowDetailsDTO
+import com.example.cinemates.data.remote.response.tvShow.*
 import com.example.cinemates.domain.model.Filter
 import kotlinx.coroutines.flow.Flow
 
@@ -28,4 +25,5 @@ interface TvShowRepository {
     fun getBySearch(query: String): Flow<List<TvShowDTO>>
     fun getEpisodeGroup(id: Int): Flow<List<EpisodeGroupDTO>>
     fun getEpisodeGroupDetails(episodeGroupId: String): Flow<EpisodeGroupDetailsDTO>
+    fun getSeasonDetails(tvId:Int, seasonNumber:Int):Flow<SeasonDetailsDTO>
 }

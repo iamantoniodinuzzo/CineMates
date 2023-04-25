@@ -1,7 +1,7 @@
 package com.example.cinemates.domain.model
 
 
-data class Episode(
+open class Episode(
     val airDate: String,
     val episodeNumber: Int,
     val id: Int,

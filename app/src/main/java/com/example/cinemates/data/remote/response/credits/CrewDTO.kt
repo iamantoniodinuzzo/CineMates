@@ -3,7 +3,7 @@ package com.example.cinemates.data.remote.response.credits
 
 import com.google.gson.annotations.SerializedName
 
-class CrewDTO(
+open class CrewDTO(
     adult: Boolean,
     @SerializedName("credit_id")
     val creditId: String,

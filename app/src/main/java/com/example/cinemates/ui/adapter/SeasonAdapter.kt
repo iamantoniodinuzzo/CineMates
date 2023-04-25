@@ -3,10 +3,12 @@ package com.example.cinemates.ui.adapter
 
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.Navigation
 import com.example.cinemates.R
 import com.example.cinemates.common.SingleViewAdapter
 import com.example.cinemates.databinding.ListItemSeasonLongBinding
 import com.example.cinemates.domain.model.Season
+import com.example.cinemates.ui.details.tvShow.TvDetailsContainerFragmentDirections
 
 
 /**
@@ -26,9 +28,9 @@ class SeasonAdapter :
     }
 
     private fun navigateToDetails(view: View, item: Season) {
-        Toast.makeText(view.context, "Soon", Toast.LENGTH_SHORT).show()
-        /*  val action = //todo
-          Navigation.findNavController(view).navigate(action)*/
+        val action =
+            TvDetailsContainerFragmentDirections.actionTvDetailsFragmentToSeasonDetailsFragment(item)
+        Navigation.findNavController(view).navigate(action)
 
     }
 }

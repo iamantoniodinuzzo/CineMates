@@ -5,7 +5,7 @@
 
         <variable
             name="tv"
-            type="com.example.cinemates.model.TvShow" />
+            type="com.example.cinemates.domain.model.TvShow" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,11 +14,23 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textTitleInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Info"
+            android:textColor="@color/alabaster"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/originalTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Original title"
             app:value="@{tv.originalName}" />
 
@@ -27,6 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Status"
             app:value="@{tv.status}" />
 
@@ -35,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Tagline"
             app:value="@{tv.tagline}" />
 
@@ -44,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Original language"
             app:value="@{tv.originalLanguage}" />
 
@@ -52,22 +67,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="First air date"
-            app:value="@{tv.formattedFirstAirDate}" />
+            app:value="@{tv.firstAirDate}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/lastAirDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Last air date"
-            app:value="@{tv.formattedLastAirDate}" />
+            app:value="@{tv.lastAirDate}" />
 
         <com.indisparte.linearlayoutinfo.LinearInfoView
             android:id="@+id/numberOfEpisodes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Episodes"
             app:value="@{String.valueOf(tv.numberOfEpisodes)}" />
 
@@ -76,6 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
             app:title="Seasons"
             app:value="@{String.valueOf(tv.numberOfSeasons)}" />
 

@@ -1,8 +1,8 @@
 package com.example.cinemates.ui.details.movie
 
 import androidx.lifecycle.*
-import com.example.cinemates.model.*
-import com.example.cinemates.repositories.MovieRepository
+import com.example.cinemates.domain.model.Movie
+import com.example.cinemates.domain.usecases.details.movie.GetMovieDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -12,15 +12,12 @@ import javax.inject.Inject
  * Is shared between  [MovieCastFragment] [MediaImagesFragment] [MovieInfoFragment]
  * @author Antonio Di Nuzzo
  * @author Jon Areas
- * Created 24/08/2022
  */
-private val TAG = MovieDetailsViewModel::class.simpleName
-
 @HiltViewModel
 class MovieDetailsViewModel
 @Inject
 constructor(
-    private val movieRepository: MovieRepository
+    private val getMovieDetailsUseCase: GetMovieDetailsUseCase
 ) : ViewModel() {
 
     private val _selectedMovie = MutableStateFlow<Movie?>(null)
@@ -39,65 +36,59 @@ constructor(
      */
     private fun getMovieDetails(movieId: Int) {
         viewModelScope.launch {
-            movieRepository.getDetails(movieId).collectLatest { movie ->
+            getMovieDetailsUseCase.getMovieDetails(movieId).collectLatest { movie ->
                 _selectedMovie.value = movie
             }
         }
     }
 
-    val images =
-        selectedMovie.flatMapLatest { movie ->
-            movie?.let {
-                movieRepository.getImages(movie.id)
-            } ?: emptyFlow()
-        }
 
     val collection =
         selectedMovie.flatMapLatest { movie ->
             movie?.belongsToCollection?.let {
-                movieRepository.getCollection(it.id)
+                getMovieDetailsUseCase.getCollection(it.id)
             } ?: emptyFlow()
         }
 
     val similarMovies = selectedMovie.flatMapLatest { movie ->
         movie?.let {
-            movieRepository.getSimilar(it.id)
+            getMovieDetailsUseCase.getSimilarMovies(it.id)
         } ?: emptyFlow()
     }
 
-    val recommendedMovies = selectedMovie.flatMapLatest { movie ->
-        movie?.let {
-            movieRepository.getRecommended(it.id)
-        } ?: emptyFlow()
-    }
+    /*  val recommendedMovies = selectedMovie.flatMapLatest { movie ->
+          movie?.let {
+              getMovieDetailsUseCase.getRecommended(it.id)
+          } ?: emptyFlow()
+      }*/
 
     val videos = selectedMovie.flatMapLatest { movie ->
         movie?.let {
-            movieRepository.getVideos(it.id)
+            getMovieDetailsUseCase.getTrailers(it.id)
         } ?: emptyFlow()
     }
 
     val posters = selectedMovie.flatMapLatest { movie ->
         movie?.let {
-            movieRepository.getPosters(it.id)
+            getMovieDetailsUseCase.getPosters(it.id)
         } ?: emptyFlow()
     }
 
     val backdrops = selectedMovie.flatMapLatest { movie ->
         movie?.let {
-            movieRepository.getBackdrops(it.id)
+            getMovieDetailsUseCase.getBackdrops(it.id)
         } ?: emptyFlow()
     }
 
     val cast = selectedMovie.flatMapLatest { movie ->
         movie?.let {
-            movieRepository.getCast(it.id)
+            getMovieDetailsUseCase.getMovieCast(it.id)
         } ?: emptyFlow()
     }
 
     val crew = selectedMovie.flatMapLatest { movie ->
         movie?.let {
-            movieRepository.getCrew(it.id)
+            getMovieDetailsUseCase.getMovieCrew(it.id)
 
         } ?: emptyFlow()
     }

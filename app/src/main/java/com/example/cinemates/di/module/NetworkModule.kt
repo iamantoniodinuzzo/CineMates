@@ -1,20 +1,18 @@
 package com.example.cinemates.di.module
 
-import com.example.cinemates.api.AuthenticationInterceptor
-import com.example.cinemates.api.service.ActorService
-import com.example.cinemates.api.service.MovieService
-import com.example.cinemates.api.service.TvShowService
-import com.example.cinemates.util.BASE_URL
+import com.example.cinemates.data.BASE_URL
+import com.example.cinemates.data.remote.AuthenticationInterceptor
+import com.example.cinemates.data.remote.service.ActorService
+import com.example.cinemates.data.remote.service.MovieService
+import com.example.cinemates.data.remote.service.TvShowService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 /**
@@ -52,22 +50,21 @@ object NetworkModule {
             .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
 
     @Singleton
     @Provides
     fun provideMovieService(retrofit: Retrofit): MovieService =
-        retrofit.create()
+        retrofit.create(MovieService::class.java)
 
     @Singleton
     @Provides
     fun provideActorService(retrofit: Retrofit): ActorService =
-        retrofit.create()
+        retrofit.create(ActorService::class.java)
 
     @Singleton
     @Provides
     fun provideTvShowService(retrofit: Retrofit): TvShowService =
-        retrofit.create()
+        retrofit.create(TvShowService::class.java)
 
 }

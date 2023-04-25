@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.cinemates.databinding.ListItemSectionBinding
 import com.example.cinemates.databinding.ListItemSectionCollassableBinding
-import com.example.cinemates.model.section.SectionEpisodesGroup
-import com.example.cinemates.model.section.SectionMovie
-import com.example.cinemates.model.section.SectionPersons
-import com.example.cinemates.model.section.SectionTvShow
+import com.example.cinemates.domain.model.section.SectionEpisodesGroup
+import com.example.cinemates.domain.model.section.SectionMovie
+import com.example.cinemates.domain.model.section.SectionPersons
+import com.example.cinemates.domain.model.section.SectionTvShow
 import com.example.cinemates.util.DoubleTouchListener
 
 
@@ -40,9 +40,9 @@ class SectionMovieViewHolder(
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            val movieAdapter = MovieAdapter()
-            movieAdapter.updateItems(section.items)
-            adapter = movieAdapter
+            val mediaAdapter = MediaAdapter()
+            mediaAdapter.updateItems(section.items)
+            adapter = mediaAdapter
         }
 
         binding.root.setOnTouchListener(object : DoubleTouchListener() {
@@ -69,7 +69,7 @@ class SectionTvViewHolder(
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            val tvShowAdapter = TvShowAdapter()
+            val tvShowAdapter = MediaAdapter()
             tvShowAdapter.updateItems(section.items)
             adapter = tvShowAdapter
         }

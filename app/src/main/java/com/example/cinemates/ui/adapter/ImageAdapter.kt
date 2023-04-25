@@ -4,10 +4,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cinemates.data.remote.response.image.ImageType
 import com.example.cinemates.databinding.ListItemBackdropBinding
 import com.example.cinemates.databinding.ListItemPosterBinding
-import com.example.cinemates.model.Image
-import com.example.cinemates.model.ImageType
+import com.example.cinemates.domain.model.Image
 import com.example.cinemates.util.inflater
 
 /**

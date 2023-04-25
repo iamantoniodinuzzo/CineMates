@@ -6,9 +6,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemates.databinding.ListItemCrewLongBinding
-import com.example.cinemates.model.Crew
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.common.ListFragment
+import com.example.cinemates.domain.model.Crew
 import com.example.cinemates.ui.adapter.CrewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.common.BaseAdapter
 import com.example.cinemates.databinding.ListItemSectionBinding
 import com.example.cinemates.databinding.ListItemSectionCollassableBinding
-import com.example.cinemates.model.section.*
+import com.example.cinemates.domain.model.section.*
 import com.example.cinemates.util.VibrationUtils
 import com.example.cinemates.util.inflater
 import java.util.*

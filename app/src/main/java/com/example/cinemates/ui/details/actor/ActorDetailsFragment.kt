@@ -1,26 +1,25 @@
 package com.example.cinemates.ui.details.actor
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnticipateOvershootInterpolator
 import androidx.core.view.doOnPreDraw
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.cinemates.R
 import com.example.cinemates.common.BaseFragment
-import com.example.cinemates.ui.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentActorDetailsBinding
-import com.example.cinemates.util.getLong
+import com.example.cinemates.domain.model.Person
+import com.example.cinemates.ui.adapter.ViewPagerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.android.material.transition.MaterialFadeThrough
-import com.google.android.material.transition.MaterialSharedAxis
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
+@AndroidEntryPoint
 class ActorDetailsFragment : BaseFragment<FragmentActorDetailsBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentActorDetailsBinding
@@ -39,14 +38,33 @@ class ActorDetailsFragment : BaseFragment<FragmentActorDetailsBinding>() {
         actorMoviesFragment = ActorMoviesFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initializeViewPager()
-        return binding.root
+
+        viewModel.onDetailsFragmentReady(args.person.id)
+
+        binding.apply {
+            customizeFab(fab)
+            fab.setOnClickListener {
+                updateThisPerson(fab)
+            }
+            toolbar.setNavigationOnClickListener { view ->
+                findNavController(view).navigateUp()
+            }
+
+        }
+
+        lifecycleScope.launchWhenCreated {
+            viewModel.personDetails.collectLatest { personDetails ->
+                personDetails?.let {
+                    binding.person = it
+                }
+
+            }
+        }
+
     }
 
     private fun initializeViewPager() {
@@ -65,42 +83,22 @@ class ActorDetailsFragment : BaseFragment<FragmentActorDetailsBinding>() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
-        viewModel.onDetailsFragmentReady(args.person.id)
-
-        binding.apply {
-            customizeFab(fab)
-            fab.setOnClickListener {
-                updateThisPerson(fab)
-            }
-            toolbar.setNavigationOnClickListener { view ->
-                findNavController(view).navigateUp()
-            }
-            person = args.person
-
-        }
-
-    }
-
     private fun updateThisPerson(fab: FloatingActionButton) {
-       /* if (dbViewModel.setAsFavorite(args.person)) {
-            Toast.makeText(context, "Added to favorites", Toast.LENGTH_SHORT).show()
-            fab.setImageResource(R.drawable.ic_favorite_filled)
-        } else {
-            Toast.makeText(context, "Removed from favorites", Toast.LENGTH_SHORT).show()
-            fab.setImageResource(R.drawable.ic_favorite_border)
-        }*/
+        /* if (dbViewModel.setAsFavorite(args.person)) {
+             Toast.makeText(context, "Added to favorites", Toast.LENGTH_SHORT).show()
+             fab.setImageResource(R.drawable.ic_favorite_filled)
+         } else {
+             Toast.makeText(context, "Removed from favorites", Toast.LENGTH_SHORT).show()
+             fab.setImageResource(R.drawable.ic_favorite_border)
+         }*/
     }
 
     private fun customizeFab(fab: FloatingActionButton) {
-      /*  if (dbViewModel.isMyFavoritePerson(args.person)) {
-            fab.setImageResource(R.drawable.ic_favorite_filled)
-        } else {
-            fab.setImageResource(R.drawable.ic_favorite_border)
-        }*/
+        /*  if (dbViewModel.isMyFavoritePerson(args.person)) {
+              fab.setImageResource(R.drawable.ic_favorite_filled)
+          } else {
+              fab.setImageResource(R.drawable.ic_favorite_border)
+          }*/
 
     }
 

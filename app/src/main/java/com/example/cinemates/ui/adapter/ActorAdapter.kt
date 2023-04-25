@@ -9,13 +9,14 @@ import androidx.navigation.Navigation
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
 import com.example.cinemates.common.DoubleViewSizeAdapter
+import com.example.cinemates.databinding.ListItemCastLongBinding
 import com.example.cinemates.databinding.ListItemPersonLongBinding
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
-import com.example.cinemates.model.Cast
+import com.example.cinemates.domain.model.Cast
 
 class ActorAdapter :
-    DoubleViewSizeAdapter<Cast, ListItemPersonLongBinding, ListItemPersonSmallBinding>(
-        R.layout.list_item_person_long,
+    DoubleViewSizeAdapter<Cast, ListItemCastLongBinding, ListItemPersonSmallBinding>(
+        R.layout.list_item_cast_long,
         R.layout.list_item_person_small,
     ) {
 
@@ -28,7 +29,7 @@ class ActorAdapter :
 
     }
 
-    override fun onBindLongItem(binding: ListItemPersonLongBinding, item: Cast) {
+    override fun onBindLongItem(binding: ListItemCastLongBinding, item: Cast) {
         binding.actor = item
         navigateToDetails(binding, item)
     }

@@ -5,14 +5,15 @@
 
         <variable
             name="media"
-            type="com.example.cinemates.model.Media" />
+            type="com.example.cinemates.domain.model.Media" />
     </data>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="182dp"
+        android:elevation="4dp"
         app:cardBackgroundColor="@android:color/transparent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,7 +45,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.128">
 
-                <TextView
+               <!-- <TextView
                     android:id="@+id/textHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -52,7 +53,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:text="@{media.status}"
-                    tools:text="Released" />
+                    tools:text="Released" />-->
 
                 <TextView
                     android:id="@+id/textTitle"
@@ -62,18 +63,18 @@
                     android:textColor="@color/alabaster"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:text="@{media.displayTitle}"
+                    android:text="@{media.title}"
                     tools:text="Media Title" />
 
-                <TextView
+              <!--  <TextView
                     android:id="@+id/textSubtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/geyser"
                     android:textSize="14sp"
-                    android:text="@{media.formattedGenres}"
+                    android:text="@{media.genres}"
                     android:textStyle="bold"
-                    tools:text="Genre1, Genre2, Genre3" />
+                    tools:text="Genre1, Genre2, Genre3" />-->
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <ImageView
@@ -95,15 +96,15 @@
 
                 <ImageView
                     android:id="@+id/iconAddWatchlist"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:src="@drawable/bookmark_icon"
                     app:tint="@color/item_state_color" />
 
                 <ImageView
                     android:id="@+id/iconAddWatched"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:src="@drawable/ic_seen_icon"
                     app:tint="@color/item_state_color" />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -121,5 +122,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

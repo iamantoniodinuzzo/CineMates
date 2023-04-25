@@ -7,7 +7,7 @@
 
         <variable
             name="filter"
-            type="com.example.cinemates.model.Filter" />
+            type="com.example.cinemates.domain.model.Filter" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -15,7 +15,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="10dp"
         app:cardElevation="4dp">
 
         <RelativeLayout
@@ -35,7 +35,7 @@
                 android:text="@{filter.name}"
                 android:textAlignment="textStart"
                 android:textColor="@color/alabaster"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 tools:text="@tools:sample/lorem/random" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>

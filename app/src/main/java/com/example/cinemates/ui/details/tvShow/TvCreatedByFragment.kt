@@ -1,18 +1,22 @@
 package com.example.cinemates.ui.details.tvShow
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemates.databinding.ListItemPersonLongBinding
-import com.example.cinemates.model.Cast
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.common.ListFragment
-import com.example.cinemates.ui.adapter.ActorAdapter
+import com.example.cinemates.domain.model.CreatedBy
+import com.example.cinemates.ui.adapter.CreatedByAdapter
 import kotlinx.coroutines.flow.collectLatest
 
-class TvCreatedByFragment : ListFragment<Cast, ListItemPersonLongBinding, ActorAdapter>(ActorAdapter()) {
+private val TAG = TvCreatedByFragment::class.simpleName
+class TvCreatedByFragment : ListFragment<CreatedBy, ListItemPersonLongBinding, CreatedByAdapter>(
+    CreatedByAdapter()
+) {
 
     private val viewModel: TvDetailsViewModel by activityViewModels()
 
@@ -25,7 +29,8 @@ class TvCreatedByFragment : ListFragment<Cast, ListItemPersonLongBinding, ActorA
             adapter.currentLayoutType = ViewSize.LONG
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.selectedTv.collectLatest {tv->
-                    if (tv != null) {
+                    tv?.let{
+
                         adapter.updateItems(tv.createdBy)
                     }
                 }

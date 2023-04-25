@@ -42,7 +42,7 @@
         tools:layout="@layout/fragment_filterable">
         <argument
             android:name="filter"
-            app:argType="com.example.cinemates.model.Filter" />
+            app:argType="com.example.cinemates.domain.model.Filter" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetFragment"
@@ -56,7 +56,7 @@
         tools:layout="@layout/fragment_actor_details">
         <argument
             android:name="person"
-            app:argType="com.example.cinemates.model.Person" />
+            app:argType="com.example.cinemates.domain.model.Person" />
     </fragment>
     <action
         android:id="@+id/action_global_actorDetailsFragment"
@@ -67,8 +67,8 @@
         android:label="EpisodeGroupDetailsFragment"
         tools:layout="@layout/fragment_episode_group_details">
         <argument
-            android:name="episodeGroupId"
-            app:argType="string" />
+            android:name="episode_group"
+            app:argType="com.example.cinemates.domain.model.EpisodeGroup" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailsFragment"
@@ -77,7 +77,7 @@
         tools:layout="@layout/fragment_media_details">
         <argument
             android:name="media"
-            app:argType="com.example.cinemates.model.Media" />
+            app:argType="com.example.cinemates.domain.model.Media" />
     </fragment>
     <fragment
         android:id="@+id/tvDetailsFragment"
@@ -86,13 +86,25 @@
         tools:layout="@layout/fragment_media_details">
         <argument
             android:name="media"
-            app:argType="com.example.cinemates.model.Media" />
+            app:argType="com.example.cinemates.domain.model.Media" />
+        <action
+            android:id="@+id/action_tvDetailsFragment_to_episodeGroupDetailsFragment"
+            app:destination="@id/episodeGroupDetailsFragment" />
+        <action
+            android:id="@+id/action_tvDetailsFragment_to_seasonDetailsFragment"
+            app:destination="@id/seasonDetailsFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_movieDetailsFragment"
+        app:popUpToInclusive="true"
+        app:popUpToSaveState="true"
+        app:popUpTo="@id/movieDetailsFragment"
         app:destination="@id/movieDetailsFragment" />
     <action
         android:id="@+id/action_global_tvDetailsFragment"
+        app:popUpToSaveState="true"
+        app:popUpToInclusive="true"
+        app:popUpTo="@id/tvDetailsFragment"
         app:destination="@id/tvDetailsFragment" />
     <dialog
         android:id="@+id/mediaImagesFragment"
@@ -101,10 +113,19 @@
         tools:layout="@layout/fragment_listing_items">
         <argument
             android:name="images"
-            app:argType="com.example.cinemates.model.Image[]" />
+            app:argType="com.example.cinemates.domain.model.Image[]" />
     </dialog>
     <action
         android:id="@+id/action_global_mediaImagesFragment"
-        app:destination="@id/mediaImagesFragment" />
+        app:destination="@id/mediaImagesFragment"/>
+    <fragment
+        android:id="@+id/seasonDetailsFragment"
+        tools:layout="@layout/fragment_season_details"
+        android:name="com.example.cinemates.ui.details.tvShow.SeasonDetailsFragment"
+        android:label="SeasonDetailsFragment" >
+        <argument
+            android:name="season"
+            app:argType="com.example.cinemates.domain.model.Season" />
+    </fragment>
 
 </navigation>

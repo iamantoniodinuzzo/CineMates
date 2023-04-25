@@ -1,7 +1,6 @@
 package com.example.cinemates.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,15 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentHomeBinding
-import com.example.cinemates.model.section.Section
-import com.example.cinemates.model.section.SectionMovie
-import com.example.cinemates.model.section.SectionPersons
-import com.example.cinemates.model.section.SectionTvShow
+import com.example.cinemates.domain.model.section.Section
+import com.example.cinemates.domain.model.section.SectionMovie
+import com.example.cinemates.domain.model.section.SectionPersons
+import com.example.cinemates.domain.model.section.SectionTvShow
 import com.example.cinemates.ui.adapter.OnStartDragListener
 import com.example.cinemates.ui.adapter.ReorderHelperCallback
 import com.example.cinemates.ui.adapter.SectionAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.layout_tv_info.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
@@ -38,7 +36,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnStartDragListener {
         get() = FragmentHomeBinding::inflate
 
     private val viewModel: HomeViewModel by viewModels()
-    private var mItemTouchHelper: ItemTouchHelper? = null
+    private var itemTouchHelper: ItemTouchHelper? = null
     private lateinit var sectionMoviePopular: SectionMovie
     private lateinit var sectionMovieTopRated: SectionMovie
     private lateinit var sectionMovieUpcoming: SectionMovie
@@ -51,11 +49,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnStartDragListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sectionMoviePopular = SectionMovie("Movies popular", listOf())
+        sectionMoviePopular = SectionMovie("Movies Popular", listOf())
         sectionMovieTopRated = SectionMovie("Movies Top rated", mutableListOf())
         sectionMovieUpcoming = SectionMovie("Movies Upcoming", mutableListOf())
         sectionTrendingPerson = SectionPersons("Trending persons", mutableListOf())
-        sectionTrendingMovie = SectionMovie("Trending Movie", mutableListOf())
+        sectionTrendingMovie = SectionMovie("Trending Movies", mutableListOf())
         sectionTrendingTvShow = SectionTvShow("Trending TvShow", mutableListOf())
         sectionPopularTvShow = SectionTvShow("Popular TvShow", mutableListOf())
         sectionTvShowOnAir = SectionTvShow("TvShow On Air", mutableListOf())
@@ -80,8 +78,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnStartDragListener {
             sectionRv.adapter = adapter
 
             val callback: ItemTouchHelper.Callback = ReorderHelperCallback(adapter)
-            mItemTouchHelper = ItemTouchHelper(callback)
-            mItemTouchHelper?.attachToRecyclerView(sectionRv)
+            itemTouchHelper = ItemTouchHelper(callback)
+            itemTouchHelper?.attachToRecyclerView(sectionRv)
 
             toolbar.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
@@ -94,7 +92,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnStartDragListener {
 
 
             observeViewModel().invokeOnCompletion {
-                Log.d(TAG, "Observation terminated, updating adapter")
                 adapter.updateItems(sections)
             }
 
@@ -108,47 +105,64 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnStartDragListener {
             withTimeout(1000) {
                 launch {
                     viewModel.popularMovies.collectLatest { popular ->
-                        sectionMoviePopular.items = popular
+                        popular?.let {
+                            sectionMoviePopular.items = it
+                        }
                     }
                 }
 
                 launch {
                     viewModel.topRatedMovies.collectLatest { topRated ->
-                        sectionMovieTopRated.items = topRated
+                        topRated?.let {
+                            sectionMovieTopRated.items = it
+                        }
                     }
                 }
 
                 launch {
                     viewModel.upcomingMovies.collectLatest { upcoming ->
-                        sectionMovieUpcoming.items = upcoming
+                        upcoming?.let {
+                            sectionMovieUpcoming.items = it
+
+                        }
                     }
                 }
 
                 launch {
-                    viewModel.trendingPerson.collectLatest { trendingPersons ->
-                        sectionTrendingPerson.items = trendingPersons
+                    viewModel.trendingActors.collectLatest { trendingPersons ->
+                        trendingPersons?.let {
+                            sectionTrendingPerson.items = it
+                        }
                     }
                 }
 
                 launch {
                     viewModel.trendingMovies.collectLatest { trendingMovies ->
-                        sectionTrendingMovie.items = trendingMovies
+                        trendingMovies?.let {
+                            sectionTrendingMovie.items = it
+                        }
                     }
                 }
                 launch {
                     viewModel.trendingTvShow.collectLatest { trendingTvShow ->
-                        sectionTrendingTvShow.items = trendingTvShow
+                        trendingTvShow?.let {
+                            sectionTrendingTvShow.items = it
+                        }
                     }
                 }
 
                 launch {
                     viewModel.popularTvShow.collectLatest { popularTvShow ->
-                        sectionPopularTvShow.items = popularTvShow
+                        popularTvShow?.let {
+                            sectionPopularTvShow.items = it
+                        }
                     }
                 }
                 launch {
-                    viewModel.tvShowOnTheAir.collectLatest { tvShowOnTheAir ->
-                        sectionTvShowOnAir.items = tvShowOnTheAir
+                    viewModel.tvSHowOnTheAir.collectLatest { tvShowOnTheAir ->
+                        tvShowOnTheAir?.let {
+                            sectionTvShowOnAir.items = tvShowOnTheAir
+                        }
                     }
                 }
             }
@@ -158,8 +172,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnStartDragListener {
 
     override fun onStartDrag(viewHolder: RecyclerView.ViewHolder?) {
         viewHolder?.let {
-            mItemTouchHelper?.startDrag(it)
+            itemTouchHelper?.startDrag(it)
         }
     }
+
 
 }

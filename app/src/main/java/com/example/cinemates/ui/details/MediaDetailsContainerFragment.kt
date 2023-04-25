@@ -1,6 +1,7 @@
 package com.example.cinemates.ui.details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +11,13 @@ import androidx.navigation.Navigation
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentMediaDetailsBinding
-import com.example.cinemates.model.Image
+import com.example.cinemates.domain.model.Image
 import com.example.cinemates.ui.adapter.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
+private val TAG = MediaDetailsContainerFragment::class.simpleName
 /**
  * A base class for implementing a container of other fragments shown via viewPager and tab layout
  *
@@ -24,7 +26,6 @@ import kotlin.math.abs
  * @author Jon Areas
  * Created 26/05/2022 at 15:44
  */
-@AndroidEntryPoint
 abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fragment, String>) :
     BaseFragment<FragmentMediaDetailsBinding>() {
 
@@ -40,7 +41,7 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.d(TAG, "onViewCreated called")
         binding.apply {
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             fab.setOnClickListener {
@@ -66,13 +67,13 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fra
 
             mediaPoster.root.setOnClickListener {
                 posters?.let {
-                    showAllImages(it.toTypedArray())
+                    displayImages(it.toTypedArray())
                 }
             }
 
             mediaBackdrop.setOnClickListener {
                 backdrops?.let {
-                    showAllImages(it.toTypedArray())
+                    displayImages(it.toTypedArray())
                 }
             }
 
@@ -82,7 +83,7 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fra
         }
     }
 
-    private fun showAllImages(image: Array<Image>) {
+    private fun displayImages(image: Array<Image>) {
         val action = NavGraphDirections.actionGlobalMediaImagesFragment(image)
         Navigation.findNavController(requireView()).navigate(action)
     }
@@ -98,7 +99,7 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fra
             viewPager.adapter = viewPagerAdapter
             //viewPager.isUserInputEnabled = false
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.text = mapOfFragments.values.toList()[position].toString()
+                tab.text = mapOfFragments.values.toList()[position]
             }.attach()
         }
 

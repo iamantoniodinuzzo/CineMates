@@ -1,8 +1,11 @@
 package com.example.cinemates.ui.details.tvShow
 
 import androidx.lifecycle.*
-import com.example.cinemates.model.*
-import com.example.cinemates.repositories.TvShowRepository
+import com.example.cinemates.domain.model.EpisodeGroupDetails
+import com.example.cinemates.domain.model.SeasonDetails
+import com.example.cinemates.domain.model.TvShow
+import com.example.cinemates.domain.usecases.details.tv.GetSeasonDetailsUseCase
+import com.example.cinemates.domain.usecases.details.tv.GetTvDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -20,13 +23,17 @@ private val TAG = TvDetailsViewModel::class.simpleName
 class TvDetailsViewModel
 @Inject
 constructor(
-    private val tvShowRepository: TvShowRepository
+    private val getTvShowDetailsUseCase: GetTvDetailsUseCase,
+    private val getSeasonDetailsUseCase: GetSeasonDetailsUseCase,
 ) : ViewModel() {
 
     private val _selectedTv = MutableStateFlow<TvShow?>(null)
-    private val _episodeGroupDetail = MutableStateFlow<EpisodeGroup?>(null)
-    val episodeGroupDetail: Flow<EpisodeGroup?> get() = _episodeGroupDetail
     val selectedTv: Flow<TvShow?> get() = _selectedTv
+    private val _episodeGroupDetail = MutableStateFlow<EpisodeGroupDetails?>(null)
+    val episodeGroupDetail: Flow<EpisodeGroupDetails?> get() = _episodeGroupDetail
+    private val _seasonDetails = MutableStateFlow<SeasonDetails?>(null)
+    val seasonDetails: Flow<SeasonDetails?> get() = _seasonDetails
+    private var selectedTvId: Int = -1
 
     /**
      * Retrieves additional information about the selected tvShow
@@ -41,61 +48,69 @@ constructor(
      */
     private fun getTvDetails(id: Int) {
         viewModelScope.launch {
-            tvShowRepository.getDetails(id)
-                .collectLatest { tv ->
-                    _selectedTv.value = tv
-                }
+            getTvShowDetailsUseCase.getTvDetails(id).collectLatest { tv ->
+                selectedTvId = tv.id
+                _selectedTv.value = tv
+            }
         }
 
     }
 
     val similarTvShow = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepository.getSimilar(it.id)
+            getTvShowDetailsUseCase.getSimilarTvs(it.id)
         } ?: emptyFlow()
     }
 
     val videos = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepository.getVideos(it.id)
+            getTvShowDetailsUseCase.getTrailers(it.id)
         } ?: emptyFlow()
     }
 
     val posters = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepository.getPosters(it.id)
+            getTvShowDetailsUseCase.getPosters(it.id)
         } ?: emptyFlow()
     }
 
     val backdrops = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepository.getBackdrops(it.id)
+            getTvShowDetailsUseCase.getBackdrops(it.id)
         } ?: emptyFlow()
     }
 
     val cast = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepository.getCast(it.id)
+            getTvShowDetailsUseCase.getTvCast(it.id)
         } ?: emptyFlow()
     }
 
     val crew = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepository.getCrew(it.id)
+            getTvShowDetailsUseCase.getTvCrew(it.id)
         } ?: emptyFlow()
     }
 
     val episodeGroupList = selectedTv.flatMapLatest { tv ->
         tv?.let {
-            tvShowRepository.getEpisodeGroup(tv.id)
+            getTvShowDetailsUseCase.getEpisodeGroups(tv.id)
         } ?: emptyFlow()
     }
 
 
-    fun getEpisodeGroupDetails(id: String) {
+    fun getEpisodeGroupDetails(episodeGroupId: String) {
         viewModelScope.launch {
-            tvShowRepository.getEpisodeGroupDetails(id).collectLatest {
+            getTvShowDetailsUseCase.getEpisodeGroupDetails(episodeGroupId).collectLatest {
                 _episodeGroupDetail.value = it
+            }
+        }
+    }
+
+    fun getSeasonDetails(seasonNumber: Int) {
+        viewModelScope.launch {
+            getSeasonDetailsUseCase.invoke(selectedTvId, seasonNumber).collectLatest {
+                _seasonDetails.value = it
             }
         }
     }

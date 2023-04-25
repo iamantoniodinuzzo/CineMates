@@ -7,7 +7,7 @@
 
         <variable
             name="person"
-            type="com.example.cinemates.model.Person" />
+            type="com.example.cinemates.domain.model.PersonDetails" />
 
         <import type="android.view.View" />
     </data>
@@ -18,14 +18,13 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_margin="10dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
             <com.indisparte.linearlayoutinfo.LinearInfoView
                 android:id="@+id/biography"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/birthPlace"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 app:hideIfValueEmpty="true"
@@ -36,6 +35,7 @@
                 android:id="@+id/age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/biography"
                 android:layout_marginBottom="10dp"
                 app:hideIfValueEmpty="true"
                 app:title="Age"
@@ -49,7 +49,7 @@
                 android:layout_marginBottom="10dp"
                 app:hideIfValueEmpty="true"
                 app:title="Born on"
-                app:value="@{person.formattedBirthday}" />
+                app:value="@{person.birthday}" />
 
             <com.indisparte.linearlayoutinfo.LinearInfoView
                 android:id="@+id/deathDate"
@@ -58,7 +58,7 @@
                 android:layout_below="@id/birthday"
                 app:hideIfValueEmpty="true"
                 app:title="Died on"
-                app:value="@{person.formattedDeathday}" />
+                app:value="@{person.deathDay}" />
 
             <com.indisparte.linearlayoutinfo.LinearInfoView
                 android:id="@+id/birthPlace"
@@ -75,7 +75,7 @@
                 android:id="@+id/knownAsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/biography"
+                android:layout_below="@id/birthPlace"
                 android:layout_marginTop="10dp"
                 android:text="Also known as"
                 android:textColor="@color/geyser"
@@ -87,8 +87,8 @@
                 android:id="@+id/chipGroupKnownAs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipToPadding="false"
                 android:layout_below="@id/knownAsTitle"
+                android:clipToPadding="false"
                 android:padding="10dp" />
 
 
@@ -113,13 +113,10 @@
                     android:id="@+id/images"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clipToPadding="false"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/list_item_poster" />
-
-                <include
-                    android:id="@+id/empty_view_recommended"
-                    layout="@layout/layout_empty_recycler" />
             </RelativeLayout>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

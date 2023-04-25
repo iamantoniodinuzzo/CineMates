@@ -7,7 +7,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
@@ -42,7 +41,7 @@ class ActorAboutFragment : BaseFragment<FragmentActorAboutBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            binding.images.adapter = posterAdapter
+            images.adapter = posterAdapter
             val chipsGroupKnowAs: HorizontalChipView<String> =
                 view.findViewById(R.id.chipGroupKnownAs)
 
@@ -58,7 +57,7 @@ class ActorAboutFragment : BaseFragment<FragmentActorAboutBinding>() {
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
 
                 launch {
-                    viewModel.actor.collect { selectedPerson ->
+                    viewModel.personDetails.collect { selectedPerson ->
                         binding.person = selectedPerson
                         if (selectedPerson != null) {
                             chipGroupKnownAs.setChipsList(
@@ -71,20 +70,6 @@ class ActorAboutFragment : BaseFragment<FragmentActorAboutBinding>() {
                 launch {
                     viewModel.images.collect { images ->
                         posterAdapter.items = images
-                    }
-                }
-
-                launch {
-                    viewModel.cast.collectLatest { castList->
-                        Log.d(TAG, "onViewCreated: $castList")
-                        // TODO: Show actor characters
-                    }
-                }
-
-                launch {
-                    viewModel.crew.collectLatest { crewList->
-                        Log.d(TAG, "onViewCreated: $crewList")
-                        // TODO: Show actor crew works
                     }
                 }
             }

@@ -11,8 +11,8 @@ import com.example.cinemates.R
 import com.example.cinemates.common.DoubleViewSizeAdapter
 import com.example.cinemates.databinding.ListItemCrewLongBinding
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
-import com.example.cinemates.model.Crew
-import com.example.cinemates.model.Person
+import com.example.cinemates.domain.model.Crew
+import com.example.cinemates.domain.model.Media
 
 class CrewAdapter :
     DoubleViewSizeAdapter<Crew, ListItemCrewLongBinding, ListItemPersonSmallBinding>(
@@ -21,7 +21,7 @@ class CrewAdapter :
     ) {
 
 
-    private fun navigateToDetails(binding: ViewDataBinding, item: Person) {
+    private fun navigateToDetails(binding: ViewDataBinding, item: Crew) {
         binding.root.setOnClickListener { view ->
             val action = NavGraphDirections.actionGlobalActorDetailsFragment(item)
             Navigation.findNavController(view).navigate(action)

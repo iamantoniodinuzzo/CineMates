@@ -3,13 +3,11 @@ package com.example.cinemates.ui.discover
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.cinemates.model.Filter
+import com.example.cinemates.domain.model.Filter
 import com.example.cinemates.util.Sort
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-
-private const val TAG = "DiscoverViewModel"
 
 /**
  * @author Antonio Di Nuzzo
@@ -61,13 +59,13 @@ constructor(
         genreMap[36] = "History"
         genreMap[27] = "Horror"
         genreMap[10402] = "Music"
-        genreMap[9648] = "Mystery"
+        genreMap[9648] = "TopRated"
         genreMap[10749] = "Romance"
         genreMap[878] = "Science Fiction"
         genreMap[53] = "Thriller"
         genreMap[10752] = "War"
         genreMap[37] = "Western"
-        genreMap[10770] = "TV Movie"
+        genreMap[10770] = "TV MovieDetailsDTO"
         return genreMap
     }
 

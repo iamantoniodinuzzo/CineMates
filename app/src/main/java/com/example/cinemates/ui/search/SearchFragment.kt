@@ -15,9 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentSearchBinding
-import com.example.cinemates.ui.adapter.MovieAdapter
+import com.example.cinemates.ui.adapter.MediaAdapter
 import com.example.cinemates.ui.adapter.PersonAdapter
-import com.example.cinemates.ui.adapter.TvShowAdapter
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.util.ViewSize
 import kotlinx.coroutines.launch
@@ -31,17 +30,17 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         get() = FragmentSearchBinding::inflate
 
     private lateinit var selectedLayoutManager: LayoutManager
-    private lateinit var movieAdapter: MovieAdapter
+    private lateinit var movieAdapter: MediaAdapter
     private lateinit var personAdapter: PersonAdapter
-    private lateinit var tvShowAdapter: TvShowAdapter
+    private lateinit var tvShowAdapter: MediaAdapter
     private val viewModel: SearchViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //init adapters
-        movieAdapter = MovieAdapter()
+        movieAdapter = MediaAdapter()
         personAdapter = PersonAdapter()
-        tvShowAdapter = TvShowAdapter()
+        tvShowAdapter = MediaAdapter()
     }
 
 
@@ -87,7 +86,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 })
 
             }
-
 
             //listen viewModel changes
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {

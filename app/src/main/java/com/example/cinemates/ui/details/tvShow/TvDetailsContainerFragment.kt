@@ -20,10 +20,11 @@ private val TAG = TvDetailsContainerFragment::class.simpleName
 class TvDetailsContainerFragment : MediaDetailsContainerFragment(
     mapOf(
         TvAboutFragment() to "About",
+        TvSeasonsFragment() to "Seasons",
         TvCastFragment() to "Cast",
         TvCrewFragment() to "Crew",
-        TvSimilarFragment() to "Similar",
-        TvCreatedByFragment() to "Creators"
+        TvCreatedByFragment() to "Creators",
+        TvSimilarFragment() to "Similar"
     )
 ) {
 
@@ -38,7 +39,6 @@ class TvDetailsContainerFragment : MediaDetailsContainerFragment(
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             launch {
                 viewModel.selectedTv.collectLatest { selectedTv ->
-                    Log.d(TAG, "onViewCreated: ${selectedTv.toString()}")
                     binding.media = selectedTv
                 }
             }
@@ -56,6 +56,11 @@ class TvDetailsContainerFragment : MediaDetailsContainerFragment(
 
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.onFragmentDestroyed()
     }
 
 }

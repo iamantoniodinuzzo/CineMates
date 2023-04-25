@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.cinemates.databinding.ListItemBackdropBinding
 import com.example.cinemates.databinding.ListItemPosterBinding
-import com.example.cinemates.databinding.ListItemSectionBinding
-import com.example.cinemates.model.Image
-import com.example.cinemates.model.section.SectionMovie
-import com.example.cinemates.util.DoubleTouchListener
+import com.example.cinemates.domain.model.Image
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)

@@ -17,10 +17,13 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:layout_width="250dp"
+        android:layout_height="150dp"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:cardElevation="4dp"
         android:layout_marginEnd="10dp"
+        android:elevation="4dp"
         android:layout_marginBottom="10dp"
         app:cardCornerRadius="10dp">
 

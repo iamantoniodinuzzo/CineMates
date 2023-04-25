@@ -1,9 +1,10 @@
 package com.example.cinemates.ui.details.tvShow
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.cinemates.domain.model.EpisodeGroupDetails
+import com.example.cinemates.domain.model.SeasonDetails
 import com.example.cinemates.domain.model.TvShow
+import com.example.cinemates.domain.usecases.details.tv.GetSeasonDetailsUseCase
 import com.example.cinemates.domain.usecases.details.tv.GetTvDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -22,13 +23,17 @@ private val TAG = TvDetailsViewModel::class.simpleName
 class TvDetailsViewModel
 @Inject
 constructor(
-    private val getTvShowDetailsUseCase: GetTvDetailsUseCase
+    private val getTvShowDetailsUseCase: GetTvDetailsUseCase,
+    private val getSeasonDetailsUseCase: GetSeasonDetailsUseCase,
 ) : ViewModel() {
 
     private val _selectedTv = MutableStateFlow<TvShow?>(null)
     val selectedTv: Flow<TvShow?> get() = _selectedTv
     private val _episodeGroupDetail = MutableStateFlow<EpisodeGroupDetails?>(null)
     val episodeGroupDetail: Flow<EpisodeGroupDetails?> get() = _episodeGroupDetail
+    private val _seasonDetails = MutableStateFlow<SeasonDetails?>(null)
+    val seasonDetails: Flow<SeasonDetails?> get() = _seasonDetails
+    private var selectedTvId: Int = -1
 
     /**
      * Retrieves additional information about the selected tvShow
@@ -44,8 +49,9 @@ constructor(
     private fun getTvDetails(id: Int) {
         viewModelScope.launch {
             getTvShowDetailsUseCase.getTvDetails(id).collectLatest { tv ->
-                    _selectedTv.value = tv
-                }
+                selectedTvId = tv.id
+                _selectedTv.value = tv
+            }
         }
 
     }
@@ -97,6 +103,14 @@ constructor(
         viewModelScope.launch {
             getTvShowDetailsUseCase.getEpisodeGroupDetails(episodeGroupId).collectLatest {
                 _episodeGroupDetail.value = it
+            }
+        }
+    }
+
+    fun getSeasonDetails(seasonNumber: Int) {
+        viewModelScope.launch {
+            getSeasonDetailsUseCase.invoke(selectedTvId, seasonNumber).collectLatest {
+                _seasonDetails.value = it
             }
         }
     }

@@ -1,14 +1,10 @@
 package com.example.cinemates.data.remote.repository
 
-import android.util.Log
 import com.example.cinemates.data.remote.response.credits.CastDTO
 import com.example.cinemates.data.remote.response.credits.CrewDTO
 import com.example.cinemates.data.remote.response.image.ImageDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
-import com.example.cinemates.data.remote.response.tvShow.EpisodeGroupDTO
-import com.example.cinemates.data.remote.response.tvShow.EpisodeGroupDetailsDTO
-import com.example.cinemates.data.remote.response.tvShow.TvShowDTO
-import com.example.cinemates.data.remote.response.tvShow.TvShowDetailsDTO
+import com.example.cinemates.data.remote.response.tvShow.*
 import com.example.cinemates.data.remote.service.TvShowService
 import com.example.cinemates.domain.model.Filter
 import kotlinx.coroutines.flow.Flow
@@ -25,12 +21,12 @@ constructor(
     private val queryMap: MutableMap<String, String>
 ) : TvShowRepository {
 
-    override  fun getSpecificTVList(specification: String) = flow {
+    override fun getSpecificTVList(specification: String) = flow {
         val specificTvShowList = tvShowService.getListOfSpecificTv(specification, queryMap).results
         emit(specificTvShowList)
     }
 
-    override  fun getTrending(timeWindow: String): Flow<List<TvShowDTO>> =
+    override fun getTrending(timeWindow: String): Flow<List<TvShowDTO>> =
         flow {
             val trending = tvShowService.getTrending(timeWindow, queryMap).results
             emit(trending)
@@ -43,7 +39,7 @@ constructor(
     }
 
     override fun getDetails(id: Int): Flow<TvShowDetailsDTO> = flow {
-        val tvShowDetails =tvShowService.getDetails(id, queryMap)
+        val tvShowDetails = tvShowService.getDetails(id, queryMap)
         emit(tvShowDetails)
     }
 
@@ -96,9 +92,15 @@ constructor(
         emit(episodesGroup)
     }
 
-    override fun getEpisodeGroupDetails(episodeGroupId: String): Flow<EpisodeGroupDetailsDTO> = flow {
-        val episodesGroupDetails = tvShowService.getEpisodeGroupDetails(episodeGroupId, queryMap)
-        emit(episodesGroupDetails)
+    override fun getEpisodeGroupDetails(episodeGroupId: String): Flow<EpisodeGroupDetailsDTO> =
+        flow {
+            val episodesGroupDetails =
+                tvShowService.getEpisodeGroupDetails(episodeGroupId, queryMap)
+            emit(episodesGroupDetails)
+        }
+
+    override fun getSeasonDetails(tvId: Int, seasonNumber: Int): Flow<SeasonDetailsDTO> = flow {
+        emit(tvShowService.getSeasonDetails(tvId, seasonNumber, queryMap))
     }
 
 }

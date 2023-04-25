@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-data class EpisodeDTO(
+open class EpisodeDTO(
     @SerializedName("air_date")
-    private val airDate: String?,
+    protected val airDate: String?,
     @SerializedName("episode_number")
     val episodeNumber: Int,
     val id: Int,

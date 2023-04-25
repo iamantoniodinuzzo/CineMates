@@ -90,6 +90,9 @@
         <action
             android:id="@+id/action_tvDetailsFragment_to_episodeGroupDetailsFragment"
             app:destination="@id/episodeGroupDetailsFragment" />
+        <action
+            android:id="@+id/action_tvDetailsFragment_to_seasonDetailsFragment"
+            app:destination="@id/seasonDetailsFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_movieDetailsFragment"
@@ -115,5 +118,14 @@
     <action
         android:id="@+id/action_global_mediaImagesFragment"
         app:destination="@id/mediaImagesFragment"/>
+    <fragment
+        android:id="@+id/seasonDetailsFragment"
+        tools:layout="@layout/fragment_season_details"
+        android:name="com.example.cinemates.ui.details.tvShow.SeasonDetailsFragment"
+        android:label="SeasonDetailsFragment" >
+        <argument
+            android:name="season"
+            app:argType="com.example.cinemates.domain.model.Season" />
+    </fragment>
 
 </navigation>

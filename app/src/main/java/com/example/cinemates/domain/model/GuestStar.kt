@@ -1,12 +1,15 @@
 package com.example.cinemates.domain.model
 
 
-open class Cast(
-    val character: String,
+import com.example.cinemates.data.remote.response.credits.CastDTO
+
+class GuestStar(
+    character: String,
     id: Int,
     name: String,
     profilePath: String
-) : Person(
+) : Cast(
+    character,
     id,
     name,
     profilePath

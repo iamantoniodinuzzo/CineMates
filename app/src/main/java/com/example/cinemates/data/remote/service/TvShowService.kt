@@ -6,10 +6,7 @@ import com.example.cinemates.data.remote.response.common.GenreDTO
 import com.example.cinemates.data.remote.response.credits.CreditsResponse
 import com.example.cinemates.data.remote.response.image.ImagesResponse
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
-import com.example.cinemates.data.remote.response.tvShow.EpisodeGroupDTO
-import com.example.cinemates.data.remote.response.tvShow.EpisodeGroupDetailsDTO
-import com.example.cinemates.data.remote.response.tvShow.TvShowDTO
-import com.example.cinemates.data.remote.response.tvShow.TvShowDetailsDTO
+import com.example.cinemates.data.remote.response.tvShow.*
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
@@ -85,4 +82,11 @@ interface TvShowService {
         @Path("id") id: String,
         @QueryMap queries: Map<String, String>
     ): EpisodeGroupDetailsDTO
+
+    @GET("tv/{tv_id}/season/{season_number}")
+    suspend fun getSeasonDetails(
+        @Path("tv_id") tvId: Int,
+        @Path("season_number") seasonNumber: Int,
+        @QueryMap queries: Map<String, String>
+    ): SeasonDetailsDTO
 }

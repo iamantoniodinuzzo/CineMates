@@ -7,7 +7,7 @@ package com.example.cinemates.util
 enum class MediaType(
     val value: String
 ) {
-    ALL("all"), MOVIE("movie"), TV("tv"), PERSON("person");
+    MOVIE("movie"), TV("tv"), PERSON("person");
 
     override fun toString(): String {
         return value

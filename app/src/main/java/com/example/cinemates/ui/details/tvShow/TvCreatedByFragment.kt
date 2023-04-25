@@ -31,10 +31,8 @@ class TvCreatedByFragment : ListFragment<CreatedBy, ListItemPersonLongBinding, C
                 viewModel.selectedTv.collectLatest {tv->
                     tv?.let{
 
-                        Log.d(TAG, "created by : ${tv.createdBy} ")
                         adapter.updateItems(tv.createdBy)
                     }
-
                 }
             }
         }

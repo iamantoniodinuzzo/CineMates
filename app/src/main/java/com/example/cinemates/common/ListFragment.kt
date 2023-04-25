@@ -23,7 +23,6 @@ abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T>>(val ada
         get() = FragmentListingItemsBinding::inflate
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()

@@ -15,5 +15,5 @@
         app:icon="@drawable/ic_space"
         app:emptyTextColor="@color/alabaster"
         app:emptyTextSize="14sp" />
-
+        app:emptyTextColor="@color/alabaster" />
 </layout>

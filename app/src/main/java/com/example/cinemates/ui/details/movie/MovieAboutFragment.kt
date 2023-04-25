@@ -20,7 +20,6 @@ import com.example.cinemates.ui.adapter.VideoAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.launch
 
-private val TAG = MovieAboutFragment::class.simpleName
 
 class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
@@ -73,13 +72,11 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 launch {
                     viewModel.selectedMovie.collect { selectedMovie ->
                         movie = selectedMovie
-                        if (selectedMovie != null) {
-                            selectedMovie.genres?.let {
-                                chipGroupGenres.setChipsList(
-                                    it,
-                                    textGetter = { genre -> genre.name }
-                                )
-                            }
+                        selectedMovie?.genres?.let {
+                            chipGroupGenres.setChipsList(
+                                it,
+                                textGetter = { genre -> genre.name }
+                            )
                         }
                     }
                 }
@@ -95,9 +92,9 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
                 launch {
                     viewModel.collection.collect { collection ->
-                        collection?.let {
+                        collection.let {
                             mediaAdapter.updateItems(it.parts)
-                        } 
+                        }
 
 
 

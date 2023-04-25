@@ -8,7 +8,7 @@ import com.example.cinemates.domain.model.Collection
  */
 fun CollectionDTO.mapToCollection(): Collection {
     return Collection(
-        backdropPath = this.backdropPath,
+        backdropPath = this.backdropPath?:"",
         id = this.id,
         name = this.name,
         parts = this.parts?.map { it.mapToMedia() }?: listOf(),

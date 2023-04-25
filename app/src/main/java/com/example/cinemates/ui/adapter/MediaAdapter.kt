@@ -1,21 +1,21 @@
 package com.example.cinemates.ui.adapter
 
 
-/**
- * @author Antonio Di Nuzzo (Indisparte)
- */
-import android.util.Log
+
 import android.view.View
-import androidx.databinding.ViewDataBinding
 import androidx.navigation.Navigation
 import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
 import com.example.cinemates.common.DoubleViewSizeAdapter
 import com.example.cinemates.databinding.ListItemMediaLongBinding
 import com.example.cinemates.databinding.ListItemMediaSmallBinding
-import com.example.cinemates.domain.model.Media
 import com.example.cinemates.util.MediaType
+import com.example.cinemates.domain.model.Media
 
+
+/**
+ * @author Antonio Di Nuzzo (Indisparte)
+ */
 class MediaAdapter :
     DoubleViewSizeAdapter<Media, ListItemMediaLongBinding, ListItemMediaSmallBinding>(
         R.layout.list_item_media_long,
@@ -25,7 +25,7 @@ class MediaAdapter :
 
     override fun onBindLongItem(binding: ListItemMediaLongBinding, item: Media) {
         binding.media = item
-        binding.root.setOnClickListener{
+        binding.root.setOnClickListener {
             navigateToDetails(it, item)
         }
     }
@@ -33,7 +33,7 @@ class MediaAdapter :
     override fun onBindSmallItem(binding: ListItemMediaSmallBinding, item: Media) {
         binding.media = item
         binding.root.setOnClickListener {
-            navigateToDetails(it,item)
+            navigateToDetails(it, item)
         }
     }
 

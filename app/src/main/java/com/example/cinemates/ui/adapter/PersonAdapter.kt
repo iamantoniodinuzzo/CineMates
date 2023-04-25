@@ -4,7 +4,6 @@ package com.example.cinemates.ui.adapter
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-import android.util.Log
 import android.view.View
 import androidx.navigation.Navigation
 import com.example.cinemates.NavGraphDirections
@@ -21,7 +20,7 @@ class PersonAdapter :
     ) {
 
     override fun onBindLongItem(binding: ListItemPersonLongBinding, item: Person) {
-        binding.actor = item as Cast
+        binding.person = item
         binding.root.setOnClickListener {
 
             navigateToDetails(it, item)

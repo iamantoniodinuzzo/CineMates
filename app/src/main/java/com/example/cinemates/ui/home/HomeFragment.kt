@@ -1,7 +1,6 @@
 package com.example.cinemates.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,6 @@ import com.example.cinemates.ui.adapter.OnStartDragListener
 import com.example.cinemates.ui.adapter.ReorderHelperCallback
 import com.example.cinemates.ui.adapter.SectionAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.layout_tv_info.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
@@ -38,7 +36,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnStartDragListener {
         get() = FragmentHomeBinding::inflate
 
     private val viewModel: HomeViewModel by viewModels()
-    private var mItemTouchHelper: ItemTouchHelper? = null
+    private var itemTouchHelper: ItemTouchHelper? = null
     private lateinit var sectionMoviePopular: SectionMovie
     private lateinit var sectionMovieTopRated: SectionMovie
     private lateinit var sectionMovieUpcoming: SectionMovie
@@ -80,8 +78,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnStartDragListener {
             sectionRv.adapter = adapter
 
             val callback: ItemTouchHelper.Callback = ReorderHelperCallback(adapter)
-            mItemTouchHelper = ItemTouchHelper(callback)
-            mItemTouchHelper?.attachToRecyclerView(sectionRv)
+            itemTouchHelper = ItemTouchHelper(callback)
+            itemTouchHelper?.attachToRecyclerView(sectionRv)
 
             toolbar.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
@@ -174,8 +172,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), OnStartDragListener {
 
     override fun onStartDrag(viewHolder: RecyclerView.ViewHolder?) {
         viewHolder?.let {
-            mItemTouchHelper?.startDrag(it)
+            itemTouchHelper?.startDrag(it)
         }
     }
+
 
 }

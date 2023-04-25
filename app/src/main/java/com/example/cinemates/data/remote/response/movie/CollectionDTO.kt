@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class CollectionDTO(
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     val id: Int,
     val name: String,
     val overview: String,

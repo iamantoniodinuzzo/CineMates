@@ -20,7 +20,7 @@ class TvSeasonsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+        binding.layoutRecyclerView.recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.selectedTv.collect { tvShow ->
                 tvShow?.let {

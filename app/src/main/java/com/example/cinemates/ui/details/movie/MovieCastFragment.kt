@@ -19,7 +19,7 @@ class MovieCastFragment : ListFragment<Cast, ListItemPersonLongBinding, ActorAda
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.apply {
+        binding.layoutRecyclerView.apply {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             adapter.currentLayoutType = ViewSize.LONG
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {

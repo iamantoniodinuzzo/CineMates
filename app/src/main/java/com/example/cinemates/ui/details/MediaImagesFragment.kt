@@ -48,7 +48,7 @@ class MediaImagesFragment : BottomSheetDialogFragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.apply {
+        binding.layoutRecyclerView.apply {
             val images = args.images.asList()
             if(images.isNotEmpty()) {
                 val imageType = images[0].imageType

@@ -17,7 +17,7 @@ fun PersonDTO.mapToPersonDetails(): PersonDetails {
         gender = this.formattedGender,
         homepage = this.homepage.toString(),
         id = this.id,
-        imdbId = this.imdbId,
+        imdbId = this.imdbId?:"",
         knownForDepartment = this.knownForDepartment,
         name = this.name,
         placeOfBirth = this.placeOfBirth ?: "",

@@ -26,13 +26,12 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         get() = FragmentMovieAboutBinding::inflate
 
     private lateinit var videoAdapter: VideoAdapter
-    private lateinit var mediaAdapter: MediaAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
+    private lateinit var collectionDialog: MediaListDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         videoAdapter = VideoAdapter()
-        mediaAdapter = MediaAdapter()
     }
 
 
@@ -41,8 +40,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
         binding.apply {
             trailers.adapter = videoAdapter
-            collectionContent.collectionParts.adapter = mediaAdapter
-
 
             val chipGroupGenres: HorizontalChipView<Genre> =
                 view.findViewById<HorizontalChipView<Genre>>(R.id.chiGroupGenres)
@@ -59,11 +56,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             }
 
             collectionCover.root.setOnClickListener {
-                transformationLayout.startTransform()
-            }
-
-            collectionContent.root.setOnClickListener {
-                transformationLayout.finishTransform()
+                collectionDialog.showDialog()
             }
 
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
@@ -92,9 +85,8 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 launch {
                     viewModel.collection.collect { collection ->
                         collection.let {
-                            mediaAdapter.items = it.parts
+                            collectionDialog = MediaListDialog(requireContext(), it)
                         }
-
 
 
                     }

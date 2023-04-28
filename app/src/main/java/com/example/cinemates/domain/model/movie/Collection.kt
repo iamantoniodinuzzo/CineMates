@@ -1,5 +1,6 @@
-package com.example.cinemates.domain.model
+package com.example.cinemates.domain.model.movie
 
+import com.example.cinemates.domain.model.common.Media
 import java.io.Serializable
 
 data class Collection(

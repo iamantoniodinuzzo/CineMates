@@ -10,9 +10,8 @@ import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.R
 import com.example.cinemates.common.DoubleViewSizeAdapter
 import com.example.cinemates.databinding.ListItemCastLongBinding
-import com.example.cinemates.databinding.ListItemPersonLongBinding
 import com.example.cinemates.databinding.ListItemPersonSmallBinding
-import com.example.cinemates.domain.model.Cast
+import com.example.cinemates.domain.model.credits.Cast
 
 class ActorAdapter :
     DoubleViewSizeAdapter<Cast, ListItemCastLongBinding, ListItemPersonSmallBinding>(

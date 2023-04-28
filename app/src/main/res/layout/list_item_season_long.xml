@@ -7,7 +7,7 @@
 
         <variable
             name="season"
-            type="com.example.cinemates.domain.model.Season" />
+            type="com.example.cinemates.domain.model.tv.Season" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

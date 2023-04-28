@@ -1,9 +1,9 @@
 package com.example.cinemates.ui.details.tvShow
 
 import androidx.lifecycle.*
-import com.example.cinemates.domain.model.EpisodeGroupDetails
-import com.example.cinemates.domain.model.SeasonDetails
-import com.example.cinemates.domain.model.TvShow
+import com.example.cinemates.domain.model.tv.EpisodeGroupDetails
+import com.example.cinemates.domain.model.tv.SeasonDetails
+import com.example.cinemates.domain.model.tv.TvShow
 import com.example.cinemates.domain.usecases.details.tv.GetSeasonDetailsUseCase
 import com.example.cinemates.domain.usecases.details.tv.GetTvDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

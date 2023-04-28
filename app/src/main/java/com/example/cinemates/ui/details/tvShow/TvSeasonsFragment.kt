@@ -7,11 +7,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemates.common.ListFragment
 import com.example.cinemates.databinding.ListItemMediaSmallBinding
-import com.example.cinemates.domain.model.Media
-import com.example.cinemates.domain.model.Season
-import com.example.cinemates.ui.adapter.MediaAdapter
+import com.example.cinemates.domain.model.tv.Season
 import com.example.cinemates.ui.adapter.SeasonAdapter
-import com.example.cinemates.util.ViewSize
 
 class TvSeasonsFragment :
     ListFragment<Season, ListItemMediaSmallBinding, SeasonAdapter>(SeasonAdapter()) {

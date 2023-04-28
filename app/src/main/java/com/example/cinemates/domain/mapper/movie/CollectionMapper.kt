@@ -1,7 +1,7 @@
 package com.example.cinemates.domain.mapper.movie
 
 import com.example.cinemates.data.remote.response.movie.CollectionDTO
-import com.example.cinemates.domain.model.Collection
+import com.example.cinemates.domain.model.movie.Collection
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)

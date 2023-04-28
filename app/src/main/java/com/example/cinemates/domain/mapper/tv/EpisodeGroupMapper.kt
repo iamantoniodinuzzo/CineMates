@@ -1,7 +1,7 @@
 package com.example.cinemates.domain.mapper.tv
 
 import com.example.cinemates.data.remote.response.tvShow.EpisodeGroupDTO
-import com.example.cinemates.domain.model.EpisodeGroup
+import com.example.cinemates.domain.model.tv.EpisodeGroup
 
 
 /**

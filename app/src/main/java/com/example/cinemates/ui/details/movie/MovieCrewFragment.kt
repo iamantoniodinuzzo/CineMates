@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemates.databinding.ListItemCrewLongBinding
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.common.ListFragment
-import com.example.cinemates.domain.model.Crew
+import com.example.cinemates.domain.model.credits.Crew
 import com.example.cinemates.ui.adapter.CrewAdapter
 import kotlinx.coroutines.flow.collectLatest
 

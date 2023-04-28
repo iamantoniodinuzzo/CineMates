@@ -8,7 +8,7 @@ import com.example.cinemates.data.remote.response.movie.CollectionDTO
 import com.example.cinemates.data.remote.response.movie.MovieDTO
 import com.example.cinemates.data.remote.response.movie.MovieDetailsDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
-import com.example.cinemates.domain.model.Filter
+import com.example.cinemates.domain.model.common.Filter
 import com.example.cinemates.util.MediaListSpecification
 import com.example.cinemates.util.TimeWindow
 import kotlinx.coroutines.flow.Flow

@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentMovieAboutBinding
-import com.example.cinemates.domain.model.Genre
-import com.example.cinemates.domain.model.Image
+import com.example.cinemates.domain.model.common.Genre
 import com.example.cinemates.ui.adapter.MediaAdapter
 import com.example.cinemates.ui.adapter.VideoAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView

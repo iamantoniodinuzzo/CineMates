@@ -7,7 +7,7 @@
 
         <variable
             name="episodeGroup"
-            type="com.example.cinemates.domain.model.EpisodeGroupDetails" />
+            type="com.example.cinemates.domain.model.tv.EpisodeGroupDetails" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,18 +1,15 @@
 package com.example.cinemates.ui.details.actor
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentActorDetailsBinding
-import com.example.cinemates.domain.model.Person
 import com.example.cinemates.ui.adapter.ViewPagerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator

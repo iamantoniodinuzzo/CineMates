@@ -1,13 +1,13 @@
 package com.example.cinemates.domain.mapper.tv
 
 import com.example.cinemates.data.remote.response.tvShow.GroupDTO
-import com.example.cinemates.domain.model.Group
+import com.example.cinemates.domain.model.tv.Group
 
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-fun GroupDTO.mapToGroup():Group{
+fun GroupDTO.mapToGroup(): Group {
     return Group(
         episodes = this.episodes.map {
             it.mapToEpisode()

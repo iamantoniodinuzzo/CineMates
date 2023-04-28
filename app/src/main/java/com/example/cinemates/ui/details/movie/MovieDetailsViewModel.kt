@@ -1,7 +1,7 @@
 package com.example.cinemates.ui.details.movie
 
 import androidx.lifecycle.*
-import com.example.cinemates.domain.model.Movie
+import com.example.cinemates.domain.model.movie.Movie
 import com.example.cinemates.domain.usecases.details.movie.GetMovieDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*

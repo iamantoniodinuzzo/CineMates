@@ -12,7 +12,7 @@ import com.example.cinemates.R
 import com.example.cinemates.data.IMAGE_BASE_URL_W500
 import com.example.cinemates.data.IMAGE_BASE_URL_W780
 import com.example.cinemates.data.YT_API_KEY
-import com.example.cinemates.domain.model.ProductionCompany
+import com.example.cinemates.domain.model.common.ProductionCompany
 import com.example.cinemates.domain.model.section.Section
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubeThumbnailLoader

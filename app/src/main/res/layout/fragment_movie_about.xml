@@ -7,7 +7,7 @@
 
         <variable
             name="movie"
-            type="com.example.cinemates.domain.model.Movie" />
+            type="com.example.cinemates.domain.model.movie.Movie" />
 
         <import type="android.view.View" />
     </data>

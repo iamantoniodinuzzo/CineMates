@@ -1,13 +1,13 @@
 package com.example.cinemates.domain.mapper.tv
 
 import com.example.cinemates.data.remote.response.tvShow.CreatedByDTO
-import com.example.cinemates.domain.model.CreatedBy
+import com.example.cinemates.domain.model.tv.CreatedBy
 
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-fun CreatedByDTO.mapToCreatedBy():CreatedBy{
+fun CreatedByDTO.mapToCreatedBy(): CreatedBy {
     return CreatedBy(
         creditId = this.creditId,
         gender = formattedGender,

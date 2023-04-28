@@ -5,7 +5,7 @@
 
         <variable
             name="filter"
-            type="com.example.cinemates.domain.model.Filter" />
+            type="com.example.cinemates.domain.model.common.Filter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"

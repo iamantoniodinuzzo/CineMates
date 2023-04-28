@@ -1,7 +1,7 @@
 package com.example.cinemates.domain.mapper.credits
 
 import com.example.cinemates.data.remote.response.credits.PersonDTO
-import com.example.cinemates.domain.model.Person
+import com.example.cinemates.domain.model.credits.Person
 
 
 /**

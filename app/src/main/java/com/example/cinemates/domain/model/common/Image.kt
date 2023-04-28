@@ -1,4 +1,4 @@
-package com.example.cinemates.domain.model
+package com.example.cinemates.domain.model.common
 
 import android.os.Parcelable
 import com.example.cinemates.data.remote.response.image.ImageDTO

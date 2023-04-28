@@ -2,8 +2,8 @@ package com.example.cinemates.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinemates.domain.model.Media
-import com.example.cinemates.domain.model.Person
+import com.example.cinemates.domain.model.common.Media
+import com.example.cinemates.domain.model.credits.Person
 import com.example.cinemates.domain.usecases.home.HomeUseCaseContainer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow

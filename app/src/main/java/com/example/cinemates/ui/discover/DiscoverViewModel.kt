@@ -3,7 +3,7 @@ package com.example.cinemates.ui.discover
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.cinemates.domain.model.Filter
+import com.example.cinemates.domain.model.common.Filter
 import com.example.cinemates.util.Sort
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

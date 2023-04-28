@@ -1,9 +1,7 @@
-package com.example.cinemates.domain.model
+package com.example.cinemates.domain.model.tv
 
 
 import com.example.cinemates.data.remote.response.credits.CrewDTO
-import com.example.cinemates.data.remote.response.tvShow.GuestStarDTO
-import com.google.gson.annotations.SerializedName
 
 class SeasonEpisode(
     airDate: String,

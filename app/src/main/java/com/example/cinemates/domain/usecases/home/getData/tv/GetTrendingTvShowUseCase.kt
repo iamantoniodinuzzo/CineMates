@@ -19,7 +19,7 @@ constructor(
 ) {
 
      operator fun invoke(): Flow<List<Media>> {
-        return tvShowRepository.getTrending(TimeWindow.WEEK.value).map {tvShowDTOList->
+        return tvShowRepository.getTrending(TimeWindow.WEEK).map {tvShowDTOList->
             tvShowDTOList.map{it.mapToMedia()}
         }
     }

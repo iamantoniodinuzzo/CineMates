@@ -17,9 +17,8 @@ class GetTrendingMoviesUseCase
 constructor(
     private val movieRepository: MovieRepository,
 ) {
-    // TODO: Send TimeWidow
      operator fun invoke(): Flow<List<Media>> {
-        return movieRepository.getTrending(TimeWindow.WEEK.value).map { movieDTOList ->
+        return movieRepository.getTrending(TimeWindow.WEEK).map { movieDTOList ->
             movieDTOList.map { it.mapToMedia() }
         }
     }

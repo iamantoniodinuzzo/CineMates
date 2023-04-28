@@ -19,8 +19,7 @@ constructor(
     private val actorRepository: ActorRepository,
 ) {
      operator fun invoke(): Flow<List<Person>> {
-        return actorRepository.getTrendingPerson(MediaType.PERSON.value, TimeWindow.WEEK.value)
-            .map { personDTOList ->
+        return actorRepository.getTrendingPerson(TimeWindow.WEEK).map { personDTOList ->
                 personDTOList.map { it.mapToPerson() }
             }
     }

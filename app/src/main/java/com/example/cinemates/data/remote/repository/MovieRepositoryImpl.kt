@@ -10,6 +10,8 @@ import com.example.cinemates.data.remote.response.movie.MovieDetailsDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import com.example.cinemates.data.remote.service.MovieService
 import com.example.cinemates.domain.model.Filter
+import com.example.cinemates.util.MediaListSpecification
+import com.example.cinemates.util.TimeWindow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -27,8 +29,8 @@ constructor(
     /**
      * Get Popular,TopRated and Upcoming movies
      */
-    override  fun getSpecificMovieList(specification: String) = flow {
-        val movieList = movieService.getListOfSpecificMovies(specification, queryMap).results
+    override  fun getSpecificMovieList(specification: MediaListSpecification) = flow {
+        val movieList = movieService.getListOfSpecificMovies(specification.value, queryMap).results
         emit(movieList)
     }
 
@@ -37,8 +39,8 @@ constructor(
         emit(genres)
     }
 
-    override  fun getTrending(timeWindow: String): Flow<List<MovieDTO>> = flow {
-        val trending = movieService.getTrending(timeWindow, queryMap).results
+    override  fun getTrending(timeWindow: TimeWindow): Flow<List<MovieDTO>> = flow {
+        val trending = movieService.getTrending(timeWindow.value, queryMap).results
         emit(trending)
     }
 
@@ -113,8 +115,8 @@ constructor(
         emit(movieService.getBySearch(queryMap).results)
     }
 
-    override fun getByActor(with_cast: String): Flow<List<MovieDTO>> = flow {
-        queryMap["with_cast"] = with_cast
+    override fun getByActor(withActor: String): Flow<List<MovieDTO>> = flow {
+        queryMap["with_cast"] = withActor
         emit(movieService.getByDiscover(queryMap).results)
     }
 

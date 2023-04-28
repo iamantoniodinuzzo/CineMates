@@ -9,6 +9,8 @@ import com.example.cinemates.data.remote.response.movie.MovieDTO
 import com.example.cinemates.data.remote.response.movie.MovieDetailsDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import com.example.cinemates.domain.model.Filter
+import com.example.cinemates.util.MediaListSpecification
+import com.example.cinemates.util.TimeWindow
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -17,9 +19,9 @@ import kotlinx.coroutines.flow.Flow
 interface MovieRepository {
 
     //Get Popular,TopRated and Upcoming movies
-    fun getSpecificMovieList(specification: String): Flow<List<MovieDTO>>
+    fun getSpecificMovieList(specification: MediaListSpecification): Flow<List<MovieDTO>>
     fun getGenreList(): Flow<List<GenreDTO>>
-    fun getTrending(timeWindow: String): Flow<List<MovieDTO>>
+    fun getTrending(timeWindow: TimeWindow): Flow<List<MovieDTO>>
     fun getVideos(movieId: Int): Flow<List<VideoDTO>>
     fun getDetails(movieId: Int): Flow<MovieDetailsDTO>
     fun getSimilar(movieId: Int): Flow<List<MovieDTO>>
@@ -32,7 +34,7 @@ interface MovieRepository {
     fun getCrew(movieId: Int): Flow<List<CrewDTO>>
     fun getCollection(collectionId: Int): Flow<CollectionDTO>
     fun getBySearch(query: String): Flow<List<MovieDTO>>
-    fun getByActor(with_cast: String): Flow<List<MovieDTO>>
+    fun getByActor(withActor: String): Flow<List<MovieDTO>>
     fun getMoviesByActor(actorId: Int): Flow<List<MovieDTO>>
 
 }

@@ -7,6 +7,8 @@ import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import com.example.cinemates.data.remote.response.tvShow.*
 import com.example.cinemates.data.remote.service.TvShowService
 import com.example.cinemates.domain.model.Filter
+import com.example.cinemates.util.MediaListSpecification
+import com.example.cinemates.util.TimeWindow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -21,14 +23,14 @@ constructor(
     private val queryMap: MutableMap<String, String>
 ) : TvShowRepository {
 
-    override fun getSpecificTVList(specification: String) = flow {
-        val specificTvShowList = tvShowService.getListOfSpecificTv(specification, queryMap).results
+    override fun getSpecificTVList(specification: MediaListSpecification) = flow {
+        val specificTvShowList = tvShowService.getListOfSpecificTv(specification.value, queryMap).results
         emit(specificTvShowList)
     }
 
-    override fun getTrending(timeWindow: String): Flow<List<TvShowDTO>> =
+    override fun getTrending(timeWindow: TimeWindow): Flow<List<TvShowDTO>> =
         flow {
-            val trending = tvShowService.getTrending(timeWindow, queryMap).results
+            val trending = tvShowService.getTrending(timeWindow.value, queryMap).results
             emit(trending)
         }
 

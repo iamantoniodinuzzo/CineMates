@@ -16,6 +16,7 @@ class CollectionDialog(
     private val context: Context,
     private val collection: Collection,
 ) {
+//TODO causa crash perchè non all'interno del nav graph
 
     private lateinit var alertDialog: AlertDialog
     private lateinit var binding: LayoutCollectionDialogBinding

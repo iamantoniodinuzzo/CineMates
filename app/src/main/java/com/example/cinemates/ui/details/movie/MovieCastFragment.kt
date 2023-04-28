@@ -24,7 +24,7 @@ class MovieCastFragment : ListFragment<Cast, ListItemPersonLongBinding, ActorAda
             adapter.currentLayoutType = ViewSize.LONG
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.cast.collectLatest {cast->
-                    adapter.updateItems(cast)
+                    adapter.items = cast
                 }
             }
         }

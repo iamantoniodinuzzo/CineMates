@@ -91,18 +91,18 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 launch {
                     viewModel.searchedMovies.collect { movies ->
-                        movieAdapter.updateItems(movies)
+                        movieAdapter.items = movies
                     }
                 }
                 launch {
                     viewModel.searchedActors.collect { actors ->
-                        personAdapter.updateItems(actors)
+                        personAdapter.items = actors
                     }
                 }
 
                 launch {
                     viewModel.searchedTvShow.collect { tvShow ->
-                        tvShowAdapter.updateItems(tvShow)
+                        tvShowAdapter.items = tvShow
                     }
                 }
 

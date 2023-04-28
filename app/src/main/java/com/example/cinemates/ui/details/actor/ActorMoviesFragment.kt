@@ -26,7 +26,7 @@ class ActorMoviesFragment : ListFragment<Media, ListItemMediaSmallBinding, Media
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             launch {
                 viewModel.movies.collect { moviesByActor ->
-                    adapter.updateItems(moviesByActor)
+                    adapter.items = moviesByActor
                 }
             }
 

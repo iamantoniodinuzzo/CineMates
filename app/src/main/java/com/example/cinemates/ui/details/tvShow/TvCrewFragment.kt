@@ -25,7 +25,7 @@ class TvCrewFragment : ListFragment<Crew, ListItemCrewLongBinding, CrewAdapter>(
             adapter.currentLayoutType =ViewSize.LONG
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.crew.collectLatest { crew ->
-                    adapter.updateItems(crew)
+                    adapter.items = crew
                 }
             }
         }

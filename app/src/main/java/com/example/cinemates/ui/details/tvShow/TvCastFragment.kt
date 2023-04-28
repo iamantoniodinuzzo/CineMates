@@ -25,7 +25,7 @@ class TvCastFragment : ListFragment<Cast, ListItemPersonLongBinding, ActorAdapte
             adapter.currentLayoutType = ViewSize.LONG
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.cast.collectLatest {cast->
-                    adapter.updateItems(cast)
+                    adapter.items = cast
                 }
             }
         }

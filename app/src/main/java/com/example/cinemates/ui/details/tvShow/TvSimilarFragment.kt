@@ -20,7 +20,7 @@ class TvSimilarFragment : ListFragment<Media, ListItemMediaSmallBinding, MediaAd
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.similarTvShow.collect { similar ->
-                adapter.updateItems(similar)
+                adapter.items =similar
             }
         }
 

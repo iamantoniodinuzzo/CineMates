@@ -82,7 +82,7 @@ class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
                     viewModel.videos.collect { trailers ->
                         showTrailerSection(trailers.isNotEmpty())
                         if (trailers.isNotEmpty()) {
-                            videoAdapter.updateItems(trailers)
+                            videoAdapter.items = trailers
                         }
                     }
                 }
@@ -91,7 +91,7 @@ class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
 
                 launch {
                     viewModel.episodeGroupList.collectLatest { list ->
-                        episodeGroupAdapter.updateItems(list)
+                        episodeGroupAdapter.items = list
 
                     }
                 }

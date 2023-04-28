@@ -85,7 +85,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                     viewModel.videos.collect { trailers ->
                         showTrailerSection(trailers.isNotEmpty())
                         if (trailers.isNotEmpty()) {
-                            videoAdapter.updateItems(trailers)
+                            videoAdapter.items = trailers
                         }
                     }
                 }
@@ -93,7 +93,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 launch {
                     viewModel.collection.collect { collection ->
                         collection.let {
-                            mediaAdapter.updateItems(it.parts)
+                            mediaAdapter.items = it.parts
                         }
 
 

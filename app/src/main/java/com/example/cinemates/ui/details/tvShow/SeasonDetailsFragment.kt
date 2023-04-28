@@ -55,7 +55,7 @@ class SeasonDetailsFragment : BaseFragment<FragmentSeasonDetailsBinding>() {
             tvDetailsViewModel.seasonDetails.collectLatest { seasonDetails ->
                 seasonDetails?.let {
                     binding.season = it
-                    episodeAdapter.updateItems(it.seasonEpisodes)
+                    episodeAdapter.items = it.seasonEpisodes
 
                 }
 

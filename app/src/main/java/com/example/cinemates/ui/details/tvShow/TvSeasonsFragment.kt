@@ -24,7 +24,7 @@ class TvSeasonsFragment :
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.selectedTv.collect { tvShow ->
                 tvShow?.let {
-                    adapter.updateItems(it.seasons)
+                    adapter.items = it.seasons
                 }
             }
         }

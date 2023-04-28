@@ -30,7 +30,7 @@ class TvCreatedByFragment : ListFragment<CreatedBy, ListItemPersonLongBinding, C
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.selectedTv.collectLatest {tv->
                     tv?.let{
-                        adapter.updateItems(tv.createdBy)
+                        adapter.items= tv.createdBy
                     }
                 }
             }

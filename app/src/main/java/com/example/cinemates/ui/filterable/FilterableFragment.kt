@@ -47,7 +47,7 @@ class FilterableFragment : BaseFragment<FragmentFilterableBinding>() {
             recyclerView.adapter = adapter
 
             viewModel.movies.observe(viewLifecycleOwner) { movies ->
-                adapter.updateItems(movies)
+                adapter.items = movies
 //                setFabVisibility(movies)
             }
 

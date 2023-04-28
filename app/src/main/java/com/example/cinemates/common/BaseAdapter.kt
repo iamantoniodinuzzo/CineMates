@@ -54,7 +54,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseAdapter<T>.BaseViewHold
      * @param oldItems The old list of data items.
      * @param newItems The new list of data items.
      */
-    private class DiffCallback<T>(private val oldItems: List<T>, private val newItems: List<T>) :
+     class DiffCallback<T>(private val oldItems: List<T>, private val newItems: List<T>) :
         DiffUtil.Callback() {
 
         /**

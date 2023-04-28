@@ -20,7 +20,7 @@ class TvCastFragment : ListFragment<Cast, ListItemPersonLongBinding, ActorAdapte
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.apply {
+        binding.layoutRecyclerView.apply {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             adapter.currentLayoutType = ViewSize.LONG
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {

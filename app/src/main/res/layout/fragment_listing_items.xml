@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
     </data>
 
-
-    <com.indisparte.recyclerviewemptystatesupport.RecyclerViewEmptyStateSupport
-        android:id="@+id/recyclerView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:emptyText="Nothing here!"
-        app:icon="@drawable/ic_space"
-        app:emptyTextColor="@color/alabaster"
-        app:emptyTextSize="14sp" />
-        app:emptyTextColor="@color/alabaster" />
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/layout_recyclerView"
+            layout="@layout/layout_recyclerview" />
+    </RelativeLayout>
+
 </layout>

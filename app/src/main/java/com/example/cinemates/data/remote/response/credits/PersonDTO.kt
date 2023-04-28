@@ -23,7 +23,7 @@ open class PersonDTO(
     val homepage: String?,
     val id: Int,
     @SerializedName("imdb_id")
-    val imdbId: String,
+    val imdbId: String?,
     @SerializedName("known_for_department")
     val knownForDepartment: String,
     val name: String,

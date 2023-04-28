@@ -24,13 +24,12 @@ class TvCreatedByFragment : ListFragment<CreatedBy, ListItemPersonLongBinding, C
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.apply {
+        binding.layoutRecyclerView.apply {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             adapter.currentLayoutType = ViewSize.LONG
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.selectedTv.collectLatest {tv->
                     tv?.let{
-
                         adapter.updateItems(tv.createdBy)
                     }
                 }

@@ -29,7 +29,7 @@ abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T>>(val ada
     }
 
     private fun setupRecyclerView() {
-        binding.apply {
+        binding.layoutRecyclerView.apply {
             // Set the RecyclerView to use a linear layout by default
             recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
             recyclerView.adapter = adapter

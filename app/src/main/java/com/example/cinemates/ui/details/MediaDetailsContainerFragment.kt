@@ -12,6 +12,7 @@ import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentMediaDetailsBinding
 import com.example.cinemates.domain.model.common.Image
+import com.example.cinemates.domain.model.common.Images
 import com.example.cinemates.ui.adapter.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlin.math.abs
@@ -66,13 +67,13 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fra
 
             mediaPoster.root.setOnClickListener {
                 posters?.let {
-                    displayImages(it.toTypedArray())
+                    displayImages(Images(it))
                 }
             }
 
             mediaBackdrop.setOnClickListener {
                 backdrops?.let {
-                    displayImages(it.toTypedArray())
+                    displayImages(Images(it))
                 }
             }
 
@@ -82,8 +83,8 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fra
         }
     }
 
-    private fun displayImages(image: Array<Image>) {
-        val action = NavGraphDirections.actionGlobalMediaImagesFragment(image)
+    private fun displayImages(images: Images) {
+        val action = NavGraphDirections.actionGlobalMediaImagesFragment(images)
         Navigation.findNavController(requireView()).navigate(action)
     }
 

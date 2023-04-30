@@ -113,7 +113,7 @@
         tools:layout="@layout/fragment_listing_items">
         <argument
             android:name="images"
-            app:argType="com.example.cinemates.domain.model.common.Image[]" />
+            app:argType="com.example.cinemates.domain.model.common.Images" />
     </dialog>
     <action
         android:id="@+id/action_global_mediaImagesFragment"

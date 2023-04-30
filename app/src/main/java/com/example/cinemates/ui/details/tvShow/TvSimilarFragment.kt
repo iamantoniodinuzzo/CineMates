@@ -8,7 +8,6 @@ import com.example.cinemates.databinding.ListItemMediaSmallBinding
 import com.example.cinemates.common.ListFragment
 import com.example.cinemates.domain.model.common.Media
 import com.example.cinemates.ui.adapter.MediaAdapter
-import kotlinx.android.synthetic.main.fragment_profile.*
 
 class TvSimilarFragment : ListFragment<Media, ListItemMediaSmallBinding, MediaAdapter>(MediaAdapter()) {
 

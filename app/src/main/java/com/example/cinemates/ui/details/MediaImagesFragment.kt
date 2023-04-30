@@ -5,11 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.cinemates.data.remote.response.image.ImageType
 import com.example.cinemates.databinding.FragmentListingItemsBinding
 import com.example.cinemates.ui.adapter.ImageAdapter
@@ -49,7 +47,7 @@ class MediaImagesFragment : BottomSheetDialogFragment() {
 
     private fun setupRecyclerView() {
         binding.layoutRecyclerView.apply {
-            val images = args.images.asList()
+            val images = args.images.list
             if(images.isNotEmpty()) {
                 val imageType = images[0].imageType
                 if (imageType == ImageType.BACKDROP) {

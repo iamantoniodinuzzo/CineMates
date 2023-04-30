@@ -1,11 +1,10 @@
 plugins {
     id 'com.android.application'
-    id 'androidx.navigation.safeargs'
+    id 'org.jetbrains.kotlin.android'
+    id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.dagger.hilt.android'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
-    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 def apikeyPropertiesFile = rootProject.file("local.properties")
@@ -13,12 +12,12 @@ def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
-    compileSdk rootProject.COMPILE_SDK
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.cinemates"
-        minSdk rootProject.MIN_SDK
-        targetSdk rootProject.TARGET_SDK
+        minSdk 26
+        targetSdk 33
         versionCode 1
         versionName "1.0"
         // should correspond to key/value pairs inside the file
@@ -83,11 +82,15 @@ dependencies {
 
     // Retrofit
     implementation(libs.bundles.retrofit)
+    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
+
+
 
     // Lifecycle Kotlin Extensions
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_ktx"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_ktx"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewmodel_ktx"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha01"
 
     // Glide
     implementation(libs.glide.core)

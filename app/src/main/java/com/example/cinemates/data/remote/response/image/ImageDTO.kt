@@ -2,7 +2,6 @@ package com.example.cinemates.data.remote.response.image
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)

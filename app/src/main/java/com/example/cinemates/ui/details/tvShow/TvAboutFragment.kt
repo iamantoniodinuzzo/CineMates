@@ -18,7 +18,6 @@ import com.example.cinemates.ui.adapter.EpisodeGroupAdapter
 import com.example.cinemates.ui.adapter.MediaAdapter
 import com.example.cinemates.ui.adapter.VideoAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView
-import kotlinx.android.synthetic.main.fragment_movie_about.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

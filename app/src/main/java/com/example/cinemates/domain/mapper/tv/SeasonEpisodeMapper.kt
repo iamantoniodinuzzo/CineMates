@@ -1,17 +1,15 @@
 package com.example.cinemates.domain.mapper.tv
 
-import com.example.cinemates.data.remote.response.tvShow.EpisodeDTO
 import com.example.cinemates.data.remote.response.tvShow.SeasonEpisodeDTO
 import com.example.cinemates.domain.mapper.credits.mapToGuestStar
-import com.example.cinemates.domain.model.Episode
-import com.example.cinemates.domain.model.SeasonEpisode
+import com.example.cinemates.domain.model.tv.SeasonEpisode
 
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
 
-fun SeasonEpisodeDTO.mapToSeasonEpisode():SeasonEpisode{
+fun SeasonEpisodeDTO.mapToSeasonEpisode(): SeasonEpisode {
     return SeasonEpisode(
         airDate = this.formattedAirDate,
         crew= this.crew,

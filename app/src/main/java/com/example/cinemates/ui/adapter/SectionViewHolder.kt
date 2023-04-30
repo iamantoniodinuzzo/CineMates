@@ -41,7 +41,7 @@ class SectionMovieViewHolder(
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             val mediaAdapter = MediaAdapter()
-            mediaAdapter.updateItems(section.items)
+            mediaAdapter.items = section.items
             adapter = mediaAdapter
         }
 
@@ -70,7 +70,7 @@ class SectionTvViewHolder(
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             val tvShowAdapter = MediaAdapter()
-            tvShowAdapter.updateItems(section.items)
+            tvShowAdapter.items = section.items
             adapter = tvShowAdapter
         }
 
@@ -99,7 +99,7 @@ class SectionActorViewHolder(
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             val personAdapter = PersonAdapter()
-            personAdapter.updateItems(section.items)
+            personAdapter.items = section.items
             adapter = personAdapter
         }
 
@@ -127,7 +127,7 @@ class SectionEpisodeViewHolder(
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 val episodeAdapter = EpisodeAdapter()
-                episodeAdapter.updateItems(item.items)
+                episodeAdapter.items = item.items
                 adapter = episodeAdapter
             }
             collapseButton.setOnClickListener {

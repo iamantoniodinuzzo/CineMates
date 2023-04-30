@@ -1,4 +1,4 @@
-package com.example.cinemates.domain.model
+package com.example.cinemates.domain.model.common
 
 import java.io.Serializable
 

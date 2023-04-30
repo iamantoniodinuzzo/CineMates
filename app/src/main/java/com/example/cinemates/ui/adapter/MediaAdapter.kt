@@ -10,7 +10,7 @@ import com.example.cinemates.common.DoubleViewSizeAdapter
 import com.example.cinemates.databinding.ListItemMediaLongBinding
 import com.example.cinemates.databinding.ListItemMediaSmallBinding
 import com.example.cinemates.util.MediaType
-import com.example.cinemates.domain.model.Media
+import com.example.cinemates.domain.model.common.Media
 
 
 /**

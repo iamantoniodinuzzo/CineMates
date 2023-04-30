@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentMovieAboutBinding
-import com.example.cinemates.domain.model.Genre
-import com.example.cinemates.domain.model.Image
-import com.example.cinemates.ui.adapter.MediaAdapter
+import com.example.cinemates.domain.model.common.Genre
 import com.example.cinemates.ui.adapter.VideoAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.launch
@@ -27,13 +25,12 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         get() = FragmentMovieAboutBinding::inflate
 
     private lateinit var videoAdapter: VideoAdapter
-    private lateinit var mediaAdapter: MediaAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
+    private lateinit var collectionDialog: CollectionDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         videoAdapter = VideoAdapter()
-        mediaAdapter = MediaAdapter()
     }
 
 
@@ -42,8 +39,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
         binding.apply {
             trailers.adapter = videoAdapter
-            collectionContent.collectionParts.adapter = mediaAdapter
-
 
             val chipGroupGenres: HorizontalChipView<Genre> =
                 view.findViewById<HorizontalChipView<Genre>>(R.id.chiGroupGenres)
@@ -60,11 +55,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             }
 
             collectionCover.root.setOnClickListener {
-                transformationLayout.startTransform()
-            }
-
-            collectionContent.root.setOnClickListener {
-                transformationLayout.finishTransform()
+                collectionDialog.showDialog()
             }
 
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
@@ -85,7 +76,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                     viewModel.videos.collect { trailers ->
                         showTrailerSection(trailers.isNotEmpty())
                         if (trailers.isNotEmpty()) {
-                            videoAdapter.updateItems(trailers)
+                            videoAdapter.items = trailers
                         }
                     }
                 }
@@ -93,9 +84,8 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 launch {
                     viewModel.collection.collect { collection ->
                         collection.let {
-                            mediaAdapter.updateItems(it.parts)
+                            collectionDialog = CollectionDialog(requireContext(), it)
                         }
-
 
 
                     }

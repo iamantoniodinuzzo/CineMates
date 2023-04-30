@@ -12,7 +12,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentEpisodeGroupDetailsBinding
-import com.example.cinemates.domain.model.Group
+import com.example.cinemates.domain.model.tv.Group
 import com.example.cinemates.domain.model.section.Section
 import com.example.cinemates.domain.model.section.SectionEpisodesGroup
 import com.example.cinemates.ui.adapter.SectionAdapter

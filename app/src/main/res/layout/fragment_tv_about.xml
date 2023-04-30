@@ -7,7 +7,7 @@
 
         <variable
             name="tv"
-            type="com.example.cinemates.domain.model.TvShow" />
+            type="com.example.cinemates.domain.model.tv.TvShow" />
 
         <variable
             name="poster_counter"

@@ -9,7 +9,12 @@ import com.example.cinemates.domain.mapper.tv.mapToEpisodeGroup
 import com.example.cinemates.domain.mapper.tv.mapToEpisodeGroupDetails
 import com.example.cinemates.domain.mapper.tv.mapToMedia
 import com.example.cinemates.domain.mapper.tv.mapToTvShow
-import com.example.cinemates.domain.model.*
+import com.example.cinemates.domain.model.common.*
+import com.example.cinemates.domain.model.credits.Cast
+import com.example.cinemates.domain.model.credits.Crew
+import com.example.cinemates.domain.model.tv.EpisodeGroup
+import com.example.cinemates.domain.model.tv.EpisodeGroupDetails
+import com.example.cinemates.domain.model.tv.TvShow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

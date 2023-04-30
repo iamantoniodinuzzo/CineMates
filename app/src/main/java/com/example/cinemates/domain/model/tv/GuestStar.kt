@@ -1,7 +1,7 @@
-package com.example.cinemates.domain.model
+package com.example.cinemates.domain.model.tv
 
 
-import com.example.cinemates.data.remote.response.credits.CastDTO
+import com.example.cinemates.domain.model.credits.Cast
 
 class GuestStar(
     character: String,

@@ -2,7 +2,7 @@ package com.example.cinemates.domain.usecases.details.tv
 
 import com.example.cinemates.data.remote.repository.TvShowRepository
 import com.example.cinemates.domain.mapper.tv.mapToSeasonDetails
-import com.example.cinemates.domain.model.SeasonDetails
+import com.example.cinemates.domain.model.tv.SeasonDetails
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

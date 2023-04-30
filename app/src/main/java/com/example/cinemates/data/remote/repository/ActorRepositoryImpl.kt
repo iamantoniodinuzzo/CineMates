@@ -7,6 +7,8 @@ import com.example.cinemates.data.remote.response.image.ImageDTO
 import com.example.cinemates.data.remote.response.movie.MovieDTO
 import com.example.cinemates.data.remote.service.ActorService
 import com.example.cinemates.data.remote.service.MovieService
+import com.example.cinemates.util.MediaType
+import com.example.cinemates.util.TimeWindow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -22,9 +24,9 @@ constructor(
 ) : ActorRepository {
 
 
-    override  fun getTrendingPerson(mediaType: String, timeWindow: String): Flow<List<PersonDTO>> =
+    override  fun getTrendingPerson(timeWindow: TimeWindow): Flow<List<PersonDTO>> =
         flow {
-            val trending = actorService.getTrendingPerson(mediaType, timeWindow, queryMap).results
+            val trending = actorService.getTrendingPerson(timeWindow.value, queryMap).results
             emit(trending)
         }
 
@@ -42,8 +44,6 @@ constructor(
         val crew = actorService.getMovieCredits(id,queryMap).crew
         emit(crew)
     }
-
-
 
     override fun getPeoplesBySearch(query: String): Flow<List<PersonDTO>> = flow {
         queryMap["query"] = query

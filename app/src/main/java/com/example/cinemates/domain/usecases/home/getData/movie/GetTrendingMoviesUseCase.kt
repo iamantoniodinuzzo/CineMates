@@ -2,7 +2,7 @@ package com.example.cinemates.domain.usecases.home.getData.movie
 
 import com.example.cinemates.data.remote.repository.MovieRepository
 import com.example.cinemates.domain.mapper.movie.mapToMedia
-import com.example.cinemates.domain.model.Media
+import com.example.cinemates.domain.model.common.Media
 import com.example.cinemates.util.TimeWindow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -17,9 +17,8 @@ class GetTrendingMoviesUseCase
 constructor(
     private val movieRepository: MovieRepository,
 ) {
-    // TODO: Send TimeWidow
      operator fun invoke(): Flow<List<Media>> {
-        return movieRepository.getTrending(TimeWindow.WEEK.value).map { movieDTOList ->
+        return movieRepository.getTrending(TimeWindow.WEEK).map { movieDTOList ->
             movieDTOList.map { it.mapToMedia() }
         }
     }

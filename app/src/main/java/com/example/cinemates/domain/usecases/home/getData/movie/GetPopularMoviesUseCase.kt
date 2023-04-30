@@ -1,9 +1,9 @@
 package com.example.cinemates.domain.usecases.home.getData.movie
 
-import android.util.Log
 import com.example.cinemates.data.remote.repository.MovieRepository
 import com.example.cinemates.domain.mapper.movie.mapToMedia
-import com.example.cinemates.domain.model.Media
+import com.example.cinemates.domain.model.common.Media
+import com.example.cinemates.util.MediaListSpecification
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -18,7 +18,7 @@ constructor(
     private val movieRepository: MovieRepository,
 ) {
      operator fun invoke(): Flow<List<Media>> {
-        return movieRepository.getSpecificMovieList("popular").map { movieListDTO ->
+        return movieRepository.getSpecificMovieList(MediaListSpecification.POPULAR).map { movieListDTO ->
             movieListDTO.map { it.mapToMedia() }
         }
     }

@@ -6,7 +6,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.cinemates.databinding.ListItemMediaSmallBinding
 import com.example.cinemates.common.ListFragment
-import com.example.cinemates.domain.model.Media
+import com.example.cinemates.domain.model.common.Media
 import com.example.cinemates.ui.adapter.MediaAdapter
 
 class MovieSimilarFragment : ListFragment<Media, ListItemMediaSmallBinding, MediaAdapter>(
@@ -21,7 +21,7 @@ class MovieSimilarFragment : ListFragment<Media, ListItemMediaSmallBinding, Medi
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.similarMovies.collect { similar ->
-                adapter.updateItems(similar)
+                adapter.items = similar
             }
         }
 

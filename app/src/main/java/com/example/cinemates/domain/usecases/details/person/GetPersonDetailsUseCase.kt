@@ -5,9 +5,9 @@ import com.example.cinemates.data.remote.repository.MovieRepository
 import com.example.cinemates.domain.mapper.credits.mapToPersonDetails
 import com.example.cinemates.domain.mapper.image.mapToImage
 import com.example.cinemates.domain.mapper.movie.mapToMedia
-import com.example.cinemates.domain.model.Image
-import com.example.cinemates.domain.model.Media
-import com.example.cinemates.domain.model.PersonDetails
+import com.example.cinemates.domain.model.common.Image
+import com.example.cinemates.domain.model.common.Media
+import com.example.cinemates.domain.model.credits.PersonDetails
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

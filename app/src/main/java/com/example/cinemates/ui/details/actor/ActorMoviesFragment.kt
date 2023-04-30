@@ -6,7 +6,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.cinemates.databinding.ListItemMediaSmallBinding
 import com.example.cinemates.common.ListFragment
-import com.example.cinemates.domain.model.Media
+import com.example.cinemates.domain.model.common.Media
 import com.example.cinemates.ui.adapter.MediaAdapter
 import kotlinx.coroutines.launch
 
@@ -26,7 +26,7 @@ class ActorMoviesFragment : ListFragment<Media, ListItemMediaSmallBinding, Media
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             launch {
                 viewModel.movies.collect { moviesByActor ->
-                    adapter.updateItems(moviesByActor)
+                    adapter.items = moviesByActor
                 }
             }
 

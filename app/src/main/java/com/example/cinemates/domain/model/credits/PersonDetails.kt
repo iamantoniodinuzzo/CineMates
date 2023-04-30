@@ -1,4 +1,4 @@
-package com.example.cinemates.domain.model
+package com.example.cinemates.domain.model.credits
 
 data class PersonDetails(
     val adult: Boolean,

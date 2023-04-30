@@ -1,7 +1,7 @@
 package com.example.cinemates.domain.mapper.tv
 
 import com.example.cinemates.data.remote.response.tvShow.CreatedByDTO
-import com.example.cinemates.domain.model.Crew
+import com.example.cinemates.domain.model.credits.Crew
 
 
 /**

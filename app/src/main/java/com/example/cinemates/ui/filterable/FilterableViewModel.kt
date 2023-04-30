@@ -3,13 +3,9 @@ package com.example.cinemates.ui.filterable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.cinemates.data.remote.repository.MovieRepositoryImpl
-import com.example.cinemates.domain.model.Filter
-import com.example.cinemates.domain.model.Movie
+import com.example.cinemates.domain.model.movie.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.mapLatest
 import javax.inject.Inject
 
 

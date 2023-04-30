@@ -1,12 +1,11 @@
-package com.example.cinemates.domain.model
+package com.example.cinemates.domain.model.tv
 
 
-open class Season(
+data class SeasonDetails(
     val airDate: String,
-    val episodeCount: Int,
-    val id: Int,
+    val seasonEpisodes: List<SeasonEpisode>,
     val name: String,
     val overview: String,
     val posterPath: String,
     val seasonNumber: Int
-):java.io.Serializable
+)

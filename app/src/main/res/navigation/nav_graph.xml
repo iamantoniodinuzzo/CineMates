@@ -42,7 +42,7 @@
         tools:layout="@layout/fragment_filterable">
         <argument
             android:name="filter"
-            app:argType="com.example.cinemates.domain.model.Filter" />
+            app:argType="com.example.cinemates.domain.model.common.Filter" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetFragment"
@@ -56,7 +56,7 @@
         tools:layout="@layout/fragment_actor_details">
         <argument
             android:name="person"
-            app:argType="com.example.cinemates.domain.model.Person" />
+            app:argType="com.example.cinemates.domain.model.credits.Person" />
     </fragment>
     <action
         android:id="@+id/action_global_actorDetailsFragment"
@@ -68,7 +68,7 @@
         tools:layout="@layout/fragment_episode_group_details">
         <argument
             android:name="episode_group"
-            app:argType="com.example.cinemates.domain.model.EpisodeGroup" />
+            app:argType="com.example.cinemates.domain.model.tv.EpisodeGroup" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailsFragment"
@@ -77,7 +77,7 @@
         tools:layout="@layout/fragment_media_details">
         <argument
             android:name="media"
-            app:argType="com.example.cinemates.domain.model.Media" />
+            app:argType="com.example.cinemates.domain.model.common.Media" />
     </fragment>
     <fragment
         android:id="@+id/tvDetailsFragment"
@@ -86,7 +86,7 @@
         tools:layout="@layout/fragment_media_details">
         <argument
             android:name="media"
-            app:argType="com.example.cinemates.domain.model.Media" />
+            app:argType="com.example.cinemates.domain.model.common.Media" />
         <action
             android:id="@+id/action_tvDetailsFragment_to_episodeGroupDetailsFragment"
             app:destination="@id/episodeGroupDetailsFragment" />
@@ -113,7 +113,7 @@
         tools:layout="@layout/fragment_listing_items">
         <argument
             android:name="images"
-            app:argType="com.example.cinemates.domain.model.Image[]" />
+            app:argType="com.example.cinemates.domain.model.common.Image[]" />
     </dialog>
     <action
         android:id="@+id/action_global_mediaImagesFragment"
@@ -125,7 +125,7 @@
         android:label="SeasonDetailsFragment" >
         <argument
             android:name="season"
-            app:argType="com.example.cinemates.domain.model.Season" />
+            app:argType="com.example.cinemates.domain.model.tv.Season" />
     </fragment>
 
 </navigation>

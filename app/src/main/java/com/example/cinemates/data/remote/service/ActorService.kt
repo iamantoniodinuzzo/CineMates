@@ -36,9 +36,8 @@ interface ActorService {
     suspend fun getPeoplesBySearch(@QueryMap queries: Map<String, String>): GenericResponse<PersonDTO>
 
 
-    @GET("trending/{media_type}/{time_window}")
+    @GET("trending/person/{time_window}")
     suspend fun getTrendingPerson(
-        @Path("media_type") media_type: String,
         @Path("time_window") time_window: String,
         @QueryMap queries: Map<String, String>
     ): GenericResponse<PersonDTO>

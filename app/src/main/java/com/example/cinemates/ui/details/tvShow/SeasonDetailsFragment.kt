@@ -2,7 +2,6 @@ package com.example.cinemates.ui.details.tvShow
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +11,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentSeasonDetailsBinding
-import com.example.cinemates.domain.model.Group
-import com.example.cinemates.domain.model.section.SectionEpisodesGroup
 import com.example.cinemates.ui.adapter.EpisodeAdapter
-import com.example.cinemates.ui.adapter.SectionAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -55,7 +51,7 @@ class SeasonDetailsFragment : BaseFragment<FragmentSeasonDetailsBinding>() {
             tvDetailsViewModel.seasonDetails.collectLatest { seasonDetails ->
                 seasonDetails?.let {
                     binding.season = it
-                    episodeAdapter.updateItems(it.seasonEpisodes)
+                    episodeAdapter.items = it.seasonEpisodes
 
                 }
 

@@ -2,13 +2,13 @@ package com.example.cinemates.domain.mapper.tv
 
 import com.example.cinemates.data.remote.response.tvShow.TvShowDetailsDTO
 import com.example.cinemates.domain.mapper.*
-import com.example.cinemates.domain.model.TvShow
+import com.example.cinemates.domain.model.tv.TvShow
 
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-fun TvShowDetailsDTO.mapToTvShow():TvShow{
+fun TvShowDetailsDTO.mapToTvShow(): TvShow {
     return TvShow(
         backdropPath = this.backdropPath?:"",
         createdBy = this.createdBy.map {  it.mapToCreatedBy() },

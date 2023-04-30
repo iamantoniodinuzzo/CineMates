@@ -1,14 +1,11 @@
 package com.example.cinemates.ui.adapter
 
-import android.view.MotionEvent
-import android.view.View
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.example.cinemates.databinding.ListItemBackdropBinding
 import com.example.cinemates.databinding.ListItemPosterBinding
-import com.example.cinemates.domain.model.Image
+import com.example.cinemates.domain.model.common.Image
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemates.databinding.ListItemPersonLongBinding
 import com.example.cinemates.util.ViewSize
 import com.example.cinemates.common.ListFragment
-import com.example.cinemates.domain.model.Cast
+import com.example.cinemates.domain.model.credits.Cast
 import com.example.cinemates.ui.adapter.ActorAdapter
 import kotlinx.coroutines.flow.collectLatest
 
@@ -25,7 +25,7 @@ class TvCastFragment : ListFragment<Cast, ListItemPersonLongBinding, ActorAdapte
             adapter.currentLayoutType = ViewSize.LONG
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
                 viewModel.cast.collectLatest {cast->
-                    adapter.updateItems(cast)
+                    adapter.items = cast
                 }
             }
         }

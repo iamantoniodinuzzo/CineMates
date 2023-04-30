@@ -1,5 +1,7 @@
-package com.example.cinemates.domain.model
+package com.example.cinemates.domain.model.tv
 
+import com.example.cinemates.domain.model.common.*
+import com.example.cinemates.domain.model.tv.*
 import com.example.cinemates.util.MediaType
 
 

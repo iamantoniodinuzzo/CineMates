@@ -4,7 +4,7 @@ import com.example.cinemates.data.remote.response.movie.MovieDetailsDTO
 import com.example.cinemates.domain.mapper.mapToGenre
 import com.example.cinemates.domain.mapper.mapToProductionCompany
 import com.example.cinemates.domain.mapper.mapToProductionCountry
-import com.example.cinemates.domain.model.Movie
+import com.example.cinemates.domain.model.movie.Movie
 
 
 /**

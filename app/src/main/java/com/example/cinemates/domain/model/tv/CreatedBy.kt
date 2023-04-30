@@ -1,4 +1,6 @@
-package com.example.cinemates.domain.model
+package com.example.cinemates.domain.model.tv
+
+import com.example.cinemates.domain.model.credits.Person
 
 class CreatedBy(
     val creditId: String,

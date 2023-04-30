@@ -1,4 +1,6 @@
-package com.example.cinemates.domain.model
+package com.example.cinemates.domain.model.credits
+
+import com.example.cinemates.domain.model.credits.Person
 
 
 open class Cast(

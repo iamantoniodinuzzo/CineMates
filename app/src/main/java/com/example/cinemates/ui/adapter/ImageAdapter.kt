@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.data.remote.response.image.ImageType
 import com.example.cinemates.databinding.ListItemBackdropBinding
 import com.example.cinemates.databinding.ListItemPosterBinding
-import com.example.cinemates.domain.model.Image
+import com.example.cinemates.domain.model.common.Image
 import com.example.cinemates.util.inflater
 
 /**

@@ -66,7 +66,6 @@ abstract class DoubleViewSizeAdapter<T, VDBLong : ViewDataBinding, VDBSmall : Vi
             ViewSize.LONG -> ViewSize.SMALL
             ViewSize.SMALL -> ViewSize.LONG
         }
-        notifyDataSetChanged()
     }
 
     inner class MultipleViewViewHolder(binding: ViewDataBinding) : BaseViewHolder(binding) {

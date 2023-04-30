@@ -4,7 +4,7 @@ import androidx.navigation.Navigation
 import com.example.cinemates.R
 import com.example.cinemates.common.SingleViewAdapter
 import com.example.cinemates.databinding.ListItemEpisodeGroupBinding
-import com.example.cinemates.domain.model.EpisodeGroup
+import com.example.cinemates.domain.model.tv.EpisodeGroup
 import com.example.cinemates.ui.details.tvShow.TvDetailsContainerFragmentDirections
 
 

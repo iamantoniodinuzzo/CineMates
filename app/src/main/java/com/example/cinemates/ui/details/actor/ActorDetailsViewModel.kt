@@ -2,9 +2,7 @@ package com.example.cinemates.ui.details.actor
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinemates.data.remote.repository.ActorRepositoryImpl
-import com.example.cinemates.domain.model.Person
-import com.example.cinemates.domain.model.PersonDetails
+import com.example.cinemates.domain.model.credits.PersonDetails
 import com.example.cinemates.domain.usecases.details.person.GetPersonDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*

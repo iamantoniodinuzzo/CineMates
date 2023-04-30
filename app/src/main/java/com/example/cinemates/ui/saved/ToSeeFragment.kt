@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.cinemates.databinding.ListItemMediaSmallBinding
 import com.example.cinemates.common.ListFragment
-import com.example.cinemates.domain.model.Media
+import com.example.cinemates.domain.model.common.Media
 import com.example.cinemates.ui.adapter.MediaAdapter
 
 /**

@@ -76,8 +76,8 @@ class LinearLayoutInfoView constructor(
     var textSize: Float = 14f
         set(value) {
             field = value
-            textViewTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, value)
-            textViewValue.setTextSize(TypedValue.COMPLEX_UNIT_SP, value)
+            textViewTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, value)
+            textViewValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, value)
         }
 
 

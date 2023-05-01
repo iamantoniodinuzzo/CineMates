@@ -52,8 +52,8 @@ Find a file called `local.properties` in the `.gradle` file in the home director
 ## 📽 Screenshots
 
 **Home** | **Movie details** | **Actor details** | **Tv Details** | **Search** |
-:-----------------------------:|:---------------------:|:-----------------------------:|:-----------------------------:|:-----------------------------:
-![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/home.png) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/movie_details.png) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/actor_details.png) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/tv_details.png)| ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/search.png) 
+:-----------------------------:|:-----------------------------:|:-----------------------------:|:-----------------------------:|:-----------------------------:
+![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/home.png) | ![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/movie_details.png) | ![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/actor_details.png) | ![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/tv_details.png)| ![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/search.png) 
 
 
 ## 🤝 Contributing 

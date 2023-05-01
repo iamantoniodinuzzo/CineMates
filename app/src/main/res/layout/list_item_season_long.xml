@@ -70,18 +70,21 @@
                     android:textStyle="bold"
                     tools:text="Season name" />
 
-                <com.borjabravo.readmoretextview.ReadMoreTextView
+                <com.indisparte.morelesstextview.MoreLessTextView
                     android:id="@+id/readMoreTextV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@{season.overview}"
                     android:textColor="@color/alabaster"
                     android:textSize="14sp"
-                    app:colorClickableText="@color/vermilion_100"
-                    app:loadText="@{season.overview}"
-                    app:trimLength="200"
-                    app:trimMode="trimModeLength"
-                    tools:text="@tools:sample/lorem/random" />
+                    app:clickableColor="@color/vermilion_100"
+                    app:maxLinesShown="2"
+                    app:readLessText="Read less"
+                    app:readMoreText="Read more"
+                    tools:text="@tools:sample/lorem" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <!--  <View

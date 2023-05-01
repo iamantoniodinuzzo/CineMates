@@ -36,7 +36,7 @@
                 android:text="@{movie.overview}"
                 app:readLessText="Read less"
                 app:readMoreText="Read more"
-                tools:text="@tools:sample/lorem/random" />
+                tools:text="@tools:sample/lorem" />
 
             <com.indisparte.horizontalchipview.HorizontalChipView
                 android:id="@+id/chiGroupGenres"

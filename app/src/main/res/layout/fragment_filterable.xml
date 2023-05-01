@@ -77,7 +77,7 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:spanCount="3"
-            tools:listitem="@layout/list_item_movie_small" />
+            tools:listitem="@layout/list_item_media_small" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

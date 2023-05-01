@@ -71,32 +71,22 @@
                     android:textStyle="bold"
                     tools:text="Episode name" />
 
-                <com.borjabravo.readmoretextview.ReadMoreTextView
+                <com.indisparte.morelesstextview.MoreLessTextView
                     android:id="@+id/readMoreTextV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@{episode.overview}"
                     android:textColor="@color/alabaster"
                     android:textSize="14sp"
-                    app:colorClickableText="@color/vermilion_100"
-                    app:loadText="@{episode.overview}"
-                    app:trimLength="200"
-                    app:trimMode="trimModeLength"
-                    tools:text="@tools:sample/lorem/random" />
+                    app:clickableColor="@color/vermilion_100"
+                    app:maxLinesShown="2"
+                    app:readLessText="Read less"
+                    app:readMoreText="Read more"
+                    tools:text="@tools:sample/lorem" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <!--  <View
-                  android:layout_width="0dp"
-                  android:layout_height="2dp"
-                  android:layout_marginStart="16dp"
-                  android:layout_marginTop="10dp"
-                  android:layout_marginEnd="12dp"
-                  android:background="@color/geyser"
-                  app:layout_constraintBottom_toBottomOf="parent"
-                  app:layout_constraintEnd_toEndOf="parent"
-                  app:layout_constraintStart_toEndOf="@+id/poster"
-                  app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2" />
-  -->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

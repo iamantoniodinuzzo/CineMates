@@ -36,6 +36,8 @@ android {
 
 dependencies {
 
+    implementation project(path: ':MoreLessTextView')
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintLayout)
@@ -43,6 +45,4 @@ dependencies {
     androidTestImplementation(libs.junitAndroidTest)
     androidTestImplementation(libs.espresso)
 
-    // Read more text view
-    implementation 'com.borjabravo:readmoretextview:2.1.0'
 }

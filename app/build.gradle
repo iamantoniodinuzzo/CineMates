@@ -100,8 +100,5 @@ dependencies {
     // Youtube
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
-    //ReadMore
-    implementation 'com.borjabravo:readmoretextview:2.1.0'
-
 
 }

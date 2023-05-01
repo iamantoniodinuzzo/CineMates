@@ -12,15 +12,16 @@
         android:layout_weight="1"
         tools:text="@tools:sample/first_names" />
 
-    <com.borjabravo.readmoretextview.ReadMoreTextView
+    <com.indisparte.morelesstextview.MoreLessTextView
         android:id="@+id/value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/alabaster"
-        android:layout_weight="1"
         android:textSize="14sp"
-        app:colorClickableText="@color/vermilion_100"
-        app:trimLength="50"
-        app:trimMode="trimModeLength"
+        android:layout_weight="1"
+        app:clickableColor="@color/vermilion_100"
+        app:maxLinesShown="2"
+        app:readLessText="Read less"
+        app:readMoreText="Read more"
         tools:text="@tools:sample/first_names" />
 </merge>

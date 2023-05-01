@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:padding="10dp">
 
-            <com.indisparte.linearlayoutinfo.LinearInfoView
+            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
                 android:id="@+id/biography"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -29,43 +29,48 @@
                 android:orientation="vertical"
                 app:hideIfValueEmpty="true"
                 app:title="Biography"
+                app:textColor="@color/alabaster"
                 app:value="@{person.biography}" />
 
-            <com.indisparte.linearlayoutinfo.LinearInfoView
+            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
                 android:id="@+id/age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/biography"
                 android:layout_marginBottom="10dp"
                 app:hideIfValueEmpty="true"
+                app:textColor="@color/alabaster"
                 app:title="Age"
                 app:value="@{person.age}" />
 
-            <com.indisparte.linearlayoutinfo.LinearInfoView
+            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
                 android:id="@+id/birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/age"
                 android:layout_marginBottom="10dp"
                 app:hideIfValueEmpty="true"
+                app:textColor="@color/alabaster"
                 app:title="Born on"
                 app:value="@{person.birthday}" />
 
-            <com.indisparte.linearlayoutinfo.LinearInfoView
+            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
                 android:id="@+id/deathDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/birthday"
+                app:textColor="@color/alabaster"
                 app:hideIfValueEmpty="true"
                 app:title="Died on"
                 app:value="@{person.deathDay}" />
 
-            <com.indisparte.linearlayoutinfo.LinearInfoView
+            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
                 android:id="@+id/birthPlace"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/deathDate"
                 android:layout_marginBottom="10dp"
+                app:textColor="@color/alabaster"
                 app:hideIfValueEmpty="true"
                 app:title="From"
                 app:value="@{person.placeOfBirth}" />

@@ -90,14 +90,14 @@ fun loadText(view: TextView, value: String?) {
 }
 
 @BindingAdapter("value")
-fun value(view: com.indisparte.linearlayoutinfo.LinearInfoView, value: String?) {
+fun value(view: com.indisparte.linearlayoutinfo.LinearLayoutInfoView, value: String?) {
     if (value != null) {
         view.value = value
     }
 }
 
 @InverseBindingAdapter(attribute = "value")
-fun getValue(customField: com.indisparte.linearlayoutinfo.LinearInfoView): String {
+fun getValue(customField: com.indisparte.linearlayoutinfo.LinearLayoutInfoView): String {
     return customField.value
 }
 

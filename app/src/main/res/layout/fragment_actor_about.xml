@@ -28,8 +28,9 @@
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 app:hideIfValueEmpty="true"
-                app:title="Biography"
                 app:textColor="@color/alabaster"
+                app:textSize="14sp"
+                app:title="Biography"
                 app:value="@{person.biography}" />
 
             <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
@@ -39,7 +40,9 @@
                 android:layout_below="@id/biography"
                 android:layout_marginBottom="10dp"
                 app:hideIfValueEmpty="true"
+                android:layout_marginTop="10dp"
                 app:textColor="@color/alabaster"
+                app:textSize="14sp"
                 app:title="Age"
                 app:value="@{person.age}" />
 
@@ -51,6 +54,7 @@
                 android:layout_marginBottom="10dp"
                 app:hideIfValueEmpty="true"
                 app:textColor="@color/alabaster"
+                app:textSize="14sp"
                 app:title="Born on"
                 app:value="@{person.birthday}" />
 
@@ -59,8 +63,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/birthday"
-                app:textColor="@color/alabaster"
                 app:hideIfValueEmpty="true"
+                app:textColor="@color/alabaster"
+                app:textSize="14sp"
                 app:title="Died on"
                 app:value="@{person.deathDay}" />
 
@@ -70,31 +75,22 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/deathDate"
                 android:layout_marginBottom="10dp"
-                app:textColor="@color/alabaster"
                 app:hideIfValueEmpty="true"
+                app:textColor="@color/alabaster"
+                app:textSize="14sp"
                 app:title="From"
                 app:value="@{person.placeOfBirth}" />
-
-
-            <TextView
-                android:id="@+id/knownAsTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/birthPlace"
-                android:layout_marginTop="10dp"
-                android:text="Also known as"
-                android:textColor="@color/geyser"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:visibility="@{person.alsoKnownAs.empty? View.GONE:View.VISIBLE}" />
 
             <com.indisparte.horizontalchipview.HorizontalChipView
                 android:id="@+id/chipGroupKnownAs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/knownAsTitle"
+                android:layout_below="@id/birthPlace"
                 android:clipToPadding="false"
-                android:padding="10dp" />
+                android:visibility="@{person.alsoKnownAs.empty? View.GONE:View.VISIBLE}"
+                app:title="Also known as"
+                app:titleColor="@color/alabaster"
+                app:titleSize="14sp" />
 
 
             <TextView
@@ -105,7 +101,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Images"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <RelativeLayout

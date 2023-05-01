@@ -18,7 +18,6 @@
             android:id="@+id/textTitleInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="Info"
             android:textColor="@color/alabaster"
@@ -32,6 +31,7 @@
             android:layout_marginBottom="10dp"
             app:hideIfValueEmpty="true"
             app:textColor="@color/alabaster"
+            app:textSize="14sp"
             app:title="Original title"
             app:value="@{tv.originalName}" />
 
@@ -42,6 +42,7 @@
             android:layout_marginBottom="10dp"
             app:hideIfValueEmpty="true"
             app:textColor="@color/alabaster"
+            app:textSize="14sp"
             app:title="Status"
             app:value="@{tv.status}" />
 
@@ -50,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:textSize="14sp"
             app:hideIfValueEmpty="true"
             app:textColor="@color/alabaster"
             app:title="Tagline"
@@ -61,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:textSize="14sp"
             app:hideIfValueEmpty="true"
             app:textColor="@color/alabaster"
             app:title="Original language"
@@ -74,6 +77,7 @@
             app:hideIfValueEmpty="true"
             app:textColor="@color/alabaster"
             app:title="First air date"
+            app:textSize="14sp"
             app:value="@{tv.firstAirDate}" />
 
         <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
@@ -84,6 +88,7 @@
             app:hideIfValueEmpty="true"
             app:textColor="@color/alabaster"
             app:title="Last air date"
+            app:textSize="14sp"
             app:value="@{tv.lastAirDate}" />
 
         <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
@@ -92,6 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             app:hideIfValueEmpty="true"
+            app:textSize="14sp"
             app:textColor="@color/alabaster"
             app:title="Episodes"
             app:value="@{String.valueOf(tv.numberOfEpisodes)}" />
@@ -103,6 +109,7 @@
             android:layout_marginBottom="10dp"
             app:hideIfValueEmpty="true"
             app:textColor="@color/alabaster"
+            app:textSize="14sp"
             app:title="Seasons"
             app:value="@{String.valueOf(tv.numberOfSeasons)}" />
 

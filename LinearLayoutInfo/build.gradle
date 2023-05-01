@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.indisparte.linearlayoutinfo'
+    namespace 'com.indisparte.linearlayoutinfoview'
     compileSdk 33
 
     defaultConfig {
@@ -42,5 +42,7 @@ dependencies {
     testImplementation(libs.junitTest)
     androidTestImplementation(libs.junitAndroidTest)
     androidTestImplementation(libs.espresso)
+
+    // Read more text view
     implementation 'com.borjabravo:readmoretextview:2.1.0'
 }

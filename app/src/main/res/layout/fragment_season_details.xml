@@ -24,12 +24,13 @@
             app:navigationIcon="@drawable/ic_outline_arrow_back_24"
             app:title="@{season.name}" />
 
-        <com.indisparte.linearlayoutinfo.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
             android:id="@+id/episode_group_description"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
             android:layout_marginStart="10dp"
+            app:textColor="@color/alabaster"
             app:hideIfValueEmpty="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

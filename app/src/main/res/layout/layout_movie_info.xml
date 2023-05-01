@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/textTitleInfo"
             android:layout_width="match_parent"
@@ -25,56 +26,62 @@
             android:textStyle="bold" />
 
 
-        <com.indisparte.linearlayoutinfo.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
             android:id="@+id/originalTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             app:hideIfValueEmpty="true"
+            app:textColor="@color/alabaster"
             app:title="Original title"
             app:value="@{movie.originalTitle}" />
 
-        <com.indisparte.linearlayoutinfo.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
             android:id="@+id/status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             app:hideIfValueEmpty="true"
+            app:textColor="@color/alabaster"
             app:title="Status"
             app:value="@{movie.status}" />
 
-        <com.indisparte.linearlayoutinfo.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
             android:id="@+id/runtime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             app:hideIfValueEmpty="true"
+            app:textColor="@color/alabaster"
             app:title="Runtime"
             app:value="@{movie.runtime}" />
 
-        <com.indisparte.linearlayoutinfo.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
             android:id="@+id/originalLanguage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             app:hideIfValueEmpty="true"
+            app:textColor="@color/alabaster"
             app:title="Original language"
             app:value="@{movie.originalLanguage}" />
 
-        <com.indisparte.linearlayoutinfo.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
             android:id="@+id/budget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             app:hideIfValueEmpty="true"
+            app:textColor="@color/alabaster"
             app:title="Budget"
             app:value="@{movie.budget}" />
 
-        <com.indisparte.linearlayoutinfo.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
             android:id="@+id/revenue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:hideIfValueEmpty="true"
+            app:textColor="@color/alabaster"
             app:title="Revenue"
             app:value="@{movie.revenue}" />
 

@@ -32,7 +32,7 @@
                 android:textColor="@color/alabaster"
                 android:textSize="14sp"
                 app:clickableColor="@color/vermilion_100"
-                android:maxLines="2"
+                app:maxLinesShown="2"
                 android:text="@{movie.overview}"
                 app:readLessText="Read less"
                 app:readMoreText="Read more"

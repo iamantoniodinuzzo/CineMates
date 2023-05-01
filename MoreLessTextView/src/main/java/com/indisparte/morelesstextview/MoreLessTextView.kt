@@ -2,6 +2,7 @@ package com.indisparte.morelesstextview
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Rect
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.method.LinkMovementMethod
@@ -9,104 +10,154 @@ import android.text.style.ClickableSpan
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
+import androidx.core.text.buildSpannedString
+import androidx.core.text.color
+import androidx.core.view.doOnLayout
+import androidx.core.view.isInvisible
 
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class MoreLessTextView(
+class MoreLessTextView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
 
-    constructor(context: Context) : this(context, null, 0)
-    constructor(context: Context, attrs: AttributeSet) : this(context, attrs, 0)
+    private var readMoreMaxLine = DEFAULT_MAX_LINE
+    private var readMoreText = "Read more"
+    private var readMoreColor = Color.BLUE
 
-    companion object {
-        private const val READ_MORE = "Read More"
-        private const val READ_LESS = "Read Less"
-
-    }
-
-    private var isExpanded = false
-
-    var readMoreText: String = READ_MORE
-        set(value) {
+    var state: State = State.COLLAPSED
+        private set(value) {
             field = value
-            updateText()
+            text = when (value) {
+                State.EXPANDED -> originalText
+                State.COLLAPSED -> collapseText
+            }
+            changeListener?.onStateChange(value)
         }
 
-    var readLessText: String = READ_LESS
-        set(value) {
-            field = value
-            updateText()
-        }
+    val isExpanded
+        get() = state == State.EXPANDED
 
-    var clickableColor: Int = Color.BLUE
-        set(value) {
-            field = value
-            updateText()
-        }
+    val isCollapsed
+        get() = state == State.COLLAPSED
+
+    var changeListener: ChangeListener? = null
+
+    private var originalText: CharSequence = ""
+    private var collapseText: CharSequence = ""
 
     init {
-        // Read custom attributes from XML
-        context.theme.obtainStyledAttributes(
-            attrs,
-            R.styleable.MoreLessTextView,
-            defStyleAttr,
-            0
-        ).apply {
-            try {
-                readMoreText = getString(R.styleable.MoreLessTextView_readMoreText) ?: READ_MORE
-                readLessText = getString(R.styleable.MoreLessTextView_readLessText) ?: READ_LESS
-                clickableColor = getColor(R.styleable.MoreLessTextView_clickableColor, Color.BLUE)
-            } finally {
-                recycle()
-            }
-        }
-
-        // Set the text and make it clickable
-        movementMethod = LinkMovementMethod.getInstance()
-        updateText()
+        setupAttributes(context, attrs, defStyleAttr)
+        setupListener()
     }
 
-    private fun updateText() {
-        if (maxLines <= 0) {
+    private fun setupAttributes(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
+        val typedArray =
+            context.obtainStyledAttributes(attrs, R.styleable.MoreLessTextView, defStyleAttr, 0)
+
+        readMoreMaxLine =
+            typedArray.getInt(R.styleable.MoreLessTextView_maxLinesShown, readMoreMaxLine)
+        readMoreText =
+            typedArray.getString(R.styleable.MoreLessTextView_readMoreText) ?: readMoreText
+        readMoreColor =
+            typedArray.getColor(R.styleable.MoreLessTextView_clickableColor, readMoreColor)
+        typedArray.recycle()
+    }
+
+    private fun setupListener() {
+        super.setOnClickListener { toggle() }
+    }
+
+    fun toggle() {
+        when (state) {
+            State.EXPANDED -> collapse()
+            State.COLLAPSED -> expand()
+        }
+    }
+
+    fun collapse() {
+        if (isCollapsed || collapseText.isEmpty()) {
             return
         }
+        state = State.COLLAPSED
+    }
 
-        val originalText = text.toString().trim()
-        val spannable = SpannableStringBuilder(originalText)
+    fun expand() {
+        if (isExpanded || originalText.isEmpty()) {
+            return
+        }
+        state = State.EXPANDED
+    }
 
-        val lineEndIndex = layout?.getLineEnd(maxLines - 1) ?: -1
-        if (lineEndIndex >= 0 && lineEndIndex < originalText.length) {
-            if (!isExpanded) {
-                val moreText = "... $readMoreText"
-                spannable.insert(lineEndIndex, moreText)
-                spannable.setSpan(object : ClickableSpan() {
-                    override fun onClick(widget: View) {
-                        isExpanded = true
-                        updateText()
-                    }
-                }, lineEndIndex, lineEndIndex + moreText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            } else {
-                val lessText = " $readLessText"
-                spannable.append(lessText)
-                spannable.setSpan(
-                    object : ClickableSpan() {
-                        override fun onClick(widget: View) {
-                            isExpanded = false
-                            updateText()
-                        }
-                    },
-                    spannable.length - lessText.length,
-                    spannable.length,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-            }
+    override fun setOnClickListener(onClickListener: OnClickListener?) {
+        throw UnsupportedOperationException("You can not use OnClickListener in ReadMoreTextView")
+    }
+
+    override fun setText(text: CharSequence?, type: BufferType?) {
+        super.setText(text, type)
+        doOnLayout {
+            post { setupReadMore() }
+        }
+    }
+
+    private fun setupReadMore() {
+        if (needSkipSetupReadMore()) {
+            return
+        }
+        originalText = text
+
+        val adjustCutCount = getAdjustCutCount(readMoreMaxLine, readMoreText)
+        val maxTextIndex = layout.getLineVisibleEnd(readMoreMaxLine - 1)
+        val originalSubText = originalText.substring(0, maxTextIndex - 1 - adjustCutCount)
+
+        collapseText = buildSpannedString {
+            append(originalSubText)
+            color(readMoreColor) { append(" ...$readMoreText") }
         }
 
-        text = spannable
+        text = collapseText
+
     }
+
+    private fun needSkipSetupReadMore(): Boolean =
+        isInvisible || lineCount <= readMoreMaxLine || isExpanded || text == null || text == collapseText
+
+    private fun getAdjustCutCount(maxLine: Int, readMoreText: String): Int {
+
+        val lastLineStartIndex = layout.getLineVisibleEnd(maxLine - 2) + 1
+        val lastLineEndIndex = layout.getLineVisibleEnd(maxLine - 1)
+        val lastLineText = text.substring(lastLineStartIndex, lastLineEndIndex)
+
+        val bounds = Rect()
+        paint.getTextBounds(lastLineText, 0, lastLineText.length, bounds)
+
+        var adjustCutCount = -1
+        do {
+            adjustCutCount++
+            val subText = lastLineText.substring(0, lastLineText.length - adjustCutCount)
+            val replacedText = subText + readMoreText
+            paint.getTextBounds(replacedText, 0, replacedText.length, bounds)
+            val replacedTextWidth = bounds.width()
+        } while (replacedTextWidth > width)
+
+        return adjustCutCount
+    }
+
+    enum class State {
+        EXPANDED, COLLAPSED
+    }
+
+    interface ChangeListener {
+        fun onStateChange(state: State)
+    }
+
+    companion object {
+        private const val DEFAULT_MAX_LINE = 4
+    }
+
 }

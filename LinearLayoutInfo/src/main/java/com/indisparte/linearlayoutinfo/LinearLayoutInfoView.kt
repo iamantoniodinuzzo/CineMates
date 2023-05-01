@@ -9,9 +9,9 @@ import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import com.borjabravo.readmoretextview.ReadMoreTextView
 import com.indisparte.linearlayoutinfoview.R
 import com.indisparte.linearlayoutinfoview.databinding.LayoutLinearInfoBinding
+import com.indisparte.morelesstextview.MoreLessTextView
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
@@ -34,7 +34,7 @@ class LinearLayoutInfoView constructor(
 
     private val textViewTitle: TextView
         get() = binding.title
-    private val textViewValue: ReadMoreTextView
+    private val textViewValue: MoreLessTextView
         get() = binding.value
 
     var title: String = DEFAULT_STRING

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MoreLessTextView">
+        <attr name="maxLinesShown" format="integer"/>
+        <attr name="readMoreText" format="string" />
+        <attr name="readLessText" format="string" />
+        <attr name="clickableColor" format="color" />
+    </declare-styleable>
+</resources>

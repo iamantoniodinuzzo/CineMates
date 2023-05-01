@@ -57,6 +57,7 @@ dependencies {
     implementation project(path: ':LinearLayoutInfo')
     implementation project(path: ':HorizontalChipView')
     implementation project(path: ':RecyclerViewEmptyStateSupport')
+    implementation project(path: ':MoreLessTextView')
 
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -98,9 +99,6 @@ dependencies {
 
     // Youtube
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
-
-    //ReadMore
-    implementation 'com.borjabravo:readmoretextview:2.1.0'
 
 
 }

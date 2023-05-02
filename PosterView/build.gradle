@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -42,4 +43,8 @@ dependencies {
     testImplementation(libs.junitTest)
     androidTestImplementation(libs.junitAndroidTest)
     androidTestImplementation(libs.espresso)
+
+    // Glide
+    implementation(libs.glide.core)
+    kapt(libs.glide.compiler)
 }

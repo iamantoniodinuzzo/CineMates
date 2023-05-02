@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
-import com.google.android.material.chip.Chip
 import com.indisparte.posterview.databinding.LayoutPosterViewBinding
 
 
@@ -29,9 +28,9 @@ class PosterView @JvmOverloads constructor(
             this
         )
     }
-    private val imageView: ImageView by lazy { binding.moviePoster }
-    private val chip: Chip by lazy { binding.movieRating }
-    private val textView: TextView by lazy { binding.movieTitle }
+    private val imageView: ImageView by lazy { binding.poster.image }
+    private val textViewRating: TextView by lazy { binding.ratingChip.textRating }
+    private val textViewTitle: TextView by lazy { binding.title }
 
     var placeholder: Int = R.drawable.ic_placeholder
         set(value) {
@@ -50,14 +49,14 @@ class PosterView @JvmOverloads constructor(
 
         }
 
-    var rating: Float? = null
+    var rating: String? = null
         set(value) {
             field = value
             if (value != null) {
-                chip.text = value.toString()
-                chip.isVisible = true
+                textViewRating.text = value.toString()
+                textViewRating.isVisible = true
             } else {
-                chip.isVisible = false
+                textViewRating.isVisible = false
             }
 
         }
@@ -66,10 +65,10 @@ class PosterView @JvmOverloads constructor(
         set(value) {
             field = value
             if (value != null) {
-                textView.text = value
-                textView.isVisible = true
+                textViewTitle.text = value
+                textViewTitle.isVisible = true
             } else {
-                textView.isVisible = false
+                textViewTitle.isVisible = false
             }
 
         }
@@ -77,10 +76,10 @@ class PosterView @JvmOverloads constructor(
     /**
      * Default value 14f
      */
-    var titleSize: Float = 14f
+    var titleSize: Float = 18f
         set(value) {
             field = value
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, value)
+            textViewTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, value)
         }
 
     /**
@@ -89,7 +88,7 @@ class PosterView @JvmOverloads constructor(
     var titleColor: Int = Color.WHITE
         set(value) {
             field = value
-            textView.setTextColor(value)
+            textViewTitle.setTextColor(value)
         }
 
     /**
@@ -98,9 +97,9 @@ class PosterView @JvmOverloads constructor(
     var ratingColor: Int = Color.WHITE
         set(value) {
             field = value
-            chip.setTextColor(value)
+            textViewRating.setTextColor(value)
         }
-    
+
 
     init {
         requireNotNull(attrs) { "attrs cannot be null" }
@@ -114,10 +113,10 @@ class PosterView @JvmOverloads constructor(
                 placeholder =
                     getResourceId(R.styleable.PosterView_placeholder, R.drawable.ic_placeholder)
                 imageSrc = getString(R.styleable.PosterView_imageSrc)
-                rating = getFloat(R.styleable.PosterView_rating, 0f)
+                rating = getString(R.styleable.PosterView_rating)
                 title = getString(R.styleable.PosterView_title)
                 titleColor = getColor(R.styleable.PosterView_titleColor, Color.WHITE)
-                titleSize = getDimension(R.styleable.PosterView_titleSize, 14f)
+                titleSize = getDimension(R.styleable.PosterView_titleSize, 18f)
                 ratingColor = getColor(R.styleable.PosterView_ratingColor, Color.WHITE)
 
             } finally {

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -10,52 +9,18 @@
             type="com.example.cinemates.domain.model.common.Media" />
     </data>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="vertical">
+    <com.indisparte.posterview.PosterView
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        app:cardCornerRadius="8dp"
+        android:layout_marginEnd="10dp"
+        app:imageSrc="@{media.posterPath}"
+        app:rating="@{String.valueOf(media.voteAverage)}"
+        app:title="@{media.title}"
+        app:cardElevation="0dp"
+        app:placeholder="@drawable/ic_death_star"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:titleColor="@color/alabaster"
+        app:titleSize="14sp" />
 
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardElevation="0dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-
-                <include
-                    layout="@layout/layout_media_poster"
-                    app:path="@{media.posterPath}"
-                    app:vote="@{media.voteAverage}" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textTitle"
-                        style="@style/item_title_style"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:lines="2"
-                        android:text="@{media.title}"
-                        tools:text="Media Title" />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-
-    </LinearLayout>
 </layout>

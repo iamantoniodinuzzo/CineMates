@@ -45,11 +45,9 @@
                         android:layout_height="150dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="120dp"
-                        android:elevation="4dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:path="@{media.posterPath}" />
-
 
                     <ImageView
                         android:id="@+id/media_backdrop"

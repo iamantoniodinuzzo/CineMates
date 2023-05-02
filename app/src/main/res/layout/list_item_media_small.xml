@@ -5,6 +5,10 @@
     <data>
 
         <variable
+            name="url"
+            type="com.example.cinemates.data.ConstantsKt" />
+
+        <variable
             name="media"
             type="com.example.cinemates.domain.model.common.Media" />
     </data>
@@ -12,16 +16,16 @@
     <com.indisparte.posterview.PosterView
         android:layout_width="100dp"
         android:layout_height="200dp"
-        app:cardCornerRadius="8dp"
         android:layout_marginEnd="10dp"
-        app:imageSrc="@{media.posterPath}"
-        app:rating="@{String.valueOf(media.voteAverage)}"
-        app:title="@{media.title}"
-        app:cardElevation="0dp"
-        app:posterRadius="8dp"
-        app:ratingRadius="10dp"
-        app:placeholder="@drawable/ic_death_star"
         app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:imageSrc='@{url.IMAGE_BASE_URL_W780+media.posterPath}'
+        app:placeholder="@drawable/ic_death_star"
+        app:posterRadius="8dp"
+        app:rating="@{String.valueOf(media.voteAverage)}"
+        app:ratingRadius="10dp"
+        app:title="@{media.title}"
         app:titleColor="@color/alabaster"
         app:titleSize="14sp" />
 

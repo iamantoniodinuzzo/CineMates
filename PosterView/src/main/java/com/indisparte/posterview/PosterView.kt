@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.card.MaterialCardView
 import com.indisparte.posterview.databinding.LayoutPosterViewBinding
 
@@ -20,7 +22,7 @@ import com.indisparte.posterview.databinding.LayoutPosterViewBinding
  */
 class PosterView @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet? = null,
+    attrs: AttributeSet,
     defStyleAttr: Int = R.attr.materialCardViewStyle
 ) : MaterialCardView(context, attrs, defStyleAttr) {
 
@@ -62,6 +64,9 @@ class PosterView @JvmOverloads constructor(
                 .load(value)
                 .placeholder(imageView.drawable)
                 .error(imageView.drawable)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                .centerCrop()
                 .into(imageView)
 
         }

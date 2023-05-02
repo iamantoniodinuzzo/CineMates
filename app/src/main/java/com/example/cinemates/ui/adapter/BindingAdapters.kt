@@ -31,7 +31,7 @@ fun loadImage(view: ImageView, url: String?) {
     //ImageView: Using Glide Library
     Glide.with(view.context)
         .load(
-            "$IMAGE_BASE_URL_W500${url}"
+            "$IMAGE_BASE_URL_W780${url}"
 
         )
         .error(R.drawable.ic_outline_image_not_supported_24)

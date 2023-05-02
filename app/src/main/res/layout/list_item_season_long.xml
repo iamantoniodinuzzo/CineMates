@@ -24,7 +24,7 @@
 
             <include
                 android:id="@+id/poster"
-                layout="@layout/layout_media_poster"
+                layout="@layout/list_item_poster"
                 android:layout_width="100dp"
                 android:layout_height="150dp"
                 android:layout_margin="20dp"

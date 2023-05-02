@@ -31,6 +31,7 @@
             android:orientation="vertical"
             app:textColor="@color/alabaster"
             app:hideIfValueEmpty="true"
+            app:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"

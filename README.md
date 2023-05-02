@@ -72,7 +72,8 @@ If you have 💡 ideas 💡 you can submit them [here](https://github.com/Indisp
 - [LinearLayoutInfo]
 - [MoreLessTextView]
 - [RecyclerViewEmptyStateSupport]
-
+- [PosterView]
+- 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/Indisparte/CineMates.svg?style=for-the-badge

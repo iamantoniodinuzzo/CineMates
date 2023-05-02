@@ -2,6 +2,18 @@
 <resources>
     <declare-styleable name="LinearInfoView">
         <attr name="title" format="string" />
+        <attr name="textTitleStyle" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="bold" value="1" />
+            <enum name="italic" value="2" />
+            <enum name="bold_italic" value="3" />
+        </attr>
+        <attr name="textValueStyle" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="bold" value="1" />
+            <enum name="italic" value="2" />
+            <enum name="bold_italic" value="3" />
+        </attr>
         <attr name="value" format="string" />
         <attr name="hideIfValueEmpty" format="boolean" />
         <attr name="textColor" format="color" />

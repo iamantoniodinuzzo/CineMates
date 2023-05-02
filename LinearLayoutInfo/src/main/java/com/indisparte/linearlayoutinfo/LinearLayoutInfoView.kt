@@ -2,12 +2,12 @@ package com.indisparte.linearlayoutinfo
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.indisparte.linearlayoutinfoview.R
 import com.indisparte.linearlayoutinfoview.databinding.LayoutLinearInfoBinding
@@ -21,7 +21,6 @@ class LinearLayoutInfoView constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : LinearLayoutCompat(context, attrs, defStyleAttr) {
-
     constructor(context: Context) : this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet) : this(context, attrs, 0)
 
@@ -41,6 +40,18 @@ class LinearLayoutInfoView constructor(
         set(value) {
             field = value
             textViewTitle.text = value
+        }
+
+    var titleStyle: Int = Typeface.BOLD
+        set(value) {
+            field = value
+            textViewTitle.setTypeface(textViewTitle.typeface, value)
+        }
+
+    var valueStyle: Int = Typeface.NORMAL
+        set(value) {
+            field = value
+            textViewValue.setTypeface(textViewValue.typeface, value)
         }
 
     var value: String = DEFAULT_STRING
@@ -82,7 +93,6 @@ class LinearLayoutInfoView constructor(
 
 
     init {
-        requireNotNull(attrs) { "attrs cannot be null" }
         context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.LinearInfoView,
@@ -98,7 +108,8 @@ class LinearLayoutInfoView constructor(
                     getString(R.styleable.LinearInfoView_value) ?: DEFAULT_STRING
                 textColor = getColor(R.styleable.LinearInfoView_textColor, Color.BLACK)
                 textSize = getDimension(R.styleable.LinearInfoView_textSize, 14f)
-
+                titleStyle = getInt(R.styleable.LinearInfoView_textTitleStyle, Typeface.BOLD)
+                valueStyle = getInt(R.styleable.LinearInfoView_textValueStyle, Typeface.NORMAL)
             } finally {
                 recycle()
             }

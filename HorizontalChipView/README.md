@@ -67,4 +67,3 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 ![screenshot](screenshot/image.png)
 
-## License

@@ -18,6 +18,8 @@ import com.indisparte.posterview.databinding.LayoutPosterViewBinding
 
 
 /**
+ * Displays a [MaterialCardView] containing a poster, a title, and a numerical value indicating the rating.
+ * If the values of the title and valuation are null, it provides to hide the respective views.
  * @author Antonio Di Nuzzo (Indisparte)
  */
 class PosterView @JvmOverloads constructor(
@@ -51,12 +53,18 @@ class PosterView @JvmOverloads constructor(
             imageView.setImageResource(placeholder)
         }
 
+    /**
+     * Change poster radius, default is 10f
+     */
     var posterRadius: Float = DEFAULT_POSTER_RADIUS
         set(value) {
             field = value
             cardImageView.radius = value
         }
 
+    /**
+     * Update the poster with the url of the image. If null set a placeholder
+     */
     var imageSrc: String? = null
         set(value) {
             field = value
@@ -71,6 +79,9 @@ class PosterView @JvmOverloads constructor(
 
         }
 
+    /**
+     * Update the rating, if it is null it hides the view
+     */
     var rating: String? = null
         set(value) {
             field = value
@@ -83,6 +94,9 @@ class PosterView @JvmOverloads constructor(
 
         }
 
+    /**
+     * Update the title, if it is null it hides the view
+     */
     var title: String? = null
         set(value) {
             field = value
@@ -160,7 +174,6 @@ class PosterView @JvmOverloads constructor(
 
 
     init {
-        requireNotNull(attrs) { "attrs cannot be null" }
         context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.PosterView,

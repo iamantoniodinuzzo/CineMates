@@ -43,12 +43,7 @@ Find a file called `local.properties` in the `.gradle` file in the home director
 - Use **Dagger Hilt** for dependency injection.
 - **Clean Architecture**
 - Create unique customize views to reduce boilerplate code
-  - HorizontalChipView(https://github.com/Indisparte/CineMates/blob/develop/HorizontalChipView/README.md)
-  - LinearLayoutInfo
-  - MoreLessTextView
-  - RecyclerViewEmptyStateSupport
 - [Version Catalogue](https://developer.android.com/build/migrate-to-catalogs)
-- 
 ## 📽 Screenshots
 
 **Home** | **Movie details** | **Actor details** | **Tv Details** | **Search** |
@@ -70,10 +65,10 @@ If you have 💡 ideas 💡 you can submit them [here](https://github.com/Indisp
 - [YouTube Library](https://developers.google.com/youtube/android/player)
 - [HorizontalChipView](https://github.com/Indisparte/CineMates/blob/develop/HorizontalChipView/README.md)
 - [LinearLayoutInfo](https://github.com/Indisparte/CineMates/blob/develop/LinearLayoutInfo/README.md)
-- [MoreLessTextView]
-- [RecyclerViewEmptyStateSupport]
-- [PosterView]
-- 
+- [MoreLessTextView](https://github.com/Indisparte/CineMates/blob/develop/MoreLessTextView/README.md)
+- [RecyclerViewEmptyStateSupport](https://github.com/Indisparte/CineMates/blob/develop/RecyclerViewEmptyStateSupport/README.md)
+- [PosterView](https://github.com/Indisparte/CineMates/blob/develop/PosterView/README.md)
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/Indisparte/CineMates.svg?style=for-the-badge

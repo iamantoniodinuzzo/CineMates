@@ -7,8 +7,8 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
+import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
 import com.indisparte.posterview.databinding.LayoutPosterViewBinding
@@ -42,23 +42,22 @@ class PosterView @JvmOverloads constructor(
     var imageSrc: String? = null
         set(value) {
             field = value
-            value?.let {
-                // TODO: Add glide dependency
-                /* Glide.with(context)
-                     .load(it)
-                     .placeholder(imageView.drawable)
-                     .error(imageView.drawable)
-                     .into(imageView)*/
-            }
+            Glide.with(context)
+                .load(value)
+                .placeholder(imageView.drawable)
+                .error(imageView.drawable)
+                .into(imageView)
+
         }
 
     var rating: Float? = null
         set(value) {
             field = value
-            value?.let {
-                //TODO adding formatting float
-                chip.text = it.toString()
+            if (value != null) {
+                chip.text = value.toString()
                 chip.isVisible = true
+            } else {
+                chip.isVisible = false
             }
 
         }
@@ -66,10 +65,13 @@ class PosterView @JvmOverloads constructor(
     var title: String? = null
         set(value) {
             field = value
-            value?.let {
-                textView.text = it
+            if (value != null) {
+                textView.text = value
                 textView.isVisible = true
+            } else {
+                textView.isVisible = false
             }
+
         }
 
     /**
@@ -98,7 +100,7 @@ class PosterView @JvmOverloads constructor(
             field = value
             chip.setTextColor(value)
         }
-
+    
 
     init {
         requireNotNull(attrs) { "attrs cannot be null" }

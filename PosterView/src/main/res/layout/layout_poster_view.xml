@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/movie_poster"
@@ -38,7 +38,7 @@
             android:layout_marginBottom="8dp"
             android:minHeight="48dp"
             app:chipBackgroundColor="@android:color/holo_red_dark"
-            app:chipCornerRadius="16dp"
+            app:chipCornerRadius="10dp"
             app:chipIconColor="@android:color/white"
             app:chipIconSize="18dp"
             app:chipStrokeColor="@android:color/black"

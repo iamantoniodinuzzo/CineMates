@@ -9,16 +9,17 @@ We can use `HorizontalChipView` without any customized attributes. This `Horizon
 initialized with the default parameters and **without title**.
 
 ```xml
-
-<com.indisparte.horizontalchipview.HorizontalChipView android:id="@+id/chipGroup"
-    android:layout_width="match_parent" android:layout_height="wrap_content" />
+<com.indisparte.horizontalchipview.HorizontalChipView 
+    android:id="@+id/chipGroup"
+    android:layout_width="match_parent" 
+    android:layout_height="wrap_content" />
 ```   
 
 ## Attribute descriptions
 
 We can customize the view using the below attributes.
 
-```
+```xml
  <com.indisparte.horizontalchipview.HorizontalChipView
     android:id="@+id/chipGroup"
     android:layout_width="match_parent"

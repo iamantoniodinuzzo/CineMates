@@ -4,12 +4,24 @@
         <attr name="placeholder" format="reference" />
         <attr name="rating" format="string" />
         <attr name="imageSrc" format="string" />
-        <attr name="title" format="string"/>
-        <attr name="titleColor" format="color"/>
-        <attr name="titleSize" format="dimension"/>
-        <attr name="titleStyle" format="enum">
-
+        <attr name="title" format="string" />
+        <attr name="titleColor" format="color" />
+        <attr name="titleSize" format="dimension" />
+        <attr name="titlePosterStyle" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="bold" value="1" />
+            <enum name="italic" value="2" />
+            <enum name="bold_italic" value="3" />
         </attr>
-        <attr name="ratingColor" format="color"/>
+        <attr name="ratingColor" format="color" />
+        <attr name="ratingSize" format="dimension" />
+        <attr name="ratingStyle" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="bold" value="1" />
+            <enum name="italic" value="2" />
+            <enum name="bold_italic" value="3" />
+        </attr>
+        <attr name="posterRadius" format="dimension" />
+        <attr name="ratingRadius" format="dimension" />
     </declare-styleable>
 </resources>

@@ -18,6 +18,8 @@
         app:rating="@{String.valueOf(media.voteAverage)}"
         app:title="@{media.title}"
         app:cardElevation="0dp"
+        app:posterRadius="8dp"
+        app:ratingRadius="10dp"
         app:placeholder="@drawable/ic_death_star"
         app:cardBackgroundColor="@android:color/transparent"
         app:titleColor="@color/alabaster"

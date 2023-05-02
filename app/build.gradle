@@ -58,6 +58,7 @@ dependencies {
     implementation project(path: ':HorizontalChipView')
     implementation project(path: ':RecyclerViewEmptyStateSupport')
     implementation project(path: ':MoreLessTextView')
+    implementation project(path: ':PosterView')
 
     implementation(libs.appcompat)
     implementation(libs.material)

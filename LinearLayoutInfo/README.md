@@ -2,25 +2,23 @@
 
 A custom LinearLayout view that displays a title and value, allowing the view to be automatically hidden when the value is null
 
-## Usage
+## LinearLayoutInfo in xml layout
 
-> To use the LinearLayoutInfo add the following code to your layout:
+We can use `LinearLayoutInfo` without any customized attributes. This `LinearLayoutInfo` will be
+**hidden**
 
 ```xml
 <!-- Code here -->
 ```    
 
-## LinearLayoutInfo attributes:
+## Attributes description:
 
-| **Attribute** | **Value** | **Default** |
-|:-------------:|:---------:|:-----------:|
-|               |           |             |
-|               |           |             |
-|               |           |             |
+We can customize the view using the below attributes.
+
+```xml
+<!-- Code here -->
+```  
 
 ## Screenshots
 
-![screenshot](screenshots/collapsed.png)
-![screenshot](screenshots/expanded.png)
-
-## License
+![screenshot](screenshot/image.png)

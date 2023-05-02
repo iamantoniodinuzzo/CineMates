@@ -1,10 +1,11 @@
 # PosterView
 
-A custom MaterialCardView that allows a media poster to be displayed indicating the title and a rating, if any. Title and rating can be null, the view in this case will hide them
+A custom PosterView that allows a media poster to be displayed indicating the title and a rating, if any. Title and rating can be null, the view in this case will hide them
 
-## Usage
+## PosterView in XML layout
 
-> To use the PosterView add the following code to your layout:
+We can use `PosterView` without any customized attributes. This `PosterView` will be
+shown only image.
 
 ```xml
 <!-- Code here -->
@@ -12,15 +13,15 @@ A custom MaterialCardView that allows a media poster to be displayed indicating 
 
 ## PosterView attributes:
 
-| **Attribute** | **Value** | **Default** |
-|:-------------:|:---------:|:-----------:|
-|               |           |             |
-|               |           |             |
-|               |           |             |
+We can customize the view using the below attributes.
+
+```xml
+<!-- Code here -->
+```  
 
 ## Screenshots
 
-![screenshot](screenshots/collapsed.png)
-![screenshot](screenshots/expanded.png)
+![screenshot_poster_image_title_vote](screenshot/poster_title_vote.png)
+![screenshot_poster](screenshot/poster.png)
 
-## License
+

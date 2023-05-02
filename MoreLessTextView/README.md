@@ -2,25 +2,22 @@
 
 A custom TextView that allows you to truncate text that exceeds a specified number of lines, displaying customizable clickable text that allows you to expand the entire text.
 
-## Usage
+## MoreLessTextView in XML layout
 
-> To use the MoreLessTextView add the following code to your layout:
+We can use `MoreLessTextView` without any customized attributes. This `MoreLessTextView` will be
+initialized with the default parameters and show all text
 
 ```xml
 <!-- Code here -->
 ```    
 
-## MoreLessTextView attributes:
+## Attributes description:
 
-| **Attribute** | **Value** | **Default** |
-|:-------------:|:---------:|:-----------:|
-|               |           |             |
-|               |           |             |
-|               |           |             |
+```xml
+<!-- Code here -->
+``` 
 
 ## Screenshots
 
-![screenshot](screenshots/collapsed.png)
-![screenshot](screenshots/expanded.png)
+![screenshot](screenshot/image.png)
 
-## License

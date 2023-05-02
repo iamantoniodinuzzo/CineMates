@@ -144,6 +144,9 @@ class PosterView @JvmOverloads constructor(
             textViewRating.setTypeface(textViewTitle.typeface, value)
         }
 
+    /**
+     * Change rating chip radius, default value 8f
+     */
     var ratingRadius: Float = DEFAULT_RATING_RADIUS
         set(value) {
             field = value

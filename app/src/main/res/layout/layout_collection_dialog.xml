@@ -3,44 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="collection"
-            type="com.example.cinemates.domain.model.movie.Collection" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/parts_of_collection"
         android:layout_width="match_parent"
-        android:background="@color/lynch_100"
         android:padding="10dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/list_item_media_small" />
 
-        <TextView
-            android:id="@+id/collection_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{collection.name}"
-            android:textColor="@color/alabaster"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Collection title" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/parts_of_collection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/collection_name"
-            tools:listitem="@layout/list_item_media_small" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

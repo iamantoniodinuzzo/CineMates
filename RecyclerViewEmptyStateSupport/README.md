@@ -2,25 +2,38 @@
 
 A custom RecyclerView that allows you to show an empty state when it contains no elements
 
-## Usage
+## RecyclerViewEmptyStateSupport in XML layout
 
-> To use the RecyclerViewEmptyStateSupport add the following code to your layout:
+We can use `RecyclerViewEmptySupport` without any specific attributes, 
+this will behave like a normal RecyclerView by simply showing an "_Empty Result_" label with an icon 
+in case there are no items in the RecyclerView.
 
 ```xml
-<!-- Code here -->
+<com.indisparte.recyclerviewemptystatesupport.RecyclerViewEmptyStateSupport 
+    android:id="@+id/recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
 ```    
 
 ## RecyclerViewEmptyStateSupport attributes:
 
-| **Attribute** | **Value** | **Default** |
-|:-------------:|:---------:|:-----------:|
-|               |           |             |
-|               |           |             |
-|               |           |             |
+We can customize the view using the below attributes.
+
+```xml
+<com.indisparte.recyclerviewemptystatesupport.RecyclerViewEmptyStateSupport 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:emptyText="Nothing here!" // Default is Empty Result
+    app:icon="@drawable/ic_space" // Another icon as default
+    app:iconWidth="100dp" //Default 200dp
+    app:iconHeight="100dp" // Default 200dp
+    app:emptyTextColor="@color/alabaster" // Default is white
+    app:emptyTextSize="14sp" //Default is 18sp 
+    app:emptyTextStyle="bold"// Default bold
+    app:emptyTextTypeFace="@font/myfont" // Default null
+    />
+```   
 
 ## Screenshots
 
-![screenshot](screenshots/collapsed.png)
-![screenshot](screenshots/expanded.png)
-
-## License
+![screenshot](screenshot/image.png)

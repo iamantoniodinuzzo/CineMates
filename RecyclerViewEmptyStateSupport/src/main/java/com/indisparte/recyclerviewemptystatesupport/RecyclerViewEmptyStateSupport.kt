@@ -68,7 +68,7 @@ class RecyclerViewEmptyStateSupport @JvmOverloads constructor(
     var emptyTextSize: Float = DEFAULT_TEXT_SIZE
         set(value) {
             field = value
-            emptyTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, value)
+            emptyTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, value)
         }
 
     @ColorInt

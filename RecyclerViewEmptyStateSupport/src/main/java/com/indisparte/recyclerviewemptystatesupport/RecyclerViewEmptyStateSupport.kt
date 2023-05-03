@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.recyclerviewemptystatesupport.databinding.LayoutRecyclerviewEmptyStateBinding
+
 
 
 /**
@@ -24,6 +26,12 @@ class RecyclerViewEmptyStateSupport @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : RelativeLayout(context, attrs, defStyleAttr) {
+
+    private companion object {
+        private const val DEFAULT_TEXT_SIZE = 18f
+        private const val DEFAULT_ICON_WIDTH = 200f
+        private const val DEFAULT_ICON_HEIGHT = 200f
+    }
 
     private val binding: LayoutRecyclerviewEmptyStateBinding =
         LayoutRecyclerviewEmptyStateBinding.inflate(
@@ -39,16 +47,26 @@ class RecyclerViewEmptyStateSupport @JvmOverloads constructor(
     private val recyclerViewEmptyState: RecyclerView
         get() = binding.recyclerView
 
+    var iconWidth: Float = DEFAULT_ICON_WIDTH
+        set(value) {
+            field = value
+            emptyImageView.layoutParams.width = value.toInt()
+        }
+    var iconHeight: Float = DEFAULT_ICON_HEIGHT
+        set(value) {
+            field = value
+            emptyImageView.layoutParams.height = value.toInt()
+        }
     var emptyText: String = context.getString(R.string.empty_result_message)
         set(value) {
             field = value
             emptyTextView.text = value
         }
 
-    var emptyTextSize: Float = 18f
+    var emptyTextSize: Float = DEFAULT_TEXT_SIZE
         set(value) {
             field = value
-            emptyTextView.textSize = value
+            emptyTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, value)
         }
 
     var emptyTextColor: Int = Color.WHITE
@@ -89,7 +107,6 @@ class RecyclerViewEmptyStateSupport @JvmOverloads constructor(
         set(value) {
             field = value
             emptyImageView.setImageResource(value)
-
         }
 
     private val emptyStateObserver = object : RecyclerView.AdapterDataObserver() {
@@ -134,6 +151,10 @@ class RecyclerViewEmptyStateSupport @JvmOverloads constructor(
                     R.styleable.RecyclerViewEmptyStateSupport_icon,
                     R.drawable.ic_empty
                 )
+                iconWidth =
+                    getDimension(R.styleable.RecyclerViewEmptyStateSupport_iconWidth, DEFAULT_ICON_WIDTH)
+                iconHeight =
+                    getDimension(R.styleable.RecyclerViewEmptyStateSupport_iconHeight, DEFAULT_ICON_HEIGHT)
                 emptyTextStyle =
                     getInt(R.styleable.RecyclerViewEmptyStateSupport_emptyTextStyle, Typeface.BOLD)
 

@@ -25,6 +25,8 @@ We can customize the view using the below attributes.
     android:layout_height="match_parent"
     app:emptyText="Nothing here!" // Default is Empty Result
     app:icon="@drawable/ic_space" // Another icon as default
+    app:iconWidth="100dp" //Default 200dp
+    app:iconHeight="100dp" // Default 200dp
     app:emptyTextColor="@color/alabaster" // Default is white
     app:emptyTextSize="14sp" //Default is 18sp 
     app:emptyTextStyle="bold"// Default bold

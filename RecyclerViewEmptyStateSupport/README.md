@@ -26,7 +26,10 @@ We can customize the view using the below attributes.
     app:emptyText="Nothing here!" // Default is Empty Result
     app:icon="@drawable/ic_space" // Another icon as default
     app:emptyTextColor="@color/alabaster" // Default is white
-    app:emptyTextSize="14sp" //Default is 18sp />
+    app:emptyTextSize="14sp" //Default is 18sp 
+    app:emptyTextStyle="bold"// Default bold
+    app:emptyTextTypeFace="@font/myfont" // Default null
+    />
 ```   
 
 ## Screenshots

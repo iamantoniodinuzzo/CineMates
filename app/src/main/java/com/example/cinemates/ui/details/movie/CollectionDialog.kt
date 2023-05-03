@@ -15,12 +15,11 @@ import com.example.cinemates.ui.adapter.MediaAdapter
 class CollectionDialog(
     private val context: Context,
     private val collection: Collection,
+    private val adapter: MediaAdapter
 ) {
-//TODO crash 'cos not in navgraph
 
     private lateinit var alertDialog: AlertDialog
     private lateinit var binding: LayoutCollectionDialogBinding
-    private var adapter: MediaAdapter = MediaAdapter()
 
     fun showDialog() {
         val dialogBuilder = AlertDialog.Builder(context)

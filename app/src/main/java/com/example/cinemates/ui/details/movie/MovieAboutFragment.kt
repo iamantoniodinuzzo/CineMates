@@ -14,6 +14,7 @@ import com.example.cinemates.R
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentMovieAboutBinding
 import com.example.cinemates.domain.model.common.Genre
+import com.example.cinemates.ui.adapter.MediaAdapter
 import com.example.cinemates.ui.adapter.VideoAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.launch
@@ -84,7 +85,8 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 launch {
                     viewModel.collection.collect { collection ->
                         collection.let {
-                            collectionDialog = CollectionDialog(requireContext(), it)
+                            collectionDialog =
+                                CollectionDialog(requireContext(), it, MediaAdapter(requireView()))
                         }
 
 

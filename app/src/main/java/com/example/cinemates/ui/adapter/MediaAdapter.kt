@@ -1,7 +1,6 @@
 package com.example.cinemates.ui.adapter
 
 
-
 import android.view.View
 import androidx.navigation.Navigation
 import com.example.cinemates.NavGraphDirections
@@ -9,14 +8,18 @@ import com.example.cinemates.R
 import com.example.cinemates.common.DoubleViewSizeAdapter
 import com.example.cinemates.databinding.ListItemMediaLongBinding
 import com.example.cinemates.databinding.ListItemMediaSmallBinding
-import com.example.cinemates.util.MediaType
 import com.example.cinemates.domain.model.common.Media
+import com.example.cinemates.util.MediaType
 
 
 /**
+ * Represents an adapter for any type of [MediaType].
+ * @param view An optional parameter,
+ * but one that becomes necessary if the adapter is to be attached to a recyclerview of a certain dialog.
+ * In this case this parameter must contain the view in which the dialog will be displayed
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class MediaAdapter :
+class MediaAdapter(private val view: View? = null) :
     DoubleViewSizeAdapter<Media, ListItemMediaLongBinding, ListItemMediaSmallBinding>(
         R.layout.list_item_media_long,
         R.layout.list_item_media_small,
@@ -41,11 +44,18 @@ class MediaAdapter :
         val action = when (item.mediaType) {
             MediaType.MOVIE -> NavGraphDirections.actionGlobalMovieDetailsFragment(item)
             MediaType.TV -> NavGraphDirections.actionGlobalTvDetailsFragment(item)
-            else -> {
-                throw UnsupportedOperationException()
-            }
         }
-        Navigation.findNavController(view).navigate(action)
+
+        /*
+         A distinction is made between these two views in that if this adapter is attached to a recyclerview present in a dialog,
+         the app will crash by not finding the NavController.
+         This happens because the dialogs are presented in a view that is detached from the main view,
+         losing the navigation references.
+         So by passing as an argument to the class the view in which the adapter is instantiated, its reference is not lost.
+         */
+        this@MediaAdapter.view?.let {
+            Navigation.findNavController(it).navigate(action)
+        } ?: Navigation.findNavController(view).navigate(action)
 
     }
 }

@@ -1,53 +1,41 @@
 package com.example.cinemates.util
 
+import androidx.annotation.StringRes
+import com.example.cinemates.R
+
 /**
- * Sorting options, default order is Descendant (desc)
+ * Enumeration representing sorting order.
+ * @property value The sorting order value ("asc" or "desc").
+ * @property nameResId The resource ID of the localized sorting order name.
  * @author Antonio Di Nuzzo
- * Created 23/07/2022 at 10:51
  */
-enum class Sort(
-    var order: Order = Order.DESC
-) {
-    POPULARITY(
-        Order.DESC
-    ),
-    RELEASE_DATE(
-        Order.DESC
-    ),
-    REVENUE(
-        Order.DESC
-    ),
-    VOTE_AVERAGE(
-        Order.DESC
-    );
+enum class Order(val value: String, @StringRes val nameResId: Int) {
+    ASC("asc", R.string.order_asc),
+    DESC("desc", R.string.order_desc);
 
     override fun toString(): String {
-        return when (this) {
-            POPULARITY -> {
-                "popularity.$order"
-            }
-            RELEASE_DATE -> {
-                "release_date.$order"
-            }
-            VOTE_AVERAGE -> {
-                "vote_average.$order"
-            }
-            REVENUE -> {
-                "revenue.$order"
-            }
-        }
+        return value
+    }
+}
+
+/**
+ * Enumeration representing sorting options.
+ * @property value The sorting option value (e.g. "popularity").
+ * @property nameResId The resource ID of the localized sorting option name.
+ * @author Antonio Di Nuzzo (Indisparte)
+ */
+enum class Sort(val value: String, @StringRes val nameResId: Int) {
+    POPULARITY("popularity", R.string.sort_popularity),
+    RELEASE_DATE("release_date", R.string.sort_release_date),
+    REVENUE("revenue", R.string.sort_revenue),
+    PRIMARY_RELEASE_DATE("primary_release_date", R.string.sort_primary_release_date),
+    ORIGINAL_TITLE("original_title", R.string.sort_original_title),
+    VOTE_AVERAGE("vote_average", R.string.sort_vote_average),
+    VOTE_COUNT("vote_count", R.string.sort_vote_count);
+
+    override fun toString(): String {
+        return value
     }
 
-    enum class Order {
-        ASC, DESC;
 
-        override fun toString(): String {
-            return when (this) {
-                ASC -> "asc"
-                DESC -> "desc"
-            }
-        }
-
-
-    }
 }

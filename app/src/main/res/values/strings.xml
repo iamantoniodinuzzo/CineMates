@@ -8,4 +8,13 @@
     </string>
     <string name="chip_top_rated">Top Rated</string>
     <string name="chip_on_air">On the Air</string>
+    <string name="order_asc">Ascendant</string>
+    <string name="order_desc">Descendant</string>
+    <string name="sort_popularity">Popularity</string>
+    <string name="sort_release_date">Release Date</string>
+    <string name="sort_revenue">Revenue</string>
+    <string name="sort_primary_release_date">Primary Release Date</string>
+    <string name="sort_original_title">Original Title</string>
+    <string name="sort_vote_average">Vote Average</string>
+    <string name="sort_vote_count">Vote Count</string>
 </resources>

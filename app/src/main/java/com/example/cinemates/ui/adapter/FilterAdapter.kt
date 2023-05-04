@@ -26,7 +26,7 @@ class FilterAdapter :
 
 
     override fun onBindItem(binding: ListItemFilterBinding, item: MovieFilter) {
-        binding.filter = item
+//        binding.filter = item
         binding.root.setOnClickListener { view ->
             val action =
                 DiscoverFragmentDirections.actionDiscoverFragmentToFilterFragment(item)

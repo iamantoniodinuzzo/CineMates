@@ -51,7 +51,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:textSize="14sp"
                     app:layout_collapseMode="pin"
-                    app:menu="@menu/menu_customizable_fragment"
+                    app:menu="@menu/search_menu"
                     app:navigationIcon="@drawable/ic_round_arrow_back_24"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 

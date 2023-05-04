@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_background"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <!-- Sort By section -->
+    <com.indisparte.horizontalchipview.HorizontalChipView
+        android:id="@+id/sort_by"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="Sort by"
+        app:titleColor="@color/alabaster"
+        app:titleSize="18sp" />
+
+    <!-- Genres section -->
+    <com.indisparte.horizontalchipview.HorizontalChipView
+        android:id="@+id/genres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="Genres"
+        app:titleColor="@color/alabaster"
+        app:titleSize="18sp" />
+
+    <!-- Year section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Year"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/alabaster"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/year_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp" />
+
+    <!-- Apply button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/apply_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/vermilion_100"
+        android:text="Apply"
+        android:textAllCaps="false"
+        app:cornerRadius="8dp" />
+
+</LinearLayout>

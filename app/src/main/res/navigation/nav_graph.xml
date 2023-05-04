@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_discoverFragment_to_filterFragment"
             app:destination="@id/filterFragment" />
+        <action
+            android:id="@+id/action_discoverFragment_to_filterDialogFragment"
+            app:destination="@id/filterDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/savedFragment"
@@ -127,5 +130,10 @@
             android:name="season"
             app:argType="com.example.cinemates.domain.model.tv.Season" />
     </fragment>
+    <dialog
+        android:id="@+id/filterDialogFragment"
+        tools:layout="@layout/layout_filter_dialog"
+        android:name="com.example.cinemates.ui.discover.FilterDialogFragment"
+        android:label="FilterDialog" />
 
 </navigation>

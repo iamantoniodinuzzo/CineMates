@@ -1,5 +1,6 @@
 package com.example.cinemates.data.remote.repository
 
+import com.example.cinemates.data.remote.response.genre.GenreDTO
 import com.example.cinemates.data.remote.response.credits.CastDTO
 import com.example.cinemates.data.remote.response.credits.CrewDTO
 import com.example.cinemates.data.remote.response.image.ImageDTO
@@ -112,6 +113,11 @@ constructor(
 
     override fun getSeasonDetails(tvId: Int, seasonNumber: Int): Flow<SeasonDetailsDTO> = flow {
         emit(tvShowService.getSeasonDetails(tvId, seasonNumber, queryMap))
+    }
+
+    override fun getGenreList(): Flow<List<GenreDTO>> = flow {
+        val genres = tvShowService.getGenreList(queryMap).genres
+        emit(genres)
     }
 
 }

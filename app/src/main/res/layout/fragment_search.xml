@@ -21,7 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/lynch_100"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:menu="@menu/menu_customizable_fragment"
+            app:menu="@menu/search_menu"
             app:navigationIcon="@drawable/ic_outline_arrow_back_24"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 

@@ -1,5 +1,6 @@
 package com.example.cinemates.data.remote.repository
 
+import com.example.cinemates.data.remote.response.genre.GenreDTO
 import com.example.cinemates.data.remote.response.credits.CastDTO
 import com.example.cinemates.data.remote.response.credits.CrewDTO
 import com.example.cinemates.data.remote.response.image.ImageDTO
@@ -28,4 +29,5 @@ interface TvShowRepository {
     fun getEpisodeGroup(id: Int): Flow<List<EpisodeGroupDTO>>
     fun getEpisodeGroupDetails(episodeGroupId: String): Flow<EpisodeGroupDetailsDTO>
     fun getSeasonDetails(tvId:Int, seasonNumber:Int):Flow<SeasonDetailsDTO>
+    fun getGenreList():Flow<List<GenreDTO>>
 }

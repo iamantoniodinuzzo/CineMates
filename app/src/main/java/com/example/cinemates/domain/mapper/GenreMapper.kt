@@ -1,6 +1,6 @@
 package com.example.cinemates.domain.mapper
 
-import com.example.cinemates.data.remote.response.common.GenreDTO
+import com.example.cinemates.data.remote.response.genre.GenreDTO
 import com.example.cinemates.domain.model.common.Genre
 
 

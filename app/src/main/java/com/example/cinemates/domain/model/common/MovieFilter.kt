@@ -5,6 +5,31 @@ import com.example.cinemates.util.MovieSort
 import java.io.Serializable
 
 /**
+ * @author Antonio Di Nuzzo (Indisparte)
+ */
+class SortBy(val sort: MovieSort , val order: Order){
+    override fun toString(): String {
+        return "$sort.$order"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SortBy) return false
+
+        if (sort != other.sort) return false
+        if (order != other.order) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = sort.hashCode()
+        result = 31 * result + order.hashCode()
+        return result
+    }
+}
+
+/**
  * A class representing a filter used to search for movies.
  *
  * This class provides a convenient way to create filters with various criteria, including
@@ -22,11 +47,13 @@ import java.io.Serializable
  */
 class MovieFilter private constructor(
     val name: String,
-    val sortBy: String?,
+    val sortBy: SortBy?,
     val genresId: String?,
     val castId: String?,
     val year: Int?
 ) : Serializable {
+
+
 
     /**
      * A builder class for creating new filter instances.
@@ -54,16 +81,16 @@ class MovieFilter private constructor(
      * @property castId The cast members for the filter (optional).
      * @property year The release year for the filter (optional).
      */
-    class Builder{
+   class Builder{
         private var name: String? = null
-        private var sortBy: String? = null
+        private var sortBy: SortBy? = null
         private var genresId: String? = null
         private var castId: String? = null
         private var year: Int? = null
 
         fun name(name: String?) = apply { this.name = name }
-        fun sortBy(movieSort: MovieSort? = MovieSort.POPULARITY, order: Order? = Order.DESC) =
-            apply { this.sortBy = "$movieSort.$order" }
+        fun sortBy(movieSort: MovieSort = MovieSort.POPULARITY, order: Order = Order.DESC) =
+            apply { this.sortBy = SortBy(movieSort,order)}
 
         fun genresId(genresId: List<Int>?) = apply {
             this.genresId = genresId?.joinToString(separator = ",")
@@ -89,6 +116,8 @@ class MovieFilter private constructor(
             requireNotNull(name) { "Name must not be null" }
             return MovieFilter(name!!, sortBy, genresId, castId, year)
         }
+
+
     }
 
     override fun equals(other: Any?): Boolean {

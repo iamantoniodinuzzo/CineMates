@@ -1,11 +1,14 @@
 package com.example.cinemates.ui.discover
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.cinemates.domain.model.common.MovieFilter
-import com.example.cinemates.util.MovieSort
+import androidx.lifecycle.viewModelScope
+import com.example.cinemates.domain.model.common.Genre
+import com.example.cinemates.domain.usecases.discover.DiscoverUseCaseContainer
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -17,65 +20,30 @@ import javax.inject.Inject
 class DiscoverViewModel
 @Inject
 constructor(
-
+    private val discoverUseCaseContainer: DiscoverUseCaseContainer,
 ) : ViewModel() {
 
-
-    private val m_Movie_filterBuilder = MutableLiveData<MovieFilter.Builder>()
-    val movieFilterBuilder: LiveData<MovieFilter.Builder>
-        get() = m_Movie_filterBuilder
-    private val _genreMap = MutableLiveData<HashMap<Int, String>>()
-    val genreMap: LiveData<HashMap<Int, String>> get() = _genreMap
-    private val m_Movie_sortByMap = MutableLiveData<HashMap<MovieSort, String>>()
-    val movieSortByMap: LiveData<HashMap<MovieSort, String>>
-        get() = m_Movie_sortByMap
-
+    private val _movieGenres = MutableStateFlow<List<Genre>?>(null)
+    val movieGenres: Flow<List<Genre>?> get() = _movieGenres
+    private val _tvGenres = MutableStateFlow<List<Genre>?>(null)
+    val tvGenres: Flow<List<Genre>?> get() = _tvGenres
 
     init {
-        initMaps()
-        initFilter()
+        getMovieGenres()
+        getTvGenres()
     }
 
-    private fun initMaps() {
-        _genreMap.value = getGenreMap()
-        m_Movie_sortByMap.value = getSortByMap()
+    private fun getTvGenres() = viewModelScope.launch {
+        discoverUseCaseContainer.getTvGenresUseCase.invoke().collectLatest {
+            _tvGenres.value = it
+        }
     }
 
-    fun initFilter() {
-        m_Movie_filterBuilder.value = MovieFilter.Builder()
-    }
 
-    private fun getGenreMap(): HashMap<Int, String> {
-        val genreMap = HashMap<Int, String>()
-        genreMap[28] = "Action"
-        genreMap[12] = "Adventure"
-        genreMap[16] = "Animation"
-        genreMap[35] = "Comedy"
-        genreMap[80] = "Crime"
-        genreMap[99] = "Documentary"
-        genreMap[18] = "Drama"
-        genreMap[10751] = "Family"
-        genreMap[14] = "Fantasy"
-        genreMap[36] = "History"
-        genreMap[27] = "Horror"
-        genreMap[10402] = "Music"
-        genreMap[9648] = "TopRated"
-        genreMap[10749] = "Romance"
-        genreMap[878] = "Science Fiction"
-        genreMap[53] = "Thriller"
-        genreMap[10752] = "War"
-        genreMap[37] = "Western"
-        genreMap[10770] = "TV MovieDetailsDTO"
-        return genreMap
-    }
-
-    private fun getSortByMap(): HashMap<MovieSort, String> {
-        val movieSortByMap = HashMap<MovieSort, String>()
-        movieSortByMap[MovieSort.POPULARITY] = "Popularity"
-        movieSortByMap[MovieSort.RELEASE_DATE] = "Release Date"
-        movieSortByMap[MovieSort.REVENUE] = "Revenue"
-        movieSortByMap[MovieSort.VOTE_AVERAGE] = "Vote Average"
-        return movieSortByMap
+    private fun getMovieGenres() =viewModelScope.launch {
+        discoverUseCaseContainer.getMovieGenresUseCase.invoke().collectLatest {
+            _movieGenres.value = it
+        }
     }
 
 

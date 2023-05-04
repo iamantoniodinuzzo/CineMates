@@ -7,7 +7,7 @@ import com.example.cinemates.data.remote.response.image.ImageDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import com.example.cinemates.data.remote.response.tvShow.*
 import com.example.cinemates.data.remote.service.TvShowService
-import com.example.cinemates.domain.model.common.TvFilter
+import com.example.cinemates.domain.model.common.MediaFilter
 import com.example.cinemates.util.MediaListSpecification
 import com.example.cinemates.util.TimeWindow
 import kotlinx.coroutines.flow.Flow
@@ -53,20 +53,17 @@ constructor(
         emit(similarTvShow)
     }
 
-    override fun getDiscoverable(tvFilter: TvFilter): Flow<List<TvShowDTO>> = flow {
+    override fun getDiscoverable(tvFilter: MediaFilter): Flow<List<TvShowDTO>> = flow {
         tvFilter.sortBy?.let {
-            queryMap["sort_by"] = it
+            queryMap["sort_by"] = it.toString()
         }
         tvFilter.genresId?.let {
             queryMap["with_genres"] =
                 it.replace("[", "")//todo necessary?
                     .replace("]", "")//todo necessary?
         }
-        tvFilter.runtime?.let {
-            queryMap["with_runtime.lte"] = it.toString()
-        }
-        tvFilter.type?.let {
-            queryMap["with_type"] = it
+        tvFilter.year?.let {
+            queryMap["first_air_date_year"] = it.toString()
         }
 
         val tv = tvShowService.getByDiscover(queryMap).results

@@ -8,7 +8,7 @@ import com.example.cinemates.data.remote.response.movie.CollectionDTO
 import com.example.cinemates.data.remote.response.movie.MovieDTO
 import com.example.cinemates.data.remote.response.movie.MovieDetailsDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
-import com.example.cinemates.domain.model.common.MovieFilter
+import com.example.cinemates.domain.model.common.MediaFilter
 import com.example.cinemates.util.MediaListSpecification
 import com.example.cinemates.util.TimeWindow
 import kotlinx.coroutines.flow.Flow
@@ -26,7 +26,7 @@ interface MovieRepository {
     fun getDetails(movieId: Int): Flow<MovieDetailsDTO>
     fun getSimilar(movieId: Int): Flow<List<MovieDTO>>
     fun getRecommended(movieId: Int): Flow<List<MovieDTO>>
-    fun getDiscoverable(movieFilter: MovieFilter): Flow<List<MovieDTO>>
+    fun getDiscoverable(mediaFilter: MediaFilter): Flow<List<MovieDTO>>
     fun getPosters(movieId: Int): Flow<List<ImageDTO>>
     fun getImages(movieId: Int): Flow<List<ImageDTO>>
     fun getBackdrops(movieId: Int): Flow<List<ImageDTO>>

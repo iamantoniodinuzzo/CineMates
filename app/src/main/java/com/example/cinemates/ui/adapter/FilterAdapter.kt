@@ -11,11 +11,11 @@ import androidx.navigation.Navigation
 import com.example.cinemates.R
 import com.example.cinemates.common.SingleViewAdapter
 import com.example.cinemates.databinding.ListItemFilterBinding
-import com.example.cinemates.domain.model.common.MovieFilter
+import com.example.cinemates.domain.model.common.MediaFilter
 import com.example.cinemates.ui.discover.DiscoverFragmentDirections
 
 class FilterAdapter :
-    SingleViewAdapter<MovieFilter, ListItemFilterBinding>(R.layout.list_item_filter,) {
+    SingleViewAdapter<MediaFilter, ListItemFilterBinding>(R.layout.list_item_filter,) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -25,7 +25,7 @@ class FilterAdapter :
     }
 
 
-    override fun onBindItem(binding: ListItemFilterBinding, item: MovieFilter) {
+    override fun onBindItem(binding: ListItemFilterBinding, item: MediaFilter) {
 //        binding.filter = item
         binding.root.setOnClickListener { view ->
             val action =

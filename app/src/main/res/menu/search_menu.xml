@@ -5,7 +5,7 @@
         android:id="@+id/menu_filter"
         android:icon="@drawable/ic_baseline_filter_list_24"
         android:iconTint="@color/geyser"
-        android:title="MovieFilter"
+        android:title="MediaFilter"
         app:showAsAction="always" />-->
     <item
         android:id="@+id/menu_switch_list"

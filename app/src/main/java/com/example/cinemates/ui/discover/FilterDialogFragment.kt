@@ -4,16 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.NumberPicker
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.cinemates.R
 import com.example.cinemates.databinding.LayoutFilterDialogBinding
 import com.example.cinemates.domain.model.common.Genre
+import com.example.cinemates.domain.model.common.MediaFilter
+import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.MovieSort
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.flow.collectLatest
+import java.util.*
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
@@ -26,6 +31,8 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
 
     // Get a reference to the view model
     private val viewModel: DiscoverViewModel by activityViewModels()
+    private lateinit var mMediaFilterBuilder: MediaFilter.Builder
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,10 +48,73 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
+            initMediaTypeToggleGroup(view)
             initMovieSortChipGroup(view)
             initGenreChipGroup(view)
+            initYearSpinner()
+            initToggleGroupYearButton()
+
+            applyButton.setOnClickListener {
+                val movieFilter = mMediaFilterBuilder.build()
+                Toast.makeText(requireContext(), movieFilter.toString(), Toast.LENGTH_LONG).show()
+            }
         }
 
+    }
+
+    private fun initMediaTypeToggleGroup(view: View) {
+        val toggleGroup = binding.mediaTypeToggleGroup
+
+        toggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                when (checkedId) {
+                    R.id.movie_button -> {
+                        mMediaFilterBuilder = MediaFilter.Builder(MediaType.MOVIE)
+                    }
+                    R.id.tv_button -> {
+                        mMediaFilterBuilder = MediaFilter.Builder(MediaType.MOVIE)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun initToggleGroupYearButton() {
+        val toggleGroup = binding.yearFilter.toggleGroup
+
+        toggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                when (checkedId) {
+                    R.id.any_button -> {
+                        // Do something when "Any" button is selected
+                        mMediaFilterBuilder.year(null)
+                        binding.yearFilter.yearPicker.isVisible = false
+                    }
+                    R.id.one_year_button -> {
+                        // Do something when "One Year" button is selected
+                        binding.yearFilter.yearPicker.isVisible = true
+                    }
+                }
+            }
+        }
+    }
+
+    private fun initYearSpinner() {
+        // Find the NumberPicker view in the layout
+        val yearPicker: NumberPicker = binding.yearFilter.yearPicker
+
+        // Set the minimum and maximum values for the NumberPicker
+        yearPicker.minValue = 1943
+        yearPicker.maxValue = Calendar.getInstance().get(Calendar.YEAR)
+
+        // Set the default value for the NumberPicker
+        yearPicker.value = Calendar.getInstance().get(Calendar.YEAR)
+
+        // Set the OnValueChangedListener for the NumberPicker
+        yearPicker.setOnValueChangedListener { picker, oldVal, newVal ->
+            // Do something with the selected year
+            mMediaFilterBuilder.year(newVal)
+        }
     }
 
     private fun initGenreChipGroup(view: View) {
@@ -65,11 +135,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
 
         // specify the action on chips click
         chipGroup.onChipClicked = { genre ->
-            Toast.makeText(
-                requireContext(),
-                "Add $genre to filter",
-                Toast.LENGTH_SHORT
-            ).show()
+            mMediaFilterBuilder.genresId(listOf(genre.id))
         }
     }
 
@@ -86,11 +152,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
 
         // specify the action on chips click
         chipGroup.onChipClicked = { sortBy ->
-            Toast.makeText(
-                requireContext(),
-                "Add $sortBy to filter",
-                Toast.LENGTH_SHORT
-            ).show()
+            mMediaFilterBuilder.sortBy(sortBy)
         }
     }
 

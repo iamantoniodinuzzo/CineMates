@@ -1,13 +1,14 @@
 package com.example.cinemates.domain.model.common
 
-import com.example.cinemates.util.Order
+import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.MovieSort
+import com.example.cinemates.util.Order
 import java.io.Serializable
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class SortBy(val sort: MovieSort , val order: Order){
+class SortBy(val sort: MovieSort, val order: Order) {
     override fun toString(): String {
         return "$sort.$order"
     }
@@ -40,19 +41,17 @@ class SortBy(val sort: MovieSort , val order: Order){
  * @property name The name of the filter (mandatory).
  * @property sortBy The sorting criteria for the filter (optional). Default value 'popularity.desc'
  * @property genresId The genres for the filter (optional).
- * @property castId The cast members for the filter (optional).
  * @property year The release year for the filter (optional).
  *
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class MovieFilter private constructor(
-    val name: String,
+class MediaFilter private constructor(
+    val mediaType: MediaType,
+    val name: String?,
     val sortBy: SortBy?,
     val genresId: String?,
-    val castId: String?,
     val year: Int?
 ) : Serializable {
-
 
 
     /**
@@ -66,7 +65,7 @@ class MovieFilter private constructor(
      * Example usage:
      *
      * ```kotlin
-     * val filter = MovieFilter.Builder()
+     * val filter = MediaFilter.Builder()
      *     .name("Action movies")
      *     .sortBy(MovieSort.POPULARITY, Order.DESC)
      *     .genresId(listOf(28, 12, 80))
@@ -78,43 +77,37 @@ class MovieFilter private constructor(
      * @property name The name of the filter (mandatory).
      * @property sortBy The sorting criteria for the filter (optional).
      * @property genresId The genres for the filter (optional).
-     * @property castId The cast members for the filter (optional).
      * @property year The release year for the filter (optional).
      */
-   class Builder{
+    class Builder(val mediaType: MediaType) {
         private var name: String? = null
         private var sortBy: SortBy? = null
         private var genresId: String? = null
-        private var castId: String? = null
         private var year: Int? = null
 
         fun name(name: String?) = apply { this.name = name }
         fun sortBy(movieSort: MovieSort = MovieSort.POPULARITY, order: Order = Order.DESC) =
-            apply { this.sortBy = SortBy(movieSort,order)}
+            apply { this.sortBy = SortBy(movieSort, order) }
 
         fun genresId(genresId: List<Int>?) = apply {
             this.genresId = genresId?.joinToString(separator = ",")
         }
 
-        fun castId(castId: List<Int>?) =
-            apply { this.castId = castId?.joinToString(separator = ",") }
-
         fun year(year: Int?) = apply { this.year = year }
 
         /**
-         * Builds a new `MovieFilter` instance with the provided criteria.
+         * Builds a new `MediaFilter` instance with the provided criteria.
          *
-         * This function creates a new `MovieFilter` instance with the criteria provided by the
+         * This function creates a new `MediaFilter` instance with the criteria provided by the
          * various functions in the `Builder` class. If the `name` property is not set or
          * is set to null, an exception is thrown with a message indicating that `Name must
          * not be null`.
          *
-         * @return A new `MovieFilter` instance with the provided criteria.
+         * @return A new `MediaFilter` instance with the provided criteria.
          * @throws IllegalArgumentException If the `name` property is not set or is set to null.
          */
-        fun build(): MovieFilter {
-            requireNotNull(name) { "Name must not be null" }
-            return MovieFilter(name!!, sortBy, genresId, castId, year)
+        fun build(): MediaFilter {
+            return MediaFilter(mediaType,name, sortBy, genresId, year)
         }
 
 
@@ -122,12 +115,11 @@ class MovieFilter private constructor(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is MovieFilter) return false
+        if (other !is MediaFilter) return false
 
         if (name != other.name) return false
         if (sortBy != other.sortBy) return false
         if (genresId != other.genresId) return false
-        if (castId != other.castId) return false
         if (year != other.year) return false
 
         return true
@@ -137,13 +129,12 @@ class MovieFilter private constructor(
         var result = name.hashCode()
         result = 31 * result + (sortBy?.hashCode() ?: 0)
         result = 31 * result + (genresId?.hashCode() ?: 0)
-        result = 31 * result + (castId?.hashCode() ?: 0)
         result = 31 * result + (year ?: 0)
         return result
     }
 
     override fun toString(): String {
-        return "MovieFilter(name='$name', sortBy=$sortBy, genresId=$genresId, castId=$castId, year=$year)"
+        return "MediaFilter(mediaType=${mediaType},name='$name', sortBy=$sortBy, genresId=$genresId,  year=$year)"
     }
 
 

@@ -25,9 +25,9 @@ constructor(
     private val _movies = MutableLiveData<List<Movie>>()
     val movies: LiveData<List<Movie>> get() = _movies
 
-//    fun setFilter(filter: MovieFilter) = getFilteredMovies(filter)
+//    fun setFilter(filter: MediaFilter) = getFilteredMovies(filter)
 
-   /* private fun getFilteredMovies(filter: MovieFilter) {
+   /* private fun getFilteredMovies(filter: MediaFilter) {
         movieRepositoryImpl.getDiscoverable(filter)
             .mapLatest { movies ->
                 _movies.postValue(movies)

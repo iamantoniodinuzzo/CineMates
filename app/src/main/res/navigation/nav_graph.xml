@@ -44,8 +44,8 @@
         android:name="com.example.cinemates.ui.filterable.FilterableFragment"
         tools:layout="@layout/fragment_filterable">
         <argument
-            android:name="movieFilter"
-            app:argType="com.example.cinemates.domain.model.common.MovieFilter" />
+            android:name="mediaFilter"
+            app:argType="com.example.cinemates.domain.model.common.MediaFilter" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetFragment"

@@ -6,7 +6,7 @@ import com.example.cinemates.data.remote.response.credits.CrewDTO
 import com.example.cinemates.data.remote.response.image.ImageDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import com.example.cinemates.data.remote.response.tvShow.*
-import com.example.cinemates.domain.model.common.TvFilter
+import com.example.cinemates.domain.model.common.MediaFilter
 import com.example.cinemates.util.MediaListSpecification
 import com.example.cinemates.util.TimeWindow
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +20,7 @@ interface TvShowRepository {
     fun getVideos(id: Int): Flow<List<VideoDTO>>
     fun getDetails(id: Int): Flow<TvShowDetailsDTO>
     fun getSimilar(id: Int): Flow<List<TvShowDTO>>
-    fun getDiscoverable(tvFilter: TvFilter): Flow<List<TvShowDTO>>
+    fun getDiscoverable(tvFilter: MediaFilter): Flow<List<TvShowDTO>>
     fun getPosters(id: Int): Flow<List<ImageDTO>>
     fun getBackdrops(id: Int): Flow<List<ImageDTO>>
     fun getCast(id: Int): Flow<List<CastDTO>>

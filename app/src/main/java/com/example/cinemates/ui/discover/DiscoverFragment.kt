@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.cinemates.R
 import com.example.cinemates.databinding.EditTextLayoutBinding
 import com.example.cinemates.databinding.FragmentDiscoverBinding
-import com.example.cinemates.util.Sort
+import com.example.cinemates.util.MovieSort
 import com.example.cinemates.ui.MainActivity
 import com.example.cinemates.ui.adapter.FilterAdapter
 import com.example.cinemates.common.BaseFragment
@@ -68,8 +68,8 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
                 setupChipGroupAnim(group)
                 if (checkedIds.isNotEmpty()) {
                     val ordinal = group.checkedChipId
-                    val sortBy = Sort.values()[ordinal]
-                    discoverViewModel.filterBuilder.value?.sortBy(sortBy)
+                    val movieSortBy = MovieSort.values()[ordinal]
+                    discoverViewModel.movieFilterBuilder.value?.sortBy(movieSortBy)
                     binding.buttonGroup.visibility = View.VISIBLE
                 } else {
                     binding.buttonGroup.visibility = View.GONE
@@ -91,7 +91,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
 
                 if (checkedIds.isNotEmpty()) {
                     buttonGroup.visibility = View.VISIBLE
-                    discoverViewModel.filterBuilder.value?.withGenres(checkedIds)
+                    discoverViewModel.movieFilterBuilder.value?.withGenres(checkedIds)
                 } else {
                     buttonGroup.visibility = View.INVISIBLE
                 }
@@ -99,7 +99,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
 
             //Apply
             applyFilterBtn.setOnClickListener {
-                val filter = discoverViewModel.filterBuilder.value!!.build()
+                val filter = discoverViewModel.movieFilterBuilder.value!!.build()
                 val action =
                     DiscoverFragmentDirections.actionDiscoverFragmentToFilterFragment(
                         filter
@@ -130,17 +130,17 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
         val dialogLayout = EditTextLayoutBinding.inflate(inflater)
         val editText = dialogLayout.editText
         with(builder) {
-            setTitle("Filter's name")
+            setTitle("MovieFilter's name")
             setPositiveButton("Create") { _, _ ->
                 val name = editText.text.toString().trim()
                 if (name.isNotEmpty()) {
-                    discoverViewModel.filterBuilder.value?.name(name)
-                    val filter = discoverViewModel.filterBuilder.value?.build()
+                    discoverViewModel.movieFilterBuilder.value?.name(name)
+                    val filter = discoverViewModel.movieFilterBuilder.value?.build()
                     if (filter != null) {
                         clearSelection()
                         Toast.makeText(
                             context,
-                            "Filter ${filter.name} created!",
+                            "MovieFilter ${filter.name} created!",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -170,10 +170,10 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
         )
     }
 
-    private fun setSortByBtn(chip: Chip, sort: Sort) {
+    private fun setSortByBtn(chip: Chip, movieSort: MovieSort) {
         chip.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                discoverViewModel.filterBuilder.value?.sortBy(sort)
+                discoverViewModel.movieFilterBuilder.value?.sortBy(movieSort)
                 binding.buttonGroup.visibility = View.VISIBLE
             } else {
                 binding.buttonGroup.visibility = View.GONE
@@ -205,7 +205,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
 
     private fun populateSortByChipGroup() {
         val chipGroup = binding.sortByChipGroup
-        val sortByMap = discoverViewModel.sortByMap.value
+        val sortByMap = discoverViewModel.movieSortByMap.value
         chipGroup.removeAllViews()
         if (sortByMap != null) {
             for ((key, value) in sortByMap) {

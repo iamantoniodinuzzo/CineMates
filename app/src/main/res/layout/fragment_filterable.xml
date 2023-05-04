@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="filter"
-            type="com.example.cinemates.domain.model.common.Filter" />
+            name="movieFilter"
+            type="com.example.cinemates.domain.model.common.MovieFilter" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -33,7 +33,7 @@
                 app:expandedTitleMarginStart="10dp"
                 app:expandedTitleTextColor="@color/alabaster"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="@{filter.name}">
+                app:title="@{movieFilter.name}">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

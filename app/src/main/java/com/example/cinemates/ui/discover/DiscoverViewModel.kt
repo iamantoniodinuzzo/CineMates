@@ -3,8 +3,8 @@ package com.example.cinemates.ui.discover
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.cinemates.domain.model.common.Filter
-import com.example.cinemates.util.Sort
+import com.example.cinemates.domain.model.common.MovieFilter
+import com.example.cinemates.util.MovieSort
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -21,14 +21,14 @@ constructor(
 ) : ViewModel() {
 
 
-    private val _filterBuilder = MutableLiveData<Filter.Builder>()
-    val filterBuilder: LiveData<Filter.Builder>
-        get() = _filterBuilder
+    private val m_Movie_filterBuilder = MutableLiveData<MovieFilter.Builder>()
+    val movieFilterBuilder: LiveData<MovieFilter.Builder>
+        get() = m_Movie_filterBuilder
     private val _genreMap = MutableLiveData<HashMap<Int, String>>()
     val genreMap: LiveData<HashMap<Int, String>> get() = _genreMap
-    private val _sortByMap = MutableLiveData<HashMap<Sort, String>>()
-    val sortByMap: LiveData<HashMap<Sort, String>>
-        get() = _sortByMap
+    private val m_Movie_sortByMap = MutableLiveData<HashMap<MovieSort, String>>()
+    val movieSortByMap: LiveData<HashMap<MovieSort, String>>
+        get() = m_Movie_sortByMap
 
 
     init {
@@ -38,11 +38,11 @@ constructor(
 
     private fun initMaps() {
         _genreMap.value = getGenreMap()
-        _sortByMap.value = getSortByMap()
+        m_Movie_sortByMap.value = getSortByMap()
     }
 
     fun initFilter() {
-        _filterBuilder.value = Filter.Builder()
+        m_Movie_filterBuilder.value = MovieFilter.Builder()
     }
 
     private fun getGenreMap(): HashMap<Int, String> {
@@ -69,13 +69,13 @@ constructor(
         return genreMap
     }
 
-    private fun getSortByMap(): HashMap<Sort, String> {
-        val sortByMap = HashMap<Sort, String>()
-        sortByMap[Sort.POPULARITY] = "Popularity"
-        sortByMap[Sort.RELEASE_DATE] = "Release Date"
-        sortByMap[Sort.REVENUE] = "Revenue"
-        sortByMap[Sort.VOTE_AVERAGE] = "Vote Average"
-        return sortByMap
+    private fun getSortByMap(): HashMap<MovieSort, String> {
+        val movieSortByMap = HashMap<MovieSort, String>()
+        movieSortByMap[MovieSort.POPULARITY] = "Popularity"
+        movieSortByMap[MovieSort.RELEASE_DATE] = "Release Date"
+        movieSortByMap[MovieSort.REVENUE] = "Revenue"
+        movieSortByMap[MovieSort.VOTE_AVERAGE] = "Vote Average"
+        return movieSortByMap
     }
 
 

@@ -9,7 +9,7 @@ import com.example.cinemates.data.remote.response.movie.MovieDTO
 import com.example.cinemates.data.remote.response.movie.MovieDetailsDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import com.example.cinemates.data.remote.service.MovieService
-import com.example.cinemates.domain.model.common.Filter
+import com.example.cinemates.domain.model.common.MovieFilter
 import com.example.cinemates.util.MediaListSpecification
 import com.example.cinemates.util.TimeWindow
 import kotlinx.coroutines.flow.Flow
@@ -65,11 +65,11 @@ constructor(
         emit(recommendedMovies)
     }
 
-    override fun getDiscoverable(filter: Filter): Flow<List<MovieDTO>> = flow {
+    override fun getDiscoverable(movieFilter: MovieFilter): Flow<List<MovieDTO>> = flow {
         queryMap["sort_by"] =
-            filter.sortBy.toString()
+            movieFilter.sortBy.toString()
         queryMap["with_genres"] =
-            filter.withGenres
+            movieFilter.withGenres
                 .toString()
                 .replace("[", "")
                 .replace("]", "")

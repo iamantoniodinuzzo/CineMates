@@ -129,7 +129,7 @@
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/sortBy_ChipGroup"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                style="@style/Widget.MaterialComponents.Chip.MovieFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
@@ -175,7 +175,7 @@
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/genre_chipGroup"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                style="@style/Widget.MaterialComponents.Chip.MovieFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"

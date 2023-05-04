@@ -37,7 +37,7 @@ class ImageAdapter : RecyclerView.Adapter<ImageViewHolder>() {
             ImageType.BACKDROP.value -> BackdropViewHolder(
                 parent inflater ListItemBackdropBinding::inflate
             )
-            else -> throw IllegalArgumentException("Invalid view type")
+            else -> throw IllegalArgumentException("Invalid view episodeGroupType")
         }
     }
 

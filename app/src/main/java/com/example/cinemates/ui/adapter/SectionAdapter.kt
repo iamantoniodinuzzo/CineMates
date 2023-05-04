@@ -37,7 +37,7 @@ class SectionAdapter(
                 parent inflater ListItemSectionCollassableBinding::inflate,
                 dragListener
             )
-            else -> throw IllegalArgumentException("Invalid view type")
+            else -> throw IllegalArgumentException("Invalid view episodeGroupType")
         }
     }
 
@@ -68,7 +68,7 @@ class SectionAdapter(
             is SectionTvShow -> 1
             is SectionPersons -> 2
             is SectionEpisodesGroup -> 3
-            else -> throw IllegalArgumentException("Invalid data type")
+            else -> throw IllegalArgumentException("Invalid data episodeGroupType")
         }
     }
 

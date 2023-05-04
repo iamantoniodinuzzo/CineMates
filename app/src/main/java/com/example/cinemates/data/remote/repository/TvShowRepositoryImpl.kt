@@ -6,7 +6,7 @@ import com.example.cinemates.data.remote.response.image.ImageDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import com.example.cinemates.data.remote.response.tvShow.*
 import com.example.cinemates.data.remote.service.TvShowService
-import com.example.cinemates.domain.model.common.MovieFilter
+import com.example.cinemates.domain.model.common.TvFilter
 import com.example.cinemates.util.MediaListSpecification
 import com.example.cinemates.util.TimeWindow
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +24,8 @@ constructor(
 ) : TvShowRepository {
 
     override fun getSpecificTVList(specification: MediaListSpecification) = flow {
-        val specificTvShowList = tvShowService.getListOfSpecificTv(specification.value, queryMap).results
+        val specificTvShowList =
+            tvShowService.getListOfSpecificTv(specification.value, queryMap).results
         emit(specificTvShowList)
     }
 
@@ -51,16 +52,24 @@ constructor(
         emit(similarTvShow)
     }
 
-    override fun getDiscoverable(movieFilter: MovieFilter): Flow<List<TvShowDTO>> = flow {
-        queryMap["sort_by"] =
-            movieFilter.sortBy.toString()
-        queryMap["with_genres"] =
-            movieFilter.withGenres
-                .toString()
-                .replace("[", "")
-                .replace("]", "")
-        val movies = tvShowService.getByDiscover(queryMap).results
-        emit(movies)
+    override fun getDiscoverable(tvFilter: TvFilter): Flow<List<TvShowDTO>> = flow {
+        tvFilter.sortBy?.let {
+            queryMap["sort_by"] = it
+        }
+        tvFilter.genresId?.let {
+            queryMap["with_genres"] =
+                it.replace("[", "")//todo necessary?
+                    .replace("]", "")//todo necessary?
+        }
+        tvFilter.runtime?.let {
+            queryMap["with_runtime.lte"] = it.toString()
+        }
+        tvFilter.type?.let {
+            queryMap["with_type"] = it
+        }
+
+        val tv = tvShowService.getByDiscover(queryMap).results
+        emit(tv)
     }
 
     override fun getPosters(id: Int): Flow<List<ImageDTO>> = flow {

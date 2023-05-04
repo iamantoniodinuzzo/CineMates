@@ -13,7 +13,7 @@ import com.example.cinemates.util.MediaType
 
 
 /**
- * Represents an adapter for any type of [MediaType].
+ * Represents an adapter for any episodeGroupType of [MediaType].
  * @param view An optional parameter,
  * but one that becomes necessary if the adapter is to be attached to a recyclerview of a certain dialog.
  * In this case this parameter must contain the view in which the dialog will be displayed

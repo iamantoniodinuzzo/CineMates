@@ -54,13 +54,13 @@ class MovieFilter private constructor(
      * @property castId The cast members for the filter (optional).
      * @property year The release year for the filter (optional).
      */
-    data class Builder(
-        var name: String? = null,
-        var sortBy: String? = null,
-        var genresId: String? = null,
-        var castId: String? = null,
-        var year: Int? = null
-    ) {
+    class Builder{
+        private var name: String? = null
+        private var sortBy: String? = null
+        private var genresId: String? = null
+        private var castId: String? = null
+        private var year: Int? = null
+
         fun name(name: String?) = apply { this.name = name }
         fun sortBy(movieSort: MovieSort? = MovieSort.POPULARITY, order: Order? = Order.DESC) =
             apply { this.sortBy = "$movieSort.$order" }
@@ -73,9 +73,49 @@ class MovieFilter private constructor(
             apply { this.castId = castId?.joinToString(separator = ",") }
 
         fun year(year: Int?) = apply { this.year = year }
+
+        /**
+         * Builds a new `MovieFilter` instance with the provided criteria.
+         *
+         * This function creates a new `MovieFilter` instance with the criteria provided by the
+         * various functions in the `Builder` class. If the `name` property is not set or
+         * is set to null, an exception is thrown with a message indicating that `Name must
+         * not be null`.
+         *
+         * @return A new `MovieFilter` instance with the provided criteria.
+         * @throws IllegalArgumentException If the `name` property is not set or is set to null.
+         */
         fun build(): MovieFilter {
             requireNotNull(name) { "Name must not be null" }
             return MovieFilter(name!!, sortBy, genresId, castId, year)
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is MovieFilter) return false
+
+        if (name != other.name) return false
+        if (sortBy != other.sortBy) return false
+        if (genresId != other.genresId) return false
+        if (castId != other.castId) return false
+        if (year != other.year) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + (sortBy?.hashCode() ?: 0)
+        result = 31 * result + (genresId?.hashCode() ?: 0)
+        result = 31 * result + (castId?.hashCode() ?: 0)
+        result = 31 * result + (year ?: 0)
+        return result
+    }
+
+    override fun toString(): String {
+        return "MovieFilter(name='$name', sortBy=$sortBy, genresId=$genresId, castId=$castId, year=$year)"
+    }
+
+
 }

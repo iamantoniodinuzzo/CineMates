@@ -45,6 +45,6 @@ class TvShow(
     voteAverage
 ){
     override fun toString(): String {
-        return "TvShow(createdBy=$createdBy, episodeRunTime=$episodeRunTime, firstAirDate='$firstAirDate', genres=$genres, homepage='$homepage', inProduction=$inProduction, languages=$languages, lastAirDate='$lastAirDate', lastEpisodeToAir=$lastEpisodeToAir, name='$name', network=$network, nextEpisodeToAir=$nextEpisodeToAir, numberOfEpisodes=$numberOfEpisodes, numberOfSeasons=$numberOfSeasons, originCountry=$originCountry, originalLanguage='$originalLanguage', originalName='$originalName', overview='$overview', popularity=$popularity, productionCompanies=$productionCompanies, productionCountries=$productionCountries, seasons=$seasons, status='$status', tagline='$tagline', type='$type')"
+        return "TvShow(createdBy=$createdBy, episodeRunTime=$episodeRunTime, firstAirDate='$firstAirDate', genres=$genres, homepage='$homepage', inProduction=$inProduction, languages=$languages, lastAirDate='$lastAirDate', lastEpisodeToAir=$lastEpisodeToAir, name='$name', network=$network, nextEpisodeToAir=$nextEpisodeToAir, numberOfEpisodes=$numberOfEpisodes, numberOfSeasons=$numberOfSeasons, originCountry=$originCountry, originalLanguage='$originalLanguage', originalName='$originalName', overview='$overview', popularity=$popularity, productionCompanies=$productionCompanies, productionCountries=$productionCountries, seasons=$seasons, status='$status', tagline='$tagline', episodeGroupType='$type')"
     }
 }

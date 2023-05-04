@@ -7,10 +7,10 @@ import androidx.databinding.ViewDataBinding
 
 /**
  * A generic base adapter for RecyclerView that uses DiffUtil, Data Binding, and View Binding
- * for a recyclerview that displays objects with a single view type
+ * for a recyclerview that displays objects with a single view episodeGroupType
  *
- * @param T The type of data to be displayed in the RecyclerView.
- * @param VB The type of ViewDataBinding used in the RecyclerView item layout.
+ * @param T The episodeGroupType of data to be displayed in the RecyclerView.
+ * @param VB The episodeGroupType of ViewDataBinding used in the RecyclerView item layout.
  * @param itemLayoutResId The layout resource ID of the RecyclerView item layout.
  *
  * @author Antonio Di Nuzzo (Indisparte)

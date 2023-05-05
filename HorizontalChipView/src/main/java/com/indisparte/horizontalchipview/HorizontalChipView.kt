@@ -8,6 +8,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.IdRes
 import androidx.appcompat.widget.LinearLayoutCompat
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -15,7 +16,7 @@ import com.indisparte.horizontalchipview.databinding.LayoutHorizontalChipviewBin
 
 
 /**
- * Show a vertical section containing a title and a horizontal chip view.
+ * Show a vertical [LinearLayoutCompat] section containing an optional title and a horizontal chip view.
  *     <b>The orientation cannot be changed but will remain vertical</b>
  * @author Antonio Di Nuzzo (Indisparte)
  */
@@ -87,6 +88,26 @@ class HorizontalChipView<T>(
             textViewTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, value)
         }
 
+    var requireSelection: Boolean = false
+        set(value) {
+            field = value
+            chipGroup.isSelectionRequired = value
+        }
+    var singleCheck: Boolean = false
+        set(value) {
+            field = value
+            chipGroup.isSingleSelection = value
+        }
+
+    @IdRes
+    var selectedChipId: Int? = null
+        set(value) {
+            field = value
+            value?.let {
+                chipGroup.check(it)
+            }
+        }
+
     init {
         requireNotNull(attrs) { "attrs cannot be null" }
         context.theme.obtainStyledAttributes(
@@ -102,6 +123,11 @@ class HorizontalChipView<T>(
                 textStyle = getInt(R.styleable.HorizontalChipView_titleStyle, Typeface.BOLD)
                 typefacePath = getString(R.styleable.HorizontalChipView_titleTypeface)
                 orientation = VERTICAL // default orientation, immutable
+                requireSelection = getBoolean(
+                    R.styleable.HorizontalChipView_requireSelection, false
+                )
+                singleCheck = getBoolean(R.styleable.HorizontalChipView_singleCheck, false)
+                selectedChipId = getResourceId(R.styleable.HorizontalChipView_selectedChipId, -1)
 
             } finally {
                 recycle()
@@ -111,7 +137,7 @@ class HorizontalChipView<T>(
     }
 
     /**
-     * The orientation cannot be changed but will remain vertical.
+     * Orientation must be vertical
      */
     override fun setOrientation(orientation: Int) {
         super.setOrientation(VERTICAL)
@@ -153,6 +179,30 @@ class HorizontalChipView<T>(
                 chip.setOnClickListener { onChipClicked?.invoke(item) }
             }
         }
+    }
+
+    var chipAttributes: ((Chip) -> Unit)? = null
+        set(value) {
+            field = value
+            value?.let {
+                for (i in 0 until chipGroup.childCount) {
+                    val chip = chipGroup.getChildAt(i) as Chip
+                    it(chip)
+                }
+            }
+        }
+
+
+    fun setChipGroupAttributes(
+        chipSpacingHorizontal: Float? = null,
+        selectionRequired: Boolean? = null,
+        checkedChip: Int? = null,
+        singleSelection: Boolean? = null
+    ) {
+        chipSpacingHorizontal?.let { chipGroup.chipSpacingHorizontal = it.toInt() }
+        selectionRequired?.let { chipGroup.isSelectionRequired = it }
+        checkedChip?.let { chipGroup.check(it) }
+        singleSelection?.let { chipGroup.isSingleSelection = it }
     }
 
 

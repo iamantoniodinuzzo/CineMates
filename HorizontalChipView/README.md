@@ -27,6 +27,9 @@ We can customize the view using the below attributes.
     app:title="Title" //title of section
     app:titleColor="@color/white" //title color, default white
     app:titleSize="18sp" //title size, default 14sp
+    app:requireSelection="true" // Default false
+    app:selectedChipId="@id/my_chip // Default null
+    app:singleCheck="false"//Default false
     app:titleStyle="bold"  //title style, default bold
     app:titleTypeface="@font/my_font" /> // title font
 ```   
@@ -59,6 +62,19 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             Toast.LENGTH_SHORT
         ).show()
     }
+    
+    //optional: set chip attributes
+    chipGroup.setChipAttributes { chip ->
+        // set any specific attributes for the chip here
+    }
+
+    //optional: set chip group attributes
+    chipGroup.setChipGroupAttributes(
+        chipSpacingHorizontal = resources.getDimension(R.dimen.chip_spacing_horizontal),
+        selectionRequired = true,
+        checkedChip = 0,
+        singleSelection = true
+    )
     //other code
 }
 ```

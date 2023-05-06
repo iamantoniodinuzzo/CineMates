@@ -1,24 +1,28 @@
 package com.indisparte.horizontalchipview
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
-import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import com.indisparte.horizontalchipview.databinding.LayoutHorizontalChipviewBinding
 
+private val TAG = HorizontalChipView::class.simpleName
 
 /**
- * Show a vertical [LinearLayoutCompat] section containing an optional title and a horizontal chip view.
+ * Show a vertical [LinearLayoutCompat] section containing an optional title and a scrollable horizontal [ChipGroup] view.
  *     <b>The orientation cannot be changed but will remain vertical</b>
  * @author Antonio Di Nuzzo (Indisparte)
  */
@@ -42,8 +46,7 @@ class HorizontalChipView<T>(
     private val chipGroup: ChipGroup by lazy { binding.chipGroup }
     private val textViewTitle: TextView by lazy { binding.title }
 
-    @LayoutRes
-    var chipLayout: Int? = null
+    var chipLayout: Int = -1
 
     var onChipClicked: ((T) -> Unit)? = null
 
@@ -169,44 +172,48 @@ class HorizontalChipView<T>(
      * @param textGetter A lambda function that takes an object of type `T` and returns the text to display on the corresponding chip.
      */
     fun setChipsList(chipsList: List<T>, textGetter: (T) -> String) {
-
+        // Remove excess views
         while (chipGroup.childCount > chipsList.size) {
             chipGroup.removeViewAt(chipsList.size)
         }
 
-        // Reuse existing views
+        // Reuse existing views or inflate new ones
         for (i in chipsList.indices) {
-            val chip = if (i < chipGroup.childCount) {
-                chipGroup.getChildAt(i) as? Chip
-            } else {
-                null
-            }
+            val chip = chipGroup.getChildAt(i) as? Chip ?: createChipView()
 
             val item = chipsList[i]
             val chipText = textGetter(item)
 
-            if (chip == null) {
-                //create a chip based on a specific layout or base chip if is null
-                val newChip =
-                    chipLayout?.let {
-                        LayoutInflater.from(context).inflate(it, chipGroup, false) as Chip
-                    } ?: Chip(context)
-
-                newChip.apply {
-                    setOnClickListener { onChipClicked?.invoke(item) }
-                    // Customize the chip's appearance here if desired
-
-                }
-
-                chipGroup.addView(newChip)
-                newChip.text = chipText
-            } else {
-                chip.text = chipText
-                chip.setOnClickListener { onChipClicked?.invoke(item) }
-            }
+            // Set the text and click listener for the chip
+            chip.text = chipText
+            chip.setOnClickListener { onChipClicked?.invoke(item) }
         }
     }
 
+
+    private fun createChipView(): Chip {
+        val chip = if (chipLayout > 0) {
+            try {
+                val drawable = ChipDrawable.createFromAttributes(context, null, 0, chipLayout)
+                Chip(context).apply {
+                    setChipDrawable(drawable)
+                }
+            } catch (e: Resources.NotFoundException) {
+                // handle the exception
+                Log.e(TAG, "setChipsList error: ${e.message} ")
+                Chip(context)
+            }
+        } else {
+            Chip(context)
+        }
+
+        chip.apply {
+            // Customize the chip's appearance here if desired
+        }
+
+        chipGroup.addView(chip)
+        return chip
+    }
 
 
 }

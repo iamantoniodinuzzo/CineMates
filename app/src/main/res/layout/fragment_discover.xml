@@ -51,28 +51,4 @@
         app:icon="@drawable/ic_baseline_filter_list_24"
         app:iconTint="@color/geyser" />
 
-    <TextView
-        android:id="@+id/general_section"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/custom_filter"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:text="General"
-        android:textColor="@color/alabaster"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/general_section">
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/general_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            app:singleSelection="true"/>
-    </HorizontalScrollView>
 </RelativeLayout>

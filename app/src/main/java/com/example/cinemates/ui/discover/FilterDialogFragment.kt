@@ -136,7 +136,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         val chipGroup: HorizontalChipView<Genre> =
             view.findViewById<HorizontalChipView<Genre>>(R.id.genres)
 
-        chipGroup.chipLayout = R.style.CustomFilterChipStyle
+        chipGroup.chipStyle = R.style.CustomFilterChipStyle
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.movieGenres.collectLatest { genreList ->
                 genreList?.let {
@@ -159,7 +159,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         val chipGroup: HorizontalChipView<MovieSort> =
             view.findViewById<HorizontalChipView<MovieSort>>(R.id.sort_by)
 
-        chipGroup.chipLayout = R.style.CustomFilterChipStyle
+        chipGroup.chipStyle = R.style.CustomFilterChipStyle
 
         //set all the elements
         chipGroup.setChipsList(

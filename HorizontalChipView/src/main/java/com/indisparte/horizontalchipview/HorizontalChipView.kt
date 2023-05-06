@@ -45,7 +45,7 @@ class HorizontalChipView<T>(
     private val chipGroup: ChipGroup by lazy { binding.chipGroup }
     private val textViewTitle: TextView by lazy { binding.title }
 
-    var chipLayout: Int = -1
+    var chipStyle: Int = -1
 
     var onChipClicked: ((T) -> Unit)? = null
 
@@ -148,7 +148,7 @@ class HorizontalChipView<T>(
                 )
                 singleCheck = getBoolean(R.styleable.HorizontalChipView_singleCheck, false)
                 selectedChipId = getResourceId(R.styleable.HorizontalChipView_selectedChipId, -1)
-                chipLayout = getResourceId(R.styleable.HorizontalChipView_chipStyle, -1)
+                chipStyle = getResourceId(R.styleable.HorizontalChipView_chipStyle, -1)
             } finally {
                 recycle()
             }
@@ -191,15 +191,15 @@ class HorizontalChipView<T>(
 
 
     private fun createChipView(): Chip {
-        val chip = if (chipLayout > 0) {
+        val chip = if (chipStyle > 0) {
             try {
-                val drawable = ChipDrawable.createFromAttributes(context, null, 0, chipLayout)
+                val drawable = ChipDrawable.createFromAttributes(context, null, 0, chipStyle)
                 Chip(context).apply {
                     setChipDrawable(drawable)
                 }
             } catch (e: Resources.NotFoundException) {
                 // handle the exception
-                Log.e(TAG, "setChipsList error: ${e.message} ")
+                Log.e(TAG, "SetChipsList error: ${e.message} ")
                 Chip(context)
             }
         } else {

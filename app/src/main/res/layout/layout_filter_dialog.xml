@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:singleCheck="true"
-        app:chipLayout="@style/CustomFilterChipStyle"
+        app:chipStyle="@style/CustomFilterChipStyle"
         app:title="Sort by"
         app:titleColor="@color/alabaster"
         app:titleSize="18sp" />
@@ -62,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:singleCheck="false"
-        app:chipLayout="@style/CustomFilterChipStyle"
+        app:chipStyle="@style/CustomFilterChipStyle"
         app:title="Genres"
         app:titleColor="@color/alabaster"
         app:titleSize="18sp" />

@@ -10,14 +10,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.cinemates.R
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentDiscoverBinding
-import com.example.cinemates.ui.adapter.FilterAdapter
 
 class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDiscoverBinding
         get() = FragmentDiscoverBinding::inflate
 
-    private val discoverViewModel: DiscoverViewModel by activityViewModels()
+    private val viewModel: DiscoverViewModel by activityViewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,8 +28,9 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
                     R.id.action_discoverFragment_to_searchFragment
                 )
             }
-            customFilter.setOnClickListener{
-                Navigation.findNavController(view).navigate(R.id.action_discoverFragment_to_filterDialogFragment)
+            customFilter.setOnClickListener {
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_discoverFragment_to_filterDialogFragment)
             }
 
         }

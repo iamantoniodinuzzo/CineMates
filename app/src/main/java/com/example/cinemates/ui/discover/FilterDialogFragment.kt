@@ -17,8 +17,6 @@ import com.example.cinemates.domain.model.common.MediaFilter
 import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.MovieSort
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipDrawable
 import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.flow.collectLatest
 import java.util.*
@@ -138,7 +136,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         val chipGroup: HorizontalChipView<Genre> =
             view.findViewById<HorizontalChipView<Genre>>(R.id.genres)
 
-        chipGroup.chipStyle = R.style.CustomFilterChipStyle
+        chipGroup.chipLayout = R.style.CustomFilterChipStyle
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.movieGenres.collectLatest { genreList ->
                 genreList?.let {
@@ -161,7 +159,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         val chipGroup: HorizontalChipView<MovieSort> =
             view.findViewById<HorizontalChipView<MovieSort>>(R.id.sort_by)
 
-        chipGroup.chipStyle = R.style.CustomFilterChipStyle
+        chipGroup.chipLayout = R.style.CustomFilterChipStyle
 
         //set all the elements
         chipGroup.setChipsList(

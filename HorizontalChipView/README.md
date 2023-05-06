@@ -30,10 +30,30 @@ We can customize the view using the below attributes.
     app:requireSelection="true" // Default false
     app:selectedChipId="@id/my_chip // Default null
     app:singleCheck="false"//Default false
-    app:chipStyle="@style/custom_chip_style" // Default null, add custom style to chips
     app:titleStyle="bold"  //title style, default bold
     app:titleTypeface="@font/my_font" /> // title font
 ```   
+## Add a custom layout to the chips
+If you want to change the style of the chips within the view, indicate the following attribute in the `app:chipLayout` view
+
+```xml
+ <com.indisparte.horizontalchipview.HorizontalChipView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:chipLayout="@layout/custom_chip_layout" // Default null, add custom layout to chips
+    //other...
+    />
+``` 
+After that, create in the folder `layout/custom_chip_layout.xml`
+
+```xml
+<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
+style="@style/CustomFilterStyle"//optional if you have a style for that
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+    //other attributes...
+/>
+``` 
 
 ## Add chips into `HorizontalChipView`
 
@@ -68,14 +88,7 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     chipGroup.setChipAttributes { chip ->
         // set any specific attributes for the chip here
     }
-
-    //optional: set chip group attributes
-    chipGroup.setChipGroupAttributes(
-        chipSpacingHorizontal = resources.getDimension(R.dimen.chip_spacing_horizontal),
-        selectionRequired = true,
-        checkedChip = 0,
-        singleSelection = true
-    )
+    
     //other code
 }
 ```

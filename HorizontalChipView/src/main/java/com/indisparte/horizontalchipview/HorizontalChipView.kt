@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
 import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
@@ -121,10 +120,10 @@ class HorizontalChipView<T>(
     var chipAttributes: ((Chip) -> Unit)? = null
         set(value) {
             field = value
-            value?.let {
+            value?.takeIf { chipGroup.childCount > 0 }?.let { action ->
                 for (i in 0 until chipGroup.childCount) {
                     val chip = chipGroup.getChildAt(i) as Chip
-                    it(chip)
+                    action(chip)
                 }
             }
         }
@@ -149,7 +148,7 @@ class HorizontalChipView<T>(
                 )
                 singleCheck = getBoolean(R.styleable.HorizontalChipView_singleCheck, false)
                 selectedChipId = getResourceId(R.styleable.HorizontalChipView_selectedChipId, -1)
-                chipLayout = getResourceId(R.styleable.HorizontalChipView_chipLayout, -1)
+                chipLayout = getResourceId(R.styleable.HorizontalChipView_chipStyle, -1)
             } finally {
                 recycle()
             }

@@ -34,25 +34,26 @@ We can customize the view using the below attributes.
     app:titleTypeface="@font/my_font" /> // title font
 ```   
 ## Add a custom layout to the chips
-If you want to change the style of the chips within the view, indicate the following attribute in the `app:chipLayout` view
+If you want to change the style of the chips within the view, indicate the following attribute in the `app:chipStyle` view
 
 ```xml
  <com.indisparte.horizontalchipview.HorizontalChipView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:chipLayout="@layout/custom_chip_layout" // Default null, add custom layout to chips
+    app:chipStyle="@style/CustomFilterChipStyle" // Default null, add custom style to chips
     //other...
     />
 ``` 
-After that, create in the folder `layout/custom_chip_layout.xml`
+After that, create in the file `res/themes.xml` your custom chip theme :
 
 ```xml
-<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
-style="@style/CustomFilterStyle"//optional if you have a style for that
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-    //other attributes...
-/>
+ <style name="CustomFilterChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+    <item name="chipBackgroundColor">@color/background_color_chip_state_list</item>
+    <item name="chipStrokeColor">@color/royal_blue_100</item>
+    <item name="chipStrokeWidth">2dp</item>
+    <item name="chipCornerRadius">10dp</item>
+    <item name="android:textColor">@color/alabaster</item>
+</style>
 ``` 
 
 ## Add chips into `HorizontalChipView`

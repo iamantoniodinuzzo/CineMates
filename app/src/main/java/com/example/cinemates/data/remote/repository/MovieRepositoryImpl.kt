@@ -72,8 +72,6 @@ constructor(
             }
             genresId?.let {
                 queryMap["with_genres"] = it
-                    .replace("[", "")
-                    .replace("]", "")
             }
             year?.let {
                 queryMap["year"] = it.toString()

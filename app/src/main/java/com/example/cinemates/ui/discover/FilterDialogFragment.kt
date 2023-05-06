@@ -1,6 +1,7 @@
 package com.example.cinemates.ui.discover
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +17,13 @@ import com.example.cinemates.domain.model.common.MediaFilter
 import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.MovieSort
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
 import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.flow.collectLatest
 import java.util.*
+
+private val TAG = FilterDialogFragment::class.simpleName
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
@@ -32,6 +37,13 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
     // Get a reference to the view model
     private val viewModel: DiscoverViewModel by activityViewModels()
     private lateinit var mMediaFilterBuilder: MediaFilter.Builder
+    private lateinit var genres: MutableSet<Int>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mMediaFilterBuilder = MediaFilter.Builder(MediaType.MOVIE)
+        genres = mutableSetOf()
+    }
 
 
     override fun onCreateView(
@@ -55,7 +67,11 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
             initToggleGroupYearButton()
 
             applyButton.setOnClickListener {
+                val genreList = this@FilterDialogFragment.genres.toList()
+                Log.d(TAG, "genreList: $genreList")
+                mMediaFilterBuilder.genresId(genreList)
                 val movieFilter = mMediaFilterBuilder.build()
+
                 Toast.makeText(requireContext(), movieFilter.toString(), Toast.LENGTH_LONG).show()
             }
         }
@@ -122,6 +138,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         val chipGroup: HorizontalChipView<Genre> =
             view.findViewById<HorizontalChipView<Genre>>(R.id.genres)
 
+        chipGroup.chipStyle = R.style.CustomFilterChipStyle
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.movieGenres.collectLatest { genreList ->
                 genreList?.let {
@@ -135,7 +152,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
 
         // specify the action on chips click
         chipGroup.onChipClicked = { genre ->
-            mMediaFilterBuilder.genresId(listOf(genre.id))
+            genres.add(genre.id)
         }
     }
 
@@ -143,6 +160,8 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         //bind the custom view
         val chipGroup: HorizontalChipView<MovieSort> =
             view.findViewById<HorizontalChipView<MovieSort>>(R.id.sort_by)
+
+        chipGroup.chipStyle = R.style.CustomFilterChipStyle
 
         //set all the elements
         chipGroup.setChipsList(

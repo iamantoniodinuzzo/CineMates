@@ -30,6 +30,7 @@ We can customize the view using the below attributes.
     app:requireSelection="true" // Default false
     app:selectedChipId="@id/my_chip // Default null
     app:singleCheck="false"//Default false
+    app:chipStyle="@style/custom_chip_style" // Default null, add custom style to chips
     app:titleStyle="bold"  //title style, default bold
     app:titleTypeface="@font/my_font" /> // title font
 ```   

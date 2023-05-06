@@ -8,9 +8,12 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
+import androidx.annotation.StyleRes
 import androidx.appcompat.widget.LinearLayoutCompat
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import com.indisparte.horizontalchipview.databinding.LayoutHorizontalChipviewBinding
 
@@ -40,6 +43,9 @@ class HorizontalChipView<T>(
     private val chipGroup: ChipGroup by lazy { binding.chipGroup }
     private val textViewTitle: TextView by lazy { binding.title }
 
+    @StyleRes
+    var chipStyle: Int? = null
+
     var onChipClicked: ((T) -> Unit)? = null
 
     var title: String = ""
@@ -52,6 +58,7 @@ class HorizontalChipView<T>(
     /**
      * Change text color, default value [Color.WHITE]
      */
+    @ColorInt
     var textColor: Int = Color.WHITE
         set(value) {
             field = value
@@ -93,6 +100,7 @@ class HorizontalChipView<T>(
             field = value
             chipGroup.isSelectionRequired = value
         }
+
     var singleCheck: Boolean = false
         set(value) {
             field = value
@@ -128,7 +136,7 @@ class HorizontalChipView<T>(
                 )
                 singleCheck = getBoolean(R.styleable.HorizontalChipView_singleCheck, false)
                 selectedChipId = getResourceId(R.styleable.HorizontalChipView_selectedChipId, -1)
-
+                chipStyle = getResourceId(R.styleable.HorizontalChipView_chipStyle, -1)
             } finally {
                 recycle()
             }
@@ -151,6 +159,10 @@ class HorizontalChipView<T>(
      * @param textGetter A lambda function that takes an object of type `T` and returns the text to display on the corresponding chip.
      */
     fun setChipsList(chipsList: List<T>, textGetter: (T) -> String) {
+        val chipDrawable = chipStyle?.let {
+            ChipDrawable.createFromAttributes(context, null, 0, it)
+        }
+//        chipDrawable?.let { chipGroup. }// add style if exists
         // Remove any views that are not needed
         while (chipGroup.childCount > chipsList.size) {
             chipGroup.removeViewAt(chipsList.size)
@@ -171,12 +183,14 @@ class HorizontalChipView<T>(
                 val newChip = Chip(context).apply {
                     setOnClickListener { onChipClicked?.invoke(item) }
                     // Customize the chip's appearance here if desired
+                    chipDrawable?.let { setChipDrawable(it) }
                 }
                 chipGroup.addView(newChip)
                 newChip.text = chipText
             } else {
                 chip.text = chipText
                 chip.setOnClickListener { onChipClicked?.invoke(item) }
+                chipDrawable?.let { chip.setChipDrawable(it) }// add style if exists
             }
         }
     }

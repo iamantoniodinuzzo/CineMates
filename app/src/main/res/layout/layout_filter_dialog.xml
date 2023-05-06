@@ -16,6 +16,7 @@
         android:textColor="@color/geyser"
         android:textSize="18sp"
         android:textStyle="bold" />
+
     <!--Media type section-->
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/media_type_toggle_group"
@@ -47,8 +48,10 @@
     <!-- Sort By section -->
     <com.indisparte.horizontalchipview.HorizontalChipView
         android:id="@+id/sort_by"
+        app:chipStyle="@style/CustomFilterChipStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:singleCheck="true"
         app:title="Sort by"
         app:titleColor="@color/alabaster"
         app:titleSize="18sp" />
@@ -56,11 +59,14 @@
     <!-- Genres section -->
     <com.indisparte.horizontalchipview.HorizontalChipView
         android:id="@+id/genres"
+        app:chipStyle="@style/CustomFilterChipStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:singleCheck="false"
         app:title="Genres"
         app:titleColor="@color/alabaster"
         app:titleSize="18sp" />
+
 
     <!-- Year section -->
     <TextView

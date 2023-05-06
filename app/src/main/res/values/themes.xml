@@ -121,11 +121,10 @@
     </style>
 
 
-    <style name="CustomFilterChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+    <style name="CustomFilterChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/background_color_chip_state_list</item>
         <item name="chipStrokeColor">@color/royal_blue_100</item>
         <item name="chipStrokeWidth">2dp</item>
-        <item name="chipIconTint">@color/alabaster</item>
         <item name="chipCornerRadius">10dp</item>
         <item name="android:textColor">@color/alabaster</item>
     </style>

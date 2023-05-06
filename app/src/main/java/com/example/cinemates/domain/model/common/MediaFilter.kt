@@ -91,6 +91,8 @@ class MediaFilter private constructor(
 
         fun genresId(genresId: List<Int>?) = apply {
             this.genresId = genresId?.joinToString(separator = ",")
+                ?.replace("[", "")
+                ?.replace("]", "")
         }
 
         fun year(year: Int?) = apply { this.year = year }
@@ -107,7 +109,7 @@ class MediaFilter private constructor(
          * @throws IllegalArgumentException If the `name` property is not set or is set to null.
          */
         fun build(): MediaFilter {
-            return MediaFilter(mediaType,name, sortBy, genresId, year)
+            return MediaFilter(mediaType, name, sortBy, genresId, year)
         }
 
 

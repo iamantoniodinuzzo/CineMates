@@ -82,12 +82,12 @@
 
     <!-- Apply button -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/apply_button"
+        android:id="@+id/save_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/vermilion_100"
-        android:text="Apply"
+        android:text="Save"
         android:textAllCaps="false"
         app:cornerRadius="8dp" />
 

@@ -81,13 +81,14 @@ class MediaFilter private constructor(
      * @property genresId The genres for the filter (optional).
      * @property year The release year for the filter (optional).
      */
-    class Builder(val mediaType: MediaType) {
+    class Builder(var mediaType: MediaType) {
         private var name: String? = null
         private var sortBy: SortBy? = null
         private var genresId: String? = null
         private var year: Int? = null
 
         fun name(name: String?) = apply { this.name = name }
+        fun mediaType(mediaType: MediaType) = apply { this.mediaType = mediaType }
         fun sortBy(movieSort: MediaSortOption = MediaSortOption.Popular, order: Order = Order.DESC) =
             apply { this.sortBy = SortBy(movieSort, order) }
 

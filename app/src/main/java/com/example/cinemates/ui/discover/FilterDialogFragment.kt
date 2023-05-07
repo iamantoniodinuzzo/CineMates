@@ -64,10 +64,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
             initYearSpinner()
             initToggleGroupYearButton()
 
-            applyButton.setOnClickListener {
-//                val genreList = this@FilterDialogFragment.selectedGenres.toList()
-//                Log.d(TAG, "genreList: $genreList")
-//                mediaFilterBuilder.genresId(genreList)
+            saveButton.setOnClickListener {
                 val movieFilter = mediaFilterBuilder.build()
 
                 Toast.makeText(requireContext(), movieFilter.toString(), Toast.LENGTH_LONG).show()
@@ -138,7 +135,6 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         val chipGroup: HorizontalChipView<Genre> =
             view.findViewById<HorizontalChipView<Genre>>(R.id.genres)
 
-//        chipGroup.chipStyle = R.style.CustomFilterChipStyle
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.genres.collectLatest {
                 chipGroup.setChipsList(
@@ -161,7 +157,6 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         val chipGroup: HorizontalChipView<MediaSortOption> =
             view.findViewById<HorizontalChipView<MediaSortOption>>(R.id.sort_by)
 
-//        chipGroup.chipStyle = R.style.CustomFilterChipStyle
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.sortByList.collectLatest {
                 chipGroup.setChipsList(

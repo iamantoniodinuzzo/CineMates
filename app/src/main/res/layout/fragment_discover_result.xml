@@ -29,23 +29,28 @@
                 app:titleTextColor="@color/alabaster" />
 
             <!-- Add your fragment's content here -->
+            <com.indisparte.recyclerviewemptystatesupport.RecyclerViewEmptyStateSupport
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                app:emptyTextSize="18sp"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
-        <com.google.android.material.navigation.NavigationView
+      <!--  <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end">
 
-            <TextView
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/nav_host_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Test"
-                android:textColor="@color/alabaster"
-                android:textSize="18sp" />
-        </com.google.android.material.navigation.NavigationView>
+                android:layout_height="match_parent"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/discover_graph" />
+        </com.google.android.material.navigation.NavigationView>-->
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

@@ -32,9 +32,6 @@
             android:id="@+id/action_discoverFragment_to_filterFragment"
             app:destination="@id/filterFragment" />
         <action
-            android:id="@+id/action_discoverFragment_to_filterDialogFragment"
-            app:destination="@id/filterDialogFragment" />
-        <action
             android:id="@+id/action_discoverFragment_to_discoverResultFragment"
             app:destination="@id/discoverResultFragment" />
     </fragment>
@@ -142,6 +139,10 @@
         android:id="@+id/discoverResultFragment"
         tools:layout="@layout/fragment_discover_result"
         android:name="com.example.cinemates.ui.discover.DiscoverResultFragment"
-        android:label="DiscoverResult" />
+        android:label="DiscoverResult" >
+        <action
+            android:id="@+id/action_discoverResultFragment_to_filterDialogFragment"
+            app:destination="@id/filterDialogFragment" />
+    </fragment>
 
 </navigation>

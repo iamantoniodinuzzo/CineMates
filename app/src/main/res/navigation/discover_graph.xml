@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/discover_graph.xml"
+    app:startDestination="@id/filtersFragment">
+
+    <fragment
+        android:id="@+id/filtersFragment"
+        tools:layout="@layout/fragment_filters"
+        android:name="com.example.cinemates.ui.discover.FiltersFragment"
+        android:label="Filters" />
+</navigation>

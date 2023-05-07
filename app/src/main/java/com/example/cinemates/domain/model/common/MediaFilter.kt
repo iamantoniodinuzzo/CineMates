@@ -1,14 +1,16 @@
 package com.example.cinemates.domain.model.common
 
+import androidx.annotation.StringRes
+import com.example.cinemates.R
+import com.example.cinemates.util.MediaSortOption
 import com.example.cinemates.util.MediaType
-import com.example.cinemates.util.MovieSort
 import com.example.cinemates.util.Order
 import java.io.Serializable
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class SortBy(val sort: MovieSort, val order: Order) {
+class SortBy(val sort: MediaSortOption, val order: Order) {
     override fun toString(): String {
         return "$sort.$order"
     }
@@ -86,13 +88,13 @@ class MediaFilter private constructor(
         private var year: Int? = null
 
         fun name(name: String?) = apply { this.name = name }
-        fun sortBy(movieSort: MovieSort = MovieSort.POPULARITY, order: Order = Order.DESC) =
+        fun sortBy(movieSort: MediaSortOption = MediaSortOption.Popular, order: Order = Order.DESC) =
             apply { this.sortBy = SortBy(movieSort, order) }
 
-        fun genresId(genresId: List<Int>?) = apply {
-            this.genresId = genresId?.joinToString(separator = ",")
-                ?.replace("[", "")
-                ?.replace("]", "")
+        fun genresId(genresId: MutableSet<Int>) = apply {
+            this.genresId = genresId.joinToString(separator = ",")
+                .replace("[", "")
+                .replace("]", "")
         }
 
         fun year(year: Int?) = apply { this.year = year }
@@ -141,3 +143,6 @@ class MediaFilter private constructor(
 
 
 }
+
+
+

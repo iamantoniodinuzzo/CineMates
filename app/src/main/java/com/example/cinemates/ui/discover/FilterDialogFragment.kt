@@ -1,7 +1,6 @@
 package com.example.cinemates.ui.discover
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +13,8 @@ import com.example.cinemates.R
 import com.example.cinemates.databinding.LayoutFilterDialogBinding
 import com.example.cinemates.domain.model.common.Genre
 import com.example.cinemates.domain.model.common.MediaFilter
+import com.example.cinemates.util.MediaSortOption
 import com.example.cinemates.util.MediaType
-import com.example.cinemates.util.MovieSort
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.flow.collectLatest
@@ -34,13 +33,13 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
 
     // Get a reference to the view model
     private val viewModel: DiscoverViewModel by activityViewModels()
-    private lateinit var mMediaFilterBuilder: MediaFilter.Builder
-    private lateinit var genres: MutableSet<Int>
+    private lateinit var mediaFilterBuilder: MediaFilter.Builder
+    private lateinit var selectedGenres: MutableSet<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mMediaFilterBuilder = MediaFilter.Builder(MediaType.MOVIE)
-        genres = mutableSetOf()
+        mediaFilterBuilder = MediaFilter.Builder(MediaType.MOVIE)
+        selectedGenres = mutableSetOf()
     }
 
 
@@ -51,6 +50,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
     ): View {
         // Inflate the layout using view binding
         _binding = LayoutFilterDialogBinding.inflate(inflater, container, false)
+        viewModel.updateMediaFilterBuilder(mediaFilterBuilder)
         return binding.root
     }
 
@@ -65,10 +65,10 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
             initToggleGroupYearButton()
 
             applyButton.setOnClickListener {
-                val genreList = this@FilterDialogFragment.genres.toList()
-                Log.d(TAG, "genreList: $genreList")
-                mMediaFilterBuilder.genresId(genreList)
-                val movieFilter = mMediaFilterBuilder.build()
+//                val genreList = this@FilterDialogFragment.selectedGenres.toList()
+//                Log.d(TAG, "genreList: $genreList")
+//                mediaFilterBuilder.genresId(genreList)
+                val movieFilter = mediaFilterBuilder.build()
 
                 Toast.makeText(requireContext(), movieFilter.toString(), Toast.LENGTH_LONG).show()
             }
@@ -83,10 +83,12 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
             if (isChecked) {
                 when (checkedId) {
                     R.id.movie_button -> {
-                        mMediaFilterBuilder = MediaFilter.Builder(MediaType.MOVIE)
+                        mediaFilterBuilder = MediaFilter.Builder(MediaType.MOVIE)
+                        viewModel.updateMediaFilterBuilder(mediaFilterBuilder)
                     }
                     R.id.tv_button -> {
-                        mMediaFilterBuilder = MediaFilter.Builder(MediaType.MOVIE)
+                        mediaFilterBuilder = MediaFilter.Builder(MediaType.TV)
+                        viewModel.updateMediaFilterBuilder(mediaFilterBuilder)
                     }
                 }
             }
@@ -101,7 +103,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                 when (checkedId) {
                     R.id.any_button -> {
                         // Do something when "Any" button is selected
-                        mMediaFilterBuilder.year(null)
+                        mediaFilterBuilder.year(null)
                         binding.yearFilter.yearPicker.isVisible = false
                     }
                     R.id.one_year_button -> {
@@ -127,7 +129,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         // Set the OnValueChangedListener for the NumberPicker
         yearPicker.setOnValueChangedListener { picker, oldVal, newVal ->
             // Do something with the selected year
-            mMediaFilterBuilder.year(newVal)
+            mediaFilterBuilder.year(newVal)
         }
     }
 
@@ -136,40 +138,43 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         val chipGroup: HorizontalChipView<Genre> =
             view.findViewById<HorizontalChipView<Genre>>(R.id.genres)
 
-        chipGroup.chipStyle = R.style.CustomFilterChipStyle
+//        chipGroup.chipStyle = R.style.CustomFilterChipStyle
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.movieGenres.collectLatest { genreList ->
-                genreList?.let {
-                    chipGroup.setChipsList(
-                        it,//The list of items to be included in the chip group
-                        textGetter = { genre -> genre.name }//The text to be included in the chip
-                    )
-                }
+            viewModel.genres.collectLatest {
+                chipGroup.setChipsList(
+                    it,//The list of items to be included in the chip group
+                    textGetter = { genre -> genre.name }//The text to be included in the chip
+                )
             }
         }
 
         // specify the action on chips click
         chipGroup.onChipClicked = { genre ->
-            genres.add(genre.id)
+            selectedGenres.add(genre.id)
+            mediaFilterBuilder.genresId(selectedGenres)
+            viewModel.updateMediaFilterBuilder(mediaFilterBuilder)
         }
     }
 
     private fun initMovieSortChipGroup(view: View) {
         //bind the custom view
-        val chipGroup: HorizontalChipView<MovieSort> =
-            view.findViewById<HorizontalChipView<MovieSort>>(R.id.sort_by)
+        val chipGroup: HorizontalChipView<MediaSortOption> =
+            view.findViewById<HorizontalChipView<MediaSortOption>>(R.id.sort_by)
 
-        chipGroup.chipStyle = R.style.CustomFilterChipStyle
-
-        //set all the elements
-        chipGroup.setChipsList(
-            MovieSort.values().asList(),//The list of items to be included in the chip group
-            textGetter = { sort -> resources.getString(sort.nameResId) }//The text to be included in the chip
-        )
-
+//        chipGroup.chipStyle = R.style.CustomFilterChipStyle
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.sortByList.collectLatest {
+                chipGroup.setChipsList(
+                    it,//The list of items to be included in the chip group
+                    textGetter = { mediaSortOption -> resources.getString(mediaSortOption.nameResId) }//The text to be included in the chip
+                )
+            }
+        }
         // specify the action on chips click
         chipGroup.onChipClicked = { sortBy ->
-            mMediaFilterBuilder.sortBy(sortBy)
+            mediaFilterBuilder.sortBy(sortBy)
+            viewModel.updateMediaFilterBuilder(mediaFilterBuilder)
+
         }
     }
 

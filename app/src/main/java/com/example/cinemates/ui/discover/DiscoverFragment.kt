@@ -30,7 +30,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
             }
             customFilter.setOnClickListener {
                 Navigation.findNavController(view)
-                    .navigate(R.id.action_discoverFragment_to_filterDialogFragment)
+                    .navigate(R.id.action_discoverFragment_to_discoverResultFragment)
             }
 
         }

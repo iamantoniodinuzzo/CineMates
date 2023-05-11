@@ -48,6 +48,8 @@ class HorizontalChipView<T>(
     var chipStyle: Int = -1
 
     var onChipClicked: ((T) -> Unit)? = null
+    var onCheckedStateChangeListener: ((ChipGroup, List<Int>) -> Unit)? = null
+
 
     var title: String = ""
         set(value) {
@@ -171,6 +173,10 @@ class HorizontalChipView<T>(
      * @param textGetter A lambda function that takes an object of type `T` and returns the text to display on the corresponding chip.
      */
     fun setChipsList(chipsList: List<T>, textGetter: (T) -> String) {
+
+        chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            onCheckedStateChangeListener?.invoke(group,checkedIds)
+        }
         // Remove excess views
         while (chipGroup.childCount > chipsList.size) {
             chipGroup.removeViewAt(chipsList.size)
@@ -186,6 +192,7 @@ class HorizontalChipView<T>(
             // Set the text and click listener for the chip
             chip.text = chipText
             chip.setOnClickListener { onChipClicked?.invoke(item) }
+
         }
     }
 

@@ -7,7 +7,7 @@ junitTest = "4.13.2"
 junitAndroidTest = "1.1.3"
 espresso = "3.4.0"
 legacy = "1.0.0"
-core = "1.2.0"
+core = "1.9.0"
 coroutines = "1.6.4"
 okhttp = "5.0.0-alpha.3"
 retrofit = "2.9.0"
@@ -48,6 +48,6 @@ navigation = ["navigation.fragment", "navigation.ui", "navigation-features"]
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
-jetbrains-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "jetbrainsPlugin" }
+jetbrains-kotlin = { id = "org.jetbrains.kotlin.android", version = "1.8.21" }
 dagger-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }

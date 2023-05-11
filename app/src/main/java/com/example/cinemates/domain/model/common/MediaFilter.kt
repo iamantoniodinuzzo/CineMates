@@ -7,46 +7,8 @@ import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.Order
 import java.io.Serializable
 
-/**
- * @author Antonio Di Nuzzo (Indisparte)
- */
-class SortBy(val sort: MediaSortOption, val order: Order) {
-    override fun toString(): String {
-        return "$sort.$order"
-    }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is SortBy) return false
 
-        if (sort != other.sort) return false
-        if (order != other.order) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = sort.hashCode()
-        result = 31 * result + order.hashCode()
-        return result
-    }
-}
-
-/**
- * A class representing a filter used to search for movies.
- *
- * This class provides a convenient way to create filters with various criteria, including
- * sorting, genres, cast, and release year. The `name` property is a mandatory property
- * that must be provided in the constructor, while the other properties are optional and
- * can be set using the `Builder` class.
- *
- * @property name The name of the filter (mandatory).
- * @property sortBy The sorting criteria for the filter (optional). Default value 'popularity.desc'
- * @property genresId The genres for the filter (optional).
- * @property year The release year for the filter (optional).
- *
- * @author Antonio Di Nuzzo (Indisparte)
- */
 class MediaFilter private constructor(
     val mediaType: MediaType,
     val name: String?,

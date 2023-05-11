@@ -1,12 +1,9 @@
 package com.example.cinemates.domain.model.common
 
-import androidx.annotation.StringRes
-import com.example.cinemates.R
 import com.example.cinemates.util.MediaSortOption
 import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.Order
 import java.io.Serializable
-
 
 
 class MediaFilter private constructor(
@@ -43,7 +40,8 @@ class MediaFilter private constructor(
      * @property genresId The genres for the filter (optional).
      * @property year The release year for the filter (optional).
      */
-    class Builder(var mediaType: MediaType) {
+    class Builder {
+        private var mediaType: MediaType = MediaType.MOVIE
         private var name: String? = null
         private var sortBy: SortBy? = null
         private var genresId: String? = null
@@ -51,8 +49,11 @@ class MediaFilter private constructor(
 
         fun name(name: String?) = apply { this.name = name }
         fun mediaType(mediaType: MediaType) = apply { this.mediaType = mediaType }
-        fun sortBy(movieSort: MediaSortOption = MediaSortOption.Popular, order: Order = Order.DESC) =
-            apply { this.sortBy = SortBy(movieSort, order) }
+        fun sortBy(
+            mediaSort: MediaSortOption? = MediaSortOption.Popular,
+            order: Order? = Order.DESC
+        ) =
+            apply { this.sortBy = SortBy(mediaSort, order) }
 
         fun genresId(genresId: MutableSet<Int>) = apply {
             this.genresId = genresId.joinToString(separator = ",")

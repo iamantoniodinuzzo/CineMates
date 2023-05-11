@@ -27,7 +27,7 @@ class DiscoverViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _mediaFilter = MutableStateFlow<MediaFilter>(
-        MediaFilter.Builder(MediaType.MOVIE).build()
+        MediaFilter.Builder().build()
     )
     val mediaFilter: StateFlow<MediaFilter> get() = _mediaFilter
 

@@ -48,8 +48,7 @@ class HorizontalChipView<T>(
     var chipStyle: Int = -1
 
     var onChipClicked: ((T) -> Unit)? = null
-    var onCheckedStateChangeListener: ((ChipGroup, List<Int>) -> Unit)? = null
-
+    var onCheckedChangeListener: ((Chip, T, Boolean) -> Unit)? = null
 
     var title: String = ""
         set(value) {
@@ -174,9 +173,6 @@ class HorizontalChipView<T>(
      */
     fun setChipsList(chipsList: List<T>, textGetter: (T) -> String) {
 
-        chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
-            onCheckedStateChangeListener?.invoke(group,checkedIds)
-        }
         // Remove excess views
         while (chipGroup.childCount > chipsList.size) {
             chipGroup.removeViewAt(chipsList.size)
@@ -190,8 +186,15 @@ class HorizontalChipView<T>(
             val chipText = textGetter(item)
 
             // Set the text and click listener for the chip
+            chip.isSelected = false // deselect if select
             chip.text = chipText
             chip.setOnClickListener { onChipClicked?.invoke(item) }
+            // Set the OnCheckedChangeListener for the chip
+            onCheckedChangeListener?.let { listener ->
+                chip.setOnCheckedChangeListener { buttonView, isChecked ->
+                    listener(buttonView as Chip, item, isChecked)
+                }
+            }
 
         }
     }

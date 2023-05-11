@@ -18,9 +18,9 @@ import com.example.cinemates.util.MediaType
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.util.*
 
-private val TAG = FilterDialogFragment::class.simpleName
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
@@ -50,7 +50,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
     ): View {
         // Inflate the layout using view binding
         _binding = LayoutFilterDialogBinding.inflate(inflater, container, false)
-        viewModel.updateMediaFilterBuilder(mediaFilterBuilder)
+        viewModel.updateMediaFilter(mediaFilterBuilder)
         return binding.root
     }
 
@@ -58,8 +58,8 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            initMediaTypeToggleGroup(view)
-            initMovieSortChipGroup(view)
+            initMediaTypeToggleGroup()
+            initSortChipGroup(view)
             initGenreChipGroup(view)
             initYearSpinner()
             initToggleGroupYearButton()
@@ -73,7 +73,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
 
     }
 
-    private fun initMediaTypeToggleGroup(view: View) {
+    private fun initMediaTypeToggleGroup() {
         val toggleGroup = binding.mediaTypeToggleGroup
 
         toggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
@@ -81,11 +81,11 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                 when (checkedId) {
                     R.id.movie_button -> {
                         mediaFilterBuilder = MediaFilter.Builder(MediaType.MOVIE)
-                        viewModel.updateMediaFilterBuilder(mediaFilterBuilder)
+                        viewModel.updateMediaFilter(mediaFilterBuilder)
                     }
                     R.id.tv_button -> {
                         mediaFilterBuilder = MediaFilter.Builder(MediaType.TV)
-                        viewModel.updateMediaFilterBuilder(mediaFilterBuilder)
+                        viewModel.updateMediaFilter(mediaFilterBuilder)
                     }
                 }
             }
@@ -97,15 +97,16 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
 
         toggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (isChecked) {
+                val yearPicker = binding.yearFilter.yearPicker
                 when (checkedId) {
                     R.id.any_button -> {
                         // Do something when "Any" button is selected
                         mediaFilterBuilder.year(null)
-                        binding.yearFilter.yearPicker.isVisible = false
+                        yearPicker.isVisible = false
                     }
                     R.id.one_year_button -> {
                         // Do something when "One Year" button is selected
-                        binding.yearFilter.yearPicker.isVisible = true
+                        yearPicker.isVisible = true
                     }
                 }
             }
@@ -115,18 +116,13 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
     private fun initYearSpinner() {
         // Find the NumberPicker view in the layout
         val yearPicker: NumberPicker = binding.yearFilter.yearPicker
-
-        // Set the minimum and maximum values for the NumberPicker
-        yearPicker.minValue = 1943
-        yearPicker.maxValue = Calendar.getInstance().get(Calendar.YEAR)
-
-        // Set the default value for the NumberPicker
-        yearPicker.value = Calendar.getInstance().get(Calendar.YEAR)
-
-        // Set the OnValueChangedListener for the NumberPicker
-        yearPicker.setOnValueChangedListener { picker, oldVal, newVal ->
-            // Do something with the selected year
-            mediaFilterBuilder.year(newVal)
+        yearPicker.apply {
+            minValue = 1943
+            maxValue = Calendar.getInstance().get(Calendar.YEAR)
+            value = Calendar.getInstance().get(Calendar.YEAR)
+            setOnValueChangedListener { _, _, newVal ->
+                mediaFilterBuilder.year(newVal)
+            }
         }
     }
 
@@ -135,10 +131,10 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         val chipGroup: HorizontalChipView<Genre> =
             view.findViewById<HorizontalChipView<Genre>>(R.id.genres)
 
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.genres.collectLatest {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.genres.collectLatest {genres->
                 chipGroup.setChipsList(
-                    it,//The list of items to be included in the chip group
+                    genres,//The list of items to be included in the chip group
                     textGetter = { genre -> genre.name }//The text to be included in the chip
                 )
             }
@@ -148,27 +144,27 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         chipGroup.onChipClicked = { genre ->
             selectedGenres.add(genre.id)
             mediaFilterBuilder.genresId(selectedGenres)
-            viewModel.updateMediaFilterBuilder(mediaFilterBuilder)
+            viewModel.updateMediaFilter(mediaFilterBuilder)
         }
     }
 
-    private fun initMovieSortChipGroup(view: View) {
+    private fun initSortChipGroup(view: View) {
         //bind the custom view
         val chipGroup: HorizontalChipView<MediaSortOption> =
             view.findViewById<HorizontalChipView<MediaSortOption>>(R.id.sort_by)
 
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.sortByList.collectLatest {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.sortByList.collectLatest {sortByList->
                 chipGroup.setChipsList(
-                    it,//The list of items to be included in the chip group
-                    textGetter = { mediaSortOption -> resources.getString(mediaSortOption.nameResId) }//The text to be included in the chip
+                    sortByList,//The list of items to be included in the chip group
+                    textGetter = { sortOption -> resources.getString(sortOption.nameResId) }//The text to be included in the chip
                 )
             }
         }
         // specify the action on chips click
-        chipGroup.onChipClicked = { sortBy ->
-            mediaFilterBuilder.sortBy(sortBy)
-            viewModel.updateMediaFilterBuilder(mediaFilterBuilder)
+        chipGroup.onChipClicked = { sortOption ->
+            mediaFilterBuilder.sortBy(sortOption)
+            viewModel.updateMediaFilter(mediaFilterBuilder)
 
         }
     }

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * A generic base adapter class for RecyclerView.
  *
- * @param T The type of the items in the adapter.
+ * @param T The episodeGroupType of the items in the adapter.
  * @author Antonio Di Nuzzo (Indisparte)
  */
 abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseAdapter<T>.BaseViewHolder>() {

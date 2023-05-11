@@ -23,35 +23,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentProfileBinding
         get() = FragmentProfileBinding::inflate
-    /*private lateinit var adapter: SectionRecyclerViewAdapter
-
-    //Sections
-    private val movieSection: Section<MovieDetailsDTO> =
-        Section("Favorites", "Movies", MovieDetailsDTO::class.java, null, ViewSize.SMALL)
-    private val personSection: Section<PersonDTO> =
-        Section("Favorites", "Actors", PersonDTO::class.java, null, ViewSize.SMALL)
-    private val sectionList: List<Section<*>> =
-        listOf(movieSection, personSection)*/
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-          /*  recyclerView.adapter = adapter
-            adapter.addItems(sectionList)*/
 
         }
-//        movieSection.liveData = dbMovieViewModel.favorites
-//        personSection.liveData = dbPersonViewModel.persons
-
     }
-
-    private fun setCounter(stats: LayoutSectionStatsBinding, title:String, value:Int ){
-        stats.statTitle.text = title
-        stats.statContent.text = value.toString()
-    }
-
-
-
 
 }

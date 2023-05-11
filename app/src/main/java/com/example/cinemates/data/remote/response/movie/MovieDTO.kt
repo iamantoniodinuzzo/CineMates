@@ -1,7 +1,7 @@
 package com.example.cinemates.data.remote.response.movie
 
 
-import com.example.cinemates.data.remote.response.common.GenreDTO
+import com.example.cinemates.data.remote.response.genre.GenreDTO
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import java.text.SimpleDateFormat

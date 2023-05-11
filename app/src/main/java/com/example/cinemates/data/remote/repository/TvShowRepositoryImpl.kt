@@ -1,12 +1,13 @@
 package com.example.cinemates.data.remote.repository
 
+import com.example.cinemates.data.remote.response.genre.GenreDTO
 import com.example.cinemates.data.remote.response.credits.CastDTO
 import com.example.cinemates.data.remote.response.credits.CrewDTO
 import com.example.cinemates.data.remote.response.image.ImageDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import com.example.cinemates.data.remote.response.tvShow.*
 import com.example.cinemates.data.remote.service.TvShowService
-import com.example.cinemates.domain.model.common.Filter
+import com.example.cinemates.domain.model.common.MediaFilter
 import com.example.cinemates.util.MediaListSpecification
 import com.example.cinemates.util.TimeWindow
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +25,8 @@ constructor(
 ) : TvShowRepository {
 
     override fun getSpecificTVList(specification: MediaListSpecification) = flow {
-        val specificTvShowList = tvShowService.getListOfSpecificTv(specification.value, queryMap).results
+        val specificTvShowList =
+            tvShowService.getListOfSpecificTv(specification.value, queryMap).results
         emit(specificTvShowList)
     }
 
@@ -51,16 +53,21 @@ constructor(
         emit(similarTvShow)
     }
 
-    override fun getDiscoverable(filter: Filter): Flow<List<TvShowDTO>> = flow {
-        queryMap["sort_by"] =
-            filter.sortBy.toString()
-        queryMap["with_genres"] =
-            filter.withGenres
-                .toString()
-                .replace("[", "")
-                .replace("]", "")
-        val movies = tvShowService.getByDiscover(queryMap).results
-        emit(movies)
+    override fun getDiscoverable(tvFilter: MediaFilter): Flow<List<TvShowDTO>> = flow {
+        tvFilter.sortBy?.let {
+            queryMap["sort_by"] = it.toString()
+        }
+        tvFilter.genresId?.let {
+            queryMap["with_genres"] =
+                it.replace("[", "")//todo necessary?
+                    .replace("]", "")//todo necessary?
+        }
+        tvFilter.year?.let {
+            queryMap["first_air_date_year"] = it.toString()
+        }
+
+        val tv = tvShowService.getByDiscover(queryMap).results
+        emit(tv)
     }
 
     override fun getPosters(id: Int): Flow<List<ImageDTO>> = flow {
@@ -103,6 +110,11 @@ constructor(
 
     override fun getSeasonDetails(tvId: Int, seasonNumber: Int): Flow<SeasonDetailsDTO> = flow {
         emit(tvShowService.getSeasonDetails(tvId, seasonNumber, queryMap))
+    }
+
+    override fun getGenreList(): Flow<List<GenreDTO>> = flow {
+        val genres = tvShowService.getGenreList(queryMap).genres
+        emit(genres)
     }
 
 }

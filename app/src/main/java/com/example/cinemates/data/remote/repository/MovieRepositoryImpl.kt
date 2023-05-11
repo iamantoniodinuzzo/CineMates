@@ -1,6 +1,6 @@
 package com.example.cinemates.data.remote.repository
 
-import com.example.cinemates.data.remote.response.common.GenreDTO
+import com.example.cinemates.data.remote.response.genre.GenreDTO
 import com.example.cinemates.data.remote.response.credits.CastDTO
 import com.example.cinemates.data.remote.response.credits.CrewDTO
 import com.example.cinemates.data.remote.response.image.ImageDTO
@@ -9,7 +9,7 @@ import com.example.cinemates.data.remote.response.movie.MovieDTO
 import com.example.cinemates.data.remote.response.movie.MovieDetailsDTO
 import com.example.cinemates.data.remote.response.trailer.VideoDTO
 import com.example.cinemates.data.remote.service.MovieService
-import com.example.cinemates.domain.model.common.Filter
+import com.example.cinemates.domain.model.common.MediaFilter
 import com.example.cinemates.util.MediaListSpecification
 import com.example.cinemates.util.TimeWindow
 import kotlinx.coroutines.flow.Flow
@@ -29,17 +29,17 @@ constructor(
     /**
      * Get Popular,TopRated and Upcoming movies
      */
-    override  fun getSpecificMovieList(specification: MediaListSpecification) = flow {
+    override fun getSpecificMovieList(specification: MediaListSpecification) = flow {
         val movieList = movieService.getListOfSpecificMovies(specification.value, queryMap).results
         emit(movieList)
     }
 
     override fun getGenreList(): Flow<List<GenreDTO>> = flow {
-        val genres = movieService.getGenreList(queryMap).results
+        val genres = movieService.getGenreList(queryMap).genres
         emit(genres)
     }
 
-    override  fun getTrending(timeWindow: TimeWindow): Flow<List<MovieDTO>> = flow {
+    override fun getTrending(timeWindow: TimeWindow): Flow<List<MovieDTO>> = flow {
         val trending = movieService.getTrending(timeWindow.value, queryMap).results
         emit(trending)
     }
@@ -65,14 +65,19 @@ constructor(
         emit(recommendedMovies)
     }
 
-    override fun getDiscoverable(filter: Filter): Flow<List<MovieDTO>> = flow {
-        queryMap["sort_by"] =
-            filter.sortBy.toString()
-        queryMap["with_genres"] =
-            filter.withGenres
-                .toString()
-                .replace("[", "")
-                .replace("]", "")
+    override fun getDiscoverable(mediaFilter: MediaFilter): Flow<List<MovieDTO>> = flow {
+        mediaFilter.apply {
+            sortBy?.let {
+                queryMap["sort_by"] = it.toString()
+            }
+            genresId?.let {
+                queryMap["with_genres"] = it
+            }
+            year?.let {
+                queryMap["year"] = it.toString()
+            }
+        }
+
         val movies = movieService.getByDiscover(queryMap).results
         emit(movies)
     }
@@ -82,12 +87,13 @@ constructor(
         emit(posters)
     }
 
-    override fun getImages(movieId: Int):Flow<List<ImageDTO>> = flow {
+    override fun getImages(movieId: Int): Flow<List<ImageDTO>> = flow {
         val posters = movieService.getImages(movieId, queryMap).posters
-        val backdrop = movieService.getImages(movieId,queryMap).backdrops
-        val result = (posters+backdrop).shuffled()
+        val backdrop = movieService.getImages(movieId, queryMap).backdrops
+        val result = (posters + backdrop).shuffled()
         emit(result)
     }
+
     override fun getBackdrops(movieId: Int): Flow<List<ImageDTO>> = flow {
         val backdrops = movieService.getImages(movieId, queryMap).backdrops
         emit(backdrops)
@@ -120,7 +126,7 @@ constructor(
         emit(movieService.getByDiscover(queryMap).results)
     }
 
-    override fun getMoviesByActor(actorId: Int):Flow<List<MovieDTO>> = flow {
+    override fun getMoviesByActor(actorId: Int): Flow<List<MovieDTO>> = flow {
         queryMap["with_cast"] = actorId.toString()
         val movies = movieService.getByDiscover(queryMap).results
         emit(movies)

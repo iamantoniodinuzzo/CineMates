@@ -2,8 +2,9 @@ package com.example.cinemates.data.remote.service
 
 
 import com.example.cinemates.data.remote.response.GenericResponse
-import com.example.cinemates.data.remote.response.common.GenreDTO
+import com.example.cinemates.data.remote.response.genre.GenreDTO
 import com.example.cinemates.data.remote.response.credits.CreditsResponse
+import com.example.cinemates.data.remote.response.genre.GenresResponse
 import com.example.cinemates.data.remote.response.image.ImagesResponse
 import com.example.cinemates.data.remote.response.movie.CollectionDTO
 import com.example.cinemates.data.remote.response.movie.MovieDTO
@@ -78,7 +79,7 @@ interface MovieService {
     suspend fun getByDiscover(@QueryMap queries: Map<String, String>): GenericResponse<MovieDTO>
 
     @GET("genre/movie/list")
-    suspend fun getGenreList(@QueryMap queries: Map<String, String>): GenericResponse<GenreDTO>
+    suspend fun getGenreList(@QueryMap queries: Map<String, String>): GenresResponse
 
     @GET("trending/movie/{time_window}")
     suspend fun getTrending(

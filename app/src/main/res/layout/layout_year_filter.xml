@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:showIn="@layout/layout_filter_dialog">
+
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggle_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:checkedButton="@id/any_button"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/any_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Any"
+            android:textAllCaps="false"
+            app:backgroundTint="@color/mirage_100"
+            app:rippleColor="@color/vermilion_100" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/one_year_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Specific Year"
+            android:textAllCaps="false"
+            app:backgroundTint="@color/mirage_100"
+            app:rippleColor="@color/vermilion_100" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <NumberPicker
+        android:id="@+id/year_picker"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:descendantFocusability="blocksDescendants"
+        android:visibility="gone" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

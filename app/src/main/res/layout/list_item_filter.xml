@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="filter"
-            type="com.example.cinemates.domain.model.common.Filter" />
+            name="mediaFilter"
+            type="com.example.cinemates.domain.model.common.MediaFilter" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -32,7 +32,7 @@
                 android:autoSizeMaxTextSize="24sp"
                 android:autoSizeMinTextSize="10sp"
                 android:maxLines="3"
-                android:text="@{filter.name}"
+                android:text="@{mediaFilter.name}"
                 android:textAlignment="textStart"
                 android:textColor="@color/alabaster"
                 android:textSize="18sp"

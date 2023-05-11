@@ -15,7 +15,7 @@ fun EpisodeGroupDetailsDTO.mapToEpisodeGroupDetails(): EpisodeGroupDetails {
         id = this.id,
         name = this.name,
         network = this.network?.mapToNetwork(),
-        type = this.episodeGroupType,
+        episodeGroupType = this.episodeGroupType,
         groups = this.groups.map {
             it.mapToGroup()
         }

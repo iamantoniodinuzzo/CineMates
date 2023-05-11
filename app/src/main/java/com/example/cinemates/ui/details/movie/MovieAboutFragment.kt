@@ -99,7 +99,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
     }
 
-
+    //TODO automatize this method with data binding
     private fun FragmentMovieAboutBinding.showTrailerSection(isNotEmpty: Boolean) {
         trailerTitle.isVisible = isNotEmpty
         binding.trailers.isVisible = isNotEmpty

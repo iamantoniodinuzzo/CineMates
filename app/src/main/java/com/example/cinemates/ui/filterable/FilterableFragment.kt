@@ -40,7 +40,7 @@ class FilterableFragment : BaseFragment<FragmentFilterableBinding>() {
         view.doOnPreDraw { startPostponedEnterTransition() }
 //        viewModel.setFilter(args.filter)
         binding.apply {
-            filter = args.filter
+//            filter = args.filter
 
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
 

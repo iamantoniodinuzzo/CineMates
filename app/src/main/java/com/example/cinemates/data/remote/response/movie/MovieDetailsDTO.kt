@@ -1,7 +1,7 @@
 package com.example.cinemates.data.remote.response.movie
 
 
-import com.example.cinemates.data.remote.response.common.GenreDTO
+import com.example.cinemates.data.remote.response.genre.GenreDTO
 import com.example.cinemates.data.remote.response.common.ProductionCompanyDTO
 import com.example.cinemates.data.remote.response.common.ProductionCountryDTO
 import com.example.cinemates.data.remote.response.common.SpokenLanguageDTO

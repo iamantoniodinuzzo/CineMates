@@ -11,5 +11,9 @@
             <enum name="bold_italic" value="3" />
         </attr>
         <attr name="titleTypeface" format="string" />
+        <attr name="requireSelection" format="boolean"/>
+        <attr name="singleCheck" format="boolean"/>
+        <attr name="selectedChipId" format="reference"/>
+        <attr name="chipStyle" format="reference"/>
     </declare-styleable>
 </resources>

@@ -1,11 +1,18 @@
 package com.example.cinemates.ui.discover
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.cinemates.domain.model.common.Filter
-import com.example.cinemates.util.Sort
+import com.example.cinemates.domain.model.common.MediaFilter
+import com.example.cinemates.domain.usecases.discover.DiscoverUseCaseContainer
+import com.example.cinemates.util.MediaSortOption
+import com.example.cinemates.util.MediaType
+import com.example.cinemates.util.MovieSortOption
+import com.example.cinemates.util.TvSortOption
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 
@@ -13,70 +20,55 @@ import javax.inject.Inject
  * @author Antonio Di Nuzzo
  * Created 01/09/2022
  */
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
-class DiscoverViewModel
-@Inject
-constructor(
-
+class DiscoverViewModel @Inject constructor(
+    private val discoverUseCaseContainer: DiscoverUseCaseContainer,
 ) : ViewModel() {
 
+    private val _mediaFilter = MutableStateFlow<MediaFilter>(
+        MediaFilter.Builder().build()
+    )
+    val mediaFilter: StateFlow<MediaFilter> get() = _mediaFilter
 
-    private val _filterBuilder = MutableLiveData<Filter.Builder>()
-    val filterBuilder: LiveData<Filter.Builder>
-        get() = _filterBuilder
-    private val _genreMap = MutableLiveData<HashMap<Int, String>>()
-    val genreMap: LiveData<HashMap<Int, String>> get() = _genreMap
-    private val _sortByMap = MutableLiveData<HashMap<Sort, String>>()
-    val sortByMap: LiveData<HashMap<Sort, String>>
-        get() = _sortByMap
+    val sortByList = mediaFilter.flatMapLatest { filter ->
+        when (filter.mediaType) {
+            MediaType.MOVIE -> flowOf(
+                listOf(
+                    MediaSortOption.Popular,
+                    MediaSortOption.ReleaseDate,
+                    MovieSortOption.VoteAverage,
+                    MovieSortOption.Revenue,
+                    MovieSortOption.VoteCount
+                )
+            )
 
-
-    init {
-        initMaps()
-        initFilter()
+            MediaType.TV -> flowOf(
+                listOf(
+                    MediaSortOption.Popular,
+                    MediaSortOption.ReleaseDate,
+                    TvSortOption.FirstAirDate
+                )
+            )
+        }
     }
 
-    private fun initMaps() {
-        _genreMap.value = getGenreMap()
-        _sortByMap.value = getSortByMap()
+    val genres = mediaFilter.flatMapLatest { filter ->
+        when (filter.mediaType) {
+            MediaType.MOVIE -> discoverUseCaseContainer.getMovieGenresUseCase.invoke()
+            MediaType.TV -> discoverUseCaseContainer.getTvGenresUseCase.invoke()
+        }
     }
 
-    fun initFilter() {
-        _filterBuilder.value = Filter.Builder()
+    val discoverableMedia = mediaFilter.flatMapLatest { filter ->
+        when (filter.mediaType) {
+            MediaType.MOVIE -> discoverUseCaseContainer.getMovieByDiscover.invoke(filter)
+            MediaType.TV -> discoverUseCaseContainer.getTvByDiscover.invoke(filter)
+        }
     }
 
-    private fun getGenreMap(): HashMap<Int, String> {
-        val genreMap = HashMap<Int, String>()
-        genreMap[28] = "Action"
-        genreMap[12] = "Adventure"
-        genreMap[16] = "Animation"
-        genreMap[35] = "Comedy"
-        genreMap[80] = "Crime"
-        genreMap[99] = "Documentary"
-        genreMap[18] = "Drama"
-        genreMap[10751] = "Family"
-        genreMap[14] = "Fantasy"
-        genreMap[36] = "History"
-        genreMap[27] = "Horror"
-        genreMap[10402] = "Music"
-        genreMap[9648] = "TopRated"
-        genreMap[10749] = "Romance"
-        genreMap[878] = "Science Fiction"
-        genreMap[53] = "Thriller"
-        genreMap[10752] = "War"
-        genreMap[37] = "Western"
-        genreMap[10770] = "TV MovieDetailsDTO"
-        return genreMap
+    fun updateMediaFilter(mediaFilterBuilder: MediaFilter.Builder) {
+        _mediaFilter.value = mediaFilterBuilder.build()
     }
-
-    private fun getSortByMap(): HashMap<Sort, String> {
-        val sortByMap = HashMap<Sort, String>()
-        sortByMap[Sort.POPULARITY] = "Popularity"
-        sortByMap[Sort.RELEASE_DATE] = "Release Date"
-        sortByMap[Sort.REVENUE] = "Revenue"
-        sortByMap[Sort.VOTE_AVERAGE] = "Vote Average"
-        return sortByMap
-    }
-
 
 }

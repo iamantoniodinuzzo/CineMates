@@ -90,9 +90,9 @@ dependencies {
 
 
     // Lifecycle Kotlin Extensions
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha01"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 
     // Glide
     implementation(libs.glide.core)
@@ -100,6 +100,7 @@ dependencies {
 
     // Youtube
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.20"
 
 
 }

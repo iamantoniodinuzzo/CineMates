@@ -4,20 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="tv"
             type="com.example.cinemates.domain.model.tv.TvShow" />
-
-        <variable
-            name="poster_counter"
-            type="Integer" />
-
-        <variable
-            name="backdrop_counter"
-            type="Integer" />
-
-        <import type="android.view.View" />
     </data>
 
 
@@ -54,6 +43,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/readMoreTextV"
                 android:padding="10dp"
+                app:singleCheck="true"
+                app:chipStyle="@style/CustomChipChoiceStyle"
                 app:title="Genres"
                 app:titleColor="@color/alabaster"
                 app:titleSize="18sp"

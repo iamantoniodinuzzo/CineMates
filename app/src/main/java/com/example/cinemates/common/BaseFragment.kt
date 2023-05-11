@@ -17,7 +17,7 @@ import com.google.android.material.transition.MaterialSharedAxis
 /**
  * A generic base fragment class for handling view binding and common fragment operations.
  *
- * @param VB The type of the view binding for the fragment.
+ * @param VB The episodeGroupType of the view binding for the fragment.
  * @author Antonio Di Nuzzo (Indisparte)
  */
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {

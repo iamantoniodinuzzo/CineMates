@@ -87,6 +87,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/birthPlace"
                 android:clipToPadding="false"
+                app:singleCheck="true"
+                app:chipStyle="@style/CustomChipChoiceStyle"
                 android:visibility="@{person.alsoKnownAs.empty? View.GONE:View.VISIBLE}"
                 app:title="Also known as"
                 app:titleColor="@color/alabaster"

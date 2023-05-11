@@ -1,21 +1,27 @@
 package com.indisparte.horizontalchipview
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.annotation.IdRes
 import androidx.appcompat.widget.LinearLayoutCompat
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import com.indisparte.horizontalchipview.databinding.LayoutHorizontalChipviewBinding
 
+private val TAG = HorizontalChipView::class.simpleName
 
 /**
- * Show a vertical section containing a title and a horizontal chip view.
+ * Show a vertical [LinearLayoutCompat] section containing an optional title and a scrollable horizontal [ChipGroup] view.
  *     <b>The orientation cannot be changed but will remain vertical</b>
  * @author Antonio Di Nuzzo (Indisparte)
  */
@@ -39,7 +45,10 @@ class HorizontalChipView<T>(
     private val chipGroup: ChipGroup by lazy { binding.chipGroup }
     private val textViewTitle: TextView by lazy { binding.title }
 
+    var chipStyle: Int = -1
+
     var onChipClicked: ((T) -> Unit)? = null
+    var onCheckedChangeListener: ((Chip, T, Boolean) -> Unit)? = null
 
     var title: String = ""
         set(value) {
@@ -51,6 +60,7 @@ class HorizontalChipView<T>(
     /**
      * Change text color, default value [Color.WHITE]
      */
+    @ColorInt
     var textColor: Int = Color.WHITE
         set(value) {
             field = value
@@ -87,6 +97,38 @@ class HorizontalChipView<T>(
             textViewTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, value)
         }
 
+    var requireSelection: Boolean = false
+        set(value) {
+            field = value
+            chipGroup.isSelectionRequired = value
+        }
+
+    var singleCheck: Boolean = false
+        set(value) {
+            field = value
+            chipGroup.isSingleSelection = value
+        }
+
+    @IdRes
+    var selectedChipId: Int? = null
+        set(value) {
+            field = value
+            value?.let {
+                chipGroup.check(it)
+            }
+        }
+
+    var chipAttributes: ((Chip) -> Unit)? = null
+        set(value) {
+            field = value
+            value?.takeIf { chipGroup.childCount > 0 }?.let { action ->
+                for (i in 0 until chipGroup.childCount) {
+                    val chip = chipGroup.getChildAt(i) as Chip
+                    action(chip)
+                }
+            }
+        }
+
     init {
         requireNotNull(attrs) { "attrs cannot be null" }
         context.theme.obtainStyledAttributes(
@@ -102,7 +144,12 @@ class HorizontalChipView<T>(
                 textStyle = getInt(R.styleable.HorizontalChipView_titleStyle, Typeface.BOLD)
                 typefacePath = getString(R.styleable.HorizontalChipView_titleTypeface)
                 orientation = VERTICAL // default orientation, immutable
-
+                requireSelection = getBoolean(
+                    R.styleable.HorizontalChipView_requireSelection, false
+                )
+                singleCheck = getBoolean(R.styleable.HorizontalChipView_singleCheck, false)
+                selectedChipId = getResourceId(R.styleable.HorizontalChipView_selectedChipId, -1)
+                chipStyle = getResourceId(R.styleable.HorizontalChipView_chipStyle, -1)
             } finally {
                 recycle()
             }
@@ -111,7 +158,7 @@ class HorizontalChipView<T>(
     }
 
     /**
-     * The orientation cannot be changed but will remain vertical.
+     * Orientation must be vertical
      */
     override fun setOrientation(orientation: Int) {
         super.setOrientation(VERTICAL)
@@ -125,34 +172,56 @@ class HorizontalChipView<T>(
      * @param textGetter A lambda function that takes an object of type `T` and returns the text to display on the corresponding chip.
      */
     fun setChipsList(chipsList: List<T>, textGetter: (T) -> String) {
-        // Remove any views that are not needed
+
+        // Remove excess views
         while (chipGroup.childCount > chipsList.size) {
             chipGroup.removeViewAt(chipsList.size)
         }
 
-        // Reuse existing views
+        // Reuse existing views or inflate new ones
         for (i in chipsList.indices) {
-            val chip = if (i < chipGroup.childCount) {
-                chipGroup.getChildAt(i) as? Chip
-            } else {
-                null
-            }
+            val chip = chipGroup.getChildAt(i) as? Chip ?: createChipView()
 
             val item = chipsList[i]
             val chipText = textGetter(item)
 
-            if (chip == null) {
-                val newChip = Chip(context).apply {
-                    setOnClickListener { onChipClicked?.invoke(item) }
-                    // Customize the chip's appearance here if desired
+            // Set the text and click listener for the chip
+            chip.isSelected = false // deselect if select
+            chip.text = chipText
+            chip.setOnClickListener { onChipClicked?.invoke(item) }
+            // Set the OnCheckedChangeListener for the chip
+            onCheckedChangeListener?.let { listener ->
+                chip.setOnCheckedChangeListener { buttonView, isChecked ->
+                    listener(buttonView as Chip, item, isChecked)
                 }
-                chipGroup.addView(newChip)
-                newChip.text = chipText
-            } else {
-                chip.text = chipText
-                chip.setOnClickListener { onChipClicked?.invoke(item) }
             }
+
         }
+    }
+
+
+    private fun createChipView(): Chip {
+        val chip = if (chipStyle > 0) {
+            try {
+                val drawable = ChipDrawable.createFromAttributes(context, null, 0, chipStyle)
+                Chip(context).apply {
+                    setChipDrawable(drawable)
+                }
+            } catch (e: Resources.NotFoundException) {
+                // handle the exception
+                Log.e(TAG, "SetChipsList error: ${e.message} ")
+                Chip(context)
+            }
+        } else {
+            Chip(context)
+        }
+
+        chip.apply {
+            // Customize the chip's appearance here if desired
+        }
+
+        chipGroup.addView(chip)
+        return chip
     }
 
 

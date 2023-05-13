@@ -5,7 +5,7 @@
 
         <variable
             name="movie"
-            type="com.example.cinemates.model.Movie" />
+            type="com.example.cinemates.domain.model.movie.Movie" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,7 +18,6 @@
             android:orientation="horizontal"
             android:padding="24dp">
 
-
             <ToggleButton
                 android:id="@+id/watched_btn"
                 android:layout_width="wrap_content"
@@ -27,7 +26,6 @@
                 android:background="@android:color/transparent"
                 android:drawableTop="@drawable/ic_seen_icon"
                 android:textAllCaps="false"
-                app:seen="@{movie.personalStatus}"
                 android:textColor="@color/alabaster"
                 android:textOff="Add to watched"
                 android:textOn="Added to watched" />
@@ -40,7 +38,6 @@
                 android:background="@android:color/transparent"
                 android:drawableTop="@drawable/ic_favorite_state"
                 android:textAllCaps="false"
-                app:isFavorite="@{movie.favorite}"
                 android:textColor="@color/alabaster"
                 android:textOff="Add to favorite"
                 android:textOn="Added to favorite" />
@@ -53,7 +50,6 @@
                 android:background="@android:color/transparent"
                 android:drawableTop="@drawable/ic_watchlist_icon"
                 android:textAllCaps="false"
-                app:toSee="@{movie.personalStatus}"
                 android:textColor="@color/alabaster"
                 android:textOff="Add to watch list"
                 android:textOn="Added to watch list" />

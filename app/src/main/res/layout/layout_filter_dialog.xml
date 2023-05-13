@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/design_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My custom filter"
+        android:textAlignment="center"
+        android:textColor="@color/geyser"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!--Media type section-->
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/media_type_toggle_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:checkedButton="@id/movie_button"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/movie_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Movie"
+            android:textAllCaps="false"
+            app:backgroundTint="@color/mirage_100"
+            app:rippleColor="@color/vermilion_100" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tv_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tv"
+            android:textAllCaps="false"
+            app:backgroundTint="@color/mirage_100"
+            app:rippleColor="@color/vermilion_100" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+    <!-- Sort By section -->
+    <com.indisparte.horizontalchipview.HorizontalChipView
+        android:id="@+id/sort_by"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:singleCheck="true"
+        app:chipStyle="@style/CustomFilterChipStyle"
+        app:title="Sort by"
+        app:titleColor="@color/alabaster"
+        app:titleSize="18sp" />
+
+    <!-- Genres section -->
+    <com.indisparte.horizontalchipview.HorizontalChipView
+        android:id="@+id/genres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:singleCheck="false"
+        app:chipStyle="@style/CustomFilterChipStyle"
+        app:title="Genres"
+        app:titleColor="@color/alabaster"
+        app:titleSize="18sp" />
+
+    <!-- Year section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Year"
+        android:textColor="@color/alabaster"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <include
+        android:id="@+id/year_filter"
+        layout="@layout/layout_year_filter" />
+
+    <!-- Apply button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/vermilion_100"
+        android:text="Save"
+        android:textAllCaps="false"
+        app:cornerRadius="8dp" />
+
+</LinearLayout>

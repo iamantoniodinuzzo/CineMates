@@ -20,14 +20,12 @@
   <img src="https://github.com/Indisparte/CineMates/blob/main/assets/logo.png?raw=true" alt="CineMates Logo"/>
 </p>
 
-## ❓ Why this Project.
-I decided to undertake this project as a personal gym in Android, here I will try to combine my passion, **cinema** with **Android** development trying to create a **beautiful**, **performing** and **useful** app for me and maybe for someone else.
-
 ## 🔎 Project Overview
-The application **is still in its early stages** but much more mature than it was when I picked it up. 
+The application is still in its initial state, lacking all the necessary tests to make it a secure and stable application.
 
-CineMates aims to be a customizable app and my intention is to make every feature customizable by the user.
+The purpose of this application is to provide the user with a tool to track down all information regarding movies and TV series.
 
+The project is constantly changing as a personal gym in Android development.
 
 ## 🗝 API Key.
 Find a file called `local.properties` in the `.gradle` file in the home directory.
@@ -40,20 +38,18 @@ Find a file called `local.properties` in the `.gradle` file in the home director
 - Use **ListAdapters** and **DiffUtil**
 - Use the **MVVM** pattern
 - Incorporate **data binding** and **view binding**
-- Use the **Navigation**, **ViewPager2** , **LiveData** component.
+- Use the **Navigation**, **ViewPager2**  component.
+- **Flow** and **MutableStateFlow**
 - Use **Dagger Hilt** for dependency injection.
+- **Clean Architecture**
 - Create unique customize views to reduce boilerplate code
-- **Kotlin** 
-- **Coroutines**
-## 📽 Image Resources
-🚧 Work in progress 🚧
+- [Version Catalogue](https://developer.android.com/build/migrate-to-catalogs)
+## 📽 Screenshots
 
-<!-- TO UPDATE
+**Home** | **Movie details** | **Actor details** | **Tv Details** | **Search** |
+:-----------------------------:|:-----------------------------:|:-----------------------------:|:-----------------------------:|:-----------------------------:
+![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/home.png) | ![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/movie_details.png) | ![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/actor_details.png) | ![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/tv_details.png)| ![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/search.png) 
 
-**Personalize** | **Movie details** | **Actor details** | **Filters** |
-:-----------------------------:|:---------------------:|:-----------------------------:|:-----------------------------:
-![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/personalization.gif) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/movie_details.gif) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/actor_details.gif) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/filterable.gif) 
--->
 
 ## 🤝 Contributing 
 Feel free to open an [Issues](https://github.com/Indisparte/CineMates/issues) or submit a [Pull requests](https://github.com/Indisparte/CineMates/pulls) for any bugs/enhancement.
@@ -62,15 +58,17 @@ If you have 💡 ideas 💡 you can submit them [here](https://github.com/Indisp
 
 ## 📚 Libraries
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/) 
-    * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
-    * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
-    * [Navigation Component](https://developer.android.com/guide/navigation/navigation-getting-started)
 - [Android Data Binding](https://developer.android.com/topic/libraries/data-binding/)
 - [Retrofit](http://square.github.io/retrofit/)
 - [Glide](https://github.com/bumptech/glide) 
 - [Hilt Library](https://developer.android.com/training/dependency-injection/hilt-android)
 - [YouTube Library](https://developers.google.com/youtube/android/player)
-- [ReadMoreTextView](https://github.com/bravoborja/ReadMoreTextView)
+### Personal
+- [HorizontalChipView](https://github.com/Indisparte/CineMates/blob/develop/HorizontalChipView/README.md)
+- [LinearLayoutInfo](https://github.com/Indisparte/CineMates/blob/develop/LinearLayoutInfo/README.md)
+- [MoreLessTextView](https://github.com/Indisparte/CineMates/blob/develop/MoreLessTextView/README.md)
+- [RecyclerViewEmptyStateSupport](https://github.com/Indisparte/CineMates/blob/develop/RecyclerViewEmptyStateSupport/README.md)
+- [PosterView](https://github.com/Indisparte/CineMates/blob/develop/PosterView/README.md)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

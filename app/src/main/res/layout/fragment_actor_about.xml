@@ -7,7 +7,7 @@
 
         <variable
             name="person"
-            type="com.example.cinemates.model.Person" />
+            type="com.example.cinemates.domain.model.credits.PersonDetails" />
 
         <import type="android.view.View" />
     </data>
@@ -21,74 +21,78 @@
             android:layout_height="match_parent"
             android:padding="10dp">
 
+            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+                android:id="@+id/biography"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:hideIfValueEmpty="true"
+                app:textColor="@color/alabaster"
+                app:textSize="14sp"
+                app:title="Biography"
+                app:value="@{person.biography}" />
 
-            <com.indisparte.linearlayoutinfo.LinearInfoView
+            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
                 android:id="@+id/age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/biography"
                 android:layout_marginBottom="10dp"
                 app:hideIfValueEmpty="true"
+                android:layout_marginTop="10dp"
+                app:textColor="@color/alabaster"
+                app:textSize="14sp"
                 app:title="Age"
                 app:value="@{person.age}" />
 
-            <com.indisparte.linearlayoutinfo.LinearInfoView
+            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
                 android:id="@+id/birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/age"
                 android:layout_marginBottom="10dp"
                 app:hideIfValueEmpty="true"
+                app:textColor="@color/alabaster"
+                app:textSize="14sp"
                 app:title="Born on"
-                app:value="@{person.formattedBirthday}" />
+                app:value="@{person.birthday}" />
 
-            <com.indisparte.linearlayoutinfo.LinearInfoView
+            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
                 android:id="@+id/deathDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/birthday"
                 app:hideIfValueEmpty="true"
+                app:textColor="@color/alabaster"
+                app:textSize="14sp"
                 app:title="Died on"
-                app:value="@{person.formattedDeathday}" />
+                app:value="@{person.deathDay}" />
 
-            <com.indisparte.linearlayoutinfo.LinearInfoView
+            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
                 android:id="@+id/birthPlace"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/deathDate"
                 android:layout_marginBottom="10dp"
                 app:hideIfValueEmpty="true"
+                app:textColor="@color/alabaster"
+                app:textSize="14sp"
                 app:title="From"
-                app:value="@{person.place_of_birth}" />
-
-            <com.indisparte.linearlayoutinfo.LinearInfoView
-                android:id="@+id/biography"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/birthPlace"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                app:hideIfValueEmpty="true"
-                app:title="Biography"
-                app:value="@{person.biography}" />
-
-            <TextView
-                android:id="@+id/knownAsTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/biography"
-                android:layout_marginTop="10dp"
-                android:text="Also known as"
-                android:textColor="@color/geyser"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:visibility="@{person.also_known_as.empty? View.GONE:View.VISIBLE}" />
+                app:value="@{person.placeOfBirth}" />
 
             <com.indisparte.horizontalchipview.HorizontalChipView
                 android:id="@+id/chipGroupKnownAs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/knownAsTitle"
-                android:padding="10dp" />
+                android:layout_below="@id/birthPlace"
+                android:clipToPadding="false"
+                app:singleCheck="true"
+                app:chipStyle="@style/CustomChipChoiceStyle"
+                android:visibility="@{person.alsoKnownAs.empty? View.GONE:View.VISIBLE}"
+                app:title="Also known as"
+                app:titleColor="@color/alabaster"
+                app:titleSize="14sp" />
 
 
             <TextView
@@ -99,7 +103,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Images"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <RelativeLayout
@@ -108,17 +112,14 @@
                 android:layout_below="@id/imageTitle"
                 android:layout_marginTop="10dp">
 
-                <com.example.cinemates.util.RecyclerViewEmptySupport
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/images"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clipToPadding="false"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/list_item_poster" />
-
-                <include
-                    android:id="@+id/empty_view_recommended"
-                    layout="@layout/layout_empty_recycler" />
             </RelativeLayout>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

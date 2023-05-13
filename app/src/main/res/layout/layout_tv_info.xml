@@ -5,7 +5,7 @@
 
         <variable
             name="tv"
-            type="com.example.cinemates.model.TvShow" />
+            type="com.example.cinemates.domain.model.tv.TvShow" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,54 +14,104 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.indisparte.linearlayoutinfo.LinearInfoView
+        <TextView
+            android:id="@+id/textTitleInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Info"
+            android:textColor="@color/alabaster"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
             android:id="@+id/originalTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
+            app:textColor="@color/alabaster"
+            app:textSize="14sp"
             app:title="Original title"
-            app:value="@{tv.original_name}" />
+            app:value="@{tv.originalName}" />
 
-        <com.indisparte.linearlayoutinfo.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
             android:id="@+id/status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
+            app:textColor="@color/alabaster"
+            app:textSize="14sp"
             app:title="Status"
             app:value="@{tv.status}" />
 
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+            android:id="@+id/tagline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:textSize="14sp"
+            app:hideIfValueEmpty="true"
+            app:textColor="@color/alabaster"
+            app:title="Tagline"
+            app:value="@{tv.tagline}" />
 
-        <com.indisparte.linearlayoutinfo.LinearInfoView
+
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
             android:id="@+id/originalLanguage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:textSize="14sp"
+            app:hideIfValueEmpty="true"
+            app:textColor="@color/alabaster"
             app:title="Original language"
-            app:value="@{tv.original_language}" />
+            app:value="@{tv.originalLanguage}" />
 
-        <com.indisparte.linearlayoutinfo.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
             android:id="@+id/firstAirDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
+            app:textColor="@color/alabaster"
             app:title="First air date"
-            app:value="@{tv.first_air_date}" />
+            app:textSize="14sp"
+            app:value="@{tv.firstAirDate}" />
 
-        <com.indisparte.linearlayoutinfo.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+            android:id="@+id/lastAirDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
+            app:textColor="@color/alabaster"
+            app:title="Last air date"
+            app:textSize="14sp"
+            app:value="@{tv.lastAirDate}" />
+
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
             android:id="@+id/numberOfEpisodes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
+            app:textSize="14sp"
+            app:textColor="@color/alabaster"
             app:title="Episodes"
-            app:value="@{String.valueOf(tv.number_of_episodes)}" />
+            app:value="@{String.valueOf(tv.numberOfEpisodes)}" />
 
-        <com.indisparte.linearlayoutinfo.LinearInfoView
+        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
             android:id="@+id/numberOfSeasons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:hideIfValueEmpty="true"
+            app:textColor="@color/alabaster"
+            app:textSize="14sp"
             app:title="Seasons"
-            app:value="@{String.valueOf(tv.number_of_seasons)}" />
+            app:value="@{String.valueOf(tv.numberOfSeasons)}" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

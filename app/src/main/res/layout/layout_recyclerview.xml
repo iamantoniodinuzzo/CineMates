@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<com.indisparte.recyclerviewemptystatesupport.RecyclerViewEmptyStateSupport xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:emptyText="Nothing here!"
+    app:emptyTextColor="@color/alabaster"
+    app:emptyTextSize="18sp"
+    app:icon="@drawable/ic_space"
+    app:iconHeight="100dp"
+    app:iconWidth="100dp"
+    tools:showIn="@layout/fragment_listing_items" />

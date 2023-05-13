@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="movie"
-            type="com.example.cinemates.model.Movie" />
+            name="media"
+            type="com.example.cinemates.domain.model.common.Media" />
     </data>
 
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,13 +13,13 @@
         android:layout_height="wrap_content">
 
         <include
-            layout="@layout/list_item_movie_small"
+            layout="@layout/list_item_media_small"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            app:movie="@{movie}" />
+            app:media="@{media}" />
 
     </RelativeLayout>
 </layout>

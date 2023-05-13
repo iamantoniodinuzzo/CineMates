@@ -8,7 +8,7 @@
 
         <variable
             name="section"
-            type="com.example.cinemates.model.Section" />
+            type="com.example.cinemates.domain.model.section.Section" />
     </data>
 
     <RelativeLayout
@@ -48,17 +48,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/linearLayoutCompat">
 
-            <com.example.cinemates.util.RecyclerViewEmptySupport
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/list_item_movie_small" />
+                tools:listitem="@layout/list_item_media_small" />
 
-            <include
-                android:id="@+id/empty_view"
-                layout="@layout/layout_empty_recycler" />
         </RelativeLayout>
 
 

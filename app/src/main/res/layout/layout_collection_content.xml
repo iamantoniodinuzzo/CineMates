@@ -7,48 +7,65 @@
 
         <variable
             name="collection"
-            type="com.example.cinemates.model.Collection" />
+            type="com.example.cinemates.domain.model.movie.Collection" />
 
         <import type="android.view.View" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:elevation="4dp"
+        android:layout_height="wrap_content"
         android:backgroundTint="@color/lynch_90"
-        app:cardCornerRadius="20dp">
+        android:elevation="4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/collection_title"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:textColor="@color/alabaster"
-                android:textSize="18sp"
-                android:text="@{collection.name}"
-                android:textStyle="bold"
-                tools:text="Collection title" />
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <TextView
+                    android:id="@+id/collection_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:text="@{collection.name}"
+                    android:textColor="@color/alabaster"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Collection title" />
+
+                <ImageButton
+                    android:id="@+id/close_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_baseline_close_24"
+                    app:tint="@color/vermilion_74" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/collectionParts"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/collection_title"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/header"
                 android:layout_centerInParent="true"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/list_item_movie_small" />
+                tools:listitem="@layout/list_item_media_small" />
 
 
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

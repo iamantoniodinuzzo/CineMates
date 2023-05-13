@@ -7,7 +7,7 @@
 
         <variable
             name="person"
-            type="com.example.cinemates.model.Person" />
+            type="com.example.cinemates.domain.model.credits.PersonDetails" />
 
         <import type="android.view.View" />
     </data>
@@ -46,7 +46,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="?attr/actionBarSize"
-                        app:path="@{person.profile_path}" />
+                        app:path="@{person.profilePath}" />
 
                     <TextView
                         android:id="@+id/actorName"
@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/actorName"
                         android:layout_centerHorizontal="true"
-                        android:text="@{person.known_for_department}"
+                        android:text="@{person.knownForDepartment}"
                         android:textColor="@color/alabaster"
                         android:textSize="14sp"
                         tools:text="@tools:sample/first_names" />

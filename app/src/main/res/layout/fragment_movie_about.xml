@@ -7,15 +7,7 @@
 
         <variable
             name="movie"
-            type="com.example.cinemates.model.Movie" />
-
-        <variable
-            name="poster_counter"
-            type="Integer" />
-
-        <variable
-            name="backdrop_counter"
-            type="Integer" />
+            type="com.example.cinemates.domain.model.movie.Movie" />
 
         <import type="android.view.View" />
     </data>
@@ -27,11 +19,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".view.ui.details.movie.MovieInfoFragment">
+            android:layout_height="match_parent">
 
 
-            <com.borjabravo.readmoretextview.ReadMoreTextView
+            <com.indisparte.morelesstextview.MoreLessTextView
                 android:id="@+id/readMoreTextV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,85 +31,52 @@
                 android:layout_marginEnd="10dp"
                 android:textColor="@color/alabaster"
                 android:textSize="14sp"
-                app:colorClickableText="@color/vermilion_100"
-                app:loadText="@{movie.overview}"
-                app:trimLength="200"
-                app:trimMode="trimModeLength"
-                tools:text="@tools:sample/lorem/random" />
-
-            <TextView
-                android:id="@+id/textTitleGenres"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/readMoreTextV"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:text="Genres"
-                android:textColor="@color/geyser"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                app:clickableColor="@color/vermilion_100"
+                app:maxLinesShown="2"
+                android:text="@{movie.overview}"
+                app:readLessText="Read less"
+                app:readMoreText="Read more"
+                tools:text="@tools:sample/lorem" />
 
             <com.indisparte.horizontalchipview.HorizontalChipView
                 android:id="@+id/chiGroupGenres"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textTitleGenres"
-                android:padding="10dp"/>
-
-            <TextView
-                android:id="@+id/textTitleInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/chiGroupGenres"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:text="Movie Info"
-                android:textColor="@color/alabaster"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_below="@id/readMoreTextV"
+                android:padding="10dp"
+                app:singleCheck="true"
+                app:chipStyle="@style/CustomChipChoiceStyle"
+                app:title="Genres"
+                app:titleColor="@color/alabaster"
+                app:titleSize="18sp"
+                app:titleStyle="bold" />
 
             <include
                 android:id="@+id/movie_info"
                 layout="@layout/layout_movie_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textTitleInfo"
+                android:layout_below="@id/chiGroupGenres"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
                 app:movie="@{movie}" />
 
-            <com.skydoves.transformationlayout.TransformationLayout
-                android:id="@+id/transformationLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/movie_info"
-                app:transformation_duration="550"
-                app:transformation_targetView="@+id/collection_content">
-
-                <include
-                    android:id="@+id/collection_cover"
-                    layout="@layout/layout_collection_cover"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"
-                    app:collection="@{movie.belongs_to_collection}" />
-            </com.skydoves.transformationlayout.TransformationLayout>
 
             <include
-                android:id="@+id/collection_content"
-                layout="@layout/layout_collection_content"
+                android:id="@+id/collection_cover"
+                layout="@layout/layout_collection_cover"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:visibility="gone"
-                app:collection="@{movie.belongs_to_collection}"
-                android:layout_centerInParent="true" />
+                android:layout_height="200dp"
+                android:layout_below="@id/movie_info"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                app:collection="@{movie.belongsToCollection}" />
 
             <TextView
                 android:id="@+id/trailer_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/transformationLayout"
+                android:layout_below="@id/collection_cover"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="Trailers"
@@ -126,7 +84,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <com.example.cinemates.util.RecyclerViewEmptySupport
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trailers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -134,40 +92,6 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_yt_video" />
-
-            <TextView
-                android:id="@+id/media_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/trailers"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:text="Media"
-                android:textColor="@color/alabaster"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/media_title"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <include
-                    android:id="@+id/posters_shower"
-                    layout="@layout/list_item_poster"
-                    app:counter="@{poster_counter}"
-                    app:path="@{movie.poster_path}" />
-
-                <include
-                    android:id="@+id/backdrops_shower"
-                    layout="@layout/list_item_backdrop"
-                    app:counter="@{backdrop_counter}"
-                    app:path="@{movie.backdrop_path}" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
 
         </RelativeLayout>
 

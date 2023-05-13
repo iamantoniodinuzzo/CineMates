@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -10,43 +9,21 @@
             type="String" />
 
         <variable
-            name="counter"
-            type="Integer" />
+            name="vote"
+            type="Double" />
 
-        <import type="android.view.View" />
+        <variable
+            name="url"
+            type="com.example.cinemates.data.ConstantsKt" />
+
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.indisparte.posterview.PosterView
         android:layout_width="100dp"
         android:layout_height="150dp"
-        android:layout_marginStart="10dp"
-        app:cardCornerRadius="5dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/geyser"
-                android:scaleType="centerCrop"
-                app:imageUrl="@{path}"
-                tools:src="@tools:sample/backgrounds/scenic" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:text='@{counter+" posters"}'
-                android:textColor="@color/alabaster"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="@{counter!=0 || counter!= null?View.VISIBLE:View.GONE}"
-                tools:text="20 poster" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+        app:imageSrc="@{url.IMAGE_BASE_URL_W780+path}"
+        app:posterRadius="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:rating="@{vote!=null?String.valueOf(vote):null}" />
 </layout>

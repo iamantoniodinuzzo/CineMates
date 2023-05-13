@@ -1,47 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
-        <variable
-            name="counter"
-            type="Integer" />
     </data>
 
-    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <include
+            android:id="@+id/layout_recyclerView"
+            layout="@layout/layout_recyclerview" />
+    </RelativeLayout>
 
-
-            <TextView
-                android:id="@+id/item_counter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:text='@{counter>1?counter+" items":counter+" item"}'
-                android:textColor="@color/alabaster"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:text='@tools:sample/us_zipcodes' />
-
-            <com.example.cinemates.util.RecyclerViewEmptySupport
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/item_counter"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3"
-                tools:listitem="@layout/list_item_movie_small" />
-
-            <include
-                android:id="@+id/empty_view"
-                layout="@layout/layout_empty_recycler" />
-        </RelativeLayout>
-    </androidx.core.widget.NestedScrollView>
 </layout>

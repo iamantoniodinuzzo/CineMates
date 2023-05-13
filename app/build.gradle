@@ -1,11 +1,10 @@
 plugins {
     id 'com.android.application'
-    id 'androidx.navigation.safeargs'
-    id 'dagger.hilt.android.plugin'
+    id 'org.jetbrains.kotlin.android'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.dagger.hilt.android'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
-    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 def apikeyPropertiesFile = rootProject.file("local.properties")
@@ -13,12 +12,12 @@ def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
-    compileSdk rootProject.COMPILE_SDK
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.cinemates"
-        minSdk rootProject.MIN_SDK
-        targetSdk rootProject.TARGET_SDK
+        minSdk 26
+        targetSdk 33
         versionCode 1
         versionName "1.0"
         // should correspond to key/value pairs inside the file
@@ -55,89 +54,53 @@ android {
 
 dependencies {
 
-    implementation "androidx.appcompat:appcompat:$appcompat"
-    implementation "com.google.android.material:material:$material"
-    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout"
-    implementation "androidx.legacy:legacy-support-v4:$legacy"
-    implementation "androidx.fragment:fragment-ktx:$fragment_ktx"
     implementation project(path: ':LinearLayoutInfo')
     implementation project(path: ':HorizontalChipView')
-    testImplementation "junit:junit:$junit"
-    androidTestImplementation "androidx.test.ext:junit:$junit_android"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_android"
+    implementation project(path: ':RecyclerViewEmptyStateSupport')
+    implementation project(path: ':MoreLessTextView')
+    implementation project(path: ':PosterView')
+
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraintLayout)
+    implementation(libs.legacy)
+    implementation(libs.fragmentKtx)
+    testImplementation(libs.junitTest)
+    androidTestImplementation(libs.junitAndroidTest)
+    androidTestImplementation(libs.espresso)
 
     // Kotlin Extensions
-    implementation "androidx.core:core-ktx:$ktx"
+    implementation(libs.core.ktx)
 
     // Kotlin Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines"
+    implementation(libs.bundles.coroutines)
 
-    // Kotlin Serialization
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlin_serialization_version"
-    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$kotlin_serialization_converter_version"
-
-    // Jetpack Navigation - Java
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation"
     // Jetpack Navigation - Kotlin
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation"
-
-    // Feature module Support
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:$navigation"
-
-    // Testing Navigation
-    androidTestImplementation "androidx.navigation:navigation-testing:$navigation"
+    implementation(libs.bundles.navigation)
 
     // Dagger Hilt
-    annotationProcessor "com.google.dagger:hilt-android-compiler:$dagger_hilt_compiler"
-    annotationProcessor "androidx.hilt:hilt-compiler:$hilt_compiler"
-    implementation "com.google.dagger:hilt-android:$dagger_hilt"
-    kapt "com.google.dagger:hilt-compiler:$dagger_hilt"
-
-    //RxJava
-    implementation "io.reactivex.rxjava3:rxandroid:$rx_java"
-    implementation "io.reactivex.rxjava3:rxjava:$rx_java"
+    implementation(libs.dagger.core)
+    kapt(libs.dagger.compiler)
 
     // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
-    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:$rx_java_retrofit_adapter"
-    implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor"
+    implementation(libs.bundles.retrofit)
+    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
+
+
 
     // Lifecycle Kotlin Extensions
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_ktx"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_ktx"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_viewmodel_ktx"
-
-    //Room
-    implementation "androidx.room:room-runtime:$room"
-    annotationProcessor "androidx.room:room-compiler:$room"
-    implementation "androidx.room:room-ktx:$room"
-    kapt "androidx.room:room-compiler:$room"
-    implementation "androidx.room:room-rxjava3:$room"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 
     // Glide
-    implementation "com.github.bumptech.glide:glide:$glide"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide"
-    implementation "com.zlc.glide:webpdecoder:$glide_webp_decoder"
-
-    // Work Manager
-    implementation "androidx.work:work-runtime-ktx:$work_manager"
-
-    // Google Play
-    implementation "com.google.android.play:core-ktx:$google_play"
+    implementation(libs.glide.core)
+    kapt(libs.glide.compiler)
 
     // Youtube
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
-
-    //ReadMore
-    implementation 'com.borjabravo:readmoretextview:2.1.0'
-
-    //Transformation Layout
-    implementation "com.github.skydoves:transformationlayout:1.1.1"
-
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.20"
 
 
 }

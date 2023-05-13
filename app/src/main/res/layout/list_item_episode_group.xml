@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="episodeGroup"
+            type="com.example.cinemates.domain.model.tv.EpisodeGroup" />
+        <variable
+            name="view"
+            type="android.view.View" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="200dp"
+        android:layout_marginEnd="10dp"
+        android:layout_height="150dp"
+        android:elevation="4dp"
+        app:cardBackgroundColor="@color/lynch_100"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/episode_group_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{episodeGroup.name}"
+                android:textColor="@color/alabaster"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="Episode Group name" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:text='@{episodeGroup.description}'
+                android:layout_below="@id/episode_group_name"
+                android:textColor="@color/alabaster"
+                tools:text="@tools:sample/lorem/random" />
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

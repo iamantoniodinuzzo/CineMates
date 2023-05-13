@@ -6,7 +6,7 @@
 
         <variable
             name="crew"
-            type="com.example.cinemates.model.Crew" />
+            type="com.example.cinemates.domain.model.credits.Crew" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,7 +19,7 @@
 
         <include
             layout="@layout/layout_person_avatar"
-            app:path="@{crew.profile_path}" />
+            app:path="@{crew.profilePath}" />
 
         <TextView
             android:id="@+id/tvTitle"

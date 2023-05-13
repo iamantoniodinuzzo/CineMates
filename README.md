@@ -48,7 +48,7 @@ Find a file called `local.properties` in the `.gradle` file in the home director
 
 **Home** | **Movie details** | **Actor details** | **Tv Details** | **Search** |
 :-----------------------------:|:-----------------------------:|:-----------------------------:|:-----------------------------:|:-----------------------------:
-![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/home.png) | ![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/movie_details.png) | ![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/actor_details.png) | ![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/tv_details.png)| ![](https://github.com/Indisparte/CineMates/blob/develop/assets/Gif/search.png) 
+![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/home.png) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/movie_details.png) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/actor_details.png) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/tv_details.png)| ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/search.png) 
 
 
 ## 🤝 Contributing 
@@ -81,5 +81,5 @@ If you have 💡 ideas 💡 you can submit them [here](https://github.com/Indisp
 [issues-shield]: https://img.shields.io/github/issues/Indisparte/CineMates.svg?style=for-the-badge
 [issues-url]: https://github.com/Indisparte/CineMates/issues
 [license-shield]: https://img.shields.io/github/license/Indisparte/CineMates.svg?style=for-the-badge
-[license-url]: https://github.com/Indisparte/repo_name/blob/master/LICENSE.txt
+[license-url]: https://github.com/Indisparte/CineMates/blob/main/LICENSE.txt
 [last-commit-shield]: https://img.shields.io/github/last-commit/Indisparte/CineMates.svg?style=for-the-badge

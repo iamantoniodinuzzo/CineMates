@@ -100,7 +100,7 @@ dependencies {
 
     // Youtube
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.21"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.22"
 
 
 }

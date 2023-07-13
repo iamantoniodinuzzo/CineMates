@@ -1,87 +1,141 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Ratatouille" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.CineMates" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/ratatouille_blu</item>
-        <item name="colorPrimaryVariant">@color/ratatouille_blu_variant</item>
-        <item name="colorOnPrimary">@color/ratatouille_on_primary</item>
+        <item name="colorPrimary">@color/mirage_100</item>
+        <item name="colorPrimaryVariant">@color/mirage_90</item>
+        <item name="colorOnPrimary">@color/alabaster</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/ratatouille_gray</item>
-        <item name="colorSecondaryVariant">@color/ratatouille_gray_variant</item>
-        <item name="colorOnSecondary">@color/ratatouille_on_secondary</item>
+        <item name="colorSecondary">@color/lynch_100</item>
+        <item name="colorSecondaryVariant">@color/lynch_90</item>
+        <item name="colorOnSecondary">@color/geyser</item>
+        <item name="colorAccent">@color/vermilion_100</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:statusBarColor">@color/lynch_100</item>
+        <item name="android:navigationBarColor">@color/lynch_100</item>
         <!-- Customize your theme here. -->
-        <item name="colorAccent">@color/ratatouille_orange</item>
-        <item name="android:windowBackground">@color/ratatouille_white</item>
+        <item name="android:windowBackground">@color/mirage_100</item>
+        <!-- Apply default style for dialogs -->
+        <item name="android:dialogTheme">@style/AppDialogTheme</item>
+        <item name="android:textColorHint">@color/geyser</item>
+        <item name="android:editTextColor">@color/white</item>
+        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+        <item name="materialAlertDialogTheme">@style/AppDialogTheme</item>
     </style>
 
-    <style name="HugeTitleTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">?attr/colorOnSecondary</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
+    <!-- TabLayout Style-->
+    <style name="Tab_Layout_Small" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabIndicator">@drawable/tab_indicator</item>
+        <item name="tabIndicatorColor">@color/vermilion_100</item>
+        <item name="tabSelectedTextColor">@color/vermilion_100</item>
+        <item name="tabMode">auto</item>
+        <item name="android:background">@color/lynch_100</item>
+        <item name="tabTextAppearance">@style/MyCustomTextAppearanceSmallTab</item>
+        <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabGravity">center</item>
+        <item name="tabTextColor">@color/geyser</item>
     </style>
 
-    <style name="SmallTitleTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">?attr/colorOnSecondary</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
+    <style name="Tab_Layout_Huge" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabIndicatorColor">@android:color/transparent</item>
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabSelectedTextColor">@color/alabaster</item>
+        <item name="tabMode">scrollable</item>
+        <item name="android:background">@color/lynch_100</item>
+        <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>
+        <item name="tabTextColor">@color/geyser</item>
     </style>
 
-    <style name="BodyTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">?attr/colorOnSecondary</item>
-        <item name="android:textSize">16sp</item>
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">32sp</item>
         <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/lato_bold</item>
     </style>
 
+    <style name="MyCustomTextAppearanceSmallTab" parent="MyCustomTextAppearance">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+    <!--  Fine TabLayout Style-->
 
-    <style name="CustomDialogStyle" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
-        <item name="android:windowBackground">@drawable/custom_dialog_background</item>
-        <item name="android:windowMinWidthMajor">90%</item>
-        <item name="android:windowMinWidthMinor">90%</item>
-        <item name="materialButtonStyle">@style/CustomMaterialButton</item>
+    <style name="item_title_style">
+        <item name="android:textColor">@color/alabaster</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="CustomMaterialButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+    <!-- Define your custom dialog theme here extending from base -->
+    <style name="AppDialogTheme" parent="Theme.MaterialComponents.Dialog.Alert">
+        <!-- Define color properties as desired -->
+        <item name="colorPrimary">@color/lynch_100</item>
+        <item name="colorPrimaryDark">@color/mirage_100</item>
+        <item name="android:textColorHighlight">@color/royal_blue_100</item>
+        <item name="colorAccent">@color/vermilion_100</item>
+        <item name="colorControlNormal">@color/alabaster</item>
+        <item name="buttonBarButtonStyle">@style/DialogButtonStyle</item>
+        <item name="android:textSize">14sp</item>
+        <!-- Define window properties as desired -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:background">@color/lynch_100</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Alert.Button.Positive</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <style name="Alert.Button.Positive" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="rippleColor">@color/vermilion_100</item>
+        <item name="android:textColor">@color/alabaster</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="PrimaryCustomMaterialButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textAllCaps">false</item> <!-- Set textAllCaps to true or false -->
-        <item name="android:textStyle">normal</item> <!-- Set textStyle to normal, bold, italic, etc. -->
-        <item name="android:textSize">16sp</item> <!-- Set textSize to your desired size -->
-        <item name="android:textColor">?colorOnPrimary</item> <!-- Set textSize to your desired size -->
-        <item name="android:backgroundTint">?colorAccent</item> <!-- Set backgroundTint to your desired color -->
+    <!-- Define your custom bottom sheet dialog theme here extending from base -->
+    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+    </style>
+
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+        <item name="android:backgroundTint">@color/lynch_100</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <!-- Define your custom alert theme here extending from base -->
+    <style name="DialogButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/vermilion_100</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="CardViewCustom" parent="Widget.MaterialComponents.CardView">
+        <item name="background">@drawable/gradient_filter_bg</item>
     </style>
 
 
-    <style name="SecondaryCustomMaterialButtonStyle" parent="@style/Widget.MaterialComponents.Button">
-        <item name="android:textAllCaps">false</item> <!-- Set textAllCaps to true or false -->
-        <item name="android:textStyle">normal
-        </item> <!-- Set textStyle to normal, bold, italic, etc. -->
-        <item name="android:textSize">16sp</item> <!-- Set textSize to your desired size -->
-        <item name="android:textColor">?colorOnSecondary
-        </item> <!-- Set textSize to your desired size -->
-        <item name="android:backgroundTint">@color/ratatouille_white</item>
+    <style name="CustomFilterChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@color/background_color_chip_state_list</item>
+        <item name="chipStrokeColor">@color/royal_blue_100</item>
+        <item name="chipStrokeWidth">2dp</item>
+        <item name="chipCornerRadius">10dp</item>
+        <item name="android:textColor">@color/alabaster</item>
     </style>
 
-    <style name="CustomSwitchMaterialStyle" parent="Widget.MaterialComponents.CompoundButton.Switch">
-        <item name="android:textColor">?colorOnSecondary</item> <!-- Set text color -->
-        <item name="android:textStyle">normal</item>
-        <item name="trackTint">?colorSecondary</item> <!-- Set track tint color -->
+    <style name="CustomChipChoiceStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/background_color_chip_state_list</item>
+        <item name="chipStrokeColor">@color/royal_blue_100</item>
+        <item name="chipStrokeWidth">2dp</item>
+        <item name="chipCornerRadius">10dp</item>
+        <item name="android:textColor">@color/alabaster</item>
     </style>
-
-    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">?colorAccent</item>
-        <item name="boxStrokeWidth">2dp</item>
-    </style>
-
-    <style name="CustomMaterialCardViewStyle" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/white</item> <!-- Set the background color -->
-        <item name="cardCornerRadius">@dimen/base_corner_radius</item> <!-- Set the corner radius -->
-        <item name="cardElevation">4dp</item> <!-- Set the elevation -->
-    </style>
-
 
 
 

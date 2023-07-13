@@ -59,6 +59,7 @@ dependencies {
     implementation project(path: ':RecyclerViewEmptyStateSupport')
     implementation project(path: ':MoreLessTextView')
     implementation project(path: ':PosterView')
+    implementation project(':core:ui')
 
     implementation(libs.appcompat)
     implementation(libs.material)

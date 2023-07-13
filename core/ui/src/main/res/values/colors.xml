@@ -10,25 +10,25 @@
     <color name="grey">#BDBDBD</color>
     <color name="white">#FFFFFF</color>
 
-    <!--   Light Palette Ratatouille-->
-    <color name="ratatouille_blu">#3E73BD</color>
-    <color name="ratatouille_blu_variant">#3062A1</color>
-    <color name="ratatouille_gray">#777777</color>
-    <color name="ratatouille_gray_variant">#555555</color>
-    <color name="ratatouille_orange">#FF8C00</color>
-    <color name="ratatouille_white">#F8F6F0</color>
-    <color name="ratatouille_on_primary">#F8F6F0</color>
-    <color name="ratatouille_on_secondary">#FF000000</color>
 
-    <!--    Dark palette Ratatouille-->
-    <color name="ratatouille_black">#FF000000</color>
-    <color name="ratatouille_black_variant">#222222</color>
-    <color name="ratatouille_indigo">#009688</color>
-    <color name="ratatouille_indigo_variant">#B2DFDB</color>
-    <color name="ratatouille_purple">#800080</color>
-    <color name="ratatouille_dark_grey">#333333</color>
-    <color name="ratatouille_on_primary_dark">#F8F6F0</color>
-    <color name="ratatouille_on_secondary_dark">#F8F6F0</color>
+    <!-- Primary color -->
+    <color name="mirage_100">#151D26</color>
+    <!-- Primary color variant-->
+    <color name="mirage_90">#E6151D26</color>
+    <!-- Secondary color  -->
+    <color name="lynch_100">#1D2633</color>
+    <!-- Secondary color variant-->
+    <color name="lynch_90">#E61D2633</color>
+    <!-- Other colors-->
+    <color name="blue_stone_100">#026258</color>
+    <color name="vermilion_100">#D84315</color>
+    <color name="vermilion_74">#BDD84315</color>
+    <color name="alabaster">#FAFAFA</color>
+    <color name="geyser">#CFD8DC</color>
+    <color name="royal_blue_100">#3A55EA</color>
+    <color name="royal_blue_70">#B33A55EA</color>
+    <color name="fern_frond_100">#487B1E</color>
+    <color name="fern_frond_70">#B3487B1E</color>
 
 <!--    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/ratatouille_on_primary</color>-->
 

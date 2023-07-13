@@ -1,8 +1,13 @@
 package com.indisparte.movie.source
 
 import android.graphics.Movie
+import com.indisparte.movie.response.CreditResponseDTO
+import com.indisparte.movie.response.GenreResponseDTO
+import com.indisparte.movie.response.ImagesResponseDTO
 import com.indisparte.movie.util.GenericResponse
 import com.indisparte.movie.response.MovieDTO
+import com.indisparte.movie.response.MovieDetailsDTO
+import com.indisparte.movie.response.VideoResponseDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -34,5 +39,38 @@ interface MovieDataSource {
         @Path("time_window") time_window: String,
         @QueryMap queries: Map<String, String>
     ): Response<GenericResponse<MovieDTO>>
+
+    @GET("movie/{movie_id}")
+    suspend fun getDetails(
+        @Path("movie_id") id: Int,
+        @QueryMap queries: Map<String, String>
+    ): Response<MovieDetailsDTO>
+
+    @GET("movie/{movie_id}/credits")
+    suspend fun getCredits(
+        @Path("movie_id") id: Int,
+        @QueryMap queries: Map<String, String>
+    ): Response<CreditResponseDTO>
+
+    @GET("movie/{movie_id}/similar")
+    suspend fun getSimilar(
+        @Path("movie_id") movie_id: Int,
+        @QueryMap queries: Map<String, String>
+    ): Response<GenericResponse<MovieDTO>>
+
+    @GET("movie/{movie_id}/videos")
+    suspend fun getVideos(
+        @Path("movie_id") movie_id: Int,
+        @QueryMap queries: Map<String, String>
+    ): Response<VideoResponseDTO>
+
+    @GET("movie/{movie_id}/images")
+    suspend fun getImages(
+        @Path("movie_id") movie_id: Int,
+        @QueryMap queries: Map<String, String>
+    ): Response<ImagesResponseDTO>
+
+    @GET("genre/movie/list")
+    suspend fun getGenreList(@QueryMap queries: Map<String, String>): Response<GenreResponseDTO>
 
 }

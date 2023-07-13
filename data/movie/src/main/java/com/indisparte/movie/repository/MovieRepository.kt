@@ -1,7 +1,9 @@
 package com.indisparte.movie.repository
 
+import com.indisparte.model.entity.Cast
+import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Movie
-import com.indisparte.movie.response.MovieDTO
+import com.indisparte.model.entity.MovieDetails
 import com.indisparte.movie.util.MediaFilter
 import com.indisparte.movie.util.MediaListSpecification
 import com.indisparte.movie.util.TimeWindow
@@ -18,5 +20,10 @@ interface MovieRepository {
     suspend fun getTrending(timeWindow: TimeWindow): Flow<Resource<List<Movie>>>
     suspend fun getBySearch(query: String): Flow<Resource<List<Movie>>>
     suspend fun getDiscoverable(mediaFilter: MediaFilter): Flow<Resource<List<Movie>>>
+    suspend fun getDetails(movieId: Int): Flow<Resource<MovieDetails>>
+    suspend fun getSimilar(movieId: Int): Flow<Resource<List<Movie>>>
+//    suspend fun getImages(movieId: Int): Flow<Resource<List<ImageDTO>>>
+    suspend fun getCast(movieId: Int): Flow<Resource<List<Cast>>>
+    suspend fun getCrew(movieId: Int): Flow<Resource<List<Crew>>>
 
 }

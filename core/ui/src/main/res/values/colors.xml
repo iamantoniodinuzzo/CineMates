@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--    Android palette-->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="grey">#BDBDBD</color>
+    <color name="white">#FFFFFF</color>
+
+    <!--   Light Palette Ratatouille-->
+    <color name="ratatouille_blu">#3E73BD</color>
+    <color name="ratatouille_blu_variant">#3062A1</color>
+    <color name="ratatouille_gray">#777777</color>
+    <color name="ratatouille_gray_variant">#555555</color>
+    <color name="ratatouille_orange">#FF8C00</color>
+    <color name="ratatouille_white">#F8F6F0</color>
+    <color name="ratatouille_on_primary">#F8F6F0</color>
+    <color name="ratatouille_on_secondary">#FF000000</color>
+
+    <!--    Dark palette Ratatouille-->
+    <color name="ratatouille_black">#FF000000</color>
+    <color name="ratatouille_black_variant">#222222</color>
+    <color name="ratatouille_indigo">#009688</color>
+    <color name="ratatouille_indigo_variant">#B2DFDB</color>
+    <color name="ratatouille_purple">#800080</color>
+    <color name="ratatouille_dark_grey">#333333</color>
+    <color name="ratatouille_on_primary_dark">#F8F6F0</color>
+    <color name="ratatouille_on_secondary_dark">#F8F6F0</color>
+
+<!--    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/ratatouille_on_primary</color>-->
+
+
+
+</resources>

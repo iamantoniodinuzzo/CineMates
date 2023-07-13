@@ -1,6 +1,5 @@
 package com.example.cinemates.data
 
-import com.example.cinemates.BuildConfig
 
 /**
  * @author Antonio Di Nuzzo

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="base_margin">20dp</dimen>
+    <dimen name="base_corner_radius">20dp</dimen>
+    <dimen name="grid_spacing">10dp</dimen>
+</resources>

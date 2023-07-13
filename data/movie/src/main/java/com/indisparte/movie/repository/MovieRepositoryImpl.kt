@@ -8,10 +8,9 @@ import com.indisparte.movie.mapper.mapToCast
 import com.indisparte.movie.mapper.mapToCrew
 import com.indisparte.movie.mapper.toMovie
 import com.indisparte.movie.mapper.toMovieDetails
-import com.indisparte.movie.response.MovieDTO
 import com.indisparte.movie.source.MovieDataSource
 import com.indisparte.movie.util.MediaFilter
-import com.indisparte.movie.util.MediaListSpecification
+import com.indisparte.movie.util.MovieListType
 import com.indisparte.movie.util.TimeWindow
 import com.indisparte.network.Resource
 import kotlinx.coroutines.flow.Flow
@@ -29,12 +28,12 @@ constructor(
     private val queryMap: MutableMap<String, String>,
 ) : MovieRepository {
 
-    override suspend fun getSpecificList(specification: MediaListSpecification): Flow<Resource<List<Movie>>> =
+    override suspend fun getByListType(movieListType: MovieListType): Flow<Resource<List<Movie>>> =
         flow {
             emit(Resource.Loading()) // Emit loading state
 
             try {
-                val response = movieService.getListOfSpecificMovies(specification.value, queryMap)
+                val response = movieService.getListOfSpecificMovies(movieListType.value, queryMap)
                 if (response.isSuccessful) {
                     val specificListResponse = response.body()
                     if (specificListResponse != null) {
@@ -234,8 +233,6 @@ constructor(
                 emit(Resource.Error(e)) // Emit error state with the exception
             }
         }
-
-
 
 
 }

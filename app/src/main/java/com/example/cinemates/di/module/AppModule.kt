@@ -20,7 +20,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideQueryMap(): MutableMap<String, String> {
-        val result: MutableMap<String, String> = HashMap()
+        val result: MutableMap<String, String> = mutableMapOf()
 
         // Add default language parameter
         result["language"] = Locale.getDefault().language
@@ -29,10 +29,10 @@ object AppModule {
         addQueryParam(result, "page", "1")
 
         // Add default append_to_response parameter
-        addQueryParam(result, "append_to_response", "images")
+//        addQueryParam(result, "append_to_response", "images")
 
         // Add default include_image_language parameter
-        addQueryParam(result, "include_image_language", Locale.getDefault().language)
+//        addQueryParam(result, "include_image_language", Locale.getDefault().language)
 
         return result
     }

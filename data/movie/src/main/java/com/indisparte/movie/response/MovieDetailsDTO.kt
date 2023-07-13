@@ -24,15 +24,15 @@ data class MovieDetailsDTO(
     @SerializedName("poster_path")
     val posterPath: String,
     @SerializedName("production_companies")
-    val productionCompanies: List<ProductionCompanyDTO>,
+    val productionCompanies: List<com.indisparte.response.ProductionCompanyDTO>,
     @SerializedName("production_countries")
-    val productionCountries: List<ProductionCountryDTO>,
+    val productionCountries: List<com.indisparte.response.ProductionCountryDTO>,
     @SerializedName("release_date")
     val releaseDate: String,
     val revenue: Int,
     val runtime: Int,
     @SerializedName("spoken_languages")
-    val spokenLanguages: List<SpokenLanguageDTO>,
+    val spokenLanguages: List<com.indisparte.response.SpokenLanguageDTO>,
     val status: String,
     val tagline: String,
     val title: String,

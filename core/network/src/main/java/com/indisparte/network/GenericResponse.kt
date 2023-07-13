@@ -1,4 +1,4 @@
-package com.indisparte.movie.util
+package com.indisparte.network
 
 import com.google.gson.annotations.SerializedName
 

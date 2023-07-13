@@ -35,6 +35,7 @@ android {
 dependencies {
 
     implementation project(":core:model")
+    implementation project(":core:response")
     implementation project(":core:network")
 
     implementation libs.bundles.androidX

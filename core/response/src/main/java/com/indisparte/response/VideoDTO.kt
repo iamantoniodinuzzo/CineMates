@@ -1,9 +1,9 @@
-package com.indisparte.movie.response
+package com.indisparte.response
 
 
 import com.google.gson.annotations.SerializedName
 
-data class ResultDTO(
+data class VideoDTO(
     val id: String,
     @SerializedName("iso_3166_1")
     val iso31661: String,

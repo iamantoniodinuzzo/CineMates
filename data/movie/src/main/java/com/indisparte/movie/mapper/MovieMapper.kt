@@ -10,14 +10,11 @@ import com.indisparte.model.entity.ProductionCompany
 import com.indisparte.model.entity.ProductionCountry
 import com.indisparte.model.entity.SpokenLanguage
 import com.indisparte.movie.response.BelongsToCollectionDTO
-import com.indisparte.movie.response.CastDTO
-import com.indisparte.movie.response.CrewDTO
+import com.indisparte.response.CastDTO
+import com.indisparte.response.CrewDTO
 import com.indisparte.movie.response.GenreDTO
 import com.indisparte.movie.response.MovieDTO
 import com.indisparte.movie.response.MovieDetailsDTO
-import com.indisparte.movie.response.ProductionCompanyDTO
-import com.indisparte.movie.response.ProductionCountryDTO
-import com.indisparte.movie.response.SpokenLanguageDTO
 
 
 /**
@@ -76,15 +73,15 @@ fun GenreDTO.mapToGenre(): Genre {
     return Genre(id = this.id, name = this.name)
 }
 
-fun ProductionCompanyDTO.mapToProductionCompany(): ProductionCompany {
+fun com.indisparte.response.ProductionCompanyDTO.mapToProductionCompany(): ProductionCompany {
     return ProductionCompany(id = this.id, logoPath = this.logoPath, name = this.name)
 }
 
-fun ProductionCountryDTO.mapToProductionCountry(): ProductionCountry {
+fun com.indisparte.response.ProductionCountryDTO.mapToProductionCountry(): ProductionCountry {
     return ProductionCountry(name = this.name)
 }
 
-fun SpokenLanguageDTO.mapToSpokenLanguage(): SpokenLanguage {
+fun com.indisparte.response.SpokenLanguageDTO.mapToSpokenLanguage(): SpokenLanguage {
     return SpokenLanguage(englishName = this.englishName, name = this.name)
 }
 

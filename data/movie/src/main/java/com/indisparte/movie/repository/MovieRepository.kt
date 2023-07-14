@@ -24,5 +24,9 @@ interface MovieRepository {
     suspend fun getSimilar(movieId: Int): Flow<Resource<List<Movie>>>
     suspend fun getCast(movieId: Int): Flow<Resource<List<Cast>>>
     suspend fun getCrew(movieId: Int): Flow<Resource<List<Crew>>>
+    suspend fun getWatchProviders(
+        movieId: Int,
+        country: String,
+    ): Flow<Resource<List<CountryResult>>>
 
 }

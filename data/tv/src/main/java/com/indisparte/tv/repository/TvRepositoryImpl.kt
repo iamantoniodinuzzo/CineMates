@@ -3,6 +3,7 @@ package com.indisparte.tv.repository
 import com.indisparte.model.MediaFilter
 import com.indisparte.model.TimeWindow
 import com.indisparte.model.entity.Cast
+import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.EpisodeGroup
 import com.indisparte.model.entity.EpisodeGroupDetails
@@ -13,6 +14,7 @@ import com.indisparte.network.Resource
 import com.indisparte.network.getListFromResponse
 import com.indisparte.network.getSingleFromResponse
 import com.indisparte.tv.mapper.mapToCast
+import com.indisparte.tv.mapper.mapToCountryResult
 import com.indisparte.tv.mapper.mapToCrew
 import com.indisparte.tv.mapper.mapToEpisodeGroup
 import com.indisparte.tv.mapper.mapToEpisodeGroupDetails
@@ -129,4 +131,13 @@ constructor(
         mapper = { response -> response.mapToSeasonDetails() }
     )
 
+    override suspend fun getWatchProviders(
+        tvId: Int,
+        country: String,
+    ): Flow<Resource<List<CountryResult>>> = getListFromResponse(
+        request = { tvDataSource.getWatchProviders(tvId, queryMap) },
+        mapper = { response ->
+            response.getCountryResultByCountry(country).map { it.mapToCountryResult() }
+        }
+    )
 }

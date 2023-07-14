@@ -1,14 +1,14 @@
-package com.indisparte.watch_provider.mapper
+package com.indisparte.tv.mapper
 
 import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.WatchProvider
-import com.indisparte.watch_provider.response.CountryResultDTO
-import com.indisparte.watch_provider.response.WatchProviderDTO
+import com.indisparte.response.CountryResultDTO
+import com.indisparte.response.WatchProviderDTO
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-fun com.indisparte.watch_provider.response.CountryResultDTO.mapToCountryResult(): CountryResult {
+fun CountryResultDTO.mapToCountryResult(): CountryResult {
     return CountryResult(
         link = this.link,
         flatrate = this.flatrate?.map { it.mapToWatchProvider() },
@@ -18,7 +18,7 @@ fun com.indisparte.watch_provider.response.CountryResultDTO.mapToCountryResult()
     )
 }
 
-fun com.indisparte.watch_provider.response.WatchProviderDTO.mapToWatchProvider(): WatchProvider {
+fun WatchProviderDTO.mapToWatchProvider(): WatchProvider {
     return WatchProvider(
         displayPriority = this.displayPriority,
         logoPath = this.logoPath,

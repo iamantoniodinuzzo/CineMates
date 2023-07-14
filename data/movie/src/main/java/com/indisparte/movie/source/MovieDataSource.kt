@@ -2,13 +2,13 @@ package com.indisparte.movie.source
 
 import com.indisparte.movie.response.CastDTO
 import com.indisparte.movie.response.CrewDTO
-import com.indisparte.response.GenreResponseDTO
-import com.indisparte.response.ImagesResponseDTO
 import com.indisparte.movie.response.MovieDTO
 import com.indisparte.movie.response.MovieDetailsDTO
-import com.indisparte.response.VideoResponseDTO
 import com.indisparte.network.GenericResponse
 import com.indisparte.response.CreditResponseDTO
+import com.indisparte.response.GenreResponseDTO
+import com.indisparte.response.ImagesResponseDTO
+import com.indisparte.response.VideoResponseDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

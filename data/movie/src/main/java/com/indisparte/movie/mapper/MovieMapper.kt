@@ -10,8 +10,8 @@ import com.indisparte.model.entity.ProductionCompany
 import com.indisparte.model.entity.ProductionCountry
 import com.indisparte.model.entity.SpokenLanguage
 import com.indisparte.movie.response.BelongsToCollectionDTO
-import com.indisparte.movie.response.CastDTO
-import com.indisparte.movie.response.CrewDTO
+import com.indisparte.movie.response.PersonAsMovieCastDTO
+import com.indisparte.movie.response.PersonAsMovieCrewDTO
 import com.indisparte.movie.response.MovieDTO
 import com.indisparte.movie.response.MovieDetailsDTO
 import com.indisparte.response.GenreDTO
@@ -88,7 +88,7 @@ fun SpokenLanguageDTO.mapToSpokenLanguage(): SpokenLanguage {
     return SpokenLanguage(englishName = this.englishName, name = this.name)
 }
 
-fun CastDTO.mapToCast(): Cast {
+fun PersonAsMovieCastDTO.mapToCast(): Cast {
     return Cast(
         adult = this.adult,
         castId = this.castId,
@@ -105,7 +105,7 @@ fun CastDTO.mapToCast(): Cast {
     )
 }
 
-fun CrewDTO.mapToCrew(): Crew {
+fun PersonAsMovieCrewDTO.mapToCrew(): Crew {
     return Crew(
         adult = this.adult,
         creditId = this.creditId,

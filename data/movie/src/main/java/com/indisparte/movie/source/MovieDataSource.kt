@@ -4,10 +4,9 @@ import com.indisparte.movie.response.CastDTO
 import com.indisparte.movie.response.CrewDTO
 import com.indisparte.movie.response.MovieDTO
 import com.indisparte.movie.response.MovieDetailsDTO
-import com.indisparte.movie.response.WatchProvidersResponseDTO
+import com.indisparte.response.WatchProvidersResponseDTO
 import com.indisparte.network.GenericResponse
 import com.indisparte.response.CreditResponseDTO
-import com.indisparte.response.GenreResponseDTO
 import com.indisparte.response.ImagesResponseDTO
 import com.indisparte.response.VideoResponseDTO
 import retrofit2.Response

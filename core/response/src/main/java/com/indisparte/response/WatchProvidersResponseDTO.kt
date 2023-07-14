@@ -1,4 +1,4 @@
-package com.indisparte.movie.response
+package com.indisparte.response
 
 
 data class WatchProvidersResponseDTO(

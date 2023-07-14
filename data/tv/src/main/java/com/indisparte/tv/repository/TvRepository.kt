@@ -7,6 +7,7 @@ import com.indisparte.model.entity.Cast
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Genre
 import com.indisparte.model.TimeWindow
+import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.EpisodeGroup
 import com.indisparte.model.entity.EpisodeGroupDetails
 import com.indisparte.model.entity.SeasonDetails
@@ -33,4 +34,8 @@ interface TvRepository {
     suspend fun getEpisodeGroup(id: Int): Flow<Resource<List<EpisodeGroup>>>
     suspend fun getEpisodeGroupDetails(episodeGroupId: String): Flow<Resource<EpisodeGroupDetails>>
     suspend fun getSeasonDetails(tvId:Int, seasonNumber:Int): Flow<Resource<SeasonDetails>>
+    suspend fun getWatchProviders(
+        tvId: Int,
+        country: String,
+    ): Flow<Resource<List<CountryResult>>>
 }

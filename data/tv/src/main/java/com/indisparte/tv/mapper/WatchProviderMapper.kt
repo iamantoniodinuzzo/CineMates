@@ -1,4 +1,4 @@
-package com.indisparte.movie.mapper
+package com.indisparte.tv.mapper
 
 import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.WatchProvider

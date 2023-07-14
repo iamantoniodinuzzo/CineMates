@@ -5,6 +5,7 @@ import com.indisparte.response.CreditResponseDTO
 import com.indisparte.response.GenreResponseDTO
 import com.indisparte.response.ImagesResponseDTO
 import com.indisparte.response.VideoResponseDTO
+import com.indisparte.response.WatchProvidersResponseDTO
 import com.indisparte.tv.response.CastDTO
 import com.indisparte.tv.response.CrewDTO
 import com.indisparte.tv.response.EpisodeGroupDTO
@@ -91,4 +92,10 @@ interface TvDataSource {
         @Path("time_window") time_window: String,
         @QueryMap queries: Map<String, String>,
     ): Response<GenericResponse<TvShowDTO>>
+
+    @GET("tv/{series_id}/watch/providers")
+    suspend fun getWatchProviders(
+        @Path("series_id") tvId: Int,
+        @QueryMap queries: Map<String, String>
+    ):Response<WatchProvidersResponseDTO>
 }

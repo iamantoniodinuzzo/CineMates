@@ -1,17 +1,24 @@
 package com.indisparte.model.entity
 
 
-
-data class Crew(
-    val adult: Boolean,
+class Crew(
+    adult: Boolean,
     val creditId: String,
     val department: String,
-    val gender: Int,
-    val id: Int,
+    gender: Int,
+    id: Int,
     val job: String,
-    val knownForDepartment: String,
-    val name: String,
+    knownForDepartment: String,
+    name: String,
     val originalName: String,
-    val popularity: Double,
-    val profilePath: String?
+    popularity: Double,
+    profilePath: String?,
+) : PersonBase(
+    adult = adult,
+    gender = gender,
+    id = id,
+    knownForDepartment = knownForDepartment,
+    name = name,
+    popularity = popularity,
+    profilePath = profilePath
 )

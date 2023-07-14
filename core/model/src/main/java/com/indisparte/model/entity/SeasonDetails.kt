@@ -1,15 +1,23 @@
 package com.indisparte.model.entity
 
 
-
-data class SeasonDetails(
-    val airDate: String,
+ class SeasonDetails(
+     airDate: String,
     val episodes: List<Episode>,
-    val id: String,
+     id: String,
     val seasonId: Int,
-    val name: String,
-    val overview: String,
-    val posterPath: String,
-    val seasonNumber: Int,
-    val voteAverage: Int
+     name: String,
+     overview: String,
+     posterPath: String,
+     seasonNumber: Int,
+     voteAverage: Int,
+) : Season(
+    airDate = airDate,
+    episodeCount = episodes.size,
+    id = id.toInt(),
+    name = name,
+    overview = overview,
+    posterPath = posterPath,
+    seasonNumber = seasonNumber,
+    voteAverage = voteAverage
 )

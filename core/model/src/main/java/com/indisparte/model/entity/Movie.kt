@@ -3,7 +3,7 @@ package com.indisparte.model.entity
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-data class Movie(
+open class Movie(
     val adult: Boolean,
     val id: Int,
     val popularity: Double,

@@ -1,14 +1,22 @@
 package com.indisparte.model.entity
 
 
-
-data class Person(
-    val adult: Boolean,
-    val gender: Int,
-    val id: Int,
+class Person(
+    adult: Boolean,
+    gender: Int,
+    id: Int,
     val knownFor: List<KnownFor>,
-    val knownForDepartment: String,
-    val name: String,
-    val popularity: Double,
-    val profilePath: String
+    knownForDepartment: String,
+    name: String,
+    popularity: Double,
+    profilePath: String,
+) : PersonBase(
+    adult = adult,
+    gender = gender,
+    id = id,
+    knownForDepartment = knownForDepartment,
+    name = name,
+    popularity = popularity,
+    profilePath = profilePath
 )
+

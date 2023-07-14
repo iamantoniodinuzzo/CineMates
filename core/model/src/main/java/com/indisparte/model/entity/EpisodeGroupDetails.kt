@@ -1,14 +1,21 @@
 package com.indisparte.model.entity
 
 
-
-data class EpisodeGroupDetails(
-    val description: String,
-    val episodeCount: Int,
-    val groupCount: Int,
+class EpisodeGroupDetails(
+    description: String,
+    episodeCount: Int,
+    groupCount: Int,
     val groups: List<Group>,
-    val id: String,
-    val name: String,
-    val network: Network?,
-    val type: Int
+    id: String,
+    name: String,
+    network: Network?,
+    type: Int,
+) : EpisodeGroup(
+    description = description,
+    episodeCount = episodeCount,
+    groupCount = groupCount,
+    id = id,
+    name = name,
+    network = network?.name,
+    type = type
 )

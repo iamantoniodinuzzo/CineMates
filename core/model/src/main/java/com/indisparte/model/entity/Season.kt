@@ -2,7 +2,7 @@ package com.indisparte.model.entity
 
 
 
-data class Season(
+open class Season(
     val airDate: String,
     val episodeCount: Int,
     val id: Int,

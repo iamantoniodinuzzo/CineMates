@@ -55,6 +55,12 @@ interface MovieDataSource {
         @QueryMap queries: Map<String, String>,
     ): Response<ImagesResponseDTO>
 
+    @GET("movie/{movie_id}/watch/providers")
+    suspend fun getWatchProviders(
+        @Path("movie_id") movieId: Int,
+        @QueryMap queries: Map<String, String>
+    ):Response<WatchProvidersResponseDTO>
+
     @GET("search/movie")
     suspend fun getBySearch(@QueryMap queries: Map<String, String>): Response<GenericResponse<MovieDTO>>
 
@@ -66,10 +72,4 @@ interface MovieDataSource {
         @Path("time_window") time_window: String,
         @QueryMap queries: Map<String, String>,
     ): Response<GenericResponse<MovieDTO>>
-
-    @GET("movie/{movie_id}/watch/providers")
-    suspend fun getWatchProviders(
-        @Path("movie_id") movieId: Int,
-        @QueryMap queries: Map<String, String>
-    ):Response<WatchProvidersResponseDTO>
 }

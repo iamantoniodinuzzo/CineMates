@@ -2,7 +2,6 @@ package com.indisparte.tv.source
 
 import com.indisparte.network.GenericResponse
 import com.indisparte.response.CreditResponseDTO
-import com.indisparte.response.GenreResponseDTO
 import com.indisparte.response.ImagesResponseDTO
 import com.indisparte.response.VideoResponseDTO
 import com.indisparte.response.WatchProvidersResponseDTO
@@ -96,6 +95,7 @@ interface TvDataSource {
     @GET("tv/{series_id}/watch/providers")
     suspend fun getWatchProviders(
         @Path("series_id") tvId: Int,
-        @QueryMap queries: Map<String, String>
-    ):Response<WatchProvidersResponseDTO>
+        @QueryMap queries: Map<String, String>,
+    ): Response<WatchProvidersResponseDTO>
+
 }

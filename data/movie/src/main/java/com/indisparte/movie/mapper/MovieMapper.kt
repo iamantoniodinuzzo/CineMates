@@ -9,6 +9,7 @@ import com.indisparte.model.entity.MovieDetails
 import com.indisparte.model.entity.ProductionCompany
 import com.indisparte.model.entity.ProductionCountry
 import com.indisparte.model.entity.SpokenLanguage
+import com.indisparte.model.entity.Video
 import com.indisparte.movie.response.BelongsToCollectionDTO
 import com.indisparte.movie.response.CastDTO
 import com.indisparte.movie.response.CrewDTO
@@ -18,6 +19,7 @@ import com.indisparte.response.GenreDTO
 import com.indisparte.response.ProductionCompanyDTO
 import com.indisparte.response.ProductionCountryDTO
 import com.indisparte.response.SpokenLanguageDTO
+import com.indisparte.response.VideoDTO
 
 
 /**
@@ -121,6 +123,16 @@ fun CrewDTO.mapToCrew(): Crew {
     )
 }
 
+fun VideoDTO.mapToVideo(): Video {
+    return Video(
+        id = this.id,
+        key = this.key,
+        name = this.name,
+        official = this.official,
+        site = this.site,
+        type = this.type
+    )
+}
 
 
 

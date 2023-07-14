@@ -16,10 +16,12 @@ import com.indisparte.model.entity.SeasonDetails
 import com.indisparte.model.entity.SpokenLanguage
 import com.indisparte.model.entity.TvShow
 import com.indisparte.model.entity.TvShowDetails
+import com.indisparte.model.entity.Video
 import com.indisparte.response.GenreDTO
 import com.indisparte.response.ProductionCompanyDTO
 import com.indisparte.response.ProductionCountryDTO
 import com.indisparte.response.SpokenLanguageDTO
+import com.indisparte.response.VideoDTO
 import com.indisparte.tv.response.CastDTO
 import com.indisparte.tv.response.CreatedByDTO
 import com.indisparte.tv.response.CrewDTO
@@ -151,6 +153,18 @@ fun CrewDTO.mapToCrew(): Crew {
         profilePath = this.profilePath
     )
 }
+
+fun VideoDTO.mapToVideo(): Video {
+    return Video(
+        id = this.id,
+        key = this.key,
+        name = this.name,
+        official = this.official,
+        site = this.site,
+        type = this.type
+    )
+}
+
 
 
 

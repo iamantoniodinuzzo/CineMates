@@ -7,9 +7,11 @@ import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.MovieDetails
+import com.indisparte.model.entity.Video
 import com.indisparte.movie.mapper.mapToCast
 import com.indisparte.movie.mapper.mapToCountryResult
 import com.indisparte.movie.mapper.mapToCrew
+import com.indisparte.movie.mapper.mapToVideo
 import com.indisparte.movie.mapper.toMovie
 import com.indisparte.movie.mapper.toMovieDetails
 import com.indisparte.movie.source.MovieDataSource
@@ -114,5 +116,11 @@ constructor(
             response.getCountryResultByCountry(country).map { it.mapToCountryResult() }
         }
     )
+
+    override suspend fun getVideos(movieId: Int): Flow<Resource<List<Video>>> =
+        getListFromResponse(
+            request = {movieService.getVideos(movieId, queryMap)},
+            mapper = {response->response.results.map { it.mapToVideo() }}
+        )
 
 }

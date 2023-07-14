@@ -7,6 +7,7 @@ import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.MovieDetails
+import com.indisparte.model.entity.Video
 import com.indisparte.movie.util.MovieListType
 import com.indisparte.network.Resource
 import kotlinx.coroutines.flow.Flow
@@ -28,5 +29,7 @@ interface MovieRepository {
         movieId: Int,
         country: String,
     ): Flow<Resource<List<CountryResult>>>
+
+    suspend fun getVideos(movieId: Int):Flow<Resource<List<Video>>>
 
 }

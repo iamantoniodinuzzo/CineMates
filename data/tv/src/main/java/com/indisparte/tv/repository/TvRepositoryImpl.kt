@@ -10,6 +10,7 @@ import com.indisparte.model.entity.EpisodeGroupDetails
 import com.indisparte.model.entity.SeasonDetails
 import com.indisparte.model.entity.TvShow
 import com.indisparte.model.entity.TvShowDetails
+import com.indisparte.model.entity.Video
 import com.indisparte.network.Resource
 import com.indisparte.network.getListFromResponse
 import com.indisparte.network.getSingleFromResponse
@@ -21,6 +22,7 @@ import com.indisparte.tv.mapper.mapToEpisodeGroupDetails
 import com.indisparte.tv.mapper.mapToSeasonDetails
 import com.indisparte.tv.mapper.mapToTvShow
 import com.indisparte.tv.mapper.mapToTvShowDetails
+import com.indisparte.tv.mapper.mapToVideo
 import com.indisparte.tv.source.TvDataSource
 import com.indisparte.tv.util.TvListType
 import kotlinx.coroutines.flow.Flow
@@ -140,4 +142,10 @@ constructor(
             response.getCountryResultByCountry(country).map { it.mapToCountryResult() }
         }
     )
+
+    override suspend fun getVideos(tvId: Int): Flow<Resource<List<Video>>> =
+        getListFromResponse(
+            request = { tvDataSource.getVideos(tvId, queryMap) },
+            mapper = { response -> response.results.map { it.mapToVideo() } }
+        )
 }

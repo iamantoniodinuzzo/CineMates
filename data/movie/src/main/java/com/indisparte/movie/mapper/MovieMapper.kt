@@ -12,7 +12,7 @@ import com.indisparte.model.entity.SpokenLanguage
 import com.indisparte.movie.response.BelongsToCollectionDTO
 import com.indisparte.response.CastDTO
 import com.indisparte.response.CrewDTO
-import com.indisparte.movie.response.GenreDTO
+import com.indisparte.response.GenreDTO
 import com.indisparte.movie.response.MovieDTO
 import com.indisparte.movie.response.MovieDetailsDTO
 

@@ -2,8 +2,8 @@ package com.indisparte.movie.source
 
 import com.indisparte.movie.response.CastDTO
 import com.indisparte.movie.response.CrewDTO
-import com.indisparte.movie.response.GenreResponseDTO
-import com.indisparte.movie.response.ImagesResponseDTO
+import com.indisparte.response.GenreResponseDTO
+import com.indisparte.response.ImagesResponseDTO
 import com.indisparte.movie.response.MovieDTO
 import com.indisparte.movie.response.MovieDetailsDTO
 import com.indisparte.response.VideoResponseDTO

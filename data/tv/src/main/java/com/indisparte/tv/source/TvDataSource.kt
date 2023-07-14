@@ -2,9 +2,14 @@ package com.indisparte.tv.source
 
 import com.indisparte.network.GenericResponse
 import com.indisparte.response.CreditResponseDTO
+import com.indisparte.response.GenreResponseDTO
+import com.indisparte.response.ImagesResponseDTO
 import com.indisparte.response.VideoResponseDTO
 import com.indisparte.tv.response.CastDTO
 import com.indisparte.tv.response.CrewDTO
+import com.indisparte.tv.response.EpisodeGroupDTO
+import com.indisparte.tv.response.EpisodeGroupDetailsDTO
+import com.indisparte.tv.response.SeasonDetailsDTO
 import com.indisparte.tv.response.TvShowDTO
 import com.indisparte.tv.response.TvShowDetailsDTO
 import retrofit2.Response
@@ -53,7 +58,7 @@ interface TvDataSource {
     suspend fun getImages(
         @Path("tv_id") id: Int,
         @QueryMap queries: Map<String, String>,
-    ): Response<ImagesResponse>
+    ): Response<ImagesResponseDTO>
 
 
     @GET("search/tv")
@@ -63,7 +68,7 @@ interface TvDataSource {
     suspend fun getByDiscover(@QueryMap queries: Map<String, String>): Response<GenericResponse<TvShowDTO>>
 
     @GET("genre/tv/list")
-    suspend fun getGenreList(@QueryMap queries: Map<String, String>): Response<GenresResponse>
+    suspend fun getGenreList(@QueryMap queries: Map<String, String>): Response<GenreResponseDTO>
 
     @GET("trending/tv/{time_window}")
     suspend fun getTrending(
@@ -71,15 +76,15 @@ interface TvDataSource {
         @QueryMap queries: Map<String, String>,
     ): Response<GenericResponse<TvShowDTO>>
 
-    @GET("tv/{tv_id}/episode_groups")
+    @GET("tv/{series_id}/episode_groups")
     suspend fun getEpisodesGroup(
-        @Path("tv_id") id: Int,
+        @Path("series_id") id: Int,
         @QueryMap queries: Map<String, String>,
     ): Response<GenericResponse<EpisodeGroupDTO>>
 
-    @GET("tv/episode_group/{id}")
+    @GET("tv/episode_group/{tv_episode_group_id}")
     suspend fun getEpisodeGroupDetails(
-        @Path("id") id: String,
+        @Path("tv_episode_group_id") id: String,
         @QueryMap queries: Map<String, String>,
     ): Response<EpisodeGroupDetailsDTO>
 

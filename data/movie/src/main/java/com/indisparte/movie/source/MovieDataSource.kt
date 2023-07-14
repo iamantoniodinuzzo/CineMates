@@ -71,7 +71,5 @@ interface MovieDataSource {
         @QueryMap queries: Map<String, String>,
     ): Response<ImagesResponseDTO>
 
-    @GET("genre/movie/list")
-    suspend fun getGenreList(@QueryMap queries: Map<String, String>): Response<GenreResponseDTO>
 
 }

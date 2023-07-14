@@ -4,7 +4,6 @@ import com.indisparte.movie.response.CastDTO
 import com.indisparte.movie.response.CrewDTO
 import com.indisparte.movie.response.MovieDTO
 import com.indisparte.movie.response.MovieDetailsDTO
-import com.indisparte.response.WatchProvidersResponseDTO
 import com.indisparte.network.GenericResponse
 import com.indisparte.response.CreditResponseDTO
 import com.indisparte.response.ImagesResponseDTO
@@ -67,9 +66,5 @@ interface MovieDataSource {
         @QueryMap queries: Map<String, String>,
     ): Response<GenericResponse<MovieDTO>>
 
-    @GET("movie/{movie_id}/watch/providers")
-    suspend fun getWatchProviders(
-        @Path("movie_id") movieId: Int,
-        @QueryMap queries: Map<String, String>
-    ):Response<WatchProvidersResponseDTO>
+
 }

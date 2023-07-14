@@ -3,12 +3,10 @@ package com.indisparte.movie.repository
 import com.indisparte.model.MediaFilter
 import com.indisparte.model.TimeWindow
 import com.indisparte.model.entity.Cast
-import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.MovieDetails
 import com.indisparte.movie.mapper.mapToCast
-import com.indisparte.movie.mapper.mapToCountryResult
 import com.indisparte.movie.mapper.mapToCrew
 import com.indisparte.movie.mapper.toMovie
 import com.indisparte.movie.mapper.toMovieDetails
@@ -105,14 +103,5 @@ constructor(
             mapper = { response -> response.crew.map { it.mapToCrew() } }
         )
 
-    override suspend fun getWatchProviders(
-        movieId: Int,
-        country: String,
-    ): Flow<Resource<List<CountryResult>>> = getListFromResponse(
-        request = { movieService.getWatchProviders(movieId, queryMap) },
-        mapper = { response ->
-            response.getCountryResultByCountry(country).map { it.mapToCountryResult() }
-        }
-    )
 
 }

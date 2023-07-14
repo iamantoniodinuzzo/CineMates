@@ -1,4 +1,4 @@
-package com.indisparte.response
+package com.indisparte.watch_provider.response
 
 
 import com.google.gson.annotations.SerializedName

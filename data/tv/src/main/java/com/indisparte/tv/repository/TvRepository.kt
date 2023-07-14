@@ -34,8 +34,4 @@ interface TvRepository {
     suspend fun getEpisodeGroup(id: Int): Flow<Resource<List<EpisodeGroup>>>
     suspend fun getEpisodeGroupDetails(episodeGroupId: String): Flow<Resource<EpisodeGroupDetails>>
     suspend fun getSeasonDetails(tvId:Int, seasonNumber:Int): Flow<Resource<SeasonDetails>>
-    suspend fun getWatchProviders(
-        tvId: Int,
-        country: String,
-    ): Flow<Resource<List<CountryResult>>>
 }

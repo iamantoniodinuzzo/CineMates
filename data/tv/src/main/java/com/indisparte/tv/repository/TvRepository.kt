@@ -25,8 +25,8 @@ interface TvRepository {
     suspend fun getDetails(id: Int): Flow<Resource<TvShowDetails>>
     suspend fun getSimilar(id: Int): Flow<Resource<List<TvShow>>>
     suspend fun getDiscoverable(tvFilter: MediaFilter): Flow<Resource<List<TvShow>>>
-    suspend fun getPosters(id: Int): Flow<Resource<List<Image>>>
-    suspend fun getBackdrops(id: Int): Flow<Resource<List<Image>>>
+    /*suspend fun getPosters(id: Int): Flow<Resource<List<Image>>>
+    suspend fun getBackdrops(id: Int): Flow<Resource<List<Image>>>*/
     suspend fun getCast(id: Int): Flow<Resource<List<Cast>>>
     suspend fun getCrew(id: Int): Flow<Resource<List<Crew>>>
     suspend fun getBySearch(query: String): Flow<Resource<List<TvShow>>>

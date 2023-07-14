@@ -1,6 +1,8 @@
 package com.indisparte.tv.mapper
 
+import com.indisparte.model.entity.Cast
 import com.indisparte.model.entity.CreatedBy
+import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Episode
 import com.indisparte.model.entity.EpisodeGroup
 import com.indisparte.model.entity.EpisodeGroupDetails
@@ -18,7 +20,9 @@ import com.indisparte.response.GenreDTO
 import com.indisparte.response.ProductionCompanyDTO
 import com.indisparte.response.ProductionCountryDTO
 import com.indisparte.response.SpokenLanguageDTO
+import com.indisparte.tv.response.CastDTO
 import com.indisparte.tv.response.CreatedByDTO
+import com.indisparte.tv.response.CrewDTO
 import com.indisparte.tv.response.EpisodeDTO
 import com.indisparte.tv.response.EpisodeGroupDTO
 import com.indisparte.tv.response.EpisodeGroupDetailsDTO
@@ -79,32 +83,7 @@ fun TvShowDetailsDTO.mapToTvShowDetails(): TvShowDetails {
     )
 }
 
-fun SeasonDTO.mapToSeason(): Season {
-    return Season(
-        airDate = this.airDate,
-        episodeCount = this.episodeCount,
-        id = this.id,
-        name = this.name,
-        overview = this.overview,
-        posterPath = this.posterPath,
-        seasonNumber = this.seasonNumber,
-        voteAverage = this.voteAverage
-    )
-}
 
-fun SeasonDetailsDTO.mapToSeasonDetails(): SeasonDetails {
-    return SeasonDetails(
-        airDate = this.airDate,
-        episodes = this.episodes.map { it.mapToEpisode() },
-        id = this.id,
-        seasonId = this.seasonId,
-        name = this.name,
-        overview = this.overview,
-        posterPath = this.posterPath,
-        seasonNumber = this.seasonNumber,
-        voteAverage = this.voteAverage
-    )
-}
 
 fun NetworkDTO.mapToNetwork(): Network {
     return Network(
@@ -112,56 +91,6 @@ fun NetworkDTO.mapToNetwork(): Network {
         logoPath = this.logoPath,
         name = this.name,
         originCountry = this.originCountry
-    )
-}
-
-fun EpisodeGroupDTO.mapToEpisodeGroup(): EpisodeGroup {
-    return EpisodeGroup(
-        description = this.description,
-        episodeCount = this.episodeCount,
-        groupCount = this.groupCount,
-        id = this.id,
-        name = this.name,
-        network = this.network,
-        type = this.type
-    )
-}
-
-fun EpisodeGroupDetailsDTO.mapToEpisodeGroupDetails(): EpisodeGroupDetails {
-    return EpisodeGroupDetails(
-        description = this.description,
-        episodeCount = this.episodeCount,
-        groupCount = this.groupCount,
-        groups = this.groups.map { it.mapToGroup() },
-        id = this.id,
-        name = this.name,
-        network = this.network?.mapToNetwork(),
-        type = this.type
-    )
-}
-
-fun EpisodeDTO.mapToEpisode(): Episode {
-    return Episode(
-        airDate = this.airDate,
-        episodeNumber = this.episodeNumber,
-        id = this.id,
-        name = this.name,
-        overview = this.overview,
-        runtime = this.runtime,
-        seasonNumber = this.seasonNumber,
-        showId = this.showId,
-        stillPath = this.stillPath,
-        voteAverage = this.voteAverage,
-    )
-}
-
-fun CreatedByDTO.mapToCreatedBy(): CreatedBy {
-    return CreatedBy(
-        creditId = this.creditId,
-        gender = this.gender,
-        id = this.id,
-        name = this.name,
-        profilePath = this.profilePath
     )
 }
 
@@ -190,5 +119,38 @@ fun GroupDTO.mapToGroup(): Group {
         order = this.order
     )
 }
+
+fun CastDTO.mapToCast(): Cast {
+    return Cast(
+        adult = this.adult,
+        castId = this.id,
+        character = this.roles.firstOrNull()?.character.orEmpty(),
+        creditId = this.roles.firstOrNull()?.creditId.orEmpty(),
+        gender = this.gender,
+        id = this.id,
+        knownForDepartment = this.knownForDepartment,
+        name = this.name,
+        order = this.order,
+        originalName = this.originalName,
+        popularity = this.popularity,
+        profilePath = this.profilePath
+    )
+}
+fun CrewDTO.mapToCrew(): Crew {
+    return Crew(
+        adult = this.adult,
+        creditId = this.jobs.firstOrNull()?.creditId.orEmpty(),
+        department = this.department,
+        gender = this.gender,
+        id = this.id,
+        job = this.jobs.firstOrNull()?.job.orEmpty(),
+        knownForDepartment = this.knownForDepartment,
+        name = this.name,
+        originalName = this.originalName,
+        popularity = this.popularity,
+        profilePath = this.profilePath
+    )
+}
+
 
 

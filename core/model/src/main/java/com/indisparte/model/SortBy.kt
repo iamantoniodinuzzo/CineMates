@@ -1,4 +1,4 @@
-package com.indisparte.movie.util
+package com.indisparte.model
 
 import com.example.cinemates.util.MediaSortOption
 import com.example.cinemates.util.Order

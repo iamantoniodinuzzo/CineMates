@@ -21,7 +21,6 @@ interface MovieRepository {
     suspend fun getDiscoverable(mediaFilter: MediaFilter): Flow<Resource<List<Movie>>>
     suspend fun getDetails(movieId: Int): Flow<Resource<MovieDetails>>
     suspend fun getSimilar(movieId: Int): Flow<Resource<List<Movie>>>
-
     suspend fun getCast(movieId: Int): Flow<Resource<List<Cast>>>
     suspend fun getCrew(movieId: Int): Flow<Resource<List<Crew>>>
 

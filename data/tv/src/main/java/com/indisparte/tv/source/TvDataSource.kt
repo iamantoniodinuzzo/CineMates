@@ -23,7 +23,7 @@ import retrofit2.http.QueryMap
 interface TvDataSource {
 
     @GET("tv/{filter}")
-    suspend fun getMovieListByType(
+    suspend fun getTvListByType(
         @Path("filter") filter: String,
         @QueryMap queryMap: Map<String, String>,
     ): Response<GenericResponse<TvShowDTO>>

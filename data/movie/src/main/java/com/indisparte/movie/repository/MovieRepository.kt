@@ -1,11 +1,12 @@
 package com.indisparte.movie.repository
 
+import com.indisparte.model.MediaFilter
+import com.indisparte.model.TimeWindow
 import com.indisparte.model.entity.Cast
+import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.MovieDetails
-import com.indisparte.model.TimeWindow
-import com.indisparte.model.MediaFilter
 import com.indisparte.movie.util.MovieListType
 import com.indisparte.network.Resource
 import kotlinx.coroutines.flow.Flow
@@ -23,5 +24,9 @@ interface MovieRepository {
     suspend fun getSimilar(movieId: Int): Flow<Resource<List<Movie>>>
     suspend fun getCast(movieId: Int): Flow<Resource<List<Cast>>>
     suspend fun getCrew(movieId: Int): Flow<Resource<List<Crew>>>
+    suspend fun getWatchProviders(
+        movieId: Int,
+        country: String,
+    ): Flow<Resource<List<CountryResult>>>
 
 }

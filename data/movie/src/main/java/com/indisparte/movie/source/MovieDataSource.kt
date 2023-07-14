@@ -4,6 +4,7 @@ import com.indisparte.movie.response.CastDTO
 import com.indisparte.movie.response.CrewDTO
 import com.indisparte.movie.response.MovieDTO
 import com.indisparte.movie.response.MovieDetailsDTO
+import com.indisparte.movie.response.WatchProvidersResponseDTO
 import com.indisparte.network.GenericResponse
 import com.indisparte.response.CreditResponseDTO
 import com.indisparte.response.GenreResponseDTO
@@ -18,7 +19,7 @@ import retrofit2.http.QueryMap
  * @author Antonio Di Nuzzo (Indisparte)
  */
 interface MovieDataSource {
-    
+
     @GET("movie/{filter}")
     suspend fun getListOfSpecificMovies(
         @Path("filter") filter: String,
@@ -66,4 +67,10 @@ interface MovieDataSource {
         @Path("time_window") time_window: String,
         @QueryMap queries: Map<String, String>,
     ): Response<GenericResponse<MovieDTO>>
+
+    @GET("movie/{movie_id}/watch/providers")
+    suspend fun getWatchProviders(
+        @Path("movie_id") movieId: Int,
+        @QueryMap queries: Map<String, String>
+    ):Response<WatchProvidersResponseDTO>
 }

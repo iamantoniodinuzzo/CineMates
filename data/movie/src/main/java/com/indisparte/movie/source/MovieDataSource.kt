@@ -18,27 +18,11 @@ import retrofit2.http.QueryMap
  * @author Antonio Di Nuzzo (Indisparte)
  */
 interface MovieDataSource {
-
-
-    /**
-     * This method generify the getPopular, getUpcoming , getTopRated and now playing
-     */
+    
     @GET("movie/{filter}")
     suspend fun getListOfSpecificMovies(
         @Path("filter") filter: String,
         @QueryMap queryMap: Map<String, String>,
-    ): Response<GenericResponse<MovieDTO>>
-
-    @GET("search/movie")
-    suspend fun getBySearch(@QueryMap queries: Map<String, String>): Response<GenericResponse<MovieDTO>>
-
-    @GET("discover/movie")
-    suspend fun getByDiscover(@QueryMap queries: Map<String, String>): Response<GenericResponse<MovieDTO>>
-
-    @GET("trending/movie/{time_window}")
-    suspend fun getTrending(
-        @Path("time_window") time_window: String,
-        @QueryMap queries: Map<String, String>,
     ): Response<GenericResponse<MovieDTO>>
 
     @GET("movie/{movie_id}")
@@ -71,5 +55,15 @@ interface MovieDataSource {
         @QueryMap queries: Map<String, String>,
     ): Response<ImagesResponseDTO>
 
+    @GET("search/movie")
+    suspend fun getBySearch(@QueryMap queries: Map<String, String>): Response<GenericResponse<MovieDTO>>
 
+    @GET("discover/movie")
+    suspend fun getByDiscover(@QueryMap queries: Map<String, String>): Response<GenericResponse<MovieDTO>>
+
+    @GET("trending/movie/{time_window}")
+    suspend fun getTrending(
+        @Path("time_window") time_window: String,
+        @QueryMap queries: Map<String, String>,
+    ): Response<GenericResponse<MovieDTO>>
 }

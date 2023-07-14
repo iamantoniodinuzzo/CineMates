@@ -61,21 +61,6 @@ interface TvDataSource {
     ): Response<ImagesResponseDTO>
 
 
-    @GET("search/tv")
-    suspend fun getBySearch(@QueryMap queries: Map<String, String>): Response<GenericResponse<TvShowDTO>>
-
-    @GET("discover/tv")
-    suspend fun getByDiscover(@QueryMap queries: Map<String, String>): Response<GenericResponse<TvShowDTO>>
-
-    @GET("genre/tv/list")
-    suspend fun getGenreList(@QueryMap queries: Map<String, String>): Response<GenreResponseDTO>
-
-    @GET("trending/tv/{time_window}")
-    suspend fun getTrending(
-        @Path("time_window") time_window: String,
-        @QueryMap queries: Map<String, String>,
-    ): Response<GenericResponse<TvShowDTO>>
-
     @GET("tv/{series_id}/episode_groups")
     suspend fun getEpisodesGroup(
         @Path("series_id") id: Int,
@@ -94,4 +79,16 @@ interface TvDataSource {
         @Path("season_number") seasonNumber: Int,
         @QueryMap queries: Map<String, String>,
     ): Response<SeasonDetailsDTO>
+
+    @GET("search/tv")
+    suspend fun getBySearch(@QueryMap queries: Map<String, String>): Response<GenericResponse<TvShowDTO>>
+
+    @GET("discover/tv")
+    suspend fun getByDiscover(@QueryMap queries: Map<String, String>): Response<GenericResponse<TvShowDTO>>
+
+    @GET("trending/tv/{time_window}")
+    suspend fun getTrending(
+        @Path("time_window") time_window: String,
+        @QueryMap queries: Map<String, String>,
+    ): Response<GenericResponse<TvShowDTO>>
 }

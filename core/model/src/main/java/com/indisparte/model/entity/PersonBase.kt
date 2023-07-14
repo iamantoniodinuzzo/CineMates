@@ -1,12 +1,14 @@
 package com.indisparte.model.entity
 
+import androidx.annotation.StringRes
+import com.indisparte.model.R
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-private enum class Gender(val value: Int, val gender: String) {
-    MALE(2, "Male"),
-    FEMALE(1, "Female"),
-    OTHER(0, "Other")
+enum class Gender(val value: Int, @StringRes val genderResId: Int) {
+    MALE(2, R.string.male_gender),
+    FEMALE(1, R.string.female_gender),
+    OTHER(0, R.string.other_gender)
 }
 
 /**
@@ -29,12 +31,12 @@ abstract class PersonBase(
         }
     }
 
-    val formattedGender: String
+    val formattedGender: Gender
         get() {
             val genderString = when (gender) {
-                Gender.MALE.value -> Gender.MALE.gender
-                Gender.FEMALE.value -> Gender.FEMALE.gender
-                else -> Gender.OTHER.gender
+                Gender.MALE.value -> Gender.MALE
+                Gender.FEMALE.value -> Gender.FEMALE
+                else -> Gender.OTHER
             }
             return genderString
         }

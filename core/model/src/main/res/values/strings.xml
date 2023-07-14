@@ -23,4 +23,18 @@
     <string name="tv_type_news">News</string>
     <string name="tv_type_documentary">Documentary</string>
 
+    <!-- Gender strings -->
+    <string name="other_gender">Other</string>
+    <string name="female_gender">Female</string>
+    <string name="male_gender">Male</string>
+
+    <!-- Episode group type strings-->
+    <string name="original_air_date">Original air date</string>
+    <string name="absolute">Absolute</string>
+    <string name="dvd">DVD</string>
+    <string name="digital">Digital</string>
+    <string name="story_arc">Story arc</string>
+    <string name="production">Production</string>
+    <string name="tv">TV</string>
+
 </resources>

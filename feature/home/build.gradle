@@ -34,7 +34,11 @@ android {
 dependencies {
 
     implementation project(':core:util')
+    implementation project(':core:network')
     implementation project(':core:model')
+    implementation project(':data:movie')
+    implementation project(':data:tv')
+    implementation project(':data:people')
 
     implementation(libs.appcompat)
     implementation(libs.material)

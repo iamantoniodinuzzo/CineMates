@@ -12,6 +12,6 @@ data class EpisodeGroupDetailsDTO(
     val groups: List<GroupDTO>,
     val id: String,
     val name: String,
-    val network: Any?,
+    val network: NetworkDTO?,
     val type: Int
 )

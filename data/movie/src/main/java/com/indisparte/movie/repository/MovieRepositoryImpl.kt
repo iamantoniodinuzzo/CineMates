@@ -9,9 +9,9 @@ import com.indisparte.movie.mapper.mapToCrew
 import com.indisparte.movie.mapper.toMovie
 import com.indisparte.movie.mapper.toMovieDetails
 import com.indisparte.movie.source.MovieDataSource
-import com.indisparte.movie.util.MediaFilter
+import com.indisparte.model.MediaFilter
 import com.indisparte.movie.util.MovieListType
-import com.indisparte.movie.util.TimeWindow
+import com.indisparte.util.TimeWindow
 import com.indisparte.network.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -53,7 +53,7 @@ constructor(
         }
 
 
-    override suspend fun getTrending(timeWindow: TimeWindow): Flow<Resource<List<Movie>>> =
+    override suspend fun getTrending(timeWindow: com.indisparte.util.TimeWindow): Flow<Resource<List<Movie>>> =
         flow {
             emit(Resource.Loading()) // Emit loading state
 

@@ -1,4 +1,4 @@
-package com.indisparte.movie.util
+package com.indisparte.model
 
 import java.io.Serializable
 

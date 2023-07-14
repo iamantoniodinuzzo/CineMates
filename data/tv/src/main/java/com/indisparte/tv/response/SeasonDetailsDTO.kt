@@ -9,7 +9,8 @@ data class SeasonDetailsDTO(
     val episodes: List<EpisodeDTO>,
     @SerializedName("_id")
     val id: String,
-    val id2: Int,
+    @SerializedName("id")
+    val seasonId: Int,
     val name: String,
     val overview: String,
     @SerializedName("poster_path")

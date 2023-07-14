@@ -4,9 +4,9 @@ import com.indisparte.model.entity.Cast
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.MovieDetails
-import com.indisparte.movie.util.MediaFilter
+import com.indisparte.model.TimeWindow
+import com.indisparte.model.MediaFilter
 import com.indisparte.movie.util.MovieListType
-import com.indisparte.movie.util.TimeWindow
 import com.indisparte.network.Resource
 import kotlinx.coroutines.flow.Flow
 

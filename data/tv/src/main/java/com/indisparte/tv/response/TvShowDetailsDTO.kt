@@ -2,6 +2,7 @@ package com.indisparte.tv.response
 
 
 import com.google.gson.annotations.SerializedName
+import com.indisparte.response.GenreDTO
 import com.indisparte.response.ProductionCompanyDTO
 import com.indisparte.response.ProductionCountryDTO
 import com.indisparte.response.SpokenLanguageDTO

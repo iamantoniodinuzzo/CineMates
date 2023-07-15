@@ -23,7 +23,7 @@ import com.indisparte.util.extension.visible
 class EmptyStateRecyclerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyle: Int = 0,
+    defStyle: Int = 0
 ) : RecyclerView(context, attrs, defStyle) {
 
     private var emptyStateView: ViewEmptyStateBinding? = null
@@ -38,6 +38,7 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
             super.onChanged()
             checkIfEmpty()
         }
+
         override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
             super.onItemRangeInserted(positionStart, itemCount)
             checkIfEmpty()
@@ -54,7 +55,7 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
         emptyStateView = ViewEmptyStateBinding.inflate(inflater)
         emptyStateView?.root?.gone()
 
-        // Ottiengo gli attributi personalizzati dal contesto
+        // Obtain custom attributes from the context
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.EmptyStateRecyclerView)
         emptyStateSubtitle = typedArray.getString(R.styleable.EmptyStateRecyclerView_emptyStateSubtitle)
         emptyStateTitle = typedArray.getString(R.styleable.EmptyStateRecyclerView_emptyStateTitle)
@@ -62,7 +63,7 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
 
         typedArray.recycle()
 
-        // Controllo se le stringhe sono vuote e rendo invisibili le viste corrispondenti
+        // Check if the strings are empty and make the corresponding views invisible
         emptyStateSubtitle?.let {
             if (it.isEmpty()) {
                 emptyStateView?.tvEmptyStateSubtitle?.gone()
@@ -89,8 +90,6 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
                 setEmptyStateButtonTitle(it)
             }
         }
-
-
     }
 
     /**
@@ -144,10 +143,9 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
                         LayoutParams.MATCH_PARENT,
                         LayoutParams.MATCH_PARENT
                     )
-                    (this.parent as? ViewGroup)?.addView(emptyView, layoutParams)
+                    (parent as? ViewGroup)?.addView(emptyView, layoutParams)
                 }
                 emptyView.visible()
-
             }
         } else {
             emptyStateView?.root?.gone()
@@ -162,8 +160,7 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
 
         adapter?.registerAdapterDataObserver(adapterDataObserver)
         adapterDataObserver.onChanged()
-
     }
-
 }
+
 

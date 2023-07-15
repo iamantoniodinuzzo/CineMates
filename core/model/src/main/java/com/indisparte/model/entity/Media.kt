@@ -24,4 +24,17 @@ open class Media(
 
     val voteAverageAsString: String
         get() = voteAverage.toString()
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Media) return false
+
+        return id == other.id && mediaName == other.mediaName
+    }
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + mediaName.hashCode()
+        return result
+    }
 }

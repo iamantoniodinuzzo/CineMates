@@ -40,4 +40,16 @@ abstract class PersonBase(
             }
             return genderString
         }
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PersonBase) return false
+
+        return id == other.id && name == other.name
+    }
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + name.hashCode()
+        return result
+    }
 }

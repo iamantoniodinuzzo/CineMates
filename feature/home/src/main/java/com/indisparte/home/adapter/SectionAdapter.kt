@@ -3,15 +3,35 @@ package com.indisparte.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.home.databinding.ListItemSectionBinding
 import com.indisparte.home.util.Section
 
 /**
+ * Adapter class for displaying different sections in a RecyclerView.
+ *
+ * The adapter is responsible for inflating the appropriate view holders based on the section type,
+ * binding the data to the view holders, and determining the view type for each section.
+ *
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class SectionAdapter(private val sections: List<Section>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SectionAdapter :
+    ListAdapter<Section, RecyclerView.ViewHolder>(SectionDiffCallback()) {
+
+    /**
+     * DiffUtil callback for calculating the difference between old and new sections.
+     */
+    private class SectionDiffCallback : DiffUtil.ItemCallback<Section>() {
+        override fun areItemsTheSame(oldItem: Section, newItem: Section): Boolean {
+            return oldItem.titleResId == newItem.titleResId
+        }
+
+        override fun areContentsTheSame(oldItem: Section, newItem: Section): Boolean {
+            return oldItem == newItem
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -36,7 +56,7 @@ class SectionAdapter(private val sections: List<Section>) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val section = sections[position]
+        val section = getItem(position)
         when (holder) {
             is MovieSectionViewHolder -> {
                 val movieSection = section as Section.MovieSection
@@ -55,8 +75,12 @@ class SectionAdapter(private val sections: List<Section>) :
         }
     }
 
+    fun submitList(sections: List<Section>) {
+        submitList(sections.toMutableList())
+    }
+
     override fun getItemViewType(position: Int): Int {
-        val section = sections[position]
+        val section = getItem(position)
         return when (section) {
             is Section.MovieSection -> VIEW_TYPE_MOVIE_SECTION
             is Section.TvShowSection -> VIEW_TYPE_TV_SHOW_SECTION
@@ -64,7 +88,6 @@ class SectionAdapter(private val sections: List<Section>) :
         }
     }
 
-    override fun getItemCount(): Int = sections.size
 
     // ViewHolder per MovieSection
     private inner class MovieSectionViewHolder(private val binding: ListItemSectionBinding) :
@@ -88,7 +111,7 @@ class SectionAdapter(private val sections: List<Section>) :
 
         fun bind(tvShowSection: Section.TvShowSection) {
             val context = binding.root.context
-            binding.apply{
+            binding.apply {
                 textSectionTitle.text = context.getString(tvShowSection.titleResId)
                 recyclerView.apply {
                     // TODO: adapter
@@ -119,4 +142,8 @@ class SectionAdapter(private val sections: List<Section>) :
         private const val VIEW_TYPE_TV_SHOW_SECTION = 1
         private const val VIEW_TYPE_PEOPLE_SECTION = 2
     }
+
 }
+
+
+

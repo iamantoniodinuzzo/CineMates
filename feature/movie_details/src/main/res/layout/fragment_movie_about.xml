@@ -29,11 +29,11 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+                android:text="@{movie.overview}"
                 android:textColor="@color/alabaster"
                 android:textSize="14sp"
                 app:clickableColor="@color/vermilion_100"
                 app:maxLinesShown="2"
-                android:text="@{movie.overview}"
                 app:readLessText="Read less"
                 app:readMoreText="Read more"
                 tools:text="@tools:sample/lorem" />
@@ -44,8 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/readMoreTextV"
                 android:padding="10dp"
-                app:singleCheck="true"
                 app:chipStyle="@style/CustomChipChoiceStyle"
+                app:singleCheck="true"
                 app:title="Genres"
                 app:titleColor="@color/alabaster"
                 app:titleSize="18sp"
@@ -62,7 +62,7 @@
                 app:movie="@{movie}" />
 
 
-            <include
+           <!-- <include
                 android:id="@+id/collection_cover"
                 layout="@layout/layout_collection_cover"
                 android:layout_width="match_parent"
@@ -71,12 +71,12 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 app:collection="@{movie.belongsToCollection}" />
-
+-->
             <TextView
                 android:id="@+id/trailer_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/collection_cover"
+                android:layout_below="@id/movie_info"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="Trailers"

@@ -14,7 +14,7 @@ import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
 import com.indisparte.ui.custom_view.HorizontalChipView
 import com.indisparte.ui.fragment.BaseFragment
 
-class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
+internal class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieAboutBinding
         get() = FragmentMovieAboutBinding::inflate

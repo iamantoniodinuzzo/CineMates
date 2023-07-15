@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.search.SearchFragment">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -46,16 +44,16 @@
         android:id="@+id/chip_group"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:chipSpacingHorizontal="16dp"
-        app:singleSelection="true"
-        android:padding="5dp"
-        app:selectionRequired="true"
         android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:padding="5dp"
         app:checkedChip="@id/movies_chip"
+        app:chipSpacingHorizontal="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:selectionRequired="true"
+        app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/movies_chip"
@@ -84,8 +82,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:emptyText="Nothing here!"
-        app:icon="@drawable/ic_space"
         app:emptyTextColor="@color/alabaster"
+        app:icon="@drawable/ic_space"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

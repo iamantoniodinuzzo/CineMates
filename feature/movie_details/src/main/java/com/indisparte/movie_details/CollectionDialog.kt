@@ -12,7 +12,7 @@ import com.indisparte.movie_details.databinding.LayoutCollectionDialogBinding
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class CollectionDialog(
+internal class CollectionDialog(
     private val context: Context,
 ) {
 

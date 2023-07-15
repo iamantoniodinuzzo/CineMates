@@ -7,7 +7,7 @@
 
         <variable
             name="season"
-            type="com.example.cinemates.domain.model.tv.SeasonDetails" />
+            type="com.indisparte.cinemates.domain.model.tv.SeasonDetails" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

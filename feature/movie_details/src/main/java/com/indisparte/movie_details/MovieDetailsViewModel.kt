@@ -15,7 +15,7 @@ import javax.inject.Inject
  * @author Jon Areas
  */
 @HiltViewModel
-class MovieDetailsViewModel
+internal class MovieDetailsViewModel
 @Inject
 constructor(
 ) : ViewModel() {

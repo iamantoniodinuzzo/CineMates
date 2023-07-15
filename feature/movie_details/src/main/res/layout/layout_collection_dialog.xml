@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/list_item_media_small" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </layout>

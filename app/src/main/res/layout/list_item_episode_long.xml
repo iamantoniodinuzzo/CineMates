@@ -7,7 +7,7 @@
 
         <variable
             name="episode"
-            type="com.example.cinemates.domain.model.tv.Episode" />
+            type="com.indisparte.cinemates.domain.model.tv.Episode" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

@@ -31,6 +31,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures{
+        viewBinding true
+        dataBinding true
+    }
 }
 
 dependencies {
@@ -64,7 +68,4 @@ dependencies {
     implementation(libs.dagger.core)
     kapt(libs.dagger.compiler)
 
-    // Youtube
-    implementation files('libs/YouTubeAndroidPlayerApi.jar')
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.22"
 }

@@ -3,6 +3,9 @@ package com.indisparte.movie.response
 
 import com.google.gson.annotations.SerializedName
 import com.indisparte.response.GenreDTO
+import com.indisparte.response.ProductionCompanyDTO
+import com.indisparte.response.ProductionCountryDTO
+import com.indisparte.response.SpokenLanguageDTO
 
 data class MovieDetailsDTO(
     val adult: Boolean,
@@ -10,7 +13,7 @@ data class MovieDetailsDTO(
     val backdropPath: String,
     @SerializedName("belongs_to_collection")
     val belongsToCollection: BelongsToCollectionDTO,
-    val budget: Int,
+    val budget: Long,
     val genres: List<GenreDTO>,
     val homepage: String,
     val id: Int,
@@ -25,15 +28,15 @@ data class MovieDetailsDTO(
     @SerializedName("poster_path")
     val posterPath: String,
     @SerializedName("production_companies")
-    val productionCompanies: List<com.indisparte.response.ProductionCompanyDTO>,
+    val productionCompanies: List<ProductionCompanyDTO>,
     @SerializedName("production_countries")
-    val productionCountries: List<com.indisparte.response.ProductionCountryDTO>,
+    val productionCountries: List<ProductionCountryDTO>,
     @SerializedName("release_date")
     val releaseDate: String,
-    val revenue: Int,
+    val revenue: Long,
     val runtime: Int,
     @SerializedName("spoken_languages")
-    val spokenLanguages: List<com.indisparte.response.SpokenLanguageDTO>,
+    val spokenLanguages: List<SpokenLanguageDTO>,
     val status: String,
     val tagline: String,
     val title: String,

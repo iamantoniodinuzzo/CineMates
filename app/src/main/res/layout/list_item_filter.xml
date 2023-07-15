@@ -7,7 +7,7 @@
 
         <variable
             name="mediaFilter"
-            type="com.example.cinemates.domain.model.common.MediaFilter" />
+            type="com.indisparte.cinemates.domain.model.common.MediaFilter" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

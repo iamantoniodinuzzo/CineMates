@@ -5,13 +5,12 @@
 
         <variable
             name="media"
-            type="com.example.cinemates.domain.model.common.Media" />
+            type="com.indisparte.cinemates.domain.model.common.Media" />
     </data>
 
-    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
 
 
     </RelativeLayout>

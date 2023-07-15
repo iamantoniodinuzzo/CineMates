@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
  * @author Antonio Di Nuzzo
  * Created 26/07/2022 at 09:01
  */
-class ManageBottomSheetFragment : BottomSheetDialogFragment() {
+internal class ManageBottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentManageBottomsheetBinding? = null
     private val binding: FragmentManageBottomsheetBinding
         get() = _binding!!

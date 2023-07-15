@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
-import com.indisparte.ui.fragment.MediaDetailsContainerFragment
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 /**
  * @author Antonio Di Nuzzo
@@ -15,17 +13,18 @@ import kotlinx.coroutines.launch
  * Created 26/05/2022 at 15:44
  */
 @AndroidEntryPoint
-class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
+internal class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     linkedMapOf(
         MovieAboutFragment() to "About",
     )
 ) {
     private val viewModel: MovieDetailsViewModel by activityViewModels()
+    private val movieIdArgs: MovieDetailsContainerFragmentArgs by navArgs()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.d("MovieDetailsContainer", "Movie id: ${movieIdArgs.id}")
 
 
     }

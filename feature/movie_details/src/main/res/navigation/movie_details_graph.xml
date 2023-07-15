@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movie_details_graph"
+    app:startDestination="@id/movieDetailsContainerFragment">
+
+    <fragment
+        android:id="@+id/movieDetailsContainerFragment"
+        tools:layout="@layout/fragment_media_details"
+        android:name="com.indisparte.movie_details.MovieDetailsContainerFragment"
+        android:label="MovieDetailsContainerFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+</navigation>

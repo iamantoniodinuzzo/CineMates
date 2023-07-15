@@ -1,8 +1,11 @@
 package com.indisparte.home.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
+import com.indisparte.home.HomeFragmentDirections
 import com.indisparte.home.databinding.ListItemMediaSmallBinding
 import com.indisparte.home.databinding.ListItemPersonSmallBinding
 import com.indisparte.model.entity.Movie
@@ -26,7 +29,9 @@ class MovieAdapter : BaseAdapter<Movie, ListItemMediaSmallBinding>(
         binding.apply {
             media = item
             root.setOnClickListener {
-                // TODO: open movie details
+                Log.d("MovieAdapter", "Movie id: ${item.id}")
+                val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailsGraph(item.id)
+                root.findNavController().navigate(action)
             }
         }
     }

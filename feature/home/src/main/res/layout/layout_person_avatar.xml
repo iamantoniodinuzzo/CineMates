@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:background="@color/geyser"
             android:scaleType="centerCrop"
-            app:imageUrlAvatar="@{path}"
+            app:loadImage="@{path}"
             tools:src="@tools:sample/avatars" />
     </com.google.android.material.card.MaterialCardView>
 </layout>

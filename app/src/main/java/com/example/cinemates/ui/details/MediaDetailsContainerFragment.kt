@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import com.example.cinemates.NavGraphDirections
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentMediaDetailsBinding
 import com.example.cinemates.domain.model.common.Image
@@ -18,6 +16,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlin.math.abs
 
 private val TAG = MediaDetailsContainerFragment::class.simpleName
+
 /**
  * A base class for implementing a container of other fragments shown via viewPager and tab layout
  *
@@ -84,8 +83,6 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Map<Fra
     }
 
     private fun displayImages(images: Images) {
-        val action = NavGraphDirections.actionGlobalMediaImagesFragment(images)
-        Navigation.findNavController(requireView()).navigate(action)
     }
 
 

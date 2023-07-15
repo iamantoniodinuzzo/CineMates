@@ -22,19 +22,14 @@ private val TAG = MovieDetailsContainerFragment::class.simpleName
 class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     mapOf(
         MovieAboutFragment() to "About",
-        MovieCastFragment() to "Cast",
-        MovieCrewFragment() to "Crew",
-        MovieSimilarFragment() to "Similar",
     )
 ) {
-    private val args: MovieDetailsContainerFragmentArgs by navArgs()
     private val viewModel: MovieDetailsViewModel by activityViewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "onViewCreated called")
-        viewModel.onDetailsFragmentReady(args.media.id)
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             launch {
@@ -43,16 +38,7 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
                 }
             }
 
-            launch {
-                viewModel.posters.collectLatest {
-                    this@MovieDetailsContainerFragment.posters = it
-                }
-            }
-            launch {
-                viewModel.backdrops.collectLatest {
-                    this@MovieDetailsContainerFragment.backdrops= it
-                }
-            }
+
         }
 
 

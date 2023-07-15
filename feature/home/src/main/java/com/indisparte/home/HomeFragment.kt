@@ -34,7 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
 
         viewModel.sections.collectIn(viewLifecycleOwner) {
-            sectionAdapter.submitList(it)
+            sectionAdapter.submitSectionList(it)
         }
 
     }

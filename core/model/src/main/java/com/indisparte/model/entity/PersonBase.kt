@@ -23,6 +23,17 @@ abstract class PersonBase(
     val popularity: Double,
     val profilePath: String?,
 ) {
+    companion object {
+        protected const val IMAGE_BASE_URL_W780 = "https://image.tmdb.org/t/p/w780"
+        protected const val IMAGE_BASE_URL_W500 = "https://image.tmdb.org/t/p/w500"
+    }
+
+    val completeProfilePathW780: String?
+        get() = if (profilePath.isNullOrEmpty()) null else "${IMAGE_BASE_URL_W780}/$profilePath"
+
+    val completeProfilePathW500: String?
+        get() = if (profilePath.isNullOrEmpty()) null else "${IMAGE_BASE_URL_W500}/$profilePath"
+
     protected fun getFormattedData(locale: Locale, data: String?): String? {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", locale)
         val date = data?.let { dateFormat.parse(it) }

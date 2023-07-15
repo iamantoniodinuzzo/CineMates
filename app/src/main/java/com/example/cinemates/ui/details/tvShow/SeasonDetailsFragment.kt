@@ -11,7 +11,6 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentSeasonDetailsBinding
-import com.example.cinemates.ui.adapter.EpisodeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -27,36 +26,17 @@ class SeasonDetailsFragment : BaseFragment<FragmentSeasonDetailsBinding>() {
         get() = FragmentSeasonDetailsBinding::inflate
 
     private val tvDetailsViewModel: TvDetailsViewModel by activityViewModels()
-    private val args: SeasonDetailsFragmentArgs by navArgs()
-    private lateinit var episodeAdapter: EpisodeAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        episodeAdapter = EpisodeAdapter()
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbar.setNavigationOnClickListener {
-            Navigation.findNavController(it).navigateUp()
-        }
-        binding.recyclerView.adapter = episodeAdapter
 
-
-        lifecycleScope.launchWhenStarted {
-
-            tvDetailsViewModel.getSeasonDetails(args.season.seasonNumber)
-            tvDetailsViewModel.seasonDetails.collectLatest { seasonDetails ->
-                seasonDetails?.let {
-                    binding.season = it
-                    episodeAdapter.items = it.seasonEpisodes
-
-                }
-
-            }
-        }
     }
 
 }

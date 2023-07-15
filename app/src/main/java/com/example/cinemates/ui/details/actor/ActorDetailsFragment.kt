@@ -22,25 +22,19 @@ class ActorDetailsFragment : BaseFragment<FragmentActorDetailsBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentActorDetailsBinding
         get() = FragmentActorDetailsBinding::inflate
 
-    private val viewModel: ActorDetailsViewModel by activityViewModels()
-    private val args: ActorDetailsFragmentArgs by navArgs()
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private lateinit var actorAboutFragment: ActorAboutFragment
-    private lateinit var actorMoviesFragment: ActorMoviesFragment
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         actorAboutFragment = ActorAboutFragment()
-        actorMoviesFragment = ActorMoviesFragment()
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeViewPager()
-
-        viewModel.onDetailsFragmentReady(args.person.id)
 
         binding.apply {
             customizeFab(fab)
@@ -54,12 +48,7 @@ class ActorDetailsFragment : BaseFragment<FragmentActorDetailsBinding>() {
         }
 
         lifecycleScope.launchWhenCreated {
-            viewModel.personDetails.collectLatest { personDetails ->
-                personDetails?.let {
-                    binding.person = it
-                }
 
-            }
         }
 
     }
@@ -67,7 +56,6 @@ class ActorDetailsFragment : BaseFragment<FragmentActorDetailsBinding>() {
     private fun initializeViewPager() {
         viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         viewPagerAdapter.addFragment(actorAboutFragment)
-        viewPagerAdapter.addFragment(actorMoviesFragment)
         binding.apply {
             viewPager.adapter = viewPagerAdapter
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->

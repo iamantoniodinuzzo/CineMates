@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Common attributes-->
+    <attr name="title" format="string" />
+    <attr name="titleColor" format="color" />
+    <attr name="titleSize" format="dimension" />
+
     <declare-styleable name="EmptyStateRecyclerView">
         <attr name="emptyStateSubtitle" format="string" />
         <attr name="emptyStateTitle" format="string" />
@@ -11,9 +16,9 @@
         <attr name="placeholder" format="reference" />
         <attr name="rating" format="string" />
         <attr name="imageSrc" format="string" />
-        <attr name="title" format="string" />
-        <attr name="titleColor" format="color" />
-        <attr name="titleSize" format="dimension" />
+        <attr name="title" />
+        <attr name="titleColor" />
+        <attr name="titleSize" />
         <attr name="titlePosterStyle" format="enum">
             <enum name="normal" value="0" />
             <enum name="bold" value="1" />
@@ -33,7 +38,7 @@
     </declare-styleable>
 
     <declare-styleable name="LinearInfoView">
-        <attr name="title" format="string" />
+        <attr name="title" />
         <attr name="textTitleStyle" format="enum">
             <enum name="normal" value="0" />
             <enum name="bold" value="1" />
@@ -53,9 +58,9 @@
     </declare-styleable>
 
     <declare-styleable name="HorizontalChipView">
-        <attr name="title" format="string" />
-        <attr name="titleColor" format="color" />
-        <attr name="titleSize" format="dimension" />
+        <attr name="title" />
+        <attr name="titleColor" />
+        <attr name="titleSize" />
         <attr name="titleStyle" format="enum">
             <enum name="normal" value="0" />
             <enum name="bold" value="1" />
@@ -63,9 +68,16 @@
             <enum name="bold_italic" value="3" />
         </attr>
         <attr name="titleTypeface" format="string" />
-        <attr name="requireSelection" format="boolean"/>
-        <attr name="singleCheck" format="boolean"/>
-        <attr name="selectedChipId" format="reference"/>
-        <attr name="chipStyle" format="reference"/>
+        <attr name="requireSelection" format="boolean" />
+        <attr name="singleCheck" format="boolean" />
+        <attr name="selectedChipId" format="reference" />
+        <attr name="chipStyle" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="MoreLessTextView">
+        <attr name="maxLinesShown" format="integer"/>
+        <attr name="readMoreText" format="string" />
+        <attr name="readLessText" format="string" />
+        <attr name="clickableColor" format="color" />
     </declare-styleable>
 </resources>

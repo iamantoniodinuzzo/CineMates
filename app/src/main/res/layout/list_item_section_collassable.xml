@@ -5,10 +5,7 @@
 
     <data>
 
-        <variable
-            name="section"
-            type="com.example.cinemates.domain.model.section.Section" />
-    </data>
+         </data>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +24,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="24sp"
-                android:text="@{section.title}"
                 android:autoSizeMaxTextSize="24sp"
                 android:autoSizeMinTextSize="12sp"
                 android:autoSizeStepGranularity="2sp"

@@ -20,21 +20,14 @@ private val TAG = TvDetailsContainerFragment::class.simpleName
 class TvDetailsContainerFragment : MediaDetailsContainerFragment(
     mapOf(
         TvAboutFragment() to "About",
-        TvSeasonsFragment() to "Seasons",
-        TvCastFragment() to "Cast",
-        TvCrewFragment() to "Crew",
-        TvCreatedByFragment() to "Creators",
-        TvSimilarFragment() to "Similar"
     )
 ) {
 
     private val viewModel: TvDetailsViewModel by activityViewModels()
-    private val args: TvDetailsContainerFragmentArgs by navArgs()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.onDetailsFragmentReady(args.media.id)
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             launch {
@@ -42,18 +35,6 @@ class TvDetailsContainerFragment : MediaDetailsContainerFragment(
                     binding.media = selectedTv
                 }
             }
-
-            launch {
-                viewModel.posters.collectLatest {
-                    this@TvDetailsContainerFragment.posters = it
-                }
-            }
-            launch {
-                viewModel.backdrops.collectLatest {
-                    this@TvDetailsContainerFragment.backdrops= it
-                }
-            }
-
         }
 
     }

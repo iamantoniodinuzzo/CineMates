@@ -37,6 +37,7 @@ object AppModule {
         return result
     }
 
+
     private fun addQueryParam(queryMap: MutableMap<String, String>, key: String, value: String) {
         if (!queryMap.containsKey(key)) {
             queryMap[key] = value

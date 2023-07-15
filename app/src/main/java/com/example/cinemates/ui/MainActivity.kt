@@ -3,20 +3,16 @@ package com.example.cinemates.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.cinemates.R
 import com.example.cinemates.databinding.ActivityMainBinding
-import com.example.cinemates.util.NetworkConnection
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding private set
+    private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
 
@@ -26,10 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupNavigation()
 
-        val networkConnection = NetworkConnection(applicationContext)
-        networkConnection.observe(this) { isConnected ->
-            binding.noInternet.isVisible = !isConnected
-        }
+
     }
 
     private fun setupNavigation() = binding.bottomNavigationView.run {
@@ -38,21 +31,21 @@ class MainActivity : AppCompatActivity() {
         navController = navHost.navController
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
+       /* val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeFragment,
                 R.id.discoverFragment,
                 R.id.savedFragment,
                 R.id.profileFragment
             )
-        )
+        )*/
 
-        lifecycleScope.launchWhenResumed {
+        /*lifecycleScope.launchWhenResumed {
             navController.addOnDestinationChangedListener { _: NavController, destination: NavDestination, _: Bundle? ->
                 isVisible =
                     appBarConfiguration.topLevelDestinations.contains(destination.id)
             }
-        }
+        }*/
 
         setupWithNavController(navController)
     }

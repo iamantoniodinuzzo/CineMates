@@ -24,13 +24,10 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
 
         binding.apply {
             searchButton.setOnClickListener { _ ->
-                findNavController().navigate(
-                    R.id.action_discoverFragment_to_searchFragment
-                )
+
             }
             customFilter.setOnClickListener {
-                Navigation.findNavController(view)
-                    .navigate(R.id.action_discoverFragment_to_discoverResultFragment)
+
             }
 
         }

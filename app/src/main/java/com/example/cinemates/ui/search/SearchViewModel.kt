@@ -1,12 +1,9 @@
 package com.example.cinemates.ui.search
 
 import androidx.lifecycle.ViewModel
-import com.example.cinemates.domain.usecases.search.GetSearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 
@@ -19,7 +16,6 @@ import javax.inject.Inject
 class SearchViewModel
 @Inject
 constructor(
-    private val getSearchUseCase: GetSearchUseCase
 ) : ViewModel() {
 
     private val _query = MutableStateFlow<String?>(null)
@@ -38,34 +34,6 @@ constructor(
 
     fun setIsGridLayout(value: Boolean) {
         _isGridLayout.value = value
-    }
-
-    val searchedActors = query.flatMapLatest { query ->
-        query?.let {
-            if (it.isBlank())
-                emptyFlow()
-            else
-                getSearchUseCase.getSearchedPerson(it)
-        } ?: emptyFlow()
-    }
-
-    val searchedMovies = query.flatMapLatest { query ->
-        query?.let {
-            if (it.isBlank())
-                emptyFlow()
-            else
-                getSearchUseCase.getSearchedMovies(it)
-        } ?: emptyFlow()
-    }
-
-    val searchedTvShow = query.flatMapLatest { query ->
-        query?.let {
-            if (it.isBlank())
-                emptyFlow()
-            else
-                getSearchUseCase.getSearchedTv(it)
-        } ?: emptyFlow()
-
     }
 
 

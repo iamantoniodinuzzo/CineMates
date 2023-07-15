@@ -76,7 +76,7 @@ class SectionAdapter :
         }
     }
 
-    fun submitList(sections: List<Section>) {
+    fun submitSectionList(sections: List<Section>) {
         submitList(sections.toMutableList())
     }
 

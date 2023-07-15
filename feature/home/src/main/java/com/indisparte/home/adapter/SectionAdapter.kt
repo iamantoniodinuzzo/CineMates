@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.home.databinding.ListItemSectionBinding
 import com.indisparte.home.util.Section
+import com.indisparte.network.Resource
 
 /**
  * Adapter class for displaying different sections in a RecyclerView.
@@ -98,7 +99,17 @@ class SectionAdapter :
             binding.apply {
                 textSectionTitle.text = context.getString(movieSection.titleResId)
                 recyclerView.apply {
-                    // TODO: adapter
+                    val movieAdapter = MovieAdapter()
+                    adapter = movieAdapter
+                    when (movieSection.movies) {
+                        is Resource.Error -> TODO()
+                        is Resource.Loading -> TODO()
+                        is Resource.Success -> {
+                            movieAdapter.submitList(movieSection.movies.data)
+                        }
+
+                        null -> TODO()
+                    }
                 }
             }
 
@@ -114,7 +125,17 @@ class SectionAdapter :
             binding.apply {
                 textSectionTitle.text = context.getString(tvShowSection.titleResId)
                 recyclerView.apply {
-                    // TODO: adapter
+                    val tvShowAdapter = TvShowAdapter()
+                    adapter = tvShowAdapter
+                    when (tvShowSection.tvShows) {
+                        is Resource.Error -> TODO()
+                        is Resource.Loading -> TODO()
+                        is Resource.Success -> {
+                            tvShowAdapter.submitList(tvShowSection.tvShows.data)
+                        }
+
+                        null -> TODO()
+                    }
 
                 }
             }
@@ -130,7 +151,16 @@ class SectionAdapter :
             binding.apply {
                 textSectionTitle.text = context.getString(peopleSection.titleResId)
                 recyclerView.apply {
-                    // TODO: adapter
+                    val peopleAdapter = PeopleAdapter()
+                    adapter = peopleAdapter
+                    when (peopleSection.people) {
+                        is Resource.Error -> TODO()
+                        is Resource.Loading -> TODO()
+                        is Resource.Success -> {
+                            peopleAdapter.submitList(peopleSection.people.data)
+                        }
+                        null -> TODO()
+                    }
 
                 }
             }

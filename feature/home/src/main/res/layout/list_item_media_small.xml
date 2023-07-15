@@ -18,9 +18,6 @@
         app:placeholder="@drawable/ic_image_placeholder"
         app:posterRadius="10dp"
         app:rating="@{media.voteAverageAsString}"
-        app:ratingRadius="@dimen/base_corner_radius"
-        app:title="@{media.mediaName}"
-        app:titleColor="?attr/colorOnPrimary"
-        app:titleSize="14sp" />
+        app:ratingRadius="@dimen/base_corner_radius" />
 
 </layout>

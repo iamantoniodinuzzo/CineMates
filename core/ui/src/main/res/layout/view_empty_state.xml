@@ -17,25 +17,25 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:elevation="4dp"
-            android:src="@drawable/ic_empty_result_ratatouille" />
+            android:src="@drawable/baseline_blind_24" />
 
         <TextView
             android:id="@+id/tvEmptyStateTitle"
             android:layout_width="wrap_content"
+            android:textColor="@color/alabaster"
             android:layout_height="wrap_content"
             tools:text="Empty Title"
             android:visibility="gone"
-            tools:visibility="visible"
-            style="@style/SmallTitleTextViewStyle"/>
+            tools:visibility="visible"/>
 
         <TextView
             android:id="@+id/tvEmptyStateSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Empty Subtitle"
+            android:textColor="@color/alabaster"
             tools:visibility="visible"
-            android:visibility="gone"
-            style="@style/BodyTextViewStyle"/>
+            android:visibility="gone"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEmptyState"
@@ -43,7 +43,6 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             tools:visibility="visible"
-            style="@style/PrimaryCustomMaterialButtonStyle"
             tools:text="Empty Button" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

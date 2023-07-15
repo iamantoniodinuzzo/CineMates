@@ -17,38 +17,31 @@
             android:id="@+id/linearLayoutCompat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textSectionTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
                 android:textColor="@color/alabaster"
                 android:textSize="24sp"
-                tools:text="@tools:sample/first_names"
-                app:drawableTint="@color/alabaster" />
+                android:textStyle="bold"
+                app:drawableTint="@color/alabaster"
+                tools:text="@tools:sample/first_names" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linearLayoutCompat">
-
-            <androidx.recyclerview.widget.RecyclerView
+            <com.indisparte.ui.custom_view.EmptyStateRecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="false"
                 android:orientation="horizontal"
+                android:paddingStart="10dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_media_small" />
-
-        </RelativeLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     </RelativeLayout>

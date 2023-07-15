@@ -2,9 +2,15 @@ package com.indisparte.model.entity
 
 
 open class TvShow(
-    val id: Int,
+    id: Int,
     val name: String,
-    val popularity: Double,
-    val posterPath: String?,
-    val voteAverage: Double,
+    popularity: Double,
+    posterPath: String?,
+    voteAverage: Double,
+) : Media(
+    id = id,
+    name,
+    popularity = popularity,
+    posterPath = posterPath,
+    voteAverage = voteAverage
 )

@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.indisparte.home.adapter.SectionAdapter
 import com.indisparte.home.databinding.FragmentHomeBinding
 import com.indisparte.ui.fragment.BaseFragment
+import com.indisparte.util.extension.collectIn
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -20,10 +22,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         get() = FragmentHomeBinding::inflate
 
     private val viewModel: HomeViewModel by viewModels()
+    private val sectionAdapter: SectionAdapter by lazy {
+        SectionAdapter()
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        TODO("Use here your views")
+        binding.apply {
+            recyclerViewSection.adapter = sectionAdapter
+        }
+
+        viewModel.sections.collectIn(viewLifecycleOwner) {
+            sectionAdapter.submitList(it)
+        }
+
     }
 
 

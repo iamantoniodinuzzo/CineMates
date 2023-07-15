@@ -1,17 +1,13 @@
-package com.example.cinemates.ui.details.movie
+package com.indisparte.movie_details
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.navArgs
-import com.example.cinemates.ui.details.MediaDetailsContainerFragment
+import com.indisparte.ui.fragment.MediaDetailsContainerFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-
-private val TAG = MovieDetailsContainerFragment::class.simpleName
 
 /**
  * @author Antonio Di Nuzzo
@@ -20,7 +16,7 @@ private val TAG = MovieDetailsContainerFragment::class.simpleName
  */
 @AndroidEntryPoint
 class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
-    mapOf(
+    linkedMapOf(
         MovieAboutFragment() to "About",
     )
 ) {
@@ -29,17 +25,7 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "onViewCreated called")
 
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            launch {
-                viewModel.selectedMovie.collect { selectedMovie ->
-                    binding.media = selectedMovie
-                }
-            }
-
-
-        }
 
 
     }

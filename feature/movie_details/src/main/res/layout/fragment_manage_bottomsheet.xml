@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
     <data>
 
         <variable
             name="movie"
-            type="com.example.cinemates.domain.model.movie.Movie" />
+            type="com.indisparte.model.entity.Movie" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

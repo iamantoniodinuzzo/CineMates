@@ -1,12 +1,10 @@
 package com.example.cinemates.ui.details.tvShow
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.navArgs
-import com.example.cinemates.ui.details.MediaDetailsContainerFragment
+import com.indisparte.ui.fragment.MediaDetailsContainerFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

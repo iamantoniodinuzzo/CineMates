@@ -1,4 +1,4 @@
-package com.example.cinemates.ui.details.movie
+package com.indisparte.movie_details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,15 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemates.R
-import com.example.cinemates.common.BaseFragment
-import com.example.cinemates.databinding.FragmentMovieAboutBinding
-import com.example.cinemates.domain.model.common.Genre
-import com.indisparte.horizontalchipview.HorizontalChipView
-import kotlinx.coroutines.launch
-
+import com.indisparte.model.entity.Genre
+import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
+import com.indisparte.ui.custom_view.HorizontalChipView
+import com.indisparte.ui.fragment.BaseFragment
 
 class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
@@ -25,10 +21,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
     private val viewModel: MovieDetailsViewModel by activityViewModels()
     private lateinit var collectionDialog: CollectionDialog
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,7 +31,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             val chipGroupGenres: HorizontalChipView<Genre> =
                 view.findViewById<HorizontalChipView<Genre>>(R.id.chiGroupGenres)
 
-            enableInnerScrollViewPager(trailers)
 
             chipGroupGenres.onChipClicked = { genre ->
                 // TODO: Implement search on click of genre, open search view
@@ -50,35 +41,9 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 ).show()
             }
 
-            collectionCover.root.setOnClickListener {
-                collectionDialog.showDialog()
-            }
-
-            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-
-                launch {
-                    viewModel.selectedMovie.collect { selectedMovie ->
-                        movie = selectedMovie
-                        selectedMovie?.genres?.let {
-                            chipGroupGenres.setChipsList(
-                                it,
-                                textGetter = { genre -> genre.name }
-                            )
-                        }
-                    }
-                }
-
-                launch {
-
-                }
-
-                launch {
-
-                }
-
-            }
 
         }
+
 
     }
 
@@ -103,6 +68,4 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             }
         })
     }
-
-
 }

@@ -5,15 +5,12 @@
 
     <data>
 
-        <variable
-            name="video"
-            type="com.example.cinemates.domain.model.common.Video" />
     </data>
 
     <RelativeLayout
         android:layout_width="220dp"
-        android:layout_margin="10dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/video_thumbnail"
@@ -25,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.google.android.youtube.player.YouTubeThumbnailView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/thumbnailView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -36,10 +33,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:background="@drawable/round_corner_transparent_bg"
+                    android:padding="10dp"
                     android:textColor="@color/alabaster"
                     android:textSize="14sp"
-                    android:padding="10dp"
-                    android:background="@drawable/round_corner_transparent_bg"
                     android:textStyle="bold"
                     tools:text="Official" />
 
@@ -50,10 +47,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/video_thumbnail"
+            android:layout_marginStart="10dp"
             android:text="@{video.name}"
             android:textColor="@color/alabaster"
             android:textSize="14sp"
-            android:layout_marginStart="10dp"
             android:textStyle="bold"
             tools:text="@tools:sample/full_names" />
     </RelativeLayout>

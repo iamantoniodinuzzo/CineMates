@@ -1,4 +1,4 @@
-package com.example.cinemates.ui.details.movie
+package com.indisparte.movie_details
 
 import android.app.Dialog
 import android.os.Bundle
@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.cinemates.databinding.FragmentManageBottomsheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.indisparte.movie_details.databinding.FragmentManageBottomsheetBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

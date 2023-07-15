@@ -1,9 +1,11 @@
-package com.example.cinemates.ui.details.movie
+package com.indisparte.movie_details
 
-import androidx.lifecycle.*
-import com.example.cinemates.domain.model.movie.Movie
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.indisparte.model.entity.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,9 +39,6 @@ constructor(
 
         }
     }
-
-
-
 
 
 }

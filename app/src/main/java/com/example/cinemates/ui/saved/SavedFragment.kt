@@ -5,16 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemates.R
 import com.example.cinemates.common.BaseFragment
-import com.example.cinemates.ui.adapter.ViewPagerAdapter
+import com.indisparte.ui.adapter.ViewPagerAdapter
 import com.example.cinemates.databinding.FragmentSavedBinding
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.android.material.transition.MaterialElevationScale
 
 /**
  * @author Antonio Di Nuzzo

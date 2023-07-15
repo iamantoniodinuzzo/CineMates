@@ -1,4 +1,4 @@
-package com.example.cinemates.ui.details.movie
+package com.indisparte.movie_details
 
 import android.content.Context
 import android.view.Gravity
@@ -7,16 +7,13 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import com.example.cinemates.R
-import com.example.cinemates.databinding.LayoutCollectionDialogBinding
-import com.example.cinemates.domain.model.movie.Collection
+import com.indisparte.movie_details.databinding.LayoutCollectionDialogBinding
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
 class CollectionDialog(
     private val context: Context,
-    private val collection: Collection,
 ) {
 
     private lateinit var alertDialog: AlertDialog
@@ -24,7 +21,7 @@ class CollectionDialog(
 
     fun showDialog() {
         val dialogBuilder = AlertDialog.Builder(context)
-        dialogBuilder.setTitle("Parts of ${collection.name}")
+        // fixme dialogBuilder.setTitle("Parts of ${collection.name}")
         binding = LayoutCollectionDialogBinding.inflate(LayoutInflater.from(context))
         dialogBuilder.setView(binding.root)
 

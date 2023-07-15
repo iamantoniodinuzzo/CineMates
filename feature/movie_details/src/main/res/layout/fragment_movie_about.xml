@@ -7,7 +7,7 @@
 
         <variable
             name="movie"
-            type="com.example.cinemates.domain.model.movie.Movie" />
+            type="com.indisparte.model.entity.MovieDetails" />
 
         <import type="android.view.View" />
     </data>
@@ -22,7 +22,7 @@
             android:layout_height="match_parent">
 
 
-            <com.indisparte.morelesstextview.MoreLessTextView
+            <com.indisparte.ui.custom_view.MoreLessTextView
                 android:id="@+id/readMoreTextV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
                 app:readMoreText="Read more"
                 tools:text="@tools:sample/lorem" />
 
-            <com.indisparte.horizontalchipview.HorizontalChipView
+            <com.indisparte.ui.custom_view.HorizontalChipView
                 android:id="@+id/chiGroupGenres"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

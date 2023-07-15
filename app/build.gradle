@@ -3,13 +3,10 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.dagger.hilt.android'
-    id 'kotlin-android'
     id 'kotlin-kapt'
 }
 
-def apikeyPropertiesFile = rootProject.file("local.properties")
-def apikeyProperties = new Properties()
-apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 
 android {
     compileSdk libs.versions.targetSdk.get().toInteger()
@@ -20,9 +17,6 @@ android {
         targetSdk libs.versions.targetSdk.get().toInteger()
         versionCode 1
         versionName "1.0"
-        // should correspond to key/value pairs inside the file
-        buildConfigField("String", "TMDB_API_KEY", apikeyProperties['TMDB_API_KEY'])
-        buildConfigField("String", "YT_API_KEY", apikeyProperties['YT_API_KEY'])
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -32,9 +26,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-        kotlinOptions.freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
-    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -60,6 +52,8 @@ dependencies {
     implementation project(path: ':MoreLessTextView')
     implementation project(path: ':PosterView')
     implementation project(':core:ui')
+    implementation project(':feature:home')
+
 
     implementation(libs.appcompat)
     implementation(libs.material)

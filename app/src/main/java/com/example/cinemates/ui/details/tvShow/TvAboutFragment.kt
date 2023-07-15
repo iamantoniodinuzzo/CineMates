@@ -14,9 +14,6 @@ import com.example.cinemates.R
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentTvAboutBinding
 import com.example.cinemates.domain.model.common.Genre
-import com.example.cinemates.ui.adapter.EpisodeGroupAdapter
-import com.example.cinemates.ui.adapter.MediaAdapter
-import com.example.cinemates.ui.adapter.VideoAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,16 +23,11 @@ class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTvAboutBinding
         get() = FragmentTvAboutBinding::inflate
 
-    private lateinit var videoAdapter: VideoAdapter
-    private lateinit var episodeGroupAdapter: EpisodeGroupAdapter
-    private lateinit var mediaAdapter: MediaAdapter
     private val viewModel: TvDetailsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        videoAdapter = VideoAdapter()
-        mediaAdapter = MediaAdapter()
-        episodeGroupAdapter = EpisodeGroupAdapter()
+
     }
 
 
@@ -44,8 +36,6 @@ class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            tvTrailers.adapter = videoAdapter
-            episodeGroups.adapter = episodeGroupAdapter
 
             val customChipsView: HorizontalChipView<Genre> =
                 view.findViewById<HorizontalChipView<Genre>>(R.id.chipGroupGenres)
@@ -73,24 +63,6 @@ class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
                                 )
                             }
                         }
-                    }
-                }
-
-                launch {
-                    viewModel.videos.collect { trailers ->
-                        showTrailerSection(trailers.isNotEmpty())
-                        if (trailers.isNotEmpty()) {
-                            videoAdapter.items = trailers
-                        }
-                    }
-                }
-
-
-
-                launch {
-                    viewModel.episodeGroupList.collectLatest { list ->
-                        episodeGroupAdapter.items = list
-
                     }
                 }
 

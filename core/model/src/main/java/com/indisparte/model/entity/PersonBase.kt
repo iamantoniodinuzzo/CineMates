@@ -23,6 +23,17 @@ abstract class PersonBase(
     val popularity: Double,
     val profilePath: String?,
 ) {
+    companion object {
+        protected const val IMAGE_BASE_URL_W780 = "https://image.tmdb.org/t/p/w780"
+        protected const val IMAGE_BASE_URL_W500 = "https://image.tmdb.org/t/p/w500"
+    }
+
+    val completeProfilePathW780: String?
+        get() = if (profilePath.isNullOrEmpty()) null else "${IMAGE_BASE_URL_W780}/$profilePath"
+
+    val completeProfilePathW500: String?
+        get() = if (profilePath.isNullOrEmpty()) null else "${IMAGE_BASE_URL_W500}/$profilePath"
+
     protected fun getFormattedData(locale: Locale, data: String?): String? {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", locale)
         val date = data?.let { dateFormat.parse(it) }
@@ -40,4 +51,16 @@ abstract class PersonBase(
             }
             return genderString
         }
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PersonBase) return false
+
+        return id == other.id && name == other.name
+    }
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + name.hashCode()
+        return result
+    }
 }

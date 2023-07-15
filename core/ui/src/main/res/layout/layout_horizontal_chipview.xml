@@ -7,9 +7,9 @@
 
     <TextView
         android:id="@+id/title"
+        style="@style/SmallTitleTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
         tools:text="@tools:sample/first_names" />
 
     <HorizontalScrollView

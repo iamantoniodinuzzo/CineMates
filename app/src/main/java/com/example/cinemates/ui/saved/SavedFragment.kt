@@ -26,16 +26,12 @@ class SavedFragment : BaseFragment<FragmentSavedBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSavedBinding
         get() = FragmentSavedBinding::inflate
 
-    private lateinit var toSeeFragment: ToSeeFragment
-    private lateinit var seenFragment: SeenFragment
     private var mLinearLayoutManager: LinearLayoutManager? = null
     private var mGridLayoutManager: GridLayoutManager? = null
     private var layoutGrid = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        toSeeFragment = ToSeeFragment()
-        seenFragment = SeenFragment()
         mLinearLayoutManager = LinearLayoutManager(context)
         mGridLayoutManager = GridLayoutManager(context, 3)
     }
@@ -65,8 +61,6 @@ class SavedFragment : BaseFragment<FragmentSavedBinding>() {
 
     private fun setupTabLayout() {
         val viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
-        viewPagerAdapter.addFragment(toSeeFragment)
-        viewPagerAdapter.addFragment(seenFragment)
         binding.viewPager.adapter = viewPagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {

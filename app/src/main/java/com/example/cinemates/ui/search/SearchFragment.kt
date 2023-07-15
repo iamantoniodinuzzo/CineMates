@@ -10,14 +10,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentSearchBinding
-import com.example.cinemates.ui.adapter.MediaAdapter
-import com.example.cinemates.ui.adapter.PersonAdapter
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.util.ViewSize
 import kotlinx.coroutines.launch
@@ -31,17 +28,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         get() = FragmentSearchBinding::inflate
 
     private lateinit var selectedLayoutManager: LayoutManager
-    private lateinit var movieAdapter: MediaAdapter
-    private lateinit var personAdapter: PersonAdapter
-    private lateinit var tvShowAdapter: MediaAdapter
     private val viewModel: SearchViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //init adapters
-        movieAdapter = MediaAdapter()
-        personAdapter = PersonAdapter()
-        tvShowAdapter = MediaAdapter()
     }
 
 
@@ -90,22 +81,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
             //listen viewModel changes
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-                launch {
-                    viewModel.searchedMovies.collect { movies ->
-                        movieAdapter.items = movies
-                    }
-                }
-                launch {
-                    viewModel.searchedActors.collect { actors ->
-                        personAdapter.items = actors
-                    }
-                }
 
-                launch {
-                    viewModel.searchedTvShow.collect { tvShow ->
-                        tvShowAdapter.items = tvShow
-                    }
-                }
 
                 launch {
                     viewModel.isGridLayout.collect {
@@ -130,7 +106,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 }
 
             }
-            recyclerView.adapter = movieAdapter
 
 
             // Set up the filter chips
@@ -141,13 +116,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                     return@setOnCheckedChangeListener
                 }
                 lastCheckedId = checkedId
-                val adapter = when (checkedId) {
-                    R.id.movies_chip -> movieAdapter
-                    R.id.actors_chip -> personAdapter
-                    R.id.tv_show_chip -> tvShowAdapter
-                    else -> throw IllegalArgumentException("Invalid filter chip ID")
-                }
-                recyclerView.adapter = adapter
+
             }
         }
     }
@@ -158,9 +127,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             "updateLayoutType: Small View"
         )
         selectedLayoutManager = layoutManager
-        tvShowAdapter.currentLayoutType = viewSize
-        movieAdapter.currentLayoutType = viewSize
-        personAdapter.currentLayoutType = viewSize
+
     }
 
 

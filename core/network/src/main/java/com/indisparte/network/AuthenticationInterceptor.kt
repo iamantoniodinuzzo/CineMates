@@ -17,6 +17,10 @@ class AuthenticationInterceptor
 @Inject
 constructor() : Interceptor {
 
+    companion object{
+        private const val TMDb_API_KEY = BuildConfig.TMDB_API_KEY
+    }
+
     /**
      * This method intercepts the outgoing request and adds an API key query parameter to it.
      * It then returns the modified request for further processing.
@@ -30,6 +34,7 @@ constructor() : Interceptor {
 
         // Build a new URL with the API key query parameter
         val newUrl = request.url.newBuilder()
+            .addQueryParameter("api_key", TMDb_API_KEY)
             .build()
 
         // Build a new request with the modified URL

@@ -7,9 +7,9 @@ import com.google.gson.annotations.SerializedName
  */
 class GenericResponse<T>(
     val page: Int?,
-    @SerializedName(value = "total_pages")
+    @SerializedName("total_pages")
     val totalPages: Int?,
-    @SerializedName(value = "total_results")
+    @SerializedName("total_results")
     val totalResults: Int?,
     val results: List<T> = listOf()
 )

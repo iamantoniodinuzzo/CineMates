@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.isVisible
 import com.indisparte.ui.R
+import com.indisparte.ui.databinding.LayoutLinearInfoBinding
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)

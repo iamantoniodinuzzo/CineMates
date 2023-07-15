@@ -2,7 +2,6 @@ package com.example.cinemates.ui.discover
 
 import androidx.lifecycle.ViewModel
 import com.example.cinemates.domain.model.common.MediaFilter
-import com.example.cinemates.domain.usecases.discover.DiscoverUseCaseContainer
 import com.example.cinemates.util.MediaSortOption
 import com.example.cinemates.util.MediaType
 import com.example.cinemates.util.MovieSortOption
@@ -23,7 +22,6 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class DiscoverViewModel @Inject constructor(
-    private val discoverUseCaseContainer: DiscoverUseCaseContainer,
 ) : ViewModel() {
 
     private val _mediaFilter = MutableStateFlow<MediaFilter>(
@@ -53,19 +51,6 @@ class DiscoverViewModel @Inject constructor(
         }
     }
 
-    val genres = mediaFilter.flatMapLatest { filter ->
-        when (filter.mediaType) {
-            MediaType.MOVIE -> discoverUseCaseContainer.getMovieGenresUseCase.invoke()
-            MediaType.TV -> discoverUseCaseContainer.getTvGenresUseCase.invoke()
-        }
-    }
-
-    val discoverableMedia = mediaFilter.flatMapLatest { filter ->
-        when (filter.mediaType) {
-            MediaType.MOVIE -> discoverUseCaseContainer.getMovieByDiscover.invoke(filter)
-            MediaType.TV -> discoverUseCaseContainer.getTvByDiscover.invoke(filter)
-        }
-    }
 
     fun updateMediaFilter(mediaFilterBuilder: MediaFilter.Builder) {
         _mediaFilter.value = mediaFilterBuilder.build()

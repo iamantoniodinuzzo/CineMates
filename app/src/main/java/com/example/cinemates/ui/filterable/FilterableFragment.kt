@@ -1,20 +1,13 @@
 package com.example.cinemates.ui.filterable
 
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
-import com.example.cinemates.R
 import com.example.cinemates.databinding.FragmentFilterableBinding
-import com.example.cinemates.databinding.LayoutCustomDialogRandomBinding
-import com.example.cinemates.ui.adapter.MediaAdapter
 import com.example.cinemates.common.BaseFragment
 
 class FilterableFragment : BaseFragment<FragmentFilterableBinding>() {
@@ -23,13 +16,10 @@ class FilterableFragment : BaseFragment<FragmentFilterableBinding>() {
         get() = FragmentFilterableBinding::inflate
 
     private val viewModel: FilterableViewModel by activityViewModels()
-    private val args: FilterableFragmentArgs by navArgs()
-    private lateinit var adapter: MediaAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = MediaAdapter()
     }
 
 
@@ -44,10 +34,8 @@ class FilterableFragment : BaseFragment<FragmentFilterableBinding>() {
 
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
 
-            recyclerView.adapter = adapter
 
             viewModel.movies.observe(viewLifecycleOwner) { movies ->
-                adapter.items = movies
 //                setFabVisibility(movies)
             }
 

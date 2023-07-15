@@ -15,6 +15,8 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
+import com.indisparte.ui.R
+import com.indisparte.ui.databinding.LayoutHorizontalChipviewBinding
 
 /**
  * Show a vertical [LinearLayoutCompat] section containing an optional title and a scrollable horizontal [ChipGroup] view.
@@ -129,29 +131,29 @@ class HorizontalChipView<T>(
         requireNotNull(attrs) { "attrs cannot be null" }
         context.theme.obtainStyledAttributes(
             attrs,
-            com.indisparte.horizontalchipview.R.styleable.HorizontalChipView,
+            R.styleable.HorizontalChipView,
             defStyleAttr,
             0
         ).apply {
             try {
-                title = getString(com.indisparte.horizontalchipview.R.styleable.HorizontalChipView_title) ?: ""
+                title = getString(R.styleable.HorizontalChipView_title) ?: ""
                 textColor = getColor(
-                    com.indisparte.horizontalchipview.R.styleable.HorizontalChipView_titleColor,
+                    R.styleable.HorizontalChipView_titleColor,
                     Color.WHITE
                 )
-                textSize = getDimension(com.indisparte.horizontalchipview.R.styleable.HorizontalChipView_titleSize, 14f)
+                textSize = getDimension(R.styleable.HorizontalChipView_titleSize, 14f)
                 textStyle = getInt(
-                    com.indisparte.horizontalchipview.R.styleable.HorizontalChipView_titleStyle,
+                    R.styleable.HorizontalChipView_titleStyle,
                     Typeface.BOLD
                 )
-                typefacePath = getString(com.indisparte.horizontalchipview.R.styleable.HorizontalChipView_titleTypeface)
+                typefacePath = getString(R.styleable.HorizontalChipView_titleTypeface)
                 orientation = VERTICAL // default orientation, immutable
                 requireSelection = getBoolean(
-                    com.indisparte.horizontalchipview.R.styleable.HorizontalChipView_requireSelection, false
+                    R.styleable.HorizontalChipView_requireSelection, false
                 )
-                singleCheck = getBoolean(com.indisparte.horizontalchipview.R.styleable.HorizontalChipView_singleCheck, false)
-                selectedChipId = getResourceId(com.indisparte.horizontalchipview.R.styleable.HorizontalChipView_selectedChipId, -1)
-                chipStyle = getResourceId(com.indisparte.horizontalchipview.R.styleable.HorizontalChipView_chipStyle, -1)
+                singleCheck = getBoolean(R.styleable.HorizontalChipView_singleCheck, false)
+                selectedChipId = getResourceId(R.styleable.HorizontalChipView_selectedChipId, -1)
+                chipStyle = getResourceId(R.styleable.HorizontalChipView_chipStyle, -1)
             } finally {
                 recycle()
             }
@@ -211,7 +213,7 @@ class HorizontalChipView<T>(
                 }
             } catch (e: Resources.NotFoundException) {
                 // handle the exception
-                Log.e(com.indisparte.horizontalchipview.TAG, "SetChipsList error: ${e.message} ")
+                Log.e("HorizontalChipView", "SetChipsList error: ${e.message} ")
                 Chip(context)
             }
         } else {

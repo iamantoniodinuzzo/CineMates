@@ -1,11 +1,11 @@
 package com.example.cinemates.domain.model.tv
 
 
-import com.example.cinemates.data.remote.response.credits.CrewDTO
+import com.example.cinemates.domain.model.credits.Crew
 
 class SeasonEpisode(
     airDate: String,
-    val crew: List<CrewDTO>,
+    val crew: List<Crew>,
     episodeNumber: Int,
     val guestStar: List<GuestStar>,
     id: Int,

@@ -19,7 +19,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val BASE_URL = ""
+    private const val BASE_URL = "https://api.themoviedb.org/3/"
 
     /**
      * Provides an instance of HttpLoggingInterceptor for logging HTTP request and response information.

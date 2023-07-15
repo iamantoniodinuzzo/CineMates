@@ -14,8 +14,6 @@ import com.example.cinemates.R
 import com.example.cinemates.common.BaseFragment
 import com.example.cinemates.databinding.FragmentMovieAboutBinding
 import com.example.cinemates.domain.model.common.Genre
-import com.example.cinemates.ui.adapter.MediaAdapter
-import com.example.cinemates.ui.adapter.VideoAdapter
 import com.indisparte.horizontalchipview.HorizontalChipView
 import kotlinx.coroutines.launch
 
@@ -25,13 +23,11 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieAboutBinding
         get() = FragmentMovieAboutBinding::inflate
 
-    private lateinit var videoAdapter: VideoAdapter
     private val viewModel: MovieDetailsViewModel by activityViewModels()
     private lateinit var collectionDialog: CollectionDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        videoAdapter = VideoAdapter()
     }
 
 
@@ -39,7 +35,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            trailers.adapter = videoAdapter
 
             val chipGroupGenres: HorizontalChipView<Genre> =
                 view.findViewById<HorizontalChipView<Genre>>(R.id.chiGroupGenres)
@@ -74,23 +69,11 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 }
 
                 launch {
-                    viewModel.videos.collect { trailers ->
-                        showTrailerSection(trailers.isNotEmpty())
-                        if (trailers.isNotEmpty()) {
-                            videoAdapter.items = trailers
-                        }
-                    }
+
                 }
 
                 launch {
-                    viewModel.collection.collect { collection ->
-                        collection.let {
-                            collectionDialog =
-                                CollectionDialog(requireContext(), it, MediaAdapter(requireView()))
-                        }
 
-
-                    }
                 }
 
             }

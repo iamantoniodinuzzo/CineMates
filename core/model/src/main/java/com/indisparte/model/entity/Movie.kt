@@ -5,10 +5,16 @@ package com.indisparte.model.entity
  */
 open class Movie(
     val adult: Boolean,
-    val id: Int,
-    val popularity: Double,
-    val posterPath: String?,
+    id: Int,
+    popularity: Double,
+    posterPath: String?,
     val releaseDate: String,
     val title: String,
-    val voteAverage: Double,
+    voteAverage: Double,
+) : Media(
+    id = id,
+    title,
+    popularity = popularity,
+    posterPath = posterPath,
+    voteAverage = voteAverage
 )

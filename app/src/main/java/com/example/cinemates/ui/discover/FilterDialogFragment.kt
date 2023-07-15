@@ -136,12 +136,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
             view.findViewById<HorizontalChipView<Genre>>(R.id.genres)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.genres.collectLatest { genres ->
-                chipGroup.setChipsList(
-                    genres,//The list of items to be included in the chip group
-                    textGetter = { genre -> genre.name }//The text to be included in the chip
-                )
-            }
+
         }
 
         chipGroup.onCheckedChangeListener = { _, genre, isChecked ->

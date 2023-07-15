@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat
 import com.example.cinemates.R
 import com.example.cinemates.databinding.LayoutCollectionDialogBinding
 import com.example.cinemates.domain.model.movie.Collection
-import com.example.cinemates.ui.adapter.MediaAdapter
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
@@ -18,7 +17,6 @@ import com.example.cinemates.ui.adapter.MediaAdapter
 class CollectionDialog(
     private val context: Context,
     private val collection: Collection,
-    private val adapter: MediaAdapter
 ) {
 
     private lateinit var alertDialog: AlertDialog
@@ -48,8 +46,6 @@ class CollectionDialog(
         }
         alertDialog.setCanceledOnTouchOutside(true)
 
-        adapter.items = collection.parts
-        binding.partsOfCollection.adapter = adapter
 
         alertDialog.show()
     }

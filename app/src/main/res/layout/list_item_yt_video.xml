@@ -30,7 +30,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    app:loadThumbnail="@{video.key}"
                     tools:src="@tools:sample/backgrounds/scenic" />
 
                 <TextView
@@ -42,7 +41,6 @@
                     android:padding="10dp"
                     android:background="@drawable/round_corner_transparent_bg"
                     android:textStyle="bold"
-                    app:loadOfficial="@{video.official}"
                     tools:text="Official" />
 
             </RelativeLayout>

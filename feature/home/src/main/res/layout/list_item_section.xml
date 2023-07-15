@@ -43,6 +43,14 @@
                 tools:listitem="@layout/list_item_media_small" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:indicatorColor="@color/vermilion_100"/>
+
 
     </RelativeLayout>
 </layout>

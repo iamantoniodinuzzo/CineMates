@@ -103,6 +103,7 @@ class SectionAdapter :
                     adapter = movieAdapter
                     when (movieSection.movies) {
                         is Resource.Error -> {
+                            progress.hide()
                             this.setEmptyStateTitle("Error")
                             movieSection.movies.error?.localizedMessage?.let {
                                 this.setEmptyStateSubtitle(
@@ -111,8 +112,9 @@ class SectionAdapter :
                             }
                         }
 
-                        is Resource.Loading -> TODO()
+                        is Resource.Loading -> {progress.show()}
                         is Resource.Success -> {
+                            progress.hide()
                             movieAdapter.submitList(movieSection.movies.data)
                         }
 
@@ -137,6 +139,7 @@ class SectionAdapter :
                     adapter = tvShowAdapter
                     when (tvShowSection.tvShows) {
                         is Resource.Error -> {
+                            progress.hide()
                             this.setEmptyStateTitle("Error")
                             tvShowSection.tvShows.error?.localizedMessage?.let {
                                 this.setEmptyStateSubtitle(
@@ -144,8 +147,9 @@ class SectionAdapter :
                                 )
                             }
                         }
-                        is Resource.Loading -> TODO()
+                        is Resource.Loading -> {progress.show()}
                         is Resource.Success -> {
+                            progress.hide()
                             tvShowAdapter.submitList(tvShowSection.tvShows.data)
                         }
 
@@ -170,6 +174,7 @@ class SectionAdapter :
                     adapter = peopleAdapter
                     when (peopleSection.people) {
                         is Resource.Error -> {
+                            progress.hide()
                             this.setEmptyStateTitle("Error")
                             peopleSection.people.error?.localizedMessage?.let {
                                 this.setEmptyStateSubtitle(
@@ -178,8 +183,9 @@ class SectionAdapter :
                             }
                         }
 
-                        is Resource.Loading -> TODO()
+                        is Resource.Loading -> {progress.show()}
                         is Resource.Success -> {
+                            progress.hide()
                             peopleAdapter.submitList(peopleSection.people.data)
                         }
 

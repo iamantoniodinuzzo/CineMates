@@ -8,10 +8,35 @@ import com.indisparte.network.Resource
 
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * Sealed class representing a section.
+ *
+ * @param titleResId The string resource ID for the section title.
  */
 sealed class Section(@StringRes val titleResId: Int) {
-    class MovieSection(@StringRes titleResId: Int, val movies: Resource<List<Movie>>?) : Section(titleResId)
-    class TvShowSection(@StringRes titleResId: Int, val tvShows: Resource<List<TvShow>>?) : Section(titleResId)
-    class PeopleSection(@StringRes titleResId: Int, val people: Resource<List<Person>>?) : Section(titleResId)
+    /**
+     * Subclass representing a movie section.
+     *
+     * @param titleResId The string resource ID for the section title.
+     * @param movies The resource representing the list of movies.
+     */
+    class MovieSection(@StringRes titleResId: Int, val movies: Resource<List<Movie>>?) :
+        Section(titleResId)
+
+    /**
+     * Subclass representing a TV show section.
+     *
+     * @param titleResId The string resource ID for the section title.
+     * @param tvShows The resource representing the list of TV shows.
+     */
+    class TvShowSection(@StringRes titleResId: Int, val tvShows: Resource<List<TvShow>>?) :
+        Section(titleResId)
+
+    /**
+     * Subclass representing a people section.
+     *
+     * @param titleResId The string resource ID for the section title.
+     * @param people The resource representing the list of people.
+     */
+    class PeopleSection(@StringRes titleResId: Int, val people: Resource<List<Person>>?) :
+        Section(titleResId)
 }

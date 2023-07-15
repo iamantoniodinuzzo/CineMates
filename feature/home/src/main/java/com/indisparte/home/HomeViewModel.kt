@@ -10,6 +10,8 @@ import com.indisparte.movie.util.MovieListType
 import com.indisparte.tv.repository.TvRepository
 import com.indisparte.tv.util.TvListType
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -29,22 +31,6 @@ constructor(
     private val peopleRepository: PeopleRepository,
 ) : ViewModel() {
 
-    /*private val _popularMovies = MutableStateFlow<Resource<List<Movie>>?>(null)
-    val popularMovies: StateFlow<Resource<List<Movie>>?> get() = _popularMovies
-    private val _upcomingMovies = MutableStateFlow<Resource<List<Movie>>?>(null)
-    val upcomingMovies: StateFlow<Resource<List<Movie>>?> get() = _upcomingMovies
-    private val _trendingMovies = MutableStateFlow<Resource<List<Movie>>?>(null)
-    val trendingMovies: StateFlow<Resource<List<Movie>>?> get() = _trendingMovies
-    private val _topRatedMovies = MutableStateFlow<Resource<List<Movie>>?>(null)
-    val topRatedMovies: StateFlow<Resource<List<Movie>>?> get() = _topRatedMovies
-    private val _popularTvShow = MutableStateFlow<Resource<List<TvShow>>?>(null)
-    val popularTvShow: StateFlow<Resource<List<TvShow>>?> get() = _popularTvShow
-    private val _trendingTvShow = MutableStateFlow<Resource<List<TvShow>>?>(null)
-    val trendingTvShow: StateFlow<Resource<List<TvShow>>?> get() = _trendingTvShow
-    private val _onTheAirTvShow = MutableStateFlow<Resource<List<TvShow>>?>(null)
-    val onTheAirTvShow: StateFlow<Resource<List<TvShow>>?> get() = _onTheAirTvShow
-    private val _popularPeople = MutableStateFlow<Resource<List<Person>>?>(null)
-    val popularPeople: StateFlow<Resource<List<Person>>?> get() = _popularPeople*/
 
     private val _sections = MutableStateFlow<List<Section>>(emptyList())
     val sections: StateFlow<List<Section>> get() = _sections
@@ -116,19 +102,31 @@ constructor(
     fun fetchData() {
         viewModelScope.launch {
             try {
-                fetchPopularMovies()
-                fetchUpcomingMovies()
-                fetchTrendingMovies()
-                fetchPopularPeople()
-                fetchPopularTvShow()
-                fetchOnTheAirTvShow()
-                fetchTrendingTvShow()
-                fetchTopRatedMovies()
+                val popularMoviesDeferred = async { fetchPopularMovies() }
+                val upcomingMoviesDeferred = async { fetchUpcomingMovies() }
+                val trendingMoviesDeferred = async { fetchTrendingMovies() }
+                val popularPeopleDeferred = async { fetchPopularPeople() }
+                val popularTvShowDeferred = async { fetchPopularTvShow() }
+                val onTheAirTvShowDeferred = async { fetchOnTheAirTvShow() }
+                val trendingTvShowDeferred = async { fetchTrendingTvShow() }
+                val topRatedMoviesDeferred = async { fetchTopRatedMovies() }
+
+                awaitAll(
+                    popularMoviesDeferred,
+                    upcomingMoviesDeferred,
+                    trendingMoviesDeferred,
+                    popularPeopleDeferred,
+                    popularTvShowDeferred,
+                    onTheAirTvShowDeferred,
+                    trendingTvShowDeferred,
+                    topRatedMoviesDeferred
+                )
             } catch (e: Exception) {
-                // todo Use here general error
+                // Manage here the general error
             }
         }
     }
+
 
     private fun updateSection(section: Section) {
         sectionMap[section.titleResId] = section

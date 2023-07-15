@@ -102,7 +102,15 @@ class SectionAdapter :
                     val movieAdapter = MovieAdapter()
                     adapter = movieAdapter
                     when (movieSection.movies) {
-                        is Resource.Error -> TODO()
+                        is Resource.Error -> {
+                            this.setEmptyStateTitle("Error")
+                            movieSection.movies.error?.localizedMessage?.let {
+                                this.setEmptyStateSubtitle(
+                                    it
+                                )
+                            }
+                        }
+
                         is Resource.Loading -> TODO()
                         is Resource.Success -> {
                             movieAdapter.submitList(movieSection.movies.data)
@@ -128,7 +136,14 @@ class SectionAdapter :
                     val tvShowAdapter = TvShowAdapter()
                     adapter = tvShowAdapter
                     when (tvShowSection.tvShows) {
-                        is Resource.Error -> TODO()
+                        is Resource.Error -> {
+                            this.setEmptyStateTitle("Error")
+                            tvShowSection.tvShows.error?.localizedMessage?.let {
+                                this.setEmptyStateSubtitle(
+                                    it
+                                )
+                            }
+                        }
                         is Resource.Loading -> TODO()
                         is Resource.Success -> {
                             tvShowAdapter.submitList(tvShowSection.tvShows.data)
@@ -154,11 +169,20 @@ class SectionAdapter :
                     val peopleAdapter = PeopleAdapter()
                     adapter = peopleAdapter
                     when (peopleSection.people) {
-                        is Resource.Error -> TODO()
+                        is Resource.Error -> {
+                            this.setEmptyStateTitle("Error")
+                            peopleSection.people.error?.localizedMessage?.let {
+                                this.setEmptyStateSubtitle(
+                                    it
+                                )
+                            }
+                        }
+
                         is Resource.Loading -> TODO()
                         is Resource.Success -> {
                             peopleAdapter.submitList(peopleSection.people.data)
                         }
+
                         null -> TODO()
                     }
 

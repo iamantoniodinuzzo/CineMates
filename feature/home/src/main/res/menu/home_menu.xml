@@ -4,8 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/search"
+        android:iconTint="?attr/colorOnSecondary"
         android:icon="@drawable/ic_outline_search_24"
         app:showAsAction="ifRoom"
-        android:title="Search" />
+        android:title="@string/menu_search_text" />
 </menu>
 

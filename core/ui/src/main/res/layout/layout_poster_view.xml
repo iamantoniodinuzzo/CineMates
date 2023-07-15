@@ -14,14 +14,12 @@
 
         <TextView
             android:id="@+id/title"
+            style="@style/SmallTitleTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/poster"
             android:layout_marginTop="5dp"
             android:maxLines="2"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
             tools:text="Movie Title" />
 
         <include

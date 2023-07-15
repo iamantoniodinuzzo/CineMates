@@ -7,6 +7,7 @@
 
     <TextView
         android:id="@+id/title"
+        style="@style/SmallTitleTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -16,10 +17,9 @@
         android:id="@+id/value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/alabaster"
-        android:textSize="14sp"
+        style="@style/BodyTextViewStyle"
         android:layout_weight="1"
-        app:clickableColor="@color/vermilion_100"
+        app:clickableColor="?attr/colorAccent"
         app:maxLinesShown="2"
         app:readLessText="Read less"
         app:readMoreText="Read more"

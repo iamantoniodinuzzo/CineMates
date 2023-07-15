@@ -13,6 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
+        android:background="?attr/colorOnSecondary"
+        android:backgroundTint="?attr/colorOnSecondary"
         tools:src="@tools:sample/backgrounds/scenic"
         android:contentDescription="Poster image" />
 </androidx.cardview.widget.CardView>

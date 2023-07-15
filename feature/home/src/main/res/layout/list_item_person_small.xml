@@ -31,12 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ivAvatar"
             android:layout_centerInParent="true"
-            android:autoSizeMaxTextSize="14sp"
+            style="@style/SmallTitleTextViewStyle"
             android:maxLines="2"
             android:text="@{person.name}"
-            android:textColor="@color/alabaster"
-            android:textSize="18sp"
-            android:textStyle="bold"
             tools:text="@tools:sample/full_names" />
     </RelativeLayout>
 </layout>

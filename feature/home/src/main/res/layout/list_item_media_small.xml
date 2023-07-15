@@ -20,7 +20,7 @@
         app:rating="@{media.voteAverageAsString}"
         app:ratingRadius="@dimen/base_corner_radius"
         app:title="@{media.mediaName}"
-        app:titleColor="@color/alabaster"
+        app:titleColor="?attr/colorOnPrimary"
         app:titleSize="14sp" />
 
 </layout>

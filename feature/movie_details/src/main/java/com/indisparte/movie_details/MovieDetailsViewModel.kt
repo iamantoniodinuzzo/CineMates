@@ -2,10 +2,13 @@ package com.indisparte.movie_details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.indisparte.model.entity.Movie
+import com.indisparte.model.entity.MovieDetails
+import com.indisparte.movie.repository.MovieRepository
+import com.indisparte.network.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,10 +21,11 @@ import javax.inject.Inject
 internal class MovieDetailsViewModel
 @Inject
 constructor(
+    private val movieRepository: MovieRepository,
 ) : ViewModel() {
 
-    private val _selectedMovie = MutableStateFlow<Movie?>(null)
-    val selectedMovie: Flow<Movie?> get() = _selectedMovie
+    private val _selectedMovie = MutableStateFlow<Resource<MovieDetails?>>(Resource.Loading())
+    val selectedMovie: StateFlow<Resource<MovieDetails?>> get() = _selectedMovie
 
 
     /**
@@ -36,6 +40,14 @@ constructor(
      */
     private fun getMovieDetails(movieId: Int) {
         viewModelScope.launch {
+            _selectedMovie.value = Resource.Loading()
+            try {
+                movieRepository.getDetails(movieId).collectLatest {
+                    _selectedMovie.value = Resource.Success(it.data)
+                }
+            } catch (e: Exception) {
+                _selectedMovie.value = Resource.Error(e)
+            }
 
         }
     }

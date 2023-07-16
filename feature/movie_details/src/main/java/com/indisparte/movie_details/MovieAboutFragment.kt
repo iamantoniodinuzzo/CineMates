@@ -1,33 +1,52 @@
 package com.indisparte.movie_details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.model.entity.Genre
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
+import com.indisparte.network.Resource
 import com.indisparte.ui.custom_view.HorizontalChipView
 import com.indisparte.ui.fragment.BaseFragment
+import com.indisparte.util.extension.collectIn
+import dagger.hilt.android.AndroidEntryPoint
 
-internal class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
+@AndroidEntryPoint
+class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieAboutBinding
         get() = FragmentMovieAboutBinding::inflate
 
-    private val viewModel: MovieDetailsViewModel by activityViewModels()
+    private val viewModel: MovieDetailsViewModel by viewModels()
     private lateinit var collectionDialog: CollectionDialog
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
 
+            viewModel.selectedMovie.collectIn(viewLifecycleOwner) {
+                when (it) {
+                    is Resource.Error -> {
+                        Log.d("MovieAbout", "onViewCreated: Cannot load content error->${it.error}")
+                    }
+
+                    is Resource.Loading -> {
+                        Log.d("MovieAbout", "onViewCreated: Loading content")
+                    }
+
+                    is Resource.Success -> {
+                        movie = it.data
+                    }
+                }
+            }
             val chipGroupGenres: HorizontalChipView<Genre> =
                 view.findViewById<HorizontalChipView<Genre>>(R.id.chiGroupGenres)
 
@@ -41,9 +60,7 @@ internal class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 ).show()
             }
 
-
         }
-
 
     }
 

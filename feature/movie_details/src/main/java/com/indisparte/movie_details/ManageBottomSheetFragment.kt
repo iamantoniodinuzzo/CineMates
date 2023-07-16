@@ -48,11 +48,7 @@ internal class ManageBottomSheetFragment : BottomSheetDialogFragment() {
             * If the movie is not present then returns the movie using the one selected in the [MovieDetailsViewModel]
              */
             viewLifecycleOwner.lifecycleScope.launch {
-                movieViewModel.selectedMovie.collectLatest {
-                    if (it != null) {
-                        movie = it
-                    }
-                }
+
             }
 
             //listen selected movie changes for updating UI

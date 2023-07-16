@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
+import com.indisparte.navigation.NavigationFlow
+import com.indisparte.navigation.ToFlowNavigable
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -14,9 +16,9 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 internal class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
-    linkedMapOf(
+  /*  linkedMapOf(
         MovieAboutFragment() to "About",
-    )
+    )*/
 ) {
     private val viewModel: MovieDetailsViewModel by activityViewModels()
     private val movieIdArgs: MovieDetailsContainerFragmentArgs by navArgs()
@@ -26,6 +28,9 @@ internal class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         super.onViewCreated(view, savedInstanceState)
         Log.d("MovieDetailsContainer", "Movie id: ${movieIdArgs.id}")
 
+        binding.toolbar.setNavigationOnClickListener {
+            ((this.requireActivity())as ToFlowNavigable).navigateToFlow(NavigationFlow.HomeFlow)
+        }
 
     }
 

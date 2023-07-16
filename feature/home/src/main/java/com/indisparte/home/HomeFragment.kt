@@ -23,7 +23,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by viewModels()
     private val sectionAdapter: SectionAdapter by lazy {
-        SectionAdapter()
+        SectionAdapter(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

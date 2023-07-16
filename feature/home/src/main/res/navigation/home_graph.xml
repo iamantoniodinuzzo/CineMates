@@ -9,14 +9,5 @@
         android:id="@+id/homeFragment"
         tools:layout="@layout/fragment_home"
         android:name="com.indisparte.home.HomeFragment"
-        android:label="HomeFragment" >
-        <action
-            android:id="@+id/action_homeFragment_to_movie_details_graph"
-            app:destination="@id/movie_details_graph" >
-            <argument
-                android:name="id"
-                app:argType="integer"/>
-        </action>
-    </fragment>
-    <include app:graph="@navigation/movie_details_graph" />
+        android:label="HomeFragment" />
 </navigation>

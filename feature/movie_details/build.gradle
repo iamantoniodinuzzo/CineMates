@@ -44,7 +44,6 @@ dependencies {
     implementation project(':core:network')
     implementation project(':core:model')
     implementation project(':data:movie')
-    implementation project(':data:people')
 
     implementation(libs.appcompat)
     implementation(libs.material)

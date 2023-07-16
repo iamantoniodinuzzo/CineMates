@@ -46,7 +46,6 @@ dependencies {
     implementation project(':data:movie')
     implementation project(':data:tv')
     implementation project(':data:people')
-    implementation project(':feature:movie_details')
 
     implementation(libs.appcompat)
     implementation(libs.material)

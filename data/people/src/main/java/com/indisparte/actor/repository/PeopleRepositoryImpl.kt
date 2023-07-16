@@ -28,6 +28,7 @@ constructor(
             mapper = { response -> response.mapToPersonDetails() }
         )
 
+    //todo need to cache this people
     override suspend fun getPopularPersons(): Flow<Resource<List<Person>>> =
         getListFromResponse(
             request = { peopleDataSource.getPopularPersons(queryMap) },

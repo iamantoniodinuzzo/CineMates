@@ -35,6 +35,7 @@ constructor(
     private val queryMap: MutableMap<String, String>,
 ) : MovieRepository {
 
+    //todo need to cache this movies
     override suspend fun getByListType(movieListType: MovieListType): Flow<Resource<List<Movie>>> =
         getListFromResponse(
             request = { movieService.getListOfSpecificMovies(movieListType.value, queryMap) },

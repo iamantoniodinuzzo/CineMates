@@ -52,7 +52,9 @@ dependencies {
     implementation project(path: ':MoreLessTextView')
     implementation project(path: ':PosterView')
     implementation project(':core:ui')
+    implementation project(':core:navigation')
     implementation project(':feature:home')
+    implementation project(':feature:movie_details')
 
 
     implementation(libs.appcompat)

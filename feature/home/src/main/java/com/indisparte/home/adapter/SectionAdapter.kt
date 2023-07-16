@@ -3,6 +3,7 @@ package com.indisparte.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ import com.indisparte.network.Resource
  *
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class SectionAdapter :
+class SectionAdapter(private val fragment: Fragment) :
     ListAdapter<Section, RecyclerView.ViewHolder>(SectionDiffCallback()) {
 
     /**
@@ -99,7 +100,7 @@ class SectionAdapter :
             binding.apply {
                 textSectionTitle.text = context.getString(movieSection.titleResId)
                 recyclerView.apply {
-                    val movieAdapter = MovieAdapter()
+                    val movieAdapter = MovieAdapter(fragment)
                     adapter = movieAdapter
                     when (movieSection.movies) {
                         is Resource.Error -> {

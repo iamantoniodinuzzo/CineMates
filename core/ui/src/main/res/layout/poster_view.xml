@@ -13,19 +13,22 @@
             android:id="@+id/posterImageView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
-        <com.google.android.material.chip.Chip
+        <TextView
             android:id="@+id/chipTextView"
-            style="@style/CustomChipStyle"
+            style="@style/SmallTitleTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
+            android:background="@drawable/round_corner_transparent_bg"
+            android:padding="10dp"
+            android:textColor="?attr/colorAccent"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/posterImageView"
@@ -35,12 +38,12 @@
         <TextView
             android:id="@+id/titleTextView"
             style="@style/SmallTitleTextViewStyle"
-            android:textSize="14sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/base_margin"
             android:ellipsize="end"
             android:maxLines="2"
+            android:textSize="14sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

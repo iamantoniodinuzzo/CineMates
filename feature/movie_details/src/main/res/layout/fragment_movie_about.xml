@@ -63,25 +63,29 @@
                 app:movie="@{movie}" />
 
 
-            <!-- <include
-                 android:id="@+id/collection_cover"
-                 layout="@layout/layout_collection_cover"
-                 android:layout_width="match_parent"
-                 android:layout_height="200dp"
-                 android:layout_below="@id/movie_info"
-                 android:layout_marginHorizontal="20dp"
-                 android:layout_marginTop="10dp"
-                 app:collection="@{movie.belongsToCollection}" />
- -->
+            <com.indisparte.ui.custom_view.PosterView
+                android:id="@+id/collection_cover"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/movie_info"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:visibility="@{movie.belongsToCollection!=null?View.VISIBLE:View.GONE}"
+                app:pv_chipValue="@{movie.belongsToCollection.name}"
+                app:pv_imageUrl="@{movie.belongsToCollection.completeBackdropPathW780 ?? movie.belongsToCollection.completePosterPathW780}"
+                app:pv_posterHeight="200dp" />
+
+
             <TextView
                 android:id="@+id/trailer_title"
                 style="@style/HugeTitleTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/movie_info"
+                android:layout_below="@id/collection_cover"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:text="Trailers" />
+                android:text="Trailers"
+                android:visibility='@{movie.video==true?View.VISIBLE:View.GONE}' />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trailers"
@@ -91,6 +95,7 @@
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:paddingHorizontal="10dp"
+                android:visibility='@{movie.video==true?View.VISIBLE:View.GONE}'
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_yt_video" />
 

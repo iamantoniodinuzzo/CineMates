@@ -63,7 +63,6 @@ class PosterView @JvmOverloads constructor(
         val defaultTitleColor = ContextCompat.getColor(context, R.color.geyser)
         val defaultChipTextSize = resources.getDimension(R.dimen.default_chip_text_size)
         val defaultChipTextColor = ContextCompat.getColor(context, R.color.vermilion_100)
-        val defaultChipStyle = R.style.CustomChipStyle
         val defaultPosterWidth = resources.getDimensionPixelSize(R.dimen.default_poster_width)
         val defaultPosterHeight = resources.getDimensionPixelSize(R.dimen.default_poster_height)
         val defaultCornerRadius = resources.getDimension(R.dimen.base_corner_radius)
@@ -76,7 +75,6 @@ class PosterView @JvmOverloads constructor(
         setTitleColor(defaultTitleColor)
         setChipTextSize(defaultChipTextSize)
         setChipTextColor(defaultChipTextColor)
-        setChipStyle(defaultChipStyle)
         setPosterSize(defaultPosterWidth, defaultPosterHeight)
         setLayoutParams(defaultPosterWidth, defaultPosterHeight)
         foreground = background
@@ -251,18 +249,7 @@ class PosterView @JvmOverloads constructor(
             .into(binding.posterImageView)
     }
 
-    /**
-     * Sets the size of the poster view.
-     *
-     * @param width The width of the poster view.
-     * @param height The height of the poster view.
-     */
-    fun setPosterSize(width: Int, height: Int) {
-        val layoutParams = binding.posterImageView.layoutParams
-        layoutParams.width = width
-        layoutParams.height = height
-        binding.posterImageView.layoutParams = layoutParams
-    }
+
 
     /**
      * Sets the corner radius of the poster view.
@@ -288,6 +275,53 @@ class PosterView @JvmOverloads constructor(
         val layoutParams = FrameLayout.LayoutParams(width, height)
         layoutParams.gravity = Gravity.CENTER
         setLayoutParams(layoutParams)
+    }
+
+    /**
+     * Sets the size of the poster view.
+     *
+     * @param width The width of the poster view.
+     * @param height The height of the poster view.
+     */
+    fun setPosterSize(width: Int, height: Int) {
+        val layoutParams = binding.posterImageView.layoutParams
+        layoutParams.width = width
+        layoutParams.height = height
+        binding.posterImageView.layoutParams = layoutParams
+
+        // Update the title text size based on the new dimensions
+        val scaledTextSize = calculateScaledTextSize(width)
+        setTitleSize(scaledTextSize)
+    }
+
+    private fun calculateScaledTextSize(width: Int): Float {
+        val maxWidth = resources.getDimensionPixelSize(R.dimen.default_poster_width)
+        val defaultTextSize = resources.getDimension(R.dimen.default_poster_title_size)
+        val scaleFactor = width.toFloat() / maxWidth
+        return defaultTextSize * scaleFactor
+    }
+
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        // If the width or height is set to match_parent, update the size of the poster view
+        if (layoutParams.width == LayoutParams.MATCH_PARENT || layoutParams.height == LayoutParams.MATCH_PARENT) {
+            val measuredWidth = measuredWidth
+            val measuredHeight = measuredHeight
+
+            // Adjust the poster size
+            val posterWidth = measuredWidth - paddingLeft - paddingRight
+            val posterHeight = measuredHeight - paddingTop - paddingBottom
+            setPosterSize(posterWidth, posterHeight)
+
+            // Adjust the title text size based on the new dimensions
+            val scaledTextSize = calculateScaledTextSize(posterWidth)
+            setTitleSize(scaledTextSize)
+
+            // Re-measure the view to accommodate the changes
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        }
     }
 
 }

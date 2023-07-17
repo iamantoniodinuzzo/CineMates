@@ -63,7 +63,12 @@ class MovieDetails(
         val currency = Currency.getInstance(Locale.getDefault())
         val formatter = NumberFormat.getCurrencyInstance(Locale.getDefault())
         formatter.currency = currency
-        return formatter.format(amount)
+
+        return when {
+            amount >= 1_000_000_000 -> "${amount / 1_000_000_000} mld"
+            amount >= 1_000_000 -> "${amount / 1_000_000} mln"
+            else -> formatter.format(amount)
+        }
     }
 
     override fun toString(): String {

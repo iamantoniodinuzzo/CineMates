@@ -13,7 +13,6 @@ import android.widget.FrameLayout
 import androidx.annotation.StyleRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.core.widget.TextViewCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -49,22 +48,23 @@ class PosterView @JvmOverloads constructor(
     private fun applyDefaultValues() {
         val defaultTitleSize = resources.getDimension(R.dimen.default_poster_title_size)
         val defaultTitleColor = ContextCompat.getColor(context, R.color.geyser)
-//        val defaultTitleStyle = R.style.SmallTitleTextViewStyle
         val defaultChipTextSize = resources.getDimension(R.dimen.default_chip_text_size)
         val defaultChipTextColor = ContextCompat.getColor(context, R.color.vermilion_100)
         val defaultChipStyle = R.style.CustomChipStyle
         val defaultPosterWidth = resources.getDimensionPixelSize(R.dimen.default_poster_width)
         val defaultPosterHeight = resources.getDimensionPixelSize(R.dimen.default_poster_height)
         val defaultCornerRadius = resources.getDimension(R.dimen.base_corner_radius)
+        val background = ContextCompat.getDrawable(context, R.drawable.poster_view_selector)
+        isClickable = true
 
         setTitleSize(defaultTitleSize)
         setTitleColor(defaultTitleColor)
-//        setTitleStyle(defaultTitleStyle)
         setChipTextSize(defaultChipTextSize)
         setChipTextColor(defaultChipTextColor)
         setChipStyle(defaultChipStyle)
         setPosterSize(defaultPosterWidth, defaultPosterHeight)
         setLayoutParams(defaultPosterWidth, defaultPosterHeight)
+        foreground = background
         setCornerRadius(defaultCornerRadius)
     }
 
@@ -122,6 +122,7 @@ class PosterView @JvmOverloads constructor(
             setTitleSize(titleSize)
             setTitleColor(titleColor)
             setLayoutParams(posterWidth, posterHeight)
+            isClickable = true
 
             typedArray.recycle()
         }
@@ -142,10 +143,6 @@ class PosterView @JvmOverloads constructor(
 
     fun setTitleColor(color: Int) {
         binding.titleTextView.setTextColor(color)
-    }
-
-    fun setTitleStyle(style: Int) {
-        TextViewCompat.setTextAppearance(binding.titleTextView, style)
     }
 
     fun setChipValue(value: Double) {

@@ -16,15 +16,20 @@ import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.google.android.material.card.MaterialCardView
 import com.indisparte.ui.R
 import com.indisparte.ui.databinding.PosterViewBinding
 import kotlin.math.ceil
 
 
 /**
- * Displays a [MaterialCardView] containing a poster, a title, and a numerical value indicating the rating.
- * If the values of the title and valuation are null, it provides to hide the respective views.
+ * Custom view for displaying a poster with a title and optional chip value.
+ *
+ * This view provides functionality for customizing the appearance of the poster,
+ * such as setting the title, chip value, image, corner radius, and dimensions.
+ *
+ * @param context The context of the view.
+ * @param attrs The attribute set containing custom attributes for the view.
+ * @param defStyleAttr The default style attribute for the view.
  * @author Antonio Di Nuzzo (Indisparte)
  */
 class PosterView @JvmOverloads constructor(
@@ -41,11 +46,19 @@ class PosterView @JvmOverloads constructor(
         applyCustomAttributes(attrs, defStyleAttr)
     }
 
+    /**
+     * Initializes the view by inflating the layout and setting up the binding.
+     */
     private fun initializeView() {
         binding = PosterViewBinding.inflate(LayoutInflater.from(context), this)
     }
 
+    /**
+     * Applies default values to the view's properties, such as title size, color, chip style,
+     * poster dimensions, corner radius, and background.
+     */
     private fun applyDefaultValues() {
+        // Set default values for properties
         val defaultTitleSize = resources.getDimension(R.dimen.default_poster_title_size)
         val defaultTitleColor = ContextCompat.getColor(context, R.color.geyser)
         val defaultChipTextSize = resources.getDimension(R.dimen.default_chip_text_size)
@@ -56,6 +69,8 @@ class PosterView @JvmOverloads constructor(
         val defaultCornerRadius = resources.getDimension(R.dimen.base_corner_radius)
         val background = ContextCompat.getDrawable(context, R.drawable.poster_view_selector)
         isClickable = true
+
+        // Apply default values to the view
 
         setTitleSize(defaultTitleSize)
         setTitleColor(defaultTitleColor)
@@ -68,7 +83,14 @@ class PosterView @JvmOverloads constructor(
         setCornerRadius(defaultCornerRadius)
     }
 
+    /**
+     * Applies custom attributes to the view based on the provided attribute set.
+     *
+     * @param attrs The attribute set containing custom attributes for the view.
+     * @param defStyleAttr The default style attribute for the view.
+     */
     private fun applyCustomAttributes(attrs: AttributeSet?, defStyleAttr: Int) {
+        // Retrieve custom attributes from the attribute set
         attrs?.let { attributeSet ->
             val typedArray = context.obtainStyledAttributes(
                 attributeSet,
@@ -117,6 +139,7 @@ class PosterView @JvmOverloads constructor(
                 loadImage(imageUrl)
             }
 
+            // Apply custom attributes to the view
             setCornerRadius(cornerRadius)
             setPosterSize(posterWidth, posterHeight)
             setTitleSize(titleSize)
@@ -128,23 +151,47 @@ class PosterView @JvmOverloads constructor(
         }
     }
 
+
+    /**
+     * Sets the title of the poster.
+     *
+     * @param title The title to be displayed.
+     */
     fun setTitle(title: String) {
         binding.titleTextView.text = title
         binding.titleTextView.isVisible = true
     }
 
+    /**
+     * Hides the title of the poster.
+     */
     fun hideTitle() {
         binding.titleTextView.isVisible = false
     }
 
+    /**
+     * Sets the size of the title text.
+     *
+     * @param size The size of the title text.
+     */
     fun setTitleSize(size: Float) {
         binding.titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
     }
 
+    /**
+     * Sets the color of the title text.
+     *
+     * @param color The color of the title text.
+     */
     fun setTitleColor(color: Int) {
         binding.titleTextView.setTextColor(color)
     }
 
+    /**
+     * Sets the value of the chip displayed on the poster.
+     *
+     * @param value The value to be displayed on the chip.
+     */
     fun setChipValue(value: Double) {
         val roundedValue =
             ceil(value * 10) / 10 // Approssima per eccesso con una cifra decimale
@@ -152,19 +199,36 @@ class PosterView @JvmOverloads constructor(
         binding.chipTextView.isVisible = true
     }
 
-
+    /**
+     * Hides the chip displayed on the poster.
+     */
     fun hideChip() {
         binding.chipTextView.isVisible = false
     }
 
+    /**
+     * Sets the size of the chip text.
+     *
+     * @param size The size of the chip text.
+     */
     fun setChipTextSize(size: Float) {
         binding.chipTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
     }
 
+    /**
+     * Sets the color of the chip text.
+     *
+     * @param color The color of the chip text.
+     */
     fun setChipTextColor(color: Int) {
         binding.chipTextView.setTextColor(color)
     }
 
+    /**
+     * Sets the style of the chip text.
+     *
+     * @param styleRes The style resource for the chip text.
+     */
     fun setChipStyle(@StyleRes styleRes: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             binding.chipTextView.setTextAppearance(styleRes)
@@ -174,7 +238,11 @@ class PosterView @JvmOverloads constructor(
         }
     }
 
-
+    /**
+     * Loads and displays an image in the poster view.
+     *
+     * @param imageUrl The URL of the image to be loaded.
+     */
     fun loadImage(imageUrl: String?) {
         Glide.with(context)
             .load(imageUrl)
@@ -185,6 +253,12 @@ class PosterView @JvmOverloads constructor(
             .into(binding.posterImageView)
     }
 
+    /**
+     * Sets the size of the poster view.
+     *
+     * @param width The width of the poster view.
+     * @param height The height of the poster view.
+     */
     fun setPosterSize(width: Int, height: Int) {
         val layoutParams = binding.posterImageView.layoutParams
         layoutParams.width = width
@@ -192,6 +266,11 @@ class PosterView @JvmOverloads constructor(
         binding.posterImageView.layoutParams = layoutParams
     }
 
+    /**
+     * Sets the corner radius of the poster view.
+     *
+     * @param radius The corner radius of the poster view.
+     */
     fun setCornerRadius(radius: Float) {
         binding.posterImageView.clipToOutline = true
         binding.posterImageView.outlineProvider = object : ViewOutlineProvider() {
@@ -201,6 +280,12 @@ class PosterView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * Sets the layout parameters of the poster view.
+     *
+     * @param width The width of the poster view.
+     * @param height The height of the poster view.
+     */
     private fun setLayoutParams(width: Int, height: Int) {
         val layoutParams = FrameLayout.LayoutParams(width, height)
         layoutParams.gravity = Gravity.CENTER

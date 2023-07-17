@@ -24,7 +24,7 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/originalTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             app:title="Original title"
             app:value="@{tv.originalName}" />
 
-        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             app:title="Status"
             app:value="@{tv.status}" />
 
-        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/tagline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
             app:value="@{tv.tagline}" />
 
 
-        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/originalLanguage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
             app:title="Original language"
             app:value="@{tv.originalLanguage}" />
 
-        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/firstAirDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
             app:textSize="14sp"
             app:value="@{tv.firstAirDate}" />
 
-        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/lastAirDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
             app:textSize="14sp"
             app:value="@{tv.lastAirDate}" />
 
-        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/numberOfEpisodes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
             app:title="Episodes"
             app:value="@{String.valueOf(tv.numberOfEpisodes)}" />
 
-        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/numberOfSeasons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

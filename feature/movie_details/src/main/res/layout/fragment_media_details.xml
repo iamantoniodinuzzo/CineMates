@@ -18,9 +18,9 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
-            android:background="@color/mirage_100"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/mirage_100">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapse_toolbar"
@@ -38,16 +38,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <!--<include
+                    <!--<com.indisparte.ui.custom_view.PosterView
                         android:id="@+id/media_poster"
-                        layout="@layout/list_item_poster"
                         android:layout_width="100dp"
                         android:layout_height="150dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="120dp"
+                        app:imageSrc="@{media.completePosterPathW780}"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:path="@{media.posterPath}" />-->
+                        app:layout_constraintTop_toTopOf="parent" />-->
+
 
                     <ImageView
                         android:id="@+id/media_backdrop"
@@ -57,24 +57,32 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:loadImage="@{media.completePosterPathW780}"
                         tools:src="@tools:sample/backgrounds/scenic" />
 
+                    <ImageView
+                        android:id="@+id/media_poster"
+                        android:layout_width="100dp"
+                        android:layout_height="150dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="120dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:loadImage="@{media.completePosterPathW780}"
+                        tools:src="@tools:sample/backgrounds/scenic" />
 
                     <TextView
                         android:id="@+id/media_title"
+                        style="@style/HugeTitleTextViewStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
                         android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="10dp"
                         android:maxLines="2"
                         android:text="@{media.mediaName}"
-                        android:textColor="@color/alabaster"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/media_backdrop"
-                        app:layout_constraintTop_toBottomOf="@id/media_backdrop"
+                        app:layout_constraintStart_toEndOf="@+id/media_poster"
+                        app:layout_constraintTop_toBottomOf="@+id/media_backdrop"
                         tools:text="Media title" />
 
                     <com.google.android.material.chip.Chip
@@ -98,9 +106,9 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:navigationIcon="@drawable/ic_back_arrow"
                     android:layout_marginBottom="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
+                    app:navigationIcon="@drawable/ic_back_arrow"
                     app:title="@{media.mediaName}" />
 
 
@@ -131,7 +139,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:backgroundTint="@color/vermilion_100" />
+            android:backgroundTint="@color/vermilion_100"
+            android:src="@drawable/round_add_24" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

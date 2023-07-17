@@ -43,6 +43,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = bindingInflater(inflater, container, false)
+        initializeViews() // Call the custom initialization function
         return binding.root
     }
 
@@ -76,4 +77,10 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         _binding = null
         super.onDestroyView()
     }
+
+    /**
+     * This abstract method is called to initialize the views in the fragment.
+     * Child classes must override this method to perform their specific initialization logic.
+     */
+    protected abstract fun initializeViews()
 }

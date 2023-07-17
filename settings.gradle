@@ -15,11 +15,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CineMates"
 include ':app'
-include ':LinearLayoutInfo'
-include ':HorizontalChipView'
-include ':RecyclerViewEmptyStateSupport'
-include ':MoreLessTextView'
-include ':PosterView'
 include ':core:model'
 include ':core:util'
 include ':core:network'

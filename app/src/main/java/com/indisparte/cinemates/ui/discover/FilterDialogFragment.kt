@@ -16,7 +16,7 @@ import com.indisparte.cinemates.domain.model.common.Genre
 import com.indisparte.cinemates.domain.model.common.MediaFilter
 import com.indisparte.cinemates.util.MediaSortOption
 import com.indisparte.cinemates.util.MediaType
-import com.indisparte.horizontalchipview.HorizontalChipView
+import com.indisparte.ui.custom_view.HorizontalChipView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.Calendar

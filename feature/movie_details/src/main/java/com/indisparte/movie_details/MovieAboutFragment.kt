@@ -1,7 +1,6 @@
 package com.indisparte.movie_details
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -10,6 +9,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.github.ajalt.timberkt.Timber
 import com.indisparte.model.entity.Genre
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
 import com.indisparte.network.Resource
@@ -25,7 +25,11 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         get() = FragmentMovieAboutBinding::inflate
 
     private val viewModel: MovieDetailsViewModel by viewModels()
+
     private lateinit var collectionDialog: CollectionDialog
+    override fun initializeViews() {
+        //Nothing here
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,19 +39,20 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             viewModel.selectedMovie.collectIn(viewLifecycleOwner) {
                 when (it) {
                     is Resource.Error -> {
-                        Log.d("MovieAbout", "onViewCreated: Cannot load content error->${it.error}")
+                        Timber.tag("MovieAbout").e("Cannot load content. Error->${it.error}")
                     }
 
                     is Resource.Loading -> {
-                        Log.d("MovieAbout", "onViewCreated: Loading content")
+                        Timber.tag("MovieAbout").d("Loading content...")
                     }
 
                     is Resource.Success -> {
+                        Timber.tag("MovieAbout").d("Content loaded")
                         movie = it.data
                     }
                 }
             }
-            val chipGroupGenres: HorizontalChipView<Genre> =
+            /*val chipGroupGenres: HorizontalChipView<Genre> =
                 view.findViewById<HorizontalChipView<Genre>>(R.id.chiGroupGenres)
 
 
@@ -58,17 +63,17 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                     "Soon - Search ${genre.name} genre",
                     Toast.LENGTH_SHORT
                 ).show()
-            }
+            }*/
 
         }
 
     }
 
-    //TODO automatize this method with data binding
+   /* //TODO automatize this method with data binding
     private fun FragmentMovieAboutBinding.showTrailerSection(isNotEmpty: Boolean) {
         trailerTitle.isVisible = isNotEmpty
         binding.trailers.isVisible = isNotEmpty
-    }
+    }*/
 
     // Disable ViewPager2 from intercepting touch events of RecyclerView
     private fun enableInnerScrollViewPager(recyclerView: RecyclerView) {

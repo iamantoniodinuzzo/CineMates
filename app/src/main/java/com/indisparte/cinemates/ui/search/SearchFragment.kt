@@ -27,6 +27,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSearchBinding
         get() = FragmentSearchBinding::inflate
 
+    override fun initializeViews() {
+        TODO("Not yet implemented")
+    }
+
     private lateinit var selectedLayoutManager: LayoutManager
     private val viewModel: SearchViewModel by activityViewModels()
 

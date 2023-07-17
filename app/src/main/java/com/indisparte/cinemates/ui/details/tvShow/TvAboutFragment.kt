@@ -12,13 +12,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.cinemates.R
 import com.indisparte.cinemates.databinding.FragmentTvAboutBinding
 import com.indisparte.cinemates.domain.model.common.Genre
-import com.indisparte.horizontalchipview.HorizontalChipView
+import com.indisparte.ui.custom_view.HorizontalChipView
 import com.indisparte.ui.fragment.BaseFragment
 
 class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTvAboutBinding
         get() = FragmentTvAboutBinding::inflate
+
+    override fun initializeViews() {
+        TODO("Not yet implemented")
+    }
 
     private val viewModel: TvDetailsViewModel by activityViewModels()
 

@@ -21,6 +21,10 @@ class SeasonDetailsFragment : BaseFragment<FragmentSeasonDetailsBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSeasonDetailsBinding
         get() = FragmentSeasonDetailsBinding::inflate
 
+    override fun initializeViews() {
+        TODO("Not yet implemented")
+    }
+
     private val tvDetailsViewModel: TvDetailsViewModel by activityViewModels()
 
 

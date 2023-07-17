@@ -46,11 +46,6 @@ android {
 
 dependencies {
 
-    implementation project(path: ':LinearLayoutInfo')
-    implementation project(path: ':HorizontalChipView')
-    implementation project(path: ':RecyclerViewEmptyStateSupport')
-    implementation project(path: ':MoreLessTextView')
-    implementation project(path: ':PosterView')
     implementation project(':core:ui')
     implementation project(':core:navigation')
     implementation project(':feature:home')
@@ -90,6 +85,9 @@ dependencies {
     // Youtube
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.22"
+
+    //Timber
+    implementation(libs.timber)
 
 
 }

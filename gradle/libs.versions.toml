@@ -18,7 +18,8 @@ jetbrainsPlugin = "1.7.20"
 androidGradlePlugin = "7.3.1"
 minSdk = "22"
 targetSdk = "33"
-room= "2.5.1"
+room = "2.5.1"
+timber = "1.5.1"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -43,14 +44,15 @@ glide-core = { module = "com.github.bumptech.glide:glide", version.ref = "glide"
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 dagger-core = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
-room-runtime = {module = "androidx.room:room-ktx", version.ref = "room"}
-room-compiler = {module = "androidx.room:room-compiler", version.ref = "room"}
+room-runtime = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+timber = { module = "com.github.ajalt:timberkt", version.ref = "timber" }
 
 [bundles]
 coroutines = ["coroutines.core", "coroutines.android"]
 retrofit = ["retrofit2.core", "retrofit2.converter", "logging.interceptor", "okhttp.core"]
 navigation = ["navigation.fragment", "navigation.ui", "navigation-features"]
-androidX = ["core.ktx","appcompat","constraintLayout"]
+androidX = ["core.ktx", "appcompat", "constraintLayout"]
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }

@@ -3,6 +3,7 @@ package com.indisparte.cinemates.di.component
 import android.app.Application
 import android.content.Context
 import android.os.StrictMode
+import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -30,6 +31,6 @@ class CineMatesApp : Application(){
         )
 
         super.onCreate()
-//        Timber.plant(Timber.DebugTree())
+        Timber.plant(Timber.DebugTree())
     }
 }

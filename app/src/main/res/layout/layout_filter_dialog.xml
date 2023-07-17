@@ -47,7 +47,7 @@
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
     <!-- Sort By section -->
-    <com.indisparte.horizontalchipview.HorizontalChipView
+    <com.indisparte.ui.custom_view.HorizontalChipView
         android:id="@+id/sort_by"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
         app:titleSize="18sp" />
 
     <!-- Genres section -->
-    <com.indisparte.horizontalchipview.HorizontalChipView
+    <com.indisparte.ui.custom_view.HorizontalChipView
         android:id="@+id/genres"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

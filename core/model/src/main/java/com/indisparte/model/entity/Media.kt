@@ -17,10 +17,10 @@ open class Media(
     }
 
     val completePosterPathW780: String?
-        get() = if (posterPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W780/$posterPath"
+        get() = if (posterPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W780$posterPath"
 
     val completePosterPathW500: String?
-        get() = if (posterPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W500/$posterPath"
+        get() = if (posterPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W500$posterPath"
 
     val voteAverageAsString: String
         get() = voteAverage.toString()

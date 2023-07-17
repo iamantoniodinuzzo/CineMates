@@ -43,6 +43,8 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: LinkedH
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeViewPager()
+
         binding.apply {
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             fab.setOnClickListener {
@@ -57,7 +59,6 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: LinkedH
                 fab.isVisible = verticalOffset == 0 || abs(verticalOffset) >= appBarLayout.totalScrollRange
             }
 
-            initializeViewPager()
         }
     }
 
@@ -67,7 +68,7 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: LinkedH
      * @param images The media images to be displayed.
      */
     private fun displayImages(images: MediaStore.Images) {
-        // todo Implement logic for displaying images
+        // todo Implement logic to displaying images
     }
 
     private fun initializeViewPager() {

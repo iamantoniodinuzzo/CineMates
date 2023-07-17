@@ -19,6 +19,10 @@ class ActorDetailsFragment : BaseFragment<FragmentActorDetailsBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentActorDetailsBinding
         get() = FragmentActorDetailsBinding::inflate
 
+    override fun initializeViews() {
+        TODO("Not yet implemented")
+    }
+
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private lateinit var actorAboutFragment: ActorAboutFragment
 

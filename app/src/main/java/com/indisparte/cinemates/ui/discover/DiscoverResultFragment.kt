@@ -18,6 +18,10 @@ class DiscoverResultFragment : BaseFragment<FragmentDiscoverResultBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDiscoverResultBinding
         get() = FragmentDiscoverResultBinding::inflate
 
+    override fun initializeViews() {
+        TODO("Not yet implemented")
+    }
+
     private val viewModel: DiscoverViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {

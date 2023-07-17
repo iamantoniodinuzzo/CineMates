@@ -6,22 +6,18 @@ import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.isVisible
 import com.indisparte.ui.R
 import com.indisparte.ui.databinding.LayoutLinearInfoBinding
 
-/**
- * @author Antonio Di Nuzzo (Indisparte)
- */
-class LinearLayoutInfoView constructor(
+
+class LinearLayoutInfoView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : LinearLayoutCompat(context, attrs, defStyleAttr) {
-    constructor(context: Context) : this(context, null, 0)
-    constructor(context: Context, attrs: AttributeSet) : this(context, attrs, 0)
+    defStyleAttr: Int = 0,
+) : LinearLayout(context, attrs, defStyleAttr) {
 
     companion object {
         private const val DEFAULT_STRING = ""
@@ -53,12 +49,13 @@ class LinearLayoutInfoView constructor(
             textViewValue.setTypeface(textViewValue.typeface, value)
         }
 
-    var value: String = DEFAULT_STRING
+    var value: String? = DEFAULT_STRING
         set(value) {
             field = value
             textViewValue.text = value
-            if (hideIfValueEmpty)//need to hide the view?
-                binding.root.isVisible = value.isNotEmpty()
+            if (hideIfValueEmpty) {
+                isVisible = !value.isNullOrEmpty()
+            }
         }
 
     /**
@@ -90,7 +87,6 @@ class LinearLayoutInfoView constructor(
             textViewValue.setTextSize(TypedValue.COMPLEX_UNIT_PX, value)
         }
 
-
     init {
         context.theme.obtainStyledAttributes(
             attrs,
@@ -113,6 +109,7 @@ class LinearLayoutInfoView constructor(
                 recycle()
             }
         }
-    }
 
+        orientation = VERTICAL
+    }
 }

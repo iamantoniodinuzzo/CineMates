@@ -24,6 +24,10 @@ class SavedFragment : BaseFragment<FragmentSavedBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSavedBinding
         get() = FragmentSavedBinding::inflate
 
+    override fun initializeViews() {
+        TODO("Not yet implemented")
+    }
+
     private var mLinearLayoutManager: LinearLayoutManager? = null
     private var mGridLayoutManager: GridLayoutManager? = null
     private var layoutGrid = false

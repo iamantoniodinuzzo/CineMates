@@ -23,6 +23,10 @@ class EpisodeGroupDetailsFragment : BaseFragment<FragmentEpisodeGroupDetailsBind
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentEpisodeGroupDetailsBinding
         get() = FragmentEpisodeGroupDetailsBinding::inflate
 
+    override fun initializeViews() {
+        TODO("Not yet implemented")
+    }
+
     private val tvDetailsViewModel: TvDetailsViewModel by activityViewModels()
     private lateinit var groupSectionAdapter: SectionAdapter
 

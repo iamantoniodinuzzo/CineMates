@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.cinemates.R
 import com.indisparte.cinemates.databinding.FragmentActorAboutBinding
-import com.indisparte.horizontalchipview.HorizontalChipView
+import com.indisparte.ui.custom_view.HorizontalChipView
 import com.indisparte.ui.fragment.BaseFragment
 import kotlinx.coroutines.launch
 
@@ -23,6 +23,10 @@ class ActorAboutFragment : BaseFragment<FragmentActorAboutBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentActorAboutBinding
         get() = FragmentActorAboutBinding::inflate
+
+    override fun initializeViews() {
+        TODO("Not yet implemented")
+    }
 
     private val viewModel = null
 

@@ -14,6 +14,10 @@ class FilterableFragment : BaseFragment<FragmentFilterableBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentFilterableBinding
         get() = FragmentFilterableBinding::inflate
 
+    override fun initializeViews() {
+        TODO("Not yet implemented")
+    }
+
     private val viewModel: FilterableViewModel by activityViewModels()
 
 

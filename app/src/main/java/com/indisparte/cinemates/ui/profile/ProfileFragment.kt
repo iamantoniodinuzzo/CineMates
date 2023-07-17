@@ -16,6 +16,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentProfileBinding
         get() = FragmentProfileBinding::inflate
 
+    override fun initializeViews() {
+        TODO("Not yet implemented")
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

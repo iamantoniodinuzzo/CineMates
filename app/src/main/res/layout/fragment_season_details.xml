@@ -24,7 +24,7 @@
             app:navigationIcon="@drawable/ic_outline_arrow_back_24"
             app:title="@{season.name}" />
 
-        <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/episode_group_description"
             android:layout_width="match_parent"
             android:layout_height="0dp"

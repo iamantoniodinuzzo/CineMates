@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:padding="10dp">
 
-            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+            <com.indisparte.ui.custom_view.LinearLayoutInfoView
                 android:id="@+id/biography"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
                 app:title="Biography"
                 app:value="@{person.biography}" />
 
-            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+            <com.indisparte.ui.custom_view.LinearLayoutInfoView
                 android:id="@+id/age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                 app:title="Age"
                 app:value="@{person.age}" />
 
-            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+            <com.indisparte.ui.custom_view.LinearLayoutInfoView
                 android:id="@+id/birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                 app:title="Born on"
                 app:value="@{person.birthday}" />
 
-            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+            <com.indisparte.ui.custom_view.LinearLayoutInfoView
                 android:id="@+id/deathDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                 app:title="Died on"
                 app:value="@{person.deathDay}" />
 
-            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+            <com.indisparte.ui.custom_view.LinearLayoutInfoView
                 android:id="@+id/birthPlace"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                 app:title="From"
                 app:value="@{person.placeOfBirth}" />
 
-            <com.indisparte.horizontalchipview.HorizontalChipView
+            <com.indisparte.ui.custom_view.HorizontalChipView
                 android:id="@+id/chipGroupKnownAs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

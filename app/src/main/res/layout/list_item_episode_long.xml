@@ -71,7 +71,7 @@
                     android:textStyle="bold"
                     tools:text="Episode name" />
 
-                <com.indisparte.morelesstextview.MoreLessTextView
+                <com.indisparte.ui.custom_view.MoreLessTextView
                     android:id="@+id/readMoreTextV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

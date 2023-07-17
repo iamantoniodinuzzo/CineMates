@@ -20,7 +20,7 @@
             tools:context=".ui.ui.details.movie.MovieInfoFragment">
 
 
-            <com.indisparte.morelesstextview.MoreLessTextView
+            <com.indisparte.ui.custom_view.MoreLessTextView
                 android:id="@+id/readMoreTextV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                 tools:text="@tools:sample/lorem" />
 
 
-            <com.indisparte.horizontalchipview.HorizontalChipView
+            <com.indisparte.ui.custom_view.HorizontalChipView
                 android:id="@+id/chipGroupGenres"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

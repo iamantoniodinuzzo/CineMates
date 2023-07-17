@@ -13,6 +13,10 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDiscoverBinding
         get() = FragmentDiscoverBinding::inflate
 
+    override fun initializeViews() {
+        TODO("Not yet implemented")
+    }
+
     private val viewModel: DiscoverViewModel by activityViewModels()
 
 

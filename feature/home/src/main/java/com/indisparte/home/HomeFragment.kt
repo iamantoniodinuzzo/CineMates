@@ -22,15 +22,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         get() = FragmentHomeBinding::inflate
 
     private val viewModel: HomeViewModel by viewModels()
+
     private val sectionAdapter: SectionAdapter by lazy {
         SectionAdapter(this)
+    }
+    override fun initializeViews() {
+        binding.apply {
+            recyclerViewSection.adapter = sectionAdapter
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.apply {
-            recyclerViewSection.adapter = sectionAdapter
-        }
 
         viewModel.sections.collectIn(viewLifecycleOwner) {
             sectionAdapter.submitSectionList(it)

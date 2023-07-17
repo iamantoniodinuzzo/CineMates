@@ -28,7 +28,7 @@
                 android:layout_height="360dp"
                 android:textSize="18sp"
                 app:collapsedTitleTextColor="@color/geyser"
-                app:contentScrim="@color/lynch_100"
+                app:contentScrim="?attr/colorSecondary"
                 app:expandedTitleMarginStart="10dp"
                 app:expandedTitleTextColor="@android:color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
@@ -36,6 +36,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
+                    android:background="?attr/colorSecondary"
                     android:layout_height="match_parent">
 
                     <ImageView

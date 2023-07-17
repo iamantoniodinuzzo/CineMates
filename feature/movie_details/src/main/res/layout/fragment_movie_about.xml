@@ -75,22 +75,22 @@
  -->
             <TextView
                 android:id="@+id/trailer_title"
+                style="@style/HugeTitleTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/movie_info"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:text="Trailers"
-                android:textColor="@color/alabaster"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:text="Trailers" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trailers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/trailer_title"
+                android:clipToPadding="false"
                 android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_yt_video" />
 

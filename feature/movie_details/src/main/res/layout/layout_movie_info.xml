@@ -19,10 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="Info"
-            android:textColor="@color/alabaster"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="@style/HugeTitleTextViewStyle"/>
 
 
         <com.indisparte.ui.custom_view.LinearLayoutInfoView
@@ -32,7 +31,7 @@
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textColor="@color/alabaster"
+            app:textColor="@color/geyser"
             app:textSize="14sp"
             app:title="Original title"
             app:value="@{movie.originalTitle}" />
@@ -44,7 +43,7 @@
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textColor="@color/alabaster"
+            app:textColor="@color/geyser"
             app:textSize="14sp"
             app:title="Status"
             app:value="@{movie.status}" />
@@ -56,7 +55,7 @@
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textColor="@color/alabaster"
+            app:textColor="@color/geyser"
             app:textSize="14sp"
             app:title="Runtime"
             app:value="@{movie.formattedRuntime}" />
@@ -68,7 +67,7 @@
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textColor="@color/alabaster"
+            app:textColor="@color/geyser"
             app:textSize="14sp"
             app:title="Original language"
             app:value="@{movie.originalLanguage}" />
@@ -80,7 +79,7 @@
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textColor="@color/alabaster"
+            app:textColor="@color/geyser"
             app:textSize="14sp"
             app:title="Budget"
             app:value="@{movie.formattedBudget}" />
@@ -91,7 +90,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textColor="@color/alabaster"
+            app:textColor="@color/geyser"
             app:textSize="14sp"
             app:title="Revenue"
             app:value="@{movie.formattedRevenue}" />

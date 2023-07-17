@@ -141,10 +141,10 @@
 
     <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Action">
         <item name="chipBackgroundColor">@color/grey_50_alpha</item>
+        <item name="chipCornerRadius">10dp</item>
         <item name="android:textColor">?colorAccent</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">12sp</item>
-        <!-- Aggiungi altri attributi personalizzati per lo stile della chip se necessario -->
     </style>
 
 

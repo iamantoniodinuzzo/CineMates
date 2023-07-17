@@ -110,6 +110,5 @@ class LinearLayoutInfoView @JvmOverloads constructor(
             }
         }
 
-        orientation = VERTICAL
     }
 }

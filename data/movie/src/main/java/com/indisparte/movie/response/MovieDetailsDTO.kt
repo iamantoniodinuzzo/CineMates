@@ -10,9 +10,9 @@ import com.indisparte.response.SpokenLanguageDTO
 data class MovieDetailsDTO(
     val adult: Boolean,
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @SerializedName("belongs_to_collection")
-    val belongsToCollection: BelongsToCollectionDTO,
+    val belongsToCollection: BelongsToCollectionDTO?,
     val budget: Long,
     val genres: List<GenreDTO>,
     val homepage: String,
@@ -26,7 +26,7 @@ data class MovieDetailsDTO(
     val overview: String,
     val popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerializedName("production_companies")
     val productionCompanies: List<ProductionCompanyDTO>,
     @SerializedName("production_countries")

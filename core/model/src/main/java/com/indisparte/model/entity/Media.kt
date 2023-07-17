@@ -37,4 +37,8 @@ open class Media(
         result = 31 * result + mediaName.hashCode()
         return result
     }
+
+    protected fun getCompleteImagePath(urlToImage: String?): String? {
+        return if (urlToImage.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W780$urlToImage"
+    }
 }

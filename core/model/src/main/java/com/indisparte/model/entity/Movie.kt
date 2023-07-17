@@ -17,4 +17,8 @@ open class Movie(
     popularity = popularity,
     posterPath = posterPath,
     voteAverage = voteAverage
-)
+){
+    override fun toString(): String {
+        return "Movie(adult=$adult, releaseDate='$releaseDate', title='$title')"
+    }
+}

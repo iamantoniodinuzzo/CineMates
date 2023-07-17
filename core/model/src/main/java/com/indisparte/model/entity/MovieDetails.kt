@@ -7,8 +7,8 @@ import java.util.Locale
 
 class MovieDetails(
     adult: Boolean,
-    val backdropPath: String,
-    val belongsToCollection: BelongsToCollection,
+    private val backdropPath: String?,
+    val belongsToCollection: BelongsToCollection?,
     private val budget: Long,
     val genres: List<Genre>,
     val homepage: String,
@@ -17,7 +17,7 @@ class MovieDetails(
     val originalTitle: String,
     val overview: String,
     popularity: Double,
-    posterPath: String,
+    posterPath: String?,
     val productionCompanies: List<ProductionCompany>,
     val productionCountries: List<ProductionCountry>,
     releaseDate: String,
@@ -38,7 +38,8 @@ class MovieDetails(
     releaseDate = releaseDate,
     title = title,
     voteAverage = voteAverage
-){
+) {
+
     val formattedBudget: String
         get() = formatCurrency(budget)
 
@@ -48,17 +49,27 @@ class MovieDetails(
     val formattedRuntime: String
         get() = formatRuntime(runtime)
 
+    val completeBackdropPathW780: String?
+        get() = getCompleteImagePath(backdropPath)
+
     private fun formatRuntime(runtime: Int): String {
         val hours = runtime / 60
         val minutes = runtime % 60
 
         return "$hours h $minutes min"
     }
+
     private fun formatCurrency(amount: Long): String {
         val currency = Currency.getInstance(Locale.getDefault())
         val formatter = NumberFormat.getCurrencyInstance(Locale.getDefault())
         formatter.currency = currency
         return formatter.format(amount)
     }
+
+    override fun toString(): String {
+        return "MovieDetails(backdropPath='$backdropPath', belongsToCollection=$belongsToCollection, budget=$budget, genres=$genres, homepage='$homepage', originalLanguage='$originalLanguage', originalTitle='$originalTitle', overview='$overview', productionCompanies=$productionCompanies, productionCountries=$productionCountries, revenue=$revenue, runtime=$runtime, spokenLanguages=$spokenLanguages, status='$status', tagline='$tagline', video=$video, voteCount=$voteCount)"
+    }
+
+
 
 }

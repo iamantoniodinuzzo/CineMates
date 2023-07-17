@@ -50,4 +50,7 @@ dependencies {
     // Dagger Hilt
     implementation libs.dagger.core
     kapt libs.dagger.compiler
+
+    //Timber
+    implementation(libs.timber)
 }

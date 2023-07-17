@@ -10,6 +10,7 @@
             type="com.indisparte.model.entity.MovieDetails" />
 
         <import type="android.view.View" />
+
     </data>
 
 
@@ -62,16 +63,16 @@
                 app:movie="@{movie}" />
 
 
-           <!-- <include
-                android:id="@+id/collection_cover"
-                layout="@layout/layout_collection_cover"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_below="@id/movie_info"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                app:collection="@{movie.belongsToCollection}" />
--->
+            <!-- <include
+                 android:id="@+id/collection_cover"
+                 layout="@layout/layout_collection_cover"
+                 android:layout_width="match_parent"
+                 android:layout_height="200dp"
+                 android:layout_below="@id/movie_info"
+                 android:layout_marginHorizontal="20dp"
+                 android:layout_marginTop="10dp"
+                 app:collection="@{movie.belongsToCollection}" />
+ -->
             <TextView
                 android:id="@+id/trailer_title"
                 android:layout_width="wrap_content"

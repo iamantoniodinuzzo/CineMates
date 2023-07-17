@@ -30,9 +30,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textSize="14sp"
             app:textColor="@color/alabaster"
+            app:textSize="14sp"
             app:title="Original title"
             app:value="@{movie.originalTitle}" />
 
@@ -41,9 +42,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textSize="14sp"
             app:textColor="@color/alabaster"
+            app:textSize="14sp"
             app:title="Status"
             app:value="@{movie.status}" />
 
@@ -52,9 +54,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textSize="14sp"
             app:textColor="@color/alabaster"
+            app:textSize="14sp"
             app:title="Runtime"
             app:value="@{movie.formattedRuntime}" />
 
@@ -63,6 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
             app:hideIfValueEmpty="true"
             app:textColor="@color/alabaster"
             app:textSize="14sp"
@@ -74,9 +78,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textSize="14sp"
             app:textColor="@color/alabaster"
+            app:textSize="14sp"
             app:title="Budget"
             app:value="@{movie.formattedBudget}" />
 
@@ -84,6 +89,7 @@
             android:id="@+id/revenue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             app:hideIfValueEmpty="true"
             app:textColor="@color/alabaster"
             app:textSize="14sp"

@@ -40,7 +40,7 @@ fun MovieDTO.toMovie(): Movie {
 fun MovieDetailsDTO.toMovieDetails(): MovieDetails {
     return MovieDetails(
         adult = this.adult, backdropPath = this.backdropPath,
-        belongsToCollection = this.belongsToCollection.mapToBelongToCollection(),
+        belongsToCollection = this.belongsToCollection?.mapToBelongToCollection(),
         budget = this.budget,
         genres = this.genres.map { it.mapToGenre() },
         homepage = this.homepage,

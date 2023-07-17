@@ -1,5 +1,6 @@
 package com.indisparte.network
 
+import com.github.ajalt.timberkt.Timber
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
@@ -39,20 +40,29 @@ suspend fun <T, O> getSingleFromResponse(
     mapper: (T) -> O,
 ): Flow<Resource<O>> = flow {
     emit(Resource.Loading()) // Emit loading state
-
+    Timber.tag("ResponseConverter").d("Loading...")
     try {
         val response = request.invoke()
         if (response.isSuccessful) {
+            Timber.tag("ResponseConverter").d("Successful response")
+
             val data = response.body()
             if (data != null) {
+                Timber.tag("ResponseConverter").d("Data is not null..")
+
                 val movieDetails = mapper(data)
+                Timber.tag("ResponseConverter").d("Emit movie details: $movieDetails")
                 emit(Resource.Success(movieDetails)) // Emit success state with the retrieved movie details
+
             } else {
+                Timber.tag("ResponseConverter").d("Empty response")
                 emit(Resource.Error(Exception("Empty response"))) // Emit error state for empty response
             }
         } else {
             val errorBody = response.errorBody()?.string()
             val errorMessage = errorBody ?: response.message()
+            Timber.tag("ResponseConverter").e("Error: $errorMessage ")
+
             emit(Resource.Error(Exception(errorMessage))) // Emit error state with the error message
         }
     } catch (e: Exception) {

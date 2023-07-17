@@ -23,6 +23,9 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
 ) {
     private val viewModel: MovieDetailsViewModel by activityViewModels()
     private val movieIdArgs: MovieDetailsContainerFragmentArgs by navArgs()
+    override fun initializeViews() {
+        viewModel.onDetailsFragmentReady(movieIdArgs.id)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,10 +33,12 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
             ((this.requireActivity()) as ToFlowNavigable).navigateToFlow(NavigationFlow.HomeFlow)
         }
 
-        viewModel.selectedMovie.collectIn(viewLifecycleOwner) {
-            when (it) {
+
+        viewModel.selectedMovie.collectIn(viewLifecycleOwner) {resources->
+            when (resources) {
                 is Resource.Error -> {
-                    Timber.tag("MovieDetailsContainer").d("Error: ${it.error?.message}")
+                    val error = resources.error
+                    Timber.tag("MovieDetailsContainer").d("Error: $error")
                 }
 
                 is Resource.Loading -> {
@@ -41,15 +46,14 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
                 }
 
                 is Resource.Success -> {
-                    binding.media = it.data
+                    val movieDetails = resources.data
+                    Timber.tag("MovieDetailsContainer").d("Content loaded: ${movieDetails.toString()}")
+                    binding.media = movieDetails
                 }
             }
         }
 
     }
 
-    override fun initializeViews() {
-        viewModel.onDetailsFragmentReady(movieIdArgs.id)
-    }
 
 }

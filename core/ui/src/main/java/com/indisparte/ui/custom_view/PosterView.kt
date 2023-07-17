@@ -108,7 +108,7 @@ class PosterView @JvmOverloads constructor(
                 R.styleable.PosterView_pv_title_color,
                 ContextCompat.getColor(context, R.color.geyser)
             )
-            val chipValue = typedArray.getFloat(R.styleable.PosterView_pv_chipValue, -1f)
+            val chipValue = typedArray.getString(R.styleable.PosterView_pv_chipValue)
             val imageUrl = typedArray.getString(R.styleable.PosterView_pv_imageUrl)
             val cornerRadius = typedArray.getDimension(
                 R.styleable.PosterView_pv_cornerRadius,
@@ -129,8 +129,8 @@ class PosterView @JvmOverloads constructor(
                 hideTitle()
             }
 
-            if (chipValue >= 0) {
-                setChipValue(chipValue.toDouble())
+            if (!chipValue.isNullOrEmpty()) {
+                setChipValue(chipValue)
             } else {
                 hideChip()
             }
@@ -192,10 +192,8 @@ class PosterView @JvmOverloads constructor(
      *
      * @param value The value to be displayed on the chip.
      */
-    fun setChipValue(value: Double) {
-        val roundedValue =
-            ceil(value * 10) / 10 // Approssima per eccesso con una cifra decimale
-        binding.chipTextView.text = roundedValue.toString()
+    fun setChipValue(value: String) {
+        binding.chipTextView.text = value
         binding.chipTextView.isVisible = true
     }
 

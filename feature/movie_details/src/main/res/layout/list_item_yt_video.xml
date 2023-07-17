@@ -4,13 +4,19 @@
 
     <data>
 
+        <variable
+            name="video"
+            type="com.indisparte.model.entity.Video" />
+
     </data>
 
     <com.indisparte.ui.custom_view.PosterView
         android:id="@+id/video_thumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:pv_posterHeight="120dp"
         android:layout_marginEnd="10dp"
-        app:pv_posterWidth="220dp" />
+        app:pv_chipValue="@{video.type}"
+        app:pv_posterHeight="120dp"
+        app:pv_posterWidth="220dp"
+        app:pv_title="@{video.name}" />
 </layout>

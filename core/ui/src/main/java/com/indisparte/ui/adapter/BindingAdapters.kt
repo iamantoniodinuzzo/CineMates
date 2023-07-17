@@ -23,7 +23,7 @@ fun loadImage(view: ImageView, url: String?) {
 }
 
 @BindingAdapter("pv_chipValue")
-fun setChipValue(view: PosterView, value: Double) {
+fun setChipValue(view: PosterView, value: String) {
     view.setChipValue(value)
 }
 

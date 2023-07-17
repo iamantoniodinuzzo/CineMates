@@ -1,21 +1,26 @@
 package com.indisparte.ui.custom_view
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.Typeface
+import android.graphics.Outline
+import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.LayoutInflater
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
+import android.view.View
+import android.view.ViewOutlineProvider
+import android.widget.FrameLayout
+import androidx.annotation.StyleRes
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.TextViewCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.card.MaterialCardView
 import com.indisparte.ui.R
-import com.indisparte.ui.databinding.LayoutPosterViewBinding
+import com.indisparte.ui.databinding.PosterViewBinding
+import kotlin.math.ceil
 
 
 /**
@@ -25,185 +30,184 @@ import com.indisparte.ui.databinding.LayoutPosterViewBinding
  */
 class PosterView @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet,
-    defStyleAttr: Int = R.attr.materialCardViewStyle
-) : MaterialCardView(context, attrs, defStyleAttr) {
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private companion object {
-        private const val DEFAULT_RATING_SIZE = 12f
-        private const val DEFAULT_POSTER_RADIUS = 10f
-        private const val DEFAULT_TITLE_SIZE = 18f
-        private const val DEFAULT_RATING_RADIUS = 8f
-    }
-
-    private val binding: LayoutPosterViewBinding by lazy {
-        LayoutPosterViewBinding.inflate(
-            LayoutInflater.from(context),
-            this
-        )
-    }
-    private val imageView: ImageView by lazy { binding.poster.image }
-    private val cardImageView: CardView by lazy { binding.poster.root }
-    private val textViewRating: TextView by lazy { binding.ratingChip.textRating }
-    private val cardRating: CardView by lazy { binding.ratingChip.root }
-    private val textViewTitle: TextView by lazy { binding.title }
-
-    var placeholder: Int = R.drawable.ic_placeholder
-        set(value) {
-            field = value
-            imageView.setImageResource(placeholder)
-        }
-
-    /**
-     * Change poster radius, default is 10f
-     */
-    var posterRadius: Float = DEFAULT_POSTER_RADIUS
-        set(value) {
-            field = value
-            cardImageView.radius = value
-        }
-
-    /**
-     * Update the poster with the url of the image. If null set a placeholder
-     */
-    var imageSrc: String? = null
-        set(value) {
-            field = value
-            Glide.with(context)
-                .load(value)
-                .placeholder(imageView.drawable)
-                .error(imageView.drawable)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .diskCacheStrategy(DiskCacheStrategy.DATA)
-                .centerCrop()
-                .into(imageView)
-
-        }
-
-    /**
-     * Update the rating, if it is null it hides the view
-     */
-    var rating: String? = null
-        set(value) {
-            field = value
-            if (value != null) {
-                textViewRating.text = value.toString()
-                textViewRating.isVisible = true
-            } else {
-                textViewRating.isVisible = false
-            }
-
-        }
-
-    /**
-     * Update the title, if it is null it hides the view
-     */
-    var title: String? = null
-        set(value) {
-            field = value
-            if (value != null) {
-                textViewTitle.text = value
-                textViewTitle.isVisible = true
-            } else {
-                textViewTitle.isVisible = false
-            }
-
-        }
-
-    /**
-     * Change title size, default value 18f
-     */
-    var titleSize: Float = DEFAULT_TITLE_SIZE
-        set(value) {
-            field = value
-            textViewTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, value)
-        }
-
-    /**
-     * Default value [Color.WHITE]
-     */
-    var titleColor: Int = Color.WHITE
-        set(value) {
-            field = value
-            textViewTitle.setTextColor(value)
-        }
-
-    /**
-     * Change title style, default value [Typeface.BOLD]
-     */
-    var titlePosterStyle: Int = Typeface.BOLD
-        set(value) {
-            field = value
-            textViewTitle.setTypeface(textViewTitle.typeface, value)
-        }
-
-    /**
-     * Default value [Color.WHITE]
-     */
-    var ratingColor: Int = Color.WHITE
-        set(value) {
-            field = value
-            textViewRating.setTextColor(value)
-        }
-
-    /**
-     * Change rating size, default value 12f
-     */
-    var ratingSize: Float = DEFAULT_RATING_SIZE
-        set(value) {
-            field = value
-            textViewRating.setTextSize(TypedValue.COMPLEX_UNIT_SP, value)
-        }
-
-    /**
-     * Change rating style, default value [Typeface.NORMAL]
-     */
-    var ratingStyle: Int = Typeface.NORMAL
-        set(value) {
-            field = value
-            textViewRating.setTypeface(textViewTitle.typeface, value)
-        }
-
-    /**
-     * Change rating chip radius, default value 8f
-     */
-    var ratingRadius: Float = DEFAULT_RATING_RADIUS
-        set(value) {
-            field = value
-            cardRating.radius = value
-        }
-
+    private lateinit var binding: PosterViewBinding
 
     init {
-        context.theme.obtainStyledAttributes(
-            attrs,
-            R.styleable.PosterView,
-            0,
-            0
-        ).apply {
-            try {
-                placeholder =
-                    getResourceId(R.styleable.PosterView_placeholder, R.drawable.ic_placeholder)
-                imageSrc = getString(R.styleable.PosterView_imageSrc)
-                rating = getString(R.styleable.PosterView_rating)
-                title = getString(R.styleable.PosterView_title)
-                titleColor = getColor(R.styleable.PosterView_titleColor, Color.WHITE)
-                titleSize = getDimension(R.styleable.PosterView_titleSize, DEFAULT_TITLE_SIZE)
-                ratingColor = getColor(R.styleable.PosterView_ratingColor, Color.WHITE)
-                ratingSize = getDimension(R.styleable.PosterView_ratingSize, DEFAULT_RATING_SIZE)
-                ratingStyle = getInt(R.styleable.PosterView_ratingStyle, Typeface.NORMAL)
-                titlePosterStyle = getInt(R.styleable.PosterView_titlePosterStyle, Typeface.BOLD)
-                posterRadius = getDimension(
-                    R.styleable.PosterView_posterRadius,
-                    DEFAULT_POSTER_RADIUS
-                )
-                ratingRadius =
-                    getDimension(R.styleable.PosterView_ratingRadius, DEFAULT_RATING_RADIUS)
-            } finally {
-                recycle()
+        initializeView()
+        applyDefaultValues()
+        applyCustomAttributes(attrs, defStyleAttr)
+    }
+
+    private fun initializeView() {
+        binding = PosterViewBinding.inflate(LayoutInflater.from(context), this)
+    }
+
+    private fun applyDefaultValues() {
+        val defaultTitleSize = resources.getDimension(R.dimen.default_poster_title_size)
+        val defaultTitleColor = ContextCompat.getColor(context, R.color.geyser)
+//        val defaultTitleStyle = R.style.SmallTitleTextViewStyle
+        val defaultChipTextSize = resources.getDimension(R.dimen.default_chip_text_size)
+        val defaultChipTextColor = ContextCompat.getColor(context, R.color.vermilion_100)
+        val defaultChipStyle = R.style.CustomChipStyle
+        val defaultPosterWidth = resources.getDimensionPixelSize(R.dimen.default_poster_width)
+        val defaultPosterHeight = resources.getDimensionPixelSize(R.dimen.default_poster_height)
+        val defaultCornerRadius = resources.getDimension(R.dimen.base_corner_radius)
+
+        setTitleSize(defaultTitleSize)
+        setTitleColor(defaultTitleColor)
+//        setTitleStyle(defaultTitleStyle)
+        setChipTextSize(defaultChipTextSize)
+        setChipTextColor(defaultChipTextColor)
+        setChipStyle(defaultChipStyle)
+        setPosterSize(defaultPosterWidth, defaultPosterHeight)
+        setLayoutParams(defaultPosterWidth, defaultPosterHeight)
+        setCornerRadius(defaultCornerRadius)
+    }
+
+    private fun applyCustomAttributes(attrs: AttributeSet?, defStyleAttr: Int) {
+        attrs?.let { attributeSet ->
+            val typedArray = context.obtainStyledAttributes(
+                attributeSet,
+                R.styleable.PosterView,
+                defStyleAttr,
+                0
+            )
+
+            val title = typedArray.getString(R.styleable.PosterView_pv_title)
+            val titleSize = typedArray.getDimension(
+                R.styleable.PosterView_pv_title_size,
+                resources.getDimension(R.dimen.default_poster_title_size)
+            )
+            val titleColor = typedArray.getColor(
+                R.styleable.PosterView_pv_title_color,
+                ContextCompat.getColor(context, R.color.geyser)
+            )
+            val chipValue = typedArray.getFloat(R.styleable.PosterView_pv_chipValue, -1f)
+            val imageUrl = typedArray.getString(R.styleable.PosterView_pv_imageUrl)
+            val cornerRadius = typedArray.getDimension(
+                R.styleable.PosterView_pv_cornerRadius,
+                resources.getDimension(R.dimen.base_corner_radius)
+            )
+            val posterWidth = typedArray.getDimensionPixelSize(
+                R.styleable.PosterView_pv_posterWidth,
+                resources.getDimensionPixelSize(R.dimen.default_poster_width)
+            )
+            val posterHeight = typedArray.getDimensionPixelSize(
+                R.styleable.PosterView_pv_posterHeight,
+                resources.getDimensionPixelSize(R.dimen.default_poster_height)
+            )
+
+            if (!title.isNullOrEmpty()) {
+                setTitle(title)
+            } else {
+                hideTitle()
+            }
+
+            if (chipValue >= 0) {
+                setChipValue(chipValue.toDouble())
+            } else {
+                hideChip()
+            }
+
+            if (!imageUrl.isNullOrEmpty()) {
+                loadImage(imageUrl)
+            }
+
+            setCornerRadius(cornerRadius)
+            setPosterSize(posterWidth, posterHeight)
+            setTitleSize(titleSize)
+            setTitleColor(titleColor)
+            setLayoutParams(posterWidth, posterHeight)
+
+            typedArray.recycle()
+        }
+    }
+
+    fun setTitle(title: String) {
+        binding.titleTextView.text = title
+        binding.titleTextView.isVisible = true
+    }
+
+    fun hideTitle() {
+        binding.titleTextView.isVisible = false
+    }
+
+    fun setTitleSize(size: Float) {
+        binding.titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
+    }
+
+    fun setTitleColor(color: Int) {
+        binding.titleTextView.setTextColor(color)
+    }
+
+    fun setTitleStyle(style: Int) {
+        TextViewCompat.setTextAppearance(binding.titleTextView, style)
+    }
+
+    fun setChipValue(value: Double) {
+        val roundedValue =
+            ceil(value * 10) / 10 // Approssima per eccesso con una cifra decimale
+        binding.chipTextView.text = roundedValue.toString()
+        binding.chipTextView.isVisible = true
+    }
+
+
+    fun hideChip() {
+        binding.chipTextView.isVisible = false
+    }
+
+    fun setChipTextSize(size: Float) {
+        binding.chipTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
+    }
+
+    fun setChipTextColor(color: Int) {
+        binding.chipTextView.setTextColor(color)
+    }
+
+    fun setChipStyle(@StyleRes styleRes: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            binding.chipTextView.setTextAppearance(styleRes)
+        } else {
+            @Suppress("DEPRECATION")
+            binding.chipTextView.setTextAppearance(context, styleRes)
+        }
+    }
+
+
+    fun loadImage(imageUrl: String?) {
+        Glide.with(context)
+            .load(imageUrl)
+            .error(R.drawable.ic_broken_image)
+            .placeholder(R.drawable.ic_image)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .into(binding.posterImageView)
+    }
+
+    fun setPosterSize(width: Int, height: Int) {
+        val layoutParams = binding.posterImageView.layoutParams
+        layoutParams.width = width
+        layoutParams.height = height
+        binding.posterImageView.layoutParams = layoutParams
+    }
+
+    fun setCornerRadius(radius: Float) {
+        binding.posterImageView.clipToOutline = true
+        binding.posterImageView.outlineProvider = object : ViewOutlineProvider() {
+            override fun getOutline(view: View, outline: Outline) {
+                outline.setRoundRect(0, 0, view.width, view.height, radius)
             }
         }
+    }
 
+    private fun setLayoutParams(width: Int, height: Int) {
+        val layoutParams = FrameLayout.LayoutParams(width, height)
+        layoutParams.gravity = Gravity.CENTER
+        setLayoutParams(layoutParams)
     }
 
 }

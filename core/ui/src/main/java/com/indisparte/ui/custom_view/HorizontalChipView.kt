@@ -213,7 +213,6 @@ class HorizontalChipView<T>(
                 }
             } catch (e: Resources.NotFoundException) {
                 // handle the exception
-                Log.e("HorizontalChipView", "SetChipsList error: ${e.message} ")
                 Chip(context)
             }
         } else {

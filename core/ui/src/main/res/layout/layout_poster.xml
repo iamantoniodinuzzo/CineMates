@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
-    tools:showIn="@layout/layout_poster_view">
+    tools:showIn="@layout/poster_view">
 
     <ImageView
         android:id="@+id/image"

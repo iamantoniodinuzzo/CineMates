@@ -11,13 +11,13 @@
 
     <com.indisparte.ui.custom_view.PosterView
         android:id="@+id/poster"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        app:imageSrc="@{media.completePosterPathW780}"
-        app:placeholder="@drawable/ic_image_placeholder"
-        app:posterRadius="10dp"
-        app:rating="@{media.voteAverageAsString}"
-        app:ratingRadius="@dimen/base_corner_radius" />
+        app:pv_chipValue="@{media.voteAverage}"
+        app:pv_imageUrl="@{media.completePosterPathW780}"
+        app:pv_posterHeight="170dp"
+        app:pv_title="@{media.mediaName}"
+        app:pv_posterWidth="120dp" />
 
 </layout>

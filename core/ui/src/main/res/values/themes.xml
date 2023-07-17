@@ -139,6 +139,15 @@
         <item name="android:textColor">@color/alabaster</item>
     </style>
 
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipBackgroundColor">@color/grey_50_alpha</item>
+        <item name="android:textColor">?colorAccent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+        <!-- Aggiungi altri attributi personalizzati per lo stile della chip se necessario -->
+    </style>
+
+
     <style name="CustomChipChoiceStyle" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/background_color_chip_state_list</item>
         <item name="chipStrokeColor">@color/royal_blue_100</item>

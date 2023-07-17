@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.indisparte.ui.R
+import com.indisparte.ui.custom_view.PosterView
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
@@ -20,3 +21,19 @@ fun loadImage(view: ImageView, url: String?) {
         .diskCacheStrategy(DiskCacheStrategy.DATA)
         .into(view)
 }
+
+@BindingAdapter("pv_chipValue")
+fun setChipValue(view: PosterView, value: Double) {
+    view.setChipValue(value)
+}
+
+@BindingAdapter("pv_imageUrl")
+fun setImageUrl(view: PosterView, imageUrl: String?) {
+    view.loadImage(imageUrl)
+}
+
+@BindingAdapter("pv_title")
+fun setTitle(view: PosterView, title: String) {
+    view.setTitle(title)
+}
+

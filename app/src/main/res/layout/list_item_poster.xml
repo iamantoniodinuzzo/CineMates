@@ -18,7 +18,5 @@
         android:layout_width="100dp"
         android:layout_height="150dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        app:posterRadius="8dp"
-        app:rating="@{vote!=null?String.valueOf(vote):null}" />
+        android:layout_marginBottom="10dp" />
 </layout>

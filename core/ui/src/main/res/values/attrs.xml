@@ -13,28 +13,14 @@
     </declare-styleable>
 
     <declare-styleable name="PosterView">
-        <attr name="placeholder" format="reference" />
-        <attr name="rating" format="string" />
-        <attr name="imageSrc" format="string" />
-        <attr name="title" />
-        <attr name="titleColor" />
-        <attr name="titleSize" />
-        <attr name="titlePosterStyle" format="enum">
-            <enum name="normal" value="0" />
-            <enum name="bold" value="1" />
-            <enum name="italic" value="2" />
-            <enum name="bold_italic" value="3" />
-        </attr>
-        <attr name="ratingColor" format="color" />
-        <attr name="ratingSize" format="dimension" />
-        <attr name="ratingStyle" format="enum">
-            <enum name="normal" value="0" />
-            <enum name="bold" value="1" />
-            <enum name="italic" value="2" />
-            <enum name="bold_italic" value="3" />
-        </attr>
-        <attr name="posterRadius" format="dimension" />
-        <attr name="ratingRadius" format="dimension" />
+        <attr name="pv_title" format="string" />
+        <attr name="pv_title_size" format="dimension"/>
+        <attr name="pv_title_color" format="color"/>
+        <attr name="pv_chipValue" format="float" />
+        <attr name="pv_imageUrl" format="string" />
+        <attr name="pv_cornerRadius" format="dimension" />
+        <attr name="pv_posterWidth" format="dimension" />
+        <attr name="pv_posterHeight" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="LinearInfoView">
@@ -75,7 +61,7 @@
     </declare-styleable>
 
     <declare-styleable name="MoreLessTextView">
-        <attr name="maxLinesShown" format="integer"/>
+        <attr name="maxLinesShown" format="integer" />
         <attr name="readMoreText" format="string" />
         <attr name="readLessText" format="string" />
         <attr name="clickableColor" format="color" />

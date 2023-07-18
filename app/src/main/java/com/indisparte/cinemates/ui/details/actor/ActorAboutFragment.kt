@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.cinemates.R
 import com.indisparte.cinemates.databinding.FragmentActorAboutBinding
-import com.indisparte.ui.custom_view.HorizontalChipView
 import com.indisparte.ui.fragment.BaseFragment
 import kotlinx.coroutines.launch
 
@@ -39,18 +37,11 @@ class ActorAboutFragment : BaseFragment<FragmentActorAboutBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            val chipsGroupKnowAs: HorizontalChipView<String> =
+          /*  val chipsGroupKnowAs: HorizontalChipView<String> =
                 view.findViewById(R.id.chipGroupKnownAs)
-
+*/
             enableInnerScrollViewPager(images)
 
-            chipsGroupKnowAs.onChipClicked = { knownAsName ->
-                Toast.makeText(
-                    requireContext(),
-                    "Soon - Pronunciation of $knownAsName",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
             viewLifecycleOwner.lifecycleScope.launchWhenCreated {
 
                 launch {

@@ -16,7 +16,6 @@ import com.indisparte.cinemates.domain.model.common.Genre
 import com.indisparte.cinemates.domain.model.common.MediaFilter
 import com.indisparte.cinemates.util.MediaSortOption
 import com.indisparte.cinemates.util.MediaType
-import com.indisparte.ui.custom_view.HorizontalChipView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -129,15 +128,15 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun initGenreChipGroup(view: View) {
-        //bind the custom view
+       /* //bind the custom view
         val chipGroup: HorizontalChipView<Genre> =
-            view.findViewById<HorizontalChipView<Genre>>(R.id.genres)
+            view.findViewById<HorizontalChipView<Genre>>(R.id.genres)*/
 
         viewLifecycleOwner.lifecycleScope.launch {
 
         }
 
-        chipGroup.onCheckedChangeListener = { _, genre, isChecked ->
+        /*chipGroup.onCheckedChangeListener = { _, genre, isChecked ->
             if (isChecked) {
                 selectedGenres.add(genre.id)
             } else {
@@ -145,12 +144,12 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
             }
             mediaFilterBuilder.genresId(selectedGenres)
             viewModel.updateMediaFilter(mediaFilterBuilder)
-        }
+        }*/
 
     }
 
     private fun initSortChipGroup(view: View) {
-        //bind the custom view
+        /*//bind the custom view
         val chipGroup: HorizontalChipView<MediaSortOption> =
             view.findViewById<HorizontalChipView<MediaSortOption>>(R.id.sort_by)
 
@@ -161,7 +160,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                     textGetter = { sortOption -> resources.getString(sortOption.nameResId) }//The text to be included in the chip
                 )
             }
-        }
+        }*/
         /*chipGroup.onCheckedChangeListener = { _, mediaSortOption, isChecked ->
             if (isChecked) {
                 mediaFilterBuilder.sortBy(mediaSortOption)
@@ -171,11 +170,11 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
             viewModel.updateMediaFilter(mediaFilterBuilder)
         }*/
         // specify the action on chips click
-        chipGroup.onChipClicked = { sortOption ->
+        /*chipGroup.onChipClicked = { sortOption ->
             mediaFilterBuilder.sortBy(sortOption)
             viewModel.updateMediaFilter(mediaFilterBuilder)
 
-        }
+        }*/
     }
 
     override fun onDestroyView() {

@@ -1,5 +1,7 @@
 package com.indisparte.model.entity
 
+import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W500
+import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W780
 import kotlin.math.roundToInt
 
 
@@ -13,10 +15,6 @@ open class Media(
     private val posterPath: String?,
     private val voteAverage: Double,
 ) {
-    companion object {
-        protected const val IMAGE_BASE_URL_W780 = "https://image.tmdb.org/t/p/w780"
-        protected const val IMAGE_BASE_URL_W500 = "https://image.tmdb.org/t/p/w500"
-    }
 
     val voteAverageRounded: String
         get() = ((voteAverage * 10).roundToInt() / 10.0).toString()

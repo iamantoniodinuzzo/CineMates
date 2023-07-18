@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.github.ajalt.timberkt.Timber
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import com.indisparte.model.entity.Genre
 import com.indisparte.model.entity.MovieDetails
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
 import com.indisparte.network.Resource
@@ -22,32 +25,15 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         get() = FragmentMovieAboutBinding::inflate
 
     private val viewModel: MovieDetailsViewModel by activityViewModels()
-
+    private lateinit var chipGroupGenres: ChipGroup
     private lateinit var collectionDialog: CollectionDialog
     override fun initializeViews() {
-        //Nothing here
+        //Nothing
+        chipGroupGenres = binding.genreChipGroup
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.apply {
-
-
-            /*val chipGroupGenres: HorizontalChipView<Genre> =
-                view.findViewById<HorizontalChipView<Genre>>(R.id.chiGroupGenres)
-
-
-            chipGroupGenres.onChipClicked = { genre ->
-                // TODO: Implement search on click of genre, open search view
-                Toast.makeText(
-                    requireContext(),
-                    "Soon - Search ${genre.name} genre",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }*/
-
-        }
 
         viewModel.selectedMovie.collectIn(
             viewLifecycleOwner,
@@ -57,6 +43,9 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                     val movieDetails: MovieDetails? = resources.data
                     Timber.tag("MovieAbout").d("Content loaded: ${movieDetails?.overview}")
                     binding.movie = movieDetails
+
+                    //setup genre group
+                    movieDetails?.let { setGenresChipGroup(it.genres) }
                 }
 
                 is Resource.Error -> {
@@ -73,11 +62,23 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
     }
 
-    /* //TODO automatize this method with data binding
-     private fun FragmentMovieAboutBinding.showTrailerSection(isNotEmpty: Boolean) {
-         trailerTitle.isVisible = isNotEmpty
-         binding.trailers.isVisible = isNotEmpty
-     }*/
+    private fun setGenresChipGroup(genres: List<Genre>) {
+        chipGroupGenres.removeAllViews()
+        for (chipData in genres) {
+            val chip = Chip(chipGroupGenres.context)
+
+            chip.text = chipData.name
+
+            chip.tag = chipData.id
+
+            chipGroupGenres.addView(chip)
+
+            chip.setOnClickListener { chip ->
+                showToastMessage("Soon - Search ${chip.tag} id")
+            }
+
+        }
+    }
 
     // Disable ViewPager2 from intercepting touch events of RecyclerView
     private fun enableInnerScrollViewPager(recyclerView: RecyclerView) {

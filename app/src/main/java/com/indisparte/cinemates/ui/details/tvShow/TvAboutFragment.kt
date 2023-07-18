@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.cinemates.R
 import com.indisparte.cinemates.databinding.FragmentTvAboutBinding
 import com.indisparte.cinemates.domain.model.common.Genre
-import com.indisparte.ui.custom_view.HorizontalChipView
 import com.indisparte.ui.fragment.BaseFragment
 
 class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
@@ -37,15 +35,9 @@ class TvAboutFragment() : BaseFragment<FragmentTvAboutBinding>() {
 
         binding.apply {
 
-            val customChipsView: HorizontalChipView<Genre> =
-                view.findViewById<HorizontalChipView<Genre>>(R.id.chipGroupGenres)
-            customChipsView.onChipClicked = { genre ->
-                Toast.makeText(
-                    requireContext(),
-                    "Soon - Search ${genre.name} genre",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+           /* val customChipsView: HorizontalChipView<Genre> =
+                view.findViewById<HorizontalChipView<Genre>>(R.id.chipGroupGenres)*/
+
 
             enableInnerScrollViewPager(tvTrailers)
             enableInnerScrollViewPager(episodeGroups)

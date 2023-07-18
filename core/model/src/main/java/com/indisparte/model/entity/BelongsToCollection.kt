@@ -1,5 +1,8 @@
 package com.indisparte.model.entity
 
+import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W500
+import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W780
+
 
 open class BelongsToCollection(
     private val backdropPath: String?,
@@ -7,20 +10,15 @@ open class BelongsToCollection(
     val name: String,
     private val posterPath: String?,
 ) {
-    companion object {
-        protected const val IMAGE_BASE_URL_W780 = "https://image.tmdb.org/t/p/w780"
-        protected const val IMAGE_BASE_URL_W500 = "https://image.tmdb.org/t/p/w500"
-    }
-
     val completePosterPathW780: String?
-        get() = if (posterPath.isNullOrEmpty()) null else "${IMAGE_BASE_URL_W780}$posterPath"
+        get() = if (posterPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W780$posterPath"
 
     val completePosterPathW500: String?
-        get() = if (posterPath.isNullOrEmpty()) null else "${IMAGE_BASE_URL_W500}$posterPath"
+        get() = if (posterPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W500$posterPath"
     val completeBackdropPathW780: String?
-        get() = if (backdropPath.isNullOrEmpty()) null else "${IMAGE_BASE_URL_W780}$backdropPath"
+        get() = if (backdropPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W780$backdropPath"
 
     val completeBackdropPathW500: String?
-        get() = if (backdropPath.isNullOrEmpty()) null else "${IMAGE_BASE_URL_W500}$backdropPath"
+        get() = if (backdropPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W500$backdropPath"
 
 }

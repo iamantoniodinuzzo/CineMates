@@ -203,7 +203,6 @@ class HorizontalChipView<T>(
         }
     }
 
-
     private fun createChipView(): Chip {
         val chip = if (chipStyle > 0) {
             try {

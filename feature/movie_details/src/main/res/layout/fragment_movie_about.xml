@@ -9,6 +9,7 @@
             name="movie"
             type="com.indisparte.model.entity.MovieDetails" />
 
+
         <import type="android.view.View" />
 
     </data>

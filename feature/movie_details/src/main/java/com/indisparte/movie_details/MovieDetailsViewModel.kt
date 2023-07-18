@@ -3,6 +3,7 @@ package com.indisparte.movie_details
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.model.entity.MovieDetails
+import com.indisparte.model.entity.Video
 import com.indisparte.movie.repository.MovieRepository
 import com.indisparte.network.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +30,8 @@ constructor(
 
     private val _selectedMovie = MutableSharedFlow<Resource<MovieDetails?>>()
     val selectedMovie: SharedFlow<Resource<MovieDetails?>> get() = _selectedMovie.asSharedFlow()
+    private val _videos = MutableStateFlow<Resource<List<Video>>?>(Resource.Loading())
+    val videos: StateFlow<Resource<List<Video>>?> get() = _videos
 
     /**
      * Retrieves additional information about the selected movie
@@ -46,11 +49,31 @@ constructor(
             _selectedMovie.emit(Resource.Loading())
             try {
                 movieRepository.getDetails(movieId).collectLatest {
-                    Timber.tag("MovieDetailsViewModel").d("Movie details: ${it.data.toString()}")
-                    _selectedMovie.emit(Resource.Success(it.data))
+                    val movieDetails = it.data
+                    Timber.tag("MovieDetailsViewModel")
+                        .d("Movie details: ${movieDetails.toString()}")
+                    _selectedMovie.emit(Resource.Success(movieDetails))
+                    //retrieve videos
+                    movieDetails?.id?.let { movieId -> getVideos(movieId) }
                 }
             } catch (e: Exception) {
                 _selectedMovie.emit(Resource.Error(e))
+            }
+        }
+    }
+
+    private fun getVideos(movieId: Int) {
+        viewModelScope.launch {
+            _videos.emit(Resource.Loading())
+            try {
+                movieRepository.getVideos(movieId).collectLatest {
+                    Timber.tag("MovieDetailsViewModel").d("Movie videos ${it.data.toString()}")
+                    it.data?.let { videos ->
+                        _videos.emit(Resource.Success(videos))
+                    } ?: _videos.emit(Resource.Success(emptyList()))
+                }
+            } catch (e: Exception) {
+                _videos.emit(Resource.Error(e))
             }
         }
     }

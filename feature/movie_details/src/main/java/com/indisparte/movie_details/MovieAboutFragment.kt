@@ -12,6 +12,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.indisparte.model.entity.Genre
 import com.indisparte.model.entity.MovieDetails
+import com.indisparte.movie_details.adapter.VideoAdapter
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
 import com.indisparte.network.Resource
 import com.indisparte.ui.fragment.BaseFragment
@@ -26,22 +27,52 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
     private val viewModel: MovieDetailsViewModel by activityViewModels()
     private lateinit var chipGroupGenres: ChipGroup
+    private val videoAdapter: VideoAdapter by lazy { VideoAdapter() }
     private lateinit var collectionDialog: CollectionDialog
     override fun initializeViews() {
         //Nothing
         chipGroupGenres = binding.genreChipGroup
+        binding.trailers.adapter = videoAdapter
+        enableInnerScrollViewPager(binding.trailers)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fetchMovieDetails()
+
+        viewModel.videos.collectIn(viewLifecycleOwner) { resources ->
+            when (resources) {
+                is Resource.Error -> {
+                    Timber.tag("MovieAboutFragment").e(resources.error?.message)
+                }
+
+                is Resource.Loading -> {
+                    Timber.tag("MovieAboutFragment").d("Loading...")
+                }
+
+                is Resource.Success -> {
+                    val videos = resources.data
+                    Timber.tag("MovieAboutFragment").d("Videos loaded! $videos")
+                    videoAdapter.submitList(videos)
+                }
+
+                null -> {
+                    Timber.tag("MovieAboutFragment").e("Videos null result")
+                }
+            }
+        }
+
+
+    }
+
+    private fun fetchMovieDetails() {
         viewModel.selectedMovie.collectIn(
             viewLifecycleOwner,
         ) { resources ->
             when (resources) {
                 is Resource.Success -> {
                     val movieDetails: MovieDetails? = resources.data
-                    Timber.tag("MovieAbout").d("Content loaded: ${movieDetails?.overview}")
                     binding.movie = movieDetails
 
                     //setup genre group
@@ -58,8 +89,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 }
             }
         }
-
-
     }
 
     private fun setGenresChipGroup(genres: List<Genre>) {

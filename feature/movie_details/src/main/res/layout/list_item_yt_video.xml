@@ -18,5 +18,6 @@
         app:pv_chipValue="@{video.type}"
         app:pv_posterHeight="120dp"
         app:pv_posterWidth="220dp"
+        app:pv_imageUrl="@{video.completeYoutubeVideoPath}"
         app:pv_title="@{video.name}" />
 </layout>

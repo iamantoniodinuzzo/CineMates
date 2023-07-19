@@ -1,5 +1,6 @@
 package com.indisparte.model.entity
 
+import com.indisparte.model.MediaType
 
 
 data class KnownFor(
@@ -8,7 +9,7 @@ data class KnownFor(
     val firstAirDate: String?,
     val genreIds: List<Int>,
     val id: Int,
-    val mediaType: String,
+    private val mediaType: String,
     val name: String?,
     val originCountry: List<String>?,
     val originalLanguage: String,
@@ -20,5 +21,15 @@ data class KnownFor(
     val title: String?,
     val video: Boolean?,
     val voteAverage: Double,
-    val voteCount: Int
-)
+    val voteCount: Int,
+) {
+    val formattedMediaType: MediaType
+        get() {
+            val result = if (mediaType == MediaType.MOVIE.value) {
+                MediaType.MOVIE
+            } else {
+                MediaType.TV
+            }
+            return result
+        }
+}

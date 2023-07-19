@@ -2,6 +2,8 @@ package com.indisparte.model.entity
 
 import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W500
 import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W780
+import java.text.SimpleDateFormat
+import java.util.Locale
 import kotlin.math.roundToInt
 
 
@@ -11,10 +13,14 @@ import kotlin.math.roundToInt
 open class Media(
     val id: Int,
     val mediaName: String,
-    val popularity: Double,
+    val popularity: Double?,
     private val posterPath: String?,
     private val voteAverage: Double,
 ) {
+    companion object {
+        private const val TMDB_DATE_TIME_FORMAT = "yyyy-MM-dd"
+        private const val OUTPUT_DATE_TIME_FORMAT = "dd MMMM yyyy"
+    }
 
     val voteAverageRounded: String
         get() = ((voteAverage * 10).roundToInt() / 10.0).toString()
@@ -43,5 +49,21 @@ open class Media(
 
     protected fun getCompleteImagePath(urlToImage: String?): String? {
         return if (urlToImage.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W780$urlToImage"
+    }
+
+    protected fun formatDate(inputDate: String): String? {
+        val inputFormat = SimpleDateFormat(TMDB_DATE_TIME_FORMAT, Locale.getDefault())
+        val outputFormat = SimpleDateFormat(OUTPUT_DATE_TIME_FORMAT, Locale.getDefault())
+
+        val date = inputFormat.parse(inputDate)
+        val formattedDate = outputFormat.format(date)
+        return formattedDate
+    }
+
+    protected fun formatRuntime(runtime: Int): String {
+        val hours = runtime / 60
+        val minutes = runtime % 60
+
+        return "$hours h $minutes min"
     }
 }

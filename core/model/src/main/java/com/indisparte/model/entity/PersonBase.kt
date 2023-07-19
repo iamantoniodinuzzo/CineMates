@@ -2,6 +2,8 @@ package com.indisparte.model.entity
 
 import androidx.annotation.StringRes
 import com.indisparte.model.R
+import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W500
+import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W780
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -21,18 +23,14 @@ abstract class PersonBase(
     val knownForDepartment: String,
     val name: String,
     val popularity: Double,
-    val profilePath: String?,
+    private val profilePath: String?,
 ) {
-    companion object {
-        protected const val IMAGE_BASE_URL_W780 = "https://image.tmdb.org/t/p/w780"
-        protected const val IMAGE_BASE_URL_W500 = "https://image.tmdb.org/t/p/w500"
-    }
 
     val completeProfilePathW780: String?
-        get() = if (profilePath.isNullOrEmpty()) null else "${IMAGE_BASE_URL_W780}/$profilePath"
+        get() = if (profilePath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W780$profilePath"
 
     val completeProfilePathW500: String?
-        get() = if (profilePath.isNullOrEmpty()) null else "${IMAGE_BASE_URL_W500}/$profilePath"
+        get() = if (profilePath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W500$profilePath"
 
     protected fun getFormattedData(locale: Locale, data: String?): String? {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", locale)

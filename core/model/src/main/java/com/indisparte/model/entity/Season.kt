@@ -1,5 +1,6 @@
 package com.indisparte.model.entity
 
+import com.indisparte.model.util.Constants
 
 
 open class Season(
@@ -8,7 +9,13 @@ open class Season(
     val id: Int,
     val name: String,
     val overview: String,
-    val posterPath: String?,
+    private val posterPath: String?,
     val seasonNumber: Int,
-    val voteAverage: Int
-)
+    val voteAverage: Int,
+) {
+    val completePosterPathW780: String?
+        get() = if (posterPath.isNullOrEmpty()) null else "${Constants.IMAGE_BASE_URL_W780}$posterPath"
+
+    val completePosterPathW500: String?
+        get() = if (posterPath.isNullOrEmpty()) null else "${Constants.IMAGE_BASE_URL_W500}$posterPath"
+}

@@ -20,14 +20,14 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/mirage_100">
+            android:background="?attr/colorPrimary">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapse_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
                 android:textSize="18sp"
-                app:collapsedTitleTextColor="@color/geyser"
+                app:collapsedTitleTextColor="?attr/colorOnPrimary"
                 app:contentScrim="?attr/colorSecondary"
                 app:expandedTitleMarginStart="10dp"
                 app:expandedTitleTextColor="@android:color/transparent"
@@ -36,8 +36,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:background="?attr/colorSecondary"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorSecondary">
 
                     <ImageView
                         android:id="@+id/media_backdrop"
@@ -69,13 +69,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
-                        android:maxLines="2"
                         android:ellipsize="end"
+                        android:maxLines="2"
                         android:text="@{media.title}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/media_poster"
                         app:layout_constraintTop_toBottomOf="@+id/media_backdrop"
                         tools:text="Media title" />
+
 
 
                     <com.google.android.material.chip.Chip

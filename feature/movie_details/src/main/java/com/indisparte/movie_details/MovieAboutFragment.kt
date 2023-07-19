@@ -30,9 +30,9 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     private val videoAdapter: VideoAdapter by lazy { VideoAdapter() }
     private lateinit var collectionDialog: CollectionDialog
     override fun initializeViews() {
-        //Nothing
         chipGroupGenres = binding.genreChipGroup
         binding.trailers.adapter = videoAdapter
+
         enableInnerScrollViewPager(binding.trailers)
     }
 
@@ -41,6 +41,12 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
         fetchMovieDetails()
 
+        fetchVideos()
+
+
+    }
+
+    private fun fetchVideos() {
         viewModel.videos.collectIn(viewLifecycleOwner) { resources ->
             when (resources) {
                 is Resource.Error -> {
@@ -62,8 +68,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 }
             }
         }
-
-
     }
 
     private fun fetchMovieDetails() {

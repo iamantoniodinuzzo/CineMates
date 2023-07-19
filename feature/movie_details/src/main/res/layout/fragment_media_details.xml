@@ -77,6 +77,19 @@
                         app:layout_constraintTop_toBottomOf="@+id/media_backdrop"
                         tools:text="Media title" />
 
+                    <TextView
+                        android:id="@+id/media_release_date"
+                        style="@style/BodyTextViewStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:text='@{media.formattedReleaseDate - media.formattedRuntime }'
+                        android:textColor="?attr/colorOnSecondary"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/media_poster"
+                        app:layout_constraintTop_toBottomOf="@+id/media_title"
+                        tools:text="23 May 2023 - 2 h 20 min" />
 
 
                     <com.google.android.material.chip.Chip

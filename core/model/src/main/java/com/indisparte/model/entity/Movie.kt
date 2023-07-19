@@ -8,7 +8,7 @@ open class Movie(
     id: Int,
     popularity: Double,
     posterPath: String?,
-    val releaseDate: String,
+    private val releaseDate: String,
     val title: String,
     voteAverage: Double,
 ) : Media(
@@ -17,8 +17,13 @@ open class Movie(
     popularity = popularity,
     posterPath = posterPath,
     voteAverage = voteAverage
-){
+) {
     override fun toString(): String {
         return "Movie(adult=$adult, releaseDate='$releaseDate', title='$title')"
     }
+
+    val formattedReleaseDate: String?
+        get() {
+            return formatDate(releaseDate)
+        }
 }

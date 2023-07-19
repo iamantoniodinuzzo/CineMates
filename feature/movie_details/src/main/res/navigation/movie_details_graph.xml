@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/movieDetailsContainerFragment"
         tools:layout="@layout/fragment_media_details"
-        android:name="com.indisparte.movie_details.MovieDetailsContainerFragment"
+        android:name="com.indisparte.movie_details.fragments.MovieDetailsContainerFragment"
         android:label="MovieDetailsContainerFragment" >
         <argument
             android:name="id"

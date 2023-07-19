@@ -1,4 +1,4 @@
-package com.indisparte.movie_details
+package com.indisparte.movie_details.dialog
 
 import android.content.Context
 import android.view.Gravity
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import com.indisparte.movie_details.R
 import com.indisparte.movie_details.databinding.LayoutCollectionDialogBinding
 
 /**

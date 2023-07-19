@@ -1,4 +1,4 @@
-package com.indisparte.movie_details
+package com.indisparte.movie_details.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +14,7 @@ import com.indisparte.model.entity.Genre
 import com.indisparte.model.entity.MovieDetails
 import com.indisparte.movie_details.adapter.VideoAdapter
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
+import com.indisparte.movie_details.dialog.CollectionDialog
 import com.indisparte.network.Resource
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn

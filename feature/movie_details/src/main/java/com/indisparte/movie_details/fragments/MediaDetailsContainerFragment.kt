@@ -1,4 +1,4 @@
-package com.indisparte.movie_details
+package com.indisparte.movie_details.fragments
 
 import android.media.Image
 import android.os.Bundle

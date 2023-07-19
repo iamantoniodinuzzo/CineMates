@@ -1,4 +1,4 @@
-package com.indisparte.movie_details
+package com.indisparte.movie_details.fragments
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

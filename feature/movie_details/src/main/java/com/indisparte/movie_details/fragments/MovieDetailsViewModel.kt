@@ -2,6 +2,7 @@ package com.indisparte.movie_details.fragments
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.indisparte.model.entity.Cast
 import com.indisparte.model.entity.MovieDetails
 import com.indisparte.model.entity.Video
 import com.indisparte.movie.repository.MovieRepository
@@ -13,6 +14,10 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -32,6 +37,12 @@ constructor(
     val selectedMovie: SharedFlow<Resource<MovieDetails?>> get() = _selectedMovie.asSharedFlow()
     private val _videos = MutableStateFlow<Resource<List<Video>>?>(Resource.Loading())
     val videos: StateFlow<Resource<List<Video>>?> get() = _videos
+    private val _cast = MutableStateFlow<Resource<List<Cast>>?>(Resource.Loading())
+    val cast: StateFlow<Resource<List<Cast>>?> get() = _cast
+
+    init {
+        observeSelectedMovie()
+    }
 
     /**
      * Retrieves additional information about the selected movie
@@ -39,6 +50,19 @@ constructor(
     fun onDetailsFragmentReady(id: Int) =
         getMovieDetails(id)
 
+    private fun observeSelectedMovie() {
+        viewModelScope.launch {
+            selectedMovie
+                .filter { it is Resource.Success }
+                .map { it as Resource.Success }
+                .mapNotNull { it.data }
+                .distinctUntilChanged()
+                .collect { movieDetails ->
+                    getVideos(movieDetails.id)
+                    getCast(movieDetails.id)
+                }
+        }
+    }
 
     /*
         Through the film id, it retrieves the details and checks if the film is part of a collection.
@@ -53,8 +77,6 @@ constructor(
                     Timber.tag("MovieDetailsViewModel")
                         .d("Movie details: ${movieDetails.toString()}")
                     _selectedMovie.emit(Resource.Success(movieDetails))
-                    //retrieve videos
-                    movieDetails?.id?.let { movieId -> getVideos(movieId) }
                 }
             } catch (e: Exception) {
                 _selectedMovie.emit(Resource.Error(e))
@@ -74,6 +96,23 @@ constructor(
                 }
             } catch (e: Exception) {
                 _videos.emit(Resource.Error(e))
+            }
+        }
+    }
+
+    private fun getCast(movieId: Int) {
+        viewModelScope.launch {
+            _cast.emit(Resource.Loading())
+            try {
+                movieRepository.getCast(movieId).collectLatest {
+                    Timber.tag("MovieDetailsViewModel").d("Movie cast ${it.data}")
+                    it.data?.let { cast ->
+                        _cast.emit(Resource.Success(cast))
+
+                    } ?: _cast.emit(Resource.Success(emptyList()))
+                }
+            } catch (e: Exception) {
+                _cast.emit(Resource.Error(e))
             }
         }
     }

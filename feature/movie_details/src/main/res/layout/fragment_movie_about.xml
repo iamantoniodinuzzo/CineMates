@@ -23,11 +23,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/tagline"
+                style="@style/HugeTitleTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="@{movie.tagline}"
+                android:visibility="@{movie.tagline==null?View.GONE:View.VISIBLE}"
+                tools:text="=Tagline" />
+
 
             <com.indisparte.ui.custom_view.MoreLessTextView
                 android:id="@+id/readMoreTextV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/tagline"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"

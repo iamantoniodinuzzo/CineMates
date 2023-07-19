@@ -19,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     linkedMapOf(
         MovieAboutFragment() to "About",
+        MovieCastFragment() to "Cast"
     )
 ) {
     private val viewModel: MovieDetailsViewModel by activityViewModels()
@@ -34,7 +35,7 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         }
 
 
-        viewModel.selectedMovie.collectIn(viewLifecycleOwner) {resources->
+        viewModel.selectedMovie.collectIn(viewLifecycleOwner) { resources ->
             when (resources) {
                 is Resource.Error -> {
                     val error = resources.error
@@ -47,7 +48,8 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
 
                 is Resource.Success -> {
                     val movieDetails = resources.data
-                    Timber.tag("MovieDetailsContainer").d("Content loaded: ${movieDetails.toString()}")
+                    Timber.tag("MovieDetailsContainer")
+                        .d("Content loaded: ${movieDetails.toString()}")
                     binding.media = movieDetails
                 }
             }

@@ -1,21 +1,20 @@
-package com.indisparte.home.adapter
+package com.indisparte.ui.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
-import com.indisparte.home.databinding.ListItemMediaSmallBinding
-import com.indisparte.home.databinding.ListItemPersonSmallBinding
 import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.Person
 import com.indisparte.model.entity.TvShow
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
-import com.indisparte.ui.adapter.BaseAdapter
+import com.indisparte.ui.databinding.ListItemMediaSmallBinding
+import com.indisparte.ui.databinding.ListItemPersonSmallBinding
 
 
-class MovieAdapter(val fragment: Fragment) : BaseAdapter<Movie, ListItemMediaSmallBinding>(
+class MovieAdapter : BaseAdapter<Movie, ListItemMediaSmallBinding>(
     object : DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
             return oldItem.title == newItem.title
@@ -26,12 +25,24 @@ class MovieAdapter(val fragment: Fragment) : BaseAdapter<Movie, ListItemMediaSma
         }
     }
 ) {
+
+    private var fragment: Fragment? = null
+
+    fun setFragment(fragment: Fragment) {
+        this.fragment = fragment
+    }
     override fun bind(binding: ListItemMediaSmallBinding, item: Movie) {
         binding.apply {
             media = item
             root.setOnClickListener {
                 Log.d("MovieAdapter", "Movie id: ${item.id}")
-                ((fragment.requireActivity()) as ToFlowNavigable).navigateToFlow(NavigationFlow.MovieDetailsFlow(item.id))
+                requireNotNull(fragment)
+                fragment?.let { fragment ->
+                    val activity = fragment.requireActivity()
+                    if (activity is ToFlowNavigable) {
+                        activity.navigateToFlow(NavigationFlow.MovieDetailsFlow(item.id))
+                    }
+                }
             }
         }
     }

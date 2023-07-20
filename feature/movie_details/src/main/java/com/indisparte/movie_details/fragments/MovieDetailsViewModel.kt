@@ -3,6 +3,7 @@ package com.indisparte.movie_details.fragments
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.model.entity.Cast
+import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.MovieDetails
 import com.indisparte.model.entity.Video
 import com.indisparte.movie.repository.MovieRepository
@@ -40,6 +41,9 @@ constructor(
     private val _cast = MutableStateFlow<Resource<List<Cast>>?>(Resource.Loading())
     val cast: StateFlow<Resource<List<Cast>>?> get() = _cast
 
+    private val _similarMovies = MutableStateFlow<Resource<List<Movie>>?>(null)
+    val similarMovies: StateFlow<Resource<List<Movie>>?> get() = _similarMovies
+
     init {
         observeSelectedMovie()
     }
@@ -60,6 +64,7 @@ constructor(
                 .collect { movieDetails ->
                     getVideos(movieDetails.id)
                     getCast(movieDetails.id)
+                    getSimilar(movieDetails.id)
                 }
         }
     }
@@ -96,6 +101,23 @@ constructor(
                 }
             } catch (e: Exception) {
                 _videos.emit(Resource.Error(e))
+            }
+        }
+    }
+
+    private fun getSimilar(movieId: Int) {
+        viewModelScope.launch {
+            _similarMovies.emit(Resource.Loading())
+            try {
+                movieRepository.getSimilar(movieId).collectLatest { resources ->
+                    Timber.tag("MovieDetailsViewModel")
+                        .d("Similar ${resources.data?.map { it.title }}")
+                    resources.data?.let { similar ->
+                        _similarMovies.emit(Resource.Success(similar))
+                    } ?: _similarMovies.emit(Resource.Success(emptyList()))
+                }
+            } catch (e: Exception) {
+                _similarMovies.emit(Resource.Error(e))
             }
         }
     }

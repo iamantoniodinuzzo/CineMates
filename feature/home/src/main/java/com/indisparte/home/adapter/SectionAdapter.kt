@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.home.databinding.ListItemSectionBinding
 import com.indisparte.home.util.Section
 import com.indisparte.network.Resource
+import com.indisparte.ui.adapter.MovieAdapter
+import com.indisparte.ui.adapter.PeopleAdapter
+import com.indisparte.ui.adapter.TvShowAdapter
 
 /**
  * Adapter class for displaying different sections in a RecyclerView.
@@ -100,7 +103,8 @@ class SectionAdapter(private val fragment: Fragment) :
             binding.apply {
                 textSectionTitle.text = context.getString(movieSection.titleResId)
                 recyclerView.apply {
-                    val movieAdapter = MovieAdapter(fragment)
+                    val movieAdapter = MovieAdapter()
+                    movieAdapter.setFragment(fragment)//necessary for navigation
                     adapter = movieAdapter
                     when (movieSection.movies) {
                         is Resource.Error -> {
@@ -113,7 +117,10 @@ class SectionAdapter(private val fragment: Fragment) :
                             }
                         }
 
-                        is Resource.Loading -> {progress.show()}
+                        is Resource.Loading -> {
+                            progress.show()
+                        }
+
                         is Resource.Success -> {
                             progress.hide()
                             movieAdapter.submitList(movieSection.movies.data)
@@ -148,7 +155,11 @@ class SectionAdapter(private val fragment: Fragment) :
                                 )
                             }
                         }
-                        is Resource.Loading -> {progress.show()}
+
+                        is Resource.Loading -> {
+                            progress.show()
+                        }
+
                         is Resource.Success -> {
                             progress.hide()
                             tvShowAdapter.submitList(tvShowSection.tvShows.data)
@@ -184,7 +195,10 @@ class SectionAdapter(private val fragment: Fragment) :
                             }
                         }
 
-                        is Resource.Loading -> {progress.show()}
+                        is Resource.Loading -> {
+                            progress.show()
+                        }
+
                         is Resource.Success -> {
                             progress.hide()
                             peopleAdapter.submitList(peopleSection.people.data)

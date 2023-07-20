@@ -1,9 +1,12 @@
 package com.indisparte.movie_details.fragments
 
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.model.entity.Cast
 import com.indisparte.movie_details.adapter.CastAdapter
 import com.indisparte.movie_details.databinding.ListItemCastLongBinding
+import com.indisparte.movie_details.fragments.base.ListFragment
 import com.indisparte.network.Resource
 import com.indisparte.util.extension.collectIn
 import timber.log.Timber
@@ -12,9 +15,10 @@ import timber.log.Timber
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class MovieCastFragment : ListFragment<Cast, ListItemCastLongBinding, CastAdapter>(CastAdapter()) {
+class MovieCastFragment : ListFragment<Cast, ListItemCastLongBinding, CastAdapter>(
+    CastAdapter()
+) {
     private val viewModel: MovieDetailsViewModel by activityViewModels()
-
 
     override fun addItemsToTheAdapter() {
         viewModel.cast.collectIn(viewLifecycleOwner) { resources ->
@@ -38,6 +42,10 @@ class MovieCastFragment : ListFragment<Cast, ListItemCastLongBinding, CastAdapte
                 null -> TODO()
             }
         }
+    }
+
+    override fun initializeViews() {
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
 }

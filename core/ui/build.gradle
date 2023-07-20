@@ -39,6 +39,7 @@ dependencies {
 
     implementation project(":core:util")
     implementation project(":core:model")
+    implementation project(":core:navigation")
 
     implementation libs.bundles.androidX
     implementation libs.material

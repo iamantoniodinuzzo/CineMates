@@ -25,7 +25,7 @@
 
             <TextView
                 android:id="@+id/tagline"
-                style="@style/HugeTitleTextViewStyle"
+                style="@style/BodyTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -54,13 +54,14 @@
 
             <TextView
                 android:id="@+id/genres_title"
-                style="@style/HugeTitleTextViewStyle"
+                style="@style/SmallTitleTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/readMoreTextV"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="Genres"
+                android:textColor="?attr/colorOnSecondary"
                 android:visibility="@{movie.genres.empty?View.GONE:View.VISIBLE}" />
 
             <HorizontalScrollView
@@ -79,12 +80,33 @@
                     app:singleSelection="true" />
             </HorizontalScrollView>
 
+            <TextView
+                android:id="@+id/crew_title"
+                style="@style/SmallTitleTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/horizontal_scroll_view"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Featured Crew" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_crew"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/crew_title"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                android:orientation="vertical"
+                tools:itemCount="4"
+                tools:listitem="@layout/list_item_crew" />
+
             <include
                 android:id="@+id/movie_info"
                 layout="@layout/layout_movie_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/horizontal_scroll_view"
+                android:layout_below="@id/recyclerview_crew"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
                 app:movie="@{movie}" />
@@ -105,7 +127,7 @@
 
             <TextView
                 android:id="@+id/trailer_title"
-                style="@style/HugeTitleTextViewStyle"
+                style="@style/SmallTitleTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/collection_cover"

@@ -1,21 +1,19 @@
 package com.indisparte.movie_details.fragments
 
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.github.ajalt.timberkt.Timber
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
+import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Genre
 import com.indisparte.model.entity.MovieDetails
-import com.indisparte.movie_details.R
+import com.indisparte.movie_details.adapter.CrewAdapter
 import com.indisparte.movie_details.adapter.VideoAdapter
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
 import com.indisparte.movie_details.dialog.CollectionDialog
@@ -33,10 +31,12 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     private val viewModel: MovieDetailsViewModel by activityViewModels()
     private lateinit var chipGroupGenres: ChipGroup
     private val videoAdapter: VideoAdapter by lazy { VideoAdapter() }
+    private val crewAdapter: CrewAdapter by lazy { CrewAdapter() }
     private lateinit var collectionDialog: CollectionDialog
     override fun initializeViews() {
         chipGroupGenres = binding.genreChipGroup
         binding.trailers.adapter = videoAdapter
+        binding.recyclerviewCrew.adapter = crewAdapter
 
         enableInnerScrollViewPager(binding.trailers)
     }
@@ -47,6 +47,28 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         fetchMovieDetails()
 
         fetchVideos()
+
+        viewModel.crew.collectIn(viewLifecycleOwner) { resources ->
+            when (resources) {
+                is Resource.Error -> {
+                    Timber.tag("MovieAboutFragment").e(resources.error?.message)
+                }
+
+                is Resource.Loading -> {
+                    Timber.tag("MovieAboutFragment").d("Loading...")
+                }
+
+                is Resource.Success -> {
+                    val crewList = resources.data
+                    Timber.tag("MovieAboutFragment").d("Crew loaded! ${crewList?.map { it.name }}")
+                    crewAdapter.submitList(crewList?.takeEvenNumberOfItems())
+                }
+
+                null -> {
+                    Timber.tag("MovieAboutFragment").e("Crew null result")
+                }
+            }
+        }
 
     }
 
@@ -106,7 +128,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
             chip.text = chipData.name
             chip.tag = chipData.id
-          
+
             chip.setOnClickListener { chip ->
                 showToastMessage("Soon - Search ${chip.tag} id")
             }
@@ -132,4 +154,18 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         })
     }
 
+}
+
+private fun List<Crew>.takeEvenNumberOfItems(): List<Crew> {
+    if (isEmpty())
+        return this
+
+    val numberOfItemsToSelect = when {
+        size >= 4 -> 4 // Se ci sono almeno 4 oggetti, prendine 4
+        size >= 2 -> 2 // Se ci sono almeno 2 oggetti, prendine 2
+        else -> 1 // Altrimenti, prendine solo 1
+    }
+
+    // Prendi i primi "numberOfItemsToSelect" elementi dalla lista
+    return take(numberOfItemsToSelect)
 }

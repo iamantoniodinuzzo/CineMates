@@ -3,6 +3,8 @@ package com.indisparte.movie_details.fragments
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.model.entity.Cast
+import com.indisparte.model.entity.CountryResult
+import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.MovieDetails
 import com.indisparte.model.entity.Video
@@ -21,6 +23,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.Locale
 import javax.inject.Inject
 
 /**
@@ -43,6 +46,10 @@ constructor(
 
     private val _similarMovies = MutableStateFlow<Resource<List<Movie>>?>(null)
     val similarMovies: StateFlow<Resource<List<Movie>>?> get() = _similarMovies
+    private val _watchProviders = MutableStateFlow<Resource<List<CountryResult>>?>(null)
+    val watchProviders: StateFlow<Resource<List<CountryResult>>?> get() = _watchProviders
+     private val _crew = MutableStateFlow<Resource<List<Crew>>?>(null)
+      val crew: StateFlow<Resource<List<Crew>>?> get() = _crew
 
     init {
         observeSelectedMovie()
@@ -65,6 +72,8 @@ constructor(
                     getVideos(movieDetails.id)
                     getCast(movieDetails.id)
                     getSimilar(movieDetails.id)
+                    getWatchProviders(movieDetails.id)
+                    getCrew(movieDetails.id)
                 }
         }
     }
@@ -135,6 +144,40 @@ constructor(
                 }
             } catch (e: Exception) {
                 _cast.emit(Resource.Error(e))
+            }
+        }
+    }
+
+    private fun getWatchProviders(movieId: Int) {
+        viewModelScope.launch {
+            _watchProviders.emit(Resource.Loading())
+            try {
+                movieRepository.getWatchProviders(movieId, Locale.getDefault().country).collectLatest {
+                    Timber.tag("MovieDetailsViewModel").d("Watch providers ${it.data}")
+                    it.data?.let { cast ->
+                        _watchProviders.emit(Resource.Success(cast))
+
+                    } ?: _watchProviders.emit(Resource.Success(emptyList()))
+                }
+            } catch (e: Exception) {
+                _watchProviders.emit(Resource.Error(e))
+            }
+        }
+    }
+
+    private fun getCrew(movieId: Int) {
+        viewModelScope.launch {
+            _crew.emit(Resource.Loading())
+            try {
+                movieRepository.getCrew(movieId).collectLatest {
+                    Timber.tag("MovieDetailsViewModel").d("Movie Crew ${it.data}")
+                    it.data?.let { cast ->
+                        _crew.emit(Resource.Success(cast))
+
+                    } ?: _crew.emit(Resource.Success(emptyList()))
+                }
+            } catch (e: Exception) {
+                _crew.emit(Resource.Error(e))
             }
         }
     }

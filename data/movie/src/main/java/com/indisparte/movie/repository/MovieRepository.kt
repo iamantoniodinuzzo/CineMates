@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.Flow
  */
 interface MovieRepository {
     suspend fun getByListType(movieListType: MovieListType): Flow<Resource<List<Movie>>>
-
     suspend fun getTrending(timeWindow: TimeWindow): Flow<Resource<List<Movie>>>
     suspend fun getBySearch(query: String): Flow<Resource<List<Movie>>>
     suspend fun getDiscoverable(mediaFilter: MediaFilter): Flow<Resource<List<Movie>>>

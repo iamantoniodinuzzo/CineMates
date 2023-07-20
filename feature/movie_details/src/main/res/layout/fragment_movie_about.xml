@@ -85,16 +85,22 @@
                 style="@style/SmallTitleTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:paddingEnd="10dp"
                 android:layout_below="@id/horizontal_scroll_view"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:text="Featured Crew" />
+                android:text="Featured Crew"
+                app:drawableEndCompat="@drawable/ic_forward"
+                app:drawableTint="?colorOnPrimary" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_crew"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/crew_title"
+                android:paddingStart="10dp"
+                android:layout_marginTop="10dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
                 android:orientation="vertical"
@@ -141,6 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/trailer_title"
                 android:clipToPadding="false"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:paddingHorizontal="10dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

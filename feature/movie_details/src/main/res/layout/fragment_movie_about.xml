@@ -32,7 +32,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@{movie.tagline}"
                 android:visibility="@{movie.tagline==null?View.GONE:View.VISIBLE}"
-                tools:text="=Tagline" />
+                tools:text="Tagline" />
 
 
             <com.indisparte.ui.custom_view.MoreLessTextView
@@ -72,7 +72,7 @@
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/genreChipGroup"
-                    style="@style/CustomFilterChipStyle"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:singleLine="true"

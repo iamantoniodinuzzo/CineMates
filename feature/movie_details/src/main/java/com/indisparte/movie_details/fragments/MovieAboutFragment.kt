@@ -1,17 +1,21 @@
 package com.indisparte.movie_details.fragments
 
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.github.ajalt.timberkt.Timber
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import com.indisparte.model.entity.Genre
 import com.indisparte.model.entity.MovieDetails
+import com.indisparte.movie_details.R
 import com.indisparte.movie_details.adapter.VideoAdapter
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
 import com.indisparte.movie_details.dialog.CollectionDialog
@@ -43,7 +47,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         fetchMovieDetails()
 
         fetchVideos()
-
 
     }
 
@@ -102,14 +105,13 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             val chip = Chip(chipGroupGenres.context)
 
             chip.text = chipData.name
-
             chip.tag = chipData.id
-
-            chipGroupGenres.addView(chip)
-
+          
             chip.setOnClickListener { chip ->
                 showToastMessage("Soon - Search ${chip.tag} id")
             }
+
+            chipGroupGenres.addView(chip)
 
         }
     }

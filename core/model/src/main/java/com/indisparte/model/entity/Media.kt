@@ -23,7 +23,11 @@ open class Media(
     }
 
     val voteAverageRounded: String
-        get() = ((voteAverage * 10).roundToInt() / 10.0).toString()
+        get() = if (voteAverage == 0.0) {
+            ""
+        } else {
+            ((voteAverage * 10).roundToInt() / 10.0).toString()
+        }
 
     val completePosterPathW780: String?
         get() = if (posterPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W780$posterPath"

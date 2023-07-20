@@ -52,8 +52,10 @@ class MovieDetails(
     val completeBackdropPathW780: String?
         get() = getCompleteImagePath(backdropPath)
 
+    val productCompaniesConcatenatedString: String
+        get() = productionCompanies.joinToString(", ") { it.name }
 
-    private fun formatCurrency(amount: Long): String {
+    fun formatCurrency(amount: Long): String {
         if (amount == 0L)
             return ""
 

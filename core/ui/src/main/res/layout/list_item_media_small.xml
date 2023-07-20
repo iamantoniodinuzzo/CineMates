@@ -14,10 +14,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         app:pv_chipValue="@{media.voteAverageRounded}"
         app:pv_imageUrl="@{media.completePosterPathW780}"
         app:pv_posterHeight="170dp"
+        app:pv_posterWidth="120dp"
         app:pv_title="@{media.mediaName}"
-        app:pv_posterWidth="120dp" />
+        app:pv_title_size="14sp" />
 
 </layout>

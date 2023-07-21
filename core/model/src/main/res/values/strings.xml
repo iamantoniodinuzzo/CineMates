@@ -37,4 +37,13 @@
     <string name="production">Production</string>
     <string name="tv">TV</string>
 
+    <!--Release types-->
+    <string name="release_premiere">Premiere</string>
+    <string name="release_theatrical_limited">Theatrical (limited)</string>
+    <string name="release_theatrical">Theatrical</string>
+    <string name="release_digital">Digital</string>
+    <string name="release_physical">Physical</string>
+    <string name="release_tv">TV</string>
+
+
 </resources>

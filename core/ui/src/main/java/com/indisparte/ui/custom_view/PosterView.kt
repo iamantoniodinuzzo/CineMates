@@ -120,6 +120,15 @@ class PosterView @JvmOverloads constructor(
                 R.styleable.PosterView_pv_posterHeight,
                 resources.getDimensionPixelSize(R.dimen.default_poster_height)
             )
+            // Retrieve the custom style attribute for the title text
+            val titleStyle = typedArray.getResourceId(
+                R.styleable.PosterView_pv_title_style,
+                0
+            )
+
+            if (titleStyle != 0) {
+                setTitleStyle(titleStyle)
+            }
 
             if (!title.isNullOrEmpty()) {
                 setTitle(title)
@@ -184,6 +193,14 @@ class PosterView @JvmOverloads constructor(
     fun setTitleColor(color: Int) {
         binding.titleTextView.setTextColor(color)
     }
+
+    fun setTitleStyle(@StyleRes styleRes: Int){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            binding.titleTextView.setTextAppearance(styleRes)
+        } else {
+            @Suppress("DEPRECATION")
+            binding.titleTextView.setTextAppearance(context, styleRes)
+        }    }
 
     /**
      * Sets the value of the chip displayed on the poster.

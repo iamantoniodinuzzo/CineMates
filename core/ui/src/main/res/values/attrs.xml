@@ -16,6 +16,7 @@
         <attr name="pv_title" format="string" />
         <attr name="pv_title_size" format="dimension"/>
         <attr name="pv_title_color" format="color"/>
+        <attr name="pv_title_style" format="reference"/>
         <attr name="pv_chipValue" format="string" />
         <attr name="pv_imageUrl" format="string" />
         <attr name="pv_cornerRadius" format="dimension" />

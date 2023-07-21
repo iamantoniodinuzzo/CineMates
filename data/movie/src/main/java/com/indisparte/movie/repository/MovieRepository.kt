@@ -7,6 +7,8 @@ import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.MovieDetails
+import com.indisparte.model.entity.ReleaseDate
+import com.indisparte.model.entity.ReleaseDatesByCountry
 import com.indisparte.model.entity.Video
 import com.indisparte.movie.util.MovieListType
 import com.indisparte.network.Resource
@@ -29,6 +31,8 @@ interface MovieRepository {
         country: String,
     ): Flow<Resource<List<CountryResult>>>
 
-    suspend fun getVideos(movieId: Int):Flow<Resource<List<Video>>>
+    suspend fun getVideos(movieId: Int): Flow<Resource<List<Video>>>
+
+    suspend fun getReleaseDates(movieId: Int): Flow<Resource<List<ReleaseDatesByCountry>>>
 
 }

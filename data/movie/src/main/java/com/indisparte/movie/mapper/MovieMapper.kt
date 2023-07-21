@@ -8,6 +8,8 @@ import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.MovieDetails
 import com.indisparte.model.entity.ProductionCompany
 import com.indisparte.model.entity.ProductionCountry
+import com.indisparte.model.entity.ReleaseDate
+import com.indisparte.model.entity.ReleaseDatesByCountry
 import com.indisparte.model.entity.SpokenLanguage
 import com.indisparte.model.entity.Video
 import com.indisparte.movie.response.BelongsToCollectionDTO
@@ -15,6 +17,8 @@ import com.indisparte.movie.response.CastDTO
 import com.indisparte.movie.response.CrewDTO
 import com.indisparte.movie.response.MovieDTO
 import com.indisparte.movie.response.MovieDetailsDTO
+import com.indisparte.movie.response.ReleaseDateDTO
+import com.indisparte.movie.response.ReleaseDatesByCountryDTO
 import com.indisparte.response.GenreDTO
 import com.indisparte.response.ProductionCompanyDTO
 import com.indisparte.response.ProductionCountryDTO
@@ -133,6 +137,20 @@ fun VideoDTO.mapToVideo(): Video {
         type = this.type
     )
 }
+fun ReleaseDateDTO.mapToReleaseDate(): ReleaseDate {
+    return ReleaseDate(
+        certification = this.certification,
+        releaseDate = this.releaseDate,
+        type = this.type
+    )
+}
+fun ReleaseDatesByCountryDTO.mapToReleaseDatesByCountry(): ReleaseDatesByCountry {
+    return ReleaseDatesByCountry(
+        country = this.iso31661,
+        releaseDates = this.releaseDates.map { it.mapToReleaseDate() }
+    )
+}
+
 
 
 

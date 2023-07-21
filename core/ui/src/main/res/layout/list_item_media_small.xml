@@ -18,8 +18,8 @@
         app:pv_chipValue="@{media.voteAverageRounded}"
         app:pv_imageUrl="@{media.completePosterPathW780}"
         app:pv_posterHeight="170dp"
+        app:pv_title_style="@style/BodyTextViewStyle"
         app:pv_posterWidth="120dp"
-        app:pv_title="@{media.mediaName}"
-        app:pv_title_size="14sp" />
+        app:pv_title="@{media.mediaName}" />
 
 </layout>

@@ -4,6 +4,7 @@ import com.indisparte.movie.response.CastDTO
 import com.indisparte.movie.response.CrewDTO
 import com.indisparte.movie.response.MovieDTO
 import com.indisparte.movie.response.MovieDetailsDTO
+import com.indisparte.movie.response.ReleaseDatesByCountryDTO
 import com.indisparte.response.WatchProvidersResponseDTO
 import com.indisparte.network.GenericResponse
 import com.indisparte.response.CreditResponseDTO
@@ -61,6 +62,12 @@ interface MovieDataSource {
         @QueryMap queries: Map<String, String>
     ):Response<WatchProvidersResponseDTO>
 
+    @GET("movie/{movie_id}/release_dates")
+    suspend fun getReleaseDates(
+        @Path("movie_id") movieId: Int,
+        @QueryMap queries: Map<String, String>
+    ): Response<GenericResponse<ReleaseDatesByCountryDTO>>
+
     @GET("search/movie")
     suspend fun getBySearch(@QueryMap queries: Map<String, String>): Response<GenericResponse<MovieDTO>>
 
@@ -72,4 +79,5 @@ interface MovieDataSource {
         @Path("time_window") time_window: String,
         @QueryMap queries: Map<String, String>,
     ): Response<GenericResponse<MovieDTO>>
+
 }

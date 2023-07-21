@@ -7,10 +7,12 @@ import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.MovieDetails
+import com.indisparte.model.entity.ReleaseDatesByCountry
 import com.indisparte.model.entity.Video
 import com.indisparte.movie.mapper.mapToCast
 import com.indisparte.movie.mapper.mapToCountryResult
 import com.indisparte.movie.mapper.mapToCrew
+import com.indisparte.movie.mapper.mapToReleaseDatesByCountry
 import com.indisparte.movie.mapper.mapToVideo
 import com.indisparte.movie.mapper.toMovie
 import com.indisparte.movie.mapper.toMovieDetails
@@ -120,8 +122,17 @@ constructor(
 
     override suspend fun getVideos(movieId: Int): Flow<Resource<List<Video>>> =
         getListFromResponse(
-            request = {movieService.getVideos(movieId, queryMap)},
-            mapper = {response->response.results.map { it.mapToVideo() }}
+            request = { movieService.getVideos(movieId, queryMap) },
+            mapper = { response -> response.results.map { it.mapToVideo() } }
         )
+
+    override suspend fun getReleaseDates(movieId: Int): Flow<Resource<List<ReleaseDatesByCountry>>> =
+        getListFromResponse(
+            request = { movieService.getReleaseDates(movieId, queryMap) },
+            mapper = { response ->
+                response.results.map { it.mapToReleaseDatesByCountry() }
+            }
+        )
+
 
 }

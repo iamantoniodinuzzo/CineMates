@@ -17,11 +17,16 @@ enum class ReleaseType(val type: Int, @StringRes val releaseStringRes: Int) {
 }
 
 
+
 data class ReleaseDate(
     val certification: String,
     private val releaseDate: String,//yyyy-MM-dd'T'HH:mm:ss.SSS'Z' format
     private val type: Int,
 ) {
+    companion object{
+        private const val TMDB_RELEASE_DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        private const val OUTPUT_RELEASE_DATE_FORMAT = "MMMM dd, yyyy"
+    }
     val releaseType: ReleaseType
         get() {
             return when (type) {
@@ -43,10 +48,10 @@ data class ReleaseDate(
     private fun convertToLocaleDateString(inputDateString: String): String {
         try {
             // Definiamo il formato di data e ora per il formato locale del dispositivo
-            val outputFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault())
+            val outputFormat = SimpleDateFormat(OUTPUT_RELEASE_DATE_FORMAT, Locale.getDefault())
 
             // Impostiamo il fuso orario per la data di input (UTC)
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+            val inputFormat = SimpleDateFormat(TMDB_RELEASE_DATE_FORMAT_UTC, Locale.getDefault())
             inputFormat.timeZone = TimeZone.getTimeZone("UTC")
 
             // Parsiamo la stringa di input nella data

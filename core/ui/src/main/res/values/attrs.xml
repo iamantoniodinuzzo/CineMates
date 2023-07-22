@@ -8,8 +8,11 @@
 
     <declare-styleable name="EmptyStateRecyclerView">
         <attr name="emptyStateSubtitle" format="string" />
+        <attr name="emptyStateTitleStyle" format="reference" />
+        <attr name="emptyStateSubtitleStyle" format="reference" />
         <attr name="emptyStateTitle" format="string" />
         <attr name="emptyStateButtonTitle" format="string" />
+        <attr name="emptyStateImage" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="PosterView">

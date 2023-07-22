@@ -18,7 +18,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.indisparte.ui.R
 import com.indisparte.ui.databinding.PosterViewBinding
-import kotlin.math.ceil
 
 
 /**
@@ -194,13 +193,14 @@ class PosterView @JvmOverloads constructor(
         binding.titleTextView.setTextColor(color)
     }
 
-    fun setTitleStyle(@StyleRes styleRes: Int){
+    fun setTitleStyle(@StyleRes styleRes: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             binding.titleTextView.setTextAppearance(styleRes)
         } else {
             @Suppress("DEPRECATION")
             binding.titleTextView.setTextAppearance(context, styleRes)
-        }    }
+        }
+    }
 
     /**
      * Sets the value of the chip displayed on the poster.
@@ -265,7 +265,6 @@ class PosterView @JvmOverloads constructor(
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .into(binding.posterImageView)
     }
-
 
 
     /**

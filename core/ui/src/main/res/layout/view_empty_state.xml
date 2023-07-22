@@ -17,8 +17,7 @@
             android:id="@+id/ivEmptyStateImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:elevation="4dp"
-            android:src="@drawable/baseline_blind_24"
+            tools:src="@drawable/baseline_blind_24"
             app:tint="?attr/colorOnSecondary" />
 
         <TextView

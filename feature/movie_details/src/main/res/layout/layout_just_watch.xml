@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <!-- Variables here -->
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        app:cardBackgroundColor="@color/royal_blue_100"
+        app:cardCornerRadius="@dimen/base_corner_radius"
+        android:focusable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/base_margin">
+
+            <!-- Lato sinistro (effetto vetro opaco) -->
+            <FrameLayout
+                android:id="@+id/glassContainer"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/titleContainer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Inserire qui il contenuto da visualizzare nel lato sinistro (chip group personalizzato) -->
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/watch_providers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_margin"
+                    android:clipToPadding="false"
+                    android:paddingStart="@dimen/base_margin"
+                    app:chipSpacing="@dimen/base_margin"
+                    app:chipSpacingHorizontal="@dimen/base_margin"
+                    app:chipSpacingVertical="@dimen/base_margin" />
+            </FrameLayout>
+
+            <!-- Effetto vetro sopra il contenuto -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/glass_background"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/titleContainer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Lato destro (titolo su sfondo colorato) -->
+            <LinearLayout
+                android:id="@+id/titleContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/royal_blue_100"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/glassContainer"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Inserire qui il titolo e altri elementi da visualizzare nel lato destro -->
+                <TextView
+                    style="@style/BodyTextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Powered by"
+                    android:paddingStart="@dimen/base_margin"
+                    android:textColor="?attr/colorOnPrimary" />
+                <TextView
+                    style="@style/HugeTitleTextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/base_margin"
+                    android:text="Just Watch"
+                    android:textColor="?attr/colorOnPrimary" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

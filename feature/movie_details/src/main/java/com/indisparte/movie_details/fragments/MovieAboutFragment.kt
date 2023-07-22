@@ -1,5 +1,7 @@
 package com.indisparte.movie_details.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -24,6 +26,7 @@ import com.indisparte.movie_details.fragments.base.ReleaseDateAdapter
 import com.indisparte.network.Resource
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
+import com.indisparte.util.extension.gone
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,7 +45,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     private lateinit var collectionDialog: CollectionDialog
     override fun initializeViews() {
         chipGroupGenres = binding.genreChipGroup
-        chipGroupWatchProviders = binding.watchProviders
+        chipGroupWatchProviders = binding.justWatch.watchProviders
         binding.trailers.adapter = videoAdapter
         binding.recyclerviewCrew.adapter = crewAdapter
         binding.movieInfo.releaseInformationRecyclerview.adapter = releaseDateAdapter
@@ -72,6 +75,12 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
         fetchReleaseDates()
 
+        fetchWatchProviders()
+
+
+    }
+
+    private fun fetchWatchProviders() {
         viewModel.watchProviders.collectIn(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Error -> {
@@ -86,18 +95,20 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                     val countryResult = resource.data
                     Timber.tag("MovieAboutFragment")
                         .d("Watch providers loaded! $countryResult")
-                    Timber.tag("MovieAboutFragment")
-                        .d("Order by category \n Free ${countryResult?.free} \n FlatRate ${countryResult?.flatrate} \n Rent ${countryResult?.rent} \n Buy${countryResult?.buy}")
-                    countryResult?.let { setWatchProvidersChipGroup(it) }
+
+                    countryResult?.let {
+                        setWatchProvidersChipGroup(it)
+                    }
 
                 }
 
                 null -> {
                     Timber.tag("MovieAboutFragment").e("Watch providers null result")
+                    binding.justWatch.root.gone()
+                    binding.watchProviderTitle.gone()
                 }
             }
         }
-
     }
 
     private fun fetchReleaseDates() {
@@ -235,7 +246,9 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             chipGroupWatchProviders.addView(chip)
 
         }
-
+        binding.justWatch.root.setOnClickListener {
+            openLinkInBrowser(countryResult.link)
+        }
     }
 
     // Disable ViewPager2 from intercepting touch events of RecyclerView
@@ -279,6 +292,10 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
         // Take the first "numberOfItemsToSelect" elements from the list
         return take(numberOfItemsToSelect)
+    }
+    private fun openLinkInBrowser(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 
 

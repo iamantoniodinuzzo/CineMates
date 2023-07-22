@@ -125,7 +125,7 @@
                             tools:text="23 May 2023 - 2 h 20 min" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.appcompat.widget.Toolbar

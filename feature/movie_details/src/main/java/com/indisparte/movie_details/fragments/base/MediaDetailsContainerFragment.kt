@@ -51,9 +51,7 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: LinkedH
             fab.setOnClickListener {
                 Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
             }
-            watchProviders.setOnClickListener {
-                Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
-            }
+
 
             // Hide and show FAB when scrolling
             appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->

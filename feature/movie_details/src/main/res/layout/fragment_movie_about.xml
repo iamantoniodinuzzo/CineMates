@@ -35,27 +35,26 @@
                 android:textStyle="bold" />
 
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/watch_providers"
+            <include
+                android:id="@+id/justWatch"
+                layout="@layout/layout_just_watch"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:chipSpacingHorizontal="@dimen/base_margin"
-                app:chipSpacingVertical="@dimen/base_margin"
-                android:layout_marginTop="@dimen/base_margin"
-                android:clipToPadding="false"
+                android:layout_height="200dp"
                 android:layout_below="@id/watchProviderTitle"
-                android:paddingStart="@dimen/base_margin"
-                app:chipSpacing="@dimen/base_margin" />
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:layout_marginEnd="@dimen/base_margin" />
 
             <TextView
                 android:id="@+id/tagline"
                 style="@style/BodyTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/watch_providers"
+                android:layout_below="@id/justWatch"
                 android:layout_marginStart="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
                 android:text="@{movie.tagline}"
+                android:textStyle="bold"
                 android:visibility="@{movie.tagline==null?View.GONE:View.VISIBLE}"
                 tools:text="Tagline" />
 

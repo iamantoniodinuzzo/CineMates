@@ -29,7 +29,7 @@
         <item name="tabIndicatorColor">?colorAccent</item>
         <item name="tabSelectedTextColor">?colorAccent</item>
         <item name="tabMode">auto</item>
-        <item name="android:background">?colorPrimary</item>
+        <item name="android:background">@drawable/tab_background</item>
         <item name="tabTextAppearance">@style/CustomTextTabSmallAppearance</item>
         <item name="tabIndicatorFullWidth">false</item>
         <item name="tabGravity">center</item>
@@ -54,7 +54,9 @@
     </style>
 
     <style name="CustomTextTabSmallAppearance" parent="CustomTextTabBigAppearance">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?colorOnSecondary</item>
+        <item name="android:textStyle">normal</item>
     </style>
     <!--  Fine TabLayout Style-->
 

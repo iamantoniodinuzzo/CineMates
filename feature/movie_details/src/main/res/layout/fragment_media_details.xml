@@ -39,6 +39,7 @@
                     android:layout_height="match_parent"
                     android:background="?attr/colorPrimary">
 
+
                     <ImageView
                         android:id="@+id/media_backdrop"
                         android:layout_width="match_parent"
@@ -49,6 +50,15 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:loadImage="@{media.completeBackdropPathW780}"
                         tools:src="@tools:sample/backgrounds/scenic" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="@drawable/gradient_top"
+                        app:layout_constraintBottom_toBottomOf="@id/media_backdrop"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <com.indisparte.ui.custom_view.PosterView
                         android:id="@+id/media_poster"
@@ -90,14 +100,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/base_margin"
+                            android:backgroundTint="?attr/colorSecondary"
+                            android:textColor="?attr/colorOnSecondary"
                             android:textSize="12sp"
                             android:textStyle="bold"
                             android:visibility="gone"
-                            tools:visibility="visible"
-                            android:textColor="?attr/colorOnSecondary"
-                            android:backgroundTint="?attr/colorSecondary"
                             app:layout_constraintTop_toBottomOf="@id/media_title"
-                            tools:text="PG-18" />
+                            tools:text="PG-18"
+                            tools:visibility="visible" />
 
                         <TextView
                             android:id="@+id/media_release_date"

@@ -7,7 +7,9 @@ import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.MovieDetails
+import com.indisparte.model.entity.ReleaseDate
 import com.indisparte.model.entity.Video
+import com.indisparte.model.entity.findReleaseDateByCountry
 import com.indisparte.movie.repository.MovieRepository
 import com.indisparte.network.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -48,8 +50,10 @@ constructor(
     val similarMovies: StateFlow<Resource<List<Movie>>?> get() = _similarMovies
     private val _watchProviders = MutableStateFlow<Resource<List<CountryResult>>?>(null)
     val watchProviders: StateFlow<Resource<List<CountryResult>>?> get() = _watchProviders
-     private val _crew = MutableStateFlow<Resource<List<Crew>>?>(null)
-      val crew: StateFlow<Resource<List<Crew>>?> get() = _crew
+    private val _crew = MutableStateFlow<Resource<List<Crew>>?>(null)
+    val crew: StateFlow<Resource<List<Crew>>?> get() = _crew
+    private val _releaseDates = MutableStateFlow<Resource<List<ReleaseDate>>?>(null)
+    val releaseDates: StateFlow<Resource<List<ReleaseDate>>?> get() = _releaseDates
 
     init {
         observeSelectedMovie()
@@ -74,6 +78,7 @@ constructor(
                     getSimilar(movieDetails.id)
                     getWatchProviders(movieDetails.id)
                     getCrew(movieDetails.id)
+                    getReleaseDates(movieDetails.id)
                 }
         }
     }
@@ -152,13 +157,14 @@ constructor(
         viewModelScope.launch {
             _watchProviders.emit(Resource.Loading())
             try {
-                movieRepository.getWatchProviders(movieId, Locale.getDefault().country).collectLatest {
-                    Timber.tag("MovieDetailsViewModel").d("Watch providers ${it.data}")
-                    it.data?.let { cast ->
-                        _watchProviders.emit(Resource.Success(cast))
+                movieRepository.getWatchProviders(movieId, Locale.getDefault().country)
+                    .collectLatest {
+                        Timber.tag("MovieDetailsViewModel").d("Watch providers ${it.data}")
+                        it.data?.let { cast ->
+                            _watchProviders.emit(Resource.Success(cast))
 
-                    } ?: _watchProviders.emit(Resource.Success(emptyList()))
-                }
+                        } ?: _watchProviders.emit(Resource.Success(emptyList()))
+                    }
             } catch (e: Exception) {
                 _watchProviders.emit(Resource.Error(e))
             }
@@ -182,5 +188,26 @@ constructor(
         }
     }
 
+    private fun getReleaseDates(movieId: Int) {
+        viewModelScope.launch {
+            _releaseDates.emit(Resource.Loading())
+            try {
+                movieRepository.getReleaseDates(movieId).collectLatest {
+                    val currentCountry = Locale.getDefault().country
+                    val releaseDatesInCurrentCountry =
+                        it.data?.findReleaseDateByCountry(currentCountry)
+                    Timber.tag("MovieDetailsViewModel")
+                        .d("Release dates in $currentCountry : $releaseDatesInCurrentCountry \nGeneral release dates; ${it.data}")
+                    _releaseDates.emit(
+                        Resource.Success(
+                            releaseDatesInCurrentCountry ?: emptyList()
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                _releaseDates.emit(Resource.Error(e))
+            }
+        }
+    }
 
 }

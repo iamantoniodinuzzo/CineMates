@@ -43,7 +43,7 @@ data class ReleaseDate(
     private fun convertToLocaleDateString(inputDateString: String): String {
         try {
             // Definiamo il formato di data e ora per il formato locale del dispositivo
-            val outputFormat = SimpleDateFormat.getDateTimeInstance()
+            val outputFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault())
 
             // Impostiamo il fuso orario per la data di input (UTC)
             val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())

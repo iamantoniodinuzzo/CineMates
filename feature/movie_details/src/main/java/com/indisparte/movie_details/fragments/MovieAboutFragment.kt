@@ -17,6 +17,7 @@ import com.indisparte.movie_details.adapter.CrewAdapter
 import com.indisparte.movie_details.adapter.VideoAdapter
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
 import com.indisparte.movie_details.dialog.CollectionDialog
+import com.indisparte.movie_details.fragments.base.ReleaseDateAdapter
 import com.indisparte.network.Resource
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
@@ -32,11 +33,13 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     private lateinit var chipGroupGenres: ChipGroup
     private val videoAdapter: VideoAdapter by lazy { VideoAdapter() }
     private val crewAdapter: CrewAdapter by lazy { CrewAdapter() }
+    private val releaseDateAdapter: ReleaseDateAdapter by lazy { ReleaseDateAdapter() }
     private lateinit var collectionDialog: CollectionDialog
     override fun initializeViews() {
         chipGroupGenres = binding.genreChipGroup
         binding.trailers.adapter = videoAdapter
         binding.recyclerviewCrew.adapter = crewAdapter
+        binding.movieInfo.releaseInformationRecyclerview.adapter = releaseDateAdapter
 
         enableInnerScrollViewPager(binding.trailers)
     }
@@ -48,6 +51,34 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
         fetchVideos()
 
+        fetchMovieCrew()
+
+        viewModel.releaseDates.collectIn(viewLifecycleOwner) { resources ->
+            when (resources) {
+                is Resource.Error -> {
+                    Timber.tag("MovieAboutFragment").e(resources.error?.message)
+                }
+
+                is Resource.Loading -> {
+                    Timber.tag("MovieAboutFragment").d("Loading...")
+                }
+
+                is Resource.Success -> {
+                    val releaseDates = resources.data
+                    Timber.tag("MovieAboutFragment")
+                        .d("Release Dates loaded! $releaseDates")
+                    releaseDateAdapter.submitList(releaseDates)
+                }
+
+                null -> {
+                    Timber.tag("MovieAboutFragment").e("Release Dates null result")
+                }
+            }
+        }
+
+    }
+
+    private fun fetchMovieCrew() {
         viewModel.crew.collectIn(viewLifecycleOwner) { resources ->
             when (resources) {
                 is Resource.Error -> {
@@ -69,7 +100,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 }
             }
         }
-
     }
 
     private fun fetchVideos() {

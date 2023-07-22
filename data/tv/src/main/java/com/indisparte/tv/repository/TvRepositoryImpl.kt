@@ -138,10 +138,10 @@ constructor(
     override suspend fun getWatchProviders(
         tvId: Int,
         country: String,
-    ): Flow<Resource<List<CountryResult>>> = getListFromResponse(
+    ): Flow<Resource<CountryResult?>> = getSingleFromResponse(
         request = { tvDataSource.getWatchProviders(tvId, queryMap) },
         mapper = { response ->
-            response.getCountryResultByCountry(country).map { it.mapToCountryResult() }
+            response.getCountryResultByCountry(country)?.mapToCountryResult()
         }
     )
 

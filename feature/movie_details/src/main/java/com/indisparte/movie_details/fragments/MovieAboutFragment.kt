@@ -10,11 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.ajalt.timberkt.Timber
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Genre
 import com.indisparte.model.entity.MovieDetails
+import com.indisparte.movie_details.R
 import com.indisparte.movie_details.adapter.CrewAdapter
 import com.indisparte.movie_details.adapter.VideoAdapter
+import com.indisparte.movie_details.databinding.CustomWatchProviderChipBinding
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
 import com.indisparte.movie_details.dialog.CollectionDialog
 import com.indisparte.movie_details.fragments.base.ReleaseDateAdapter
@@ -31,17 +34,31 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
     private val viewModel: MovieDetailsViewModel by activityViewModels()
     private lateinit var chipGroupGenres: ChipGroup
+    private lateinit var chipGroupWatchProviders: ChipGroup
     private val videoAdapter: VideoAdapter by lazy { VideoAdapter() }
     private val crewAdapter: CrewAdapter by lazy { CrewAdapter() }
     private val releaseDateAdapter: ReleaseDateAdapter by lazy { ReleaseDateAdapter() }
+    private lateinit var providerChipLayoutParams: ViewGroup.LayoutParams
     private lateinit var collectionDialog: CollectionDialog
     override fun initializeViews() {
         chipGroupGenres = binding.genreChipGroup
+        chipGroupWatchProviders = binding.watchProviders
         binding.trailers.adapter = videoAdapter
         binding.recyclerviewCrew.adapter = crewAdapter
         binding.movieInfo.releaseInformationRecyclerview.adapter = releaseDateAdapter
 
         enableInnerScrollViewPager(binding.trailers)
+
+        // Imposta la larghezza desiderata in pixel
+        val desiredWidthInPixels = resources.getDimensionPixelSize(R.dimen.provider_chip_width)
+
+        // Imposta l'altezza desiderata in pixel
+        val desiredHeightInPixels =
+            resources.getDimensionPixelSize(R.dimen.provider_chip_height)
+
+        // Crea un nuovo oggetto LayoutParams con le dimensioni desiderate
+        providerChipLayoutParams =
+            ViewGroup.LayoutParams(desiredWidthInPixels, desiredHeightInPixels)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,6 +71,32 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         fetchMovieCrew()
 
         fetchReleaseDates()
+
+        viewModel.watchProviders.collectIn(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Error -> {
+                    Timber.tag("MovieAboutFragment").e("Error: ${resource.error}")
+                }
+
+                is Resource.Loading -> {
+                    Timber.tag("MovieAboutFragment").d("watch providers Loading...")
+                }
+
+                is Resource.Success -> {
+                    val countryResult = resource.data
+                    Timber.tag("MovieAboutFragment")
+                        .d("Watch providers loaded! $countryResult")
+                    Timber.tag("MovieAboutFragment")
+                        .d("Order by category \n Free ${countryResult?.free} \n FlatRate ${countryResult?.flatrate} \n Rent ${countryResult?.rent} \n Buy${countryResult?.buy}")
+                    countryResult?.let { setWatchProvidersChipGroup(it) }
+
+                }
+
+                null -> {
+                    Timber.tag("MovieAboutFragment").e("Watch providers null result")
+                }
+            }
+        }
 
     }
 
@@ -145,7 +188,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
                 is Resource.Error -> {
                     val error = resources.error
-                    Timber.tag("MovieAbout").e("Error-> ${error}")
+                    Timber.tag("MovieAbout").e("Error-> $error")
                 }
 
                 is Resource.Loading -> {
@@ -167,10 +210,32 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 // TODO: Search movies with this genre id
                 showToastMessage("Soon - Search ${chip.tag} id")
             }
-
             chipGroupGenres.addView(chip)
+        }
+    }
+
+    private fun setWatchProvidersChipGroup(countryResult: CountryResult) {
+        chipGroupWatchProviders.removeAllViews()
+        val watchProviders = countryResult.allWatchProviders
+        for (chipData in watchProviders) {
+            val chipBinding: CustomWatchProviderChipBinding =
+                CustomWatchProviderChipBinding.inflate(layoutInflater)
+
+            chipBinding.watchProvider = chipData
+
+            val chip = chipBinding.root
+
+            chip.layoutParams = providerChipLayoutParams
+
+            chip.setOnClickListener { chip ->
+                // TODO: Open TMDB page
+                showToastMessage("Soon - Open ${chipData.providerName}")
+            }
+
+            chipGroupWatchProviders.addView(chip)
 
         }
+
     }
 
     // Disable ViewPager2 from intercepting touch events of RecyclerView
@@ -215,6 +280,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         // Take the first "numberOfItemsToSelect" elements from the list
         return take(numberOfItemsToSelect)
     }
+
 
 }
 

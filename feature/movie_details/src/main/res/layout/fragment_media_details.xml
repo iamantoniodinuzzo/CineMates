@@ -125,20 +125,7 @@
                             tools:text="23 May 2023 - 2 h 20 min" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/watch_providers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:backgroundTint="?attr/colorSecondary"
-                        android:text="Watch providers"
-                        android:textColor="?attr/colorOnSecondary"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@id/media_title"
-                        app:layout_constraintEnd_toEndOf="parent" />
-
+                    
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.appcompat.widget.Toolbar

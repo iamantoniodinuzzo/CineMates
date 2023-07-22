@@ -48,8 +48,8 @@ class MovieDetailsViewModel
 
     private val _similarMovies = MutableStateFlow<Resource<List<Movie>>?>(null)
     val similarMovies: StateFlow<Resource<List<Movie>>?> get() = _similarMovies
-    private val _watchProviders = MutableStateFlow<Resource<List<CountryResult>>?>(null)
-    val watchProviders: StateFlow<Resource<List<CountryResult>>?> get() = _watchProviders
+    private val _watchProviders = MutableStateFlow<Resource<CountryResult>?>(null)
+    val watchProviders: StateFlow<Resource<CountryResult>?> get() = _watchProviders
     private val _crew = MutableStateFlow<Resource<List<Crew>>?>(null)
     val crew: StateFlow<Resource<List<Crew>>?> get() = _crew
     private val _releaseDates = MutableStateFlow<Resource<List<ReleaseDate>>?>(null)
@@ -157,10 +157,9 @@ class MovieDetailsViewModel
                 movieRepository.getWatchProviders(movieId, Locale.getDefault().country)
                     .collectLatest {
                         Timber.tag("MovieDetailsViewModel").d("Watch providers ${it.data}")
-                        it.data?.let { cast ->
-                            _watchProviders.emit(Resource.Success(cast))
-
-                        } ?: _watchProviders.emit(Resource.Success(emptyList()))
+                        it.data?.let { watchproviders ->
+                            _watchProviders.emit(Resource.Success(watchproviders))
+                        }
                     }
             } catch (e: Exception) {
                 _watchProviders.emit(Resource.Error(e))

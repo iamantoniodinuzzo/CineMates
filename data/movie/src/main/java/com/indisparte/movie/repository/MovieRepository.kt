@@ -29,7 +29,7 @@ interface MovieRepository {
     suspend fun getWatchProviders(
         movieId: Int,
         country: String,
-    ): Flow<Resource<List<CountryResult>>>
+    ): Flow<Resource<CountryResult?>>
 
     suspend fun getVideos(movieId: Int): Flow<Resource<List<Video>>>
 

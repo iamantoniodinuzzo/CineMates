@@ -24,10 +24,35 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/watchProviderTitle"
+                style="@style/BodyTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:text="Watch on"
+                android:textColor="?attr/colorOnSecondary"
+                android:textStyle="bold" />
+
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/watch_providers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:chipSpacingHorizontal="@dimen/base_margin"
+                app:chipSpacingVertical="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:clipToPadding="false"
+                android:layout_below="@id/watchProviderTitle"
+                android:paddingStart="@dimen/base_margin"
+                app:chipSpacing="@dimen/base_margin" />
+
+            <TextView
                 android:id="@+id/tagline"
                 style="@style/BodyTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/watch_providers"
                 android:layout_marginStart="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
                 android:text="@{movie.tagline}"
@@ -54,7 +79,7 @@
 
             <TextView
                 android:id="@+id/genres_title"
-                style="@style/SmallTitleTextViewStyle"
+                style="@style/BodyTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/readMoreTextV"
@@ -62,6 +87,7 @@
                 android:layout_marginTop="@dimen/base_margin"
                 android:text="Genres"
                 android:textColor="?attr/colorOnSecondary"
+                android:textStyle="bold"
                 android:visibility="@{movie.genres.empty?View.GONE:View.VISIBLE}" />
 
             <HorizontalScrollView
@@ -73,11 +99,11 @@
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/genreChipGroup"
-                    android:paddingStart="@dimen/base_margin"
-                    android:clipToPadding="false"
                     style="@style/Widget.MaterialComponents.Chip.Action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingStart="@dimen/base_margin"
                     app:singleLine="true"
                     app:singleSelection="true" />
             </HorizontalScrollView>
@@ -87,11 +113,11 @@
                 style="@style/SmallTitleTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:paddingEnd="@dimen/base_margin"
                 android:layout_below="@id/horizontal_scroll_view"
                 android:layout_marginStart="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
+                android:clickable="true"
+                android:paddingEnd="@dimen/base_margin"
                 android:text="Featured Crew"
                 app:drawableEndCompat="@drawable/ic_forward"
                 app:drawableTint="?attr/colorOnPrimary" />
@@ -101,11 +127,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/crew_title"
-                android:paddingStart="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/base_margin"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
-                android:orientation="vertical"
                 tools:itemCount="4"
                 tools:listitem="@layout/list_item_crew" />
 
@@ -148,8 +174,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/trailer_title"
-                android:clipToPadding="false"
                 android:layout_marginTop="@dimen/base_margin"
+                android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/base_margin"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

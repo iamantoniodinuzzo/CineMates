@@ -5,8 +5,10 @@ data class WatchProvidersResponseDTO(
     val id: Int,
     val results: Map<String, CountryResultDTO>,
 ) {
-    fun getCountryResultByCountry(country: String): List<CountryResultDTO> {
+    fun getCountryResultByCountry(country: String): CountryResultDTO? {
         return results
             .filter { it.key.contains(country, ignoreCase = true) }
-            .map { it.value }    }
+            .values
+            .firstOrNull()
+    }
 }

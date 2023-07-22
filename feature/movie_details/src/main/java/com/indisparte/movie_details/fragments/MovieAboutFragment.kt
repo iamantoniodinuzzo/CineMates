@@ -27,6 +27,7 @@ import com.indisparte.network.Resource
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
 import com.indisparte.util.extension.gone
+import com.indisparte.util.extension.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -95,7 +96,8 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                     val countryResult = resource.data
                     Timber.tag("MovieAboutFragment")
                         .d("Watch providers loaded! $countryResult")
-
+                    binding.justWatch.root.visible()
+                    binding.watchProviderTitle.visible()
                     countryResult?.let {
                         setWatchProvidersChipGroup(it)
                     }

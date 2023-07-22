@@ -28,8 +28,8 @@
                 style="@style/BodyTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
                 android:text="@{movie.tagline}"
                 android:visibility="@{movie.tagline==null?View.GONE:View.VISIBLE}"
                 tools:text="Tagline" />
@@ -40,14 +40,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tagline"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:layout_marginEnd="@dimen/base_margin"
                 android:text="@{movie.overview}"
-                android:textColor="@color/alabaster"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="14sp"
-                app:clickableColor="@color/vermilion_100"
-                app:maxLinesShown="2"
+                app:clickableColor="?attr/colorAccent"
+                app:maxLinesShown="3"
                 app:readLessText="Read less"
                 app:readMoreText="Read more"
                 tools:text="@tools:sample/lorem" />
@@ -58,8 +58,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/readMoreTextV"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
                 android:text="Genres"
                 android:textColor="?attr/colorOnSecondary"
                 android:visibility="@{movie.genres.empty?View.GONE:View.VISIBLE}" />
@@ -73,6 +73,8 @@
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/genreChipGroup"
+                    android:paddingStart="@dimen/base_margin"
+                    android:clipToPadding="false"
                     style="@style/Widget.MaterialComponents.Chip.Action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -86,21 +88,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:paddingEnd="10dp"
+                android:paddingEnd="@dimen/base_margin"
                 android:layout_below="@id/horizontal_scroll_view"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
                 android:text="Featured Crew"
                 app:drawableEndCompat="@drawable/ic_forward"
-                app:drawableTint="?colorOnPrimary" />
+                app:drawableTint="?attr/colorOnPrimary" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_crew"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/crew_title"
-                android:paddingStart="10dp"
-                android:layout_marginTop="10dp"
+                android:paddingStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
                 android:orientation="vertical"
@@ -113,8 +115,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/recyclerview_crew"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
                 app:movie="@{movie}" />
 
 
@@ -123,8 +125,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/movie_info"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
                 android:visibility="@{movie.belongsToCollection!=null?View.VISIBLE:View.GONE}"
                 app:pv_chipValue="@{movie.belongsToCollection.name}"
                 app:pv_imageUrl="@{movie.belongsToCollection.completeBackdropPathW780 ?? movie.belongsToCollection.completePosterPathW780}"
@@ -137,8 +139,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/collection_cover"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
                 android:text="Trailers" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -147,9 +149,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/trailer_title"
                 android:clipToPadding="false"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/base_margin"
                 android:orientation="horizontal"
-                android:paddingHorizontal="10dp"
+                android:paddingHorizontal="@dimen/base_margin"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/list_item_yt_video" />
 

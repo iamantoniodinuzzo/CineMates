@@ -24,8 +24,8 @@ data class ReleaseDate(
     private val type: Int,
 ) {
     companion object{
-        private const val TMDB_RELEASE_DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        private const val OUTPUT_RELEASE_DATE_FORMAT = "MMMM dd, yyyy"
+        const val TMDB_RELEASE_DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        const val OUTPUT_RELEASE_DATE_FORMAT = "MMMM dd, yyyy"
     }
     val releaseType: ReleaseType
         get() {
@@ -66,3 +66,10 @@ data class ReleaseDate(
         }
     }
 }
+
+fun List<ReleaseDate>.getLatestReleaseCertification(): String {
+    val latestRelease = this.maxByOrNull { it.formattedReleaseDate }
+
+    return latestRelease?.certification ?: ""
+}
+

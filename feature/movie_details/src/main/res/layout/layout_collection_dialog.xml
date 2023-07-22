@@ -6,7 +6,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/parts_of_collection"
         android:layout_width="match_parent"
-        android:padding="10dp"
+        android:padding="@dimen/base_margin"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:orientation="horizontal"

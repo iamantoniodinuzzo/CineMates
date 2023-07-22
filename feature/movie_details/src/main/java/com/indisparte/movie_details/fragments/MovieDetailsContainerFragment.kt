@@ -10,6 +10,8 @@ import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.Resource
 import com.indisparte.util.extension.collectIn
+import com.indisparte.util.extension.gone
+import com.indisparte.util.extension.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -28,15 +30,30 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     private val movieIdArgs: MovieDetailsContainerFragmentArgs by navArgs()
     override fun initializeViews() {
         viewModel.onDetailsFragmentReady(movieIdArgs.id)
+        binding.toolbar.setNavigationOnClickListener {
+            ((this.requireActivity()) as ToFlowNavigable).navigateToFlow(NavigationFlow.HomeFlow)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.setNavigationOnClickListener {
-            ((this.requireActivity()) as ToFlowNavigable).navigateToFlow(NavigationFlow.HomeFlow)
+
+        fetchSelectedMovieDetails()
+        fetchLatestCertification()
+
+    }
+
+    private fun fetchLatestCertification() {
+        viewModel.latestCertification.collectIn(viewLifecycleOwner) { latestCertification ->
+            binding.certification.apply {
+                text = latestCertification
+                if (!latestCertification.isNullOrEmpty()) visible() else gone()
+            }
+
         }
+    }
 
-
+    private fun fetchSelectedMovieDetails() {
         viewModel.selectedMovie.collectIn(viewLifecycleOwner) { resources ->
             when (resources) {
                 is Resource.Error -> {
@@ -45,18 +62,17 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
                 }
 
                 is Resource.Loading -> {
-                    Timber.tag("MovieDetailsContainer").d("Content loading...")
+                    Timber.tag("MovieDetailsContainer").d("Movie details loading...")
                 }
 
                 is Resource.Success -> {
                     val movieDetails = resources.data
                     Timber.tag("MovieDetailsContainer")
-                        .d("Content loaded: ${movieDetails.toString()}")
+                        .d("Movie details loaded: ${movieDetails.toString()}")
                     binding.media = movieDetails
                 }
             }
         }
-
     }
 
 

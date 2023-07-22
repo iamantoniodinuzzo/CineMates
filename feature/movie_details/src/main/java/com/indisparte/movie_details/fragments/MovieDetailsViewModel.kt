@@ -10,6 +10,7 @@ import com.indisparte.model.entity.MovieDetails
 import com.indisparte.model.entity.ReleaseDate
 import com.indisparte.model.entity.Video
 import com.indisparte.model.entity.findReleaseDateByCountry
+import com.indisparte.model.entity.getLatestReleaseCertification
 import com.indisparte.movie.repository.MovieRepository
 import com.indisparte.network.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,8 +35,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class MovieDetailsViewModel
-@Inject
-constructor(
+@Inject constructor(
     private val movieRepository: MovieRepository,
 ) : ViewModel() {
 
@@ -54,6 +54,8 @@ constructor(
     val crew: StateFlow<Resource<List<Crew>>?> get() = _crew
     private val _releaseDates = MutableStateFlow<Resource<List<ReleaseDate>>?>(null)
     val releaseDates: StateFlow<Resource<List<ReleaseDate>>?> get() = _releaseDates
+    private val _latestCertification = MutableStateFlow<String?>(null)
+    val latestCertification: StateFlow<String?> get() = _latestCertification
 
     init {
         observeSelectedMovie()
@@ -62,17 +64,12 @@ constructor(
     /**
      * Retrieves additional information about the selected movie
      */
-    fun onDetailsFragmentReady(id: Int) =
-        getMovieDetails(id)
+    fun onDetailsFragmentReady(id: Int) = getMovieDetails(id)
 
     private fun observeSelectedMovie() {
         viewModelScope.launch {
-            selectedMovie
-                .filter { it is Resource.Success }
-                .map { it as Resource.Success }
-                .mapNotNull { it.data }
-                .distinctUntilChanged()
-                .collect { movieDetails ->
+            selectedMovie.filter { it is Resource.Success }.map { it as Resource.Success }
+                .mapNotNull { it.data }.distinctUntilChanged().collect { movieDetails ->
                     getVideos(movieDetails.id)
                     getCast(movieDetails.id)
                     getSimilar(movieDetails.id)
@@ -196,6 +193,10 @@ constructor(
                     val currentCountry = Locale.getDefault().country
                     val releaseDatesInCurrentCountry =
                         it.data?.findReleaseDateByCountry(currentCountry)
+                    //get and set latest certification
+                    val latestCertification =
+                        releaseDatesInCurrentCountry?.getLatestReleaseCertification()
+                    _latestCertification.value = latestCertification
                     Timber.tag("MovieDetailsViewModel")
                         .d("Release dates in $currentCountry : $releaseDatesInCurrentCountry \nGeneral release dates; ${it.data}")
                     _releaseDates.emit(

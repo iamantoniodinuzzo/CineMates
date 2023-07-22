@@ -29,11 +29,11 @@
         <item name="tabIndicatorColor">?colorAccent</item>
         <item name="tabSelectedTextColor">?colorAccent</item>
         <item name="tabMode">auto</item>
-        <item name="android:background">?colorSecondary</item>
+        <item name="android:background">?colorPrimary</item>
         <item name="tabTextAppearance">@style/CustomTextTabSmallAppearance</item>
         <item name="tabIndicatorFullWidth">false</item>
         <item name="tabGravity">center</item>
-        <item name="tabTextColor">?colorOnSecondary</item>
+        <item name="tabTextColor">?colorPrimary</item>
     </style>
 
     <style name="Tab_Layout_Huge" parent="Widget.MaterialComponents.TabLayout">

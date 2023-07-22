@@ -28,6 +28,7 @@ import kotlin.math.abs
  */
 abstract class MediaDetailsContainerFragment(private val mapOfFragments: LinkedHashMap<Fragment, String>) :
     BaseFragment<FragmentMediaDetailsBinding>() {
+    // TODO: Change linked map from Fragment, String to Fragment,@StringRes Int
 
     /**
      * Secondary constructor used when no fragments are initially provided.

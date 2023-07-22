@@ -53,14 +53,19 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
         fetchMovieCrew()
 
+        fetchReleaseDates()
+
+    }
+
+    private fun fetchReleaseDates() {
         viewModel.releaseDates.collectIn(viewLifecycleOwner) { resources ->
             when (resources) {
                 is Resource.Error -> {
-                    Timber.tag("MovieAboutFragment").e(resources.error?.message)
+                    Timber.tag("MovieAboutFragment").e("Error: ${resources.error}")
                 }
 
                 is Resource.Loading -> {
-                    Timber.tag("MovieAboutFragment").d("Loading...")
+                    Timber.tag("MovieAboutFragment").d("Release Dates Loading...")
                 }
 
                 is Resource.Success -> {
@@ -75,7 +80,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 }
             }
         }
-
     }
 
     private fun fetchMovieCrew() {
@@ -86,7 +90,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 }
 
                 is Resource.Loading -> {
-                    Timber.tag("MovieAboutFragment").d("Loading...")
+                    Timber.tag("MovieAboutFragment").d("Crew Loading...")
                 }
 
                 is Resource.Success -> {
@@ -110,7 +114,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 }
 
                 is Resource.Loading -> {
-                    Timber.tag("MovieAboutFragment").d("Loading...")
+                    Timber.tag("MovieAboutFragment").d("Videos Loading...")
                 }
 
                 is Resource.Success -> {
@@ -134,18 +138,18 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 is Resource.Success -> {
                     val movieDetails: MovieDetails? = resources.data
                     binding.movie = movieDetails
-
+                    Timber.tag("MovieAbout").d("Movie details loaded: $movieDetails")
                     //setup genre group
                     movieDetails?.let { setGenresChipGroup(it.genres) }
                 }
 
                 is Resource.Error -> {
                     val error = resources.error
-                    Timber.tag("MovieAbout").e("Cannot load content. Error-> $error")
+                    Timber.tag("MovieAbout").e("Error-> ${error}")
                 }
 
                 is Resource.Loading -> {
-                    Timber.tag("MovieAbout").d("Loading content...")
+                    Timber.tag("MovieAbout").d("Movie details Loading...")
                 }
             }
         }
@@ -160,6 +164,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             chip.tag = chipData.id
 
             chip.setOnClickListener { chip ->
+                // TODO: Search movies with this genre id
                 showToastMessage("Soon - Search ${chip.tag} id")
             }
 
@@ -184,18 +189,32 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         })
     }
 
-}
+    /**
+     *  Returns a new list containing an even number of elements from the original list based on certain conditions.
+     *
+     *  If the original list is empty, it returns the same empty list.
+     *
+     *  If the original list contains 4 or more elements, it selects the first 4 elements from the list.
+     *
+     *  If the original list contains at least 2 elements but less than 4, it selects the first 2 elements.
+     *
+     *  If the original list contains less than 2 elements, it selects only the first element.
+     *
+     *  @return A new list containing an even number of elements from the original list.
+     */
+    private fun List<Crew>.takeEvenNumberOfItems(): List<Crew> {
+        if (isEmpty())
+            return this
 
-private fun List<Crew>.takeEvenNumberOfItems(): List<Crew> {
-    if (isEmpty())
-        return this
+        val numberOfItemsToSelect = when {
+            size >= 4 -> 4 // If there are at least 4 items, select 4
+            size >= 2 -> 2 // If there are at least 2 items, select 2
+            else -> 1 // Otherwise, select only 1
+        }
 
-    val numberOfItemsToSelect = when {
-        size >= 4 -> 4 // Se ci sono almeno 4 oggetti, prendine 4
-        size >= 2 -> 2 // Se ci sono almeno 2 oggetti, prendine 2
-        else -> 1 // Altrimenti, prendine solo 1
+        // Take the first "numberOfItemsToSelect" elements from the list
+        return take(numberOfItemsToSelect)
     }
 
-    // Prendi i primi "numberOfItemsToSelect" elementi dalla lista
-    return take(numberOfItemsToSelect)
 }
+

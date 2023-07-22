@@ -188,7 +188,7 @@ class SectionAdapter(private val fragment: Fragment) :
                         is Resource.Error -> {
                             progress.hide()
                             this.setEmptyStateTitle("Error")
-                            peopleSection.people.error?.localizedMessage?.let {
+                            peopleSection.people.error?.message?.let {
                                 this.setEmptyStateSubtitle(
                                     it
                                 )

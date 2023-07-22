@@ -9,7 +9,7 @@ class Person(
     knownForDepartment: String,
     name: String,
     popularity: Double,
-    profilePath: String,
+    profilePath: String?,
 ) : PersonBase(
     adult = adult,
     gender = gender,

@@ -18,8 +18,7 @@
         android:id="@+id/action_global_movie_details"
         app:destination="@id/movie_details_graph"
         app:enterAnim="@anim/nav_default_pop_enter_anim"
-        app:exitAnim="@anim/nav_default_pop_exit_anim"
-        app:popUpTo="@id/home_graph">
+        app:exitAnim="@anim/nav_default_pop_exit_anim">
 
         <argument
             android:name="id"

@@ -66,6 +66,12 @@ class MovieDetailsViewModel
      */
     fun onDetailsFragmentReady(id: Int) = getMovieDetails(id)
 
+    fun onDetailsFragmentDestroy() = clearWatchProviders()
+
+    private fun clearWatchProviders() {
+        _watchProviders.value = null
+    }
+
     private fun observeSelectedMovie() {
         viewModelScope.launch {
             selectedMovie.filter { it is Resource.Success }.map { it as Resource.Success }
@@ -104,11 +110,10 @@ class MovieDetailsViewModel
         viewModelScope.launch {
             _videos.emit(Resource.Loading())
             try {
-                movieRepository.getVideos(movieId).collectLatest {
-                    Timber.tag("MovieDetailsViewModel").d("Movie videos ${it.data.toString()}")
-                    it.data?.let { videos ->
-                        _videos.emit(Resource.Success(videos))
-                    } ?: _videos.emit(Resource.Success(emptyList()))
+                movieRepository.getVideos(movieId).collectLatest { resource ->
+                    val videos = resource.data ?: emptyList()
+                    Timber.tag("MovieDetailsViewModel").d("Movie videos ${videos.map { it.name }}")
+                    _videos.emit(Resource.Success(videos))
                 }
             } catch (e: Exception) {
                 _videos.emit(Resource.Error(e))
@@ -121,11 +126,10 @@ class MovieDetailsViewModel
             _similarMovies.emit(Resource.Loading())
             try {
                 movieRepository.getSimilar(movieId).collectLatest { resources ->
+                    val similar = resources.data ?: emptyList()
                     Timber.tag("MovieDetailsViewModel")
-                        .d("Similar ${resources.data?.map { it.title }}")
-                    resources.data?.let { similar ->
-                        _similarMovies.emit(Resource.Success(similar))
-                    } ?: _similarMovies.emit(Resource.Success(emptyList()))
+                        .d("Similar ${similar.map { it.title }}")
+                    _similarMovies.emit(Resource.Success(similar))
                 }
             } catch (e: Exception) {
                 _similarMovies.emit(Resource.Error(e))
@@ -137,12 +141,11 @@ class MovieDetailsViewModel
         viewModelScope.launch {
             _cast.emit(Resource.Loading())
             try {
-                movieRepository.getCast(movieId).collectLatest {
-                    Timber.tag("MovieDetailsViewModel").d("Movie cast ${it.data}")
-                    it.data?.let { cast ->
-                        _cast.emit(Resource.Success(cast))
+                movieRepository.getCast(movieId).collectLatest { resources ->
+                    val cast = resources.data ?: emptyList()
+                    Timber.tag("MovieDetailsViewModel").d("Movie cast ${cast.map { it.name }}")
+                    _cast.emit(Resource.Success(cast))
 
-                    } ?: _cast.emit(Resource.Success(emptyList()))
                 }
             } catch (e: Exception) {
                 _cast.emit(Resource.Error(e))
@@ -155,11 +158,12 @@ class MovieDetailsViewModel
             _watchProviders.emit(Resource.Loading())
             try {
                 movieRepository.getWatchProviders(movieId, Locale.getDefault().country)
-                    .collectLatest {
-                        Timber.tag("MovieDetailsViewModel").d("Watch providers ${it.data}")
-                        it.data?.let { watchproviders ->
-                            _watchProviders.emit(Resource.Success(watchproviders))
-                        }
+                    .collectLatest { resource ->
+                        val countryResult = resource.data
+                        Timber.tag("MovieDetailsViewModel")
+                            .d("Watch providers ${countryResult?.allWatchProviders}")
+                        _watchProviders.emit(Resource.Success(countryResult))
+
                     }
             } catch (e: Exception) {
                 _watchProviders.emit(Resource.Error(e))
@@ -171,12 +175,10 @@ class MovieDetailsViewModel
         viewModelScope.launch {
             _crew.emit(Resource.Loading())
             try {
-                movieRepository.getCrew(movieId).collectLatest {
-                    Timber.tag("MovieDetailsViewModel").d("Movie Crew ${it.data}")
-                    it.data?.let { cast ->
-                        _crew.emit(Resource.Success(cast))
-
-                    } ?: _crew.emit(Resource.Success(emptyList()))
+                movieRepository.getCrew(movieId).collectLatest { resource ->
+                    val crew = resource.data ?: emptyList()
+                    Timber.tag("MovieDetailsViewModel").d("Movie Crew ${crew?.map { it.name }}")
+                    _crew.emit(Resource.Success(crew))
                 }
             } catch (e: Exception) {
                 _crew.emit(Resource.Error(e))

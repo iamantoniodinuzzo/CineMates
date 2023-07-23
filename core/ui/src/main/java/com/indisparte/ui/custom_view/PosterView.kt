@@ -61,7 +61,7 @@ class PosterView @JvmOverloads constructor(
         val defaultTitleSize = resources.getDimension(R.dimen.default_poster_title_size)
         val defaultTitleColor = ContextCompat.getColor(context, R.color.geyser)
         val defaultChipTextSize = resources.getDimension(R.dimen.default_chip_text_size)
-        val defaultChipTextColor = ContextCompat.getColor(context, R.color.vermilion_100)
+        val defaultChipTextColor = ContextCompat.getColor(context, R.color.alabaster)
         val defaultPosterWidth = resources.getDimensionPixelSize(R.dimen.default_poster_width)
         val defaultPosterHeight = resources.getDimensionPixelSize(R.dimen.default_poster_height)
         val defaultCornerRadius = resources.getDimension(R.dimen.base_corner_radius)

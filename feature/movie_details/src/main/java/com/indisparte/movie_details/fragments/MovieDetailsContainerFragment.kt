@@ -9,6 +9,7 @@ import com.indisparte.movie_details.fragments.base.MediaDetailsContainerFragment
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.Resource
+import com.indisparte.network.whenResources
 import com.indisparte.util.extension.collectIn
 import com.indisparte.util.extension.gone
 import com.indisparte.util.extension.visible
@@ -55,23 +56,18 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
 
     private fun fetchSelectedMovieDetails() {
         viewModel.selectedMovie.collectIn(viewLifecycleOwner) { resources ->
-            when (resources) {
-                is Resource.Error -> {
-                    val error = resources.error
-                    Timber.tag("MovieDetailsContainer").d("Error: $error")
-                }
-
-                is Resource.Loading -> {
-                    Timber.tag("MovieDetailsContainer").d("Movie details loading...")
-                }
-
-                is Resource.Success -> {
-                    val movieDetails = resources.data
+            resources.whenResources(
+                onSuccess = { movieDetails ->
                     Timber.tag("MovieDetailsContainer")
                         .d("Movie details loaded: ${movieDetails.toString()}")
                     binding.media = movieDetails
-                }
-            }
+                },
+                onError = { error ->
+                    Timber.tag("MovieDetailsContainer").d("Error: $error")
+                },
+                onLoading = {
+                    Timber.tag("MovieDetailsContainer").d("Movie details loading...")
+                })
         }
     }
 

@@ -6,6 +6,7 @@ import com.github.ajalt.timberkt.Timber
 import com.indisparte.model.entity.Movie
 import com.indisparte.movie_details.fragments.base.ListFragment
 import com.indisparte.network.Resource
+import com.indisparte.network.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding
 import com.indisparte.util.extension.collectIn
@@ -28,26 +29,21 @@ class MovieSimilarFragment :
     override fun addItemsToTheAdapter() {
         adapter.setFragment(this)//necessary to navigation
         viewModel.similarMovies.collectIn(viewLifecycleOwner) { resources ->
-            when (resources) {
-                is Resource.Error -> {
-                    val error = resources.error
-                    Timber.tag("MovieSimilarFragment").e("Error: ${error?.message}")
-                }
-
-                is Resource.Loading -> {
-                    Timber.tag("MovieSimilarFragment").d("Loading content...")
-                }
-
-                is Resource.Success -> {
-                    val similar = resources.data
+            resources?.whenResources(
+                onSuccess = { similar ->
                     Timber.tag("MovieSimilarFragment")
                         .d("Content loaded: ${similar?.map { it.mediaName }}")
                     adapter.submitList(similar)
+                },
+                onError = { error ->
+                    Timber.tag("MovieSimilarFragment").e("Error: ${error?.message}")
+
+                },
+                onLoading = {
+                    Timber.tag("MovieSimilarFragment").d("Loading content...")
+
                 }
-
-                null -> TODO()
-            }
-
+            )
         }
     }
 

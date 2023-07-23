@@ -15,7 +15,6 @@ import com.google.android.material.chip.ChipGroup
 import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Genre
-import com.indisparte.model.entity.MovieDetails
 import com.indisparte.movie_details.R
 import com.indisparte.movie_details.adapter.CrewAdapter
 import com.indisparte.movie_details.adapter.VideoAdapter
@@ -23,10 +22,9 @@ import com.indisparte.movie_details.databinding.CustomWatchProviderChipBinding
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
 import com.indisparte.movie_details.dialog.CollectionDialog
 import com.indisparte.movie_details.fragments.base.ReleaseDateAdapter
-import com.indisparte.network.Resource
+import com.indisparte.network.whenResources
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
-import com.indisparte.util.extension.gone
 import com.indisparte.util.extension.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -83,133 +81,100 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
     private fun fetchWatchProviders() {
         viewModel.watchProviders.collectIn(viewLifecycleOwner) { resource ->
-            when (resource) {
-                is Resource.Error -> {
-                    Timber.tag("MovieAboutFragment").e("Error: ${resource.error}")
-                }
-
-                is Resource.Loading -> {
-                    Timber.tag("MovieAboutFragment").d("watch providers Loading...")
-                }
-
-                is Resource.Success -> {
-                    val countryResult = resource.data
-                    Timber.tag("MovieAboutFragment")
-                        .d("Watch providers loaded! $countryResult")
+            resource?.whenResources(
+                onSuccess = { countryResult ->
+                    Timber.tag("MovieAboutFragment").d("Watch providers loaded! $countryResult")
                     binding.justWatch.root.visible()
                     binding.watchProviderTitle.visible()
                     countryResult?.let {
                         setWatchProvidersChipGroup(it)
                     }
-
+                },
+                onError = { error ->
+                    Timber.tag("MovieAboutFragment").e("Error: $error")
+                },
+                onLoading = {
+                    Timber.tag("MovieAboutFragment").d("Watch providers Loading...")
                 }
-
-                null -> {
-                    Timber.tag("MovieAboutFragment").e("Watch providers null result")
-                    binding.justWatch.root.gone()
-                    binding.watchProviderTitle.gone()
-                }
-            }
+            )
         }
     }
+
 
     private fun fetchReleaseDates() {
         viewModel.releaseDates.collectIn(viewLifecycleOwner) { resources ->
-            when (resources) {
-                is Resource.Error -> {
-                    Timber.tag("MovieAboutFragment").e("Error: ${resources.error}")
-                }
-
-                is Resource.Loading -> {
+            resources?.whenResources(
+                onSuccess = { releaseDates ->
+                    Timber.tag("MovieAboutFragment").d("Release Dates loaded! $releaseDates")
+                    releaseDateAdapter.submitList(releaseDates)
+                },
+                onError = { error ->
+                    Timber.tag("MovieAboutFragment").e("Error: $error")
+                },
+                onLoading = {
                     Timber.tag("MovieAboutFragment").d("Release Dates Loading...")
                 }
-
-                is Resource.Success -> {
-                    val releaseDates = resources.data
-                    Timber.tag("MovieAboutFragment")
-                        .d("Release Dates loaded! $releaseDates")
-                    releaseDateAdapter.submitList(releaseDates)
-                }
-
-                null -> {
-                    Timber.tag("MovieAboutFragment").e("Release Dates null result")
-                }
-            }
+            )
         }
     }
 
+
     private fun fetchMovieCrew() {
         viewModel.crew.collectIn(viewLifecycleOwner) { resources ->
-            when (resources) {
-                is Resource.Error -> {
-                    Timber.tag("MovieAboutFragment").e(resources.error?.message)
-                }
-
-                is Resource.Loading -> {
-                    Timber.tag("MovieAboutFragment").d("Crew Loading...")
-                }
-
-                is Resource.Success -> {
-                    val crewList = resources.data
+            resources?.whenResources(
+                onSuccess = { crewList ->
                     Timber.tag("MovieAboutFragment").d("Crew loaded! ${crewList?.map { it.name }}")
                     crewAdapter.submitList(crewList?.takeEvenNumberOfItems())
+                },
+                onError = { error ->
+                    Timber.tag("MovieAboutFragment").e(error?.message)
+                },
+                onLoading = {
+                    Timber.tag("MovieAboutFragment").d("Crew Loading...")
                 }
-
-                null -> {
-                    Timber.tag("MovieAboutFragment").e("Crew null result")
-                }
-            }
+            )
         }
     }
 
     private fun fetchVideos() {
         viewModel.videos.collectIn(viewLifecycleOwner) { resources ->
-            when (resources) {
-                is Resource.Error -> {
-                    Timber.tag("MovieAboutFragment").e(resources.error?.message)
-                }
-
-                is Resource.Loading -> {
-                    Timber.tag("MovieAboutFragment").d("Videos Loading...")
-                }
-
-                is Resource.Success -> {
-                    val videos = resources.data
+            resources?.whenResources(
+                onSuccess = { videos ->
                     Timber.tag("MovieAboutFragment").d("Videos loaded! $videos")
                     videoAdapter.submitList(videos)
+                },
+                onError = { error ->
+                    Timber.tag("MovieAboutFragment").e(error?.message)
+                },
+                onLoading = {
+                    Timber.tag("MovieAboutFragment").d("Videos Loading...")
                 }
-
-                null -> {
-                    Timber.tag("MovieAboutFragment").e("Videos null result")
-                }
-            }
+            )
         }
     }
+
 
     private fun fetchMovieDetails() {
-        viewModel.selectedMovie.collectIn(
-            viewLifecycleOwner,
-        ) { resources ->
-            when (resources) {
-                is Resource.Success -> {
-                    val movieDetails: MovieDetails? = resources.data
+        viewModel.selectedMovie.collectIn(viewLifecycleOwner) { resources ->
+            resources.whenResources(
+                onSuccess = { movieDetails ->
                     binding.movie = movieDetails
                     Timber.tag("MovieAbout").d("Movie details loaded: $movieDetails")
-                    //setup genre group
-                    movieDetails?.let { setGenresChipGroup(it.genres) }
-                }
-
-                is Resource.Error -> {
-                    val error = resources.error
+                    // Setup genre group
+                    movieDetails?.let {
+                        setGenresChipGroup(it.genres)
+                    }
+                },
+                onError = { error ->
                     Timber.tag("MovieAbout").e("Error-> $error")
-                }
-
-                is Resource.Loading -> {
+                },
+                onLoading = {
                     Timber.tag("MovieAbout").d("Movie details Loading...")
                 }
-            }
+            )
         }
     }
+
 
     private fun setGenresChipGroup(genres: List<Genre>) {
         chipGroupGenres.removeAllViews()
@@ -295,6 +260,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         // Take the first "numberOfItemsToSelect" elements from the list
         return take(numberOfItemsToSelect)
     }
+
     private fun openLinkInBrowser(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)

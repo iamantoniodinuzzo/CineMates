@@ -2,12 +2,12 @@ package com.indisparte.movie_details.fragments
 
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.model.entity.Cast
 import com.indisparte.movie_details.adapter.CastAdapter
 import com.indisparte.movie_details.databinding.ListItemCastLongBinding
 import com.indisparte.movie_details.fragments.base.ListFragment
 import com.indisparte.network.Resource
+import com.indisparte.network.whenResources
 import com.indisparte.util.extension.collectIn
 import timber.log.Timber
 
@@ -22,25 +22,18 @@ class MovieCastFragment : ListFragment<Cast, ListItemCastLongBinding, CastAdapte
 
     override fun addItemsToTheAdapter() {
         viewModel.cast.collectIn(viewLifecycleOwner) { resources ->
-            when (resources) {
-                is Resource.Error -> {
-                    val error = resources.error
-                    Timber.tag("MovieCastFragment").e("Error: ${error?.message}")
-                }
-
-                is Resource.Loading -> {
-                    Timber.tag("MovieCastFragment").d("Loading cast...")
-
-                }
-
-                is Resource.Success -> {
-                    val cast = resources.data
+            resources?.whenResources(
+                onSuccess = { cast ->
                     Timber.tag("MovieCastFragment").d("Cast loaded : ${cast?.map { it.name }}")
                     adapter.submitList(cast)
-                }
+                },
+                onError = { error ->
+                    Timber.tag("MovieCastFragment").e("Error: ${error?.message}")
 
-                null -> TODO()
-            }
+                },
+                onLoading = {
+                    Timber.tag("MovieCastFragment").d("Loading cast...")
+                })
         }
     }
 

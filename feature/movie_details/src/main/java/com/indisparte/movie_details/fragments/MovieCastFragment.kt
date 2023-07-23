@@ -1,6 +1,7 @@
 package com.indisparte.movie_details.fragments
 
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.indisparte.model.entity.Cast
 import com.indisparte.movie_details.adapter.CastAdapter

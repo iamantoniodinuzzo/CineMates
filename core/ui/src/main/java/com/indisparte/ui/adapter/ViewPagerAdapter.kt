@@ -9,9 +9,11 @@ class ViewPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fm, lifecycle) {
 
     private val fragments: MutableList<Fragment> = mutableListOf()
+    private val fragmentTitles: MutableList<String> = mutableListOf()
 
     fun addFragment(fragment: Fragment, title: String) {
         fragments.add(fragment)
+        fragmentTitles.add(title)
     }
 
     override fun createFragment(position: Int): Fragment {
@@ -20,5 +22,9 @@ class ViewPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
 
     override fun getItemCount(): Int {
         return fragments.size
+    }
+
+    fun getPageTitle(position: Int): String {
+        return fragmentTitles[position]
     }
 }

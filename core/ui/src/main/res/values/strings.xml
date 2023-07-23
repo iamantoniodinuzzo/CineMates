@@ -9,6 +9,9 @@
     <string name="chip_top_rated">Top Rated</string>
     <string name="chip_on_air">On the Air</string>
 
+    <string name="fragment_media_similar">Similar</string>
+    <string name="fragment_media_cast">Cast</string>
+    <string name="fragment_media_about">About</string>
 
 
 </resources>

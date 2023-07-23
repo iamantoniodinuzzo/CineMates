@@ -3,8 +3,10 @@ package com.indisparte.movie_details.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.github.ajalt.timberkt.Timber
+import com.indisparte.ui.R
 import com.indisparte.movie_details.fragments.base.MediaDetailsContainerFragment
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
@@ -22,9 +24,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     linkedMapOf(
-        MovieAboutFragment() to "About",
-        MovieCastFragment() to "Cast",
-        MovieSimilarFragment() to "Similar",
+        MovieAboutFragment() to R.string.fragment_media_about,
+        MovieCastFragment() to R.string.fragment_media_cast,
+        MovieSimilarFragment() to R.string.fragment_media_similar,
     )
 ) {
     private val viewModel: MovieDetailsViewModel by activityViewModels()

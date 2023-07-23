@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.github.ajalt.timberkt.Timber
 import com.google.android.material.chip.Chip
@@ -25,6 +26,7 @@ import com.indisparte.movie_details.adapter.ReleaseDateAdapter
 import com.indisparte.network.whenResources
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
+import com.indisparte.util.extension.gone
 import com.indisparte.util.extension.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -83,11 +85,15 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         viewModel.watchProviders.collectIn(viewLifecycleOwner) { resource ->
             resource?.whenResources(
                 onSuccess = { countryResult ->
-                    Timber.tag("MovieAboutFragment").d("Watch providers loaded! $countryResult")
-                    binding.justWatch.root.visible()
-                    binding.watchProviderTitle.visible()
-                    countryResult?.let {
-                        setWatchProvidersChipGroup(it)
+                    if (countryResult != null) {
+                        Timber.tag("MovieAboutFragment").d("Watch providers loaded! $countryResult")
+                        binding.justWatch.root.visible()
+                        binding.watchProviderTitle.visible()
+                        setWatchProvidersChipGroup(countryResult)
+                    } else {
+                        Timber.tag("MovieAboutFragment").d("Watch providers is null. Hiding views.")
+                        binding.justWatch.root.gone()
+                        binding.watchProviderTitle.gone()
                     }
                 },
                 onError = { error ->

@@ -1,6 +1,7 @@
 package com.indisparte.movie_details.fragments
 
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.ajalt.timberkt.Timber
 import com.indisparte.model.entity.Movie

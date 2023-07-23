@@ -1,4 +1,4 @@
-package com.indisparte.movie_details.fragments.base
+package com.indisparte.movie_details.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -21,7 +21,7 @@ import com.indisparte.movie_details.adapter.VideoAdapter
 import com.indisparte.movie_details.databinding.CustomWatchProviderChipBinding
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
 import com.indisparte.movie_details.dialog.CollectionDialog
-import com.indisparte.movie_details.fragments.base.ReleaseDateAdapter
+import com.indisparte.movie_details.adapter.ReleaseDateAdapter
 import com.indisparte.network.whenResources
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn

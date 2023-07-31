@@ -1,5 +1,6 @@
 package com.indisparte.movie.mapper
 
+import com.indisparte.model.entity.Backdrop
 import com.indisparte.model.entity.BelongsToCollection
 import com.indisparte.model.entity.Cast
 import com.indisparte.model.entity.Crew
@@ -19,6 +20,7 @@ import com.indisparte.movie.response.MovieDTO
 import com.indisparte.movie.response.MovieDetailsDTO
 import com.indisparte.movie.response.ReleaseDateDTO
 import com.indisparte.movie.response.ReleaseDatesByCountryDTO
+import com.indisparte.response.BackdropDTO
 import com.indisparte.response.GenreDTO
 import com.indisparte.response.ProductionCompanyDTO
 import com.indisparte.response.ProductionCountryDTO
@@ -148,6 +150,14 @@ fun ReleaseDatesByCountryDTO.mapToReleaseDatesByCountry(): ReleaseDatesByCountry
     return ReleaseDatesByCountry(
         country = this.iso31661,
         releaseDates = this.releaseDates.map { it.mapToReleaseDate() }
+    )
+}
+
+fun BackdropDTO.mapToBackdrop(): Backdrop {
+    return Backdrop(
+        filePath = this.filePath,
+        height = this.height,
+        width = this.width
     )
 }
 

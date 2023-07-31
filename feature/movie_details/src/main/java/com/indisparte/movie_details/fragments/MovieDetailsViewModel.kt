@@ -2,6 +2,7 @@ package com.indisparte.movie_details.fragments
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.indisparte.model.entity.Backdrop
 import com.indisparte.model.entity.Cast
 import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
@@ -57,6 +58,9 @@ class MovieDetailsViewModel
     private val _latestCertification = MutableStateFlow<String?>(null)
     val latestCertification: StateFlow<String?> get() = _latestCertification
 
+    private val _backdrops = MutableStateFlow<Resource<List<Backdrop>>?>(null)
+    val backdrops: StateFlow<Resource<List<Backdrop>>?> get() = _backdrops
+
     init {
         observeSelectedMovie()
     }
@@ -82,7 +86,23 @@ class MovieDetailsViewModel
                     getWatchProviders(movieDetails.id)
                     getCrew(movieDetails.id)
                     getReleaseDates(movieDetails.id)
+                    getBackdrops(movieDetails.id)
                 }
+        }
+    }
+
+    private fun getBackdrops(id: Int) {
+        viewModelScope.launch {
+            _backdrops.emit(Resource.Loading())
+            try {
+                movieRepository.getBackdrop(id).collectLatest {
+                    val backdrops = it.data
+                    Timber.tag("MovieDetailsViewModel").d("Movie Backdrops: $backdrops")
+                    _backdrops.emit(Resource.Success(backdrops))
+                }
+            }catch (e:Exception){
+                _backdrops.emit(Resource.Error(e))
+            }
         }
     }
 

@@ -3,15 +3,15 @@ package com.indisparte.movie_details.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.viewpager2.widget.ViewPager2
 import com.github.ajalt.timberkt.Timber
-import com.indisparte.ui.R
+import com.indisparte.movie_details.adapter.BackdropAdapter
 import com.indisparte.movie_details.fragments.base.MediaDetailsContainerFragment
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
-import com.indisparte.network.Resource
 import com.indisparte.network.whenResources
+import com.indisparte.ui.R
 import com.indisparte.util.extension.collectIn
 import com.indisparte.util.extension.gone
 import com.indisparte.util.extension.visible
@@ -31,8 +31,16 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
 ) {
     private val viewModel: MovieDetailsViewModel by activityViewModels()
     private val movieIdArgs: MovieDetailsContainerFragmentArgs by navArgs()
+    private lateinit var backdropAdapter: BackdropAdapter
+    private lateinit var backdropViewPager: ViewPager2
     override fun initializeViews() {
+        backdropAdapter = BackdropAdapter()
+        backdropAdapter.registerAdapterDataObserver(binding.circleIndicator.getAdapterDataObserver())
         viewModel.onDetailsFragmentReady(movieIdArgs.id)
+        backdropViewPager = binding.backdropViewPager
+        backdropViewPager.adapter = backdropAdapter
+        binding.circleIndicator.setViewPager(backdropViewPager)
+
         binding.toolbar.setNavigationOnClickListener {
             ((this.requireActivity()) as ToFlowNavigable).navigateToFlow(NavigationFlow.HomeFlow)
         }
@@ -43,7 +51,15 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
 
         fetchSelectedMovieDetails()
         fetchLatestCertification()
+        fetchMovieBackdrops()
 
+    }
+
+    private fun fetchMovieBackdrops() {
+        viewModel.backdrops.collectIn(viewLifecycleOwner) { resources ->
+            val backdrops = resources?.data
+            backdropAdapter.submitList(backdrops)
+        }
     }
 
     private fun fetchLatestCertification() {
@@ -77,8 +93,6 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         super.onDestroyView()
         viewModel.onDetailsFragmentDestroy()
     }
-
-
 
 
 }

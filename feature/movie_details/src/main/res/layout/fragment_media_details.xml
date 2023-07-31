@@ -25,7 +25,7 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapse_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="360dp"
+                android:layout_height="400dp"
                 android:textSize="18sp"
                 app:collapsedTitleTextColor="?attr/colorOnPrimary"
                 app:contentScrim="?attr/colorPrimary"
@@ -40,16 +40,30 @@
                     android:background="?attr/colorPrimary">
 
 
-                    <ImageView
+                    <FrameLayout
                         android:id="@+id/media_backdrop"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:scaleType="centerCrop"
+                        android:layout_height="250dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:loadImage="@{media.completeBackdropPathW780}"
-                        tools:src="@tools:sample/backgrounds/scenic" />
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/backdrop_viewPager"
+                            android:layout_width="match_parent"
+                            android:background="?attr/colorSecondary"
+                            android:layout_height="match_parent" />
+
+                        <me.relex.circleindicator.CircleIndicator3
+                            android:id="@+id/circleIndicator"
+                            android:layout_width="match_parent"
+                            app:ci_drawable_unselected="@drawable/secondary_radius"
+                            app:ci_drawable="@drawable/primary_radius"
+                            android:layout_gravity="top"
+                            android:layout_height="?attr/actionBarSize" />
+
+                    </FrameLayout>
+
 
                     <View
                         android:layout_width="match_parent"
@@ -65,7 +79,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/base_margin"
-                        android:layout_marginTop="100dp"
+                        android:layout_marginTop="170dp"
                         android:scaleType="centerCrop"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"

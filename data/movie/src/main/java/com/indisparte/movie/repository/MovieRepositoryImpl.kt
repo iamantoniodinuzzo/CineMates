@@ -2,6 +2,7 @@ package com.indisparte.movie.repository
 
 import com.indisparte.model.MediaFilter
 import com.indisparte.model.TimeWindow
+import com.indisparte.model.entity.Backdrop
 import com.indisparte.model.entity.Cast
 import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
@@ -9,6 +10,7 @@ import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.MovieDetails
 import com.indisparte.model.entity.ReleaseDatesByCountry
 import com.indisparte.model.entity.Video
+import com.indisparte.movie.mapper.mapToBackdrop
 import com.indisparte.movie.mapper.mapToCast
 import com.indisparte.movie.mapper.mapToCountryResult
 import com.indisparte.movie.mapper.mapToCrew
@@ -134,5 +136,14 @@ constructor(
             }
         )
 
-
+    override suspend fun getBackdrop(movieId: Int): Flow<Resource<List<Backdrop>>> =
+        getListFromResponse(
+            request = { movieService.getImages(movieId, queryMap) },
+            mapper = { response ->
+                response.backdrops.map { it.mapToBackdrop() }
+            }
+        )
 }
+
+
+

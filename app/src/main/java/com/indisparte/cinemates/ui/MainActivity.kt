@@ -2,8 +2,12 @@ package com.indisparte.cinemates.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.indisparte.cinemates.R
 import com.indisparte.cinemates.databinding.ActivityMainBinding
@@ -35,21 +39,18 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
         navigator.navController = navController
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        /* val appBarConfiguration = AppBarConfiguration(
+         val appBarConfiguration = AppBarConfiguration(
              setOf(
-                 R.id.homeFragment,
-                 R.id.discoverFragment,
-                 R.id.savedFragment,
-                 R.id.profileFragment
+                 R.id.homeFragment
              )
-         )*/
+         )
 
-        /*lifecycleScope.launchWhenResumed {
+        lifecycleScope.launchWhenResumed {
             navController.addOnDestinationChangedListener { _: NavController, destination: NavDestination, _: Bundle? ->
                 isVisible =
                     appBarConfiguration.topLevelDestinations.contains(destination.id)
             }
-        }*/
+        }
 
         setupWithNavController(navController)
     }

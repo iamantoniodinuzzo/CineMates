@@ -10,15 +10,13 @@
     <action
         android:id="@+id/action_global_home_flow"
         app:destination="@id/home_graph"
-        app:popUpTo="@id/nav_graph"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim" />
+        app:popUpTo="@id/nav_graph" />
 
     <action
         android:id="@+id/action_global_movie_details"
         app:destination="@id/movie_details_graph"
-        app:enterAnim="@anim/nav_default_pop_enter_anim"
-        app:exitAnim="@anim/nav_default_pop_exit_anim">
+        app:enterAnim="@anim/slide_in_from_right"
+        app:exitAnim="@anim/slide_out_to_right">
 
         <argument
             android:name="id"

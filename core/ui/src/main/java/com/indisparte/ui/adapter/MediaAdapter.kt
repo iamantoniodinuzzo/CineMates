@@ -1,18 +1,17 @@
 package com.indisparte.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.Person
 import com.indisparte.model.entity.TvShow
-import com.indisparte.navigation.NavigationFlow
-import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding
 import com.indisparte.ui.databinding.ListItemPersonSmallBinding
 
+interface OnItemClickListener<T> {
+    fun onItemClick(item: T)
+}
 
 class MovieAdapter : BaseAdapter<Movie, ListItemMediaSmallBinding>(
     object : DiffUtil.ItemCallback<Movie>() {
@@ -26,23 +25,26 @@ class MovieAdapter : BaseAdapter<Movie, ListItemMediaSmallBinding>(
     }
 ) {
 
-    private var fragment: Fragment? = null
+    private var itemClickListener: OnItemClickListener<Movie>? = null
 
-    fun setFragment(fragment: Fragment) {
-        this.fragment = fragment
+    fun setOnItemClickListener(listener: OnItemClickListener<Movie>) {
+        itemClickListener = listener
     }
+
+
     override fun bind(binding: ListItemMediaSmallBinding, item: Movie) {
         binding.apply {
             media = item
             root.setOnClickListener {
-                Log.d("MovieAdapter", "Movie id: ${item.id}")
-                requireNotNull(fragment)
+                itemClickListener?.onItemClick(item)
+
+                /*requireNotNull(fragment)
                 fragment?.let { fragment ->
                     val activity = fragment.requireActivity()
                     if (activity is ToFlowNavigable) {
                         activity.navigateToFlow(NavigationFlow.MovieDetailsFlow(item.id))
                     }
-                }
+                }*/
             }
         }
     }

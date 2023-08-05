@@ -9,8 +9,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.home.databinding.ListItemSectionBinding
 import com.indisparte.home.util.Section
+import com.indisparte.model.entity.Movie
+import com.indisparte.navigation.NavigationFlow
+import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.Resource
 import com.indisparte.ui.adapter.MovieAdapter
+import com.indisparte.ui.adapter.OnItemClickListener
 import com.indisparte.ui.adapter.PeopleAdapter
 import com.indisparte.ui.adapter.TvShowAdapter
 
@@ -104,7 +108,15 @@ class SectionAdapter(private val fragment: Fragment) :
                 textSectionTitle.text = context.getString(movieSection.titleResId)
                 recyclerView.apply {
                     val movieAdapter = MovieAdapter()
-                    movieAdapter.setFragment(fragment)//necessary for navigation
+                    movieAdapter.setOnItemClickListener(object : OnItemClickListener<Movie> {
+                        override fun onItemClick(item: Movie) {
+                            val activity = fragment.requireActivity()
+                            if (activity is ToFlowNavigable) {
+                                activity.navigateToFlow(NavigationFlow.MovieDetailsFlow(item.id))
+                            }
+                        }
+
+                    })
                     adapter = movieAdapter
                     when (movieSection.movies) {
                         is Resource.Error -> {

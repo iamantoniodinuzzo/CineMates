@@ -97,6 +97,7 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
                         LOG.d("Movie is a part of collection, add CollectionFragment.")
                         addFragment(CollectionPartsFragment(), R.string.fragment_collection)
                     }
+                    // TODO: Remove collection fragment otherwise
                 },
                 onError = { error ->
                     val errorMessage = error?.message

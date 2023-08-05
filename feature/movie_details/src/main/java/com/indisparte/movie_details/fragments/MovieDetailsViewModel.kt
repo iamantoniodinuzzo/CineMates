@@ -77,7 +77,6 @@ class MovieDetailsViewModel
 
     private fun observeSelectedMovie() {
         viewModelScope.launch {
-            // FIXME: Handle resource is not success, sett all StateFlow to error with the same message
             selectedMovie.filter { it is Resource.Success }.map { it as Resource.Success }
                 .mapNotNull { it.data }.distinctUntilChanged().collect { movieDetails ->
                     LOG.d("Get all movie details..")

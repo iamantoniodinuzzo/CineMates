@@ -17,8 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
  * @author Antonio Di Nuzzo (Indisparte)
  */
 abstract class BaseAdapter<T, VB : ViewDataBinding>(
-    diffCallback: DiffUtil.ItemCallback<T>
+    diffCallback: DiffUtil.ItemCallback<T>,
 ) : ListAdapter<T, BaseAdapter<T, VB>.BaseViewHolder>(diffCallback) {
+
 
     /**
      * This abstract method is used to bind the data to the view.
@@ -70,7 +71,7 @@ abstract class BaseAdapter<T, VB : ViewDataBinding>(
      * @param binding The view binding for the item view
      */
     inner class BaseViewHolder(
-        private val binding: ViewDataBinding
+        private val binding: ViewDataBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         /**

@@ -7,6 +7,7 @@ import com.indisparte.model.entity.Movie
 import com.indisparte.movie_details.fragments.base.ListFragment
 import com.indisparte.network.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
+import com.indisparte.ui.adapter.OnItemClickListener
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding
 import com.indisparte.util.extension.collectIn
 
@@ -26,7 +27,13 @@ class MovieSimilarFragment :
     }
 
     override fun addItemsToTheAdapter() {
-        adapter.setFragment(this)//necessary to navigation
+        adapter.setOnItemClickListener(object : OnItemClickListener<Movie> {
+            override fun onItemClick(item: Movie) {
+                //update view model selected movie
+                viewModel.onDetailsFragmentReady(item.id)
+            }
+
+        })
         viewModel.similarMovies.collectIn(viewLifecycleOwner) { resources ->
             resources?.whenResources(
                 onSuccess = { similar ->

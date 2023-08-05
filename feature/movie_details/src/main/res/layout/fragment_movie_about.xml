@@ -128,7 +128,7 @@
                 android:layout_below="@id/crew_title"
                 android:layout_marginTop="@dimen/base_margin"
                 android:numColumns="2"
-                android:orientation="vertical"
+                android:stretchMode="columnWidth"
                 android:paddingStart="@dimen/base_margin"
                 tools:listitem="@layout/list_item_crew" />
 

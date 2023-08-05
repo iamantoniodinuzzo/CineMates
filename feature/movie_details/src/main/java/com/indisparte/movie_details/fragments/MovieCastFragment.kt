@@ -19,7 +19,7 @@ import timber.log.Timber
 class MovieCastFragment : ListFragment<Cast, ListItemCastLongBinding, CastAdapter>(
     CastAdapter()
 ) {
-    private val viewModel: MovieDetailsViewModel by activityViewModels()
+    private val viewModel: MovieDetailsViewModel by viewModels({requireParentFragment()})
 
     override fun addItemsToTheAdapter() {
         viewModel.cast.collectIn(viewLifecycleOwner) { resources ->

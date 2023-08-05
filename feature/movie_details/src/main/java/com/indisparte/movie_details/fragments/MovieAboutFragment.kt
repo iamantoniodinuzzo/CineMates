@@ -36,7 +36,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieAboutBinding
         get() = FragmentMovieAboutBinding::inflate
 
-    private val viewModel: MovieDetailsViewModel by activityViewModels()
+    private val viewModel: MovieDetailsViewModel by viewModels({requireParentFragment()})
     private lateinit var chipGroupGenres: ChipGroup
     private lateinit var chipGroupWatchProviders: ChipGroup
     private val videoAdapter: VideoAdapter by lazy { VideoAdapter() }

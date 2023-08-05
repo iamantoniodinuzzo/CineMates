@@ -18,7 +18,7 @@ import com.indisparte.util.extension.collectIn
  */
 class MovieSimilarFragment :
     ListFragment<Movie, ListItemMediaSmallBinding, MovieAdapter>(MovieAdapter()) {
-    private val viewModel: MovieDetailsViewModel by activityViewModels()
+    private val viewModel: MovieDetailsViewModel by viewModels({requireParentFragment()})
 
     override fun initializeViews() {
         binding.recyclerView.apply {

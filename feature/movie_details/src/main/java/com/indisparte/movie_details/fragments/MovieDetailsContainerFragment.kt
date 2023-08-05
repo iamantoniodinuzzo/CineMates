@@ -3,6 +3,7 @@ package com.indisparte.movie_details.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.github.ajalt.timberkt.Timber
@@ -29,13 +30,13 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         MovieSimilarFragment() to R.string.fragment_media_similar,
     )
 ) {
-    private val viewModel: MovieDetailsViewModel by activityViewModels()
+    private val viewModel: MovieDetailsViewModel by viewModels()
     private val movieIdArgs: MovieDetailsContainerFragmentArgs by navArgs()
     private lateinit var backdropAdapter: BackdropAdapter
     private lateinit var backdropViewPager: ViewPager2
     override fun initializeViews() {
         backdropAdapter = BackdropAdapter()
-        backdropAdapter.registerAdapterDataObserver(binding.circleIndicator.getAdapterDataObserver())
+        backdropAdapter.registerAdapterDataObserver(binding.circleIndicator.adapterDataObserver)
         viewModel.onDetailsFragmentReady(movieIdArgs.id)
         backdropViewPager = binding.backdropViewPager
         backdropViewPager.adapter = backdropAdapter

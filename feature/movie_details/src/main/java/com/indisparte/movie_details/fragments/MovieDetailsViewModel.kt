@@ -39,9 +39,9 @@ class MovieDetailsViewModel
 @Inject constructor(
     private val movieRepository: MovieRepository,
 ) : ViewModel() {
-    companion object{
-        private val LOG = Timber.tag("MovieDetailsViewModel")
-    }
+
+    private val LOG = Timber.tag("MovieDetailsViewModel")
+
 
     private val _selectedMovie = MutableSharedFlow<Resource<MovieDetails?>>()
     val selectedMovie: SharedFlow<Resource<MovieDetails?>> get() = _selectedMovie.asSharedFlow()
@@ -106,10 +106,10 @@ class MovieDetailsViewModel
             try {
                 movieRepository.getBackdrop(id).collectLatest {
                     val backdrops = it.data
-                   LOG.d("Movie Backdrops: $backdrops")
+                    LOG.d("Movie Backdrops: $backdrops")
                     _backdrops.emit(Resource.Success(backdrops))
                 }
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 _backdrops.emit(Resource.Error(e))
             }
         }
@@ -125,7 +125,7 @@ class MovieDetailsViewModel
             try {
                 movieRepository.getDetails(movieId).collectLatest {
                     val movieDetails = it.data
-                   LOG
+                    LOG
                         .d("Movie details: ${movieDetails.toString()}")
                     _selectedMovie.emit(Resource.Success(movieDetails))
                 }
@@ -141,7 +141,7 @@ class MovieDetailsViewModel
             try {
                 movieRepository.getVideos(movieId).collectLatest { resource ->
                     val videos = resource.data ?: emptyList()
-                   LOG.d("Movie videos ${videos.map { it.name }}")
+                    LOG.d("Movie videos ${videos.map { it.name }}")
                     _videos.emit(Resource.Success(videos))
                 }
             } catch (e: Exception) {
@@ -156,7 +156,7 @@ class MovieDetailsViewModel
             try {
                 movieRepository.getSimilar(movieId).collectLatest { resources ->
                     val similar = resources.data ?: emptyList()
-                   LOG
+                    LOG
                         .d("Similar ${similar.map { it.title }}")
                     _similarMovies.emit(Resource.Success(similar))
                 }
@@ -172,7 +172,7 @@ class MovieDetailsViewModel
             try {
                 movieRepository.getCast(movieId).collectLatest { resources ->
                     val cast = resources.data ?: emptyList()
-                   LOG.d("Movie cast ${cast.map { it.name }}")
+                    LOG.d("Movie cast ${cast.map { it.name }}")
                     _cast.emit(Resource.Success(cast))
 
                 }
@@ -189,7 +189,7 @@ class MovieDetailsViewModel
                 movieRepository.getWatchProviders(movieId, Locale.getDefault().country)
                     .collectLatest { resource ->
                         val countryResult = resource.data
-                       LOG
+                        LOG
                             .d("Watch providers ${countryResult?.allWatchProviders}")
                         _watchProviders.emit(Resource.Success(countryResult))
 
@@ -206,7 +206,7 @@ class MovieDetailsViewModel
             try {
                 movieRepository.getCrew(movieId).collectLatest { resource ->
                     val crew = resource.data ?: emptyList()
-                   LOG.d("Movie Crew ${crew?.map { it.name }}")
+                    LOG.d("Movie Crew ${crew?.map { it.name }}")
                     _crew.emit(Resource.Success(crew))
                 }
             } catch (e: Exception) {
@@ -227,7 +227,7 @@ class MovieDetailsViewModel
                     val latestCertification =
                         releaseDatesInCurrentCountry?.getLatestReleaseCertification()
                     _latestCertification.value = latestCertification
-                   LOG.d("Release dates in $currentCountry : $releaseDatesInCurrentCountry \nGeneral release dates; ${it.data}")
+                    LOG.d("Release dates in $currentCountry : $releaseDatesInCurrentCountry \nGeneral release dates; ${it.data}")
                     _releaseDates.emit(
                         Resource.Success(
                             releaseDatesInCurrentCountry ?: emptyList()

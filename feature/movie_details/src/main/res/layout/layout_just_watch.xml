@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
+        android:focusable="true"
         app:cardBackgroundColor="@color/royal_blue_100"
-        app:cardCornerRadius="@dimen/base_corner_radius"
-        android:focusable="true">
+        app:cardCornerRadius="@dimen/base_corner_radius">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -29,17 +29,35 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <!-- Inserire qui il contenuto da visualizzare nel lato sinistro (chip group personalizzato) -->
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/watch_providers"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/base_margin"
-                    android:clipToPadding="false"
-                    android:paddingStart="@dimen/base_margin"
-                    app:chipSpacing="@dimen/base_margin"
-                    app:chipSpacingHorizontal="@dimen/base_margin"
-                    app:chipSpacingVertical="@dimen/base_margin" />
+                    android:layout_height="match_parent">
+
+                    <!-- Inserire qui il contenuto da visualizzare nel lato sinistro (chip group personalizzato) -->
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/progress_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        app:indicatorColor="?colorAccent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/watch_providers" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/watch_providers"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:clipToPadding="false"
+                        android:paddingStart="@dimen/base_margin"
+                        app:chipSpacing="@dimen/base_margin"
+                        app:chipSpacingHorizontal="@dimen/base_margin"
+                        app:chipSpacingVertical="@dimen/base_margin"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </FrameLayout>
 
             <!-- Effetto vetro sopra il contenuto -->
@@ -72,9 +90,10 @@
                     style="@style/BodyTextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Powered by"
                     android:paddingStart="@dimen/base_margin"
+                    android:text="Powered by"
                     android:textColor="?attr/colorOnPrimary" />
+
                 <TextView
                     style="@style/HugeTitleTextViewStyle"
                     android:layout_width="wrap_content"

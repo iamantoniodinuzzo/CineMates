@@ -7,22 +7,22 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.github.ajalt.timberkt.Timber
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Genre
 import com.indisparte.movie_details.R
 import com.indisparte.movie_details.adapter.CrewAdapter
+import com.indisparte.movie_details.adapter.ReleaseDateAdapter
 import com.indisparte.movie_details.adapter.VideoAdapter
 import com.indisparte.movie_details.databinding.CustomWatchProviderChipBinding
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
 import com.indisparte.movie_details.dialog.CollectionDialog
-import com.indisparte.movie_details.adapter.ReleaseDateAdapter
 import com.indisparte.network.whenResources
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
@@ -36,9 +36,10 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieAboutBinding
         get() = FragmentMovieAboutBinding::inflate
 
-    private val viewModel: MovieDetailsViewModel by viewModels({requireParentFragment()})
+    private val viewModel: MovieDetailsViewModel by viewModels({ requireParentFragment() })
     private lateinit var chipGroupGenres: ChipGroup
     private lateinit var chipGroupWatchProviders: ChipGroup
+    private lateinit var progressWatchProvider: CircularProgressIndicator
     private val videoAdapter: VideoAdapter by lazy { VideoAdapter() }
     private val crewAdapter: CrewAdapter by lazy { CrewAdapter() }
     private val releaseDateAdapter: ReleaseDateAdapter by lazy { ReleaseDateAdapter() }
@@ -47,6 +48,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     override fun initializeViews() {
         chipGroupGenres = binding.genreChipGroup
         chipGroupWatchProviders = binding.justWatch.watchProviders
+        progressWatchProvider = binding.justWatch.progressIndicator
         binding.trailers.adapter = videoAdapter
         binding.recyclerviewCrew.adapter = crewAdapter
         binding.movieInfo.releaseInformationRecyclerview.adapter = releaseDateAdapter
@@ -90,6 +92,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                         binding.justWatch.root.visible()
                         binding.watchProviderTitle.visible()
                         setWatchProvidersChipGroup(countryResult)
+                        progressWatchProvider.hide()
                     } else {
                         Timber.tag("MovieAboutFragment").d("Watch providers is null. Hiding views.")
                         binding.justWatch.root.gone()
@@ -98,9 +101,11 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 },
                 onError = { error ->
                     Timber.tag("MovieAboutFragment").e("Error: $error")
+                    progressWatchProvider.hide()
                 },
                 onLoading = {
                     Timber.tag("MovieAboutFragment").d("Watch providers Loading...")
+                    progressWatchProvider.show()
                 }
             )
         }
@@ -210,11 +215,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             val chip = chipBinding.root
 
             chip.layoutParams = providerChipLayoutParams
-
-            chip.setOnClickListener { chip ->
-                // TODO: Open TMDB page
-                showToastMessage("Soon - Open ${chipData.providerName}")
-            }
 
             chipGroupWatchProviders.addView(chip)
 

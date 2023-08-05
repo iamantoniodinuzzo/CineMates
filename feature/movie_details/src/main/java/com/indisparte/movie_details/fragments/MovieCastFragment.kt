@@ -26,14 +26,17 @@ class MovieCastFragment : ListFragment<Cast, ListItemCastLongBinding, CastAdapte
             resources?.whenResources(
                 onSuccess = { cast ->
                     Timber.tag("MovieCastFragment").d("Cast loaded : ${cast?.map { it.name }}")
+                    hideLoading()
                     adapter.submitList(cast)
                 },
                 onError = { error ->
                     Timber.tag("MovieCastFragment").e("Error: ${error?.message}")
+                    hideLoading()
 
                 },
                 onLoading = {
                     Timber.tag("MovieCastFragment").d("Loading cast...")
+                    showLoading()
                 })
         }
     }

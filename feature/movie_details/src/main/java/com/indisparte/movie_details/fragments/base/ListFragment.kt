@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.indisparte.movie_details.databinding.FragmentListingItemsBinding
 import com.indisparte.ui.adapter.BaseAdapter
 import com.indisparte.ui.fragment.BaseFragment
@@ -23,6 +24,8 @@ abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T, VB>>(
 ) :
     BaseFragment<FragmentListingItemsBinding>() {
 
+    private lateinit var progress :CircularProgressIndicator
+
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentListingItemsBinding
         get() = FragmentListingItemsBinding::inflate
 
@@ -31,6 +34,7 @@ abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T, VB>>(
         super.onViewCreated(view, savedInstanceState)
         addItemsToTheAdapter()
         binding.recyclerView.adapter = adapter
+        progress = binding.progressIndicator
     }
 
     /**
@@ -40,5 +44,12 @@ abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T, VB>>(
      */
     protected abstract fun addItemsToTheAdapter()
 
+    protected fun showLoading(){
+        progress.show()
+    }
+
+    protected fun hideLoading(){
+        progress.hide()
+    }
 
 }

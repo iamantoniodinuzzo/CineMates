@@ -121,17 +121,15 @@
                 app:drawableEndCompat="@drawable/ic_forward"
                 app:drawableTint="?attr/colorOnPrimary" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_crew"
+            <GridView
+                android:id="@+id/grid_crew"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/crew_title"
                 android:layout_marginTop="@dimen/base_margin"
+                android:numColumns="2"
                 android:orientation="vertical"
                 android:paddingStart="@dimen/base_margin"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
-                tools:itemCount="4"
                 tools:listitem="@layout/list_item_crew" />
 
             <include
@@ -139,7 +137,7 @@
                 layout="@layout/layout_movie_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/recyclerview_crew"
+                android:layout_below="@id/grid_crew"
                 android:layout_marginHorizontal="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
                 app:movie="@{movie}" />

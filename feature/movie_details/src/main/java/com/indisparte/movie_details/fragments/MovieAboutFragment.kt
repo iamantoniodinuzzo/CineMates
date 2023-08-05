@@ -17,7 +17,7 @@ import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Genre
 import com.indisparte.movie_details.R
-import com.indisparte.movie_details.adapter.CrewAdapter
+import com.indisparte.movie_details.adapter.CrewGridAdapter
 import com.indisparte.movie_details.adapter.ReleaseDateAdapter
 import com.indisparte.movie_details.adapter.VideoAdapter
 import com.indisparte.movie_details.databinding.CustomWatchProviderChipBinding
@@ -41,7 +41,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     private lateinit var chipGroupWatchProviders: ChipGroup
     private lateinit var progressWatchProvider: CircularProgressIndicator
     private val videoAdapter: VideoAdapter by lazy { VideoAdapter() }
-    private val crewAdapter: CrewAdapter by lazy { CrewAdapter() }
+    private val crewAdapter: CrewGridAdapter by lazy { CrewGridAdapter() }
     private val releaseDateAdapter: ReleaseDateAdapter by lazy { ReleaseDateAdapter() }
     private lateinit var providerChipLayoutParams: ViewGroup.LayoutParams
     private lateinit var collectionDialog: CollectionDialog
@@ -50,7 +50,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         chipGroupWatchProviders = binding.justWatch.watchProviders
         progressWatchProvider = binding.justWatch.progressIndicator
         binding.trailers.adapter = videoAdapter
-        binding.recyclerviewCrew.adapter = crewAdapter
+        binding.gridCrew.adapter = crewAdapter
         binding.movieInfo.releaseInformationRecyclerview.adapter = releaseDateAdapter
 
         enableInnerScrollViewPager(binding.trailers)
@@ -135,7 +135,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             resources?.whenResources(
                 onSuccess = { crewList ->
                     Timber.tag("MovieAboutFragment").d("Crew loaded! ${crewList?.map { it.name }}")
-                    crewAdapter.submitList(crewList?.takeEvenNumberOfItems())
+                    crewAdapter.updateCrewList(crewList?.takeEvenNumberOfItems())
                 },
                 onError = { error ->
                     Timber.tag("MovieAboutFragment").e(error?.message)

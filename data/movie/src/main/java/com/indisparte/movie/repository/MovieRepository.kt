@@ -37,5 +37,6 @@ interface MovieRepository {
     suspend fun getReleaseDates(movieId: Int): Flow<Resource<List<ReleaseDatesByCountry>>>
 
     suspend fun getBackdrop(movieId: Int):Flow<Resource<List<Backdrop>>>
+    suspend fun getCollectionParts(collectionId: Int): Flow<Resource<List<Movie>>>
 
 }

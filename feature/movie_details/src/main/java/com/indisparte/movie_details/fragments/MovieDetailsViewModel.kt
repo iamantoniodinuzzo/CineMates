@@ -64,6 +64,9 @@ class MovieDetailsViewModel
     private val _backdrops = MutableStateFlow<Resource<List<Backdrop>>?>(null)
     val backdrops: StateFlow<Resource<List<Backdrop>>?> get() = _backdrops
 
+    private val _collectionParts = MutableStateFlow<Resource<List<Movie>>?>(null)
+    val collectionParts: StateFlow<Resource<List<Movie>>?> get() = _collectionParts
+
     init {
         observeSelectedMovie()
     }
@@ -78,11 +81,11 @@ class MovieDetailsViewModel
      */
     fun onDetailsFragmentReady(id: Int) = getMovieDetails(id)
 
-    fun onDetailsFragmentDestroy() = clearWatchProviders()
+   /* fun onDetailsFragmentDestroy() = clearWatchProviders()
 
     private fun clearWatchProviders() {
         _watchProviders.value = null
-    }
+    }*/
 
     private fun observeSelectedMovie() {
         viewModelScope.launch {
@@ -96,7 +99,25 @@ class MovieDetailsViewModel
                     getCrew(movieDetails.id)
                     getReleaseDates(movieDetails.id)
                     getBackdrops(movieDetails.id)
+                    movieDetails.belongsToCollection?.let { collection ->
+                        getCollectionParts(collection.id)
+                    }
                 }
+        }
+    }
+
+    private fun getCollectionParts(collectionId: Int) {
+        viewModelScope.launch {
+            _collectionParts.emit(Resource.Loading())
+            try {
+                movieRepository.getCollectionParts(collectionId).collectLatest {
+                    val parts = it.data
+                    LOG.d("Movie collection parts: $parts")
+                    _collectionParts.emit(Resource.Success(parts))
+                }
+            } catch (e: Exception) {
+                _collectionParts.emit(Resource.Error(e))
+            }
         }
     }
 

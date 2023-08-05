@@ -1,33 +1,48 @@
 package com.indisparte.movie_details.dialog
 
 import android.content.Context
+import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.indisparte.model.entity.Movie
 import com.indisparte.movie_details.R
 import com.indisparte.movie_details.databinding.LayoutCollectionDialogBinding
+import com.indisparte.ui.adapter.MovieAdapter
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
 internal class CollectionDialog(
     private val context: Context,
-) {
+) : AlertDialog(context) {
 
-    private lateinit var alertDialog: AlertDialog
     private lateinit var binding: LayoutCollectionDialogBinding
+    private lateinit var recyclerView: RecyclerView
+    private val adapter by lazy {
+        MovieAdapter()
+    }
 
-    fun showDialog() {
-        val dialogBuilder = AlertDialog.Builder(context)
-        // fixme dialogBuilder.setTitle("Parts of ${collection.name}")
+    fun setData(itemList: List<Movie>?) {
+        adapter.submitList(itemList)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding = LayoutCollectionDialogBinding.inflate(LayoutInflater.from(context))
-        dialogBuilder.setView(binding.root)
+        setContentView(binding.root)
+        setupDialogAppearance()
+        setupRecyclerView()
+    }
 
-        alertDialog = dialogBuilder.create()
-        alertDialog.window?.let { window ->
+    private fun setupDialogAppearance() {
+        window?.let { window ->
             window.setBackgroundDrawableResource(android.R.color.transparent) // Remove default dialog background
             window.setGravity(Gravity.CENTER)
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
@@ -42,10 +57,14 @@ internal class CollectionDialog(
                 )
             ) // Set custom rounded background
         }
-        alertDialog.setCanceledOnTouchOutside(true)
+        setCanceledOnTouchOutside(true)
+    }
 
-
-        alertDialog.show()
+    private fun setupRecyclerView() {
+        recyclerView = binding.partsOfCollection
+        recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = adapter
     }
 
 

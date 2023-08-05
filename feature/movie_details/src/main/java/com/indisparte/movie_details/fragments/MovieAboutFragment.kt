@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.github.ajalt.timberkt.Timber
 import com.google.android.material.chip.Chip
@@ -36,6 +37,8 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieAboutBinding
         get() = FragmentMovieAboutBinding::inflate
 
+    private val LOG = Timber.tag(MovieAboutFragment::class.java.simpleName)
+
     private val viewModel: MovieDetailsViewModel by viewModels({ requireParentFragment() })
     private lateinit var chipGroupGenres: ChipGroup
     private lateinit var chipGroupWatchProviders: ChipGroup
@@ -52,6 +55,10 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         binding.trailers.adapter = videoAdapter
         binding.gridCrew.adapter = crewAdapter
         binding.movieInfo.releaseInformationRecyclerview.adapter = releaseDateAdapter
+        collectionDialog = CollectionDialog( requireContext())
+        binding.collectionCover.setOnClickListener {
+            collectionDialog.show()
+        }
 
         enableInnerScrollViewPager(binding.trailers)
 
@@ -80,6 +87,22 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
         fetchWatchProviders()
 
+        viewModel.collectionParts.collectIn(viewLifecycleOwner) { resource ->
+            resource?.whenResources(
+                onSuccess = { parts ->
+                    LOG.d("Collection parts loaded! $parts")
+                    collectionDialog.setData(parts)
+                },
+                onError = { error ->
+                    LOG.e(error?.message)
+                },
+                onLoading = {
+                    LOG.d("Collection Parts Loading...")
+                }
+
+            )
+        }
+
 
     }
 
@@ -88,23 +111,23 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             resource?.whenResources(
                 onSuccess = { countryResult ->
                     if (countryResult != null) {
-                        Timber.tag("MovieAboutFragment").d("Watch providers loaded! $countryResult")
+                        LOG.d("Watch providers loaded! $countryResult")
                         binding.justWatch.root.visible()
                         binding.watchProviderTitle.visible()
                         setWatchProvidersChipGroup(countryResult)
                         progressWatchProvider.hide()
                     } else {
-                        Timber.tag("MovieAboutFragment").d("Watch providers is null. Hiding views.")
+                        LOG.d("Watch providers is null. Hiding views.")
                         binding.justWatch.root.gone()
                         binding.watchProviderTitle.gone()
                     }
                 },
                 onError = { error ->
-                    Timber.tag("MovieAboutFragment").e("Error: $error")
+                    LOG.e("Error: $error")
                     progressWatchProvider.hide()
                 },
                 onLoading = {
-                    Timber.tag("MovieAboutFragment").d("Watch providers Loading...")
+                    LOG.d("Watch providers Loading...")
                     progressWatchProvider.show()
                 }
             )
@@ -116,14 +139,14 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         viewModel.releaseDates.collectIn(viewLifecycleOwner) { resources ->
             resources?.whenResources(
                 onSuccess = { releaseDates ->
-                    Timber.tag("MovieAboutFragment").d("Release Dates loaded! $releaseDates")
+                    LOG.d("Release Dates loaded! $releaseDates")
                     releaseDateAdapter.submitList(releaseDates)
                 },
                 onError = { error ->
-                    Timber.tag("MovieAboutFragment").e("Error: $error")
+                    LOG.e("Error: $error")
                 },
                 onLoading = {
-                    Timber.tag("MovieAboutFragment").d("Release Dates Loading...")
+                    LOG.d("Release Dates Loading...")
                 }
             )
         }
@@ -134,14 +157,14 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         viewModel.crew.collectIn(viewLifecycleOwner) { resources ->
             resources?.whenResources(
                 onSuccess = { crewList ->
-                    Timber.tag("MovieAboutFragment").d("Crew loaded! ${crewList?.map { it.name }}")
+                    LOG.d("Crew loaded! ${crewList?.map { it.name }}")
                     crewAdapter.updateCrewList(crewList?.takeEvenNumberOfItems())
                 },
                 onError = { error ->
-                    Timber.tag("MovieAboutFragment").e(error?.message)
+                    LOG.e(error?.message)
                 },
                 onLoading = {
-                    Timber.tag("MovieAboutFragment").d("Crew Loading...")
+                    LOG.d("Crew Loading...")
                 }
             )
         }
@@ -151,14 +174,14 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         viewModel.videos.collectIn(viewLifecycleOwner) { resources ->
             resources?.whenResources(
                 onSuccess = { videos ->
-                    Timber.tag("MovieAboutFragment").d("Videos loaded! $videos")
+                    LOG.d("Videos loaded! $videos")
                     videoAdapter.submitList(videos)
                 },
                 onError = { error ->
-                    Timber.tag("MovieAboutFragment").e(error?.message)
+                    LOG.e(error?.message)
                 },
                 onLoading = {
-                    Timber.tag("MovieAboutFragment").d("Videos Loading...")
+                    LOG.d("Videos Loading...")
                 }
             )
         }
@@ -170,17 +193,17 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             resources.whenResources(
                 onSuccess = { movieDetails ->
                     binding.movie = movieDetails
-                    Timber.tag("MovieAbout").d("Movie details loaded: $movieDetails")
+                    LOG.d("Movie details loaded: $movieDetails")
                     // Setup genre group
                     movieDetails?.let {
                         setGenresChipGroup(it.genres)
                     }
                 },
                 onError = { error ->
-                    Timber.tag("MovieAbout").e("Error-> $error")
+                    LOG.e("Error-> $error")
                 },
                 onLoading = {
-                    Timber.tag("MovieAbout").d("Movie details Loading...")
+                    LOG.d("Movie details Loading...")
                 }
             )
         }

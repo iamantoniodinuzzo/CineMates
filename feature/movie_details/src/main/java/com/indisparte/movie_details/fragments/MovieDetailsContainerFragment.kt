@@ -90,10 +90,5 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewModel.onDetailsFragmentDestroy()
-    }
-
 
 }

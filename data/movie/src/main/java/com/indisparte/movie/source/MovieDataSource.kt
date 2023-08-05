@@ -1,15 +1,16 @@
 package com.indisparte.movie.source
 
 import com.indisparte.movie.response.CastDTO
+import com.indisparte.movie.response.CollectionDetailsResponseDTO
 import com.indisparte.movie.response.CrewDTO
 import com.indisparte.movie.response.MovieDTO
 import com.indisparte.movie.response.MovieDetailsDTO
 import com.indisparte.movie.response.ReleaseDatesByCountryDTO
-import com.indisparte.response.WatchProvidersResponseDTO
 import com.indisparte.network.GenericResponse
 import com.indisparte.response.CreditResponseDTO
 import com.indisparte.response.ImagesResponseDTO
 import com.indisparte.response.VideoResponseDTO
+import com.indisparte.response.WatchProvidersResponseDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -59,13 +60,13 @@ interface MovieDataSource {
     @GET("movie/{movie_id}/watch/providers")
     suspend fun getWatchProviders(
         @Path("movie_id") movieId: Int,
-        @QueryMap queries: Map<String, String>
-    ):Response<WatchProvidersResponseDTO>
+        @QueryMap queries: Map<String, String>,
+    ): Response<WatchProvidersResponseDTO>
 
     @GET("movie/{movie_id}/release_dates")
     suspend fun getReleaseDates(
         @Path("movie_id") movieId: Int,
-        @QueryMap queries: Map<String, String>
+        @QueryMap queries: Map<String, String>,
     ): Response<GenericResponse<ReleaseDatesByCountryDTO>>
 
     @GET("search/movie")
@@ -79,5 +80,11 @@ interface MovieDataSource {
         @Path("time_window") time_window: String,
         @QueryMap queries: Map<String, String>,
     ): Response<GenericResponse<MovieDTO>>
+
+    @GET("collection/{collection_id}")
+    suspend fun getCollectionParts(
+        @Path("collection_id") collectionId: Int,
+        @QueryMap queryMap: MutableMap<String, String>,
+    ):Response<CollectionDetailsResponseDTO>
 
 }

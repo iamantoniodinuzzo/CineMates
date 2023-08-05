@@ -143,6 +143,15 @@ constructor(
                 response.backdrops.map { it.mapToBackdrop() }
             }
         )
+
+    override suspend fun getCollectionParts(collectionId: Int): Flow<Resource<List<Movie>>> =
+        getListFromResponse(
+            request = { movieService.getCollectionParts(collectionId, queryMap) },
+            mapper = { response ->
+                response.parts.map { it.toMovie() }
+            }
+        )
+
 }
 
 

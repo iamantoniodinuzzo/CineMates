@@ -1,9 +1,13 @@
 package com.indisparte.network
 
 import com.github.ajalt.timberkt.Timber
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import okhttp3.ResponseBody
 import retrofit2.Response
+import java.lang.reflect.Type
 
 
 /**
@@ -26,9 +30,15 @@ suspend fun <T, O> getListFromResponse(
                 emit(Resource.Error(Exception("Empty response"))) // Emit error state for empty response
             }
         } else {
-            val errorBody = response.errorBody()?.string()
-            val errorMessage = errorBody ?: response.message()
-            emit(Resource.Error(Exception(errorMessage))) // Emit error state with the error message
+            val errorResponse: ErrorResponse? = convertErrorBody(response.errorBody())
+
+            emit(
+                Resource.Error(
+                    Exception(
+                        errorResponse?.message ?: "Unknown Error"
+                    )
+                )
+            ) // Emit error state with the error message//
         }
     } catch (e: Exception) {
         emit(Resource.Error(e)) // Emit error state with the exception
@@ -59,13 +69,30 @@ suspend fun <T, O> getSingleFromResponse(
                 emit(Resource.Error(Exception("Empty response"))) // Emit error state for empty response
             }
         } else {
-            val errorBody = response.errorBody()?.string()
-            val errorMessage = errorBody ?: response.message()
-            Timber.tag("ResponseConverter").e("Error: $errorMessage ")
+            val errorResponse: ErrorResponse? = convertErrorBody(response.errorBody())
 
-            emit(Resource.Error(Exception(errorMessage))) // Emit error state with the error message
+            Timber.tag("ResponseConverter").e("Error: ${errorResponse?.message} ")
+
+            emit(
+                Resource.Error(
+                    Exception(
+                        errorResponse?.message ?: "Unknown Error"
+                    )
+                )
+            ) // Emit error state with the error message
         }
     } catch (e: Exception) {
         emit(Resource.Error(e)) // Emit error state with the exception
+    }
+}
+
+private fun convertErrorBody(errorBody: ResponseBody?): ErrorResponse? {
+    return try {
+        val gson = Gson()
+        val errorBodyString = errorBody?.string()
+        val type: Type = object : TypeToken<ErrorResponse>() {}.type
+        gson.fromJson(errorBodyString, type)
+    } catch (exception: Exception) {
+        null
     }
 }

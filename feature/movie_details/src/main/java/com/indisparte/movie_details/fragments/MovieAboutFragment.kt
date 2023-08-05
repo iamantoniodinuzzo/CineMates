@@ -96,7 +96,8 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                     }
                 },
                 onError = { error ->
-                    LOG.e("Error: $error")
+                    val errorMessage = error?.message
+                    LOG.e("Error: $errorMessage")
                     progressWatchProvider.hide()
                 },
                 onLoading = {
@@ -116,7 +117,8 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                     releaseDateAdapter.submitList(releaseDates)
                 },
                 onError = { error ->
-                    LOG.e("Error: $error")
+                    val errorMessage = error?.message
+                    LOG.e("Error: $errorMessage")
                 },
                 onLoading = {
                     LOG.d("Release Dates Loading...")
@@ -173,7 +175,8 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                     }
                 },
                 onError = { error ->
-                    LOG.e("Error-> $error")
+                    val errorMessage = error?.message
+                    LOG.e("Error $errorMessage")
                 },
                 onLoading = {
                     LOG.d("Movie details Loading...")

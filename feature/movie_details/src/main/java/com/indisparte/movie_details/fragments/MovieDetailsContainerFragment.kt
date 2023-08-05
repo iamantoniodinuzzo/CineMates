@@ -3,6 +3,7 @@ package com.indisparte.movie_details.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.github.ajalt.timberkt.Timber
@@ -58,8 +59,20 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
 
     private fun fetchMovieBackdrops() {
         viewModel.backdrops.collectIn(viewLifecycleOwner) { resources ->
-            val backdrops = resources?.data
-            backdropAdapter.submitList(backdrops)
+            resources?.whenResources(
+                onSuccess = { backdrops ->
+                    backdropAdapter.submitList(backdrops)
+                },
+                onError = {
+                    val errorMessage = it?.message
+                    LOG.e("Error: $errorMessage")
+                    backdropViewPager.setBackgroundResource(R.drawable.ic_broken_image)
+                },
+                onLoading = {
+                    LOG.d("Loading Backdrops...")
+                }
+            )
+
         }
     }
 
@@ -86,7 +99,10 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
                     }
                 },
                 onError = { error ->
-                    LOG.d("Error: $error")
+                    val errorMessage = error?.message
+                    LOG.d("Error: $errorMessage)")
+                    showToastMessage("$errorMessage")
+                    findNavController().navigateUp()
                 },
                 onLoading = {
                     LOG.d("Movie details loading...")

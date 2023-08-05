@@ -35,7 +35,9 @@ class MovieSimilarFragment :
                     adapter.submitList(similar)
                 },
                 onError = { error ->
-                    LOG.e("Error: ${error?.message}")
+                    val errorMessage = error?.message
+                    LOG.e("Error: $errorMessage")
+                    binding.recyclerView.setEmptyStateSubtitle(errorMessage)
                     hideLoading()
 
                 },

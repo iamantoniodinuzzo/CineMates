@@ -45,7 +45,8 @@ class CollectionPartsFragment : BaseFragment<FragmentCollectionPartsBinding>() {
 
                 },
                 onError = { error ->
-                    LOG.e("Error: ${error?.message}")
+                    val errorMessage = error?.message
+                    LOG.e("Error: $errorMessage")
                     binding.progress.hide()
                 },
                 onLoading = {

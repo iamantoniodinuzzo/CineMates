@@ -19,23 +19,26 @@ import timber.log.Timber
 class MovieCastFragment : ListFragment<Cast, ListItemCastLongBinding, CastAdapter>(
     CastAdapter()
 ) {
+    private val LOG = Timber.tag(MovieCastFragment::class.java.simpleName)
     private val viewModel: MovieDetailsViewModel by viewModels({requireParentFragment()})
 
     override fun addItemsToTheAdapter() {
         viewModel.cast.collectIn(viewLifecycleOwner) { resources ->
             resources?.whenResources(
                 onSuccess = { cast ->
-                    Timber.tag("MovieCastFragment").d("Cast loaded : ${cast?.map { it.name }}")
+                    LOG.d("Cast loaded : ${cast?.map { it.name }}")
                     hideLoading()
                     adapter.submitList(cast)
                 },
                 onError = { error ->
-                    Timber.tag("MovieCastFragment").e("Error: ${error?.message}")
+                    val errorMessage = error?.message
+                    LOG.e("Error: $errorMessage")
                     hideLoading()
+                    binding.recyclerView.setEmptyStateSubtitle(errorMessage)
 
                 },
                 onLoading = {
-                    Timber.tag("MovieCastFragment").d("Loading cast...")
+                    LOG.d("Loading cast...")
                     showLoading()
                 })
         }

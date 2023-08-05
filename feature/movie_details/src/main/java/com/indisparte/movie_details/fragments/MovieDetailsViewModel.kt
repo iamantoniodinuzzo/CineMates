@@ -15,6 +15,7 @@ import com.indisparte.model.entity.findReleaseDateByCountry
 import com.indisparte.model.entity.getLatestReleaseCertification
 import com.indisparte.movie.repository.MovieRepository
 import com.indisparte.network.Resource
+import com.indisparte.network.whenResources
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -43,17 +44,17 @@ class MovieDetailsViewModel
 
     private val LOG = Timber.tag("MovieDetailsViewModel")
 
-    private val _selectedMovie = MutableSharedFlow<Resource<MovieDetails?>>()
-    val selectedMovie: SharedFlow<Resource<MovieDetails?>> get() = _selectedMovie.asSharedFlow()
-    private val _videos = MutableStateFlow<Resource<List<Video>>?>(Resource.Loading())
+    private val _selectedMovie = MutableSharedFlow<Resource<MovieDetails>>()
+    val selectedMovie: SharedFlow<Resource<MovieDetails>> get() = _selectedMovie.asSharedFlow()
+    private val _videos = MutableStateFlow<Resource<List<Video>>?>(Resource.Success(null))
     val videos: StateFlow<Resource<List<Video>>?> get() = _videos
-    private val _cast = MutableStateFlow<Resource<List<Cast>>?>(Resource.Loading())
+    private val _cast = MutableStateFlow<Resource<List<Cast>>?>(Resource.Success(null))
     val cast: StateFlow<Resource<List<Cast>>?> get() = _cast
 
     private val _similarMovies = MutableStateFlow<Resource<List<Movie>>?>(null)
     val similarMovies: StateFlow<Resource<List<Movie>>?> get() = _similarMovies
-    private val _watchProviders = MutableStateFlow<Resource<CountryResult>?>(null)
-    val watchProviders: StateFlow<Resource<CountryResult>?> get() = _watchProviders
+    private val _watchProviders = MutableStateFlow<Resource<CountryResult?>>(Resource.Success(null))
+    val watchProviders: StateFlow<Resource<CountryResult?>> get() = _watchProviders
     private val _crew = MutableStateFlow<Resource<List<Crew>>?>(null)
     val crew: StateFlow<Resource<List<Crew>>?> get() = _crew
     private val _releaseDates = MutableStateFlow<Resource<List<ReleaseDate>>?>(null)
@@ -76,6 +77,7 @@ class MovieDetailsViewModel
 
     private fun observeSelectedMovie() {
         viewModelScope.launch {
+            // FIXME: Handle resource is not success, sett all StateFlow to error with the same message
             selectedMovie.filter { it is Resource.Success }.map { it as Resource.Success }
                 .mapNotNull { it.data }.distinctUntilChanged().collect { movieDetails ->
                     LOG.d("Get all movie details..")
@@ -98,11 +100,8 @@ class MovieDetailsViewModel
         viewModelScope.launch {
             _selectedMovie.emit(Resource.Loading())
             try {
-                movieRepository.getDetails(movieId).collectLatest {
-                    val movieDetails = it.data
-                    LOG
-                        .d("Movie details: ${movieDetails.toString()}")
-                    _selectedMovie.emit(Resource.Success(movieDetails))
+                movieRepository.getDetails(movieId).collectLatest { movieDetails ->
+                    _selectedMovie.emit(movieDetails)
                 }
             } catch (e: Exception) {
                 _selectedMovie.emit(Resource.Error(e))
@@ -114,11 +113,10 @@ class MovieDetailsViewModel
         viewModelScope.launch {
             _collectionParts.emit(Resource.Loading())
             try {
-                movieRepository.getCollectionDetails(collectionId).collectLatest {
-                    val collectionDetails = it.data
-                    LOG.d("Movie collection details: $collectionDetails")
-                    _collectionParts.emit(Resource.Success(collectionDetails))
-                }
+                movieRepository.getCollectionDetails(collectionId)
+                    .collectLatest { collectionDetails ->
+                        _collectionParts.emit(collectionDetails)
+                    }
             } catch (e: Exception) {
                 _collectionParts.emit(Resource.Error(e))
             }
@@ -129,10 +127,8 @@ class MovieDetailsViewModel
         viewModelScope.launch {
             _backdrops.emit(Resource.Loading())
             try {
-                movieRepository.getBackdrop(id).collectLatest {
-                    val backdrops = it.data
-                    LOG.d("Movie Backdrops: $backdrops")
-                    _backdrops.emit(Resource.Success(backdrops))
+                movieRepository.getBackdrop(id).collectLatest { backdrops ->
+                    _backdrops.emit(backdrops)
                 }
             } catch (e: Exception) {
                 _backdrops.emit(Resource.Error(e))
@@ -144,10 +140,8 @@ class MovieDetailsViewModel
         viewModelScope.launch {
             _videos.emit(Resource.Loading())
             try {
-                movieRepository.getVideos(movieId).collectLatest { resource ->
-                    val videos = resource.data ?: emptyList()
-                    LOG.d("Movie videos ${videos.map { it.name }}")
-                    _videos.emit(Resource.Success(videos))
+                movieRepository.getVideos(movieId).collectLatest { videos ->
+                    _videos.emit(videos)
                 }
             } catch (e: Exception) {
                 _videos.emit(Resource.Error(e))
@@ -159,11 +153,8 @@ class MovieDetailsViewModel
         viewModelScope.launch {
             _similarMovies.emit(Resource.Loading())
             try {
-                movieRepository.getSimilar(movieId).collectLatest { resources ->
-                    val similar = resources.data ?: emptyList()
-                    LOG
-                        .d("Similar ${similar.map { it.title }}")
-                    _similarMovies.emit(Resource.Success(similar))
+                movieRepository.getSimilar(movieId).collectLatest { similar ->
+                    _similarMovies.emit(similar)
                 }
             } catch (e: Exception) {
                 _similarMovies.emit(Resource.Error(e))
@@ -175,10 +166,8 @@ class MovieDetailsViewModel
         viewModelScope.launch {
             _cast.emit(Resource.Loading())
             try {
-                movieRepository.getCast(movieId).collectLatest { resources ->
-                    val cast = resources.data ?: emptyList()
-                    LOG.d("Movie cast ${cast.map { it.name }}")
-                    _cast.emit(Resource.Success(cast))
+                movieRepository.getCast(movieId).collectLatest { cast ->
+                    _cast.emit(cast)
 
                 }
             } catch (e: Exception) {
@@ -192,11 +181,8 @@ class MovieDetailsViewModel
             _watchProviders.emit(Resource.Loading())
             try {
                 movieRepository.getWatchProviders(movieId, Locale.getDefault().country)
-                    .collectLatest { resource ->
-                        val countryResult = resource.data
-                        LOG
-                            .d("Watch providers ${countryResult?.allWatchProviders}")
-                        _watchProviders.emit(Resource.Success(countryResult))
+                    .collectLatest { countryResult ->
+                        _watchProviders.emit(countryResult)
 
                     }
             } catch (e: Exception) {
@@ -209,10 +195,8 @@ class MovieDetailsViewModel
         viewModelScope.launch {
             _crew.emit(Resource.Loading())
             try {
-                movieRepository.getCrew(movieId).collectLatest { resource ->
-                    val crew = resource.data ?: emptyList()
-                    LOG.d("Movie Crew ${crew.map { it.name }}")
-                    _crew.emit(Resource.Success(crew))
+                movieRepository.getCrew(movieId).collectLatest { crew ->
+                    _crew.emit(crew)
                 }
             } catch (e: Exception) {
                 _crew.emit(Resource.Error(e))
@@ -225,19 +209,25 @@ class MovieDetailsViewModel
             _releaseDates.emit(Resource.Loading())
             try {
                 movieRepository.getReleaseDates(movieId).collectLatest {
-                    val currentCountry = Locale.getDefault().country
-                    val releaseDatesInCurrentCountry =
-                        it.data?.findReleaseDateByCountry(currentCountry)
-                    //get and set latest certification
-                    val latestCertification =
-                        releaseDatesInCurrentCountry?.getLatestReleaseCertification()
-                    _latestCertification.value = latestCertification
-                    LOG.d("Release dates in $currentCountry : $releaseDatesInCurrentCountry")
-                    _releaseDates.emit(
-                        Resource.Success(
-                            releaseDatesInCurrentCountry ?: emptyList()
+                    if (it is Resource.Error) {
+                        val error = it.error ?: Throwable()
+                        _releaseDates.emit(Resource.Error(error))
+                    } else {
+                        val currentCountry = Locale.getDefault().country
+                        val releaseDatesInCurrentCountry =
+                            it.data?.findReleaseDateByCountry(currentCountry)
+                        //get and set latest certification
+                        val latestCertification =
+                            releaseDatesInCurrentCountry?.getLatestReleaseCertification()
+                        _latestCertification.value = latestCertification
+                        LOG.d("Release dates in $currentCountry : $releaseDatesInCurrentCountry")
+                        _releaseDates.emit(
+                            Resource.Success(
+                                releaseDatesInCurrentCountry ?: emptyList()
+                            )
                         )
-                    )
+                    }
+
                 }
             } catch (e: Exception) {
                 _releaseDates.emit(Resource.Error(e))

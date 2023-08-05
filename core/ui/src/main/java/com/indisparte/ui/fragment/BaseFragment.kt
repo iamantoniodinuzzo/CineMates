@@ -83,4 +83,5 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
      * Child classes must override this method to perform their specific initialization logic.
      */
     protected abstract fun initializeViews()
+
 }

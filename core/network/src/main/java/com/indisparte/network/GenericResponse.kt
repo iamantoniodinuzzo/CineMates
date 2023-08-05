@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * @author Antonio Di Nuzzo
  */
-class GenericResponse<T>(
+data class GenericResponse<T>(
     val page: Int?,
     @SerializedName("total_pages")
     val totalPages: Int?,

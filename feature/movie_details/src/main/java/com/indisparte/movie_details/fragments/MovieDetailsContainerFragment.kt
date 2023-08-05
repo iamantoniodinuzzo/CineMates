@@ -35,6 +35,10 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     private val movieIdArgs: MovieDetailsContainerFragmentArgs by navArgs()
     private lateinit var backdropAdapter: BackdropAdapter
     private lateinit var backdropViewPager: ViewPager2
+    private val collectionPartsFragment: CollectionPartsFragment by lazy {
+        CollectionPartsFragment()
+    }
+
     override fun initializeViews() {
         backdropAdapter = BackdropAdapter()
         backdropAdapter.registerAdapterDataObserver(binding.circleIndicator.adapterDataObserver)
@@ -93,11 +97,13 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
                     LOG.d("Movie details loaded: ${movieDetails.toString()}")
                     binding.media = movieDetails
                     //check if movie is a part of collection
-                    movieDetails?.belongsToCollection?.let {
+                    if (movieDetails?.belongsToCollection != null) {
                         LOG.d("Movie is a part of collection, add CollectionFragment.")
-                        addFragment(CollectionPartsFragment(), R.string.fragment_collection)
+                        addFragment(collectionPartsFragment, R.string.fragment_collection)
+                    } else {
+                        LOG.d("Movie is not a part of collection, remove CollectionFragment if present")
+                        removeFragment(collectionPartsFragment)
                     }
-                    // TODO: Remove collection fragment otherwise
                 },
                 onError = { error ->
                     val errorMessage = error?.message

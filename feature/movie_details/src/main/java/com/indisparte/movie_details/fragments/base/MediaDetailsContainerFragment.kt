@@ -85,11 +85,25 @@ abstract class MediaDetailsContainerFragment(
      */
     protected fun addFragment(fragment: Fragment, titleRes: Int) {
         val title = requireContext().getString(titleRes)
-        mapOfFragments[fragment] = titleRes
-        viewPagerAdapter.addFragment(fragment, title)
-        viewPagerAdapter.notifyDataSetChanged()
+
+        // Verifica se il fragment è già presente nella mappa
+        if (!mapOfFragments.containsKey(fragment)) {
+            mapOfFragments[fragment] = titleRes
+            viewPagerAdapter.addFragment(fragment, title)
+            viewPagerAdapter.notifyDataSetChanged()
+        }
     }
 
+
+    /**
+     * Remove a fragment from the ViewPager, if present
+     * @param fragment The fragment to remove.
+     */
+    protected fun removeFragment(fragment: Fragment) {
+        mapOfFragments.remove(fragment)
+        viewPagerAdapter.removeFragment(fragment)
+        viewPagerAdapter.notifyDataSetChanged()
+    }
 
 
 }

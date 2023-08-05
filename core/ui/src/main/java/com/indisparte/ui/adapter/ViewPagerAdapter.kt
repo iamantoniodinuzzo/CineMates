@@ -16,6 +16,18 @@ class ViewPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
         fragmentTitles.add(title)
     }
 
+    /**
+     * Remove a fragment from the adapter.
+     * @param fragment The fragment to remove.
+     */
+    fun removeFragment(fragment: Fragment) {
+        val position = fragments.indexOf(fragment)
+        if (position != -1) {
+            fragments.removeAt(position)
+            notifyDataSetChanged()
+        }
+    }
+
     override fun createFragment(position: Int): Fragment {
         return fragments[position]
     }

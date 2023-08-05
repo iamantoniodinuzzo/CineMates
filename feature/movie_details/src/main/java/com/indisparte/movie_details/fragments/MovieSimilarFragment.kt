@@ -12,7 +12,7 @@ import com.indisparte.util.extension.collectIn
 
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 class MovieSimilarFragment :
     ListFragment<Movie, ListItemMediaSmallBinding, MovieAdapter>(MovieAdapter()) {

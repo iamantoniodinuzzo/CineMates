@@ -3,6 +3,7 @@ package com.indisparte.movie.mapper
 import com.indisparte.model.entity.Backdrop
 import com.indisparte.model.entity.BelongsToCollection
 import com.indisparte.model.entity.Cast
+import com.indisparte.model.entity.CollectionDetails
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Genre
 import com.indisparte.model.entity.Movie
@@ -15,6 +16,7 @@ import com.indisparte.model.entity.SpokenLanguage
 import com.indisparte.model.entity.Video
 import com.indisparte.movie.response.BelongsToCollectionDTO
 import com.indisparte.movie.response.CastDTO
+import com.indisparte.movie.response.CollectionDetailsResponseDTO
 import com.indisparte.movie.response.CrewDTO
 import com.indisparte.movie.response.MovieDTO
 import com.indisparte.movie.response.MovieDetailsDTO
@@ -139,6 +141,7 @@ fun VideoDTO.mapToVideo(): Video {
         type = this.type
     )
 }
+
 fun ReleaseDateDTO.mapToReleaseDate(): ReleaseDate {
     return ReleaseDate(
         certification = this.certification,
@@ -146,6 +149,7 @@ fun ReleaseDateDTO.mapToReleaseDate(): ReleaseDate {
         type = this.type
     )
 }
+
 fun ReleaseDatesByCountryDTO.mapToReleaseDatesByCountry(): ReleaseDatesByCountry {
     return ReleaseDatesByCountry(
         country = this.iso31661,
@@ -158,6 +162,17 @@ fun BackdropDTO.mapToBackdrop(): Backdrop {
         filePath = this.filePath,
         height = this.height,
         width = this.width
+    )
+}
+
+fun CollectionDetailsResponseDTO.mapToCollectionDetails(): CollectionDetails {
+    return CollectionDetails(
+        backdropPath = this.backdropPath,
+        id = this.id,
+        name = this.name,
+        overview = this.overview,
+        parts = this.parts.map { it.toMovie() },
+        posterPath = this.posterPath
     )
 }
 

@@ -4,12 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.github.ajalt.timberkt.Timber
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -23,7 +20,7 @@ import com.indisparte.movie_details.adapter.ReleaseDateAdapter
 import com.indisparte.movie_details.adapter.VideoAdapter
 import com.indisparte.movie_details.databinding.CustomWatchProviderChipBinding
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
-import com.indisparte.movie_details.dialog.CollectionDialog
+import com.indisparte.movie_details.util.enableInnerScrollViewPager
 import com.indisparte.network.whenResources
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
@@ -31,7 +28,6 @@ import com.indisparte.util.extension.gone
 import com.indisparte.util.extension.visible
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMovieAboutBinding
@@ -47,20 +43,14 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     private val crewAdapter: CrewGridAdapter by lazy { CrewGridAdapter() }
     private val releaseDateAdapter: ReleaseDateAdapter by lazy { ReleaseDateAdapter() }
     private lateinit var providerChipLayoutParams: ViewGroup.LayoutParams
-    private lateinit var collectionDialog: CollectionDialog
     override fun initializeViews() {
         chipGroupGenres = binding.genreChipGroup
         chipGroupWatchProviders = binding.justWatch.watchProviders
         progressWatchProvider = binding.justWatch.progressIndicator
         binding.trailers.adapter = videoAdapter
+        binding.trailers.enableInnerScrollViewPager()
         binding.gridCrew.adapter = crewAdapter
         binding.movieInfo.releaseInformationRecyclerview.adapter = releaseDateAdapter
-        collectionDialog = CollectionDialog( requireContext())
-        binding.collectionCover.setOnClickListener {
-            collectionDialog.show()
-        }
-
-        enableInnerScrollViewPager(binding.trailers)
 
         // Imposta la larghezza desiderata in pixel
         val desiredWidthInPixels = resources.getDimensionPixelSize(R.dimen.provider_chip_width)
@@ -86,23 +76,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         fetchReleaseDates()
 
         fetchWatchProviders()
-
-        viewModel.collectionParts.collectIn(viewLifecycleOwner) { resource ->
-            resource?.whenResources(
-                onSuccess = { parts ->
-                    LOG.d("Collection parts loaded! $parts")
-                    collectionDialog.setData(parts)
-                },
-                onError = { error ->
-                    LOG.e(error?.message)
-                },
-                onLoading = {
-                    LOG.d("Collection Parts Loading...")
-                }
-
-            )
-        }
-
 
     }
 
@@ -247,21 +220,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         }
     }
 
-    // Disable ViewPager2 from intercepting touch events of RecyclerView
-    private fun enableInnerScrollViewPager(recyclerView: RecyclerView) {
-        recyclerView.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener() {
-            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                val action = e.actionMasked
-                when (action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        // Disallow ViewPager2 to intercept touch events of RecyclerView
-                        rv.parent.requestDisallowInterceptTouchEvent(true)
-                    }
-                }
-                return false
-            }
-        })
-    }
 
     /**
      *  Returns a new list containing an even number of elements from the original list based on certain conditions.

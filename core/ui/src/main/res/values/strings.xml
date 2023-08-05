@@ -12,6 +12,8 @@
     <string name="fragment_media_similar">Similar</string>
     <string name="fragment_media_cast">Cast</string>
     <string name="fragment_media_about">About</string>
+    <string name="fragment_collection">Collection</string>
+
 
 
 </resources>

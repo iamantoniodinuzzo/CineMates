@@ -14,7 +14,7 @@ import timber.log.Timber
 
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 class MovieCastFragment : ListFragment<Cast, ListItemCastLongBinding, CastAdapter>(
     CastAdapter()

@@ -4,11 +4,11 @@ import com.indisparte.model.MediaFilter
 import com.indisparte.model.TimeWindow
 import com.indisparte.model.entity.Backdrop
 import com.indisparte.model.entity.Cast
+import com.indisparte.model.entity.CollectionDetails
 import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Movie
 import com.indisparte.model.entity.MovieDetails
-import com.indisparte.model.entity.ReleaseDate
 import com.indisparte.model.entity.ReleaseDatesByCountry
 import com.indisparte.model.entity.Video
 import com.indisparte.movie.util.MovieListType
@@ -37,6 +37,6 @@ interface MovieRepository {
     suspend fun getReleaseDates(movieId: Int): Flow<Resource<List<ReleaseDatesByCountry>>>
 
     suspend fun getBackdrop(movieId: Int):Flow<Resource<List<Backdrop>>>
-    suspend fun getCollectionParts(collectionId: Int): Flow<Resource<List<Movie>>>
+    suspend fun getCollectionDetails(collectionId: Int): Flow<Resource<CollectionDetails>>
 
 }

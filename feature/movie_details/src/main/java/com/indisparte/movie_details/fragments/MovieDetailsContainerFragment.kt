@@ -2,7 +2,6 @@ package com.indisparte.movie_details.fragments
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -30,6 +29,7 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         MovieSimilarFragment() to R.string.fragment_media_similar,
     )
 ) {
+    private val LOG = Timber.tag(MovieDetailsContainerFragment::class.java.simpleName)
     private val viewModel: MovieDetailsViewModel by viewModels()
     private val movieIdArgs: MovieDetailsContainerFragmentArgs by navArgs()
     private lateinit var backdropAdapter: BackdropAdapter
@@ -77,15 +77,19 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         viewModel.selectedMovie.collectIn(viewLifecycleOwner) { resources ->
             resources.whenResources(
                 onSuccess = { movieDetails ->
-                    Timber.tag("MovieDetailsContainer")
-                        .d("Movie details loaded: ${movieDetails.toString()}")
+                    LOG.d("Movie details loaded: ${movieDetails.toString()}")
                     binding.media = movieDetails
+                    //check if movie is a part of collection
+                    movieDetails?.belongsToCollection?.let {
+                        LOG.d("Movie is a part of collection, add CollectionFragment.")
+                        addFragment(CollectionPartsFragment(), R.string.fragment_collection)
+                    }
                 },
                 onError = { error ->
-                    Timber.tag("MovieDetailsContainer").d("Error: $error")
+                    LOG.d("Error: $error")
                 },
                 onLoading = {
-                    Timber.tag("MovieDetailsContainer").d("Movie details loading...")
+                    LOG.d("Movie details loading...")
                 })
         }
     }

@@ -4,6 +4,7 @@ import com.indisparte.model.MediaFilter
 import com.indisparte.model.TimeWindow
 import com.indisparte.model.entity.Backdrop
 import com.indisparte.model.entity.Cast
+import com.indisparte.model.entity.CollectionDetails
 import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Movie
@@ -12,6 +13,7 @@ import com.indisparte.model.entity.ReleaseDatesByCountry
 import com.indisparte.model.entity.Video
 import com.indisparte.movie.mapper.mapToBackdrop
 import com.indisparte.movie.mapper.mapToCast
+import com.indisparte.movie.mapper.mapToCollectionDetails
 import com.indisparte.movie.mapper.mapToCountryResult
 import com.indisparte.movie.mapper.mapToCrew
 import com.indisparte.movie.mapper.mapToReleaseDatesByCountry
@@ -144,11 +146,11 @@ constructor(
             }
         )
 
-    override suspend fun getCollectionParts(collectionId: Int): Flow<Resource<List<Movie>>> =
-        getListFromResponse(
-            request = { movieService.getCollectionParts(collectionId, queryMap) },
+    override suspend fun getCollectionDetails(collectionId: Int): Flow<Resource<CollectionDetails>> =
+        getSingleFromResponse(
+            request = { movieService.getCollectionDetails(collectionId, queryMap) },
             mapper = { response ->
-                response.parts.map { it.toMovie() }
+                response.mapToCollectionDetails()
             }
         )
 

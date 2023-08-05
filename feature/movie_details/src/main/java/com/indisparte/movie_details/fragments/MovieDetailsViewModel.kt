@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.model.entity.Backdrop
 import com.indisparte.model.entity.Cast
+import com.indisparte.model.entity.CollectionDetails
 import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Movie
@@ -42,7 +43,6 @@ class MovieDetailsViewModel
 
     private val LOG = Timber.tag("MovieDetailsViewModel")
 
-
     private val _selectedMovie = MutableSharedFlow<Resource<MovieDetails?>>()
     val selectedMovie: SharedFlow<Resource<MovieDetails?>> get() = _selectedMovie.asSharedFlow()
     private val _videos = MutableStateFlow<Resource<List<Video>>?>(Resource.Loading())
@@ -64,28 +64,15 @@ class MovieDetailsViewModel
     private val _backdrops = MutableStateFlow<Resource<List<Backdrop>>?>(null)
     val backdrops: StateFlow<Resource<List<Backdrop>>?> get() = _backdrops
 
-    private val _collectionParts = MutableStateFlow<Resource<List<Movie>>?>(null)
-    val collectionParts: StateFlow<Resource<List<Movie>>?> get() = _collectionParts
+    private val _collectionParts = MutableStateFlow<Resource<CollectionDetails>?>(null)
+    val collectionParts: StateFlow<Resource<CollectionDetails>?> get() = _collectionParts
 
     init {
         observeSelectedMovie()
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        LOG.d("Cleared!!")
-    }
-
-    /**
-     * Retrieves additional information about the selected movie
-     */
     fun onDetailsFragmentReady(id: Int) = getMovieDetails(id)
 
-   /* fun onDetailsFragmentDestroy() = clearWatchProviders()
-
-    private fun clearWatchProviders() {
-        _watchProviders.value = null
-    }*/
 
     private fun observeSelectedMovie() {
         viewModelScope.launch {
@@ -100,20 +87,37 @@ class MovieDetailsViewModel
                     getReleaseDates(movieDetails.id)
                     getBackdrops(movieDetails.id)
                     movieDetails.belongsToCollection?.let { collection ->
-                        getCollectionParts(collection.id)
+                        LOG.d("Movie is part of a Collection, retrieve details..")
+                        getCollectionDetails(collection.id)
                     }
                 }
         }
     }
 
-    private fun getCollectionParts(collectionId: Int) {
+    private fun getMovieDetails(movieId: Int) {
+        viewModelScope.launch {
+            _selectedMovie.emit(Resource.Loading())
+            try {
+                movieRepository.getDetails(movieId).collectLatest {
+                    val movieDetails = it.data
+                    LOG
+                        .d("Movie details: ${movieDetails.toString()}")
+                    _selectedMovie.emit(Resource.Success(movieDetails))
+                }
+            } catch (e: Exception) {
+                _selectedMovie.emit(Resource.Error(e))
+            }
+        }
+    }
+
+    private fun getCollectionDetails(collectionId: Int) {
         viewModelScope.launch {
             _collectionParts.emit(Resource.Loading())
             try {
-                movieRepository.getCollectionParts(collectionId).collectLatest {
-                    val parts = it.data
-                    LOG.d("Movie collection parts: $parts")
-                    _collectionParts.emit(Resource.Success(parts))
+                movieRepository.getCollectionDetails(collectionId).collectLatest {
+                    val collectionDetails = it.data
+                    LOG.d("Movie collection details: $collectionDetails")
+                    _collectionParts.emit(Resource.Success(collectionDetails))
                 }
             } catch (e: Exception) {
                 _collectionParts.emit(Resource.Error(e))
@@ -132,26 +136,6 @@ class MovieDetailsViewModel
                 }
             } catch (e: Exception) {
                 _backdrops.emit(Resource.Error(e))
-            }
-        }
-    }
-
-    /*
-        Through the film id, it retrieves the details and checks if the film is part of a collection.
-        If it is successful, it initializes the variable containing the parts of the collection
-     */
-    private fun getMovieDetails(movieId: Int) {
-        viewModelScope.launch {
-            _selectedMovie.emit(Resource.Loading())
-            try {
-                movieRepository.getDetails(movieId).collectLatest {
-                    val movieDetails = it.data
-                    LOG
-                        .d("Movie details: ${movieDetails.toString()}")
-                    _selectedMovie.emit(Resource.Success(movieDetails))
-                }
-            } catch (e: Exception) {
-                _selectedMovie.emit(Resource.Error(e))
             }
         }
     }
@@ -227,7 +211,7 @@ class MovieDetailsViewModel
             try {
                 movieRepository.getCrew(movieId).collectLatest { resource ->
                     val crew = resource.data ?: emptyList()
-                    LOG.d("Movie Crew ${crew?.map { it.name }}")
+                    LOG.d("Movie Crew ${crew.map { it.name }}")
                     _crew.emit(Resource.Success(crew))
                 }
             } catch (e: Exception) {
@@ -248,7 +232,7 @@ class MovieDetailsViewModel
                     val latestCertification =
                         releaseDatesInCurrentCountry?.getLatestReleaseCertification()
                     _latestCertification.value = latestCertification
-                    LOG.d("Release dates in $currentCountry : $releaseDatesInCurrentCountry \nGeneral release dates; ${it.data}")
+                    LOG.d("Release dates in $currentCountry : $releaseDatesInCurrentCountry")
                     _releaseDates.emit(
                         Resource.Success(
                             releaseDatesInCurrentCountry ?: emptyList()

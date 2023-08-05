@@ -1,8 +1,6 @@
 package com.indisparte.movie_details.fragments.base
 
-import android.media.Image
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,8 +27,9 @@ typealias FragmentTitleMap = LinkedHashMap<Fragment, @receiver:StringRes Int>
  * @author Antonio Di Nuzzo
  * @author Jon Areas
  */
-abstract class MediaDetailsContainerFragment(private val mapOfFragments: FragmentTitleMap) :
-    BaseFragment<FragmentMediaDetailsBinding>() {
+abstract class MediaDetailsContainerFragment(
+    private val mapOfFragments: FragmentTitleMap,
+) : BaseFragment<FragmentMediaDetailsBinding>() {
     /**
      * Secondary constructor used when no fragments are initially provided.
      */
@@ -39,7 +38,7 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Fragmen
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMediaDetailsBinding
         get() = FragmentMediaDetailsBinding::inflate
 
-    protected lateinit var viewPagerAdapter: ViewPagerAdapter
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeViewPager()
@@ -47,11 +46,12 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Fragmen
         binding.apply {
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             fab.setOnClickListener {
+                // TODO: Open bottom sheet dialog to choose which list
                 Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
             }
 
 
-            // Hide and show FAB when scrolling
+            // FIXME Hide and show FAB when scrolling, add animations
             appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
                 fab.isVisible =
                     verticalOffset == 0 || abs(verticalOffset) >= appBarLayout.totalScrollRange
@@ -77,4 +77,19 @@ abstract class MediaDetailsContainerFragment(private val mapOfFragments: Fragmen
             }.attach()
         }
     }
+
+    /**
+     * Add a new fragment to the ViewPager.
+     * @param fragment The fragment to add.
+     * @param titleRes The string resource for the fragment's title.
+     */
+    protected fun addFragment(fragment: Fragment, titleRes: Int) {
+        val title = requireContext().getString(titleRes)
+        mapOfFragments[fragment] = titleRes
+        viewPagerAdapter.addFragment(fragment, title)
+        viewPagerAdapter.notifyDataSetChanged()
+    }
+
+
+
 }

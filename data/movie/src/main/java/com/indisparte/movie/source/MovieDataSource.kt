@@ -82,9 +82,9 @@ interface MovieDataSource {
     ): Response<GenericResponse<MovieDTO>>
 
     @GET("collection/{collection_id}")
-    suspend fun getCollectionParts(
+    suspend fun getCollectionDetails(
         @Path("collection_id") collectionId: Int,
-        @QueryMap queryMap: MutableMap<String, String>,
+        @QueryMap queryMap: Map<String, String>,
     ):Response<CollectionDetailsResponseDTO>
 
 }

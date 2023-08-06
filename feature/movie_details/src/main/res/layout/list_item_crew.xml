@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,20 +10,23 @@
             type="com.indisparte.model.entity.Crew" />
     </data>
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="?attr/colorPrimary">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/base_margin"
-            android:padding="@dimen/base_margin"
+            android:layout_margin="@dimen/base_margin"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{crew.name}"
-                android:textStyle="bold"
                 android:textColor="?attr/colorOnPrimary"
+                android:textStyle="bold"
                 tools:text="@tools:sample/full_names" />
 
             <TextView
@@ -34,4 +37,5 @@
                 tools:text="@tools:sample/full_names" />
 
         </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

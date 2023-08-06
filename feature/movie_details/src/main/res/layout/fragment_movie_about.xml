@@ -121,15 +121,17 @@
                 app:drawableEndCompat="@drawable/ic_forward"
                 app:drawableTint="?attr/colorOnPrimary" />
 
-            <GridView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/grid_crew"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/crew_title"
                 android:layout_marginTop="@dimen/base_margin"
-                android:numColumns="2"
-                android:stretchMode="columnWidth"
                 android:paddingStart="@dimen/base_margin"
+                android:stretchMode="columnWidth"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:itemCount="4"
                 tools:listitem="@layout/list_item_crew" />
 
             <include

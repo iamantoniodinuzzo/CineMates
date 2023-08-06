@@ -15,7 +15,7 @@ import com.indisparte.model.entity.CountryResult
 import com.indisparte.model.entity.Crew
 import com.indisparte.model.entity.Genre
 import com.indisparte.movie_details.R
-import com.indisparte.movie_details.adapter.CrewGridAdapter
+import com.indisparte.movie_details.adapter.CrewAdapter
 import com.indisparte.movie_details.adapter.ReleaseDateAdapter
 import com.indisparte.movie_details.adapter.VideoAdapter
 import com.indisparte.movie_details.databinding.CustomWatchProviderChipBinding
@@ -26,7 +26,6 @@ import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
 import com.indisparte.util.extension.gone
 import com.indisparte.util.extension.visible
-import dagger.hilt.android.AndroidEntryPoint
 
 class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
@@ -40,7 +39,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     private lateinit var chipGroupWatchProviders: ChipGroup
     private lateinit var progressWatchProvider: CircularProgressIndicator
     private val videoAdapter: VideoAdapter by lazy { VideoAdapter() }
-    private val crewAdapter: CrewGridAdapter by lazy { CrewGridAdapter() }
+    private val crewAdapter: CrewAdapter by lazy { CrewAdapter() }
     private val releaseDateAdapter: ReleaseDateAdapter by lazy { ReleaseDateAdapter() }
     private lateinit var providerChipLayoutParams: ViewGroup.LayoutParams
     override fun initializeViews() {
@@ -133,7 +132,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             resources?.whenResources(
                 onSuccess = { crewList ->
                     LOG.d("Crew loaded! ${crewList?.map { it.name }}")
-                    crewAdapter.updateCrewList(crewList?.takeEvenNumberOfItems())
+                    crewAdapter.submitList(crewList?.takeEvenNumberOfItems())
                 },
                 onError = { error ->
                     LOG.e(error?.message)

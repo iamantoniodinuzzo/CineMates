@@ -27,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:textSize="18sp"
+                app:title="@{media.title}"
                 app:collapsedTitleTextColor="?attr/colorOnPrimary"
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleMarginStart="@dimen/base_margin"

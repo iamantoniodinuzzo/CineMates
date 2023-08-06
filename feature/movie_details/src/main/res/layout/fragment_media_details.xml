@@ -27,12 +27,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:textSize="18sp"
-                app:title="@{media.title}"
                 app:collapsedTitleTextColor="?attr/colorOnPrimary"
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleMarginStart="@dimen/base_margin"
                 app:expandedTitleTextColor="@android:color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:title="@{media.title}"
                 app:titleCollapseMode="fade">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,16 +52,16 @@
                         <androidx.viewpager2.widget.ViewPager2
                             android:id="@+id/backdrop_viewPager"
                             android:layout_width="match_parent"
-                            android:background="?attr/colorSecondary"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:background="?attr/colorSecondary" />
 
                         <me.relex.circleindicator.CircleIndicator3
                             android:id="@+id/circleIndicator"
                             android:layout_width="match_parent"
-                            app:ci_drawable_unselected="@drawable/secondary_radius"
-                            app:ci_drawable="@drawable/primary_radius"
+                            android:layout_height="?attr/actionBarSize"
                             android:layout_gravity="top"
-                            android:layout_height="?attr/actionBarSize" />
+                            app:ci_drawable="@drawable/primary_radius"
+                            app:ci_drawable_unselected="@drawable/secondary_radius" />
 
                     </FrameLayout>
 
@@ -125,13 +125,14 @@
 
                         <TextView
                             android:id="@+id/media_release_date"
-                            android:textSize="14sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/base_margin"
                             android:layout_marginEnd="@dimen/base_margin"
                             android:text='@{media.formattedReleaseDate+" - "+media.formattedRuntime }'
                             android:textColor="?attr/colorOnSecondary"
+                            android:textSize="14sp"
+                            android:visibility='@{media.formattedReleaseDate==null?View.GONE:View.VISIBLE}'
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/certification"
                             app:layout_constraintTop_toBottomOf="@id/media_title"
@@ -147,7 +148,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:layout_marginBottom="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/ic_back_arrow"/>
+                    app:navigationIcon="@drawable/ic_back_arrow" />
 
 
                 <com.google.android.material.tabs.TabLayout

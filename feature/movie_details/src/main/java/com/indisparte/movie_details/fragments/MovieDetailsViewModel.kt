@@ -100,6 +100,7 @@ class MovieDetailsViewModel
             _selectedMovie.emit(Resource.Loading())
             try {
                 movieRepository.getDetails(movieId).collectLatest { movieDetails ->
+                    LOG.d("Movie details: ${movieDetails.data}")
                     _selectedMovie.emit(movieDetails)
                 }
             } catch (e: Exception) {

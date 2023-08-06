@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.viewModels
 import com.github.ajalt.timberkt.Timber
 import com.google.android.material.chip.Chip
@@ -76,11 +77,13 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
         fetchWatchProviders()
 
+        binding.movieInfo.linearLayoutMovieInfo.hideIfVisibleViewsArLessThan(2)
+
     }
 
     private fun fetchWatchProviders() {
         viewModel.watchProviders.collectIn(viewLifecycleOwner) { resource ->
-            resource?.whenResources(
+            resource.whenResources(
                 onSuccess = { countryResult ->
                     if (countryResult != null) {
                         LOG.d("Watch providers loaded! $countryResult")
@@ -133,6 +136,9 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 onSuccess = { crewList ->
                     LOG.d("Crew loaded! ${crewList?.map { it.name }}")
                     crewAdapter.submitList(crewList?.takeEvenNumberOfItems())
+                    binding.crewTitle.apply {
+                        if (crewList.isNullOrEmpty()) gone() else visible()
+                    }
                 },
                 onError = { error ->
                     LOG.e(error?.message)
@@ -150,6 +156,9 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 onSuccess = { videos ->
                     LOG.d("Videos loaded! $videos")
                     videoAdapter.submitList(videos)
+                    binding.trailerTitle.apply {
+                        if (videos.isNullOrEmpty()) gone() else visible()
+                    }
                 },
                 onError = { error ->
                     LOG.e(error?.message)
@@ -186,6 +195,13 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
 
     private fun setGenresChipGroup(genres: List<Genre>) {
+        if (genres.isEmpty()) {
+            LOG.d("Genres is empty, hide title")
+            binding.genresTitle.gone()
+            return
+        }
+        LOG.d("Genres is not empty")
+        binding.genresTitle.visible()
         chipGroupGenres.removeAllViews()
         for (chipData in genres) {
             val chip = Chip(chipGroupGenres.context)
@@ -253,6 +269,21 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     private fun openLinkInBrowser(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
+    }
+
+    private fun LinearLayoutCompat.hideIfVisibleViewsArLessThan(visibleViewLimit: Int) {
+        var visibleViews = 0
+
+        for (i in 0 until childCount) {
+            val view = getChildAt(i)
+            if (view.visibility == View.VISIBLE) {
+                visibleViews++
+            }
+        }
+
+        if (visibleViews <= visibleViewLimit) gone() else visible()
+
+
     }
 
 

@@ -55,7 +55,7 @@
                 android:layout_marginTop="@dimen/base_margin"
                 android:text="@{movie.tagline}"
                 android:textStyle="bold"
-                android:visibility="@{movie.tagline==null?View.GONE:View.VISIBLE}"
+                android:visibility="@{movie.tagline.empty?View.GONE:View.VISIBLE}"
                 tools:text="Tagline" />
 
 

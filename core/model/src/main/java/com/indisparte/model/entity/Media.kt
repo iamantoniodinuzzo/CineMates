@@ -2,13 +2,14 @@ package com.indisparte.model.entity
 
 import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W500
 import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W780
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
 import kotlin.math.roundToInt
 
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 open class Media(
     val id: Int,
@@ -56,17 +57,27 @@ open class Media(
     }
 
     protected fun formatDate(inputDate: String): String? {
+        if (inputDate.isEmpty()) {
+            return null
+        }
+
         val inputFormat = SimpleDateFormat(TMDB_DATE_TIME_FORMAT, Locale.getDefault())
         val outputFormat = SimpleDateFormat(OUTPUT_DATE_TIME_FORMAT, Locale.getDefault())
 
-        val date = inputFormat.parse(inputDate)
-        val formattedDate = outputFormat.format(date)
-        return formattedDate
+        return try {
+            val date = inputFormat.parse(inputDate)
+            date?.let { outputFormat.format(it) }
+        } catch (e: ParseException) {
+            null
+        }
     }
+
 
     protected fun formatRuntime(runtime: Int): String {
         val hours = runtime / 60
         val minutes = runtime % 60
+
+        if (hours == 0 && minutes == 0) return ""
 
         return "$hours h $minutes min"
     }

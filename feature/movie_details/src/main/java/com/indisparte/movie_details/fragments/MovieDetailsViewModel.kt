@@ -79,7 +79,7 @@ class MovieDetailsViewModel
         viewModelScope.launch {
             selectedMovie.filter { it is Resource.Success }.map { it as Resource.Success }
                 .mapNotNull { it.data }.distinctUntilChanged().collect { movieDetails ->
-                    LOG.d("Get all movie details..")
+                    LOG.d("Get details about ${movieDetails.title}..")
                     getVideos(movieDetails.id)
                     getCast(movieDetails.id)
                     getSimilar(movieDetails.id)
@@ -88,7 +88,7 @@ class MovieDetailsViewModel
                     getReleaseDates(movieDetails.id)
                     getBackdrops(movieDetails.id)
                     movieDetails.belongsToCollection?.let { collection ->
-                        LOG.d("Movie is part of a Collection, retrieve details..")
+                        LOG.d("${movieDetails.title} is part of a Collection, retrieve collection details..")
                         getCollectionDetails(collection.id)
                     }
                 }

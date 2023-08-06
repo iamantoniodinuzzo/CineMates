@@ -13,7 +13,7 @@ open class Movie(
     voteAverage: Double,
 ) : Media(
     id = id,
-    title,
+    mediaName = title,
     popularity = popularity,
     posterPath = posterPath,
     voteAverage = voteAverage

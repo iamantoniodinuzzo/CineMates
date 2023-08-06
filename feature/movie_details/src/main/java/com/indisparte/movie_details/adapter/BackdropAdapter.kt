@@ -9,7 +9,7 @@ import com.indisparte.ui.adapter.BaseAdapter
 
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo 
  */
 class BackdropAdapter :
     BaseAdapter<Backdrop, ListItemBackdropBinding>(object : DiffUtil.ItemCallback<Backdrop>() {
@@ -23,6 +23,9 @@ class BackdropAdapter :
     }) {
     override fun bind(binding: ListItemBackdropBinding, item: Backdrop) {
         binding.path = item.completePosterPathW780
+        binding.root.setOnClickListener {
+            // TODO: Show Backdrop
+        }
     }
 
     override fun createBinding(parent: ViewGroup, viewType: Int): ListItemBackdropBinding {

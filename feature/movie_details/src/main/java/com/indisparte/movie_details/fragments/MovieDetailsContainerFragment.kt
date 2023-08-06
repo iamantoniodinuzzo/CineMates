@@ -50,6 +50,9 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         binding.toolbar.setNavigationOnClickListener {
             ((this.requireActivity()) as ToFlowNavigable).navigateToFlow(NavigationFlow.HomeFlow)
         }
+
+        // Assicurati di impostare il lifecycle owner del binding
+        binding.lifecycleOwner = this
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,7 +73,6 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
                 onError = {
                     val errorMessage = it?.message
                     LOG.e("Error: $errorMessage")
-                    backdropViewPager.setBackgroundResource(R.drawable.ic_broken_image)
                 },
                 onLoading = {
                     LOG.d("Loading Backdrops...")
@@ -96,6 +98,8 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
                 onSuccess = { movieDetails ->
                     LOG.d("Movie details loaded: ${movieDetails.toString()}")
                     binding.media = movieDetails
+                    //I set the title here, without using data binding, because the 'app:title attribute' of the toolbar does not allow dynamic change
+                    binding.toolbar.title = movieDetails?.title
                     //check if movie is a part of collection
                     if (movieDetails?.belongsToCollection != null) {
                         LOG.d("Movie is a part of collection, add CollectionFragment.")

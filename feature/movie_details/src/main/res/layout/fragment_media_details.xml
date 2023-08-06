@@ -124,14 +124,13 @@
 
                         <TextView
                             android:id="@+id/media_release_date"
-                            style="@style/BodyTextViewStyle"
+                            android:textSize="14sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/base_margin"
                             android:layout_marginEnd="@dimen/base_margin"
                             android:text='@{media.formattedReleaseDate+" - "+media.formattedRuntime }'
                             android:textColor="?attr/colorOnSecondary"
-                            android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/certification"
                             app:layout_constraintTop_toBottomOf="@id/media_title"
@@ -147,8 +146,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:layout_marginBottom="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/ic_back_arrow"
-                    app:title="@{media.mediaName}" />
+                    app:navigationIcon="@drawable/ic_back_arrow"/>
 
 
                 <com.google.android.material.tabs.TabLayout

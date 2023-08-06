@@ -86,7 +86,6 @@ abstract class MediaDetailsContainerFragment(
     protected fun addFragment(fragment: Fragment, titleRes: Int) {
         val title = requireContext().getString(titleRes)
 
-        // Verifica se il fragment è già presente nella mappa
         if (!mapOfFragments.containsKey(fragment)) {
             mapOfFragments[fragment] = titleRes
             viewPagerAdapter.addFragment(fragment, title)

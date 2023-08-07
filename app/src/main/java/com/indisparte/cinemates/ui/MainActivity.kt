@@ -41,7 +41,8 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
         // menu should be considered as top level destinations.
          val appBarConfiguration = AppBarConfiguration(
              setOf(
-                 R.id.homeFragment
+                 R.id.homeFragment,
+                 R.id.searchFragment
              )
          )
 

@@ -4,7 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.ajalt.timberkt.Timber
 import com.indisparte.model.entity.Movie
-import com.indisparte.movie_details.fragments.base.ListFragment
+import com.indisparte.ui.fragment.ListFragment
 import com.indisparte.network.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
 import com.indisparte.ui.adapter.OnItemClickListener

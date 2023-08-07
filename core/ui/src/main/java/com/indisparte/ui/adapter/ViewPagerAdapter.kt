@@ -24,7 +24,7 @@ class ViewPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
         val position = fragments.indexOf(fragment)
         if (position != -1) {
             fragments.removeAt(position)
-            notifyDataSetChanged()
+            notifyItemRemoved(position)
         }
     }
 

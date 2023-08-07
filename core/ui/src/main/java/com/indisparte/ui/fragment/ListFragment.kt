@@ -1,16 +1,13 @@
-package com.indisparte.movie_details.fragments.base
+package com.indisparte.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.progressindicator.CircularProgressIndicator
-import com.indisparte.movie_details.databinding.FragmentListingItemsBinding
 import com.indisparte.ui.adapter.BaseAdapter
-import com.indisparte.ui.fragment.BaseFragment
+import com.indisparte.ui.databinding.FragmentListingItemsBinding
 
 /**
  * A fragment in which a list of elements is shown.
@@ -21,10 +18,9 @@ import com.indisparte.ui.fragment.BaseFragment
  */
 abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T, VB>>(
     val adapter: A,
-) :
-    BaseFragment<FragmentListingItemsBinding>() {
+) :BaseFragment<FragmentListingItemsBinding>() {
 
-    private lateinit var progress :CircularProgressIndicator
+    private lateinit var progress: CircularProgressIndicator
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentListingItemsBinding
         get() = FragmentListingItemsBinding::inflate
@@ -44,11 +40,11 @@ abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T, VB>>(
      */
     protected abstract fun addItemsToTheAdapter()
 
-    protected fun showLoading(){
+    protected fun showLoading() {
         progress.show()
     }
 
-    protected fun hideLoading(){
+    protected fun hideLoading() {
         progress.hide()
     }
 

@@ -18,7 +18,7 @@ import com.indisparte.movie.response.BelongsToCollectionDTO
 import com.indisparte.movie.response.CastDTO
 import com.indisparte.movie.response.CollectionDetailsResponseDTO
 import com.indisparte.movie.response.CrewDTO
-import com.indisparte.movie.response.MovieDTO
+import com.indisparte.response.MovieDTO
 import com.indisparte.movie.response.MovieDetailsDTO
 import com.indisparte.movie.response.ReleaseDateDTO
 import com.indisparte.movie.response.ReleaseDatesByCountryDTO

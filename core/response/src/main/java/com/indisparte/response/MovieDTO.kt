@@ -1,4 +1,4 @@
-package com.indisparte.movie.response
+package com.indisparte.response
 
 
 import com.google.gson.annotations.SerializedName
@@ -43,11 +43,6 @@ data class MovieDTO(
             ""
         }
     }
-
-    override fun toString(): String {
-        return "MovieDTO(adult=$adult, backdropPath=$backdropPath, genres=$genres, id=$id, originalLanguage='$originalLanguage', originalTitle='$originalTitle', overview='$overview', popularity=$popularity, posterPath=$posterPath, releaseDate='$releaseDate', title='$title', video=$video, voteAverage=$voteAverage, voteCount=$voteCount)"
-    }
-
 
     val formattedReleaseDate: String
         get() {

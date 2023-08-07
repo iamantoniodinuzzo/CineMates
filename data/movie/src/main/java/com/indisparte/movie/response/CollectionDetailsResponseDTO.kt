@@ -2,6 +2,7 @@ package com.indisparte.movie.response
 
 
 import com.google.gson.annotations.SerializedName
+import com.indisparte.response.MovieDTO
 
 data class CollectionDetailsResponseDTO(
     @SerializedName("backdrop_path")

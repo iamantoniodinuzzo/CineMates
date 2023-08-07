@@ -63,6 +63,7 @@ If you have 💡 ideas 💡 you can submit them [here](https://github.com/Indisp
 - [Glide](https://github.com/bumptech/glide) 
 - [Hilt Library](https://developer.android.com/training/dependency-injection/hilt-android)
 - [YouTube Library](https://developers.google.com/youtube/android/player)
+- [CircleIndicator](https://github.com/ongakuer/CircleIndicator)
 ### Personal
 - [HorizontalChipView](https://github.com/Indisparte/CineMates/blob/develop/HorizontalChipView/README.md)
 - [LinearLayoutInfo](https://github.com/Indisparte/CineMates/blob/develop/LinearLayoutInfo/README.md)

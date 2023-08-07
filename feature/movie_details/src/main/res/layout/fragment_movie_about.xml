@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="movie"
+            type="com.indisparte.model.entity.MovieDetails" />
+
+
+        <import type="android.view.View" />
+
+    </data>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/watchProviderTitle"
+                style="@style/BodyTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:text="Watch on"
+                android:textColor="?attr/colorOnSecondary"
+                android:textStyle="bold" />
+
+
+            <include
+                android:id="@+id/justWatch"
+                layout="@layout/layout_just_watch"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@id/watchProviderTitle"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:layout_marginEnd="@dimen/base_margin" />
+
+            <TextView
+                android:id="@+id/tagline"
+                style="@style/BodyTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/justWatch"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:text="@{movie.tagline}"
+                android:textStyle="bold"
+                android:visibility="@{movie.tagline.empty?View.GONE:View.VISIBLE}"
+                tools:text="Tagline" />
+
+
+            <com.indisparte.ui.custom_view.MoreLessTextView
+                android:id="@+id/readMoreTextV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tagline"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:layout_marginEnd="@dimen/base_margin"
+                android:text="@{movie.overview}"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="14sp"
+                app:clickableColor="?attr/colorAccent"
+                app:maxLinesShown="3"
+                app:readLessText="Read less"
+                app:readMoreText="Read more"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:id="@+id/genres_title"
+                style="@style/BodyTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/readMoreTextV"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:text="Genres"
+                android:textColor="?attr/colorOnSecondary"
+                android:textStyle="bold"
+                android:visibility="@{movie.genres.empty?View.GONE:View.VISIBLE}" />
+
+            <HorizontalScrollView
+                android:id="@+id/horizontal_scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/genres_title"
+                android:visibility="@{movie.genres.empty?View.GONE:View.VISIBLE}">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/genreChipGroup"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingStart="@dimen/base_margin"
+                    app:singleLine="true"
+                    app:singleSelection="true" />
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/crew_title"
+                style="@style/SmallTitleTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/horizontal_scroll_view"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:clickable="true"
+                android:paddingEnd="@dimen/base_margin"
+                android:text="Featured Crew"
+                app:drawableEndCompat="@drawable/ic_forward"
+                app:drawableTint="?attr/colorOnPrimary" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/grid_crew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/crew_title"
+                android:layout_marginTop="@dimen/base_margin"
+                android:paddingStart="@dimen/base_margin"
+                android:stretchMode="columnWidth"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:itemCount="4"
+                tools:listitem="@layout/list_item_crew" />
+
+            <include
+                android:id="@+id/movie_info"
+                layout="@layout/layout_movie_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/grid_crew"
+                android:layout_marginHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                app:movie="@{movie}" />
+
+
+            <TextView
+                android:id="@+id/trailer_title"
+                style="@style/SmallTitleTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/movie_info"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:text="Trailers" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trailers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/trailer_title"
+                android:layout_marginTop="@dimen/base_margin"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/base_margin"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_item_yt_video" />
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

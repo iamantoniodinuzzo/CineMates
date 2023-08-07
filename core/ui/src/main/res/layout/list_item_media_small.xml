@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <!-- Variables here -->
+        <variable
+            name="media"
+            type="com.indisparte.model.entity.Media" />
+    </data>
+
+    <com.indisparte.ui.custom_view.PosterView
+        android:id="@+id/poster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:pv_chipValue="@{media.voteAverageRounded}"
+        app:pv_imageUrl="@{media.completePosterPathW780}"
+        app:pv_posterHeight="170dp"
+        app:pv_title_style="@style/BodyTextViewStyle"
+        app:pv_posterWidth="120dp"
+        app:pv_title="@{media.mediaName}" />
+
+</layout>

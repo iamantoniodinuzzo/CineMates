@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="movie"
+            type="com.indisparte.model.entity.MovieDetails" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear_layout_movie_info"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textTitleInfo"
+            style="@style/SmallTitleTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_margin"
+            android:layout_marginBottom="@dimen/base_margin"
+            android:text="Information" />
+
+
+        <TextView
+            android:id="@+id/release_information_title"
+            android:layout_width="match_parent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:text="Release information"
+            android:textColor="?attr/colorOnSecondary" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/release_information_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_margin"
+            android:clipToPadding="false"
+            tools:listitem="@layout/list_item_release_info"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
+            android:id="@+id/originalTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/base_margin"
+            android:layout_marginTop="@dimen/base_margin"
+            android:orientation="horizontal"
+            app:hideIfValueEmpty="true"
+            app:textColor="?attr/colorOnSecondary"
+            app:textSize="14sp"
+            app:title="Original title"
+            app:value="@{movie.originalTitle}" />
+
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
+            android:id="@+id/tagline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/base_margin"
+            android:orientation="horizontal"
+            app:hideIfValueEmpty="true"
+            app:textColor="?attr/colorOnSecondary"
+            app:textSize="14sp"
+            app:title="Tagline"
+            app:value="@{movie.tagline}" />
+
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/base_margin"
+            android:orientation="horizontal"
+            app:hideIfValueEmpty="true"
+            app:textColor="?attr/colorOnSecondary"
+            app:textSize="14sp"
+            app:title="Status"
+            app:value="@{movie.status}" />
+
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
+            android:id="@+id/runtime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/base_margin"
+            android:orientation="horizontal"
+            app:hideIfValueEmpty="true"
+            app:textColor="?attr/colorOnSecondary"
+            app:textSize="14sp"
+            app:title="Runtime"
+            app:value="@{movie.formattedRuntime}" />
+
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
+            android:id="@+id/originalLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/base_margin"
+            android:orientation="horizontal"
+            app:hideIfValueEmpty="true"
+            app:textColor="?attr/colorOnSecondary"
+            app:textSize="14sp"
+            app:title="Original language"
+            app:value="@{movie.originalLanguage}" />
+
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
+            android:id="@+id/productionCompanies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/base_margin"
+            android:orientation="horizontal"
+            app:hideIfValueEmpty="true"
+            app:textColor="?attr/colorOnSecondary"
+            app:textSize="14sp"
+            app:title="Companies"
+            app:value="@{movie.productCompaniesConcatenatedString}" />
+
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
+            android:id="@+id/budget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/base_margin"
+            android:orientation="horizontal"
+            app:hideIfValueEmpty="true"
+            app:textColor="?attr/colorOnSecondary"
+            app:textSize="14sp"
+            app:title="Budget"
+            app:value="@{movie.formattedBudget}" />
+
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
+            android:id="@+id/revenue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:hideIfValueEmpty="true"
+            app:textColor="?attr/colorOnSecondary"
+            app:textSize="14sp"
+            app:title="Revenue"
+            app:value="@{movie.formattedRevenue}" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

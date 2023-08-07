@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="video"
+            type="com.indisparte.model.entity.Video" />
+
+    </data>
+
+    <com.indisparte.ui.custom_view.PosterView
+        android:id="@+id/video_thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/base_margin"
+        app:pv_chipValue="@{video.type}"
+        app:pv_posterHeight="120dp"
+        app:pv_posterWidth="220dp"
+        app:pv_imageUrl="@{video.completeYoutubeVideoPath}"
+        app:pv_title="@{video.name}" />
+</layout>

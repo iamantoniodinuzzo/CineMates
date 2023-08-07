@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Common attributes-->
+    <attr name="title" format="string" />
+    <attr name="titleColor" format="color" />
+    <attr name="titleSize" format="dimension" />
+
+    <declare-styleable name="EmptyStateRecyclerView">
+        <attr name="emptyStateSubtitle" format="string" />
+        <attr name="emptyStateTitleStyle" format="reference" />
+        <attr name="emptyStateSubtitleStyle" format="reference" />
+        <attr name="emptyStateTitle" format="string" />
+        <attr name="emptyStateButtonTitle" format="string" />
+        <attr name="emptyStateImage" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="PosterView">
+        <attr name="pv_title" format="string" />
+        <attr name="pv_title_size" format="dimension"/>
+        <attr name="pv_title_color" format="color"/>
+        <attr name="pv_title_style" format="reference"/>
+        <attr name="pv_chipValue" format="string" />
+        <attr name="pv_imageUrl" format="string" />
+        <attr name="pv_cornerRadius" format="dimension" />
+        <attr name="pv_posterWidth" format="dimension" />
+        <attr name="pv_posterHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="LinearInfoView">
+        <attr name="title" />
+        <attr name="textTitleStyle" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="bold" value="1" />
+            <enum name="italic" value="2" />
+            <enum name="bold_italic" value="3" />
+        </attr>
+        <attr name="textValueStyle" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="bold" value="1" />
+            <enum name="italic" value="2" />
+            <enum name="bold_italic" value="3" />
+        </attr>
+        <attr name="value" format="string" />
+        <attr name="hideIfValueEmpty" format="boolean" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="HorizontalChipView">
+        <attr name="title" />
+        <attr name="titleColor" />
+        <attr name="titleSize" />
+        <attr name="titleStyle" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="bold" value="1" />
+            <enum name="italic" value="2" />
+            <enum name="bold_italic" value="3" />
+        </attr>
+        <attr name="titleTypeface" format="string" />
+        <attr name="requireSelection" format="boolean" />
+        <attr name="singleCheck" format="boolean" />
+        <attr name="selectedChipId" format="reference" />
+        <attr name="chipStyle" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="MoreLessTextView">
+        <attr name="maxLinesShown" format="integer" />
+        <attr name="readMoreText" format="string" />
+        <attr name="readLessText" format="string" />
+        <attr name="clickableColor" format="color" />
+    </declare-styleable>
+</resources>

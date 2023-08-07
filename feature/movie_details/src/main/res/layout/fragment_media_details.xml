@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="media"
+            type="com.indisparte.model.entity.MovieDetails" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapse_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:textSize="18sp"
+                app:collapsedTitleTextColor="?attr/colorOnPrimary"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginStart="@dimen/base_margin"
+                app:expandedTitleTextColor="@android:color/transparent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:title="@{media.title}"
+                app:titleCollapseMode="fade">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorPrimary">
+
+
+                    <FrameLayout
+                        android:id="@+id/media_backdrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/backdrop_viewPager"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?attr/colorSecondary" />
+
+                        <me.relex.circleindicator.CircleIndicator3
+                            android:id="@+id/circleIndicator"
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/actionBarSize"
+                            android:layout_gravity="top"
+                            app:ci_drawable="@drawable/primary_radius"
+                            app:ci_drawable_unselected="@drawable/secondary_radius" />
+
+                    </FrameLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="@drawable/gradient_top"
+                        app:layout_constraintBottom_toBottomOf="@id/media_backdrop"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.indisparte.ui.custom_view.PosterView
+                        android:id="@+id/media_poster"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/base_margin"
+                        android:layout_marginTop="170dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:pv_imageUrl="@{media.completePosterPathW780}"
+                        app:pv_posterHeight="150dp"
+                        app:pv_posterWidth="100dp" />
+
+                    <TextView
+                        android:id="@+id/media_title"
+                        style="@style/HugeTitleTextViewStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/base_margin"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="@{media.title}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/media_poster"
+                        app:layout_constraintTop_toBottomOf="@id/media_backdrop"
+                        tools:text="Media title" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/media_poster"
+                        app:layout_constraintTop_toBottomOf="@id/media_title">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/certification"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/base_margin"
+                            android:backgroundTint="?attr/colorSecondary"
+                            android:textColor="?attr/colorOnSecondary"
+                            android:textSize="12sp"
+                            android:visibility="gone"
+                            app:layout_constraintTop_toBottomOf="@id/media_title"
+                            tools:text="PG-18"
+                            tools:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/media_release_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/base_margin"
+                            android:layout_marginEnd="@dimen/base_margin"
+                            android:text='@{media.formattedReleaseDate+" - "+media.formattedRuntime }'
+                            android:textColor="?attr/colorOnSecondary"
+                            android:textSize="14sp"
+                            android:visibility='@{media.formattedReleaseDate==null?View.GONE:View.VISIBLE}'
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/certification"
+                            app:layout_constraintTop_toBottomOf="@id/media_title"
+                            tools:text="23 May 2023 - 2 h 20 min" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginBottom="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:navigationIcon="@drawable/ic_back_arrow" />
+
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    style="@style/Tab_Layout_Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    app:layout_collapseMode="pin" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:nestedScrollingEnabled="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/base_margin"
+            android:backgroundTint="?attr/colorAccent"
+            android:src="@drawable/round_add_24" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

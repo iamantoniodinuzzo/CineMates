@@ -3,26 +3,20 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.dagger.hilt.android'
-    id 'kotlin-android'
     id 'kotlin-kapt'
 }
 
-def apikeyPropertiesFile = rootProject.file("local.properties")
-def apikeyProperties = new Properties()
-apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 
 android {
-    compileSdk 33
+    compileSdk libs.versions.targetSdk.get().toInteger()
 
     defaultConfig {
-        applicationId "com.example.cinemates"
-        minSdk 26
-        targetSdk 33
+        applicationId "com.indisparte.cinemates"
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
         versionCode 1
         versionName "1.0"
-        // should correspond to key/value pairs inside the file
-        buildConfigField("String", "TMDB_API_KEY", apikeyProperties['TMDB_API_KEY'])
-        buildConfigField("String", "YT_API_KEY", apikeyProperties['YT_API_KEY'])
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -32,9 +26,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-        kotlinOptions.freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
-    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -49,16 +41,16 @@ android {
             excludes += ['META-INF/DEPENDENCIES', 'META-INF/LICENSE', 'META-INF/LICENSE.txt', 'META-INF/license.txt', 'META-INF/NOTICE', 'META-INF/NOTICE.txt', 'META-INF/notice.txt', 'META-INF/ASL2.0']
         }
     }
-    namespace 'com.example.cinemates'
+    namespace 'com.indisparte.cinemates'
 }
 
 dependencies {
 
-    implementation project(path: ':LinearLayoutInfo')
-    implementation project(path: ':HorizontalChipView')
-    implementation project(path: ':RecyclerViewEmptyStateSupport')
-    implementation project(path: ':MoreLessTextView')
-    implementation project(path: ':PosterView')
+    implementation project(':core:ui')
+    implementation project(':core:navigation')
+    implementation project(':feature:home')
+    implementation project(':feature:movie_details')
+
 
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -84,15 +76,7 @@ dependencies {
 
     // Retrofit
     implementation(libs.bundles.retrofit)
-    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
 
-
-
-    // Lifecycle Kotlin Extensions
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 
     // Glide
     implementation(libs.glide.core)
@@ -101,6 +85,9 @@ dependencies {
     // Youtube
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.22"
+
+    //Timber
+    implementation(libs.timber)
 
 
 }

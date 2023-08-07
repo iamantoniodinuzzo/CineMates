@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/homeFragment"
+        android:id="@id/home_graph"
         android:icon="@drawable/ic_baseline_house_siding_24"
         android:title="Home" />
 
-    <item
+  <!--  <item
         android:id="@+id/discoverFragment"
         android:icon="@drawable/ic_discover"
         android:title="Discover" />
@@ -17,6 +17,6 @@
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_outline_person_outline_24"
-        android:title="Profile" />
+        android:title="Profile" />-->
 
 </menu>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sections' Title-->
+    <string name="section_popular_movie">Popular Movies</string>
+    <string name="section_top_rated_movie">Top rated Movies</string>
+    <string name="section_upcoming_movie">Upcoming Movies</string>
+    <string name="section_trending_movie">Trending Movies</string>
+    <string name="section_popular_tv">Popular Tv Show</string>
+    <string name="section_trending_tv">Trending Tv Show</string>
+    <string name="section_onTheAir_tv">On The Air Tv Show</string>
+    <string name="section_popular_people">Popular people</string>
+    <string name="menu_search_text">Search</string>
+</resources>

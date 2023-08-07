@@ -12,18 +12,11 @@
             name="vote"
             type="Double" />
 
-        <variable
-            name="url"
-            type="com.example.cinemates.data.ConstantsKt" />
-
     </data>
 
-    <com.indisparte.posterview.PosterView
+    <com.indisparte.ui.custom_view.PosterView
         android:layout_width="100dp"
         android:layout_height="150dp"
-        app:imageSrc="@{url.IMAGE_BASE_URL_W780+path}"
-        app:posterRadius="8dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        app:rating="@{vote!=null?String.valueOf(vote):null}" />
+        android:layout_marginBottom="10dp" />
 </layout>

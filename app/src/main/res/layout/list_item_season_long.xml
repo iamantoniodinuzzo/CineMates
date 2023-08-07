@@ -7,7 +7,7 @@
 
         <variable
             name="season"
-            type="com.example.cinemates.domain.model.tv.Season" />
+            type="com.indisparte.cinemates.domain.model.tv.Season" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -70,7 +70,7 @@
                     android:textStyle="bold"
                     tools:text="Season name" />
 
-                <com.indisparte.morelesstextview.MoreLessTextView
+                <com.indisparte.ui.custom_view.MoreLessTextView
                     android:id="@+id/readMoreTextV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

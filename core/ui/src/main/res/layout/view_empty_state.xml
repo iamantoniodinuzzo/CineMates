@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- Variables here -->
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivEmptyStateImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            tools:src="@drawable/baseline_blind_24"
+            app:tint="?attr/colorOnSecondary" />
+
+        <TextView
+            android:id="@+id/tvEmptyStateTitle"
+            style="@style/SmallTitleTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:text="Empty Title"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvEmptyStateSubtitle"
+            style="@style/BodyTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:text="Empty Subtitle"
+            tools:visibility="visible" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEmptyState"
+            style="@style/PrimaryCustomMaterialButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:text="Empty Button"
+            tools:visibility="visible" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

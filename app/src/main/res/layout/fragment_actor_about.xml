@@ -7,7 +7,7 @@
 
         <variable
             name="person"
-            type="com.example.cinemates.domain.model.credits.PersonDetails" />
+            type="com.indisparte.cinemates.domain.model.credits.PersonDetails" />
 
         <import type="android.view.View" />
     </data>
@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:padding="10dp">
 
-            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+            <com.indisparte.ui.custom_view.LinearLayoutInfoView
                 android:id="@+id/biography"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
                 app:title="Biography"
                 app:value="@{person.biography}" />
 
-            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+            <com.indisparte.ui.custom_view.LinearLayoutInfoView
                 android:id="@+id/age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                 app:title="Age"
                 app:value="@{person.age}" />
 
-            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+            <com.indisparte.ui.custom_view.LinearLayoutInfoView
                 android:id="@+id/birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                 app:title="Born on"
                 app:value="@{person.birthday}" />
 
-            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+            <com.indisparte.ui.custom_view.LinearLayoutInfoView
                 android:id="@+id/deathDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                 app:title="Died on"
                 app:value="@{person.deathDay}" />
 
-            <com.indisparte.linearlayoutinfo.LinearLayoutInfoView
+            <com.indisparte.ui.custom_view.LinearLayoutInfoView
                 android:id="@+id/birthPlace"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,25 +81,14 @@
                 app:title="From"
                 app:value="@{person.placeOfBirth}" />
 
-            <com.indisparte.horizontalchipview.HorizontalChipView
-                android:id="@+id/chipGroupKnownAs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/birthPlace"
-                android:clipToPadding="false"
-                app:singleCheck="true"
-                app:chipStyle="@style/CustomChipChoiceStyle"
-                android:visibility="@{person.alsoKnownAs.empty? View.GONE:View.VISIBLE}"
-                app:title="Also known as"
-                app:titleColor="@color/alabaster"
-                app:titleSize="14sp" />
+
 
 
             <TextView
                 android:id="@+id/imageTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_below="@id/chipGroupKnownAs"
+                android:layout_below="@id/birthPlace"
                 android:layout_marginTop="10dp"
                 android:text="Images"
                 android:textColor="@color/white"

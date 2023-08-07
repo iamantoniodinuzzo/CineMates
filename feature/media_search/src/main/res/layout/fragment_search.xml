@@ -21,18 +21,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                app:collapsedTitleTextColor="?attr/colorOnPrimary"
                 app:contentScrim="?attr/colorPrimary"
-                app:expandedTitleMarginStart="@dimen/base_margin"
-                app:expandedTitleTextColor="@android:color/transparent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                app:titleCollapseMode="fade">
+                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_marginBottom="?attr/actionBarSize"
+                    android:layout_height="wrap_content"
                     app:layout_collapseMode="pin"
                     app:navigationIcon="@drawable/ic_back">
 
@@ -42,6 +37,7 @@
                         android:layout_height="?attr/actionBarSize"
                         android:imeOptions="actionSearch"
                         android:inputType="text"
+                        android:minHeight="?attr/actionBarSize"
                         app:iconifiedByDefault="false"
                         app:queryBackground="@null"
                         app:queryHint="Search..."
@@ -49,15 +45,14 @@
                 </androidx.appcompat.widget.Toolbar>
 
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
-                    style="@style/Tab_Layout_Small"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    app:layout_collapseMode="pin" />
-
             </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                style="@style/Tab_Layout_Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

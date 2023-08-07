@@ -3,6 +3,7 @@ package com.indisparte.media_search.fragments
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.ajalt.timberkt.Timber
+import com.indisparte.media_search.R
 import com.indisparte.model.entity.Movie
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
@@ -24,8 +25,14 @@ class SearchMovieFragment :
     private val TAG: String = SearchMovieFragment::class.simpleName!!
 
     override fun initializeViews() {
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+        //init recyclerview
+        binding.recyclerView.apply {
+            adapter = adapter
+            layoutManager = GridLayoutManager(requireContext(), 3)
+            setEmptyStateTitle("Search CineMates")
+            setEmptyStateSubtitle("Find your favorites movies, TV shows and people.")
+            setEmptyStateImage(R.drawable.ic_search)
+        }
         adapter.setOnItemClickListener(object : OnItemClickListener<Movie> {
             override fun onItemClick(item: Movie) {
                 val activity = requireActivity()

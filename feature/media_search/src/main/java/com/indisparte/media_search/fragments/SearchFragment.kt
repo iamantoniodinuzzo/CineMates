@@ -53,6 +53,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 isIconified = false
 
                 setOnCloseListener {
+                    //when user clean input, clean results
                     viewModel.updateQuery("")
                     true
                 }
@@ -84,6 +85,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        openKeyboard()
+
+    }
+
+    private fun openKeyboard() {
+        binding.searchView.requestFocus()
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(binding.searchView, InputMethodManager.SHOW_IMPLICIT)
     }
 
 }

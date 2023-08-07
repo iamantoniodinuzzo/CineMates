@@ -44,8 +44,10 @@ constructor(
         viewModelScope.launch {
             query.collectLatest {
                 if (it.isNotEmpty()){
+                    //search media
                     searchMovies(it)
                 }else{
+                    //clean all results
                     emptyValues()
                 }
             }

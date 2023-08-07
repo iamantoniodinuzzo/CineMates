@@ -19,7 +19,7 @@ sealed class Section(@StringRes val titleResId: Int) {
      * @param titleResId The string resource ID for the section title.
      * @param movies The resource representing the list of movies.
      */
-    class MovieSection(@StringRes titleResId: Int, val movies: Result<List<Movie>>?) :
+    class MovieSection(@StringRes titleResId: Int, val movies: Result<List<Movie>>) :
         Section(titleResId)
 
     /**
@@ -28,7 +28,7 @@ sealed class Section(@StringRes val titleResId: Int) {
      * @param titleResId The string resource ID for the section title.
      * @param tvShows The resource representing the list of TV shows.
      */
-    class TvShowSection(@StringRes titleResId: Int, val tvShows: Result<List<TvShow>>?) :
+    class TvShowSection(@StringRes titleResId: Int, val tvShows: Result<List<TvShow>>) :
         Section(titleResId)
 
     /**
@@ -37,6 +37,6 @@ sealed class Section(@StringRes val titleResId: Int) {
      * @param titleResId The string resource ID for the section title.
      * @param people The resource representing the list of people.
      */
-    class PeopleSection(@StringRes titleResId: Int, val people: Result<List<Person>>?) :
+    class PeopleSection(@StringRes titleResId: Int, val people: Result<List<Person>>) :
         Section(titleResId)
 }

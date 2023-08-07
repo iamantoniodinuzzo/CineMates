@@ -17,15 +17,15 @@ suspend fun <T, O> getListFromResponse(
     request: suspend () -> Response<T>,
     mapper: (T) -> List<O>,
 ): Flow<Result<List<O>>> = flow {
-    emit(Result.Loading()) // Emit loading state
+    emit(Result.Loading) // Emit loading state
 
     try {
         val response = request.invoke()
         if (response.isSuccessful) {
             val responseData = response.body()
             if (responseData != null) {
-                val movies = mapper(responseData)
-                emit(Result.Success(movies)) // Emit success state with the retrieved movies
+                val mappedData = mapper(responseData)
+                emit(Result.Success(mappedData)) // Emit success state with the retrieved movies
             } else {
                 emit(Result.Error(Exception("Empty response"))) // Emit error state for empty response
             }
@@ -49,7 +49,7 @@ suspend fun <T, O> getSingleFromResponse(
     request: suspend () -> Response<T>,
     mapper: (T) -> O,
 ): Flow<Result<O>> = flow {
-    emit(Result.Loading()) // Emit loading state
+    emit(Result.Loading) // Emit loading state
     Timber.tag("ResponseConverter").d("Loading...")
     try {
         val response = request.invoke()
@@ -60,9 +60,9 @@ suspend fun <T, O> getSingleFromResponse(
             if (data != null) {
                 Timber.tag("ResponseConverter").d("Data is not null..")
 
-                val movieDetails = mapper(data)
-                Timber.tag("ResponseConverter").d("Emit movie details: $movieDetails")
-                emit(Result.Success(movieDetails)) // Emit success state with the retrieved movie details
+                val mappedData = mapper(data)
+                Timber.tag("ResponseConverter").d("Emit data: $mappedData")
+                emit(Result.Success(mappedData)) // Emit success state with the retrieved movie details
 
             } else {
                 Timber.tag("ResponseConverter").d("Empty response")

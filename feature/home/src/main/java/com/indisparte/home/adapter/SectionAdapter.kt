@@ -121,12 +121,9 @@ class SectionAdapter(private val fragment: Fragment) :
                     when (movieSection.movies) {
                         is Result.Error -> {
                             progress.hide()
+                            val errorMessage = movieSection.movies.exception.message
                             this.setEmptyStateTitle("Error")
-                            movieSection.movies.error?.localizedMessage?.let {
-                                this.setEmptyStateSubtitle(
-                                    it
-                                )
-                            }
+                            this.setEmptyStateSubtitle(errorMessage)
                         }
 
                         is Result.Loading -> {
@@ -138,7 +135,6 @@ class SectionAdapter(private val fragment: Fragment) :
                             movieAdapter.submitList(movieSection.movies.data)
                         }
 
-                        null -> TODO()
                     }
                 }
             }
@@ -160,12 +156,10 @@ class SectionAdapter(private val fragment: Fragment) :
                     when (tvShowSection.tvShows) {
                         is Result.Error -> {
                             progress.hide()
-                            this.setEmptyStateTitle("Error")
-                            tvShowSection.tvShows.error?.localizedMessage?.let {
-                                this.setEmptyStateSubtitle(
-                                    it
-                                )
-                            }
+                            val errorMessage = tvShowSection.tvShows.exception.message
+                            this.setEmptyStateTitle("Error")//TODO string res
+                            this.setEmptyStateSubtitle(errorMessage)
+
                         }
 
                         is Result.Loading -> {
@@ -177,7 +171,6 @@ class SectionAdapter(private val fragment: Fragment) :
                             tvShowAdapter.submitList(tvShowSection.tvShows.data)
                         }
 
-                        null -> TODO()
                     }
 
                 }
@@ -199,12 +192,12 @@ class SectionAdapter(private val fragment: Fragment) :
                     when (peopleSection.people) {
                         is Result.Error -> {
                             progress.hide()
-                            this.setEmptyStateTitle("Error")
-                            peopleSection.people.error?.message?.let {
-                                this.setEmptyStateSubtitle(
-                                    it
-                                )
-                            }
+                            val errorMessage = peopleSection.people.exception.message
+                            this.setEmptyStateTitle("Error")//TODO add to string res
+                            this.setEmptyStateSubtitle(
+                                errorMessage
+                            )
+
                         }
 
                         is Result.Loading -> {
@@ -216,7 +209,6 @@ class SectionAdapter(private val fragment: Fragment) :
                             peopleAdapter.submitList(peopleSection.people.data)
                         }
 
-                        null -> TODO()
                     }
 
                 }

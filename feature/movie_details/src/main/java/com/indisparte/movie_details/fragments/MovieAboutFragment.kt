@@ -134,10 +134,10 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         viewModel.crew.collectIn(viewLifecycleOwner) { resources ->
             resources?.whenResources(
                 onSuccess = { crewList ->
-                    LOG.d("Crew loaded! ${crewList?.map { it.name }}")
-                    crewAdapter.submitList(crewList?.takeEvenNumberOfItems())
+                    LOG.d("Crew loaded! ${crewList.map { it.name }}")
+                    crewAdapter.submitList(crewList.takeEvenNumberOfItems())
                     binding.crewTitle.apply {
-                        if (crewList.isNullOrEmpty()) gone() else visible()
+                        if (crewList.isEmpty()) gone() else visible()
                     }
                 },
                 onError = { error ->
@@ -157,7 +157,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                     LOG.d("Videos loaded! $videos")
                     videoAdapter.submitList(videos)
                     binding.trailerTitle.apply {
-                        if (videos.isNullOrEmpty()) gone() else visible()
+                        if (videos.isEmpty()) gone() else visible()
                     }
                 },
                 onError = { error ->
@@ -178,9 +178,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                     binding.movie = movieDetails
                     LOG.d("Movie details loaded: $movieDetails")
                     // Setup genre group
-                    movieDetails?.let {
-                        setGenresChipGroup(it.genres)
-                    }
+                    setGenresChipGroup(movieDetails.genres)
                 },
                 onError = { error ->
                     val errorMessage = error?.message

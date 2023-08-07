@@ -15,6 +15,7 @@ import com.indisparte.model.entity.findReleaseDateByCountry
 import com.indisparte.model.entity.getLatestReleaseCertification
 import com.indisparte.movie.repository.MovieRepository
 import com.indisparte.network.Result
+import com.indisparte.network.succeeded
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,9 +46,9 @@ class MovieDetailsViewModel
 
     private val _selectedMovie = MutableSharedFlow<Result<MovieDetails>>()
     val selectedMovie: SharedFlow<Result<MovieDetails>> get() = _selectedMovie.asSharedFlow()
-    private val _videos = MutableStateFlow<Result<List<Video>>?>(Result.Success(null))
+    private val _videos = MutableStateFlow<Result<List<Video>>?>(null)
     val videos: StateFlow<Result<List<Video>>?> get() = _videos
-    private val _cast = MutableStateFlow<Result<List<Cast>>?>(Result.Success(null))
+    private val _cast = MutableStateFlow<Result<List<Cast>>?>(null)
     val cast: StateFlow<Result<List<Cast>>?> get() = _cast
 
     private val _similarMovies = MutableStateFlow<Result<List<Movie>>?>(null)
@@ -76,7 +77,7 @@ class MovieDetailsViewModel
 
     private fun observeSelectedMovie() {
         viewModelScope.launch {
-            selectedMovie.filter { it is Result.Success }.map { it as Result.Success }
+            selectedMovie.filter { it.succeeded }.map { it as Result.Success }
                 .mapNotNull { it.data }.distinctUntilChanged().collect { movieDetails ->
                     LOG.d("Get details about ${movieDetails.title}..")
                     getVideos(movieDetails.id)
@@ -96,10 +97,10 @@ class MovieDetailsViewModel
 
     private fun getMovieDetails(movieId: Int) {
         viewModelScope.launch {
-            _selectedMovie.emit(Result.Loading())
+            _selectedMovie.emit(Result.Loading)
             try {
                 movieRepository.getDetails(movieId).collectLatest { movieDetails ->
-                    LOG.d("Movie details: ${movieDetails.data}")
+                    LOG.d("Movie details: $movieDetails")
                     _selectedMovie.emit(movieDetails)
                 }
             } catch (e: Exception) {
@@ -110,7 +111,7 @@ class MovieDetailsViewModel
 
     private fun getCollectionDetails(collectionId: Int) {
         viewModelScope.launch {
-            _collectionParts.emit(Result.Loading())
+            _collectionParts.emit(Result.Loading)
             try {
                 movieRepository.getCollectionDetails(collectionId)
                     .collectLatest { collectionDetails ->
@@ -124,7 +125,7 @@ class MovieDetailsViewModel
 
     private fun getBackdrops(id: Int) {
         viewModelScope.launch {
-            _backdrops.emit(Result.Loading())
+            _backdrops.emit(Result.Loading)
             try {
                 movieRepository.getBackdrop(id).collectLatest { backdrops ->
                     _backdrops.emit(backdrops)
@@ -137,7 +138,7 @@ class MovieDetailsViewModel
 
     private fun getVideos(movieId: Int) {
         viewModelScope.launch {
-            _videos.emit(Result.Loading())
+            _videos.emit(Result.Loading)
             try {
                 movieRepository.getVideos(movieId).collectLatest { videos ->
                     _videos.emit(videos)
@@ -150,7 +151,7 @@ class MovieDetailsViewModel
 
     private fun getSimilar(movieId: Int) {
         viewModelScope.launch {
-            _similarMovies.emit(Result.Loading())
+            _similarMovies.emit(Result.Loading)
             try {
                 movieRepository.getSimilar(movieId).collectLatest { similar ->
                     _similarMovies.emit(similar)
@@ -163,7 +164,7 @@ class MovieDetailsViewModel
 
     private fun getCast(movieId: Int) {
         viewModelScope.launch {
-            _cast.emit(Result.Loading())
+            _cast.emit(Result.Loading)
             try {
                 movieRepository.getCast(movieId).collectLatest { cast ->
                     _cast.emit(cast)
@@ -177,12 +178,11 @@ class MovieDetailsViewModel
 
     private fun getWatchProviders(movieId: Int) {
         viewModelScope.launch {
-            _watchProviders.emit(Result.Loading())
+            _watchProviders.emit(Result.Loading)
             try {
                 movieRepository.getWatchProviders(movieId, Locale.getDefault().country)
                     .collectLatest { countryResult ->
                         _watchProviders.emit(countryResult)
-
                     }
             } catch (e: Exception) {
                 _watchProviders.emit(Result.Error(e))
@@ -192,7 +192,7 @@ class MovieDetailsViewModel
 
     private fun getCrew(movieId: Int) {
         viewModelScope.launch {
-            _crew.emit(Result.Loading())
+            _crew.emit(Result.Loading)
             try {
                 movieRepository.getCrew(movieId).collectLatest { crew ->
                     _crew.emit(crew)
@@ -205,20 +205,23 @@ class MovieDetailsViewModel
 
     private fun getReleaseDates(movieId: Int) {
         viewModelScope.launch {
-            _releaseDates.emit(Result.Loading())
+            _releaseDates.emit(Result.Loading)
             try {
                 movieRepository.getReleaseDates(movieId).collectLatest {
                     if (it is Result.Error) {
-                        val error = it.error ?: Throwable()
+                        val error = it.exception
                         _releaseDates.emit(Result.Error(error))
-                    } else {
+                    } else if (it.succeeded) {
+                        val successResult = it as Result.Success
                         val currentCountry = Locale.getDefault().country
                         val releaseDatesInCurrentCountry =
-                            it.data?.findReleaseDateByCountry(currentCountry)
-                        //get and set latest certification
+                            successResult.data.findReleaseDateByCountry(currentCountry)
+
+                        //Get and set latest certification
                         val latestCertification =
                             releaseDatesInCurrentCountry?.getLatestReleaseCertification()
                         _latestCertification.value = latestCertification
+                        //Emit latest release dates in the current country
                         LOG.d("Release dates in $currentCountry : $releaseDatesInCurrentCountry")
                         _releaseDates.emit(
                             Result.Success(

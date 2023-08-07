@@ -37,7 +37,7 @@ class MovieSimilarFragment :
         viewModel.similarMovies.collectIn(viewLifecycleOwner) { resources ->
             resources?.whenResources(
                 onSuccess = { similar ->
-                    LOG.d("Content loaded: ${similar?.map { it.mediaName }}")
+                    LOG.d("Content loaded: ${similar.map { it.mediaName }}")
                     hideLoading()
                     adapter.submitList(similar)
                 },

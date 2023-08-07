@@ -24,7 +24,7 @@ class MovieCastFragment : ListFragment<Cast, ListItemCastLongBinding, CastAdapte
         viewModel.cast.collectIn(viewLifecycleOwner) { resources ->
             resources?.whenResources(
                 onSuccess = { cast ->
-                    LOG.d("Cast loaded : ${cast?.map { it.name }}")
+                    LOG.d("Cast loaded : ${cast.map { it.name }}")
                     hideLoading()
                     adapter.submitList(cast)
                 },

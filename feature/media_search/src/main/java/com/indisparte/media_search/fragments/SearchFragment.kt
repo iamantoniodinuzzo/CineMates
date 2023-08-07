@@ -51,15 +51,21 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             //Set query parameter and open keyboard default
             searchView.apply {
                 isIconified = false
+
+                setOnCloseListener {
+                    viewModel.updateQuery("")
+                    true
+                }
+                
                 setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String): Boolean {
-                        //NOTE set this query into viewModel
-                        viewModel.updateQuery(query)
-                        return true
+                        return false
                     }
 
                     override fun onQueryTextChange(query: String): Boolean {
-                        return false
+                        //NOTE set this query into viewModel
+                        viewModel.updateQuery(query)
+                        return true
                     }
                 })
             }

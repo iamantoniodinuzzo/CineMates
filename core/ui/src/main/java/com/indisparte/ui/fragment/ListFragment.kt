@@ -18,8 +18,7 @@ import com.indisparte.ui.databinding.FragmentListingItemsBinding
  */
 abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T, VB>>(
     val adapter: A,
-) :
-    BaseFragment<FragmentListingItemsBinding>() {
+) :BaseFragment<FragmentListingItemsBinding>() {
 
     private lateinit var progress: CircularProgressIndicator
 

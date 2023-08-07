@@ -2,9 +2,10 @@ package com.indisparte.media_search.fragments
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.ajalt.timberkt.Timber
+import com.indisparte.media_search.repository.MovieSearchRepository
 import com.indisparte.model.entity.Movie
 import com.indisparte.network.Result
-import com.indisparte.media_search.repository.MovieSearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,15 +36,26 @@ constructor(
     }
 
     fun updateQuery(query: String) {
+        Timber.tag("SearchViewModel").d("Query is: $query")
         _query.value = query
     }
 
     private fun observeQueryChanges() {
         viewModelScope.launch {
-            query.filter { it.isNotEmpty() }.collectLatest {
-                searchMovies(it)
+            query.collectLatest {
+                if (it.isNotEmpty()){
+                    searchMovies(it)
+                }else{
+                    emptyValues()
+                }
             }
+
         }
+    }
+
+    private fun emptyValues() {
+        Timber.tag("SearchViewModel").d("Empty values")
+        _moviesBySearch.value = Result.Success(emptyList())
     }
 
     private fun searchMovies(query: String) {

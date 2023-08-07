@@ -14,8 +14,7 @@ import com.indisparte.model.entity.Video
 import com.indisparte.model.entity.findReleaseDateByCountry
 import com.indisparte.model.entity.getLatestReleaseCertification
 import com.indisparte.movie.repository.MovieRepository
-import com.indisparte.network.Resource
-import com.indisparte.network.whenResources
+import com.indisparte.network.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -44,29 +43,29 @@ class MovieDetailsViewModel
 
     private val LOG = Timber.tag("MovieDetailsViewModel")
 
-    private val _selectedMovie = MutableSharedFlow<Resource<MovieDetails>>()
-    val selectedMovie: SharedFlow<Resource<MovieDetails>> get() = _selectedMovie.asSharedFlow()
-    private val _videos = MutableStateFlow<Resource<List<Video>>?>(Resource.Success(null))
-    val videos: StateFlow<Resource<List<Video>>?> get() = _videos
-    private val _cast = MutableStateFlow<Resource<List<Cast>>?>(Resource.Success(null))
-    val cast: StateFlow<Resource<List<Cast>>?> get() = _cast
+    private val _selectedMovie = MutableSharedFlow<Result<MovieDetails>>()
+    val selectedMovie: SharedFlow<Result<MovieDetails>> get() = _selectedMovie.asSharedFlow()
+    private val _videos = MutableStateFlow<Result<List<Video>>?>(Result.Success(null))
+    val videos: StateFlow<Result<List<Video>>?> get() = _videos
+    private val _cast = MutableStateFlow<Result<List<Cast>>?>(Result.Success(null))
+    val cast: StateFlow<Result<List<Cast>>?> get() = _cast
 
-    private val _similarMovies = MutableStateFlow<Resource<List<Movie>>?>(null)
-    val similarMovies: StateFlow<Resource<List<Movie>>?> get() = _similarMovies
-    private val _watchProviders = MutableStateFlow<Resource<CountryResult?>>(Resource.Success(null))
-    val watchProviders: StateFlow<Resource<CountryResult?>> get() = _watchProviders
-    private val _crew = MutableStateFlow<Resource<List<Crew>>?>(null)
-    val crew: StateFlow<Resource<List<Crew>>?> get() = _crew
-    private val _releaseDates = MutableStateFlow<Resource<List<ReleaseDate>>?>(null)
-    val releaseDates: StateFlow<Resource<List<ReleaseDate>>?> get() = _releaseDates
+    private val _similarMovies = MutableStateFlow<Result<List<Movie>>?>(null)
+    val similarMovies: StateFlow<Result<List<Movie>>?> get() = _similarMovies
+    private val _watchProviders = MutableStateFlow<Result<CountryResult?>>(Result.Success(null))
+    val watchProviders: StateFlow<Result<CountryResult?>> get() = _watchProviders
+    private val _crew = MutableStateFlow<Result<List<Crew>>?>(null)
+    val crew: StateFlow<Result<List<Crew>>?> get() = _crew
+    private val _releaseDates = MutableStateFlow<Result<List<ReleaseDate>>?>(null)
+    val releaseDates: StateFlow<Result<List<ReleaseDate>>?> get() = _releaseDates
     private val _latestCertification = MutableStateFlow<String?>(null)
     val latestCertification: StateFlow<String?> get() = _latestCertification
 
-    private val _backdrops = MutableStateFlow<Resource<List<Backdrop>>?>(null)
-    val backdrops: StateFlow<Resource<List<Backdrop>>?> get() = _backdrops
+    private val _backdrops = MutableStateFlow<Result<List<Backdrop>>?>(null)
+    val backdrops: StateFlow<Result<List<Backdrop>>?> get() = _backdrops
 
-    private val _collectionParts = MutableStateFlow<Resource<CollectionDetails>?>(null)
-    val collectionParts: StateFlow<Resource<CollectionDetails>?> get() = _collectionParts
+    private val _collectionParts = MutableStateFlow<Result<CollectionDetails>?>(null)
+    val collectionParts: StateFlow<Result<CollectionDetails>?> get() = _collectionParts
 
     init {
         observeSelectedMovie()
@@ -77,7 +76,7 @@ class MovieDetailsViewModel
 
     private fun observeSelectedMovie() {
         viewModelScope.launch {
-            selectedMovie.filter { it is Resource.Success }.map { it as Resource.Success }
+            selectedMovie.filter { it is Result.Success }.map { it as Result.Success }
                 .mapNotNull { it.data }.distinctUntilChanged().collect { movieDetails ->
                     LOG.d("Get details about ${movieDetails.title}..")
                     getVideos(movieDetails.id)
@@ -97,88 +96,88 @@ class MovieDetailsViewModel
 
     private fun getMovieDetails(movieId: Int) {
         viewModelScope.launch {
-            _selectedMovie.emit(Resource.Loading())
+            _selectedMovie.emit(Result.Loading())
             try {
                 movieRepository.getDetails(movieId).collectLatest { movieDetails ->
                     LOG.d("Movie details: ${movieDetails.data}")
                     _selectedMovie.emit(movieDetails)
                 }
             } catch (e: Exception) {
-                _selectedMovie.emit(Resource.Error(e))
+                _selectedMovie.emit(Result.Error(e))
             }
         }
     }
 
     private fun getCollectionDetails(collectionId: Int) {
         viewModelScope.launch {
-            _collectionParts.emit(Resource.Loading())
+            _collectionParts.emit(Result.Loading())
             try {
                 movieRepository.getCollectionDetails(collectionId)
                     .collectLatest { collectionDetails ->
                         _collectionParts.emit(collectionDetails)
                     }
             } catch (e: Exception) {
-                _collectionParts.emit(Resource.Error(e))
+                _collectionParts.emit(Result.Error(e))
             }
         }
     }
 
     private fun getBackdrops(id: Int) {
         viewModelScope.launch {
-            _backdrops.emit(Resource.Loading())
+            _backdrops.emit(Result.Loading())
             try {
                 movieRepository.getBackdrop(id).collectLatest { backdrops ->
                     _backdrops.emit(backdrops)
                 }
             } catch (e: Exception) {
-                _backdrops.emit(Resource.Error(e))
+                _backdrops.emit(Result.Error(e))
             }
         }
     }
 
     private fun getVideos(movieId: Int) {
         viewModelScope.launch {
-            _videos.emit(Resource.Loading())
+            _videos.emit(Result.Loading())
             try {
                 movieRepository.getVideos(movieId).collectLatest { videos ->
                     _videos.emit(videos)
                 }
             } catch (e: Exception) {
-                _videos.emit(Resource.Error(e))
+                _videos.emit(Result.Error(e))
             }
         }
     }
 
     private fun getSimilar(movieId: Int) {
         viewModelScope.launch {
-            _similarMovies.emit(Resource.Loading())
+            _similarMovies.emit(Result.Loading())
             try {
                 movieRepository.getSimilar(movieId).collectLatest { similar ->
                     _similarMovies.emit(similar)
                 }
             } catch (e: Exception) {
-                _similarMovies.emit(Resource.Error(e))
+                _similarMovies.emit(Result.Error(e))
             }
         }
     }
 
     private fun getCast(movieId: Int) {
         viewModelScope.launch {
-            _cast.emit(Resource.Loading())
+            _cast.emit(Result.Loading())
             try {
                 movieRepository.getCast(movieId).collectLatest { cast ->
                     _cast.emit(cast)
 
                 }
             } catch (e: Exception) {
-                _cast.emit(Resource.Error(e))
+                _cast.emit(Result.Error(e))
             }
         }
     }
 
     private fun getWatchProviders(movieId: Int) {
         viewModelScope.launch {
-            _watchProviders.emit(Resource.Loading())
+            _watchProviders.emit(Result.Loading())
             try {
                 movieRepository.getWatchProviders(movieId, Locale.getDefault().country)
                     .collectLatest { countryResult ->
@@ -186,32 +185,32 @@ class MovieDetailsViewModel
 
                     }
             } catch (e: Exception) {
-                _watchProviders.emit(Resource.Error(e))
+                _watchProviders.emit(Result.Error(e))
             }
         }
     }
 
     private fun getCrew(movieId: Int) {
         viewModelScope.launch {
-            _crew.emit(Resource.Loading())
+            _crew.emit(Result.Loading())
             try {
                 movieRepository.getCrew(movieId).collectLatest { crew ->
                     _crew.emit(crew)
                 }
             } catch (e: Exception) {
-                _crew.emit(Resource.Error(e))
+                _crew.emit(Result.Error(e))
             }
         }
     }
 
     private fun getReleaseDates(movieId: Int) {
         viewModelScope.launch {
-            _releaseDates.emit(Resource.Loading())
+            _releaseDates.emit(Result.Loading())
             try {
                 movieRepository.getReleaseDates(movieId).collectLatest {
-                    if (it is Resource.Error) {
+                    if (it is Result.Error) {
                         val error = it.error ?: Throwable()
-                        _releaseDates.emit(Resource.Error(error))
+                        _releaseDates.emit(Result.Error(error))
                     } else {
                         val currentCountry = Locale.getDefault().country
                         val releaseDatesInCurrentCountry =
@@ -222,7 +221,7 @@ class MovieDetailsViewModel
                         _latestCertification.value = latestCertification
                         LOG.d("Release dates in $currentCountry : $releaseDatesInCurrentCountry")
                         _releaseDates.emit(
-                            Resource.Success(
+                            Result.Success(
                                 releaseDatesInCurrentCountry ?: emptyList()
                             )
                         )
@@ -230,7 +229,7 @@ class MovieDetailsViewModel
 
                 }
             } catch (e: Exception) {
-                _releaseDates.emit(Resource.Error(e))
+                _releaseDates.emit(Result.Error(e))
             }
         }
     }

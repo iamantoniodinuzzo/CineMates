@@ -16,8 +16,8 @@ import java.lang.reflect.Type
 suspend fun <T, O> getListFromResponse(
     request: suspend () -> Response<T>,
     mapper: (T) -> List<O>,
-): Flow<Resource<List<O>>> = flow {
-    emit(Resource.Loading()) // Emit loading state
+): Flow<Result<List<O>>> = flow {
+    emit(Result.Loading()) // Emit loading state
 
     try {
         val response = request.invoke()
@@ -25,15 +25,15 @@ suspend fun <T, O> getListFromResponse(
             val responseData = response.body()
             if (responseData != null) {
                 val movies = mapper(responseData)
-                emit(Resource.Success(movies)) // Emit success state with the retrieved movies
+                emit(Result.Success(movies)) // Emit success state with the retrieved movies
             } else {
-                emit(Resource.Error(Exception("Empty response"))) // Emit error state for empty response
+                emit(Result.Error(Exception("Empty response"))) // Emit error state for empty response
             }
         } else {
             val errorResponse: ErrorResponse? = convertErrorBody(response.errorBody())
 
             emit(
-                Resource.Error(
+                Result.Error(
                     Exception(
                         errorResponse?.message ?: "Unknown Error"
                     )
@@ -41,15 +41,15 @@ suspend fun <T, O> getListFromResponse(
             ) // Emit error state with the error message//
         }
     } catch (e: Exception) {
-        emit(Resource.Error(e)) // Emit error state with the exception
+        emit(Result.Error(e)) // Emit error state with the exception
     }
 }
 
 suspend fun <T, O> getSingleFromResponse(
     request: suspend () -> Response<T>,
     mapper: (T) -> O,
-): Flow<Resource<O>> = flow {
-    emit(Resource.Loading()) // Emit loading state
+): Flow<Result<O>> = flow {
+    emit(Result.Loading()) // Emit loading state
     Timber.tag("ResponseConverter").d("Loading...")
     try {
         val response = request.invoke()
@@ -62,11 +62,11 @@ suspend fun <T, O> getSingleFromResponse(
 
                 val movieDetails = mapper(data)
                 Timber.tag("ResponseConverter").d("Emit movie details: $movieDetails")
-                emit(Resource.Success(movieDetails)) // Emit success state with the retrieved movie details
+                emit(Result.Success(movieDetails)) // Emit success state with the retrieved movie details
 
             } else {
                 Timber.tag("ResponseConverter").d("Empty response")
-                emit(Resource.Error(Exception("Empty response"))) // Emit error state for empty response
+                emit(Result.Error(Exception("Empty response"))) // Emit error state for empty response
             }
         } else {
             val errorResponse: ErrorResponse? = convertErrorBody(response.errorBody())
@@ -74,7 +74,7 @@ suspend fun <T, O> getSingleFromResponse(
             Timber.tag("ResponseConverter").e("Error: ${errorResponse?.message} ")
 
             emit(
-                Resource.Error(
+                Result.Error(
                     Exception(
                         errorResponse?.message ?: "Unknown Error"
                     )
@@ -82,7 +82,7 @@ suspend fun <T, O> getSingleFromResponse(
             ) // Emit error state with the error message
         }
     } catch (e: Exception) {
-        emit(Resource.Error(e)) // Emit error state with the exception
+        emit(Result.Error(e)) // Emit error state with the exception
     }
 }
 

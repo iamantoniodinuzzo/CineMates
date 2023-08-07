@@ -6,7 +6,7 @@ import com.indisparte.actor.source.PeopleDataSource
 import com.indisparte.model.TimeWindow
 import com.indisparte.model.entity.Person
 import com.indisparte.model.entity.PersonDetails
-import com.indisparte.network.Resource
+import com.indisparte.network.Result
 import com.indisparte.network.getListFromResponse
 import com.indisparte.network.getSingleFromResponse
 import kotlinx.coroutines.flow.Flow
@@ -22,20 +22,20 @@ constructor(
     private val peopleDataSource: PeopleDataSource,
     private val queryMap: Map<String, String>,
 ) : PeopleRepository {
-    override suspend fun getPersonDetails(personId: Int): Flow<Resource<PersonDetails>> =
+    override suspend fun getPersonDetails(personId: Int): Flow<Result<PersonDetails>> =
         getSingleFromResponse(
             request = { peopleDataSource.getPersonDetails(personId, queryMap) },
             mapper = { response -> response.mapToPersonDetails() }
         )
 
     //todo need to cache this people
-    override suspend fun getPopularPersons(): Flow<Resource<List<Person>>> =
+    override suspend fun getPopularPersons(): Flow<Result<List<Person>>> =
         getListFromResponse(
             request = { peopleDataSource.getPopularPersons(queryMap) },
             mapper = { response -> response.results.map { it.mapToPerson() } }
         )
 
-    override suspend fun getTrendingPersons(timeWindow: TimeWindow): Flow<Resource<List<Person>>> =
+    override suspend fun getTrendingPersons(timeWindow: TimeWindow): Flow<Result<List<Person>>> =
         getListFromResponse(
             request = { peopleDataSource.getTrendingPerson(timeWindow.value, queryMap) },
             mapper = { response -> response.results.map { it.mapToPerson() } }

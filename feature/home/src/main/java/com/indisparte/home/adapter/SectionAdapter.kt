@@ -12,7 +12,7 @@ import com.indisparte.home.util.Section
 import com.indisparte.model.entity.Movie
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
-import com.indisparte.network.Resource
+import com.indisparte.network.Result
 import com.indisparte.ui.adapter.MovieAdapter
 import com.indisparte.ui.adapter.OnItemClickListener
 import com.indisparte.ui.adapter.PeopleAdapter
@@ -119,7 +119,7 @@ class SectionAdapter(private val fragment: Fragment) :
                     })
                     adapter = movieAdapter
                     when (movieSection.movies) {
-                        is Resource.Error -> {
+                        is Result.Error -> {
                             progress.hide()
                             this.setEmptyStateTitle("Error")
                             movieSection.movies.error?.localizedMessage?.let {
@@ -129,11 +129,11 @@ class SectionAdapter(private val fragment: Fragment) :
                             }
                         }
 
-                        is Resource.Loading -> {
+                        is Result.Loading -> {
                             progress.show()
                         }
 
-                        is Resource.Success -> {
+                        is Result.Success -> {
                             progress.hide()
                             movieAdapter.submitList(movieSection.movies.data)
                         }
@@ -158,7 +158,7 @@ class SectionAdapter(private val fragment: Fragment) :
                     val tvShowAdapter = TvShowAdapter()
                     adapter = tvShowAdapter
                     when (tvShowSection.tvShows) {
-                        is Resource.Error -> {
+                        is Result.Error -> {
                             progress.hide()
                             this.setEmptyStateTitle("Error")
                             tvShowSection.tvShows.error?.localizedMessage?.let {
@@ -168,11 +168,11 @@ class SectionAdapter(private val fragment: Fragment) :
                             }
                         }
 
-                        is Resource.Loading -> {
+                        is Result.Loading -> {
                             progress.show()
                         }
 
-                        is Resource.Success -> {
+                        is Result.Success -> {
                             progress.hide()
                             tvShowAdapter.submitList(tvShowSection.tvShows.data)
                         }
@@ -197,7 +197,7 @@ class SectionAdapter(private val fragment: Fragment) :
                     val peopleAdapter = PeopleAdapter()
                     adapter = peopleAdapter
                     when (peopleSection.people) {
-                        is Resource.Error -> {
+                        is Result.Error -> {
                             progress.hide()
                             this.setEmptyStateTitle("Error")
                             peopleSection.people.error?.message?.let {
@@ -207,11 +207,11 @@ class SectionAdapter(private val fragment: Fragment) :
                             }
                         }
 
-                        is Resource.Loading -> {
+                        is Result.Loading -> {
                             progress.show()
                         }
 
-                        is Resource.Success -> {
+                        is Result.Success -> {
                             progress.hide()
                             peopleAdapter.submitList(peopleSection.people.data)
                         }

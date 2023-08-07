@@ -12,31 +12,31 @@ import com.indisparte.model.entity.MovieDetails
 import com.indisparte.model.entity.ReleaseDatesByCountry
 import com.indisparte.model.entity.Video
 import com.indisparte.movie.util.MovieListType
-import com.indisparte.network.Resource
+import com.indisparte.network.Result
 import kotlinx.coroutines.flow.Flow
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
 interface MovieRepository {
-    suspend fun getByListType(movieListType: MovieListType): Flow<Resource<List<Movie>>>
-    suspend fun getTrending(timeWindow: TimeWindow): Flow<Resource<List<Movie>>>
-    suspend fun getBySearch(query: String): Flow<Resource<List<Movie>>>
-    suspend fun getDiscoverable(mediaFilter: MediaFilter): Flow<Resource<List<Movie>>>
-    suspend fun getDetails(movieId: Int): Flow<Resource<MovieDetails>>
-    suspend fun getSimilar(movieId: Int): Flow<Resource<List<Movie>>>
-    suspend fun getCast(movieId: Int): Flow<Resource<List<Cast>>>
-    suspend fun getCrew(movieId: Int): Flow<Resource<List<Crew>>>
+    suspend fun getByListType(movieListType: MovieListType): Flow<Result<List<Movie>>>
+    suspend fun getTrending(timeWindow: TimeWindow): Flow<Result<List<Movie>>>
+    suspend fun getBySearch(query: String): Flow<Result<List<Movie>>>
+    suspend fun getDiscoverable(mediaFilter: MediaFilter): Flow<Result<List<Movie>>>
+    suspend fun getDetails(movieId: Int): Flow<Result<MovieDetails>>
+    suspend fun getSimilar(movieId: Int): Flow<Result<List<Movie>>>
+    suspend fun getCast(movieId: Int): Flow<Result<List<Cast>>>
+    suspend fun getCrew(movieId: Int): Flow<Result<List<Crew>>>
     suspend fun getWatchProviders(
         movieId: Int,
         country: String,
-    ): Flow<Resource<CountryResult?>>
+    ): Flow<Result<CountryResult?>>
 
-    suspend fun getVideos(movieId: Int): Flow<Resource<List<Video>>>
+    suspend fun getVideos(movieId: Int): Flow<Result<List<Video>>>
 
-    suspend fun getReleaseDates(movieId: Int): Flow<Resource<List<ReleaseDatesByCountry>>>
+    suspend fun getReleaseDates(movieId: Int): Flow<Result<List<ReleaseDatesByCountry>>>
 
-    suspend fun getBackdrop(movieId: Int):Flow<Resource<List<Backdrop>>>
-    suspend fun getCollectionDetails(collectionId: Int): Flow<Resource<CollectionDetails>>
+    suspend fun getBackdrop(movieId: Int):Flow<Result<List<Backdrop>>>
+    suspend fun getCollectionDetails(collectionId: Int): Flow<Result<CollectionDetails>>
 
 }

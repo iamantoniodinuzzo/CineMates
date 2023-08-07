@@ -1,13 +1,11 @@
 package com.indisparte.movie_details.fragments
 
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.indisparte.model.entity.Cast
 import com.indisparte.movie_details.adapter.CastAdapter
 import com.indisparte.movie_details.databinding.ListItemCastLongBinding
 import com.indisparte.movie_details.fragments.base.ListFragment
-import com.indisparte.network.Resource
 import com.indisparte.network.whenResources
 import com.indisparte.util.extension.collectIn
 import timber.log.Timber

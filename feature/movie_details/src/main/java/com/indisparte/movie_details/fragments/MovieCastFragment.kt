@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.indisparte.model.entity.Cast
 import com.indisparte.movie_details.adapter.CastAdapter
 import com.indisparte.movie_details.databinding.ListItemCastLongBinding
-import com.indisparte.movie_details.fragments.base.ListFragment
+import com.indisparte.ui.fragment.ListFragment
 import com.indisparte.network.whenResources
 import com.indisparte.util.extension.collectIn
 import timber.log.Timber

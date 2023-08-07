@@ -11,7 +11,13 @@ class Navigator {
 
     // navigate on main thread or nav component crashes sometimes
     fun navigateToFlow(navigationFlow: NavigationFlow) = when (navigationFlow) {
-        NavigationFlow.HomeFlow -> navController.navigate(NavGraphDirections.actionGlobalHomeFlow())
-        is NavigationFlow.MovieDetailsFlow -> navController.navigate(NavGraphDirections.actionGlobalMovieDetails(navigationFlow.msg?.toInt()?:0))
+        is NavigationFlow.HomeFlow -> navController.navigate(NavGraphDirections.actionGlobalHomeFlow())
+        is NavigationFlow.MovieDetailsFlow -> navController.navigate(
+            NavGraphDirections.actionGlobalMovieDetails(
+                navigationFlow.msg?.toInt() ?: 0
+            )
+        )
+
+        is NavigationFlow.SearchFlow -> navController.navigate(NavGraphDirections.actionGlobalSearchFlow())
     }
 }

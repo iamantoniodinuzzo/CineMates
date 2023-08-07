@@ -50,7 +50,7 @@ class CollectionPartsFragment : BaseFragment<FragmentCollectionPartsBinding>() {
                     LOG.d("Collection details loaded! $collectionDetails")
                     binding.progress.hide()
                     binding.collection = collectionDetails
-                    adapter.submitList(collectionDetails?.parts)
+                    adapter.submitList(collectionDetails.parts)
 
                 },
                 onError = { error ->

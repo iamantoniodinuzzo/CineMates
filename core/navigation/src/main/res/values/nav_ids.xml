@@ -3,4 +3,5 @@
     <item name="home_graph" type="id" />
     <item name="movie_details_graph" type="id" />
     <item name="search_graph" type="id" />
+    <item name="discover_graph" type="id" />
 </resources>

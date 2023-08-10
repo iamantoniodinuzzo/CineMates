@@ -19,5 +19,6 @@ class Navigator {
         )
 
         is NavigationFlow.SearchFlow -> navController.navigate(NavGraphDirections.actionGlobalSearchFlow())
+        is NavigationFlow.DiscoverFlow -> navController.navigate(NavGraphDirections.actionGlobalDiscoverFlow())
     }
 }

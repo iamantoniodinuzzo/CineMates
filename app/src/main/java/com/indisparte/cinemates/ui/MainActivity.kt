@@ -43,7 +43,8 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeFragment,
-                R.id.searchFragment
+                R.id.searchFragment,
+                R.id.discoverFragment
             )
         )
 

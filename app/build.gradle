@@ -51,6 +51,7 @@ dependencies {
     implementation project(':feature:home')
     implementation project(':feature:movie_details')
     implementation project(':feature:media_search')
+    implementation project(':feature:media_discover')
 
 
     implementation(libs.appcompat)

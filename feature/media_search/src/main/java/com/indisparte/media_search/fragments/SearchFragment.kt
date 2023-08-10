@@ -6,9 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -39,12 +42,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         )
 
         binding.apply {
+
             toolbar.setNavigationOnClickListener { view ->
                 //close keyboard when back button pressed
                 (requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
                     view.windowToken,
                     0
                 )
+
                 findNavController().navigateUp()
             }
 
@@ -85,14 +90,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        openKeyboard()
-
+        binding.searchView.focusAndShowKeyboard()
     }
 
-    private fun openKeyboard() {
-        binding.searchView.requestFocus()
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(binding.searchView, InputMethodManager.SHOW_IMPLICIT)
-    }
+
+
 
 }

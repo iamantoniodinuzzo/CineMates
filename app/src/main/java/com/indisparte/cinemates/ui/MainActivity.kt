@@ -1,6 +1,7 @@
 package com.indisparte.cinemates.ui
 
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -39,17 +40,35 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
         navigator.navController = navController
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-         val appBarConfiguration = AppBarConfiguration(
-             setOf(
-                 R.id.homeFragment,
-                 R.id.searchFragment
-             )
-         )
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.homeFragment,
+                R.id.searchFragment
+            )
+        )
 
         lifecycleScope.launchWhenResumed {
             navController.addOnDestinationChangedListener { _: NavController, destination: NavDestination, _: Bundle? ->
-                isVisible =
+                val isATopDestination =
                     appBarConfiguration.topLevelDestinations.contains(destination.id)
+                isVisible = if (isATopDestination) {
+                    if (!isVisible)
+                        startAnimation(
+                            AnimationUtils.loadAnimation(
+                                this@MainActivity,
+                                R.anim.slide_up
+                            )
+                        )
+                    true
+                } else {
+                    startAnimation(
+                        AnimationUtils.loadAnimation(
+                            this@MainActivity,
+                            R.anim.slide_down
+                        )
+                    )
+                    false
+                }
             }
         }
 

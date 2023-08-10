@@ -5,8 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.indisparte.media_discover.databinding.FragmentDiscoverBinding
+import com.indisparte.navigation.NavigationFlow
+import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.ui.fragment.BaseFragment
 
 /**
@@ -22,7 +23,18 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //todo
+        binding.apply {
+            searchButton.setOnClickListener {
+                val activity = requireActivity()
+                if (activity is ToFlowNavigable) {
+                    activity.navigateToFlow(NavigationFlow.SearchFlow)
+                }
+            }
+
+            filtersButton.setOnClickListener {
+                //todo navigate to filterable view
+            }
+        }
     }
 
 }

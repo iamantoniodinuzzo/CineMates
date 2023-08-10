@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <!-- Variables here -->
@@ -7,7 +8,60 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/base_margin">
 
+        <TextView
+            android:id="@+id/discover_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:text="Discover"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="32dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/search_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_margin"
+            android:backgroundTint="?attr/colorSecondary"
+            android:gravity="start"
+            android:padding="@dimen/base_margin"
+            android:text="Search movies by title"
+            android:textAllCaps="false"
+            android:textColor="?attr/colorOnSecondary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/base_corner_radius"
+            app:icon="@drawable/ic_search"
+            app:iconPadding="@dimen/base_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/discover_title" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/filters_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_margin"
+            android:backgroundTint="?attr/colorSecondary"
+            android:gravity="start"
+            android:padding="@dimen/base_margin"
+            android:text="Custom Filters"
+            android:textAllCaps="false"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/base_corner_radius"
+            app:icon="@drawable/ic_filters"
+            app:iconPadding="@dimen/base_margin"
+            app:iconTint="?attr/colorOnSecondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

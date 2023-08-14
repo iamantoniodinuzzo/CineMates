@@ -9,5 +9,14 @@
         android:id="@+id/discoverFragment"
         tools:layout="@layout/fragment_discover"
         android:name="com.indisparte.media_discover.DiscoverFragment"
-        android:label="DiscoverFragment" />
+        android:label="DiscoverFragment" >
+        <action
+            android:id="@+id/action_discoverFragment_to_customFilterFragment"
+            app:destination="@id/customFilterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customFilterFragment"
+        tools:layout="@layout/fragment_custom_filter"
+        android:name="com.indisparte.media_discover.custom_filters.CustomFilterFragment"
+        android:label="CustomFilterFragment" />
 </navigation>

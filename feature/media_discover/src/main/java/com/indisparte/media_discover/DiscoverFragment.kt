@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.indisparte.media_discover.databinding.FragmentDiscoverBinding
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
@@ -18,7 +19,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
         get() = FragmentDiscoverBinding::inflate
 
     override fun initializeViews() {
-        //todo
+        //init views here
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,7 +33,7 @@ class DiscoverFragment : BaseFragment<FragmentDiscoverBinding>() {
             }
 
             filtersButton.setOnClickListener {
-                //todo navigate to filterable view
+                findNavController().navigate(R.id.action_discoverFragment_to_customFilterFragment)
             }
         }
     }

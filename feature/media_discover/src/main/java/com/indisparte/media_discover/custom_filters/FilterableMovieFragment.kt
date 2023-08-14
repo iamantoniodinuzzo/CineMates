@@ -1,9 +1,9 @@
-package com.indisparte.media_search.fragments
+package com.indisparte.media_discover.custom_filters
 
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.ajalt.timberkt.Timber
-import com.indisparte.media_search.R
+import com.indisparte.media_discover.R
 import com.indisparte.model.entity.Movie
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
@@ -18,19 +18,19 @@ import com.indisparte.util.extension.collectIn
 /**
  * @author Antonio Di Nuzzo
  */
-class SearchMovieFragment :
+class FilterableMovieFragment :
     ListFragment<Movie, ListItemMediaSmallBinding, MovieAdapter>(MovieAdapter()) {
 
-    private val viewModel: SearchViewModel by viewModels({requireParentFragment()})
-    private val TAG: String = SearchMovieFragment::class.simpleName!!
+    private val TAG: String = FilterableMovieFragment::class.simpleName!!
+    private val viewModel: FilterableFragmentViewModel by viewModels({ requireParentFragment() })
 
     override fun initializeViews() {
         //init recyclerview
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(requireContext(), 3)
-            setEmptyStateTitle("Search CineMates")
-            setEmptyStateSubtitle("Find your favorites movies, TV shows and people.")
-            setEmptyStateImage(R.drawable.ic_search)
+            setEmptyStateTitle("No results")
+            setEmptyStateSubtitle("It seems that these filters are not matched by any film")
+            setEmptyStateImage(R.drawable.ic_filters)
         }
         adapter.setOnItemClickListener(object : OnItemClickListener<Movie> {
             override fun onItemClick(item: Movie) {
@@ -44,10 +44,10 @@ class SearchMovieFragment :
     }
 
     override fun addItemsToTheAdapter() {
-        viewModel.moviesBySearch.collectIn(viewLifecycleOwner) { result ->
+        viewModel.filteredFilms.collectIn(viewLifecycleOwner) { result ->
             result.whenResources(
                 onSuccess = { movies ->
-                    Timber.tag(TAG).d("Search result: $movies")
+                    Timber.tag(TAG).d("Filtering result: $movies")
                     binding.progressIndicator.hide()
                     adapter.submitList(movies)
                 },
@@ -58,11 +58,13 @@ class SearchMovieFragment :
                     binding.recyclerView.setEmptyStateSubtitle(errorMessage)
                 },
                 onLoading = {
-                    Timber.tag(TAG).d("Loading search results")
+                    Timber.tag(TAG).d("Loading the filter result")
                     binding.progressIndicator.show()
                 }
             )
+
         }
+
     }
 
 }

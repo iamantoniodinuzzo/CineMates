@@ -18,5 +18,14 @@
         android:id="@+id/customFilterFragment"
         tools:layout="@layout/fragment_custom_filter"
         android:name="com.indisparte.media_discover.custom_filters.CustomFilterFragment"
-        android:label="CustomFilterFragment" />
+        android:label="CustomFilterFragment" >
+        <action
+            android:id="@+id/action_customFilterFragment_to_bottomSheetFilter"
+            app:destination="@id/bottomSheetFilter" />
+    </fragment>
+    <dialog
+        android:id="@+id/bottomSheetFilter"
+        tools:layout="@layout/bottom_sheet_filter"
+        android:name="com.indisparte.media_discover.bottom_sheet.BottomSheetFilter"
+        android:label="Filter" />
 </navigation>

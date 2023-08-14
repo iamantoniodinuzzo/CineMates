@@ -61,8 +61,7 @@ class CustomFilterFragment : BaseFragment<FragmentCustomFilterBinding>() {
             toolbar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.filters -> {
-                        //todo open filters
-                        Timber.tag(TAG).d("Open filters bottom sheet")
+                        findNavController().navigate(R.id.action_customFilterFragment_to_bottomSheetFilter)
                         true
                     }
 

@@ -41,10 +41,11 @@
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/cg_sort_types"
+            android:clipToPadding="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:selectionRequired="true"
-            app:singleSelection="true"/>
+            app:singleSelection="true" />
 
     </HorizontalScrollView>
 
@@ -68,14 +69,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sortDivider" />
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/cgGenres"
+    <HorizontalScrollView
+        android:id="@+id/layoutGenres"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:chipSpacingVertical="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lblGenres" />
+        app:layout_constraintTop_toBottomOf="@id/lblGenres">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cgGenres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:singleLine="true"
+            android:clipToPadding="false"
+            app:chipSpacingVertical="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lblGenres" />
+    </HorizontalScrollView>
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/dividerFilter"
@@ -85,7 +97,7 @@
         android:background="?attr/colorOnSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cgGenres" />
+        app:layout_constraintTop_toBottomOf="@id/layoutGenres" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnApply"

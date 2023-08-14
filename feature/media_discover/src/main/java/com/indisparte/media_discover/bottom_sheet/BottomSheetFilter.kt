@@ -42,6 +42,7 @@ class BottomSheetFilter : BottomSheetDialogFragment() {
 
     private fun initChipGroupGenres() {
         val chipGroup = binding.cgGenres
+        chipGroup.removeAllViews()
         filterViewModel.movieGenres.collectIn(viewLifecycleOwner) { result ->
             result.whenResources(
                 onSuccess = { genres ->

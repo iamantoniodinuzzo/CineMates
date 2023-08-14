@@ -6,14 +6,14 @@
 
     <include app:graph="@navigation/home_graph" />
     <include app:graph="@navigation/movie_details_graph" />
-    <include app:graph="@navigation/search_graph" />
+    <include app:graph="@navigation/search_graph"  />
     <include app:graph="@navigation/discover_graph" />
 
 
     <action
         android:id="@+id/action_global_home_flow"
-        app:destination="@id/home_graph"
-        app:popUpTo="@id/nav_graph" />
+        app:popUpTo="@id/nav_graph"
+        app:destination="@id/home_graph" />
 
     <action
         android:id="@+id/action_global_search_flow"
@@ -23,12 +23,14 @@
     <action
         android:id="@+id/action_global_discover_flow"
         app:destination="@id/discover_graph"
+        app:popUpToInclusive="true"
         app:enterAnim="@anim/slide_in_from_right"
         app:exitAnim="@anim/slide_out_to_right" />
 
     <action
         android:id="@+id/action_global_movie_details"
         app:destination="@id/movie_details_graph"
+        app:popUpToInclusive="true"
         app:enterAnim="@anim/slide_in_from_right"
         app:exitAnim="@anim/slide_out_to_right">
 

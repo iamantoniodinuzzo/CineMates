@@ -35,9 +35,9 @@ class CustomFilterFragment : BaseFragment<FragmentCustomFilterBinding>() {
         filterableFragments = linkedMapOf(
             FilterableMovieFragment() to com.indisparte.ui.R.string.fragment_movie_title
         )
-
         //init view pager
         binding.apply {
+
             viewPager.adapter = viewPagerAdapter
             filterableFragments.forEach { (fragment, titleRes) ->
                 val title = requireContext().getString(titleRes)

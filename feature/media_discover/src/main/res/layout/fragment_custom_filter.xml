@@ -14,20 +14,18 @@
             android:id="@+id/collapse_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            app:title="Testo"
-            app:titleEnabled="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            app:titleEnabled="false">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="pin"
-                app:title="Discover"
                 app:menu="@menu/discover_menu"
-                app:navigationIcon="@drawable/ic_back" />
+                app:navigationIcon="@drawable/ic_back"
+                app:title="Discover"
+                app:titleTextColor="?attr/colorOnPrimary" />
 
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -35,10 +33,11 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             style="@style/Tab_Layout_Small"
-            app:tabGravity="start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_collapseMode="pin" />
+            app:layout_collapseMode="pin"
+            app:tabMode="scrollable"
+            app:tabGravity="start" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

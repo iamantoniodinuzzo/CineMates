@@ -29,7 +29,7 @@ constructor(
 
     //    private val _filteredFilms = MutableStateFlow<Result<List<Movie>>>(Result.Success(emptyList()))
     @OptIn(ExperimentalCoroutinesApi::class)
-    val filteredFilms = mediaDiscoverFilter.flatMapLatest {
+    val filteredFilms = _mediaDiscoverFilter.flatMapLatest {
         LOG.d("Apply $it")
         discoverRepository.discoverMoviesByFilter(it)
     }

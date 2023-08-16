@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 private const val KEY_FILTER_DATA = "filter_data"
@@ -26,6 +27,8 @@ constructor(
     savedStateHandle: SavedStateHandle,
     private val genreRepository: GenreRepository,
 ) : ViewModel() {
+
+    private val LOG = Timber.tag(FilterViewModel::class.java.simpleName)
     private val _movieGenres = MutableStateFlow<Result<List<Genre>>>(Result.Success(emptyList()))
     val movieGenres: StateFlow<Result<List<Genre>>> get() = _movieGenres
 
@@ -46,9 +49,11 @@ constructor(
             }
     }
 
+
     init {
         savedStateHandle.get<MediaDiscoverFilter>(KEY_FILTER_DATA)?.let { filterData ->
             _uiState.update {
+                LOG.d("Init block, update filter by savedStateHandle")
                 it.copy(sortType = filterData.sortBy, genresId = filterData.withGenresIds)
             }
         }
@@ -101,6 +106,7 @@ constructor(
 
     fun applyFilters() {
         _uiState.update {
+            LOG.d("Update filter")
             it.copy(applyAllFilters = true)
         }
     }

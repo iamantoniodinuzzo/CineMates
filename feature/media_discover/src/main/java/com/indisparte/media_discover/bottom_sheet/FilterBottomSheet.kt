@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.navGraphViewModels
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.indisparte.discover.util.MediaDiscoverFilter
 import com.indisparte.discover.util.SortOptions
+import com.indisparte.media_discover.R
 import com.indisparte.media_discover.custom_filters.FilterableFragmentViewModel
 import com.indisparte.media_discover.databinding.BottomSheetFilterBinding
 import com.indisparte.media_discover.databinding.CustomFilterChipBinding
@@ -25,7 +27,9 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
     private val LOG = Timber.tag(FilterBottomSheet::class.java.simpleName)
     private val filterViewModel: FilterViewModel by viewModels()
-    private val filterableViewModel: FilterableFragmentViewModel by viewModels()
+    private val filterableViewModel: FilterableFragmentViewModel  by navGraphViewModels(R.id.discover_graph){
+        defaultViewModelProviderFactory
+    }
     private var badgeDrawable: BadgeDrawable? = null
 
     override fun onCreateView(
@@ -52,7 +56,6 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
         binding.btnResetAll.setOnClickListener {
             filterViewModel.resetFilters()
         }
-
 
         filterViewModel.uiState.map { it.applyAllFilters }
             .collectIn(viewLifecycleOwner) { shouldApplyFilters ->

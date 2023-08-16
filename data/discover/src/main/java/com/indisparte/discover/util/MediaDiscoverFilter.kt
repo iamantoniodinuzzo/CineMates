@@ -5,8 +5,8 @@ package com.indisparte.discover.util
  *
  * @property sortBy The sorting option for the media items. Default is [SortOptions.POPULARITY].
  * @property voteAverageGTE Filters media items by vote average greater than or equal to the provided value.
- * @property withCast Filters media items by including specific cast members by their IDs.
- * @property withGenres Filters media items by including specific genres by their IDs.
+ * @property withCastIds Filters media items by including specific cast members by their IDs.
+ * @property withGenresIds Filters media items by including specific genres by their IDs.
  * @property withRuntimeLTe Filters media items by runtime less than or equal to the provided value.
  * @property castIdsCommaSeparated Returns the IDs of cast members in a comma-separated string format.
  * @property genreIdsCommaSeparated Returns the IDs of genres in a comma-separated string format.
@@ -15,10 +15,10 @@ package com.indisparte.discover.util
  * @author Antonio Di Nuzzo
  */
 data class MediaDiscoverFilter(
-    val sortBy: SortOptions? = SortOptions.POPULARITY,
+    val sortBy: String? = SortOptions.POPULARITY.descendingOrder,
     val voteAverageGTE: Float? = null,
-    val withCast: List<String>? = null,
-    val withGenres: List<String>? = null,
+    val withCastIds: Set<Int>? = null,
+    val withGenresIds: Set<Int>? = null,
     val withRuntimeLTe: Long? = null,
 ) {
     /**
@@ -26,7 +26,7 @@ data class MediaDiscoverFilter(
      */
     val castIdsCommaSeparated: String?
         get() {
-            return withCast?.joinToString(separator = ",")
+            return withCastIds?.joinToString(separator = ",")
         }
 
     /**
@@ -34,6 +34,6 @@ data class MediaDiscoverFilter(
      */
     val genreIdsCommaSeparated: String?
         get() {
-            return withGenres?.joinToString(separator = ",")
+            return withGenresIds?.joinToString(separator = ",")
         }
 }

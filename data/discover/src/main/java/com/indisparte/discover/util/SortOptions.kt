@@ -26,7 +26,7 @@ enum class SortOptions(
     /**
      * Sort media items by vote average in ascending order.
      */
-    VOTE_AVERAGE_ASC(R.string.vote_average, "vote_average.asc", "vote_average.desc"),
+    VOTE_AVERAGE(R.string.vote_average, "vote_average.asc", "vote_average.desc"),
 }
 
 

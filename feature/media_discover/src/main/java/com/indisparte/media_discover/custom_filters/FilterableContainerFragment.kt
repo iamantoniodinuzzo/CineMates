@@ -14,7 +14,6 @@ import com.indisparte.media_discover.databinding.FragmentCustomFilterBinding
 import com.indisparte.ui.adapter.ViewPagerAdapter
 import com.indisparte.ui.fragment.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 private typealias FilterableFragmentTitleMap = LinkedHashMap<Fragment, @receiver:StringRes Int>
 
@@ -22,20 +21,21 @@ private typealias FilterableFragmentTitleMap = LinkedHashMap<Fragment, @receiver
  *@author Antonio Di Nuzzo
  */
 @AndroidEntryPoint
-class CustomFilterFragment : BaseFragment<FragmentCustomFilterBinding>() {
+class FilterableContainerFragment : BaseFragment<FragmentCustomFilterBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentCustomFilterBinding
         get() = FragmentCustomFilterBinding::inflate
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private lateinit var filterableFragments: FilterableFragmentTitleMap
     private val viewModel: FilterableFragmentViewModel by viewModels()
-    private val TAG = CustomFilterFragment::class.simpleName
+    private val TAG = FilterableContainerFragment::class.simpleName
 
     override fun initializeViews() {
-        viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         filterableFragments = linkedMapOf(
             FilterableMovieFragment() to com.indisparte.ui.R.string.fragment_movie_title
         )
+
         //init view pager
+        viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         binding.apply {
 
             viewPager.adapter = viewPagerAdapter

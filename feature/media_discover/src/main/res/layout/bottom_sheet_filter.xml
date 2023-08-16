@@ -14,6 +14,7 @@
         android:id="@+id/lblTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/HugeTitleTextViewStyle"
         android:text="Sort and Filters"
         android:textAppearance="@style/HugeTitleTextViewStyle"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,6 +24,7 @@
     <TextView
         android:id="@+id/lblSortBy"
         android:layout_width="wrap_content"
+        style="@style/SmallTitleTextViewStyle"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/base_margin"
         android:text="Sort by"
@@ -63,6 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/base_margin"
+        style="@style/SmallTitleTextViewStyle"
         android:text="Genres"
         android:textAppearance="@style/SmallTitleTextViewStyle"
         app:layout_constraintStart_toStartOf="parent"

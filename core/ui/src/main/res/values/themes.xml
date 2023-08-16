@@ -62,19 +62,19 @@
 
     <style name="HugeTitleTextViewStyle" parent="android:Widget.TextView">
         <item name="android:textColor">?colorOnPrimary</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/huge_text_size</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="SmallTitleTextViewStyle" parent="android:Widget.TextView">
         <item name="android:textColor">?colorOnPrimary</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/medium_text_size</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="BodyTextViewStyle" parent="android:Widget.TextView">
         <item name="android:textColor">?colorOnPrimary</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
         <item name="android:textStyle">normal</item>
     </style>
 

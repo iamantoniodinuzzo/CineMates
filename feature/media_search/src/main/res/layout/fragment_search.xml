@@ -20,7 +20,7 @@
                 android:id="@+id/collapse_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="@dimen/medium_text_size"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
 

@@ -25,8 +25,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 style="@style/HugeTitleTextViewStyle"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
+                android:paddingStart="@dimen/base_margin"
+                android:paddingTop="@dimen/base_margin"
                 tools:text="@tools:sample/first_names" />
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -37,11 +37,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/base_margin"
                     android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/list_item_media_small" />
+                    android:paddingStart="@dimen/base_margin"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:id="@+id/progress"

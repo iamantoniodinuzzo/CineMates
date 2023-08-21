@@ -4,13 +4,11 @@ package com.indisparte.ui.custom_view
 import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.annotation.StyleRes
 import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.ui.R
 import com.indisparte.ui.databinding.ViewEmptyStateBinding
@@ -18,14 +16,14 @@ import com.indisparte.util.extension.gone
 import com.indisparte.util.extension.visible
 
 /**
- * A custom RecyclerView with support for displaying an empty state view when the adapter is empty.
+ * A custom RecyclerView with support for displaying an empty or loading state view.
  *
  * @param context The context in which the RecyclerView is created.
  * @param attrs The attribute set for the RecyclerView. (Default: null)
  * @param defStyle The default style resource ID. (Default: 0)
- * @constructor Creates an EmptyStateRecyclerView with the provided context, attributes, and style.
+ * @constructor Creates an StatefulRecyclerView with the provided context, attributes, and style.
  */
-class EmptyStateRecyclerView @JvmOverloads constructor(
+class StatefulRecyclerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyle: Int = 0,
@@ -62,7 +60,7 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
     }
 
     /**
-     * Initializes the EmptyStateRecyclerView by setting up the empty state view and
+     * Initializes the StatefulRecyclerView by setting up the empty state view and
      * obtaining custom attributes from the provided attribute set.
      */
     private fun initializeView() {
@@ -137,23 +135,23 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
      */
     private fun applyCustomAttributes(attrs: AttributeSet?) {
         // Retrieve custom attributes from the attribute set
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.EmptyStateRecyclerView)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.StatefulRecyclerView)
         val emptyStateSubtitle =
-            typedArray.getString(R.styleable.EmptyStateRecyclerView_emptyStateSubtitle)
+            typedArray.getString(R.styleable.StatefulRecyclerView_emptyStateSubtitle)
         val emptyStateTitle =
-            typedArray.getString(R.styleable.EmptyStateRecyclerView_emptyStateTitle)
+            typedArray.getString(R.styleable.StatefulRecyclerView_emptyStateTitle)
         val emptyStateButtonTitle =
-            typedArray.getString(R.styleable.EmptyStateRecyclerView_emptyStateButtonTitle)
+            typedArray.getString(R.styleable.StatefulRecyclerView_emptyStateButtonTitle)
         val emptyStateImageResId =
-            typedArray.getResourceId(R.styleable.EmptyStateRecyclerView_emptyStateImage, 0)
+            typedArray.getResourceId(R.styleable.StatefulRecyclerView_emptyStateImage, 0)
         val emptyStateTitleStyle =
             typedArray.getResourceId(
-                R.styleable.EmptyStateRecyclerView_emptyStateTitleStyle,
+                R.styleable.StatefulRecyclerView_emptyStateTitleStyle,
                 R.style.SmallTitleTextViewStyle
             )
         val emptyStateSubTitleStyle =
             typedArray.getResourceId(
-                R.styleable.EmptyStateRecyclerView_emptyStateSubtitleStyle,
+                R.styleable.StatefulRecyclerView_emptyStateSubtitleStyle,
                 R.style.BodyTextViewStyle
             )
 
@@ -273,17 +271,25 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
     }
 
 
+    /**
+     * Shows a loading state in the UI and hide empty view automatically.
+     * This function sets the current view state to [ViewState.LOADING], indicating that the UI is in a loading state.
+     */
     fun showLoading() {
         setCurrentViewState(ViewState.LOADING)
     }
 
+    /**
+     * Hides the loading state in the UI.
+     * This function checks if the data is empty and updates the UI accordingly.
+     */
     fun hideLoading() {
         checkIfEmpty()
     }
 
 
     /**
-     * Sets the adapter for the EmptyStateRecyclerView and registers an observer to
+     * Sets the adapter for the StatefulRecyclerView and registers an observer to
      * monitor changes in the adapter data.
      *
      * @param adapter The adapter to be set for the RecyclerView.

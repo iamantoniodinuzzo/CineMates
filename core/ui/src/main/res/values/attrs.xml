@@ -6,7 +6,7 @@
     <attr name="titleColor" format="color" />
     <attr name="titleSize" format="dimension" />
 
-    <declare-styleable name="EmptyStateRecyclerView">
+    <declare-styleable name="StatefulRecyclerView">
         <attr name="emptyStateSubtitle" format="string" />
         <attr name="emptyStateTitleStyle" format="reference" />
         <attr name="emptyStateSubtitleStyle" format="reference" />

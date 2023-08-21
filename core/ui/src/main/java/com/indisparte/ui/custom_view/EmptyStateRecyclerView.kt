@@ -4,9 +4,13 @@ package com.indisparte.ui.custom_view
 import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.annotation.StyleRes
+import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.ui.R
 import com.indisparte.ui.databinding.ViewEmptyStateBinding
@@ -26,9 +30,19 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyle: Int = 0,
 ) : RecyclerView(context, attrs, defStyle) {
+    private enum class ViewState {
+        LOADING,
+        EMPTY,
+        DATA
+    }
+
+    private var currentViewState = ViewState.EMPTY
 
     // Private variables for managing the empty state view
     private var emptyStateView: ViewEmptyStateBinding? = null
+    private var emptyView: LinearLayoutCompat? = null
+    private var loadingProgressBar: ProgressBar? = null
+
     private var emptyStateButtonClickListener: (() -> Unit)? = null
     private val adapterDataObserver = object : AdapterDataObserver() {
         override fun onChanged() {
@@ -55,7 +69,8 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
         // Inflate the empty state view layout and initialize the binding
         val inflater = LayoutInflater.from(context)
         emptyStateView = ViewEmptyStateBinding.inflate(inflater)
-        emptyStateView?.root?.gone()
+        emptyView = emptyStateView?.emptyView
+        loadingProgressBar = emptyStateView?.progress
     }
 
     /**
@@ -73,7 +88,7 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
         setEmptyStateTitle("Empty Title preview")
         setSubTitleStyle(defaultSubTitleStyle)
         setEmptyStateSubtitle("Empty subtitle preview")
-        setEmptyStateImage(R.drawable.ic_placeholder)
+        setEmptyStateImage(R.drawable.baseline_blind_24)
     }
 
     init {
@@ -87,11 +102,38 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
 
     }
 
+    private fun setCurrentViewState(newState: ViewState) {
+        currentViewState = newState
+        updateViewState()
+    }
+
+    private fun updateViewState() {
+        when (currentViewState) {
+            ViewState.LOADING -> {
+                emptyView?.gone()
+                // Show progress bar
+                loadingProgressBar?.visible()
+            }
+
+            ViewState.EMPTY -> {
+                emptyView?.visible()
+                // Hide progress bar
+                loadingProgressBar?.gone()
+            }
+
+            ViewState.DATA -> {
+                emptyView?.gone()
+                // Hide progress bar
+                loadingProgressBar?.gone()
+            }
+        }
+    }
+
+
     /**
      * Applies custom attributes to the empty state views based on the provided attribute set.
      *
      * @param attrs The attribute set containing custom attributes for the view.
-     * @param defStyleAttr The default style attribute for the view.
      */
     private fun applyCustomAttributes(attrs: AttributeSet?) {
         // Retrieve custom attributes from the attribute set
@@ -210,7 +252,6 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
      */
     private fun checkIfEmpty() {
         // Check if the adapter is empty and display the empty state view if necessary
-        val adapter = adapter
         val empty = adapter?.itemCount == 0
 
         if (empty) {
@@ -224,10 +265,22 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
                 }
                 emptyView.visible()
             }
+            setCurrentViewState(ViewState.EMPTY)
+
         } else {
-            emptyStateView?.root?.gone()
+            setCurrentViewState(ViewState.DATA)
         }
     }
+
+
+    fun showLoading() {
+        setCurrentViewState(ViewState.LOADING)
+    }
+
+    fun hideLoading() {
+        checkIfEmpty()
+    }
+
 
     /**
      * Sets the adapter for the EmptyStateRecyclerView and registers an observer to

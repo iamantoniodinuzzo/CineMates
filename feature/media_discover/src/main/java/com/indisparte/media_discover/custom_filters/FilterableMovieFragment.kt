@@ -58,18 +58,18 @@ class FilterableMovieFragment :
             result.whenResources(
                 onSuccess = { movies ->
                     Timber.tag(TAG).d("Filtering result: $movies")
-                    binding.progressIndicator.hide()
+                    binding.recyclerView.hideLoading()
                     adapter.submitList(movies)
                 },
                 onError = { exception ->
                     val errorMessage = exception?.message
                     Timber.tag(TAG).e("Error: $errorMessage")
-                    binding.progressIndicator.hide()
+                    binding.recyclerView.hideLoading()
                     binding.recyclerView.setEmptyStateSubtitle(errorMessage)
                 },
                 onLoading = {
                     Timber.tag(TAG).d("Loading the filter result")
-                    binding.progressIndicator.show()
+                    binding.recyclerView.showLoading()
                 }
             )
 

@@ -44,7 +44,7 @@
             tools:maxLines="3"
             tools:text="@tools:sample/lorem/random" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.indisparte.ui.custom_view.EmptyStateRecyclerView
             android:id="@+id/collection_parts"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -60,16 +60,6 @@
             tools:itemCount="6"
             tools:listitem="@layout/list_item_media_small" />
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            app:indicatorColor="?attr/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

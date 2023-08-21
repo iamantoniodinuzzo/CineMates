@@ -62,19 +62,28 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
      * Applies default values to the empty state views if no custom attributes are provided.
      */
     private fun applyDefaultValues() {
+
         // Set default values for the empty state views
         val defaultTitleStyle = R.style.SmallTitleTextViewStyle
         val defaultSubTitleStyle = R.style.BodyTextViewStyle
 
         // Apply default values to the empty state views
+
         setTitleStyle(defaultTitleStyle)
+        setEmptyStateTitle("Empty Title preview")
         setSubTitleStyle(defaultSubTitleStyle)
+        setEmptyStateSubtitle("Empty subtitle preview")
+        setEmptyStateImage(R.drawable.ic_placeholder)
     }
 
     init {
         initializeView()
-        applyDefaultValues()
-        applyCustomAttributes(attrs, defStyle)
+
+        if (isInEditMode) {
+            applyDefaultValues()
+        } else {
+            applyCustomAttributes(attrs)
+        }
 
     }
 
@@ -84,7 +93,7 @@ class EmptyStateRecyclerView @JvmOverloads constructor(
      * @param attrs The attribute set containing custom attributes for the view.
      * @param defStyleAttr The default style attribute for the view.
      */
-    private fun applyCustomAttributes(attrs: AttributeSet?, defStyleAttr: Int) {
+    private fun applyCustomAttributes(attrs: AttributeSet?) {
         // Retrieve custom attributes from the attribute set
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.EmptyStateRecyclerView)
         val emptyStateSubtitle =

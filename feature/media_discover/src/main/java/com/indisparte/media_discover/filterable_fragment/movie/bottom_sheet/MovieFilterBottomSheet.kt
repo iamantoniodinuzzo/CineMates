@@ -1,4 +1,4 @@
-package com.indisparte.media_discover.bottom_sheet
+package com.indisparte.media_discover.filterable_fragment.movie.bottom_sheet
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,9 +12,9 @@ import com.google.android.material.chip.Chip
 import com.indisparte.discover.util.MediaDiscoverFilter
 import com.indisparte.discover.util.SortOptions
 import com.indisparte.media_discover.R
-import com.indisparte.media_discover.custom_filters.FilterableFragmentViewModel
-import com.indisparte.media_discover.databinding.BottomSheetFilterBinding
+import com.indisparte.media_discover.databinding.BottomSheetMovieFilterBinding
 import com.indisparte.media_discover.databinding.CustomFilterChipBinding
+import com.indisparte.media_discover.filterable_fragment.movie.FilterableMovieFragmentViewModel
 import com.indisparte.network.whenResources
 import com.indisparte.util.extension.collectIn
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,27 +22,25 @@ import kotlinx.coroutines.flow.map
 import timber.log.Timber
 
 @AndroidEntryPoint
-class FilterBottomSheet : BottomSheetDialogFragment() {
-    private var _binding: BottomSheetFilterBinding? = null
+class MovieFilterBottomSheet : BottomSheetDialogFragment() {
+    private var _binding: BottomSheetMovieFilterBinding? = null
     private val binding get() = _binding!!
-    private val LOG = Timber.tag(FilterBottomSheet::class.java.simpleName)
-    private val filterViewModel: FilterViewModel by viewModels()
-    private val filterableViewModel: FilterableFragmentViewModel  by navGraphViewModels(R.id.discover_graph){
+    private val LOG = Timber.tag(MovieFilterBottomSheet::class.java.simpleName)
+    private val filterViewModel: MovieFilterViewModel by viewModels()
+    private val filterableViewModel: FilterableMovieFragmentViewModel by navGraphViewModels(R.id.discover_graph) {
         defaultViewModelProviderFactory
     }
+    private val genresChips: MutableList<Chip> = mutableListOf()
     private var badgeDrawable: BadgeDrawable? = null
+    private lateinit var latestApliedFilter: MediaDiscoverFilter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = BottomSheetFilterBinding.inflate(layoutInflater)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        _binding = BottomSheetMovieFilterBinding.inflate(layoutInflater)
+        updateLatestAppliedFilter()
 
         initChipGroupSortType()
 
@@ -56,6 +54,20 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
         binding.btnResetAll.setOnClickListener {
             filterViewModel.resetFilters()
         }
+
+
+        return binding.root
+    }
+
+    private fun updateLatestAppliedFilter() {
+        filterableViewModel.selectedMovieFilter.collectIn(viewLifecycleOwner) {
+            latestApliedFilter = it
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
 
         filterViewModel.uiState.map { it.applyAllFilters }
             .collectIn(viewLifecycleOwner) { shouldApplyFilters ->
@@ -97,7 +109,7 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
                         val chipBinding = CustomFilterChipBinding.inflate(layoutInflater)
                         val chip: Chip = chipBinding.root
                         chip.text = genre.name
-                        chip.tag = genre.id
+                        chip.id = genre.id
 
                         // Personalizza lo stile delle chips qui
                         chip.isClickable = true
@@ -115,6 +127,10 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
                             }
 
                         }
+
+                        //check all genres from the older applied filter
+                        chip.isChecked = latestApliedFilter.withGenresIds?.contains(chip.id) ?: false
+
                     }
 
                 },
@@ -137,6 +153,7 @@ class FilterBottomSheet : BottomSheetDialogFragment() {
             val chipBinding = CustomFilterChipBinding.inflate(layoutInflater)
             val chip: Chip = chipBinding.root
             chip.text = requireContext().getString(sortOption.sortName)
+            chip.tag = sortOption.id
 
             // Personalizza lo stile delle chips qui
             chip.isClickable = true

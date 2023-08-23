@@ -17,16 +17,17 @@ enum class SortOptions(
     @StringRes val sortName: Int,
     val ascendingOrder: String,
     val descendingOrder: String,
+    val id:Int
 ) {
     /**
      * Sort media items by popularity.
      */
-    POPULARITY(R.string.popularity, "popularity.asc", "popularity.desc"),
+    POPULARITY(R.string.popularity, "popularity.asc", "popularity.desc", 1),
 
     /**
      * Sort media items by vote average in ascending order.
      */
-    VOTE_AVERAGE(R.string.vote_average, "vote_average.asc", "vote_average.desc"),
+    VOTE_AVERAGE(R.string.vote_average, "vote_average.asc", "vote_average.desc", 2),
 }
 
 

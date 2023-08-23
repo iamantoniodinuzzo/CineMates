@@ -1,4 +1,4 @@
-package com.indisparte.media_discover.bottom_sheet
+package com.indisparte.media_discover.filterable_fragment.movie.bottom_sheet
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -21,14 +21,14 @@ import javax.inject.Inject
 private const val KEY_FILTER_DATA = "filter_data"
 
 @HiltViewModel
-class FilterViewModel
+class MovieFilterViewModel
 @Inject
 constructor(
     savedStateHandle: SavedStateHandle,
     private val genreRepository: GenreRepository,
 ) : ViewModel() {
 
-    private val LOG = Timber.tag(FilterViewModel::class.java.simpleName)
+    private val LOG = Timber.tag(MovieFilterViewModel::class.java.simpleName)
     private val _movieGenres = MutableStateFlow<Result<List<Genre>>>(Result.Success(emptyList()))
     val movieGenres: StateFlow<Result<List<Genre>>> get() = _movieGenres
 
@@ -109,6 +109,11 @@ constructor(
             LOG.d("Update filter")
             it.copy(applyAllFilters = true)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        LOG.d("View model pulito")
     }
 
 }

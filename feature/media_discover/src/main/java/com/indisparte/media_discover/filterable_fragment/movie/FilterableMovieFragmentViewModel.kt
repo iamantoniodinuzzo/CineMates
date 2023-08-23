@@ -1,4 +1,4 @@
-package com.indisparte.media_discover.custom_filters
+package com.indisparte.media_discover.filterable_fragment.movie
 
 import androidx.lifecycle.ViewModel
 import com.github.ajalt.timberkt.Timber
@@ -6,38 +6,40 @@ import com.indisparte.discover.repository.MovieDiscoverRepository
 import com.indisparte.discover.util.MediaDiscoverFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class FilterableFragmentViewModel
+class FilterableMovieFragmentViewModel
 @Inject
 constructor(
     private val discoverRepository: MovieDiscoverRepository,
 ) : ViewModel() {
 
-    private val LOG = Timber.tag(FilterableFragmentViewModel::class.java.simpleName)
+    private val LOG = Timber.tag(FilterableMovieFragmentViewModel::class.java.simpleName)
 
-    private val _mediaDiscoverFilter = MutableStateFlow(MediaDiscoverFilter())
+    private val _selectedMovieFilter = MutableStateFlow(MediaDiscoverFilter())
 
-    val mediaDiscoverFilter: StateFlow<MediaDiscoverFilter> get() = _mediaDiscoverFilter
+    val selectedMovieFilter: StateFlow<MediaDiscoverFilter> get() = _selectedMovieFilter
 
-    //    private val _filteredFilms = MutableStateFlow<Result<List<Movie>>>(Result.Success(emptyList()))
     @OptIn(ExperimentalCoroutinesApi::class)
-    val filteredFilms = _mediaDiscoverFilter.flatMapLatest {
+    val filteredFilms = _selectedMovieFilter.flatMapLatest {
         LOG.d("Apply $it")
         discoverRepository.discoverMoviesByFilter(it)
     }
 
 
+    override fun onCleared() {
+        super.onCleared()
+        clearFilter()
+    }
+
     fun updateFilter(mediaDiscoverFilter: MediaDiscoverFilter) {
         LOG.d("Update filter..")
-        _mediaDiscoverFilter.update { current ->
+        _selectedMovieFilter.update { current ->
             current.copy(
                 sortBy = mediaDiscoverFilter.sortBy,
                 withGenresIds = mediaDiscoverFilter.withGenresIds
@@ -47,7 +49,7 @@ constructor(
 
     fun clearFilter() {
         LOG.d("Clear filter..")
-        _mediaDiscoverFilter.value = MediaDiscoverFilter()
+        _selectedMovieFilter.value = MediaDiscoverFilter()
     }
 
 

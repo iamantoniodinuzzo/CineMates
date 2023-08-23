@@ -9,23 +9,23 @@
         android:id="@+id/discoverFragment"
         tools:layout="@layout/fragment_discover"
         android:name="com.indisparte.media_discover.DiscoverFragment"
-        android:label="DiscoverFragment" >
+        android:label="Discover" >
         <action
             android:id="@+id/action_discoverFragment_to_customFilterFragment"
             app:destination="@id/filterableContainerFragment" />
     </fragment>
     <fragment
         android:id="@+id/filterableContainerFragment"
-        tools:layout="@layout/fragment_custom_filter"
-        android:name="com.indisparte.media_discover.custom_filters.FilterableContainerFragment"
-        android:label="CustomFilterFragment" >
+        tools:layout="@layout/fragment_container_filterable"
+        android:name="com.indisparte.media_discover.filterable_fragment.FilterableContainerFragment"
+        android:label="Custom Filter" >
         <action
-            android:id="@+id/action_customFilterFragment_to_bottomSheetFilter"
-            app:destination="@id/filterBottomSheet" />
+            android:id="@+id/action_customFilterFragment_to_movieFilter"
+            app:destination="@id/movieFilterBottomSheet" />
     </fragment>
     <dialog
-        android:id="@+id/filterBottomSheet"
-        tools:layout="@layout/bottom_sheet_filter"
-        android:name="com.indisparte.media_discover.bottom_sheet.FilterBottomSheet"
+        android:id="@+id/movieFilterBottomSheet"
+        tools:layout="@layout/bottom_sheet_movie_filter"
+        android:name="com.indisparte.media_discover.filterable_fragment.movie.bottom_sheet.MovieFilterBottomSheet"
         android:label="Filter" />
 </navigation>

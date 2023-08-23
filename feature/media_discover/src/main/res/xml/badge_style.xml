@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<badge xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.MaterialComponents.Badge"
+    app:backgroundColor="?attr/colorAccent"
+    app:badgeTextColor="?attr/colorOnPrimary"
+    app:horizontalOffset="10dp"
+    app:maxCharacterCount="2"
+    app:verticalOffset="8dp" />

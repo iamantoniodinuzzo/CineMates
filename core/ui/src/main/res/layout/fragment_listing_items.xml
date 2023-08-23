@@ -10,20 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.indisparte.ui.custom_view.EmptyStateRecyclerView
+        <com.indisparte.ui.custom_view.StatefulRecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:emptyStateTitle="Look empty here!" />
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progress_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:indeterminate="true"
-            android:progressTint="?attr/colorAccent"
-            app:indicatorColor="?attr/colorAccent" />
     </RelativeLayout>
 </layout>

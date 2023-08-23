@@ -22,7 +22,7 @@
         android:layout_below="@id/toolbar"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
+        android:paddingBottom="@dimen/base_margin"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

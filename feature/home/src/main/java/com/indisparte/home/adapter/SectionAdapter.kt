@@ -24,7 +24,7 @@ import com.indisparte.ui.adapter.TvShowAdapter
  * The adapter is responsible for inflating the appropriate view holders based on the section type,
  * binding the data to the view holders, and determining the view type for each section.
  *
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 class SectionAdapter(private val fragment: Fragment) :
     ListAdapter<Section, RecyclerView.ViewHolder>(SectionDiffCallback()) {
@@ -120,18 +120,18 @@ class SectionAdapter(private val fragment: Fragment) :
                     adapter = movieAdapter
                     when (movieSection.movies) {
                         is Result.Error -> {
-                            progress.hide()
+                            recyclerView.hideLoading()
                             val errorMessage = movieSection.movies.exception.message
                             this.setEmptyStateTitle("Error")
                             this.setEmptyStateSubtitle(errorMessage)
                         }
 
                         is Result.Loading -> {
-                            progress.show()
+                            recyclerView.showLoading()
                         }
 
                         is Result.Success -> {
-                            progress.hide()
+                            recyclerView.hideLoading()
                             movieAdapter.submitList(movieSection.movies.data)
                         }
 
@@ -155,7 +155,7 @@ class SectionAdapter(private val fragment: Fragment) :
                     adapter = tvShowAdapter
                     when (tvShowSection.tvShows) {
                         is Result.Error -> {
-                            progress.hide()
+                            recyclerView.hideLoading()
                             val errorMessage = tvShowSection.tvShows.exception.message
                             this.setEmptyStateTitle("Error")//TODO string res
                             this.setEmptyStateSubtitle(errorMessage)
@@ -163,11 +163,11 @@ class SectionAdapter(private val fragment: Fragment) :
                         }
 
                         is Result.Loading -> {
-                            progress.show()
+                            recyclerView.showLoading()
                         }
 
                         is Result.Success -> {
-                            progress.hide()
+                            recyclerView.hideLoading()
                             tvShowAdapter.submitList(tvShowSection.tvShows.data)
                         }
 
@@ -191,7 +191,7 @@ class SectionAdapter(private val fragment: Fragment) :
                     adapter = peopleAdapter
                     when (peopleSection.people) {
                         is Result.Error -> {
-                            progress.hide()
+                            recyclerView.hideLoading()
                             val errorMessage = peopleSection.people.exception.message
                             this.setEmptyStateTitle("Error")//TODO add to string res
                             this.setEmptyStateSubtitle(
@@ -201,11 +201,11 @@ class SectionAdapter(private val fragment: Fragment) :
                         }
 
                         is Result.Loading -> {
-                            progress.show()
+                            recyclerView.showLoading()
                         }
 
                         is Result.Success -> {
-                            progress.hide()
+                            recyclerView.hideLoading()
                             peopleAdapter.submitList(peopleSection.people.data)
                         }
 

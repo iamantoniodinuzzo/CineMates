@@ -69,7 +69,7 @@
                 android:layout_marginEnd="@dimen/base_margin"
                 android:text="@{movie.overview}"
                 android:textColor="?attr/colorOnPrimary"
-                android:textSize="14sp"
+                android:textSize="@dimen/small_text_size"
                 app:clickableColor="?attr/colorAccent"
                 app:maxLinesShown="3"
                 app:readLessText="Read less"

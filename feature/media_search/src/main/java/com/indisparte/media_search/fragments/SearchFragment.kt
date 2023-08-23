@@ -6,12 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -38,7 +35,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override fun initializeViews() {
         viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         searchFragments = linkedMapOf(
-            SearchMovieFragment() to com.indisparte.ui.R.string.fragment_search_movie_title
+            SearchMovieFragment() to com.indisparte.ui.R.string.fragment_movie_title
         )
 
         binding.apply {

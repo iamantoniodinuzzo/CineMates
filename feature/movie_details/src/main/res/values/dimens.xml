@@ -2,4 +2,5 @@
 <resources>
     <dimen name="provider_chip_height">64sp</dimen>
     <dimen name="provider_chip_width">64sp</dimen>
+    <dimen name="media_details_backdrop_height">400dp</dimen>
 </resources>

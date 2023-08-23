@@ -27,7 +27,6 @@ class SearchMovieFragment :
     override fun initializeViews() {
         //init recyclerview
         binding.recyclerView.apply {
-            adapter = adapter
             layoutManager = GridLayoutManager(requireContext(), 3)
             setEmptyStateTitle("Search CineMates")
             setEmptyStateSubtitle("Find your favorites movies, TV shows and people.")
@@ -49,18 +48,18 @@ class SearchMovieFragment :
             result.whenResources(
                 onSuccess = { movies ->
                     Timber.tag(TAG).d("Search result: $movies")
-                    binding.progressIndicator.hide()
+                    binding.recyclerView.hideLoading()
                     adapter.submitList(movies)
                 },
                 onError = { exception ->
                     val errorMessage = exception?.message
                     Timber.tag(TAG).e("Error: $errorMessage")
-                    binding.progressIndicator.hide()
+                    binding.recyclerView.hideLoading()
                     binding.recyclerView.setEmptyStateSubtitle(errorMessage)
                 },
                 onLoading = {
                     Timber.tag(TAG).d("Loading search results")
-                    binding.progressIndicator.show()
+                    binding.recyclerView.showLoading()
                 }
             )
         }

@@ -28,7 +28,7 @@
         <TextView
             android:id="@+id/release_information_title"
             android:layout_width="match_parent"
-            android:textSize="14sp"
+            android:textSize="@dimen/small_text_size"
             android:textStyle="bold"
             android:layout_height="wrap_content"
             android:text="Release information"
@@ -53,7 +53,7 @@
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
             app:textColor="?attr/colorOnSecondary"
-            app:textSize="14sp"
+            app:textSize="@dimen/small_text_size"
             app:title="Original title"
             app:value="@{movie.originalTitle}" />
 
@@ -65,7 +65,7 @@
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
             app:textColor="?attr/colorOnSecondary"
-            app:textSize="14sp"
+            app:textSize="@dimen/small_text_size"
             app:title="Tagline"
             app:value="@{movie.tagline}" />
 
@@ -77,7 +77,7 @@
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
             app:textColor="?attr/colorOnSecondary"
-            app:textSize="14sp"
+            app:textSize="@dimen/small_text_size"
             app:title="Status"
             app:value="@{movie.status}" />
 
@@ -89,7 +89,7 @@
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
             app:textColor="?attr/colorOnSecondary"
-            app:textSize="14sp"
+            app:textSize="@dimen/small_text_size"
             app:title="Runtime"
             app:value="@{movie.formattedRuntime}" />
 
@@ -101,7 +101,7 @@
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
             app:textColor="?attr/colorOnSecondary"
-            app:textSize="14sp"
+            app:textSize="@dimen/small_text_size"
             app:title="Original language"
             app:value="@{movie.originalLanguage}" />
 
@@ -113,7 +113,7 @@
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
             app:textColor="?attr/colorOnSecondary"
-            app:textSize="14sp"
+            app:textSize="@dimen/small_text_size"
             app:title="Companies"
             app:value="@{movie.productCompaniesConcatenatedString}" />
 
@@ -125,7 +125,7 @@
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
             app:textColor="?attr/colorOnSecondary"
-            app:textSize="14sp"
+            app:textSize="@dimen/small_text_size"
             app:title="Budget"
             app:value="@{movie.formattedBudget}" />
 
@@ -136,7 +136,7 @@
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
             app:textColor="?attr/colorOnSecondary"
-            app:textSize="14sp"
+            app:textSize="@dimen/small_text_size"
             app:title="Revenue"
             app:value="@{movie.formattedRevenue}" />
 

@@ -1,5 +1,6 @@
 package com.indisparte.ui.adapter
 
+import android.net.wifi.p2p.WifiP2pManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -10,6 +11,7 @@ class ViewPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
 
     private val fragments: MutableList<Fragment> = mutableListOf()
     private val fragmentTitles: MutableList<String> = mutableListOf()
+
 
     fun addFragment(fragment: Fragment, title: String) {
         fragments.add(fragment)

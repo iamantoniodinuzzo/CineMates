@@ -7,4 +7,5 @@ sealed class NavigationFlow(val msg: String?) {
     object HomeFlow : NavigationFlow(null)
     class MovieDetailsFlow(movieId: Int) : NavigationFlow(movieId.toString())
     object SearchFlow : NavigationFlow(null)
+    object DiscoverFlow : NavigationFlow(null)
 }

@@ -25,8 +25,9 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapse_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:textSize="18sp"
+                android:layout_height="@dimen/media_details_backdrop_height"
+                android:textSize="@dimen/medium_text_size"
+                style="@style/HugeTitleTextViewStyle"
                 app:collapsedTitleTextColor="?attr/colorOnPrimary"
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleMarginStart="@dimen/base_margin"
@@ -85,8 +86,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:pv_imageUrl="@{media.completePosterPathW780}"
-                        app:pv_posterHeight="150dp"
-                        app:pv_posterWidth="100dp" />
+                        app:pv_posterHeight="@dimen/default_poster_height"
+                        app:pv_posterWidth="@dimen/default_poster_width" />
 
                     <TextView
                         android:id="@+id/media_title"
@@ -117,7 +118,7 @@
                             android:layout_marginStart="@dimen/base_margin"
                             android:backgroundTint="?attr/colorSecondary"
                             android:textColor="?attr/colorOnSecondary"
-                            android:textSize="12sp"
+                            android:textSize="@dimen/small_text_size"
                             android:visibility="gone"
                             app:layout_constraintTop_toBottomOf="@id/media_title"
                             tools:text="PG-18"
@@ -131,7 +132,7 @@
                             android:layout_marginEnd="@dimen/base_margin"
                             android:text='@{media.formattedReleaseDate+" - "+media.formattedRuntime }'
                             android:textColor="?attr/colorOnSecondary"
-                            android:textSize="14sp"
+                            android:textSize="@dimen/small_text_size"
                             android:visibility='@{media.formattedReleaseDate==null?View.GONE:View.VISIBLE}'
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/certification"

@@ -13,7 +13,7 @@
     <string name="fragment_media_cast">Cast</string>
     <string name="fragment_media_about">About</string>
     <string name="fragment_collection">Collection</string>
-    <string name="fragment_search_movie_title">Movie</string>
+    <string name="fragment_movie_title">Movie</string>
 
 
 </resources>

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.indisparte.ui.adapter.BaseAdapter
 import com.indisparte.ui.databinding.FragmentListingItemsBinding
 
@@ -18,9 +17,8 @@ import com.indisparte.ui.databinding.FragmentListingItemsBinding
  */
 abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T, VB>>(
     val adapter: A,
-) :BaseFragment<FragmentListingItemsBinding>() {
+) : BaseFragment<FragmentListingItemsBinding>() {
 
-    private lateinit var progress: CircularProgressIndicator
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentListingItemsBinding
         get() = FragmentListingItemsBinding::inflate
@@ -30,7 +28,6 @@ abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T, VB>>(
         super.onViewCreated(view, savedInstanceState)
         addItemsToTheAdapter()
         binding.recyclerView.adapter = adapter
-        progress = binding.progressIndicator
     }
 
     /**
@@ -41,11 +38,11 @@ abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T, VB>>(
     protected abstract fun addItemsToTheAdapter()
 
     protected fun showLoading() {
-        progress.show()
+        binding.recyclerView.showLoading()
     }
 
     protected fun hideLoading() {
-        progress.hide()
+        binding.recyclerView.hideLoading()
     }
 
 }

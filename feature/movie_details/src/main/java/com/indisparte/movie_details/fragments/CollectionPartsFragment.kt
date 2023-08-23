@@ -48,7 +48,7 @@ class CollectionPartsFragment : BaseFragment<FragmentCollectionPartsBinding>() {
             resource?.whenResources(
                 onSuccess = { collectionDetails ->
                     LOG.d("Collection details loaded! $collectionDetails")
-                    binding.progress.hide()
+                    binding.collectionParts.hideLoading()
                     binding.collection = collectionDetails
                     adapter.submitList(collectionDetails.parts)
 
@@ -56,11 +56,11 @@ class CollectionPartsFragment : BaseFragment<FragmentCollectionPartsBinding>() {
                 onError = { error ->
                     val errorMessage = error?.message
                     LOG.e("Error: $errorMessage")
-                    binding.progress.hide()
+                    binding.collectionParts.hideLoading()
                 },
                 onLoading = {
                     LOG.d("Loading Collection Details...")
-                    binding.progress.show()
+                    binding.collectionParts.showLoading()
                 }
             )
 

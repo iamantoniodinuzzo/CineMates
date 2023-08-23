@@ -1,12 +1,16 @@
 package com.indisparte.media_discover.filterable_fragment.movie.bottom_sheet
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.fragment.app.viewModels
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
+import com.google.android.material.badge.ExperimentalBadgeUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.indisparte.discover.util.MediaDiscoverFilter
@@ -21,17 +25,19 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
 
+
 @AndroidEntryPoint
 class MovieFilterBottomSheet : BottomSheetDialogFragment() {
     private var _binding: BottomSheetMovieFilterBinding? = null
     private val binding get() = _binding!!
     private val LOG = Timber.tag(MovieFilterBottomSheet::class.java.simpleName)
     private val filterViewModel: MovieFilterViewModel by viewModels()
-    private val filterableViewModel: FilterableMovieFragmentViewModel by navGraphViewModels(R.id.discover_graph) {
+    private val filterableViewModel: FilterableMovieFragmentViewModel by navGraphViewModels(com.indisparte.media_discover.R.id.discover_graph) {
         defaultViewModelProviderFactory
     }
-    private var badgeDrawable: BadgeDrawable? = null
+    private lateinit var badgeDrawable: BadgeDrawable
     private lateinit var latestAppliedFilter: MediaDiscoverFilter
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,8 +45,11 @@ class MovieFilterBottomSheet : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = BottomSheetMovieFilterBinding.inflate(layoutInflater)
-        updateLatestAppliedFilter()
 
+        initBadgeDrawable()
+
+
+        updateLatestAppliedFilter()
 
         binding.btnApply.setOnClickListener {
             filterViewModel.applyFilters()
@@ -53,6 +62,20 @@ class MovieFilterBottomSheet : BottomSheetDialogFragment() {
 
 
         return binding.root
+    }
+    @androidx.annotation.OptIn(
+        ExperimentalBadgeUtils::class
+    )
+    private fun initBadgeDrawable() {
+        badgeDrawable = BadgeDrawable.createFromResource(requireContext(), R.xml.badge_style)
+        badgeDrawable.isVisible = false
+        badgeDrawable.badgeGravity = BadgeDrawable.TOP_END
+        BadgeUtils.attachBadgeDrawable(badgeDrawable, binding.btnResetAll, binding.frameLayout)
+    }
+
+    private fun updateBadgeDrawable(counter:Int){
+        badgeDrawable.number = counter
+        badgeDrawable.isVisible = counter!=0
     }
 
     /**
@@ -70,6 +93,11 @@ class MovieFilterBottomSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        filterViewModel.uiState.map { it.filterCount }
+            .collectIn(viewLifecycleOwner) { filterCounter ->
+                updateBadgeDrawable(filterCounter)
+            }
 
 
         filterViewModel.uiState.map { it.applyAllFilters }
@@ -137,7 +165,8 @@ class MovieFilterBottomSheet : BottomSheetDialogFragment() {
                         }
 
                         // Set the chip's checked state based on the latest applied filter
-                        chip.isChecked = latestAppliedFilter.withGenresIds?.contains(chip.id) ?: false
+                        chip.isChecked =
+                            latestAppliedFilter.withGenresIds?.contains(chip.id) ?: false
                     }
                 },
                 onError = { exception ->

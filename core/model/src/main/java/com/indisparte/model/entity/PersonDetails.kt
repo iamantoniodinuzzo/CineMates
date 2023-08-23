@@ -15,7 +15,7 @@ class PersonDetails(
     val alsoKnownAs: List<String>,
     val biography: String,
     private val birthday: String?,
-    private val `death-day`: String?,
+    private val deathDay: String?,
     gender: Int,
     val homepage: String?,
     id: Int,
@@ -40,7 +40,7 @@ class PersonDetails(
         }
     val formattedDeathDay: String?
         get() {
-            return getFormattedData(Locale.getDefault(), `death-day`)
+            return getFormattedData(Locale.getDefault(), deathDay)
         }
     val age: String
         get() {
@@ -52,8 +52,8 @@ class PersonDetails(
 
         val today = Calendar.getInstance()
 
-        val endDate = if (`death-day` != null) dateFormat.parse(`death-day`) else today.time
-        val startDate = dateFormat.parse(birthday ?: return "N/A")
+        val endDate = if (deathDay != null) dateFormat.parse(deathDay) else today.time
+        val startDate = dateFormat.parse(birthday ?: return "")
 
         val calendarStart = Calendar.getInstance().apply {
             if (startDate != null) {
@@ -66,15 +66,10 @@ class PersonDetails(
             }
         }
 
-        val age = calendarEnd.get(Calendar.YEAR) - calendarStart.get(Calendar.YEAR)
-        val startMonth = calendarStart.get(Calendar.MONTH)
-        val endMonth = calendarEnd.get(Calendar.MONTH)
-        val startDay = calendarStart.get(Calendar.DAY_OF_MONTH)
-        val endDay = calendarEnd.get(Calendar.DAY_OF_MONTH)
+        val age = calendarEnd[Calendar.YEAR] - calendarStart[Calendar.YEAR]
 
-        val adjust = if (endMonth < startMonth || (endMonth == startMonth && endDay < startDay)) -1 else 0
 
-        return if (age >= 0) age.toString() else ""
+        return if (age > 0) age.toString() else ""
     }
 
 
@@ -84,7 +79,7 @@ class PersonDetails(
 
         val today = LocalDate.now()
 
-        val endDate = `death-day`?.let { LocalDate.parse(it, dateFormat) } ?: today
+        val endDate = deathDay?.let { LocalDate.parse(it, dateFormat) } ?: today
         val startDate = LocalDate.parse(birthday, dateFormat)
 
         val period = Period.between(startDate, endDate)

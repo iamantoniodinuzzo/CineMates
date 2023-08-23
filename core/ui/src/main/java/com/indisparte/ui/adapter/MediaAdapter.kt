@@ -85,11 +85,16 @@ class PeopleAdapter : BaseAdapter<Person, ListItemPersonSmallBinding>(
         }
     }
 ) {
+
+    private var itemClickListener: OnItemClickListener<Person>? = null
+    fun setOnItemClickListener(listener: OnItemClickListener<Person>) {
+        itemClickListener = listener
+    }
     override fun bind(binding: ListItemPersonSmallBinding, item: Person) {
         binding.apply {
             person = item
             root.setOnClickListener {
-                // TODO: open person details
+                itemClickListener?.onItemClick(item)
             }
         }
     }

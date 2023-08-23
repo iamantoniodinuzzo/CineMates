@@ -8,7 +8,7 @@
     <include app:graph="@navigation/movie_details_graph" />
     <include app:graph="@navigation/search_graph"  />
     <include app:graph="@navigation/discover_graph" />
-
+    <include app:graph="@navigation/person_details_graph" />
 
     <action
         android:id="@+id/action_global_home_flow"
@@ -33,6 +33,17 @@
         app:popUpToInclusive="true"
         app:enterAnim="@anim/slide_in_from_right"
         app:exitAnim="@anim/slide_out_to_right">
+
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </action>
+    <action
+        android:id="@+id/action_person_details_details"
+        app:destination="@id/person_details_graph"
+        app:enterAnim="@anim/slide_in_from_right"
+        app:exitAnim="@anim/slide_out_to_right"
+        app:popUpToInclusive="true">
 
         <argument
             android:name="id"

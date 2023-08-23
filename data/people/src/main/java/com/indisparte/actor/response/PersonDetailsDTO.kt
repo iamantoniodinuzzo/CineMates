@@ -10,7 +10,7 @@ data class PersonDetailsDTO(
     val biography: String,
     val birthday: String?,
     @SerializedName("deathday")
-    val `death-day`: String?,
+    val deathDay: String?,
     val gender: Int,
     val homepage: String?,
     val id: Int,

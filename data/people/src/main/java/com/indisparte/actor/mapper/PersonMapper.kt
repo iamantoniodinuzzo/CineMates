@@ -29,7 +29,7 @@ fun PersonDetailsDTO.mapToPersonDetails(): PersonDetails {
         alsoKnownAs = this.alsoKnownAs,
         biography = this.biography,
         birthday = this.birthday,
-        `death-day` = this.`death-day`,
+        `death-day` = this.deathDay,
         gender = this.gender,
         homepage = this.homepage,
         id = this.id,

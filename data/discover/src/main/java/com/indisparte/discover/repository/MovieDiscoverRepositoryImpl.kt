@@ -24,7 +24,7 @@ constructor(
         getListFromResponse(
             request = {
                 movieDataSource.discoverMovies(
-                    sortBy = movieFilter.sortBy,
+                    sortBy = movieFilter.sortBy?.order,
                     voteAverageGTE = movieFilter.voteAverageGTE,
                     castIds = movieFilter.castIdsCommaSeparated,
                     genreIds = movieFilter.genreIdsCommaSeparated,

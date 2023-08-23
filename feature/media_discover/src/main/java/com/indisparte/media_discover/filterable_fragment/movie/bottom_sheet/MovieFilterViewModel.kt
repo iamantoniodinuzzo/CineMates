@@ -18,7 +18,6 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-private const val KEY_FILTER_DATA = "filter_data"
 
 @HiltViewModel
 class MovieFilterViewModel
@@ -36,14 +35,14 @@ constructor(
     val uiState = _uiState.asStateFlow()
 
     data class UiState(
-        val sortType: String? = SortOptions.POPULARITY.descendingOrder,
+        val sortType: SortOptions? = SortOptions.DescendingPopularity,
         val genresId: Set<Int>? = emptySet(),
         val clearAllFilters: Boolean = false,
         val applyAllFilters: Boolean = false,
     ) {
         val filterCount: Int
             get() {
-                val sortCount = if (sortType == SortOptions.POPULARITY.descendingOrder) 0 else 1
+                val sortCount = if (sortType == SortOptions.DescendingPopularity) 0 else 1
                 val filterCount = genresId?.size ?: 0
                 return sortCount + filterCount
             }
@@ -51,12 +50,6 @@ constructor(
 
 
     init {
-        savedStateHandle.get<MediaDiscoverFilter>(KEY_FILTER_DATA)?.let { filterData ->
-            _uiState.update {
-                LOG.d("Init block, update filter by savedStateHandle")
-                it.copy(sortType = filterData.sortBy, genresId = filterData.withGenresIds)
-            }
-        }
         getMovieGenres()
     }
 
@@ -74,9 +67,9 @@ constructor(
         }
     }
 
-    fun setSortType(sortType: String) {
+    fun setSortType(sortOption: SortOptions) {
         _uiState.update {
-            it.copy(sortType = sortType)
+            it.copy(sortType = sortOption)
         }
     }
 
@@ -100,7 +93,7 @@ constructor(
 
     fun resetFilters() {
         _uiState.update {
-            it.copy(clearAllFilters = true, genresId = emptySet(), sortType = SortOptions.POPULARITY.descendingOrder)
+            it.copy(clearAllFilters = true, genresId = emptySet(), sortType = SortOptions.DescendingPopularity)
         }
     }
 

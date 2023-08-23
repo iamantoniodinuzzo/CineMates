@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="popularity">Popularity</string>
-    <string name="vote_average">Vote Average</string>
+    <string name="ascending_popularity">Less popular</string>
+    <string name="descending_popularity">Most popular</string>
+    <string name="ascending_vote_average">Lowest vote average</string>
+    <string name="descending_vote_average">Highest vote average</string>
 </resources>

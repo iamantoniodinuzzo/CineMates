@@ -71,5 +71,7 @@ dependencies {
     //Timber
     implementation(libs.timber)
 
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.22"
+
 
 }

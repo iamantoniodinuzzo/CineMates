@@ -15,7 +15,7 @@ interface DiscoverMovieDataSource {
 
     @GET("discover/movie")
     suspend fun discoverMovies(
-        @Query("sort_by") sortBy: String? = SortOptions.POPULARITY.descendingOrder,
+        @Query("sort_by") sortBy: String? = SortOptions.DescendingPopularity.order,
         @Query("vote_average.gte") voteAverageGTE: Float? = null,
         @Query("with_cast") castIds: String? = null,
         @Query("with_genres") genreIds: String? = null,

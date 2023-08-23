@@ -24,7 +24,7 @@ import java.lang.reflect.Type
  *
  * @author Antonio Di Nuzzo
  */
-suspend fun <T, O> getListFromResponse(
+fun <T, O> getListFromResponse(
     request: suspend () -> Response<T>,
     mapper: (T) -> List<O>,
 ): Flow<Result<List<O>>> = flow {
@@ -68,7 +68,7 @@ suspend fun <T, O> getListFromResponse(
  * @return A [Flow] of [Result] representing the different states of the data retrieval process.
  * Loading, Success, or Error states are emitted through the flow.
  */
-suspend fun <T, O> getSingleFromResponse(
+fun <T, O> getSingleFromResponse(
     request: suspend () -> Response<T>,
     mapper: (T) -> O,
 ): Flow<Result<O>> = flow {

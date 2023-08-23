@@ -3,7 +3,7 @@ package com.indisparte.discover.util
 /**
  * Represents a set of filters for discovering media items.
  *
- * @property sortBy The sorting option for the media items. Default is [SortOptions.POPULARITY].
+ * @property sortBy The sorting option for the media items. Default is [SortOptions.DescendingPopularity].
  * @property voteAverageGTE Filters media items by vote average greater than or equal to the provided value.
  * @property withCastIds Filters media items by including specific cast members by their IDs.
  * @property withGenresIds Filters media items by including specific genres by their IDs.
@@ -15,7 +15,7 @@ package com.indisparte.discover.util
  * @author Antonio Di Nuzzo
  */
 data class MediaDiscoverFilter(
-    val sortBy: String? = SortOptions.POPULARITY.descendingOrder,
+    val sortBy: SortOptions? = SortOptions.DescendingPopularity,
     val voteAverageGTE: Float? = null,
     val withCastIds: Set<Int>? = null,
     val withGenresIds: Set<Int>? = null,

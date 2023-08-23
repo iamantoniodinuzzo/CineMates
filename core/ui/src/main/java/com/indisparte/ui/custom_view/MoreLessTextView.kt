@@ -3,14 +3,8 @@ package com.indisparte.ui.custom_view
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Rect
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.util.AttributeSet
-import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContextCompat
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import androidx.core.view.doOnLayout
@@ -24,7 +18,7 @@ import com.indisparte.ui.R
 class MoreLessTextView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
 
     private var readMoreMaxLine = DEFAULT_MAX_LINE

@@ -1,6 +1,5 @@
 package com.indisparte.ui.adapter
 
-import android.net.wifi.p2p.WifiP2pManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle

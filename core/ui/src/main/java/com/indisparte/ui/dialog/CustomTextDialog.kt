@@ -17,7 +17,7 @@ import com.indisparte.ui.R
  * @param negativeButtonAction The action to be performed when the negative button is clicked. (Default: null)
  * @param styleResId The resource ID of the custom dialog style. (Default: R.style.CustomDialogStyle)
  * @param isCancelable If the dialog must be cancelable. (Default: false)
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 class CustomTextDialog(
     private val context: Context,

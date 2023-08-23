@@ -42,31 +42,31 @@ constructor(
 ) : TvRepository {
 
     //todo need to cache this tv
-    override suspend fun getSpecificTVList(tvListType: TvListType): Flow<Result<List<TvShow>>> =
+    override  fun getSpecificTVList(tvListType: TvListType): Flow<Result<List<TvShow>>> =
         getListFromResponse(
             request = { tvDataSource.getTvListByType(tvListType.value, queryMap) },
             mapper = { response -> response.results.map { it.mapToTvShow() } }
         )
 
-    override suspend fun getTrending(timeWindow: TimeWindow): Flow<Result<List<TvShow>>> =
+    override  fun getTrending(timeWindow: TimeWindow): Flow<Result<List<TvShow>>> =
         getListFromResponse(
             request = { tvDataSource.getTrending(timeWindow.value, queryMap) },
             mapper = { response -> response.results.map { it.mapToTvShow() } }
         )
 
-    override suspend fun getDetails(id: Int): Flow<Result<TvShowDetails>> =
+    override  fun getDetails(id: Int): Flow<Result<TvShowDetails>> =
         getSingleFromResponse(
             request = { tvDataSource.getDetails(id, queryMap) },
             mapper = { response -> response.mapToTvShowDetails() }
         )
 
-    override suspend fun getSimilar(id: Int): Flow<Result<List<TvShow>>> =
+    override  fun getSimilar(id: Int): Flow<Result<List<TvShow>>> =
         getListFromResponse(
             request = { tvDataSource.getSimilar(id, queryMap) },
             mapper = { response -> response.results.map { it.mapToTvShow() } }
         )
 
-    override suspend fun getDiscoverable(tvFilter: MediaFilter): Flow<Result<List<TvShow>>> =
+    override  fun getDiscoverable(tvFilter: MediaFilter): Flow<Result<List<TvShow>>> =
         getListFromResponse(
             request = { tvDataSource.getByDiscover(createQueryParams(tvFilter)) },
             mapper = { response -> response.results.map { it.mapToTvShow() } }
@@ -87,26 +87,26 @@ constructor(
         return queryParams
     }
 
-    /* override suspend fun getPosters(id: Int): Flow<Result<List<Image>>> =
+    /* override  fun getPosters(id: Int): Flow<Result<List<Image>>> =
                   TODO("Not yet implemented")
 
-     override suspend fun getBackdrops(id: Int): Flow<Result<List<Image>>> {
+     override  fun getBackdrops(id: Int): Flow<Result<List<Image>>> {
          TODO("Not yet implemented")
      }*/
 
-    override suspend fun getCast(id: Int): Flow<Result<List<Cast>>> =
+    override  fun getCast(id: Int): Flow<Result<List<Cast>>> =
         getListFromResponse(
             request = { tvDataSource.getCredits(id, queryMap) },
             mapper = { response -> response.cast.map { it.mapToCast() } }
         )
 
-    override suspend fun getCrew(id: Int): Flow<Result<List<Crew>>> =
+    override  fun getCrew(id: Int): Flow<Result<List<Crew>>> =
         getListFromResponse(
             request = { tvDataSource.getCredits(id, queryMap) },
             mapper = { response -> response.crew.map { it.mapToCrew() } }
         )
 
-    override suspend fun getBySearch(query: String): Flow<Result<List<TvShow>>> =
+    override  fun getBySearch(query: String): Flow<Result<List<TvShow>>> =
         flow {
             queryMap["query"] = query
             emitAll(getListFromResponse(
@@ -115,19 +115,19 @@ constructor(
             ))
         }
 
-    override suspend fun getEpisodeGroup(id: Int): Flow<Result<List<EpisodeGroup>>> =
+    override  fun getEpisodeGroup(id: Int): Flow<Result<List<EpisodeGroup>>> =
         getListFromResponse(
             request = { tvDataSource.getEpisodesGroup(id, queryMap) },
             mapper = { response -> response.results.map { it.mapToEpisodeGroup() } }
         )
 
-    override suspend fun getEpisodeGroupDetails(episodeGroupId: String): Flow<Result<EpisodeGroupDetails>> =
+    override  fun getEpisodeGroupDetails(episodeGroupId: String): Flow<Result<EpisodeGroupDetails>> =
         getSingleFromResponse(
             request = { tvDataSource.getEpisodeGroupDetails(episodeGroupId, queryMap) },
             mapper = { response -> response.mapToEpisodeGroupDetails() }
         )
 
-    override suspend fun getSeasonDetails(
+    override  fun getSeasonDetails(
         tvId: Int,
         seasonNumber: Int,
     ): Flow<Result<SeasonDetails>> = getSingleFromResponse(
@@ -135,7 +135,7 @@ constructor(
         mapper = { response -> response.mapToSeasonDetails() }
     )
 
-    override suspend fun getWatchProviders(
+    override  fun getWatchProviders(
         tvId: Int,
         country: String,
     ): Flow<Result<CountryResult?>> = getSingleFromResponse(
@@ -145,7 +145,7 @@ constructor(
         }
     )
 
-    override suspend fun getVideos(tvId: Int): Flow<Result<List<Video>>> =
+    override  fun getVideos(tvId: Int): Flow<Result<List<Video>>> =
         getListFromResponse(
             request = { tvDataSource.getVideos(tvId, queryMap) },
             mapper = { response -> response.results.map { it.mapToVideo() } }

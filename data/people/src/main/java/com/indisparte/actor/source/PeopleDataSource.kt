@@ -27,7 +27,7 @@ interface PeopleDataSource {
 
     @GET("trending/person/{time_window}")
     suspend fun getTrendingPerson(
-        @Path("time_window") time_window: String,
+        @Path("time_window") timeWindow: String,
         @QueryMap queries: Map<String, String>,
     ): Response<GenericResponse<PersonDTO>>
 }

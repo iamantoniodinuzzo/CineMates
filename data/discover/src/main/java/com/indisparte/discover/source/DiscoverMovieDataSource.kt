@@ -11,7 +11,7 @@ import retrofit2.http.QueryMap
 /**
  * @author Antonio Di Nuzzo
  */
-interface DiscoverMovieDataSource {
+ interface DiscoverMovieDataSource {
 
     @GET("discover/movie")
     suspend fun discoverMovies(

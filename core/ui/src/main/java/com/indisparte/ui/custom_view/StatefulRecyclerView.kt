@@ -22,6 +22,7 @@ import com.indisparte.util.extension.visible
  * @param attrs The attribute set for the RecyclerView. (Default: null)
  * @param defStyle The default style resource ID. (Default: 0)
  * @constructor Creates an StatefulRecyclerView with the provided context, attributes, and style.
+ * @author Antonio Di Nuzzo
  */
 class StatefulRecyclerView @JvmOverloads constructor(
     context: Context,

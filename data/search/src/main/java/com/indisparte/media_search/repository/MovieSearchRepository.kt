@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
  */
 interface MovieSearchRepository {
 
-    suspend fun searchMovieByTitle(title:String): Flow<Result<List<Movie>>>
+     fun searchMovieByTitle(title:String): Flow<Result<List<Movie>>>
 }

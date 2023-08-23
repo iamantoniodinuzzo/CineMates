@@ -38,13 +38,6 @@ class MovieAdapter : BaseAdapter<Movie, ListItemMediaSmallBinding>(
             root.setOnClickListener {
                 itemClickListener?.onItemClick(item)
 
-                /*requireNotNull(fragment)
-                fragment?.let { fragment ->
-                    val activity = fragment.requireActivity()
-                    if (activity is ToFlowNavigable) {
-                        activity.navigateToFlow(NavigationFlow.MovieDetailsFlow(item.id))
-                    }
-                }*/
             }
         }
     }

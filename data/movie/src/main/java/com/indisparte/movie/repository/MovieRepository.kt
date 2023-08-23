@@ -19,24 +19,24 @@ import kotlinx.coroutines.flow.Flow
  * @author Antonio Di Nuzzo (Indisparte)
  */
 interface MovieRepository {
-    suspend fun getByListType(movieListType: MovieListType): Flow<Result<List<Movie>>>
-    suspend fun getTrending(timeWindow: TimeWindow): Flow<Result<List<Movie>>>
-    suspend fun getBySearch(query: String): Flow<Result<List<Movie>>>
-    suspend fun getDiscoverable(mediaFilter: MediaFilter): Flow<Result<List<Movie>>>
-    suspend fun getDetails(movieId: Int): Flow<Result<MovieDetails>>
-    suspend fun getSimilar(movieId: Int): Flow<Result<List<Movie>>>
-    suspend fun getCast(movieId: Int): Flow<Result<List<Cast>>>
-    suspend fun getCrew(movieId: Int): Flow<Result<List<Crew>>>
-    suspend fun getWatchProviders(
+     fun getByListType(movieListType: MovieListType): Flow<Result<List<Movie>>>
+     fun getTrending(timeWindow: TimeWindow): Flow<Result<List<Movie>>>
+     fun getBySearch(query: String): Flow<Result<List<Movie>>>
+     fun getDiscoverable(mediaFilter: MediaFilter): Flow<Result<List<Movie>>>
+     fun getDetails(movieId: Int): Flow<Result<MovieDetails>>
+     fun getSimilar(movieId: Int): Flow<Result<List<Movie>>>
+     fun getCast(movieId: Int): Flow<Result<List<Cast>>>
+     fun getCrew(movieId: Int): Flow<Result<List<Crew>>>
+     fun getWatchProviders(
         movieId: Int,
         country: String,
     ): Flow<Result<CountryResult?>>
 
-    suspend fun getVideos(movieId: Int): Flow<Result<List<Video>>>
+     fun getVideos(movieId: Int): Flow<Result<List<Video>>>
 
-    suspend fun getReleaseDates(movieId: Int): Flow<Result<List<ReleaseDatesByCountry>>>
+     fun getReleaseDates(movieId: Int): Flow<Result<List<ReleaseDatesByCountry>>>
 
-    suspend fun getBackdrop(movieId: Int):Flow<Result<List<Backdrop>>>
-    suspend fun getCollectionDetails(collectionId: Int): Flow<Result<CollectionDetails>>
+     fun getBackdrop(movieId: Int):Flow<Result<List<Backdrop>>>
+     fun getCollectionDetails(collectionId: Int): Flow<Result<CollectionDetails>>
 
 }

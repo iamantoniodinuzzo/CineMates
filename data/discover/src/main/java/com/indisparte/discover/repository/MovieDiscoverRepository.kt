@@ -10,5 +10,5 @@ import kotlinx.coroutines.flow.Flow
  * @author Antonio Di Nuzzo
  */
 interface MovieDiscoverRepository {
-    suspend fun discoverMoviesByFilter(movieFilter: MediaDiscoverFilter): Flow<Result<List<Movie>>>
+    fun discoverMoviesByFilter(movieFilter: MediaDiscoverFilter): Flow<Result<List<Movie>>>
 }

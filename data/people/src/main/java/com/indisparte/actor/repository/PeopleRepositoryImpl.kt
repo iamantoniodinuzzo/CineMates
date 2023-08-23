@@ -22,20 +22,20 @@ constructor(
     private val peopleDataSource: PeopleDataSource,
     private val queryMap: Map<String, String>,
 ) : PeopleRepository {
-    override suspend fun getPersonDetails(personId: Int): Flow<Result<PersonDetails>> =
+    override  fun getPersonDetails(personId: Int): Flow<Result<PersonDetails>> =
         getSingleFromResponse(
             request = { peopleDataSource.getPersonDetails(personId, queryMap) },
             mapper = { response -> response.mapToPersonDetails() }
         )
 
     //todo need to cache this people
-    override suspend fun getPopularPersons(): Flow<Result<List<Person>>> =
+    override  fun getPopularPersons(): Flow<Result<List<Person>>> =
         getListFromResponse(
             request = { peopleDataSource.getPopularPersons(queryMap) },
             mapper = { response -> response.results.map { it.mapToPerson() } }
         )
 
-    override suspend fun getTrendingPersons(timeWindow: TimeWindow): Flow<Result<List<Person>>> =
+    override  fun getTrendingPersons(timeWindow: TimeWindow): Flow<Result<List<Person>>> =
         getListFromResponse(
             request = { peopleDataSource.getTrendingPerson(timeWindow.value, queryMap) },
             mapper = { response -> response.results.map { it.mapToPerson() } }

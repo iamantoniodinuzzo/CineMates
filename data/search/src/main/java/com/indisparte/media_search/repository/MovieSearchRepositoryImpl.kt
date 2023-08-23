@@ -19,7 +19,7 @@ constructor(
     private val queryMap: MutableMap<String, String>,
 ) : MovieSearchRepository {
 
-    override suspend fun searchMovieByTitle(title: String): Flow<Result<List<Movie>>> =
+    override  fun searchMovieByTitle(title: String): Flow<Result<List<Movie>>> =
         getListFromResponse(
             request = { movieSearchDataSource.searchMovieByTitle(title, queryMap) },
             mapper = { response -> response.results.map { it.toMovie() } }

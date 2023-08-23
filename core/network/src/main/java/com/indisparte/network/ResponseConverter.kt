@@ -1,6 +1,5 @@
 package com.indisparte.network
 
-import com.github.ajalt.timberkt.Timber
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.Flow

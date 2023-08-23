@@ -29,7 +29,7 @@ import com.indisparte.ui.databinding.PosterViewBinding
  * @param context The context of the view.
  * @param attrs The attribute set containing custom attributes for the view.
  * @param defStyleAttr The default style attribute for the view.
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 class PosterView @JvmOverloads constructor(
     context: Context,

@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
  * @author Antonio Di Nuzzo (Indisparte)
  */
 interface GenreRepository {
-    suspend fun getMovieGenreList(): Flow<Result<List<Genre>>>
-    suspend fun getTvGenreList(): Flow<Result<List<Genre>>>
+     fun getMovieGenreList(): Flow<Result<List<Genre>>>
+     fun getTvGenreList(): Flow<Result<List<Genre>>>
 }

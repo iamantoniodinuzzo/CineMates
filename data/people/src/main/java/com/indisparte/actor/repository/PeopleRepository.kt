@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
  * @author Antonio Di Nuzzo (Indisparte)
  */
 interface PeopleRepository {
-    suspend fun getPersonDetails(personId: Int): Flow<Result<PersonDetails>>
-    suspend fun getPopularPersons(): Flow<Result<List<Person>>>
-    suspend fun getTrendingPersons(timeWindow: TimeWindow): Flow<Result<List<Person>>>
+    fun getPersonDetails(personId: Int): Flow<Result<PersonDetails>>
+    fun getPopularPersons(): Flow<Result<List<Person>>>
+    fun getTrendingPersons(timeWindow: TimeWindow): Flow<Result<List<Person>>>
 }

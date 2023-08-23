@@ -20,7 +20,7 @@ constructor(
     private val queryMap: MutableMap<String, String>,
 ) : MovieDiscoverRepository {
 
-    override suspend fun discoverMoviesByFilter(movieFilter: MediaDiscoverFilter): Flow<Result<List<Movie>>> =
+    override fun discoverMoviesByFilter(movieFilter: MediaDiscoverFilter): Flow<Result<List<Movie>>> =
         getListFromResponse(
             request = {
                 movieDataSource.discoverMovies(

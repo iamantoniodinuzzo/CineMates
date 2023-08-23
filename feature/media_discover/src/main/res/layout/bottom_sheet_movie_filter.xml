@@ -6,7 +6,6 @@
     style="@style/Widget.MaterialComponents.BottomSheet.Modal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/base_margin"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
@@ -15,7 +14,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/HugeTitleTextViewStyle"
-        android:text="Sort and Filters"
+        android:layout_marginTop="@dimen/base_margin"
+        android:text="Custom Filter"
         android:textAppearance="@style/HugeTitleTextViewStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,6 +23,7 @@
 
     <TextView
         android:id="@+id/lblSortBy"
+        android:layout_marginStart="@dimen/base_margin"
         android:layout_width="wrap_content"
         style="@style/SmallTitleTextViewStyle"
         android:layout_height="wrap_content"
@@ -44,6 +45,7 @@
             android:id="@+id/cg_sort_types"
             android:clipToPadding="false"
             android:layout_width="wrap_content"
+            android:paddingStart="@dimen/base_margin"
             android:layout_height="wrap_content"
             app:selectionRequired="true"
             app:singleSelection="true" />
@@ -54,6 +56,7 @@
         android:id="@+id/sortDivider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/base_margin"
         android:layout_marginTop="@dimen/base_margin"
         android:background="?attr/colorOnSecondary"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,6 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/base_margin"
+        android:layout_marginStart="@dimen/base_margin"
         style="@style/SmallTitleTextViewStyle"
         android:text="Genres"
         android:textAppearance="@style/SmallTitleTextViewStyle"
@@ -86,6 +90,7 @@
             app:singleLine="true"
             android:clipToPadding="false"
             app:chipSpacingVertical="8dp"
+            android:paddingStart="@dimen/base_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lblGenres" />
@@ -93,6 +98,7 @@
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/dividerFilter"
+        android:layout_marginHorizontal="@dimen/base_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/base_margin"
@@ -120,6 +126,7 @@
         android:layout_marginEnd="@dimen/base_margin"
         android:clipChildren="false"
         android:clipToPadding="false"
+        android:background="?attr/colorSecondary"
         app:layout_constraintEnd_toStartOf="@id/btnApply"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/btnApply">

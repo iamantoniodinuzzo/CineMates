@@ -12,6 +12,7 @@ import android.view.ViewOutlineProvider
 import android.widget.FrameLayout
 import androidx.annotation.StyleRes
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -19,6 +20,9 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.indisparte.ui.R
 import com.indisparte.ui.databinding.PosterViewBinding
 
+enum class TitleGravity {
+    START, CENTER, END
+}
 
 /**
  * Custom view for displaying a poster with a title and optional chip value.
@@ -78,6 +82,7 @@ class PosterView @JvmOverloads constructor(
         setLayoutParams(defaultPosterWidth, defaultPosterHeight)
         foreground = background
         setCornerRadius(defaultCornerRadius)
+        setTitleGravity(TitleGravity.START)
     }
 
     /**
@@ -125,6 +130,12 @@ class PosterView @JvmOverloads constructor(
                 0
             )
 
+            // Retrieve the custom title gravity attribute
+            val titleGravityValue = typedArray.getInt(
+                R.styleable.PosterView_pv_title_gravity,
+                TitleGravity.START.ordinal
+            )
+
             if (titleStyle != 0) {
                 setTitleStyle(titleStyle)
             }
@@ -152,6 +163,7 @@ class PosterView @JvmOverloads constructor(
             setTitleColor(titleColor)
             setLayoutParams(posterWidth, posterHeight)
             isClickable = true
+            setTitleGravity(TitleGravity.values()[titleGravityValue])
 
             typedArray.recycle()
         }
@@ -315,6 +327,15 @@ class PosterView @JvmOverloads constructor(
         val defaultTextSize = resources.getDimension(R.dimen.default_poster_title_size)
         val scaleFactor = width.toFloat() / maxWidth
         return defaultTextSize * scaleFactor
+    }
+
+    fun setTitleGravity(gravity: TitleGravity) {
+       val gravityValue =  when (gravity) {
+            TitleGravity.START -> Gravity.START
+            TitleGravity.CENTER -> Gravity.CENTER
+            TitleGravity.END -> Gravity.END
+        }
+        binding.titleTextView.gravity = gravityValue
     }
 
 

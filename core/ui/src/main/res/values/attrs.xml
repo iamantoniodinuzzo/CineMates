@@ -17,14 +17,19 @@
 
     <declare-styleable name="PosterView">
         <attr name="pv_title" format="string" />
-        <attr name="pv_title_size" format="dimension"/>
-        <attr name="pv_title_color" format="color"/>
-        <attr name="pv_title_style" format="reference"/>
+        <attr name="pv_title_size" format="dimension" />
+        <attr name="pv_title_color" format="color" />
+        <attr name="pv_title_style" format="reference" />
         <attr name="pv_chipValue" format="string" />
         <attr name="pv_imageUrl" format="string" />
         <attr name="pv_cornerRadius" format="dimension" />
         <attr name="pv_posterWidth" format="dimension" />
         <attr name="pv_posterHeight" format="dimension" />
+        <attr name="pv_title_gravity" format="enum">
+            <enum name="start" value="0" />
+            <enum name="center" value="1" />
+            <enum name="end" value="2" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="LinearInfoView">

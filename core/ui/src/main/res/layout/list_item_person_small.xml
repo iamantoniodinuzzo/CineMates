@@ -20,6 +20,7 @@
         app:pv_imageUrl="@{person.completeProfilePathW780}"
         app:pv_posterHeight="100dp"
         app:pv_posterWidth="100dp"
+        app:pv_title_gravity="center"
         app:pv_title="@{person.name}" />
 
 

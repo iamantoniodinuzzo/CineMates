@@ -1,5 +1,6 @@
 package com.indisparte.actor.source
 
+import com.indisparte.actor.response.MovieCreditResponseDTO
 import com.indisparte.actor.response.PersonDTO
 import com.indisparte.actor.response.PersonDetailsDTO
 import com.indisparte.network.GenericResponse
@@ -32,4 +33,10 @@ interface PeopleDataSource {
         @Path("time_window") timeWindow: String,
         @QueryMap queries: Map<String, String>,
     ): Response<GenericResponse<PersonDTO>>
+
+    @GET("person/{person_id}/movie_credits")
+    suspend fun getMovieCredits(
+        @Path("person_id") id:Int,
+        @QueryMap queries: Map<String, String>,
+    ):Response<MovieCreditResponseDTO>
 }

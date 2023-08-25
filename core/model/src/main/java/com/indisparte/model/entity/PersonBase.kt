@@ -15,7 +15,7 @@ enum class Gender(val value: Int, @StringRes val genderResId: Int) {
 }
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 abstract class PersonBase(
     val adult: Boolean,

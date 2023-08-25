@@ -27,6 +27,9 @@ typealias FragmentTitleMap = LinkedHashMap<Fragment, @receiver:StringRes Int>
  * @author Antonio Di Nuzzo
  * @author Jon Areas
  */
+// TODO: Generalize this class for PersonDetailsContainer.
+//  Need to pass View binding with generics and set a default view binding
+
 abstract class MediaDetailsContainerFragment(
     private val mapOfFragments: FragmentTitleMap,
 ) : BaseFragment<FragmentMediaDetailsBinding>() {
@@ -46,7 +49,7 @@ abstract class MediaDetailsContainerFragment(
         binding.apply {
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             fab.setOnClickListener {
-                // TODO: Open bottom sheet dialog to choose which list
+                // TODO: Generalize action
                 Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
             }
 

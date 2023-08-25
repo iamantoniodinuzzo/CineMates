@@ -9,7 +9,7 @@ import com.indisparte.model.entity.TvShow
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding
 import com.indisparte.ui.databinding.ListItemPersonSmallBinding
 
-interface OnItemClickListener<T> {
+fun interface OnItemClickListener<T> {
     fun onItemClick(item: T)
 }
 
@@ -93,6 +93,7 @@ class PeopleAdapter : BaseAdapter<Person, ListItemPersonSmallBinding>(
     override fun bind(binding: ListItemPersonSmallBinding, item: Person) {
         binding.apply {
             person = item
+            ivAvatar.isClickable = false
             root.setOnClickListener {
                 itemClickListener?.onItemClick(item)
             }

@@ -1,31 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="path"
             type="String" />
+        <variable
+            name="personName"
+            type="String" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/cardView"
-        android:layout_width="80dp"
-        android:clickable="true"
-        android:layout_height="80dp"
-        android:elevation="4dp"
-        app:cardCornerRadius="50dp"
-        android:focusable="true">
-
-        <ImageView
-            android:id="@+id/ivAvatar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorOnSecondary"
-            android:scaleType="centerCrop"
-            app:loadImage="@{path}"
-            tools:src="@tools:sample/avatars" />
-    </com.google.android.material.card.MaterialCardView>
+    <com.indisparte.ui.custom_view.PosterView
+        android:id="@+id/ivAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:pv_imageUrl="@{path}"
+        app:pv_posterHeight="100dp"
+        app:pv_title="@{personName}"
+        app:pv_cornerRadius="50dp"
+        android:layout_centerHorizontal="true"
+        app:pv_posterWidth="100dp"/>
 </layout>

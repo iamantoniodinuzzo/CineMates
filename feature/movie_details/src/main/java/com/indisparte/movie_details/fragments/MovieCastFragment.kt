@@ -5,8 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.indisparte.model.entity.Cast
 import com.indisparte.movie_details.adapter.CastAdapter
 import com.indisparte.movie_details.databinding.ListItemCastLongBinding
-import com.indisparte.ui.fragment.ListFragment
+import com.indisparte.navigation.NavigationFlow
+import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources
+import com.indisparte.ui.fragment.ListFragment
 import com.indisparte.util.extension.collectIn
 import timber.log.Timber
 
@@ -18,9 +20,16 @@ class MovieCastFragment : ListFragment<Cast, ListItemCastLongBinding, CastAdapte
     CastAdapter()
 ) {
     private val LOG = Timber.tag(MovieCastFragment::class.java.simpleName)
-    private val viewModel: MovieDetailsViewModel by viewModels({requireParentFragment()})
+    private val viewModel: MovieDetailsViewModel by viewModels({ requireParentFragment() })
 
     override fun addItemsToTheAdapter() {
+        adapter.setOnItemClickListener { actor ->
+            val activity = requireActivity()
+            if (activity is ToFlowNavigable) {
+                activity.navigateToFlow(NavigationFlow.PersonDetailsFlow(actor.id))
+            }
+
+        }
         viewModel.cast.collectIn(viewLifecycleOwner) { resources ->
             resources?.whenResources(
                 onSuccess = { cast ->

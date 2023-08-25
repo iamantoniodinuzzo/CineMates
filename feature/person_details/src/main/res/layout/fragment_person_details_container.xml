@@ -67,15 +67,15 @@
                         android:id="@+id/person_poster"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="150dp"
+                        android:layout_marginTop="140dp"
                         android:scaleType="centerCrop"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:pv_cornerRadius="100dp"
                         app:pv_imageUrl="@{person.completeProfilePathW780}"
-                        app:pv_posterHeight="100dp"
-                        app:pv_posterWidth="100dp" />
+                        app:pv_posterHeight="140dp"
+                        app:pv_posterWidth="140dp" />
 
                     <TextView
                         android:id="@+id/person_name"
@@ -83,7 +83,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/base_margin"
-                        android:maxLines="2"
                         android:text="@{person.name}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -97,6 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/base_margin"
                         android:layout_marginEnd="@dimen/base_margin"
+                        android:text="@{person.knownForDepartment}"
                         android:textColor="?attr/colorOnSecondary"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

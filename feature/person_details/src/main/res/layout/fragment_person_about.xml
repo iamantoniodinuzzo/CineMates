@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="person"
+            type="com.indisparte.model.entity.PersonDetails" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.indisparte.ui.custom_view.LinearLayoutInfoView
+                android:id="@+id/age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:layout_marginBottom="@dimen/base_margin"
+                android:orientation="horizontal"
+                app:hideIfValueEmpty="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:textColor="?attr/colorOnSecondary"
+                app:textSize="@dimen/small_text_size"
+                app:title="Age"
+                app:value="@{person.age}" />
+
+            <com.indisparte.ui.custom_view.LinearLayoutInfoView
+                android:id="@+id/birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:layout_marginBottom="@dimen/base_margin"
+                android:orientation="horizontal"
+                app:hideIfValueEmpty="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/age"
+                app:textColor="?attr/colorOnSecondary"
+                app:textSize="@dimen/small_text_size"
+                app:title="Birth day"
+                app:value="@{person.formattedBirthDay}" />
+
+            <com.indisparte.ui.custom_view.LinearLayoutInfoView
+                android:id="@+id/birthplace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:layout_marginBottom="@dimen/base_margin"
+                android:orientation="horizontal"
+                app:hideIfValueEmpty="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/birthday"
+                app:textColor="?attr/colorOnSecondary"
+                app:textSize="@dimen/small_text_size"
+                app:title="From"
+                app:value="@{person.placeOfBirth}" />
+
+            <com.indisparte.ui.custom_view.LinearLayoutInfoView
+                android:id="@+id/biography"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:layout_marginBottom="@dimen/base_margin"
+                android:orientation="vertical"
+                app:hideIfValueEmpty="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/birthplace"
+                app:textColor="?attr/colorOnSecondary"
+                app:textSize="@dimen/small_text_size"
+                app:title="Biography"
+                app:value="@{person.biography}" />
+
+            <TextView
+                android:id="@+id/also_known_title"
+                style="@style/SmallTitleTextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:text="Also known as"
+                android:textColor="?attr/colorOnSecondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/biography" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/also_known_title">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/also_known_values"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingStart="@dimen/base_margin"
+                    app:selectionRequired="false" />
+            </HorizontalScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

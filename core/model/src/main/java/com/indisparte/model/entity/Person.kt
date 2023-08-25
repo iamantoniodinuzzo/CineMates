@@ -18,5 +18,11 @@ class Person(
     name = name,
     popularity = popularity,
     profilePath = profilePath
-)
+){
+    override fun toString(): String {
+        return "Person(" +
+                "knownFor=$knownFor" +
+                ")"
+    }
+}
 

@@ -20,7 +20,7 @@ class Navigator {
         is NavigationFlow.SearchFlow -> navController.navigate(NavGraphDirections.actionGlobalSearchFlow())
         is NavigationFlow.DiscoverFlow -> navController.navigate(NavGraphDirections.actionGlobalDiscoverFlow())
         is NavigationFlow.PersonDetailsFlow -> navController.navigate(
-            NavGraphDirections.actionPersonDetailsDetails(
+            NavGraphDirections.actionPersonDetails(
                 navigationFlow.msg?.toInt() ?: 0
             )
         )

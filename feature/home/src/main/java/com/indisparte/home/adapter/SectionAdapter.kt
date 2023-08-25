@@ -108,15 +108,12 @@ class SectionAdapter(private val fragment: Fragment) :
                 textSectionTitle.text = context.getString(movieSection.titleResId)
                 recyclerView.apply {
                     val movieAdapter = MovieAdapter()
-                    movieAdapter.setOnItemClickListener(object : OnItemClickListener<Movie> {
-                        override fun onItemClick(item: Movie) {
-                            val activity = fragment.requireActivity()
-                            if (activity is ToFlowNavigable) {
-                                activity.navigateToFlow(NavigationFlow.MovieDetailsFlow(item.id))
-                            }
+                    movieAdapter.setOnItemClickListener { item ->
+                        val activity = fragment.requireActivity()
+                        if (activity is ToFlowNavigable) {
+                            activity.navigateToFlow(NavigationFlow.MovieDetailsFlow(item.id))
                         }
-
-                    })
+                    }
                     adapter = movieAdapter
                     when (movieSection.movies) {
                         is Result.Error -> {
@@ -189,6 +186,12 @@ class SectionAdapter(private val fragment: Fragment) :
                 recyclerView.apply {
                     val peopleAdapter = PeopleAdapter()
                     adapter = peopleAdapter
+                    peopleAdapter.setOnItemClickListener{person->
+                        val activity = fragment.requireActivity()
+                        if (activity is ToFlowNavigable) {
+                            activity.navigateToFlow(NavigationFlow.PersonDetailsFlow(person.id))
+                        }
+                    }
                     when (peopleSection.people) {
                         is Result.Error -> {
                             recyclerView.hideLoading()

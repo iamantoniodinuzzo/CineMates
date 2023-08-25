@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 class PeopleRepositoryImpl
 @Inject

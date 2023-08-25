@@ -25,6 +25,7 @@ class PersonDetails(
     val placeOfBirth: String?,
     popularity: Double,
     profilePath: String?,
+    val images: List<Poster>,
 ) : PersonBase(
     adult = adult,
     gender = gender,
@@ -95,4 +96,20 @@ class PersonDetails(
             calculateAge()
         }
     }
+
+    override fun toString(): String {
+        return "PersonDetails(" +
+                "alsoKnownAs=$alsoKnownAs, " +
+                "biography='$biography', " +
+                "birthday=$birthday, " +
+                "deathDay=$deathDay, " +
+                "homepage=$homepage, " +
+                "imdbId='$imdbId', " +
+                "placeOfBirth=$placeOfBirth, " +
+                "images=$images" +
+                ")" +
+                " ${super.toString()}"
+    }
+
+
 }

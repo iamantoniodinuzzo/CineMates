@@ -1,4 +1,4 @@
-package com.indisparte.person_details
+package com.indisparte.person_details.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -50,7 +50,7 @@ class PersonAboutFragment : BaseFragment<FragmentPersonAboutBinding>() {
             chipGroup.removeAllViews()
             alsoKnownAs.forEach { otherName ->
                 val chip = Chip(requireContext())
-                
+
                 chip.text = otherName
 
                 chipGroup.addView(chip)

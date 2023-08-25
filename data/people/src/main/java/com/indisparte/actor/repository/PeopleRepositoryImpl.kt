@@ -1,6 +1,6 @@
 package com.indisparte.actor.repository
 
-import com.indisparte.actor.mapper.mapToMovieCredit
+import com.indisparte.actor.mapper.mapToMovieCredits
 import com.indisparte.actor.mapper.mapToPerson
 import com.indisparte.actor.mapper.mapToPersonDetails
 import com.indisparte.actor.source.PeopleDataSource
@@ -43,8 +43,9 @@ constructor(
             mapper = { response -> response.results.map { it.mapToPerson() } }
         )
 
-    override fun getMovieCredits(personId: Int): Flow<Result<MovieCredit>> = getSingleFromResponse(
-        request = { peopleDataSource.getMovieCredits(personId, queryMap) },
-        mapper = { response -> response.mapToMovieCredit() }
-    )
+    override fun getMovieCredits(personId: Int): Flow<Result<List<MovieCredit>>> =
+        getSingleFromResponse(
+            request = { peopleDataSource.getMovieCredits(personId, queryMap) },
+            mapper = { response -> response.mapToMovieCredits() }
+        )
 }

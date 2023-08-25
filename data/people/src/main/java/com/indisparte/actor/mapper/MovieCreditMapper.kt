@@ -36,12 +36,52 @@ fun PersonAsCrewDTO.mapToPersonAsCrew(): PersonAsCrew {
     )
 }
 
-fun MovieCreditResponseDTO.mapToMovieCredit(): MovieCredit {
-    return MovieCredit(
-        cast = cast.map { it.mapToPersonAsCast() },
-        crew = crew.map { it.mapToPersonAsCrew() },
-        personId = id
-    )
+fun MovieCreditResponseDTO.mapToMovieCredits(): List<MovieCredit> {
+    val movieCredits = mutableListOf<MovieCredit>()
+
+    cast.forEach { castItem ->
+        val character = castItem.character
+        val id = castItem.id
+        val posterPath = castItem.posterPath
+        val releaseDate = castItem.releaseDate
+        val title = castItem.title
+        val voteAverage = castItem.voteAverage
+
+        movieCredits.add(
+            MovieCredit(
+                character = character,
+                id = id,
+                posterPath = posterPath,
+                releaseDate = releaseDate,
+                title = title,
+                voteAverage = voteAverage,
+                department = null // department not in cast
+            )
+        )
+    }
+
+    crew.forEach { crewItem ->
+        val id = crewItem.id
+        val posterPath = crewItem.posterPath
+        val releaseDate = crewItem.releaseDate
+        val title = crewItem.title
+        val voteAverage = crewItem.voteAverage
+        val department = crewItem.department
+
+        movieCredits.add(
+            MovieCredit(
+                character = null, // Character not in crew
+                id = id,
+                posterPath = posterPath,
+                releaseDate = releaseDate,
+                title = title,
+                voteAverage = voteAverage,
+                department = department
+            )
+        )
+    }
+
+    return movieCredits
 }
 
 

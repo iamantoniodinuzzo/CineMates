@@ -15,5 +15,5 @@ interface PeopleRepository {
     fun getPopularPersons(): Flow<Result<List<Person>>>
     fun getTrendingPersons(timeWindow: TimeWindow): Flow<Result<List<Person>>>
 
-    fun getMovieCredits(personId: Int): Flow<Result<MovieCredit>>
+    fun getMovieCredits(personId: Int): Flow<Result<List<MovieCredit>>>
 }

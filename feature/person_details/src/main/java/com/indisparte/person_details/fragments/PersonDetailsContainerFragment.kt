@@ -1,4 +1,4 @@
-package com.indisparte.person_details
+package com.indisparte.person_details.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.indisparte.network.whenResources
+import com.indisparte.person_details.R
 import com.indisparte.person_details.databinding.FragmentPersonDetailsContainerBinding
 import com.indisparte.ui.adapter.ViewPagerAdapter
 import com.indisparte.ui.fragment.BaseFragment
@@ -22,6 +23,7 @@ import kotlin.math.abs
 
 typealias FragmentTitleMap = LinkedHashMap<Fragment, @receiver:StringRes Int>
 
+
 @AndroidEntryPoint
 class PersonDetailsContainerFragment : BaseFragment<FragmentPersonDetailsContainerBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPersonDetailsContainerBinding
@@ -31,11 +33,14 @@ class PersonDetailsContainerFragment : BaseFragment<FragmentPersonDetailsContain
     private val viewModel: PersonDetailsViewModel by viewModels()
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private val mapOfFragments: FragmentTitleMap =
-        linkedMapOf(PersonAboutFragment() to R.string.fragment_person_about_title)
+        linkedMapOf(
+            PersonAboutFragment() to R.string.fragment_person_about_title,
+            MovieCreditsFragment() to R.string.fragment_movie_title
+        )
 
     override fun initializeViews() {
         //init views here
-        viewModel.getPersonDetailsById(args.id)
+        viewModel.getPersonDetailsAndCredits(args.id)
 
         initViewPager()
 

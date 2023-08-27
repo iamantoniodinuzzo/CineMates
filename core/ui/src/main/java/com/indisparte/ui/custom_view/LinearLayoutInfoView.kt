@@ -70,11 +70,19 @@ class LinearLayoutInfoView @JvmOverloads constructor(
     /**
      * Default value [Color.BLACK]
      */
-    var textColor: Int = Color.BLACK
+    var titleTextColor: Int = Color.BLACK
+        set(value) {
+            field = value
+            textViewTitle.setTextColor(value)
+        }
+
+    /**
+     * Default value [Color.BLACK]
+     */
+    var valueTextColor: Int = Color.BLACK
         set(value) {
             field = value
             textViewValue.setTextColor(value)
-            textViewTitle.setTextColor(value)
         }
 
     /**
@@ -101,7 +109,8 @@ class LinearLayoutInfoView @JvmOverloads constructor(
                     getString(R.styleable.LinearInfoView_title) ?: DEFAULT_STRING
                 value =
                     getString(R.styleable.LinearInfoView_value) ?: DEFAULT_STRING
-                textColor = getColor(R.styleable.LinearInfoView_textColor, Color.BLACK)
+                titleTextColor = getColor(R.styleable.LinearInfoView_titleTextColor, Color.BLACK)
+                valueTextColor = getColor(R.styleable.LinearInfoView_valueTextColor, Color.BLACK)
                 textSize = getDimension(R.styleable.LinearInfoView_textSize, 14f)
                 titleStyle = getInt(R.styleable.LinearInfoView_textTitleStyle, Typeface.BOLD)
                 valueStyle = getInt(R.styleable.LinearInfoView_textValueStyle, Typeface.NORMAL)

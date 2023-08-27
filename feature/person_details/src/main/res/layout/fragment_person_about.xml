@@ -29,10 +29,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:textColor="?attr/colorOnSecondary"
                 app:textSize="@dimen/small_text_size"
                 app:title="Age"
-                app:value="@{person.age}" />
+                app:titleTextColor="?attr/colorOnSecondary"
+                app:value="@{person.age}"
+                app:valueTextColor="?attr/colorOnPrimary" />
 
             <com.indisparte.ui.custom_view.LinearLayoutInfoView
                 android:id="@+id/birthday"
@@ -46,10 +47,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/age"
-                app:textColor="?attr/colorOnSecondary"
                 app:textSize="@dimen/small_text_size"
                 app:title="Birth day"
-                app:value="@{person.formattedBirthDay}" />
+                app:titleTextColor="?attr/colorOnSecondary"
+                app:value="@{person.formattedBirthDay}"
+                app:valueTextColor="?attr/colorOnPrimary" />
 
             <com.indisparte.ui.custom_view.LinearLayoutInfoView
                 android:id="@+id/birthplace"
@@ -63,10 +65,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/birthday"
-                app:textColor="?attr/colorOnSecondary"
                 app:textSize="@dimen/small_text_size"
                 app:title="From"
-                app:value="@{person.placeOfBirth}" />
+                app:titleTextColor="?attr/colorOnSecondary"
+                app:value="@{person.placeOfBirth}"
+                app:valueTextColor="?attr/colorOnPrimary" />
 
             <com.indisparte.ui.custom_view.LinearLayoutInfoView
                 android:id="@+id/biography"
@@ -80,10 +83,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/birthplace"
-                app:textColor="?attr/colorOnSecondary"
                 app:textSize="@dimen/small_text_size"
                 app:title="Biography"
-                app:value="@{person.biography}" />
+                app:titleTextColor="?attr/colorOnSecondary"
+                app:value="@{person.biography}"
+                app:valueTextColor="?attr/colorOnPrimary" />
 
             <TextView
                 android:id="@+id/also_known_title"

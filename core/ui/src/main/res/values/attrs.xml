@@ -48,7 +48,8 @@
         </attr>
         <attr name="value" format="string" />
         <attr name="hideIfValueEmpty" format="boolean" />
-        <attr name="textColor" format="color" />
+        <attr name="titleTextColor" format="color" />
+        <attr name="valueTextColor" format="color" />
         <attr name="textSize" format="dimension" />
     </declare-styleable>
 

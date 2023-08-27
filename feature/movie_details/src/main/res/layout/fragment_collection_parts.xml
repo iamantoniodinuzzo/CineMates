@@ -16,46 +16,62 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/collection_name"
-            style="@style/SmallTitleTextViewStyle"
+        <!-- <TextView
+             android:id="@+id/collection_name"
+             style="@style/SmallTitleTextViewStyle"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_margin="@dimen/base_margin"
+             android:text="@{collection.name}"
+             android:textColor="?attr/colorOnPrimary"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             tools:text="Collection Name" />
+
+         <TextView
+             android:id="@+id/collection_overview"
+             style="@style/BodyTextViewStyle"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_margin="@dimen/base_margin"
+             android:text="@{collection.overview}"
+             android:textColor="?attr/colorOnPrimary"
+             android:visibility='@{collection.overview!=null?View.VISIBLE : View.GONE}'
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/collection_name"
+             tools:maxLines="3"
+             tools:text="@tools:sample/lorem/random" />-->
+
+        <com.indisparte.ui.custom_view.LinearLayoutInfoView
+            android:id="@+id/collection_overview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/base_margin"
-            android:text="@{collection.name}"
-            android:textColor="?attr/colorOnPrimary"
+            android:orientation="vertical"
+            app:hideIfValueEmpty="true"
+            android:layout_marginTop="@dimen/base_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Collection Name" />
-
-        <TextView
-            android:id="@+id/collection_overview"
-            style="@style/BodyTextViewStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/base_margin"
-            android:text="@{collection.overview}"
-            android:textColor="?attr/colorOnPrimary"
-            android:visibility='@{collection.overview!=null?View.VISIBLE : View.GONE}'
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/collection_name"
-            tools:maxLines="3"
-            tools:text="@tools:sample/lorem/random" />
+            android:layout_marginHorizontal="@dimen/base_margin"
+            app:title="@{collection.name}"
+            app:textSize="@dimen/medium_text_size"
+            app:titleTextColor="?attr/colorOnSecondary"
+            app:value="@{collection.overview}"
+            app:valueTextColor="?attr/colorOnPrimary" />
 
         <com.indisparte.ui.custom_view.StatefulRecyclerView
             android:id="@+id/collection_parts"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/base_margin"
             android:clipToPadding="false"
             android:paddingStart="@dimen/base_margin"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/collection_overview"
+            app:layout_constraintTop_toBottomOf="@+id/collection_overview"
             app:spanCount="3"
             tools:itemCount="6"
             tools:listitem="@layout/list_item_media_small" />

@@ -4,9 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.actor.repository.PeopleRepository
 import com.indisparte.home.util.Section
-import com.indisparte.model.entity.filter.TimeWindow
-import com.indisparte.movie.repository.MovieRepository
-import com.indisparte.movie.util.MovieListType
+import com.indisparte.movie_data.repository.MovieRepository
+import com.indisparte.movie_data.util.MovieListType
 import com.indisparte.tv.repository.TvRepository
 import com.indisparte.tv.util.TvListType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -64,7 +63,7 @@ constructor(
     }
 
     private suspend fun fetchTrendingMovies() {
-        movieRepository.getTrending(TimeWindow.WEEK).collect { resource ->
+        movieRepository.getTrending(com.indisparte.filter.TimeWindow.WEEK).collect { resource ->
             val movieSection = Section.MovieSection(R.string.section_trending_movie, resource)
             updateSection(movieSection)
         }
@@ -78,7 +77,7 @@ constructor(
     }
 
     private suspend fun fetchTrendingTvShow() {
-        tvRepository.getTrending(TimeWindow.WEEK).collect { resource ->
+        tvRepository.getTrending(com.indisparte.filter.TimeWindow.WEEK).collect { resource ->
             val tvSection = Section.TvShowSection(R.string.section_trending_tv, resource)
             updateSection(tvSection)
         }

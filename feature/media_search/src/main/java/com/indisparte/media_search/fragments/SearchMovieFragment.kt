@@ -4,12 +4,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.ajalt.timberkt.Timber
 import com.indisparte.media_search.R
-import com.indisparte.model.entity.movie.Movie
+import com.indisparte.movie_data.Movie
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
-import com.indisparte.ui.adapter.OnItemClickListener
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding
 import com.indisparte.ui.fragment.ListFragment
 import com.indisparte.util.extension.collectIn
@@ -32,15 +31,12 @@ class SearchMovieFragment :
             setEmptyStateSubtitle("Find your favorites movies, TV shows and people.")
             setEmptyStateImage(R.drawable.ic_search)
         }
-        adapter.setOnItemClickListener(object : OnItemClickListener<Movie> {
-            override fun onItemClick(item: Movie) {
-                val activity = requireActivity()
-                if (activity is ToFlowNavigable) {
-                    activity.navigateToFlow(NavigationFlow.MovieDetailsFlow(item.id))
-                }
+        adapter.setOnItemClickListener { item ->
+            val activity = requireActivity()
+            if (activity is ToFlowNavigable) {
+                activity.navigateToFlow(NavigationFlow.MovieDetailsFlow(item.id))
             }
-
-        })
+        }
     }
 
     override fun addItemsToTheAdapter() {

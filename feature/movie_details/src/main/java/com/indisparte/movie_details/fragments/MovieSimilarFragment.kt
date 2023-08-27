@@ -3,7 +3,6 @@ package com.indisparte.movie_details.fragments
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.ajalt.timberkt.Timber
-import com.indisparte.model.entity.movie.Movie
 import com.indisparte.ui.fragment.ListFragment
 import com.indisparte.network.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
@@ -15,7 +14,7 @@ import com.indisparte.util.extension.collectIn
  * @author Antonio Di Nuzzo
  */
 class MovieSimilarFragment :
-    ListFragment<Movie, ListItemMediaSmallBinding, MovieAdapter>(MovieAdapter()) {
+    ListFragment<com.indisparte.movie_data.Movie, ListItemMediaSmallBinding, MovieAdapter>(MovieAdapter()) {
     private val viewModel: MovieDetailsViewModel by viewModels({ requireParentFragment() })
     private val LOG = Timber.tag("MovieSimilarFragment")
     override fun initializeViews() {

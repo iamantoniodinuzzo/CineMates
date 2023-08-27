@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.QueryMap
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 interface GenreDataSource {
     @GET("genre/movie/list")

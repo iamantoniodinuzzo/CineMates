@@ -1,9 +1,6 @@
 package com.indisparte.home.util
 
 import androidx.annotation.StringRes
-import com.indisparte.model.entity.movie.Movie
-import com.indisparte.model.entity.person.Person
-import com.indisparte.model.entity.tv.TvShow
 import com.indisparte.network.Result
 
 
@@ -19,7 +16,7 @@ sealed class Section(@StringRes val titleResId: Int) {
      * @param titleResId The string resource ID for the section title.
      * @param movies The resource representing the list of movies.
      */
-    class MovieSection(@StringRes titleResId: Int, val movies: Result<List<Movie>>) :
+    class MovieSection(@StringRes titleResId: Int, val movies: Result<List<com.indisparte.movie_data.Movie>>) :
         Section(titleResId)
 
     /**
@@ -28,7 +25,7 @@ sealed class Section(@StringRes val titleResId: Int) {
      * @param titleResId The string resource ID for the section title.
      * @param tvShows The resource representing the list of TV shows.
      */
-    class TvShowSection(@StringRes titleResId: Int, val tvShows: Result<List<TvShow>>) :
+    class TvShowSection(@StringRes titleResId: Int, val tvShows: Result<List<com.indisparte.tv.TvShow>>) :
         Section(titleResId)
 
     /**
@@ -37,6 +34,6 @@ sealed class Section(@StringRes val titleResId: Int) {
      * @param titleResId The string resource ID for the section title.
      * @param people The resource representing the list of people.
      */
-    class PeopleSection(@StringRes titleResId: Int, val people: Result<List<Person>>) :
+    class PeopleSection(@StringRes titleResId: Int, val people: Result<List<com.indisparte.person.Person>>) :
         Section(titleResId)
 }

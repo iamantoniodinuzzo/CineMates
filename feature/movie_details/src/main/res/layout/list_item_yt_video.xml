@@ -6,7 +6,7 @@
 
         <variable
             name="video"
-            type="com.indisparte.model.entity.common.Video" />
+            type="com.indisparte.common.Video" />
 
     </data>
 

@@ -3,7 +3,7 @@ package com.indisparte.discover.repository
 import com.indisparte.discover.mapper.toMovie
 import com.indisparte.discover.source.DiscoverMovieDataSource
 import com.indisparte.discover.util.MediaDiscoverFilter
-import com.indisparte.model.entity.movie.Movie
+import com.indisparte.movie_data.Movie
 import com.indisparte.network.Result
 import com.indisparte.network.getListFromResponse
 import kotlinx.coroutines.flow.Flow

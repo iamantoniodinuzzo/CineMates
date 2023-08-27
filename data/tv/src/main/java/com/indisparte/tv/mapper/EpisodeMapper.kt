@@ -1,17 +1,17 @@
 package com.indisparte.tv.mapper
 
-import com.indisparte.model.entity.tv.CreatedBy
-import com.indisparte.model.entity.tv.Episode
-import com.indisparte.model.entity.tv.EpisodeGroup
-import com.indisparte.model.entity.tv.EpisodeGroupDetails
+import com.indisparte.tv.CreatedBy
+import com.indisparte.tv.Episode
+import com.indisparte.tv.EpisodeGroup
+import com.indisparte.tv.EpisodeGroupDetails
 import com.indisparte.tv.response.CreatedByDTO
 import com.indisparte.tv.response.EpisodeDTO
 import com.indisparte.tv.response.EpisodeGroupDTO
 import com.indisparte.tv.response.EpisodeGroupDetailsDTO
 
 
-fun EpisodeGroupDTO.mapToEpisodeGroup(): EpisodeGroup {
-    return EpisodeGroup(
+fun EpisodeGroupDTO.mapToEpisodeGroup(): com.indisparte.tv.EpisodeGroup {
+    return com.indisparte.tv.EpisodeGroup(
         description = this.description,
         episodeCount = this.episodeCount,
         groupCount = this.groupCount,
@@ -22,8 +22,8 @@ fun EpisodeGroupDTO.mapToEpisodeGroup(): EpisodeGroup {
     )
 }
 
-fun EpisodeGroupDetailsDTO.mapToEpisodeGroupDetails(): EpisodeGroupDetails {
-    return EpisodeGroupDetails(
+fun EpisodeGroupDetailsDTO.mapToEpisodeGroupDetails(): com.indisparte.tv.EpisodeGroupDetails {
+    return com.indisparte.tv.EpisodeGroupDetails(
         description = this.description,
         episodeCount = this.episodeCount,
         groupCount = this.groupCount,
@@ -35,8 +35,8 @@ fun EpisodeGroupDetailsDTO.mapToEpisodeGroupDetails(): EpisodeGroupDetails {
     )
 }
 
-fun EpisodeDTO.mapToEpisode(): Episode {
-    return Episode(
+fun EpisodeDTO.mapToEpisode(): com.indisparte.tv.Episode {
+    return com.indisparte.tv.Episode(
         airDate = this.airDate,
         episodeNumber = this.episodeNumber,
         id = this.id,
@@ -50,8 +50,8 @@ fun EpisodeDTO.mapToEpisode(): Episode {
     )
 }
 
-fun CreatedByDTO.mapToCreatedBy(): CreatedBy {
-    return CreatedBy(
+fun CreatedByDTO.mapToCreatedBy(): com.indisparte.tv.CreatedBy {
+    return com.indisparte.tv.CreatedBy(
         creditId = this.creditId,
         gender = this.gender,
         id = this.id,

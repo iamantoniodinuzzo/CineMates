@@ -1,19 +1,19 @@
 package com.indisparte.tv.repository
 
-import com.indisparte.model.entity.filter.MediaFilter
-import com.indisparte.model.entity.filter.TimeWindow
-import com.indisparte.model.entity.person.Cast
-import com.indisparte.model.entity.common.CountryResult
-import com.indisparte.model.entity.person.Crew
-import com.indisparte.model.entity.tv.EpisodeGroup
-import com.indisparte.model.entity.tv.EpisodeGroupDetails
-import com.indisparte.model.entity.tv.SeasonDetails
-import com.indisparte.model.entity.tv.TvShow
-import com.indisparte.model.entity.tv.TvShowDetails
-import com.indisparte.model.entity.common.Video
+import com.indisparte.common.CountryResult
+import com.indisparte.common.Video
+import com.indisparte.filter.MediaFilter
+import com.indisparte.filter.TimeWindow
 import com.indisparte.network.Result
 import com.indisparte.network.getListFromResponse
 import com.indisparte.network.getSingleFromResponse
+import com.indisparte.person.Cast
+import com.indisparte.person.Crew
+import com.indisparte.tv.EpisodeGroup
+import com.indisparte.tv.EpisodeGroupDetails
+import com.indisparte.tv.SeasonDetails
+import com.indisparte.tv.TvShow
+import com.indisparte.tv.TvShowDetails
 import com.indisparte.tv.mapper.mapToCast
 import com.indisparte.tv.mapper.mapToCountryResult
 import com.indisparte.tv.mapper.mapToCrew
@@ -32,7 +32,7 @@ import javax.inject.Inject
 
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 class TvRepositoryImpl
 @Inject
@@ -42,31 +42,31 @@ constructor(
 ) : TvRepository {
 
     //todo need to cache this tv
-    override  fun getSpecificTVList(tvListType: TvListType): Flow<Result<List<TvShow>>> =
+    override fun getSpecificTVList(tvListType: TvListType): Flow<Result<List<TvShow>>> =
         getListFromResponse(
             request = { tvDataSource.getTvListByType(tvListType.value, queryMap) },
             mapper = { response -> response.results.map { it.mapToTvShow() } }
         )
 
-    override  fun getTrending(timeWindow: TimeWindow): Flow<Result<List<TvShow>>> =
+    override fun getTrending(timeWindow: TimeWindow): Flow<Result<List<TvShow>>> =
         getListFromResponse(
             request = { tvDataSource.getTrending(timeWindow.value, queryMap) },
             mapper = { response -> response.results.map { it.mapToTvShow() } }
         )
 
-    override  fun getDetails(id: Int): Flow<Result<TvShowDetails>> =
+    override fun getDetails(id: Int): Flow<Result<TvShowDetails>> =
         getSingleFromResponse(
             request = { tvDataSource.getDetails(id, queryMap) },
             mapper = { response -> response.mapToTvShowDetails() }
         )
 
-    override  fun getSimilar(id: Int): Flow<Result<List<TvShow>>> =
+    override fun getSimilar(id: Int): Flow<Result<List<TvShow>>> =
         getListFromResponse(
             request = { tvDataSource.getSimilar(id, queryMap) },
             mapper = { response -> response.results.map { it.mapToTvShow() } }
         )
 
-    override  fun getDiscoverable(tvFilter: MediaFilter): Flow<Result<List<TvShow>>> =
+    override fun getDiscoverable(tvFilter: MediaFilter): Flow<Result<List<TvShow>>> =
         getListFromResponse(
             request = { tvDataSource.getByDiscover(createQueryParams(tvFilter)) },
             mapper = { response -> response.results.map { it.mapToTvShow() } }
@@ -87,26 +87,20 @@ constructor(
         return queryParams
     }
 
-    /* override  fun getPosters(id: Int): Flow<Result<List<Image>>> =
-                  TODO("Not yet implemented")
 
-     override  fun getBackdrops(id: Int): Flow<Result<List<Image>>> {
-         TODO("Not yet implemented")
-     }*/
-
-    override  fun getCast(id: Int): Flow<Result<List<Cast>>> =
+    override fun getCast(id: Int): Flow<Result<List<Cast>>> =
         getListFromResponse(
             request = { tvDataSource.getCredits(id, queryMap) },
             mapper = { response -> response.cast.map { it.mapToCast() } }
         )
 
-    override  fun getCrew(id: Int): Flow<Result<List<Crew>>> =
+    override fun getCrew(id: Int): Flow<Result<List<Crew>>> =
         getListFromResponse(
             request = { tvDataSource.getCredits(id, queryMap) },
             mapper = { response -> response.crew.map { it.mapToCrew() } }
         )
 
-    override  fun getBySearch(query: String): Flow<Result<List<TvShow>>> =
+    override fun getBySearch(query: String): Flow<Result<List<TvShow>>> =
         flow {
             queryMap["query"] = query
             emitAll(getListFromResponse(
@@ -115,19 +109,19 @@ constructor(
             ))
         }
 
-    override  fun getEpisodeGroup(id: Int): Flow<Result<List<EpisodeGroup>>> =
+    override fun getEpisodeGroup(id: Int): Flow<Result<List<EpisodeGroup>>> =
         getListFromResponse(
             request = { tvDataSource.getEpisodesGroup(id, queryMap) },
             mapper = { response -> response.results.map { it.mapToEpisodeGroup() } }
         )
 
-    override  fun getEpisodeGroupDetails(episodeGroupId: String): Flow<Result<EpisodeGroupDetails>> =
+    override fun getEpisodeGroupDetails(episodeGroupId: String): Flow<Result<EpisodeGroupDetails>> =
         getSingleFromResponse(
             request = { tvDataSource.getEpisodeGroupDetails(episodeGroupId, queryMap) },
             mapper = { response -> response.mapToEpisodeGroupDetails() }
         )
 
-    override  fun getSeasonDetails(
+    override fun getSeasonDetails(
         tvId: Int,
         seasonNumber: Int,
     ): Flow<Result<SeasonDetails>> = getSingleFromResponse(
@@ -135,7 +129,7 @@ constructor(
         mapper = { response -> response.mapToSeasonDetails() }
     )
 
-    override  fun getWatchProviders(
+    override fun getWatchProviders(
         tvId: Int,
         country: String,
     ): Flow<Result<CountryResult?>> = getSingleFromResponse(
@@ -145,7 +139,7 @@ constructor(
         }
     )
 
-    override  fun getVideos(tvId: Int): Flow<Result<List<Video>>> =
+    override fun getVideos(tvId: Int): Flow<Result<List<Video>>> =
         getListFromResponse(
             request = { tvDataSource.getVideos(tvId, queryMap) },
             mapper = { response -> response.results.map { it.mapToVideo() } }

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.github.ajalt.timberkt.Timber
 import com.indisparte.media_discover.R
 import com.indisparte.media_discover.filterable_fragment.FilterSheetRequestListener
-import com.indisparte.model.entity.movie.Movie
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources
@@ -23,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class FilterableMovieFragment :
-    ListFragment<Movie, ListItemMediaSmallBinding, MovieAdapter>(MovieAdapter()), FilterSheetRequestListener {
+    ListFragment<com.indisparte.movie_data.Movie, ListItemMediaSmallBinding, MovieAdapter>(MovieAdapter()), FilterSheetRequestListener {
 
     private val TAG: String = FilterableMovieFragment::class.simpleName!!
     private val viewModel: FilterableMovieFragmentViewModel by navGraphViewModels(R.id.discover_graph){
@@ -39,8 +38,8 @@ class FilterableMovieFragment :
             setEmptyStateSubtitle("It seems that these filters are not matched by any film")
             setEmptyStateImage(R.drawable.ic_filters)
         }
-        adapter.setOnItemClickListener(object : OnItemClickListener<Movie> {
-            override fun onItemClick(item: Movie) {
+        adapter.setOnItemClickListener(object : OnItemClickListener<com.indisparte.movie_data.Movie> {
+            override fun onItemClick(item: com.indisparte.movie_data.Movie) {
                 val activity = requireActivity()
                 if (activity is ToFlowNavigable) {
                     activity.navigateToFlow(NavigationFlow.MovieDetailsFlow(item.id))

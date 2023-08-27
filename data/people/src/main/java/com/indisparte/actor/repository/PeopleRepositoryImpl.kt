@@ -4,10 +4,10 @@ import com.indisparte.actor.mapper.mapToMovieCredits
 import com.indisparte.actor.mapper.mapToPerson
 import com.indisparte.actor.mapper.mapToPersonDetails
 import com.indisparte.actor.source.PeopleDataSource
-import com.indisparte.model.entity.filter.TimeWindow
-import com.indisparte.model.entity.movie.MovieCredit
-import com.indisparte.model.entity.person.Person
-import com.indisparte.model.entity.person.PersonDetails
+import com.indisparte.filter.TimeWindow
+import com.indisparte.movie_data.MovieCredit
+import com.indisparte.person.Person
+import com.indisparte.person.PersonDetails
 import com.indisparte.network.Result
 import com.indisparte.network.getListFromResponse
 import com.indisparte.network.getSingleFromResponse

@@ -2,18 +2,9 @@ package com.indisparte.movie_details.fragments
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.indisparte.model.entity.common.Backdrop
-import com.indisparte.model.entity.person.Cast
-import com.indisparte.model.entity.movie.CollectionDetails
-import com.indisparte.model.entity.common.CountryResult
-import com.indisparte.model.entity.person.Crew
-import com.indisparte.model.entity.movie.Movie
-import com.indisparte.model.entity.movie.MovieDetails
-import com.indisparte.model.entity.movie.ReleaseDate
-import com.indisparte.model.entity.common.Video
-import com.indisparte.model.entity.movie.findReleaseDateByCountry
-import com.indisparte.model.entity.movie.getLatestReleaseCertification
-import com.indisparte.movie.repository.MovieRepository
+import com.indisparte.movie_data.findReleaseDateByCountry
+import com.indisparte.movie_data.getLatestReleaseCertification
+import com.indisparte.movie_data.repository.MovieRepository
 import com.indisparte.network.Result
 import com.indisparte.network.succeeded
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,29 +35,29 @@ class MovieDetailsViewModel
 
     private val LOG = Timber.tag("MovieDetailsViewModel")
 
-    private val _selectedMovie = MutableSharedFlow<Result<MovieDetails>>()
-    val selectedMovie: SharedFlow<Result<MovieDetails>> get() = _selectedMovie.asSharedFlow()
-    private val _videos = MutableStateFlow<Result<List<Video>>?>(null)
-    val videos: StateFlow<Result<List<Video>>?> get() = _videos
-    private val _cast = MutableStateFlow<Result<List<Cast>>?>(null)
-    val cast: StateFlow<Result<List<Cast>>?> get() = _cast
+    private val _selectedMovie = MutableSharedFlow<Result<com.indisparte.movie_data.MovieDetails>>()
+    val selectedMovie: SharedFlow<Result<com.indisparte.movie_data.MovieDetails>> get() = _selectedMovie.asSharedFlow()
+    private val _videos = MutableStateFlow<Result<List<com.indisparte.common.Video>>?>(null)
+    val videos: StateFlow<Result<List<com.indisparte.common.Video>>?> get() = _videos
+    private val _cast = MutableStateFlow<Result<List<com.indisparte.person.Cast>>?>(null)
+    val cast: StateFlow<Result<List<com.indisparte.person.Cast>>?> get() = _cast
 
-    private val _similarMovies = MutableStateFlow<Result<List<Movie>>?>(null)
-    val similarMovies: StateFlow<Result<List<Movie>>?> get() = _similarMovies
-    private val _watchProviders = MutableStateFlow<Result<CountryResult?>>(Result.Success(null))
-    val watchProviders: StateFlow<Result<CountryResult?>> get() = _watchProviders
-    private val _crew = MutableStateFlow<Result<List<Crew>>?>(null)
-    val crew: StateFlow<Result<List<Crew>>?> get() = _crew
-    private val _releaseDates = MutableStateFlow<Result<List<ReleaseDate>>?>(null)
-    val releaseDates: StateFlow<Result<List<ReleaseDate>>?> get() = _releaseDates
+    private val _similarMovies = MutableStateFlow<Result<List<com.indisparte.movie_data.Movie>>?>(null)
+    val similarMovies: StateFlow<Result<List<com.indisparte.movie_data.Movie>>?> get() = _similarMovies
+    private val _watchProviders = MutableStateFlow<Result<com.indisparte.common.CountryResult?>>(Result.Success(null))
+    val watchProviders: StateFlow<Result<com.indisparte.common.CountryResult?>> get() = _watchProviders
+    private val _crew = MutableStateFlow<Result<List<com.indisparte.person.Crew>>?>(null)
+    val crew: StateFlow<Result<List<com.indisparte.person.Crew>>?> get() = _crew
+    private val _releaseDates = MutableStateFlow<Result<List<com.indisparte.movie_data.ReleaseDate>>?>(null)
+    val releaseDates: StateFlow<Result<List<com.indisparte.movie_data.ReleaseDate>>?> get() = _releaseDates
     private val _latestCertification = MutableStateFlow<String?>(null)
     val latestCertification: StateFlow<String?> get() = _latestCertification
 
-    private val _backdrops = MutableStateFlow<Result<List<Backdrop>>?>(null)
-    val backdrops: StateFlow<Result<List<Backdrop>>?> get() = _backdrops
+    private val _backdrops = MutableStateFlow<Result<List<com.indisparte.common.Backdrop>>?>(null)
+    val backdrops: StateFlow<Result<List<com.indisparte.common.Backdrop>>?> get() = _backdrops
 
-    private val _collectionParts = MutableStateFlow<Result<CollectionDetails>?>(null)
-    val collectionParts: StateFlow<Result<CollectionDetails>?> get() = _collectionParts
+    private val _collectionParts = MutableStateFlow<Result<com.indisparte.movie_data.CollectionDetails>?>(null)
+    val collectionParts: StateFlow<Result<com.indisparte.movie_data.CollectionDetails>?> get() = _collectionParts
 
     init {
         observeSelectedMovie()

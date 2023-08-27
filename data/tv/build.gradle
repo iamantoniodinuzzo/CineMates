@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'com.indisparte.tv'
+    namespace 'com.indisparte.tv_data'
     compileSdk libs.versions.targetSdk.get().toInteger()
 
     defaultConfig {
@@ -33,7 +33,9 @@ android {
 
 dependencies {
 
-    implementation project(":core:model")
+    implementation project(":core:model:tv")
+    implementation project(":core:model:filter")
+    implementation project(":core:model:person")
     implementation project(":core:response")
     implementation project(":core:network")
 

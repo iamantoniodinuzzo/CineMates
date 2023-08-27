@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.github.ajalt.timberkt.Timber
-import com.indisparte.model.entity.movie.Movie
 import com.indisparte.movie_details.databinding.FragmentCollectionPartsBinding
 import com.indisparte.movie_details.util.enableInnerScrollViewPager
 import com.indisparte.network.whenResources
@@ -34,8 +33,8 @@ class CollectionPartsFragment : BaseFragment<FragmentCollectionPartsBinding>() {
     override fun initializeViews() {
         binding.collectionParts.enableInnerScrollViewPager()
         binding.collectionParts.adapter = adapter
-        adapter.setOnItemClickListener(object :OnItemClickListener<Movie>{
-            override fun onItemClick(item: Movie) {
+        adapter.setOnItemClickListener(object :OnItemClickListener<com.indisparte.movie_data.Movie>{
+            override fun onItemClick(item: com.indisparte.movie_data.Movie) {
                 //update view model selected movie
                 viewModel.onDetailsFragmentReady(item.id)
             }

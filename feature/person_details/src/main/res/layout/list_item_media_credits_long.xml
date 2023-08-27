@@ -8,7 +8,7 @@
 
         <variable
             name="movieCredit"
-            type="com.indisparte.model.entity.movie.MovieCredit" />
+            type="com.indisparte.movie_data.MovieCredit" />
     </data>
 
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.discover.util.SortOptions
 import com.indisparte.genre.repository.GenreRepository
-import com.indisparte.model.entity.common.Genre
+import com.indisparte.common.Genre
 import com.indisparte.network.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,8 +27,8 @@ constructor(
 ) : ViewModel() {
 
     private val LOG = Timber.tag(MovieFilterViewModel::class.java.simpleName)
-    private val _movieGenres = MutableStateFlow<Result<List<Genre>>>(Result.Success(emptyList()))
-    val movieGenres: StateFlow<Result<List<Genre>>> get() = _movieGenres
+    private val _movieGenres = MutableStateFlow<Result<List<com.indisparte.common.Genre>>>(Result.Success(emptyList()))
+    val movieGenres: StateFlow<Result<List<com.indisparte.common.Genre>>> get() = _movieGenres
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()

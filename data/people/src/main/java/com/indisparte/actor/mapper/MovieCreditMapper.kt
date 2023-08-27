@@ -1,10 +1,9 @@
 package com.indisparte.actor.mapper
 
 import com.indisparte.actor.response.MovieCreditResponseDTO
-import com.indisparte.model.entity.movie.MovieCredit
 
-fun MovieCreditResponseDTO.mapToMovieCredits(): List<MovieCredit> {
-    val movieCredits = mutableListOf<MovieCredit>()
+fun MovieCreditResponseDTO.mapToMovieCredits(): List<com.indisparte.movie_data.MovieCredit> {
+    val movieCredits = mutableListOf<com.indisparte.movie_data.MovieCredit>()
 
     cast.forEach { castItem ->
         val character = castItem.character
@@ -17,7 +16,7 @@ fun MovieCreditResponseDTO.mapToMovieCredits(): List<MovieCredit> {
         val adult = castItem.adult
 
         movieCredits.add(
-            MovieCredit(
+            com.indisparte.movie_data.MovieCredit(
                 character = character,
                 id = id,
                 posterPath = posterPath,
@@ -43,7 +42,7 @@ fun MovieCreditResponseDTO.mapToMovieCredits(): List<MovieCredit> {
         val adult = crewItem.adult
 
         movieCredits.add(
-            MovieCredit(
+            com.indisparte.movie_data.MovieCredit(
                 character = null, // Character not in crew
                 id = id,
                 posterPath = posterPath,

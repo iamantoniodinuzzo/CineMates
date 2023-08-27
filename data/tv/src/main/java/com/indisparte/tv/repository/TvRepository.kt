@@ -1,16 +1,16 @@
 package com.indisparte.tv.repository
 
-import com.indisparte.model.entity.filter.MediaFilter
-import com.indisparte.model.entity.filter.TimeWindow
-import com.indisparte.model.entity.person.Cast
-import com.indisparte.model.entity.common.CountryResult
-import com.indisparte.model.entity.person.Crew
-import com.indisparte.model.entity.tv.EpisodeGroup
-import com.indisparte.model.entity.tv.EpisodeGroupDetails
-import com.indisparte.model.entity.tv.SeasonDetails
-import com.indisparte.model.entity.tv.TvShow
-import com.indisparte.model.entity.tv.TvShowDetails
-import com.indisparte.model.entity.common.Video
+import com.indisparte.filter.MediaFilter
+import com.indisparte.filter.TimeWindow
+import com.indisparte.person.Cast
+import com.indisparte.common.CountryResult
+import com.indisparte.person.Crew
+import com.indisparte.tv.EpisodeGroup
+import com.indisparte.tv.EpisodeGroupDetails
+import com.indisparte.tv.SeasonDetails
+import com.indisparte.tv.TvShow
+import com.indisparte.tv.TvShowDetails
+import com.indisparte.common.Video
 import com.indisparte.network.Result
 import com.indisparte.tv.util.TvListType
 import kotlinx.coroutines.flow.Flow
@@ -25,8 +25,6 @@ interface TvRepository {
     fun getSimilar(id: Int): Flow<Result<List<TvShow>>>
     fun getDiscoverable(tvFilter: MediaFilter): Flow<Result<List<TvShow>>>
 
-    /*fun getPosters(id: Int): Flow<Result<List<Image>>>
-    fun getBackdrops(id: Int): Flow<Result<List<Image>>>*/
     fun getCast(id: Int): Flow<Result<List<Cast>>>
     fun getCrew(id: Int): Flow<Result<List<Crew>>>
     fun getBySearch(query: String): Flow<Result<List<TvShow>>>

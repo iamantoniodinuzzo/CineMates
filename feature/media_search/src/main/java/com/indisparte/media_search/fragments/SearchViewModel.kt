@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.ajalt.timberkt.Timber
 import com.indisparte.media_search.repository.MovieSearchRepository
-import com.indisparte.model.entity.movie.Movie
 import com.indisparte.network.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,8 +26,8 @@ constructor(
     private val _query = MutableStateFlow("")
     private val query: StateFlow<String> get() = _query
 
-    private val _moviesBySearch = MutableStateFlow<Result<List<Movie>>>(Result.Success(emptyList()))
-    val moviesBySearch: StateFlow<Result<List<Movie>>> get() = _moviesBySearch
+    private val _moviesBySearch = MutableStateFlow<Result<List<com.indisparte.movie_data.Movie>>>(Result.Success(emptyList()))
+    val moviesBySearch: StateFlow<Result<List<com.indisparte.movie_data.Movie>>> get() = _moviesBySearch
 
     init {
         observeQueryChanges()

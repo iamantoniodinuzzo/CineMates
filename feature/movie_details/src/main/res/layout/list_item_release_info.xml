@@ -7,7 +7,7 @@
         <!-- Variables here -->
         <variable
             name="releaseDate"
-            type="com.indisparte.model.entity.movie.ReleaseDate" />
+            type="com.indisparte.movie_data.ReleaseDate" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

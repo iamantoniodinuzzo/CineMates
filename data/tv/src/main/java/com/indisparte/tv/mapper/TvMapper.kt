@@ -1,16 +1,16 @@
 package com.indisparte.tv.mapper
 
-import com.indisparte.model.entity.person.Cast
-import com.indisparte.model.entity.person.Crew
-import com.indisparte.model.entity.common.Genre
-import com.indisparte.model.entity.tv.Group
-import com.indisparte.model.entity.common.Network
-import com.indisparte.model.entity.common.ProductionCompany
-import com.indisparte.model.entity.common.ProductionCountry
-import com.indisparte.model.entity.common.SpokenLanguage
-import com.indisparte.model.entity.tv.TvShow
-import com.indisparte.model.entity.tv.TvShowDetails
-import com.indisparte.model.entity.common.Video
+import com.indisparte.person.Cast
+import com.indisparte.person.Crew
+import com.indisparte.common.Genre
+import com.indisparte.tv.Group
+import com.indisparte.common.Network
+import com.indisparte.common.ProductionCompany
+import com.indisparte.common.ProductionCountry
+import com.indisparte.common.SpokenLanguage
+import com.indisparte.tv.TvShow
+import com.indisparte.tv.TvShowDetails
+import com.indisparte.common.Video
 import com.indisparte.response.GenreDTO
 import com.indisparte.response.ProductionCompanyDTO
 import com.indisparte.response.ProductionCountryDTO
@@ -26,8 +26,8 @@ import com.indisparte.tv.response.TvShowDetailsDTO
 /**
  * @author Antonio Di Nuzzo
  */
-fun TvShowDTO.mapToTvShow(): TvShow {
-    return TvShow(
+fun TvShowDTO.mapToTvShow(): com.indisparte.tv.TvShow {
+    return com.indisparte.tv.TvShow(
         id = this.id,
         name = this.name,
         popularity = this.popularity,
@@ -36,8 +36,8 @@ fun TvShowDTO.mapToTvShow(): TvShow {
     )
 }
 
-fun TvShowDetailsDTO.mapToTvShowDetails(): TvShowDetails {
-    return TvShowDetails(
+fun TvShowDetailsDTO.mapToTvShowDetails(): com.indisparte.tv.TvShowDetails {
+    return com.indisparte.tv.TvShowDetails(
         adult = this.adult,
         backdropPath = this.backdropPath,
         createdBy = this.createdBy.map { it.mapToCreatedBy() },
@@ -75,8 +75,8 @@ fun TvShowDetailsDTO.mapToTvShowDetails(): TvShowDetails {
 
 
 
-fun NetworkDTO.mapToNetwork(): Network {
-    return Network(
+fun NetworkDTO.mapToNetwork(): com.indisparte.common.Network {
+    return com.indisparte.common.Network(
         id = this.id,
         logoPath = this.logoPath,
         name = this.name,
@@ -84,24 +84,28 @@ fun NetworkDTO.mapToNetwork(): Network {
     )
 }
 
-fun GenreDTO.mapToGenre(): Genre {
-    return Genre(id = this.id, name = this.name)
+fun GenreDTO.mapToGenre(): com.indisparte.common.Genre {
+    return com.indisparte.common.Genre(id = this.id, name = this.name)
 }
 
-fun ProductionCompanyDTO.mapToProductionCompany(): ProductionCompany {
-    return ProductionCompany(id = this.id, logoPath = this.logoPath, name = this.name)
+fun ProductionCompanyDTO.mapToProductionCompany(): com.indisparte.common.ProductionCompany {
+    return com.indisparte.common.ProductionCompany(
+        id = this.id,
+        logoPath = this.logoPath,
+        name = this.name
+    )
 }
 
-fun ProductionCountryDTO.mapToProductionCountry(): ProductionCountry {
-    return ProductionCountry(name = this.name)
+fun ProductionCountryDTO.mapToProductionCountry(): com.indisparte.common.ProductionCountry {
+    return com.indisparte.common.ProductionCountry(name = this.name)
 }
 
-fun SpokenLanguageDTO.mapToSpokenLanguage(): SpokenLanguage {
-    return SpokenLanguage(englishName = this.englishName, name = this.name)
+fun SpokenLanguageDTO.mapToSpokenLanguage(): com.indisparte.common.SpokenLanguage {
+    return com.indisparte.common.SpokenLanguage(englishName = this.englishName, name = this.name)
 }
 
-fun GroupDTO.mapToGroup(): Group {
-    return Group(
+fun GroupDTO.mapToGroup(): com.indisparte.tv.Group {
+    return com.indisparte.tv.Group(
         episodes = this.episodes.map { it.mapToEpisode() },
         id = this.id,
         locked = this.locked,
@@ -110,8 +114,8 @@ fun GroupDTO.mapToGroup(): Group {
     )
 }
 
-fun CastDTO.mapToCast(): Cast {
-    return Cast(
+fun CastDTO.mapToCast(): com.indisparte.person.Cast {
+    return com.indisparte.person.Cast(
         adult = this.adult,
         castId = this.id,
         character = this.roles.firstOrNull()?.character.orEmpty(),
@@ -126,8 +130,8 @@ fun CastDTO.mapToCast(): Cast {
         profilePath = this.profilePath
     )
 }
-fun CrewDTO.mapToCrew(): Crew {
-    return Crew(
+fun CrewDTO.mapToCrew(): com.indisparte.person.Crew {
+    return com.indisparte.person.Crew(
         adult = this.adult,
         creditId = this.jobs.firstOrNull()?.creditId.orEmpty(),
         department = this.department,
@@ -142,8 +146,8 @@ fun CrewDTO.mapToCrew(): Crew {
     )
 }
 
-fun VideoDTO.mapToVideo(): Video {
-    return Video(
+fun VideoDTO.mapToVideo(): com.indisparte.common.Video {
+    return com.indisparte.common.Video(
         id = this.id,
         key = this.key,
         name = this.name,

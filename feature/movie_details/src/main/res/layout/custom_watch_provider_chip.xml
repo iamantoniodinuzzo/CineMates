@@ -7,7 +7,7 @@
         <!-- Variables here -->
         <variable
             name="watchProvider"
-            type="com.indisparte.model.entity.common.WatchProvider" />
+            type="com.indisparte.common.WatchProvider" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

@@ -34,7 +34,7 @@ android {
 
 dependencies {
 
-    implementation project(":core:model")
+    implementation project(":core:model:common")
     implementation project(":core:response")
     implementation project(":core:network")
 

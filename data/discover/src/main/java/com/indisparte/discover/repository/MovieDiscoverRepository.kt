@@ -1,7 +1,7 @@
 package com.indisparte.discover.repository
 
 import com.indisparte.discover.util.MediaDiscoverFilter
-import com.indisparte.model.entity.movie.Movie
+import com.indisparte.movie_data.Movie
 import com.indisparte.network.Result
 import kotlinx.coroutines.flow.Flow
 

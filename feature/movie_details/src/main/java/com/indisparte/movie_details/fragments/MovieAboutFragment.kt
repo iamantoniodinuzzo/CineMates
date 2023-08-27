@@ -12,9 +12,9 @@ import com.github.ajalt.timberkt.Timber
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.progressindicator.CircularProgressIndicator
-import com.indisparte.model.entity.common.CountryResult
-import com.indisparte.model.entity.person.Crew
-import com.indisparte.model.entity.common.Genre
+import com.indisparte.common.CountryResult
+import com.indisparte.person.Crew
+import com.indisparte.common.Genre
 import com.indisparte.movie_details.R
 import com.indisparte.movie_details.adapter.CrewAdapter
 import com.indisparte.movie_details.adapter.ReleaseDateAdapter
@@ -200,7 +200,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     }
 
 
-    private fun setGenresChipGroup(genres: List<Genre>) {// TODO: cleanup
+    private fun setGenresChipGroup(genres: List<com.indisparte.common.Genre>) {// TODO: cleanup
         if (genres.isEmpty()) {
             LOG.d("Genres is empty, hide title")
             binding.genresTitle.gone()
@@ -223,7 +223,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         }
     }
 
-    private fun setWatchProvidersChipGroup(countryResult: CountryResult) {
+    private fun setWatchProvidersChipGroup(countryResult: com.indisparte.common.CountryResult) {
         chipGroupWatchProviders.removeAllViews()
         val watchProviders = countryResult.allWatchProviders
         for (chipData in watchProviders) {
@@ -258,7 +258,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
      *
      *  @return A new list containing an even number of elements from the original list.
      */
-    private fun List<Crew>.takeEvenNumberOfItems(): List<Crew> {
+    private fun List<com.indisparte.person.Crew>.takeEvenNumberOfItems(): List<com.indisparte.person.Crew> {
         if (isEmpty())
             return this
 

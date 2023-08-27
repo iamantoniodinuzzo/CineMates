@@ -38,7 +38,10 @@ android {
 dependencies {
 
     implementation project(":core:util")
-    implementation project(":core:model")
+//    implementation project(":core:model:base")
+    implementation project(":core:model:person")
+    implementation project(":core:model:movie")
+    implementation project(":core:model:tv")
     implementation project(":core:navigation")
 
     implementation libs.bundles.androidX

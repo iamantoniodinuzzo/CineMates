@@ -2,7 +2,7 @@ package com.indisparte.genre.repository
 
 import com.indisparte.genre.mapper.mapToGenre
 import com.indisparte.genre.source.GenreDataSource
-import com.indisparte.model.entity.common.Genre
+import com.indisparte.common.Genre
 import com.indisparte.network.Result
 import com.indisparte.network.getListFromResponse
 import kotlinx.coroutines.flow.Flow
@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 class GenreRepositoryImpl
 @Inject

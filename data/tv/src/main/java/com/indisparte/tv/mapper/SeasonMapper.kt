@@ -1,13 +1,13 @@
 package com.indisparte.tv.mapper
 
-import com.indisparte.model.entity.tv.Season
-import com.indisparte.model.entity.tv.SeasonDetails
+import com.indisparte.tv.Season
+import com.indisparte.tv.SeasonDetails
 import com.indisparte.tv.response.SeasonDTO
 import com.indisparte.tv.response.SeasonDetailsDTO
 
 
-fun SeasonDTO.mapToSeason(): Season {
-    return Season(
+fun SeasonDTO.mapToSeason(): com.indisparte.tv.Season {
+    return com.indisparte.tv.Season(
         airDate = this.airDate,
         episodeCount = this.episodeCount,
         id = this.id,
@@ -19,8 +19,8 @@ fun SeasonDTO.mapToSeason(): Season {
     )
 }
 
-fun SeasonDetailsDTO.mapToSeasonDetails(): SeasonDetails {
-    return SeasonDetails(
+fun SeasonDetailsDTO.mapToSeasonDetails(): com.indisparte.tv.SeasonDetails {
+    return com.indisparte.tv.SeasonDetails(
         airDate = this.airDate,
         episodes = this.episodes.map { it.mapToEpisode() },
         id = this.id,

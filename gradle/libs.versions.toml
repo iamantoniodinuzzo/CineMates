@@ -17,7 +17,7 @@ dagger = "2.46.1"
 jetbrainsPlugin = "1.7.20"
 androidGradlePlugin = "7.3.1"
 minSdk = "22"
-targetSdk = "33"
+targetSdk = "34"
 room = "2.5.1"
 timber = "1.5.1"
 
@@ -56,6 +56,6 @@ androidX = ["core.ktx", "appcompat", "constraintLayout"]
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
-jetbrains-kotlin = { id = "org.jetbrains.kotlin.android", version = "1.8.22" }
+jetbrains-kotlin = { id = "org.jetbrains.kotlin.android", version = "1.9.10" }
 dagger-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Release types-->
+    <string name="release_premiere">Premiere</string>
+    <string name="release_theatrical_limited">Theatrical (limited)</string>
+    <string name="release_theatrical">Theatrical</string>
+    <string name="release_digital">Digital</string>
+    <string name="release_physical">Physical</string>
+    <string name="release_tv">TV</string>
+</resources>

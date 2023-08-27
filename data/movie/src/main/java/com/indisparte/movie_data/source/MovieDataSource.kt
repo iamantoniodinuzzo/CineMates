@@ -69,12 +69,6 @@ interface MovieDataSource {
         @QueryMap queries: Map<String, String>,
     ): Response<GenericResponse<ReleaseDatesByCountryDTO>>
 
-    @GET("search/movie")
-    suspend fun getBySearch(@QueryMap queries: Map<String, String>): Response<GenericResponse<MovieDTO>>
-
-    @GET("discover/movie")
-    suspend fun getByDiscover(@QueryMap queries: Map<String, String>): Response<GenericResponse<MovieDTO>>
-
     @GET("trending/movie/{time_window}")
     suspend fun getTrending(
         @Path("time_window") timeWindow: String,

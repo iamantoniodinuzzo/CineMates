@@ -1,6 +1,6 @@
 package com.indisparte.discover.source
 
-import com.indisparte.discover.util.SortOptions
+import com.indisparte.filter.BaseSortOptions
 import com.indisparte.network.GenericResponse
 import com.indisparte.response.MovieDTO
 import retrofit2.Response
@@ -15,7 +15,7 @@ import retrofit2.http.QueryMap
 
     @GET("discover/movie")
     suspend fun discoverMovies(
-        @Query("sort_by") sortBy: String? = SortOptions.DescendingPopularity.order,
+        @Query("sort_by") sortBy: String? = BaseSortOptions.DescendingPopularity.order,
         @Query("vote_average.gte") voteAverageGTE: Float? = null,
         @Query("with_cast") castIds: String? = null,
         @Query("with_genres") genreIds: String? = null,

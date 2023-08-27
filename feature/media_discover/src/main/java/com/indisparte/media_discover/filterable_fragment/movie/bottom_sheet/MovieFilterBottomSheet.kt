@@ -11,8 +11,8 @@ import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.badge.ExperimentalBadgeUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
-import com.indisparte.discover.util.MediaDiscoverFilter
-import com.indisparte.discover.util.SortOptions
+import com.indisparte.filter.MediaDiscoverFilter
+import com.indisparte.filter.BaseSortOptions
 import com.indisparte.media_discover.R
 import com.indisparte.media_discover.databinding.BottomSheetMovieFilterBinding
 import com.indisparte.media_discover.databinding.CustomFilterChipBinding
@@ -187,7 +187,7 @@ class MovieFilterBottomSheet : BottomSheetDialogFragment() {
         chipGroup.removeAllViews()
 
         // Iterate through each sorting option and create corresponding chips
-        SortOptions::class.nestedClasses.map { it.objectInstance as SortOptions }
+        BaseSortOptions::class.nestedClasses.map { it.objectInstance as BaseSortOptions }
             .forEach { sortOption ->
                 val chipBinding = CustomFilterChipBinding.inflate(layoutInflater)
                 val chip: Chip = chipBinding.root

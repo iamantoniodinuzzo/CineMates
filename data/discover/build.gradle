@@ -33,7 +33,8 @@ android {
 
 dependencies {
 
-    implementation project(":core:model:movie")
+    api project(":core:model:movie")
+    api project(":core:model:filter")
     implementation project(":core:response")
     implementation project(":core:network")
 

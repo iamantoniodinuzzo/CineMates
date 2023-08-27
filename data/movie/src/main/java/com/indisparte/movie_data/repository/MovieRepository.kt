@@ -3,7 +3,6 @@ package com.indisparte.movie_data.repository
 import com.indisparte.common.Backdrop
 import com.indisparte.common.CountryResult
 import com.indisparte.common.Video
-import com.indisparte.filter.MediaFilter
 import com.indisparte.filter.TimeWindow
 import com.indisparte.movie_data.CollectionDetails
 import com.indisparte.movie_data.Movie
@@ -21,8 +20,6 @@ import kotlinx.coroutines.flow.Flow
 interface MovieRepository {
     fun getByListType(movieListType: MovieListType): Flow<Result<List<Movie>>>
     fun getTrending(timeWindow: TimeWindow): Flow<Result<List<Movie>>>
-    fun getBySearch(query: String): Flow<Result<List<Movie>>>
-    fun getDiscoverable(mediaFilter: MediaFilter): Flow<Result<List<Movie>>>
     fun getDetails(movieId: Int): Flow<Result<MovieDetails>>
     fun getSimilar(movieId: Int): Flow<Result<List<Movie>>>
     fun getCast(movieId: Int): Flow<Result<List<Cast>>>

@@ -2,9 +2,6 @@ package com.indisparte.model.entity.base
 
 import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W500
 import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W780
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Locale
 import kotlin.math.roundToInt
 
 
@@ -17,11 +14,7 @@ open class Media(
     val popularity: Double?,
     private val posterPath: String?,
     private val voteAverage: Double,
-) {
-    companion object {
-        private const val TMDB_DATE_TIME_FORMAT = "yyyy-MM-dd"
-        private const val OUTPUT_DATE_TIME_FORMAT = "dd MMMM yyyy"
-    }
+) : TMDBItem() {
 
     val voteAverageRounded: String
         get() = if (voteAverage == 0.0) {
@@ -31,10 +24,10 @@ open class Media(
         }
 
     val completePosterPathW780: String?
-        get() = if (posterPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W780$posterPath"
+        get() = getCompleteImagePath(IMAGE_BASE_URL_W780, posterPath)
 
     val completePosterPathW500: String?
-        get() = if (posterPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W500$posterPath"
+        get() = getCompleteImagePath(IMAGE_BASE_URL_W500, posterPath)
 
     val voteAverageAsString: String
         get() = voteAverage.toString()
@@ -52,33 +45,5 @@ open class Media(
         return result
     }
 
-    protected fun getCompleteImagePath(urlToImage: String?): String? {
-        return if (urlToImage.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W780$urlToImage"
-    }
 
-    protected fun formatDate(inputDate: String): String? {
-        if (inputDate.isEmpty()) {
-            return null
-        }
-
-        val inputFormat = SimpleDateFormat(TMDB_DATE_TIME_FORMAT, Locale.getDefault())
-        val outputFormat = SimpleDateFormat(OUTPUT_DATE_TIME_FORMAT, Locale.getDefault())
-
-        return try {
-            val date = inputFormat.parse(inputDate)
-            date?.let { outputFormat.format(it) }
-        } catch (e: ParseException) {
-            null
-        }
-    }
-
-
-    protected fun formatRuntime(runtime: Int): String {
-        val hours = runtime / 60
-        val minutes = runtime % 60
-
-        if (hours == 0 && minutes == 0) return ""
-
-        return "$hours h $minutes min"
-    }
 }

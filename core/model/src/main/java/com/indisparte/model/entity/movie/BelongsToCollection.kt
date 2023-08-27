@@ -1,5 +1,6 @@
 package com.indisparte.model.entity.movie
 
+import com.indisparte.model.entity.base.TMDBItem
 import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W500
 import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W780
 
@@ -9,16 +10,16 @@ open class BelongsToCollection(
     val id: Int,
     val name: String,
     private val posterPath: String?,
-) {
+) : TMDBItem() {
     val completePosterPathW780: String?
-        get() = if (posterPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W780$posterPath"
+        get() = getCompleteImagePath(IMAGE_BASE_URL_W780, posterPath)
 
     val completePosterPathW500: String?
-        get() = if (posterPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W500$posterPath"
+        get() = getCompleteImagePath(IMAGE_BASE_URL_W500, posterPath)
     val completeBackdropPathW780: String?
-        get() = if (backdropPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W780$backdropPath"
+        get() = getCompleteImagePath(IMAGE_BASE_URL_W780, backdropPath)
 
     val completeBackdropPathW500: String?
-        get() = if (backdropPath.isNullOrEmpty()) null else "$IMAGE_BASE_URL_W500$backdropPath"
+        get() = getCompleteImagePath(IMAGE_BASE_URL_W500, backdropPath)
 
 }

@@ -1,24 +1,33 @@
 package com.indisparte.model.entity.movie
 
-import com.indisparte.model.util.Constants
-
-data class MovieCredit(
+/**
+ * @author Antonio Di Nuzzo
+ */
+class MovieCredit(
+    adult: Boolean,
     private val character: String?,
-    val id: Int,
-    private val posterPath: String?,
-    private val releaseDate: String?,
-    val title: String?,
-    val voteAverage: Double,
+    id: Int,
+    popularity: Double,
+    posterPath: String?,
+    releaseDate: String,
+    title: String,
+    voteAverage: Double,
     private val department: String?,
-){
+) : Movie(
+    adult,
+    id,
+    popularity,
+    posterPath,
+    releaseDate,
+    title,
+    voteAverage
+) {
     val credit: String
         get() = character ?: department.orEmpty()
 
-    val completePosterPathW780: String?
-        get() = if (posterPath.isNullOrEmpty()) null else "${Constants.IMAGE_BASE_URL_W780}$posterPath"
     val year: String?
         get() {
-            return if (!releaseDate.isNullOrEmpty()) {
+            return if (releaseDate.isNotEmpty()) {
                 val dateComponents = releaseDate.split("-")
                 if (dateComponents.size == 3) {
                     dateComponents[0]

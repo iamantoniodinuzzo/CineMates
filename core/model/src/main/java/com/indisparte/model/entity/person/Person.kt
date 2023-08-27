@@ -7,7 +7,6 @@ class Person(
     adult: Boolean,
     gender: Int,
     id: Int,
-    val knownFor: List<KnownFor>,
     knownForDepartment: String,
     name: String,
     popularity: Double,
@@ -20,11 +19,5 @@ class Person(
     name = name,
     popularity = popularity,
     profilePath = profilePath
-){
-    override fun toString(): String {
-        return "Person(" +
-                "knownFor=$knownFor" +
-                ")"
-    }
-}
+)
 

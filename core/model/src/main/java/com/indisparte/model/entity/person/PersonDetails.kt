@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.indisparte.model.entity.base.PersonBase
 import com.indisparte.model.entity.common.Poster
+import com.indisparte.model.util.Constants
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
@@ -39,11 +40,11 @@ class PersonDetails(
 ) {
     val formattedBirthDay: String?
         get() {
-            return getFormattedData(Locale.getDefault(), birthday)
+            return formatDate(birthday)
         }
     val formattedDeathDay: String?
         get() {
-            return getFormattedData(Locale.getDefault(), deathDay)
+            return formatDate(deathDay)
         }
     val age: String
         get() {
@@ -51,7 +52,7 @@ class PersonDetails(
         }
 
     private fun calculateAge(): String {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val dateFormat = SimpleDateFormat(Constants.TMDB_DATE_TIME_FORMAT, Locale.getDefault())
 
         val today = Calendar.getInstance()
 
@@ -78,7 +79,7 @@ class PersonDetails(
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun calculateAgeApiO(): String {
-        val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault())
+        val dateFormat = DateTimeFormatter.ofPattern(Constants.TMDB_DATE_TIME_FORMAT, Locale.getDefault())
 
         val today = LocalDate.now()
 

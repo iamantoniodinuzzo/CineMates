@@ -2,6 +2,7 @@ package com.indisparte.model.entity.movie
 
 import androidx.annotation.StringRes
 import com.indisparte.model.R
+import com.indisparte.model.util.Constants.OUTPUT_DATE_TIME_FORMAT
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -24,8 +25,7 @@ data class ReleaseDate(
     private val type: Int,
 ) {
     companion object{
-        const val TMDB_RELEASE_DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        const val OUTPUT_RELEASE_DATE_FORMAT = "MMMM dd, yyyy"
+        private const val TMDB_RELEASE_DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     }
     val releaseType: ReleaseType
         get() {
@@ -47,10 +47,8 @@ data class ReleaseDate(
 
     private fun convertToLocaleDateString(inputDateString: String): String {
         try {
-            // Definiamo il formato di data e ora per il formato locale del dispositivo
-            val outputFormat = SimpleDateFormat(OUTPUT_RELEASE_DATE_FORMAT, Locale.getDefault())
+            val outputFormat = SimpleDateFormat(OUTPUT_DATE_TIME_FORMAT, Locale.getDefault())
 
-            // Impostiamo il fuso orario per la data di input (UTC)
             val inputFormat = SimpleDateFormat(TMDB_RELEASE_DATE_FORMAT_UTC, Locale.getDefault())
             inputFormat.timeZone = TimeZone.getTimeZone("UTC")
 

@@ -3,7 +3,6 @@ package com.indisparte.actor.mapper
 import com.indisparte.actor.response.KnownForDTO
 import com.indisparte.actor.response.PersonDTO
 import com.indisparte.actor.response.PersonDetailsDTO
-import com.indisparte.model.entity.person.KnownFor
 import com.indisparte.model.entity.person.Person
 import com.indisparte.model.entity.person.PersonDetails
 import com.indisparte.model.entity.common.Poster

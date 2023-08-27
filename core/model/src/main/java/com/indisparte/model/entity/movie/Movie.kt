@@ -3,14 +3,14 @@ package com.indisparte.model.entity.movie
 import com.indisparte.model.entity.base.Media
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 open class Movie(
     val adult: Boolean,
     id: Int,
     popularity: Double,
     posterPath: String?,
-    private val releaseDate: String,
+    protected val releaseDate: String,
     val title: String,
     voteAverage: Double,
 ) : Media(

@@ -4,6 +4,8 @@ import com.indisparte.model.entity.common.Genre
 import com.indisparte.model.entity.common.ProductionCompany
 import com.indisparte.model.entity.common.ProductionCountry
 import com.indisparte.model.entity.common.SpokenLanguage
+import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W500
+import com.indisparte.model.util.Constants.IMAGE_BASE_URL_W780
 import java.text.NumberFormat
 import java.util.Currency
 import java.util.Locale
@@ -54,25 +56,13 @@ class MovieDetails(
         get() = formatRuntime(runtime)
 
     val completeBackdropPathW780: String?
-        get() = getCompleteImagePath(backdropPath)
+        get() = getCompleteImagePath(IMAGE_BASE_URL_W780,backdropPath)
+    val completeBackdropPathW500: String?
+        get() = getCompleteImagePath(IMAGE_BASE_URL_W500, backdropPath)
 
     val productCompaniesConcatenatedString: String
         get() = productionCompanies.joinToString(", ") { it.name }
 
-    fun formatCurrency(amount: Long): String {
-        if (amount == 0L)
-            return ""
-
-        val currency = Currency.getInstance(Locale.getDefault())
-        val formatter = NumberFormat.getCurrencyInstance(Locale.getDefault())
-        formatter.currency = currency
-
-        return when {
-            amount >= 1_000_000_000 -> "${amount / 1_000_000_000} mld"
-            amount >= 1_000_000 -> "${amount / 1_000_000} mln"
-            else -> formatter.format(amount)
-        }
-    }
 
     override fun toString(): String {
         return "MovieDetails(backdropPath='$backdropPath', belongsToCollection=$belongsToCollection, budget=$budget, genres=$genres, homepage='$homepage', originalLanguage='$originalLanguage', originalTitle='$originalTitle', overview='$overview', productionCompanies=$productionCompanies, productionCountries=$productionCountries, revenue=$revenue, runtime=$runtime, spokenLanguages=$spokenLanguages, status='$status', tagline='$tagline', video=$video, voteCount=$voteCount)"

@@ -6,7 +6,7 @@ import com.indisparte.response.CountryResultDTO
 import com.indisparte.response.WatchProviderDTO
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 fun CountryResultDTO.mapToCountryResult(): CountryResult {
     return CountryResult(

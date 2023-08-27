@@ -16,7 +16,6 @@ fun PersonDTO.mapToPerson(): Person {
         adult = this.adult,
         gender = this.gender,
         id = this.id,
-        knownFor = this.knownFor.map { it.mapToKnownFor() },
         knownForDepartment = this.knownForDepartment,
         name = this.name,
         popularity = this.popularity,
@@ -53,26 +52,5 @@ fun PosterDTO.mapToPoster(): Poster {
     )
 }
 
-fun KnownForDTO.mapToKnownFor(): KnownFor {
-    return KnownFor(
-        adult = this.adult,
-        backdropPath = this.backdropPath,
-        firstAirDate = this.firstAirDate,
-        genreIds = this.genreIds,
-        id = this.id,
-        mediaType = this.mediaType,
-        name = this.name,
-        originCountry = this.originCountry,
-        originalLanguage = this.originalLanguage,
-        originalName = this.originalName,
-        originalTitle = this.originalTitle,
-        overview = this.overview,
-        posterPath = this.posterPath,
-        releaseDate = this.releaseDate,
-        title = this.title,
-        video = this.video,
-        voteAverage = this.voteAverage,
-        voteCount = this.voteCount
-    )
-}
+
 

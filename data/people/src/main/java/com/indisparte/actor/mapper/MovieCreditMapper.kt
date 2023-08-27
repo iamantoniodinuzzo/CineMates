@@ -1,38 +1,7 @@
 package com.indisparte.actor.mapper
 
 import com.indisparte.actor.response.MovieCreditResponseDTO
-import com.indisparte.actor.response.PersonAsCastDTO
-import com.indisparte.actor.response.PersonAsCrewDTO
 import com.indisparte.model.entity.movie.MovieCredit
-
-fun PersonAsCastDTO.mapToPersonAsCast(): PersonAsCast {
-    return PersonAsCast(
-        character = this.character,
-        episodeCount = this.episodeCount,
-        firstAirDate = this.firstAirDate,
-        id = this.id,
-        order = this.order,
-        popularity = this.popularity,
-        posterPath = this.posterPath,
-        releaseDate = this.releaseDate,
-        title = this.title,
-        voteAverage = this.voteAverage
-    )
-}
-
-fun PersonAsCrewDTO.mapToPersonAsCrew(): PersonAsCrew {
-    return PersonAsCrew(
-        creditId = this.creditId,
-        department = this.department,
-        id = this.id,
-        job = this.job,
-        popularity = this.popularity,
-        posterPath = this.posterPath,
-        releaseDate = this.releaseDate,
-        title = this.title,
-        voteAverage = this.voteAverage
-    )
-}
 
 fun MovieCreditResponseDTO.mapToMovieCredits(): List<MovieCredit> {
     val movieCredits = mutableListOf<MovieCredit>()
@@ -44,6 +13,8 @@ fun MovieCreditResponseDTO.mapToMovieCredits(): List<MovieCredit> {
         val releaseDate = castItem.releaseDate
         val title = castItem.title
         val voteAverage = castItem.voteAverage
+        val popularity = castItem.popularity
+        val adult = castItem.adult
 
         movieCredits.add(
             MovieCredit(
@@ -53,7 +24,10 @@ fun MovieCreditResponseDTO.mapToMovieCredits(): List<MovieCredit> {
                 releaseDate = releaseDate,
                 title = title,
                 voteAverage = voteAverage,
-                department = null // department not in cast
+                department = null, // department not in cast,
+                popularity = popularity,
+                adult = adult
+
             )
         )
     }
@@ -65,6 +39,8 @@ fun MovieCreditResponseDTO.mapToMovieCredits(): List<MovieCredit> {
         val title = crewItem.title
         val voteAverage = crewItem.voteAverage
         val department = crewItem.department
+        val popularity = crewItem.popularity
+        val adult = crewItem.adult
 
         movieCredits.add(
             MovieCredit(
@@ -74,7 +50,9 @@ fun MovieCreditResponseDTO.mapToMovieCredits(): List<MovieCredit> {
                 releaseDate = releaseDate,
                 title = title,
                 voteAverage = voteAverage,
-                department = department
+                department = department,
+                popularity = popularity,
+                adult = adult
             )
         )
     }

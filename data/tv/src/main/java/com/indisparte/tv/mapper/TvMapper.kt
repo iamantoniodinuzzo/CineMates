@@ -24,7 +24,7 @@ import com.indisparte.tv.response.TvShowDTO
 import com.indisparte.tv.response.TvShowDetailsDTO
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 fun TvShowDTO.mapToTvShow(): TvShow {
     return TvShow(

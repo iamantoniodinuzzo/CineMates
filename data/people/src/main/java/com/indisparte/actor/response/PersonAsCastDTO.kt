@@ -35,7 +35,7 @@ data class PersonAsCastDTO(
     val posterPath: String?,
     @SerializedName("release_date")
     val releaseDate: String?,
-    val title: String?,
+    val title: String,
     val video: Boolean?,
     @SerializedName("vote_average")
     val voteAverage: Double,

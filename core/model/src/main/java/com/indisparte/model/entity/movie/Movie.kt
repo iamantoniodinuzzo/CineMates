@@ -10,7 +10,7 @@ open class Movie(
     id: Int,
     popularity: Double,
     posterPath: String?,
-    protected val releaseDate: String,
+    protected val releaseDate: String?,
     val title: String,
     voteAverage: Double,
 ) : Media(

@@ -9,7 +9,7 @@ class MovieCredit(
     id: Int,
     popularity: Double,
     posterPath: String?,
-    releaseDate: String,
+    releaseDate: String?,
     title: String,
     voteAverage: Double,
     private val department: String?,
@@ -27,7 +27,7 @@ class MovieCredit(
 
     val year: String?
         get() {
-            return if (releaseDate.isNotEmpty()) {
+            return if (!releaseDate.isNullOrEmpty()) {
                 val dateComponents = releaseDate.split("-")
                 if (dateComponents.size == 3) {
                     dateComponents[0]

@@ -31,7 +31,7 @@ import com.indisparte.response.VideoDTO
 
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 fun MovieDTO.toMovie(): Movie {
     return Movie(

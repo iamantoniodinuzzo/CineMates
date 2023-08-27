@@ -3,7 +3,6 @@ package com.indisparte.movie_data.repository
 import com.indisparte.common.Backdrop
 import com.indisparte.common.CountryResult
 import com.indisparte.common.Video
-import com.indisparte.filter.MediaFilter
 import com.indisparte.filter.TimeWindow
 import com.indisparte.movie_data.CollectionDetails
 import com.indisparte.movie_data.Movie
@@ -26,8 +25,6 @@ import com.indisparte.network.getSingleFromResponse
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 
@@ -54,41 +51,6 @@ constructor(
             request = { movieService.getTrending(timeWindow.value, queryMap) },
             mapper = { response -> response.results.map { it.toMovie() } }
         )
-
-    // TODO: This method must be removed
-    override fun getBySearch(query: String): Flow<Result<List<Movie>>> =
-        flow {
-            queryMap["query"] = query
-            emitAll(getListFromResponse(
-                request = { movieService.getBySearch(queryMap) },
-                mapper = { response -> response.results.map { it.toMovie() } }
-            ))
-        }
-
-    // TODO: This method must be replace in data:discover
-    override fun getDiscoverable(mediaFilter: MediaFilter): Flow<Result<List<Movie>>> =
-        getListFromResponse(
-            request = { movieService.getByDiscover(createQueryParams(mediaFilter)) },
-            mapper = { response -> response.results.map { it.toMovie() } }
-        )
-
-    private fun createQueryParams(mediaFilter: MediaFilter): Map<String, String> {
-        val queryParams = mutableMapOf<String, String>()
-
-        mediaFilter.sortBy.let {
-            queryParams["sort_by"] = it.toString()
-        }
-
-        mediaFilter.genresIdAsString?.let {
-            queryParams["with_genres"] = it
-        }
-
-        mediaFilter.year?.let {
-            queryParams["year"] = it.toString()
-        }
-
-        return queryParams
-    }
 
 
     override fun getDetails(movieId: Int): Flow<Result<MovieDetails>> =

@@ -1,11 +1,10 @@
 package com.indisparte.media_discover.filterable_fragment.movie.bottom_sheet
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.indisparte.discover.util.SortOptions
-import com.indisparte.genre.repository.GenreRepository
 import com.indisparte.common.Genre
+import com.indisparte.filter.MovieSortOptions
+import com.indisparte.genre.repository.GenreRepository
 import com.indisparte.network.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,26 +21,25 @@ import javax.inject.Inject
 class MovieFilterViewModel
 @Inject
 constructor(
-    savedStateHandle: SavedStateHandle,
     private val genreRepository: GenreRepository,
 ) : ViewModel() {
 
     private val LOG = Timber.tag(MovieFilterViewModel::class.java.simpleName)
-    private val _movieGenres = MutableStateFlow<Result<List<com.indisparte.common.Genre>>>(Result.Success(emptyList()))
-    val movieGenres: StateFlow<Result<List<com.indisparte.common.Genre>>> get() = _movieGenres
+    private val _movieGenres = MutableStateFlow<Result<List<Genre>>>(Result.Success(emptyList()))
+    val movieGenres: StateFlow<Result<List<Genre>>> get() = _movieGenres
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
     data class UiState(
-        val sortType: SortOptions? = SortOptions.DescendingPopularity,
+        val sortType: MovieSortOptions? = MovieSortOptions.DescendingPopularity,
         val genresId: Set<Int>? = emptySet(),
         val clearAllFilters: Boolean = false,
         val applyAllFilters: Boolean = false,
     ) {
         val filterCount: Int
             get() {
-                val sortCount = if (sortType == SortOptions.DescendingPopularity) 0 else 1
+                val sortCount = if (sortType == MovieSortOptions.DescendingPopularity) 0 else 1
                 val filterCount = genresId?.size ?: 0
                 return sortCount + filterCount
             }
@@ -66,7 +64,7 @@ constructor(
         }
     }
 
-    fun setSortType(sortOption: SortOptions) {
+    fun setSortType(sortOption: MovieSortOptions) {
         _uiState.update {
             it.copy(sortType = sortOption)
         }
@@ -92,7 +90,11 @@ constructor(
 
     fun resetFilters() {
         _uiState.update {
-            it.copy(clearAllFilters = true, genresId = emptySet(), sortType = SortOptions.DescendingPopularity)
+            it.copy(
+                clearAllFilters = true,
+                genresId = emptySet(),
+                sortType = MovieSortOptions.DescendingPopularity
+            )
         }
     }
 

@@ -1,6 +1,5 @@
 package com.indisparte.tv.repository
 
-import com.indisparte.filter.MediaFilter
 import com.indisparte.filter.TimeWindow
 import com.indisparte.person.Cast
 import com.indisparte.common.CountryResult
@@ -23,11 +22,9 @@ interface TvRepository {
     fun getTrending(timeWindow: TimeWindow): Flow<Result<List<TvShow>>>
     fun getDetails(id: Int): Flow<Result<TvShowDetails>>
     fun getSimilar(id: Int): Flow<Result<List<TvShow>>>
-    fun getDiscoverable(tvFilter: MediaFilter): Flow<Result<List<TvShow>>>
 
     fun getCast(id: Int): Flow<Result<List<Cast>>>
     fun getCrew(id: Int): Flow<Result<List<Crew>>>
-    fun getBySearch(query: String): Flow<Result<List<TvShow>>>
     fun getEpisodeGroup(id: Int): Flow<Result<List<EpisodeGroup>>>
     fun getEpisodeGroupDetails(episodeGroupId: String): Flow<Result<EpisodeGroupDetails>>
     fun getSeasonDetails(tvId: Int, seasonNumber: Int): Flow<Result<SeasonDetails>>

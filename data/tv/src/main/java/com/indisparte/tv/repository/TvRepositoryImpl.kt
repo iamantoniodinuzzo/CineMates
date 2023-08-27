@@ -2,7 +2,6 @@ package com.indisparte.tv.repository
 
 import com.indisparte.common.CountryResult
 import com.indisparte.common.Video
-import com.indisparte.filter.MediaFilter
 import com.indisparte.filter.TimeWindow
 import com.indisparte.network.Result
 import com.indisparte.network.getListFromResponse
@@ -66,27 +65,6 @@ constructor(
             mapper = { response -> response.results.map { it.mapToTvShow() } }
         )
 
-    override fun getDiscoverable(tvFilter: MediaFilter): Flow<Result<List<TvShow>>> =
-        getListFromResponse(
-            request = { tvDataSource.getByDiscover(createQueryParams(tvFilter)) },
-            mapper = { response -> response.results.map { it.mapToTvShow() } }
-        )
-
-    private fun createQueryParams(tvFilter: MediaFilter): Map<String, String> {
-        val queryParams = mutableMapOf<String, String>()
-
-        tvFilter.sortBy?.let {
-            queryMap["sort_by"] = it.toString()
-        }
-        tvFilter.genresIdAsString?.let {
-            queryMap["with_genres"] = it
-        }
-        tvFilter.year?.let {
-            queryMap["first_air_date_year"] = it.toString()
-        }
-        return queryParams
-    }
-
 
     override fun getCast(id: Int): Flow<Result<List<Cast>>> =
         getListFromResponse(
@@ -99,15 +77,6 @@ constructor(
             request = { tvDataSource.getCredits(id, queryMap) },
             mapper = { response -> response.crew.map { it.mapToCrew() } }
         )
-
-    override fun getBySearch(query: String): Flow<Result<List<TvShow>>> =
-        flow {
-            queryMap["query"] = query
-            emitAll(getListFromResponse(
-                request = { tvDataSource.getBySearch(queryMap) },
-                mapper = { response -> response.results.map { it.mapToTvShow() } }
-            ))
-        }
 
     override fun getEpisodeGroup(id: Int): Flow<Result<List<EpisodeGroup>>> =
         getListFromResponse(

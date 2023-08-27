@@ -5,9 +5,9 @@ import com.indisparte.actor.mapper.mapToPerson
 import com.indisparte.actor.mapper.mapToPersonDetails
 import com.indisparte.actor.source.PeopleDataSource
 import com.indisparte.model.TimeWindow
-import com.indisparte.model.entity.MovieCredit
-import com.indisparte.model.entity.Person
-import com.indisparte.model.entity.PersonDetails
+import com.indisparte.model.entity.movie.MovieCredit
+import com.indisparte.model.entity.person.Person
+import com.indisparte.model.entity.person.PersonDetails
 import com.indisparte.network.Result
 import com.indisparte.network.getListFromResponse
 import com.indisparte.network.getSingleFromResponse

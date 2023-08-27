@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.github.ajalt.timberkt.Timber
 import com.indisparte.media_discover.R
 import com.indisparte.media_discover.filterable_fragment.FilterSheetRequestListener
-import com.indisparte.model.entity.Movie
+import com.indisparte.model.entity.movie.Movie
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources

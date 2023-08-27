@@ -1,6 +1,6 @@
 package com.indisparte.media_search.mapper
 
-import com.indisparte.model.entity.Movie
+import com.indisparte.model.entity.movie.Movie
 import com.indisparte.response.MovieDTO
 
 /**

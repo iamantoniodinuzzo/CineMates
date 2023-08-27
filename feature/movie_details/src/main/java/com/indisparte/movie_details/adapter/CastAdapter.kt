@@ -3,9 +3,7 @@ package com.indisparte.movie_details.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.indisparte.model.entity.Cast
-import com.indisparte.model.entity.Movie
-import com.indisparte.model.entity.Person
+import com.indisparte.model.entity.person.Cast
 import com.indisparte.movie_details.databinding.ListItemCastLongBinding
 import com.indisparte.ui.adapter.BaseAdapter
 import com.indisparte.ui.adapter.OnItemClickListener

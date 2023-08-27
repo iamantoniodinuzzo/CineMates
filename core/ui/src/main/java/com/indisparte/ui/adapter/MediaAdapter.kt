@@ -3,9 +3,9 @@ package com.indisparte.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.indisparte.model.entity.Movie
-import com.indisparte.model.entity.Person
-import com.indisparte.model.entity.TvShow
+import com.indisparte.model.entity.movie.Movie
+import com.indisparte.model.entity.person.Person
+import com.indisparte.model.entity.tv.TvShow
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding
 import com.indisparte.ui.databinding.ListItemPersonSmallBinding
 

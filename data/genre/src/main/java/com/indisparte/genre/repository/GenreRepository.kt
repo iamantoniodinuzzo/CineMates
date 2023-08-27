@@ -1,6 +1,6 @@
 package com.indisparte.genre.repository
 
-import com.indisparte.model.entity.Genre
+import com.indisparte.model.entity.common.Genre
 import com.indisparte.network.Result
 import kotlinx.coroutines.flow.Flow
 

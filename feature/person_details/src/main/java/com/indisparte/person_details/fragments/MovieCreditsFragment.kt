@@ -2,7 +2,7 @@ package com.indisparte.person_details.fragments
 
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.indisparte.model.entity.MovieCredit
+import com.indisparte.model.entity.movie.MovieCredit
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources

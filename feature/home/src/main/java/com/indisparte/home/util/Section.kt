@@ -1,9 +1,9 @@
 package com.indisparte.home.util
 
 import androidx.annotation.StringRes
-import com.indisparte.model.entity.Movie
-import com.indisparte.model.entity.Person
-import com.indisparte.model.entity.TvShow
+import com.indisparte.model.entity.movie.Movie
+import com.indisparte.model.entity.person.Person
+import com.indisparte.model.entity.tv.TvShow
 import com.indisparte.network.Result
 
 

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.github.ajalt.timberkt.Timber
-import com.indisparte.model.entity.Movie
+import com.indisparte.model.entity.movie.Movie
 import com.indisparte.movie_details.databinding.FragmentCollectionPartsBinding
 import com.indisparte.movie_details.util.enableInnerScrollViewPager
 import com.indisparte.network.whenResources

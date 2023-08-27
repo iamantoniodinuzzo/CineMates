@@ -1,6 +1,6 @@
 package com.indisparte.genre.mapper
 
-import com.indisparte.model.entity.Genre
+import com.indisparte.model.entity.common.Genre
 import com.indisparte.response.GenreDTO
 
 

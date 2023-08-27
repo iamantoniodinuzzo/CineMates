@@ -3,7 +3,7 @@ package com.indisparte.movie_details.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.indisparte.model.entity.Backdrop
+import com.indisparte.model.entity.common.Backdrop
 import com.indisparte.movie_details.databinding.ListItemBackdropBinding
 import com.indisparte.ui.adapter.BaseAdapter
 

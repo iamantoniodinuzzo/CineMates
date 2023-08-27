@@ -9,12 +9,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.indisparte.home.databinding.ListItemSectionBinding
 import com.indisparte.home.util.Section
-import com.indisparte.model.entity.Movie
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.Result
 import com.indisparte.ui.adapter.MovieAdapter
-import com.indisparte.ui.adapter.OnItemClickListener
 import com.indisparte.ui.adapter.PeopleAdapter
 import com.indisparte.ui.adapter.TvShowAdapter
 

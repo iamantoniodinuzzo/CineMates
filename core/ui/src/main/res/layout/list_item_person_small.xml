@@ -7,7 +7,7 @@
 
         <variable
             name="person"
-            type="com.indisparte.model.entity.PersonBase" />
+            type="com.indisparte.model.entity.base.PersonBase" />
     </data>
 
 

@@ -4,7 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.ajalt.timberkt.Timber
 import com.indisparte.media_search.R
-import com.indisparte.model.entity.Movie
+import com.indisparte.model.entity.movie.Movie
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources

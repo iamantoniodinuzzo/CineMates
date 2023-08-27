@@ -1,9 +1,9 @@
 package com.indisparte.actor.repository
 
 import com.indisparte.model.TimeWindow
-import com.indisparte.model.entity.MovieCredit
-import com.indisparte.model.entity.Person
-import com.indisparte.model.entity.PersonDetails
+import com.indisparte.model.entity.movie.MovieCredit
+import com.indisparte.model.entity.person.Person
+import com.indisparte.model.entity.person.PersonDetails
 import com.indisparte.network.Result
 import kotlinx.coroutines.flow.Flow
 

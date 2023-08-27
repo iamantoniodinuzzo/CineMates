@@ -3,9 +3,9 @@ package com.indisparte.actor.mapper
 import com.indisparte.actor.response.MovieCreditResponseDTO
 import com.indisparte.actor.response.PersonAsCastDTO
 import com.indisparte.actor.response.PersonAsCrewDTO
-import com.indisparte.model.entity.MovieCredit
-import com.indisparte.model.entity.PersonAsCast
-import com.indisparte.model.entity.PersonAsCrew
+import com.indisparte.model.entity.movie.MovieCredit
+import com.indisparte.model.entity.person.PersonAsCast
+import com.indisparte.model.entity.person.PersonAsCrew
 
 fun PersonAsCastDTO.mapToPersonAsCast(): PersonAsCast {
     return PersonAsCast(

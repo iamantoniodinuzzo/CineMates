@@ -2,7 +2,7 @@ package com.indisparte.movie_details.fragments
 
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.indisparte.model.entity.Cast
+import com.indisparte.model.entity.person.Cast
 import com.indisparte.movie_details.adapter.CastAdapter
 import com.indisparte.movie_details.databinding.ListItemCastLongBinding
 import com.indisparte.navigation.NavigationFlow

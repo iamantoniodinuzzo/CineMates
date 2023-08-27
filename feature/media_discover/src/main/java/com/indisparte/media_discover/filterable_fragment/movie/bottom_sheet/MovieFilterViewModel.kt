@@ -3,10 +3,9 @@ package com.indisparte.media_discover.filterable_fragment.movie.bottom_sheet
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.indisparte.discover.util.MediaDiscoverFilter
 import com.indisparte.discover.util.SortOptions
 import com.indisparte.genre.repository.GenreRepository
-import com.indisparte.model.entity.Genre
+import com.indisparte.model.entity.common.Genre
 import com.indisparte.network.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

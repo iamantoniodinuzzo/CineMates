@@ -2,15 +2,15 @@ package com.indisparte.tv.repository
 
 import com.indisparte.model.MediaFilter
 import com.indisparte.model.TimeWindow
-import com.indisparte.model.entity.Cast
-import com.indisparte.model.entity.CountryResult
-import com.indisparte.model.entity.Crew
-import com.indisparte.model.entity.EpisodeGroup
-import com.indisparte.model.entity.EpisodeGroupDetails
-import com.indisparte.model.entity.SeasonDetails
-import com.indisparte.model.entity.TvShow
-import com.indisparte.model.entity.TvShowDetails
-import com.indisparte.model.entity.Video
+import com.indisparte.model.entity.person.Cast
+import com.indisparte.model.entity.common.CountryResult
+import com.indisparte.model.entity.person.Crew
+import com.indisparte.model.entity.tv.EpisodeGroup
+import com.indisparte.model.entity.tv.EpisodeGroupDetails
+import com.indisparte.model.entity.tv.SeasonDetails
+import com.indisparte.model.entity.tv.TvShow
+import com.indisparte.model.entity.tv.TvShowDetails
+import com.indisparte.model.entity.common.Video
 import com.indisparte.network.Result
 import com.indisparte.network.getListFromResponse
 import com.indisparte.network.getSingleFromResponse

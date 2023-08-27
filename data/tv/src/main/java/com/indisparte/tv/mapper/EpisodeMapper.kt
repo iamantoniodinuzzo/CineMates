@@ -1,9 +1,9 @@
 package com.indisparte.tv.mapper
 
-import com.indisparte.model.entity.CreatedBy
-import com.indisparte.model.entity.Episode
-import com.indisparte.model.entity.EpisodeGroup
-import com.indisparte.model.entity.EpisodeGroupDetails
+import com.indisparte.model.entity.tv.CreatedBy
+import com.indisparte.model.entity.tv.Episode
+import com.indisparte.model.entity.tv.EpisodeGroup
+import com.indisparte.model.entity.tv.EpisodeGroupDetails
 import com.indisparte.tv.response.CreatedByDTO
 import com.indisparte.tv.response.EpisodeDTO
 import com.indisparte.tv.response.EpisodeGroupDTO

@@ -5,7 +5,7 @@
 
         <variable
             name="movie"
-            type="com.indisparte.model.entity.Movie" />
+            type="com.indisparte.model.entity.movie.Movie" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

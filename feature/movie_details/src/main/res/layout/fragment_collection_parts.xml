@@ -7,7 +7,7 @@
 
         <variable
             name="collection"
-            type="com.indisparte.model.entity.CollectionDetails" />
+            type="com.indisparte.model.entity.movie.CollectionDetails" />
 
         <import type="android.view.View" />
     </data>

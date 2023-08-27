@@ -3,8 +3,8 @@ package com.indisparte.person_details.fragments
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.actor.repository.PeopleRepository
-import com.indisparte.model.entity.MovieCredit
-import com.indisparte.model.entity.PersonDetails
+import com.indisparte.model.entity.movie.MovieCredit
+import com.indisparte.model.entity.person.PersonDetails
 import com.indisparte.network.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -3,7 +3,7 @@ package com.indisparte.person_details.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.indisparte.model.entity.MovieCredit
+import com.indisparte.model.entity.movie.MovieCredit
 import com.indisparte.person_details.databinding.ListItemMediaCreditsLongBinding
 import com.indisparte.ui.adapter.BaseAdapter
 import com.indisparte.ui.adapter.OnItemClickListener

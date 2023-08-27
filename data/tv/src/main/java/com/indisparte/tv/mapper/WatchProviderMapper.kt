@@ -1,7 +1,7 @@
 package com.indisparte.tv.mapper
 
-import com.indisparte.model.entity.CountryResult
-import com.indisparte.model.entity.WatchProvider
+import com.indisparte.model.entity.common.CountryResult
+import com.indisparte.model.entity.common.WatchProvider
 import com.indisparte.response.CountryResultDTO
 import com.indisparte.response.WatchProviderDTO
 

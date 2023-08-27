@@ -8,7 +8,7 @@
 
         <variable
             name="cast"
-            type="com.indisparte.model.entity.Cast" />
+            type="com.indisparte.model.entity.person.Cast" />
     </data>
 
 

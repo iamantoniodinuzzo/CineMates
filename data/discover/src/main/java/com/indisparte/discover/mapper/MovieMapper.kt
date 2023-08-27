@@ -1,6 +1,6 @@
 package com.indisparte.discover.mapper
 
-import com.indisparte.model.entity.Movie
+import com.indisparte.model.entity.movie.Movie
 import com.indisparte.response.MovieDTO
 
 /**

@@ -12,9 +12,9 @@ import com.github.ajalt.timberkt.Timber
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.progressindicator.CircularProgressIndicator
-import com.indisparte.model.entity.CountryResult
-import com.indisparte.model.entity.Crew
-import com.indisparte.model.entity.Genre
+import com.indisparte.model.entity.common.CountryResult
+import com.indisparte.model.entity.person.Crew
+import com.indisparte.model.entity.common.Genre
 import com.indisparte.movie_details.R
 import com.indisparte.movie_details.adapter.CrewAdapter
 import com.indisparte.movie_details.adapter.ReleaseDateAdapter

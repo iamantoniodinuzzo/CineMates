@@ -1,7 +1,7 @@
 package com.indisparte.tv.mapper
 
-import com.indisparte.model.entity.Season
-import com.indisparte.model.entity.SeasonDetails
+import com.indisparte.model.entity.tv.Season
+import com.indisparte.model.entity.tv.SeasonDetails
 import com.indisparte.tv.response.SeasonDTO
 import com.indisparte.tv.response.SeasonDetailsDTO
 

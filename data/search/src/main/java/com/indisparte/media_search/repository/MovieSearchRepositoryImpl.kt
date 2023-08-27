@@ -1,6 +1,6 @@
 package com.indisparte.media_search.repository
 
-import com.indisparte.model.entity.Movie
+import com.indisparte.model.entity.movie.Movie
 import com.indisparte.network.Result
 import com.indisparte.network.getListFromResponse
 import com.indisparte.media_search.mapper.toMovie

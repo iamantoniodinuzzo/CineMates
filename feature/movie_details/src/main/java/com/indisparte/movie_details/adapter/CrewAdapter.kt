@@ -3,7 +3,7 @@ package com.indisparte.movie_details.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.indisparte.model.entity.Crew
+import com.indisparte.model.entity.person.Crew
 import com.indisparte.movie_details.databinding.ListItemCrewBinding
 import com.indisparte.ui.adapter.BaseAdapter
 import com.indisparte.ui.adapter.OnItemClickListener

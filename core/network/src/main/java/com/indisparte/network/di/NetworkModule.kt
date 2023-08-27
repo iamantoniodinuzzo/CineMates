@@ -1,8 +1,8 @@
 package com.indisparte.network.di
 
 import android.content.Context
-import com.indisparte.network.AuthenticationInterceptor
-import com.indisparte.network.CachingInterceptor
+import com.indisparte.network.interceptor.AuthenticationInterceptor
+import com.indisparte.network.interceptor.CachingInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

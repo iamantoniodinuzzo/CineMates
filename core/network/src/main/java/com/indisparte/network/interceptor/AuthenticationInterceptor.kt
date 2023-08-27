@@ -1,5 +1,6 @@
-package com.indisparte.network
+package com.indisparte.network.interceptor
 
+import com.indisparte.network.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject

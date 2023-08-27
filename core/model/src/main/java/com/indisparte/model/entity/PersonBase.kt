@@ -8,13 +8,14 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 enum class Gender(val value: Int, @StringRes val genderResId: Int) {
+    NON_BINARY(3, R.string.non_binary_gender),
     MALE(2, R.string.male_gender),
     FEMALE(1, R.string.female_gender),
     OTHER(0, R.string.other_gender)
 }
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 abstract class PersonBase(
     val adult: Boolean,
@@ -49,6 +50,7 @@ abstract class PersonBase(
             }
             return genderString
         }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PersonBase) return false
@@ -61,4 +63,10 @@ abstract class PersonBase(
         result = 31 * result + name.hashCode()
         return result
     }
+
+    override fun toString(): String {
+        return "PersonBase(adult=$adult, gender=$gender, id=$id, knownForDepartment='$knownForDepartment', name='$name', popularity=$popularity, profilePath=$profilePath)"
+    }
+
+
 }

@@ -44,6 +44,7 @@
     <string name="release_digital">Digital</string>
     <string name="release_physical">Physical</string>
     <string name="release_tv">TV</string>
+    <string name="non_binary_gender">Non Binary</string>
 
 
 </resources>

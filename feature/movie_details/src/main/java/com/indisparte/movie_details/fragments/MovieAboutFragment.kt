@@ -22,6 +22,8 @@ import com.indisparte.movie_details.adapter.VideoAdapter
 import com.indisparte.movie_details.databinding.CustomWatchProviderChipBinding
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
 import com.indisparte.movie_details.util.enableInnerScrollViewPager
+import com.indisparte.navigation.NavigationFlow
+import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
@@ -50,6 +52,12 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         binding.trailers.adapter = videoAdapter
         binding.trailers.enableInnerScrollViewPager()
         binding.gridCrew.adapter = crewAdapter
+        crewAdapter.setOnItemClickListener { crew ->
+            val activity = requireActivity()
+            if (activity is ToFlowNavigable) {
+                activity.navigateToFlow(NavigationFlow.PersonDetailsFlow(crew.id))
+            }
+        }
         binding.movieInfo.releaseInformationRecyclerview.adapter = releaseDateAdapter
 
         // Imposta la larghezza desiderata in pixel
@@ -192,7 +200,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     }
 
 
-    private fun setGenresChipGroup(genres: List<Genre>) {
+    private fun setGenresChipGroup(genres: List<Genre>) {// TODO: cleanup
         if (genres.isEmpty()) {
             LOG.d("Genres is empty, hide title")
             binding.genresTitle.gone()

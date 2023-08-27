@@ -27,13 +27,9 @@ class MovieSimilarFragment :
     }
 
     override fun addItemsToTheAdapter() {
-        adapter.setOnItemClickListener(object : OnItemClickListener<Movie> {
-            override fun onItemClick(item: Movie) {
-                //update view model selected movie
-                viewModel.onDetailsFragmentReady(item.id)
-            }
-
-        })
+        adapter.setOnItemClickListener { item -> //update view model selected movie
+            viewModel.onDetailsFragmentReady(item.id)
+        }
         viewModel.similarMovies.collectIn(viewLifecycleOwner) { resources ->
             resources?.whenResources(
                 onSuccess = { similar ->

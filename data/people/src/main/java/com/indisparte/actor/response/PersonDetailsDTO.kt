@@ -2,6 +2,7 @@ package com.indisparte.actor.response
 
 
 import com.google.gson.annotations.SerializedName
+import com.indisparte.response.ImagesResponseDTO
 
 data class PersonDetailsDTO(
     val adult: Boolean,
@@ -10,7 +11,7 @@ data class PersonDetailsDTO(
     val biography: String,
     val birthday: String?,
     @SerializedName("deathday")
-    val `death-day`: String?,
+    val deathDay: String?,
     val gender: Int,
     val homepage: String?,
     val id: Int,
@@ -23,5 +24,6 @@ data class PersonDetailsDTO(
     val placeOfBirth: String?,
     val popularity: Double,
     @SerializedName("profile_path")
-    val profilePath: String?
+    val profilePath: String?,
+    val images : ImagesResponseDTO
 )

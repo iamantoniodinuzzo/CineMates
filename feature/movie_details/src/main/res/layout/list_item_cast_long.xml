@@ -22,9 +22,14 @@
             android:layout_height="match_parent"
             android:padding="@dimen/base_margin">
 
-            <include
-                layout="@layout/layout_person_avatar"
-                app:path="@{cast.completeProfilePathW780}" />
+            <com.indisparte.ui.custom_view.PosterView
+                android:id="@+id/person_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:pv_imageUrl="@{cast.completeProfilePathW780}"
+                app:pv_cornerRadius="50dp"
+                app:pv_posterHeight="100dp"
+                app:pv_posterWidth="100dp"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="0dp"
@@ -34,7 +39,7 @@
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/cardView"
+                app:layout_constraintStart_toEndOf="@id/person_image"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView

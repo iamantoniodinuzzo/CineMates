@@ -4,12 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.indisparte.model.entity.Cast
+import com.indisparte.model.entity.Movie
+import com.indisparte.model.entity.Person
 import com.indisparte.movie_details.databinding.ListItemCastLongBinding
 import com.indisparte.ui.adapter.BaseAdapter
+import com.indisparte.ui.adapter.OnItemClickListener
 
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 class CastAdapter :
     BaseAdapter<Cast, ListItemCastLongBinding>(object : DiffUtil.ItemCallback<Cast>() {
@@ -21,10 +24,15 @@ class CastAdapter :
             return oldItem == newItem
         }
     }) {
+    private var itemClickListener: OnItemClickListener<Cast>? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener<Cast>) {
+        itemClickListener = listener
+    }
     override fun bind(binding: ListItemCastLongBinding, item: Cast) {
         binding.cast = item
         binding.root.setOnClickListener {
-            // TODO: open actor details page
+            itemClickListener?.onItemClick(item)
         }
     }
 

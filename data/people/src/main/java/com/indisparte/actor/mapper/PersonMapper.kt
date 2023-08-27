@@ -6,9 +6,11 @@ import com.indisparte.actor.response.PersonDetailsDTO
 import com.indisparte.model.entity.KnownFor
 import com.indisparte.model.entity.Person
 import com.indisparte.model.entity.PersonDetails
+import com.indisparte.model.entity.Poster
+import com.indisparte.response.PosterDTO
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 fun PersonDTO.mapToPerson(): Person {
     return Person(
@@ -29,7 +31,7 @@ fun PersonDetailsDTO.mapToPersonDetails(): PersonDetails {
         alsoKnownAs = this.alsoKnownAs,
         biography = this.biography,
         birthday = this.birthday,
-        `death-day` = this.`death-day`,
+        deathDay = this.deathDay,
         gender = this.gender,
         homepage = this.homepage,
         id = this.id,
@@ -38,7 +40,17 @@ fun PersonDetailsDTO.mapToPersonDetails(): PersonDetails {
         name = this.name,
         placeOfBirth = this.placeOfBirth,
         popularity = this.popularity,
-        profilePath = this.profilePath
+        profilePath = this.profilePath,
+        images = this.images.profiles.map {
+            it.mapToPoster()
+        }
+    )
+}
+
+fun PosterDTO.mapToPoster(): Poster {
+    return Poster(
+        aspectRatio = aspectRatio,
+        filePath = filePath
     )
 }
 

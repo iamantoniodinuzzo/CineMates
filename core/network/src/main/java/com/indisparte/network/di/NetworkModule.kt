@@ -1,10 +1,14 @@
 package com.indisparte.network.di
 
+import android.content.Context
 import com.indisparte.network.AuthenticationInterceptor
+import com.indisparte.network.CachingInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -13,7 +17,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 @Module
 @InstallIn(SingletonComponent::class)
@@ -43,17 +47,25 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideHttpClient(
+        @ApplicationContext context: Context,
         authenticationInterceptor: AuthenticationInterceptor,
+        cachingInterceptor: CachingInterceptor,
         loggingInterceptor: HttpLoggingInterceptor,
-    ): OkHttpClient =
-        OkHttpClient.Builder()
+    ): OkHttpClient {
+        val cacheSize = (5 * 1024 * 1024).toLong() // 5 MB cache size
+        val cache = Cache(context.cacheDir, cacheSize)
+
+        return OkHttpClient.Builder()
             .addInterceptor(authenticationInterceptor)
-            .connectTimeout(30,TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .callTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(cachingInterceptor)
+            .cache(cache)
             .build()
+    }
 
     /**
      * Provides an instance of Retrofit for making API calls.

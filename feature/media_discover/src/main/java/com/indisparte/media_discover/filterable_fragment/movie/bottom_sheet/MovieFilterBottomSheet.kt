@@ -1,11 +1,9 @@
 package com.indisparte.media_discover.filterable_fragment.movie.bottom_sheet
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import androidx.fragment.app.viewModels
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.badge.BadgeDrawable
@@ -63,6 +61,7 @@ class MovieFilterBottomSheet : BottomSheetDialogFragment() {
 
         return binding.root
     }
+
     @androidx.annotation.OptIn(
         ExperimentalBadgeUtils::class
     )
@@ -73,9 +72,9 @@ class MovieFilterBottomSheet : BottomSheetDialogFragment() {
         BadgeUtils.attachBadgeDrawable(badgeDrawable, binding.btnResetAll, binding.frameLayout)
     }
 
-    private fun updateBadgeDrawable(counter:Int){
+    private fun updateBadgeDrawable(counter: Int) {
         badgeDrawable.number = counter
-        badgeDrawable.isVisible = counter!=0
+        badgeDrawable.isVisible = counter != 0
     }
 
     /**

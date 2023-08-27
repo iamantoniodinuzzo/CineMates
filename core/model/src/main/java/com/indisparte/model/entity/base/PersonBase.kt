@@ -9,11 +9,24 @@ enum class Gender(val value: Int, @StringRes val genderResId: Int) {
     NON_BINARY(3, R.string.non_binary_gender),
     MALE(2, R.string.male_gender),
     FEMALE(1, R.string.female_gender),
-    OTHER(0, R.string.other_gender)
+    OTHER(0, R.string.other_gender);
+
+    companion object {
+        fun fromValue(value: Int): Gender? = values().firstOrNull { it.value == value }
+    }
 }
 
 
 /**
+ * Represents basic information about a person.
+ * @property adult Indicates if the person is an adult.
+ * @property formattedGender The gender of the person.
+ * @property id The unique identifier of the person.
+ * @property knownForDepartment The department the person is known for.
+ * @property name The name of the person.
+ * @property popularity The popularity of the person.
+ * @property completeProfilePathW780 The complete path to the profile image of the person.
+ * @property completeProfilePathW500 The complete path to the profile image of the person.
  * @author Antonio Di Nuzzo
  */
 abstract class PersonBase(
@@ -28,11 +41,12 @@ abstract class PersonBase(
 
     val completeProfilePathW780: String?
         get() = getCompleteImagePath(IMAGE_BASE_URL_W780, profilePath)
+
     val completeProfilePathW500: String?
         get() = getCompleteImagePath(IMAGE_BASE_URL_W500, profilePath)
 
     val formattedGender: Gender?
-        get() = Gender.values().find { it.value == gender }
+        get() = Gender.fromValue(gender)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -47,9 +61,6 @@ abstract class PersonBase(
         return result
     }
 
-    override fun toString(): String {
-        return "PersonBase(adult=$adult, gender=$gender, id=$id, knownForDepartment='$knownForDepartment', name='$name', popularity=$popularity, profilePath=$profilePath)"
-    }
-
-
+    override fun toString(): String =
+        "PersonBase(adult=$adult, gender=$gender, id=$id, knownForDepartment='$knownForDepartment', name='$name', popularity=$popularity, profilePath=$profilePath)"
 }

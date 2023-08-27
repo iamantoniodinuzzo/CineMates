@@ -1,7 +1,7 @@
 package com.indisparte.tv.repository
 
-import com.indisparte.model.MediaFilter
-import com.indisparte.model.TimeWindow
+import com.indisparte.model.entity.filter.MediaFilter
+import com.indisparte.model.entity.filter.TimeWindow
 import com.indisparte.model.entity.person.Cast
 import com.indisparte.model.entity.common.CountryResult
 import com.indisparte.model.entity.person.Crew

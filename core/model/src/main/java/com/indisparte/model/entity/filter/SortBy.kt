@@ -1,7 +1,7 @@
-package com.indisparte.model
+package com.indisparte.model.entity.filter
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 data class SortBy(
     var sort: MediaSortOption? = MediaSortOption.Popular,

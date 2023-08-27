@@ -1,16 +1,16 @@
 package com.indisparte.movie.repository
 
-import com.indisparte.model.MediaFilter
-import com.indisparte.model.TimeWindow
+import com.indisparte.model.entity.filter.MediaFilter
+import com.indisparte.model.entity.filter.TimeWindow
 import com.indisparte.model.entity.common.Backdrop
-import com.indisparte.model.entity.person.Cast
-import com.indisparte.model.entity.movie.CollectionDetails
 import com.indisparte.model.entity.common.CountryResult
-import com.indisparte.model.entity.person.Crew
+import com.indisparte.model.entity.common.Video
+import com.indisparte.model.entity.movie.CollectionDetails
 import com.indisparte.model.entity.movie.Movie
 import com.indisparte.model.entity.movie.MovieDetails
 import com.indisparte.model.entity.movie.ReleaseDatesByCountry
-import com.indisparte.model.entity.common.Video
+import com.indisparte.model.entity.person.Cast
+import com.indisparte.model.entity.person.Crew
 import com.indisparte.movie.mapper.mapToBackdrop
 import com.indisparte.movie.mapper.mapToCast
 import com.indisparte.movie.mapper.mapToCollectionDetails
@@ -42,20 +42,21 @@ constructor(
 ) : MovieRepository {
 
     //todo need to cache this movies
-    override  fun getByListType(movieListType: MovieListType): Flow<Result<List<Movie>>> =
+    override fun getByListType(movieListType: MovieListType): Flow<Result<List<Movie>>> =
         getListFromResponse(
             request = { movieService.getListOfSpecificMovies(movieListType.value, queryMap) },
             mapper = { response -> response.results.map { it.toMovie() } }
         )
 
 
-    override  fun getTrending(timeWindow: TimeWindow): Flow<Result<List<Movie>>> =
+    override fun getTrending(timeWindow: TimeWindow): Flow<Result<List<Movie>>> =
         getListFromResponse(
             request = { movieService.getTrending(timeWindow.value, queryMap) },
             mapper = { response -> response.results.map { it.toMovie() } }
         )
 
-    override  fun getBySearch(query: String): Flow<Result<List<Movie>>> =
+    // TODO: This method must be removed
+    override fun getBySearch(query: String): Flow<Result<List<Movie>>> =
         flow {
             queryMap["query"] = query
             emitAll(getListFromResponse(
@@ -64,7 +65,8 @@ constructor(
             ))
         }
 
-    override  fun getDiscoverable(mediaFilter: MediaFilter): Flow<Result<List<Movie>>> =
+    // TODO: This method must be replace in data:discover
+    override fun getDiscoverable(mediaFilter: MediaFilter): Flow<Result<List<Movie>>> =
         getListFromResponse(
             request = { movieService.getByDiscover(createQueryParams(mediaFilter)) },
             mapper = { response -> response.results.map { it.toMovie() } }
@@ -89,32 +91,32 @@ constructor(
     }
 
 
-    override  fun getDetails(movieId: Int): Flow<Result<MovieDetails>> =
+    override fun getDetails(movieId: Int): Flow<Result<MovieDetails>> =
         getSingleFromResponse(
             request = { movieService.getDetails(movieId, queryMap) },
             mapper = { response -> response.toMovieDetails() }
         )
 
 
-    override  fun getSimilar(movieId: Int): Flow<Result<List<Movie>>> =
+    override fun getSimilar(movieId: Int): Flow<Result<List<Movie>>> =
         getListFromResponse(
             request = { movieService.getSimilar(movieId, queryMap) },
             mapper = { response -> response.results.map { it.toMovie() } }
         )
 
-    override  fun getCast(movieId: Int): Flow<Result<List<Cast>>> =
+    override fun getCast(movieId: Int): Flow<Result<List<Cast>>> =
         getListFromResponse(
             request = { movieService.getCredits(movieId, queryMap) },
             mapper = { response -> response.cast.map { it.mapToCast() } }
         )
 
-    override  fun getCrew(movieId: Int): Flow<Result<List<Crew>>> =
+    override fun getCrew(movieId: Int): Flow<Result<List<Crew>>> =
         getListFromResponse(
             request = { movieService.getCredits(movieId, queryMap) },
             mapper = { response -> response.crew.map { it.mapToCrew() } }
         )
 
-    override  fun getWatchProviders(
+    override fun getWatchProviders(
         movieId: Int,
         country: String,
     ): Flow<Result<CountryResult?>> = getSingleFromResponse(
@@ -124,13 +126,13 @@ constructor(
         }
     )
 
-    override  fun getVideos(movieId: Int): Flow<Result<List<Video>>> =
+    override fun getVideos(movieId: Int): Flow<Result<List<Video>>> =
         getListFromResponse(
             request = { movieService.getVideos(movieId, queryMap) },
             mapper = { response -> response.results.map { it.mapToVideo() } }
         )
 
-    override  fun getReleaseDates(movieId: Int): Flow<Result<List<ReleaseDatesByCountry>>> =
+    override fun getReleaseDates(movieId: Int): Flow<Result<List<ReleaseDatesByCountry>>> =
         getListFromResponse(
             request = { movieService.getReleaseDates(movieId, queryMap) },
             mapper = { response ->
@@ -138,7 +140,7 @@ constructor(
             }
         )
 
-    override  fun getBackdrop(movieId: Int): Flow<Result<List<Backdrop>>> =
+    override fun getBackdrop(movieId: Int): Flow<Result<List<Backdrop>>> =
         getListFromResponse(
             request = { movieService.getImages(movieId, queryMap) },
             mapper = { response ->
@@ -146,7 +148,7 @@ constructor(
             }
         )
 
-    override  fun getCollectionDetails(collectionId: Int): Flow<Result<CollectionDetails>> =
+    override fun getCollectionDetails(collectionId: Int): Flow<Result<CollectionDetails>> =
         getSingleFromResponse(
             request = { movieService.getCollectionDetails(collectionId, queryMap) },
             mapper = { response ->

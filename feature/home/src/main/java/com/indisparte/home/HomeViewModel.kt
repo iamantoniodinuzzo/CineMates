@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.actor.repository.PeopleRepository
 import com.indisparte.home.util.Section
-import com.indisparte.model.TimeWindow
+import com.indisparte.model.entity.filter.TimeWindow
 import com.indisparte.movie.repository.MovieRepository
 import com.indisparte.movie.util.MovieListType
 import com.indisparte.tv.repository.TvRepository

@@ -12,7 +12,27 @@ import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Locale
 
-
+/**
+ * Represents detailed information about a person in the entertainment industry, including biography,
+ * birth and death details, and other personal information.
+ *
+ * @property adult Indicates whether the person's content is intended for adult audiences.
+ * @property alsoKnownAs List of alternative names by which the person is known.
+ * @property biography The biography of the person.
+ * @property birthday The date of birth of the person.
+ * @property deathDay The date of death of the person (if applicable).
+ * @property gender The gender of the person.
+ * @property homepage The personal website of the person.
+ * @property id The unique ID associated with the person.
+ * @property imdbId The IMDB ID of the person.
+ * @property knownForDepartment The department in which the person is known for working.
+ * @property name The name of the person.
+ * @property placeOfBirth The place of birth of the person.
+ * @property popularity The popularity score of the person.
+ * @property profilePath The path to the profile image of the person.
+ * @property images List of poster images associated with the person.
+ * @author Antonio Di Nuzzo
+ */
 class PersonDetails(
     adult: Boolean,
     val alsoKnownAs: List<String>,

@@ -8,6 +8,13 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
+/**
+ * Represents the different types of release for a media item.
+ *
+ * @property type An integer representing the release type.
+ * @property releaseStringRes The resource ID of the string representing the release type.
+ * @author Antonio Di Nuzzo
+ */
 enum class ReleaseType(val type: Int, @StringRes val releaseStringRes: Int) {
     Premiere(1, R.string.release_premiere),
     TheatricalLimited(2, R.string.release_theatrical_limited),
@@ -15,31 +22,38 @@ enum class ReleaseType(val type: Int, @StringRes val releaseStringRes: Int) {
     Digital(4, R.string.release_digital),
     Physical(5, R.string.release_physical),
     TV(6, R.string.release_tv);
+
+    companion object {
+        fun fromValue(value: Int): ReleaseType? =
+            ReleaseType.values().firstOrNull { it.type == value }
+    }
 }
 
-
-
+/**
+ * Represents release date information for a media item.
+ *
+ * @property certification The certification associated with the release.
+ * @property releaseDate The release date in "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" format (UTC).
+ * @property type The type of release.
+ */
 data class ReleaseDate(
     val certification: String,
-    private val releaseDate: String,//yyyy-MM-dd'T'HH:mm:ss.SSS'Z' format
+    private val releaseDate: String,
     private val type: Int,
 ) {
-    companion object{
+    companion object {
         private const val TMDB_RELEASE_DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     }
-    val releaseType: ReleaseType
-        get() {
-            return when (type) {
-                ReleaseType.Premiere.type -> ReleaseType.Premiere
-                ReleaseType.TheatricalLimited.type -> ReleaseType.TheatricalLimited
-                ReleaseType.Theatrical.type -> ReleaseType.Theatrical
-                ReleaseType.Digital.type -> ReleaseType.Digital
-                ReleaseType.Physical.type -> ReleaseType.Physical
-                ReleaseType.TV.type -> ReleaseType.TV
-                else -> ReleaseType.Premiere // Default value if the type doesn't match any enum
-            }
-        }
 
+    /**
+     * The release type based on the type value.
+     */
+    val releaseType: ReleaseType?
+        get() = ReleaseType.fromValue(type)
+
+    /**
+     * The formatted release date in the device's local format.
+     */
     val formattedReleaseDate: String
         get() {
             return convertToLocaleDateString(releaseDate)
@@ -52,22 +66,26 @@ data class ReleaseDate(
             val inputFormat = SimpleDateFormat(TMDB_RELEASE_DATE_FORMAT_UTC, Locale.getDefault())
             inputFormat.timeZone = TimeZone.getTimeZone("UTC")
 
-            // Parsiamo la stringa di input nella data
+            // Parse the input string into a Date object
             val date: Date = inputFormat.parse(inputDateString) ?: return ""
 
-            // Formattiamo la data nel formato locale del dispositivo
+            // Format the date in the device's local format
             return outputFormat.format(date)
         } catch (e: Exception) {
-            // In caso di errori, restituire una stringa vuota o un messaggio di errore
+            // In case of errors, return an empty string or an error message
             e.printStackTrace()
             return ""
         }
     }
 }
 
+/**
+ * Extension function to retrieve the certification of the latest release date in the list.
+ */
 fun List<ReleaseDate>.getLatestReleaseCertification(): String {
     val latestRelease = this.maxByOrNull { it.formattedReleaseDate }
 
     return latestRelease?.certification ?: ""
 }
+
 

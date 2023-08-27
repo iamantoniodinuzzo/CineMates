@@ -1,6 +1,6 @@
 package com.indisparte.actor.repository
 
-import com.indisparte.model.TimeWindow
+import com.indisparte.model.entity.filter.TimeWindow
 import com.indisparte.model.entity.movie.MovieCredit
 import com.indisparte.model.entity.person.Person
 import com.indisparte.model.entity.person.PersonDetails

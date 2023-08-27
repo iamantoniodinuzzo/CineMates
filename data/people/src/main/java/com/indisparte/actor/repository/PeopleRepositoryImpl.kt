@@ -4,7 +4,7 @@ import com.indisparte.actor.mapper.mapToMovieCredits
 import com.indisparte.actor.mapper.mapToPerson
 import com.indisparte.actor.mapper.mapToPersonDetails
 import com.indisparte.actor.source.PeopleDataSource
-import com.indisparte.model.TimeWindow
+import com.indisparte.model.entity.filter.TimeWindow
 import com.indisparte.model.entity.movie.MovieCredit
 import com.indisparte.model.entity.person.Person
 import com.indisparte.model.entity.person.PersonDetails

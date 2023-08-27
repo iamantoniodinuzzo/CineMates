@@ -6,6 +6,14 @@ import kotlin.math.roundToInt
 
 
 /**
+ * Represents a media item with properties such as id, name, popularity, etc.
+ * @property id The unique identifier of the media item.
+ * @property mediaName The name/title of the media item.
+ * @property popularity The popularity of the media item.
+ * @property completePosterPathW500 The complete path to the poster image of the media item.
+ * @property completePosterPathW780 The complete path to the poster image of the media item.
+ * @property voteAverageAsString The average vote/rating of the media item in string format
+ * @property voteAverageRounded The average vote/rating rounded of the media item
  * @author Antonio Di Nuzzo
  */
 open class Media(

@@ -3,6 +3,17 @@ package com.indisparte.model.entity.person
 import com.indisparte.model.entity.base.PersonBase
 
 
+/**
+ * Represents a cast member of a movie or TV show.
+ *
+ * @property castId The unique ID of the cast member.
+ * @property character The name of the character played by the cast member.
+ * @property creditId The unique ID of the credit for the cast member.
+ * @property order The order in which the cast member appears in the credits.
+ * @property originalName The original name of the cast member.
+ * @property profilePath The path to the profile image of the cast member.
+ * @author Antonio Di Nuzzo
+ */
 class Cast(
     adult: Boolean,
     val castId: Int,

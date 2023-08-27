@@ -1,8 +1,7 @@
-package com.indisparte.model
+package com.indisparte.model.entity.filter
 
 /**
  * @author Antonio Di Nuzzo
- * Created 28/05/2022 at 10:30
  */
 enum class MediaType(
     val value: String

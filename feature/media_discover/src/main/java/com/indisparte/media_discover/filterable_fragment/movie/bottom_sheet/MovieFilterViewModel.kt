@@ -3,7 +3,7 @@ package com.indisparte.media_discover.filterable_fragment.movie.bottom_sheet
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.common.Genre
-import com.indisparte.filter.BaseSortOptions
+import com.indisparte.filter.MovieSortOptions
 import com.indisparte.genre.repository.GenreRepository
 import com.indisparte.network.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,14 +32,14 @@ constructor(
     val uiState = _uiState.asStateFlow()
 
     data class UiState(
-        val sortType: BaseSortOptions? = BaseSortOptions.DescendingPopularity,
+        val sortType: MovieSortOptions? = MovieSortOptions.DescendingPopularity,
         val genresId: Set<Int>? = emptySet(),
         val clearAllFilters: Boolean = false,
         val applyAllFilters: Boolean = false,
     ) {
         val filterCount: Int
             get() {
-                val sortCount = if (sortType == BaseSortOptions.DescendingPopularity) 0 else 1
+                val sortCount = if (sortType == MovieSortOptions.DescendingPopularity) 0 else 1
                 val filterCount = genresId?.size ?: 0
                 return sortCount + filterCount
             }
@@ -64,7 +64,7 @@ constructor(
         }
     }
 
-    fun setSortType(sortOption: BaseSortOptions) {
+    fun setSortType(sortOption: MovieSortOptions) {
         _uiState.update {
             it.copy(sortType = sortOption)
         }
@@ -93,7 +93,7 @@ constructor(
             it.copy(
                 clearAllFilters = true,
                 genresId = emptySet(),
-                sortType = BaseSortOptions.DescendingPopularity
+                sortType = MovieSortOptions.DescendingPopularity
             )
         }
     }

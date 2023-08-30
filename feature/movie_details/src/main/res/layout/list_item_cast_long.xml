@@ -25,6 +25,9 @@
             <com.indisparte.ui.custom_view.PosterView
                 android:id="@+id/person_image"
                 android:layout_width="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_height="wrap_content"
                 app:pv_imageUrl="@{cast.completeProfilePathW780}"
                 app:pv_cornerRadius="50dp"
@@ -44,16 +47,21 @@
 
                 <TextView
                     android:id="@+id/person_name"
+                    android:ellipsize="end"
                     style="@style/SmallTitleTextViewStyle"
                     android:layout_width="match_parent"
+                    android:textColor="@color/white_new"
                     android:layout_height="match_parent"
+                    android:maxLines="2"
                     android:text="@{cast.name}"
                     tools:text="@tools:sample/full_names" />
 
                 <TextView
                     android:id="@+id/cast_character"
-                    style="@style/BodyTextViewStyle"
+                    style="@style/SmallTitleTextViewStyle"
                     android:layout_width="match_parent"
+                    android:ellipsize="end"
+                    android:maxLines="2"
                     android:layout_height="match_parent"
                     android:text="@{cast.character}"
                     android:textColor="?attr/colorOnSecondary"

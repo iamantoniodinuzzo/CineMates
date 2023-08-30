@@ -25,7 +25,8 @@
 
             <TextView
                 android:id="@+id/type"
-                style="@style/BodyTextViewStyle"
+                style="@style/SmallTitleTextViewStyle"
+                android:textColor="@color/white_new"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{releaseDate.releaseType.releaseStringRes}"
@@ -36,6 +37,7 @@
                 android:id="@+id/date"
                 android:text="@{releaseDate.formattedReleaseDate}"
                 style="@style/BodyTextViewStyle"
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorOnSecondary"

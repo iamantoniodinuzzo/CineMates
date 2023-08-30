@@ -17,23 +17,24 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_marginVertical="@dimen/base_margin"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/base_margin"
             android:orientation="vertical">
 
             <TextView
-                style="@style/BodyTextViewStyle"
+                style="@style/SmallTitleTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{crew.name}"
-                android:textStyle="bold"
+                android:textColor="@color/white_new"
                 tools:text="@tools:sample/full_names" />
 
             <TextView
-                style="@style/BodyTextViewStyle"
+                style="@style/SmallTitleTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{crew.job}"
+                android:textStyle="normal"
                 tools:text="@tools:sample/full_names" />
 
         </LinearLayout>

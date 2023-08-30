@@ -17,7 +17,7 @@
 
         <TextView
             android:id="@+id/textTitleInfo"
-            style="@style/SmallTitleTextViewStyle"
+            style="@style/BigTitleTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/base_margin"
@@ -27,12 +27,11 @@
 
         <TextView
             android:id="@+id/release_information_title"
+            style="@style/SmallTitleTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Release information"
-            android:textColor="?attr/colorOnSecondary"
-            android:textSize="@dimen/small_text_size"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/release_information_recyclerview"
@@ -52,11 +51,12 @@
             android:layout_marginBottom="@dimen/base_margin"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textSize="@dimen/small_text_size"
+            app:textSize="@dimen/medium_text_size"
+
             app:title="Original title"
             app:titleTextColor="?attr/colorOnSecondary"
             app:value="@{movie.originalTitle}"
-            app:valueTextColor="?attr/colorOnPrimary" />
+            app:valueTextColor="@color/white_new" />
 
         <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/tagline"
@@ -65,11 +65,12 @@
             android:layout_marginBottom="@dimen/base_margin"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textSize="@dimen/small_text_size"
+            app:textSize="@dimen/medium_text_size"
+
             app:title="Tagline"
             app:titleTextColor="?attr/colorOnSecondary"
             app:value="@{movie.tagline}"
-            app:valueTextColor="?attr/colorOnPrimary" />
+            app:valueTextColor="@color/white_new" />
 
         <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/status"
@@ -78,11 +79,12 @@
             android:layout_marginBottom="@dimen/base_margin"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textSize="@dimen/small_text_size"
+            app:textSize="@dimen/medium_text_size"
+
             app:title="Status"
             app:titleTextColor="?attr/colorOnSecondary"
             app:value="@{movie.status}"
-            app:valueTextColor="?attr/colorOnPrimary" />
+            app:valueTextColor="@color/white_new" />
 
         <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/runtime"
@@ -91,11 +93,11 @@
             android:layout_marginBottom="@dimen/base_margin"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textSize="@dimen/small_text_size"
+            app:textSize="@dimen/medium_text_size"
             app:title="Runtime"
             app:titleTextColor="?attr/colorOnSecondary"
             app:value="@{movie.formattedRuntime}"
-            app:valueTextColor="?attr/colorOnPrimary" />
+            app:valueTextColor="@color/white_new" />
 
         <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/originalLanguage"
@@ -104,11 +106,11 @@
             android:layout_marginBottom="@dimen/base_margin"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textSize="@dimen/small_text_size"
+            app:textSize="@dimen/medium_text_size"
             app:title="Original language"
             app:titleTextColor="?attr/colorOnSecondary"
             app:value="@{movie.originalLanguage}"
-            app:valueTextColor="?attr/colorOnPrimary" />
+            app:valueTextColor="@color/white_new" />
 
         <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/productionCompanies"
@@ -117,11 +119,12 @@
             android:layout_marginBottom="@dimen/base_margin"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textSize="@dimen/small_text_size"
+            app:textSize="@dimen/medium_text_size"
+
             app:title="Companies"
             app:titleTextColor="?attr/colorOnSecondary"
             app:value="@{movie.productCompaniesConcatenatedString}"
-            app:valueTextColor="?attr/colorOnPrimary" />
+            app:valueTextColor="@color/white_new" />
 
         <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/budget"
@@ -130,11 +133,12 @@
             android:layout_marginBottom="@dimen/base_margin"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textSize="@dimen/small_text_size"
+            app:textSize="@dimen/medium_text_size"
+
             app:title="Budget"
             app:titleTextColor="?attr/colorOnSecondary"
             app:value="@{movie.formattedBudget}"
-            app:valueTextColor="?attr/colorOnPrimary" />
+            app:valueTextColor="@color/white_new" />
 
         <com.indisparte.ui.custom_view.LinearLayoutInfoView
             android:id="@+id/revenue"
@@ -142,11 +146,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
-            app:textSize="@dimen/small_text_size"
+            app:textSize="@dimen/medium_text_size"
+
             app:title="Revenue"
             app:titleTextColor="?attr/colorOnSecondary"
             app:value="@{movie.formattedRevenue}"
-            app:valueTextColor="?attr/colorOnPrimary" />
+            app:valueTextColor="@color/white_new" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

@@ -25,7 +25,7 @@
 
             <TextView
                 android:id="@+id/watchProviderTitle"
-                style="@style/BodyTextViewStyle"
+                style="@style/SmallTitleTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/base_margin"
@@ -47,13 +47,14 @@
 
             <TextView
                 android:id="@+id/tagline"
-                style="@style/BodyTextViewStyle"
+                style="@style/SmallTitleTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/justWatch"
                 android:layout_marginStart="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
                 android:text="@{movie.tagline}"
+                android:textColor="@color/white_new"
                 android:textStyle="bold"
                 android:visibility="@{movie.tagline.empty?View.GONE:View.VISIBLE}"
                 tools:text="Tagline" />
@@ -69,7 +70,7 @@
                 android:layout_marginEnd="@dimen/base_margin"
                 android:text="@{movie.overview}"
                 android:textColor="?attr/colorOnPrimary"
-                android:textSize="@dimen/small_text_size"
+                android:textSize="@dimen/medium_text_size"
                 app:clickableColor="?attr/colorAccent"
                 app:maxLinesShown="3"
                 app:readLessText="Read less"
@@ -78,7 +79,7 @@
 
             <TextView
                 android:id="@+id/genres_title"
-                style="@style/BodyTextViewStyle"
+                style="@style/SmallTitleTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/readMoreTextV"
@@ -107,19 +108,24 @@
                     app:singleSelection="true" />
             </HorizontalScrollView>
 
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/dividerGenres"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/horizontal_scroll_view"
+                android:layout_marginHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:background="?attr/colorOnPrimary" />
+
             <TextView
                 android:id="@+id/crew_title"
-                style="@style/SmallTitleTextViewStyle"
+                style="@style/BigTitleTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/horizontal_scroll_view"
+                android:layout_below="@id/dividerGenres"
                 android:layout_marginStart="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
-                android:clickable="true"
-                android:paddingEnd="@dimen/base_margin"
-                android:text="Featured Crew"
-                app:drawableEndCompat="@drawable/ic_forward"
-                app:drawableTint="?attr/colorOnPrimary" />
+                android:text="Featured Crew" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/grid_crew"
@@ -134,23 +140,41 @@
                 tools:itemCount="4"
                 tools:listitem="@layout/list_item_crew" />
 
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/dividerFeatureCrew"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/grid_crew"
+                android:layout_marginHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:background="?attr/colorOnPrimary" />
+
             <include
                 android:id="@+id/movie_info"
                 layout="@layout/layout_movie_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/grid_crew"
+                android:layout_below="@id/dividerFeatureCrew"
                 android:layout_marginHorizontal="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
                 app:movie="@{movie}" />
 
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/dividerInformation"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/movie_info"
+                android:layout_marginHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:background="?attr/colorOnPrimary" />
+
 
             <TextView
                 android:id="@+id/trailer_title"
-                style="@style/SmallTitleTextViewStyle"
+                style="@style/BigTitleTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/movie_info"
+                android:layout_below="@id/dividerInformation"
                 android:layout_marginStart="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
                 android:text="Trailers" />

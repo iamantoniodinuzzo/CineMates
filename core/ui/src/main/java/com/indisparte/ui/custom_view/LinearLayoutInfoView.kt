@@ -37,7 +37,7 @@ class LinearLayoutInfoView @JvmOverloads constructor(
             textViewTitle.text = value
         }
 
-    var titleStyle: Int = Typeface.BOLD
+    var titleStyle: Int = Typeface.NORMAL
         set(value) {
             field = value
             textViewTitle.setTypeface(textViewTitle.typeface, value)

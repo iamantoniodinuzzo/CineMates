@@ -46,6 +46,7 @@ constructor(
     }
 
 
+
     init {
         getMovieGenres()
     }
@@ -105,9 +106,6 @@ constructor(
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        LOG.d("View model pulito")
-    }
+
 
 }

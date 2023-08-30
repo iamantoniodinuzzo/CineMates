@@ -30,7 +30,7 @@ class MovieFilterBottomSheet : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
     private val LOG = Timber.tag(MovieFilterBottomSheet::class.java.simpleName)
     private val filterViewModel: MovieFilterViewModel by viewModels()
-    private val filterableViewModel: FilterableMovieFragmentViewModel by navGraphViewModels(com.indisparte.media_discover.R.id.discover_graph) {
+    private val filterableViewModel: FilterableMovieFragmentViewModel by navGraphViewModels(R.id.discover_graph) {
         defaultViewModelProviderFactory
     }
     private lateinit var badgeDrawable: BadgeDrawable

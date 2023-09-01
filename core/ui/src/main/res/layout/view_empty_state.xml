@@ -23,7 +23,8 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 app:tint="?attr/colorOnSecondary"
-                tools:src="@drawable/baseline_blind_24" />
+                tools:src="@drawable/baseline_blind_24"
+                android:importantForAccessibility="no" />
 
             <TextView
                 android:id="@+id/tvEmptyStateTitle"

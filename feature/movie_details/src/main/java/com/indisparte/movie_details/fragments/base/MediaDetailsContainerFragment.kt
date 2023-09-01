@@ -93,6 +93,7 @@ abstract class MediaDetailsContainerFragment(
             mapOfFragments[fragment] = titleRes
             viewPagerAdapter.addFragment(fragment, title)
             viewPagerAdapter.notifyDataSetChanged()
+            //TODO retrieve position and call notifyItemInserted
         }
     }
 
@@ -105,6 +106,8 @@ abstract class MediaDetailsContainerFragment(
         mapOfFragments.remove(fragment)
         viewPagerAdapter.removeFragment(fragment)
         viewPagerAdapter.notifyDataSetChanged()
+        //TODO retrieve position and call notifyItemRemoved
+
     }
 
 

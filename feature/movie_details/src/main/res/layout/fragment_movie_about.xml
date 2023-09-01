@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
-                android:text="Watch on"
+                android:text="@string/movie_about_watch_on_title"
                 android:textColor="?attr/colorOnSecondary"
                 android:textStyle="bold" />
 
@@ -46,7 +46,7 @@
                 android:layout_marginEnd="@dimen/base_margin" />
 
             <TextView
-                android:id="@+id/tagline"
+                android:id="@+id/tagline_header"
                 style="@style/SmallTitleTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                 android:id="@+id/readMoreTextV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tagline"
+                android:layout_below="@id/tagline_header"
                 android:layout_marginStart="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
                 android:layout_marginEnd="@dimen/base_margin"
@@ -85,7 +85,7 @@
                 android:layout_below="@id/readMoreTextV"
                 android:layout_marginStart="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
-                android:text="Genres"
+                android:text="@string/movie_about_genres_title"
                 android:textColor="?attr/colorOnSecondary"
                 android:textStyle="bold"
                 android:visibility="@{movie.genres.empty?View.GONE:View.VISIBLE}" />
@@ -125,7 +125,7 @@
                 android:layout_below="@id/dividerGenres"
                 android:layout_marginStart="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
-                android:text="Featured Crew" />
+                android:text="@string/movie_about_featured_crew_title" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/grid_crew"
@@ -177,7 +177,7 @@
                 android:layout_below="@id/dividerInformation"
                 android:layout_marginStart="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
-                android:text="Trailers" />
+                android:text="@string/movie_about_trailers_title" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trailers"

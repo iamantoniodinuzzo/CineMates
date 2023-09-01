@@ -50,7 +50,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/backgrounds/scenic" />
+                        tools:src="@tools:sample/backgrounds/scenic"
+                        android:importantForAccessibility="no" />
 
 
                     <View
@@ -142,7 +143,8 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/base_margin"
             android:backgroundTint="?attr/colorAccent"
-            android:src="@drawable/ic_favorite" />
+            android:src="@drawable/ic_favorite"
+            android:importantForAccessibility="no" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

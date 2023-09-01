@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="fragment_person_about_title">About</string>
+    <string name="person_about_also_known_as_title">Also known as</string>
 </resources>

@@ -12,7 +12,6 @@ import android.view.ViewOutlineProvider
 import android.widget.FrameLayout
 import androidx.annotation.StyleRes
 import androidx.core.content.ContextCompat
-import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -300,7 +299,7 @@ class PosterView @JvmOverloads constructor(
      * @param height The height of the poster view.
      */
     private fun setLayoutParams(width: Int, height: Int) {
-        val layoutParams = FrameLayout.LayoutParams(width, height)
+        val layoutParams = LayoutParams(width, height)
         layoutParams.gravity = Gravity.CENTER
         setLayoutParams(layoutParams)
     }

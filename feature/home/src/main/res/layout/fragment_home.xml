@@ -16,7 +16,7 @@
         app:menu="@menu/home_menu" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_section"
+        android:id="@+id/recyclerViewSection"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_below="@id/toolbar"

@@ -4,12 +4,12 @@ import com.indisparte.movie_data.response.BelongsToCollectionDTO
 import com.indisparte.movie_data.response.CastDTO
 import com.indisparte.movie_data.response.CollectionDetailsResponseDTO
 import com.indisparte.movie_data.response.CrewDTO
-import com.indisparte.response.MovieDTO
 import com.indisparte.movie_data.response.MovieDetailsDTO
 import com.indisparte.movie_data.response.ReleaseDateDTO
 import com.indisparte.movie_data.response.ReleaseDatesByCountryDTO
 import com.indisparte.response.BackdropDTO
 import com.indisparte.response.GenreDTO
+import com.indisparte.response.MovieDTO
 import com.indisparte.response.ProductionCompanyDTO
 import com.indisparte.response.ProductionCountryDTO
 import com.indisparte.response.SpokenLanguageDTO
@@ -25,7 +25,7 @@ fun MovieDTO.toMovie(): com.indisparte.movie_data.Movie {
         posterPath = this.posterPath,
         id = this.id,
         popularity = this.popularity,
-        releaseDate = this.formattedReleaseDate,
+        releaseDate = this.releaseDate,
         title = this.title,
         voteAverage = this.voteAverage
     )

@@ -14,22 +14,6 @@
         <item name="tabTextColor">?attr/colorOnSecondary</item>
     </style>
 
-    <style name="Tab_Layout_Huge" parent="Widget.MaterialComponents.TabLayout">
-        <item name="tabIndicatorColor">@android:color/transparent</item>
-        <item name="tabIndicatorHeight">0dp</item>
-        <item name="tabSelectedTextColor">?colorOnPrimary</item>
-        <item name="tabMode">scrollable</item>
-        <item name="android:background">?attr/colorAccent</item>
-        <item name="tabTextAppearance">@style/CustomTextTabBigAppearance</item>
-        <item name="tabTextColor">?attr/colorOnSecondary</item>
-    </style>
-
-    <style name="CustomTextTabBigAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">@dimen/huge_text_size</item>
-        <item name="android:textStyle">normal</item>
-    </style>
-
     <style name="CustomTextTabSmallAppearance" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
         <item name="android:textSize">@dimen/medium_text_size</item>
@@ -114,10 +98,6 @@
     </style>
     <!--    End Dialog Style-->
 
-    <style name="CardViewCustom" parent="Widget.MaterialComponents.CardView">
-        <item name="background">@drawable/gradient_filter_bg</item>
-    </style>
-
 
     <style name="CustomFilterChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
         <item name="chipBackgroundColor">@color/background_color_chip_state_list</item>
@@ -125,15 +105,6 @@
         <item name="chipStrokeWidth">2dp</item>
         <item name="chipCornerRadius">10dp</item>
         <item name="android:textColor">@color/white_new</item>
-    </style>
-
-
-    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Action">
-        <item name="chipBackgroundColor">?colorSecondary</item>
-        <item name="chipCornerRadius">10dp</item>
-        <item name="android:textColor">?colorAccent</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">12sp</item>
     </style>
 
 

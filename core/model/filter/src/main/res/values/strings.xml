@@ -8,7 +8,6 @@
     <string name="ascending_vote_average">Lowest vote average</string>
     <string name="descending_vote_average">Highest vote average</string>
     <string name="descending_revenue">Most profitable</string>
-    <string name="ascending_revenue">Least profitable</string>
     <string name="descending_vote_count">Top rated</string>
     <string name="ascending_vote_count">Least Voted</string>
 </resources>

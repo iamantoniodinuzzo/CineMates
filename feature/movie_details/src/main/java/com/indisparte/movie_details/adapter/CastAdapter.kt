@@ -3,8 +3,8 @@ package com.indisparte.movie_details.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import com.indisparte.person.Cast
 import com.indisparte.movie_details.databinding.ListItemCastLongBinding
+import com.indisparte.person.Cast
 import com.indisparte.ui.adapter.BaseAdapter
 import com.indisparte.ui.adapter.OnItemClickListener
 
@@ -13,21 +13,21 @@ import com.indisparte.ui.adapter.OnItemClickListener
  * @author Antonio Di Nuzzo
  */
 class CastAdapter :
-    BaseAdapter<com.indisparte.person.Cast, ListItemCastLongBinding>(object : DiffUtil.ItemCallback<com.indisparte.person.Cast>() {
-        override fun areItemsTheSame(oldItem: com.indisparte.person.Cast, newItem: com.indisparte.person.Cast): Boolean {
+    BaseAdapter<Cast, ListItemCastLongBinding>(object : DiffUtil.ItemCallback<Cast>() {
+        override fun areItemsTheSame(oldItem: Cast, newItem: Cast): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: com.indisparte.person.Cast, newItem: com.indisparte.person.Cast): Boolean {
+        override fun areContentsTheSame(oldItem: Cast, newItem: Cast): Boolean {
             return oldItem == newItem
         }
     }) {
-    private var itemClickListener: OnItemClickListener<com.indisparte.person.Cast>? = null
+    private var itemClickListener: OnItemClickListener<Cast>? = null
 
-    fun setOnItemClickListener(listener: OnItemClickListener<com.indisparte.person.Cast>) {
+    fun setOnItemClickListener(listener: OnItemClickListener<Cast>) {
         itemClickListener = listener
     }
-    override fun bind(binding: ListItemCastLongBinding, item: com.indisparte.person.Cast) {
+    override fun bind(binding: ListItemCastLongBinding, item: Cast) {
         binding.cast = item
         binding.root.setOnClickListener {
             itemClickListener?.onItemClick(item)

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="custom_filter_title">Custom Filter</string>
+    <string name="custom_filter_sort_by_title">Sort by</string>
+    <string name="custom_filter_genres_title">Genres</string>
+    <string name="custom_filter_apply_action">Apply</string>
+    <string name="custom_filter_reset_all_action">Reset All</string>
+    <string name="discover_menu_filters">Filters</string>
+    <string name="fragment_discover_discover_title">Discover</string>
+    <string name="fragment_discover_search_movies_by_title">Search movies by title</string>
+    <string name="fragment_discover_custom_filters">Custom Filters</string>
+</resources>

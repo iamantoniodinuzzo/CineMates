@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--    Android palette-->
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="grey">#BDBDBD</color>
-    <color name="grey_50_alpha">#E6EEEEEE</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="transparent_black">#80000000</color>
@@ -23,16 +15,13 @@
     <!-- Secondary color variant-->
     <color name="lynch_90">#E61D2633</color>
     <!-- OTHER colors-->
-    <color name="blue_stone_100">#026258</color>
     <color name="vermilion_100">#FFD84315</color>
-    <color name="vermilion_74">#BDD84315</color>
     <color name="white_new">#FFECEFF1</color>
     <color name="alabaster">#FFCFD8DC</color>
     <color name="geyser">#FFB0BEC5</color>
     <color name="royal_blue_100">#3A55EA</color>
     <color name="royal_blue_70">#B33A55EA</color>
     <color name="fern_frond_100">#487B1E</color>
-    <color name="fern_frond_70">#B3487B1E</color>
 
 
     <!--    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/ratatouille_on_primary</color>-->

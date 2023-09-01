@@ -38,16 +38,12 @@ class FilterableMovieFragment :
             setEmptyStateSubtitle("It seems that these filters are not matched by any film")
             setEmptyStateImage(R.drawable.ic_filters)
         }
-        adapter.setOnItemClickListener(object : OnItemClickListener<com.indisparte.movie_data.Movie> {
-            override fun onItemClick(item: com.indisparte.movie_data.Movie) {
-                val activity = requireActivity()
-                if (activity is ToFlowNavigable) {
-                    activity.navigateToFlow(NavigationFlow.MovieDetailsFlow(item.id))
-                }
-
+        adapter.setOnItemClickListener { item ->
+            val activity = requireActivity()
+            if (activity is ToFlowNavigable) {
+                activity.navigateToFlow(NavigationFlow.MovieDetailsFlow(item.id))
             }
-
-        })
+        }
     }
 
     override fun addItemsToTheAdapter() {

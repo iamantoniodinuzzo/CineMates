@@ -2,16 +2,16 @@ package com.indisparte.actor.mapper
 
 import com.indisparte.actor.response.PersonDTO
 import com.indisparte.actor.response.PersonDetailsDTO
+import com.indisparte.common.Poster
 import com.indisparte.person.Person
 import com.indisparte.person.PersonDetails
-import com.indisparte.common.Poster
 import com.indisparte.response.PosterDTO
 
 /**
  * @author Antonio Di Nuzzo
  */
-fun PersonDTO.mapToPerson(): com.indisparte.person.Person {
-    return com.indisparte.person.Person(
+fun PersonDTO.mapToPerson(): Person {
+    return Person(
         adult = this.adult,
         gender = this.gender,
         id = this.id,
@@ -22,8 +22,8 @@ fun PersonDTO.mapToPerson(): com.indisparte.person.Person {
     )
 }
 
-fun PersonDetailsDTO.mapToPersonDetails(): com.indisparte.person.PersonDetails {
-    return com.indisparte.person.PersonDetails(
+fun PersonDetailsDTO.mapToPersonDetails(): PersonDetails {
+    return PersonDetails(
         adult = this.adult,
         alsoKnownAs = this.alsoKnownAs,
         biography = this.biography,
@@ -44,8 +44,8 @@ fun PersonDetailsDTO.mapToPersonDetails(): com.indisparte.person.PersonDetails {
     )
 }
 
-fun PosterDTO.mapToPoster(): com.indisparte.common.Poster {
-    return com.indisparte.common.Poster(
+fun PosterDTO.mapToPoster(): Poster {
+    return Poster(
         aspectRatio = aspectRatio,
         filePath = filePath
     )

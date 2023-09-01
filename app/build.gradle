@@ -60,7 +60,6 @@ dependencies {
     implementation(libs.constraintLayout)
     implementation(libs.legacy)
     implementation(libs.fragmentKtx)
-    implementation 'androidx.core:core-ktx:+'
     testImplementation(libs.junitTest)
     androidTestImplementation(libs.junitAndroidTest)
     androidTestImplementation(libs.espresso)

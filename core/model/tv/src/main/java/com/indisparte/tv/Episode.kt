@@ -14,7 +14,6 @@ import com.indisparte.base.Media
  * @property runtime The duration of the episode in minutes.
  * @property seasonNumber The season number to which the episode belongs.
  * @property showId The ID of the TV show to which the episode belongs.
- * @property stillPath The path to the still image of the episode.
  * @property voteAverage The average vote rating for the episode.
  * @author Antonio Di Nuzzo
  */

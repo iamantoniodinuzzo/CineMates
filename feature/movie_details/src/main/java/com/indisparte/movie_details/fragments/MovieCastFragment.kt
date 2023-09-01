@@ -2,12 +2,12 @@ package com.indisparte.movie_details.fragments
 
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.indisparte.person.Cast
 import com.indisparte.movie_details.adapter.CastAdapter
 import com.indisparte.movie_details.databinding.ListItemCastLongBinding
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources
+import com.indisparte.person.Cast
 import com.indisparte.ui.fragment.ListFragment
 import com.indisparte.util.extension.collectIn
 import timber.log.Timber
@@ -16,7 +16,7 @@ import timber.log.Timber
 /**
  * @author Antonio Di Nuzzo
  */
-class MovieCastFragment : ListFragment<com.indisparte.person.Cast, ListItemCastLongBinding, CastAdapter>(
+class MovieCastFragment : ListFragment<Cast, ListItemCastLongBinding, CastAdapter>(
     CastAdapter()
 ) {
     private val LOG = Timber.tag(MovieCastFragment::class.java.simpleName)

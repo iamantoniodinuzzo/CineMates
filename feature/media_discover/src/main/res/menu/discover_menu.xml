@@ -5,7 +5,7 @@
         android:id="@+id/filters"
         android:icon="@drawable/ic_filters"
         app:iconTint="?attr/colorOnPrimary"
-        android:title="Filters"
+        android:title="@string/discover_menu_filters"
         app:showAsAction="ifRoom" />
 
 </menu>

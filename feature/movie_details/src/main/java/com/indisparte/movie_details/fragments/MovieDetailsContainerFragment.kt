@@ -96,12 +96,12 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         viewModel.selectedMovie.collectIn(viewLifecycleOwner) { resources ->
             resources.whenResources(
                 onSuccess = { movieDetails ->
-                    LOG.d("Movie details loaded: ${movieDetails.toString()}")
+                    LOG.d("Movie details loaded: $movieDetails")
                     binding.media = movieDetails
                     //I set the title here, without using data binding, because the 'app:title attribute' of the toolbar does not allow dynamic change
-                    binding.toolbar.title = movieDetails?.title
+                    binding.toolbar.title = movieDetails.title
                     //check if movie is a part of collection
-                    if (movieDetails?.belongsToCollection != null) {
+                    if (movieDetails.belongsToCollection != null) {
                         LOG.d("Movie is a part of collection, add CollectionFragment.")
                         addFragment(collectionPartsFragment, R.string.fragment_collection)
                     } else {

@@ -1,7 +1,6 @@
 package com.indisparte.genre.di
 
 import com.indisparte.genre.source.GenreDataSource
-import com.indisparte.response.GenreDTO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

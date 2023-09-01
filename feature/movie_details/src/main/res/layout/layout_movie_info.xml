@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/base_margin"
             android:layout_marginBottom="@dimen/base_margin"
-            android:text="Information" />
+            android:text="@string/movie_about_information_title" />
 
 
         <TextView
@@ -30,7 +30,7 @@
             style="@style/SmallTitleTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Release information"
+            android:text="@string/movie_about_release_information_title"
             android:textStyle="normal" />
 
         <androidx.recyclerview.widget.RecyclerView

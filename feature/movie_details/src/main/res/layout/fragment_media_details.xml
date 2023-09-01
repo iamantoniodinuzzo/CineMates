@@ -186,7 +186,8 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/base_margin"
             android:backgroundTint="?attr/colorAccent"
-            android:src="@drawable/round_add_24" />
+            android:src="@drawable/round_add_24"
+            android:contentDescription="TODO" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

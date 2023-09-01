@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
-                android:text="Also known as"
+                android:text="@string/person_about_also_known_as_title"
                 android:textColor="?attr/colorOnSecondary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/biography" />

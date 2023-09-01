@@ -6,8 +6,8 @@ import com.indisparte.tv.response.SeasonDTO
 import com.indisparte.tv.response.SeasonDetailsDTO
 
 
-fun SeasonDTO.mapToSeason(): com.indisparte.tv.Season {
-    return com.indisparte.tv.Season(
+fun SeasonDTO.mapToSeason(): Season {
+    return Season(
         airDate = this.airDate,
         episodeCount = this.episodeCount,
         id = this.id,
@@ -19,8 +19,8 @@ fun SeasonDTO.mapToSeason(): com.indisparte.tv.Season {
     )
 }
 
-fun SeasonDetailsDTO.mapToSeasonDetails(): com.indisparte.tv.SeasonDetails {
-    return com.indisparte.tv.SeasonDetails(
+fun SeasonDetailsDTO.mapToSeasonDetails(): SeasonDetails {
+    return SeasonDetails(
         airDate = this.airDate,
         episodes = this.episodes.map { it.mapToEpisode() },
         id = this.id,

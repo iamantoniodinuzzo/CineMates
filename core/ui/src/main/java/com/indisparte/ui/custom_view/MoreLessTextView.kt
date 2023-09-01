@@ -13,7 +13,7 @@ import com.indisparte.ui.R
 
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 class MoreLessTextView @JvmOverloads constructor(
     context: Context,

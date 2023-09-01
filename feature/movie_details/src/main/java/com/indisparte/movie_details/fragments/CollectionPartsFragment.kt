@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.github.ajalt.timberkt.Timber
 import com.indisparte.movie_details.databinding.FragmentCollectionPartsBinding
-import com.indisparte.movie_details.util.enableInnerScrollViewPager
 import com.indisparte.network.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
-import com.indisparte.ui.adapter.OnItemClickListener
+import com.indisparte.ui.custom_view.showError
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
+import com.indisparte.util.extension.enableInnerScrollViewPager
 
 
 /**
@@ -33,7 +33,7 @@ class CollectionPartsFragment : BaseFragment<FragmentCollectionPartsBinding>() {
     override fun initializeViews() {
         binding.collectionParts.enableInnerScrollViewPager()
         binding.collectionParts.adapter = adapter
-        adapter.setOnItemClickListener { item -> //update view model selected movie
+        adapter.setOnItemClickListener { item ->
             viewModel.onDetailsFragmentReady(item.id)
         }
     }
@@ -42,19 +42,14 @@ class CollectionPartsFragment : BaseFragment<FragmentCollectionPartsBinding>() {
         viewModel.collectionParts.collectIn(viewLifecycleOwner) { resource ->
             resource?.whenResources(
                 onSuccess = { collectionDetails ->
-                    LOG.d("Collection details loaded! $collectionDetails")
                     binding.collectionParts.hideLoading()
                     binding.collection = collectionDetails
                     adapter.submitList(collectionDetails.parts)
-
                 },
                 onError = { error ->
-                    val errorMessage = error?.message
-                    LOG.e("Error: $errorMessage")
-                    binding.collectionParts.hideLoading()
+                    binding.collectionParts.showError(error)
                 },
                 onLoading = {
-                    LOG.d("Loading Collection Details...")
                     binding.collectionParts.showLoading()
                 }
             )

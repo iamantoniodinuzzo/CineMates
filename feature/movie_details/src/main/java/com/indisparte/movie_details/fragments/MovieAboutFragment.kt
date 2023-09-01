@@ -20,13 +20,13 @@ import com.indisparte.movie_details.adapter.ReleaseDateAdapter
 import com.indisparte.movie_details.adapter.VideoAdapter
 import com.indisparte.movie_details.databinding.CustomWatchProviderChipBinding
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
-import com.indisparte.movie_details.util.enableInnerScrollViewPager
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources
 import com.indisparte.person.Crew
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
+import com.indisparte.util.extension.enableInnerScrollViewPager
 import com.indisparte.util.extension.gone
 import com.indisparte.util.extension.visible
 
@@ -94,19 +94,17 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             resource.whenResources(
                 onSuccess = { countryResult ->
                     if (countryResult != null) {
-                        LOG.d("Watch providers loaded! $countryResult")
                         binding.justWatch.root.visible()
                         binding.watchProviderTitle.visible()
                         setWatchProvidersChipGroup(countryResult)
                         progressWatchProvider.hide()
                     } else {
-                        LOG.d("Watch providers is null. Hiding views.")
                         binding.justWatch.root.gone()
                         binding.watchProviderTitle.gone()
                     }
                 },
                 onError = { error ->
-                    val errorMessage = error?.message
+                    val errorMessage = error.message
                     LOG.e("Error: $errorMessage")
                     progressWatchProvider.hide()
                 },
@@ -149,7 +147,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                     }
                 },
                 onError = { error ->
-                    LOG.e(error?.message)
+                    LOG.e(error.message)
                 },
                 onLoading = {
                     LOG.d("Crew Loading...")
@@ -169,7 +167,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                     }
                 },
                 onError = { error ->
-                    LOG.e(error?.message)
+                    LOG.e(error.message)
                 },
                 onLoading = {
                     LOG.d("Videos Loading...")

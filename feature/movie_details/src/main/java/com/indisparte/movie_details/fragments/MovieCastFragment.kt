@@ -33,19 +33,13 @@ class MovieCastFragment : ListFragment<Cast, ListItemCastLongBinding, CastAdapte
         viewModel.cast.collectIn(viewLifecycleOwner) { resources ->
             resources?.whenResources(
                 onSuccess = { cast ->
-                    LOG.d("Cast loaded : ${cast.map { it.name }}")
                     hideLoading()
                     adapter.submitList(cast)
                 },
                 onError = { error ->
-                    val errorMessage = error?.message
-                    LOG.e("Error: $errorMessage")
-                    hideLoading()
-                    binding.recyclerView.setEmptyStateSubtitle(errorMessage)
-
+                    showError(error)
                 },
                 onLoading = {
-                    LOG.d("Loading cast...")
                     showLoading()
                 })
         }

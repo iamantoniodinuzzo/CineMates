@@ -1,15 +1,10 @@
 package com.indisparte.network
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
-
 
 /**
  * @author Antonio Di Nuzzo
  */
+/*
 inline fun <ResultType, RequestType> networkBoundResource(
     crossinline query: () -> Flow<ResultType>,
     crossinline fetch: suspend () -> RequestType,
@@ -32,4 +27,4 @@ inline fun <ResultType, RequestType> networkBoundResource(
     }
 
     emitAll(flow)
-}
+}*/

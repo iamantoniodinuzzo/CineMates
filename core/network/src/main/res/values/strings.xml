@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_network_exception">Please check your network connection</string>
+    <string name="empty_response_exception">Look Empty Here!</string>
+    <string name="something_went_wrong">Something went wrong</string>
+
+    <!-- ApiException Messages -->
+    <string name="success">Success.</string>
+    <string name="invalid_service">Invalid service: this service does not exist.</string>
+    <string name="authentication_failed">Authentication failed: You do not have permissions to access the service.</string>
+    <string name="invalid_format">Invalid format: This service doesn\'t exist in that format.</string>
+    <string name="invalid_parameters">Invalid parameters: Your request parameters are incorrect.</string>
+    <string name="invalid_api_key">Invalid API key: You must be granted a valid key.</string>
+    <string name="duplicate_entry">Duplicate entry: The data you tried to submit already exists.</string>
+    <string name="service_offline">Service offline: This service is temporarily offline, try again later.</string>
+    <string name="suspended_api_key">Suspended API key: Access to your account has been suspended, contact TMDB.</string>
+    <string name="internal_error">Internal error: Something went wrong, contact TMDB.</string>
+    <string name="item_updated">The item/record was updated successfully.</string>
+    <string name="item_deleted">The item/record was deleted successfully.</string>
+    <string name="failed">Failed.</string>
+    <string name="device_denied">Device denied.</string>
+    <string name="session_denied">Session denied.</string>
+    <string name="validation_failed">Validation failed.</string>
+    <string name="invalid_accept_header">Invalid accept header.</string>
+    <string name="invalid_date_range">Invalid date range: Should be a range no longer than 14 days.</string>
+    <string name="entry_not_found">Entry not found: The item you are trying to edit cannot be found.</string>
+    <string name="invalid_page">Invalid page: Pages start at 1 and max at 500. They are expected to be an integer.</string>
+    <string name="invalid_date">Invalid date: Format needs to be YYYY-MM-DD.</string>
+    <string name="backend_timeout">Your request to the backend server timed out. Try again.</string>
+    <string name="request_limit_exceeded">Your request count (#) is over the allowed limit of (40).</string>
+    <string name="missing_username_and_password">You must provide a username and password.</string>
+    <string name="too_many_remote_calls">Too many append to response objects: The maximum number of remote calls is 20.</string>
+    <string name="invalid_timezone">Invalid timezone: Please consult the documentation for a valid timezone.</string>
+    <string name="confirm_action_required">You must confirm this action: Please provide a confirm=true parameter.</string>
+    <string name="invalid_credentials">Invalid username and/or password: You did not provide a valid login.</string>
+    <string name="account_disabled">Account disabled: Your account is no longer active. Contact TMDB if this is an error.</string>
+    <string name="email_not_verified">Email not verified: Your email address has not been verified.</string>
+    <string name="invalid_request_token">Invalid request token: The request token is either expired or invalid.</string>
+    <string name="resource_not_found">The resource you requested could not be found.</string>
+    <string name="invalid_token">Invalid token.</string>
+    <string name="write_permission_denied">This token hasn\'t been granted write permission by the user.</string>
+    <string name="session_not_found">The requested session could not be found.</string>
+    <string name="edit_permission_denied">You don\'t have permission to edit this resource.</string>
+    <string name="resource_is_private">This resource is private.</string>
+    <string name="nothing_to_update">Nothing to update.</string>
+    <string name="request_token_not_approved">This request token hasn\'t been approved by the user.</string>
+    <string name="unsupported_request_method">This request method is not supported for this resource.</string>
+    <string name="backend_connection_error">Couldn\'t connect to the backend server.</string>
+    <string name="invalid_id">The ID is invalid.</string>
+    <string name="user_suspended">This user has been suspended.</string>
+    <string name="maintenance_in_progress">The API is undergoing maintenance. Try again later.</string>
+    <string name="invalid_input">The input is not valid.</string>
+</resources>

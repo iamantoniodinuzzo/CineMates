@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import com.indisparte.network.error.CineMatesExceptions
 import com.indisparte.ui.adapter.BaseAdapter
 import com.indisparte.ui.databinding.FragmentListingItemsBinding
 
@@ -13,7 +14,7 @@ import com.indisparte.ui.databinding.FragmentListingItemsBinding
  * @param T The type of objects contained in the recyclerview
  * @param A The adapter must extend [BaseAdapter]
  * @param adapter The adapter constructor
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T, VB>>(
     val adapter: A,
@@ -43,6 +44,17 @@ abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T, VB>>(
 
     protected fun hideLoading() {
         binding.recyclerView.hideLoading()
+    }
+
+    protected fun showError(exception: CineMatesExceptions) {
+        hideLoading()
+        binding.recyclerView.apply {
+            val errorMessage = context.getString(exception.messageRes)
+            setEmptyStateTitle(errorMessage)
+            exception.drawableRes?.let {
+                setEmptyStateImage(it)
+            }
+        }
     }
 
 }

@@ -1,12 +1,12 @@
 package com.indisparte.network
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.indisparte.network.error.ApiException
+import com.indisparte.network.error.CineMatesExceptions
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import okhttp3.ResponseBody
+import retrofit2.HttpException
 import retrofit2.Response
-import java.lang.reflect.Type
+import java.io.IOException
 
 
 /**
@@ -36,21 +36,23 @@ fun <T, O> getListFromResponse(
                 val mappedData = mapper(responseData)
                 emit(Result.Success(mappedData)) // Emit success state with the retrieved movies
             } else {
-                emit(Result.Error(Exception("Empty response"))) // Emit error state for empty response
+                emit(Result.Error(CineMatesExceptions.EmptyResponse)) // Emit error state for empty response
             }
         } else {
-            val errorResponse: ErrorResponse? = convertErrorBody(response.errorBody())
-
             emit(
-                Result.Error(
-                    Exception(
-                        errorResponse?.message ?: "Unknown Error"
-                    )
-                )
+                Result.Error(CineMatesExceptions.GenericException)
             ) // Emit error state with the error message
         }
+    } catch (e: HttpException) {
+        // Returning HttpException's message
+        val code = e.code()
+        val apiExceptions = ApiException.fromCode(code)
+        Result.Error(apiExceptions)
+    } catch (e: IOException) {
+        // Returning no internet message
+        Result.Error(CineMatesExceptions.NoNetworkException)
     } catch (e: Exception) {
-        emit(Result.Error(e)) // Emit error state with the exception
+        emit(Result.Error(CineMatesExceptions.GenericException)) // Emit error state with the exception
     }
 }
 
@@ -82,31 +84,26 @@ fun <T, O> getSingleFromResponse(
                 emit(Result.Success(mappedData)) // Emit success state with the retrieved movie details
 
             } else {
-                emit(Result.Error(Exception("Empty response"))) // Emit error state for empty response
+                emit(Result.Error(CineMatesExceptions.EmptyResponse)) // Emit error state for empty response
             }
         } else {
-            val errorResponse: ErrorResponse? = convertErrorBody(response.errorBody())
 
             emit(
                 Result.Error(
-                    Exception(
-                        errorResponse?.message ?: "Unknown Error"
-                    )
+                    CineMatesExceptions.GenericException
                 )
             ) // Emit error state with the error message
         }
+    } catch (e: HttpException) {
+        // Returning HttpException's message
+        val code = e.code()
+        val apiExceptions = ApiException.fromCode(code)
+        Result.Error(apiExceptions)
+    } catch (e: IOException) {
+        // Returning no internet message
+        Result.Error(CineMatesExceptions.NoNetworkException)
     } catch (e: Exception) {
-        emit(Result.Error(e)) // Emit error state with the exception
+        emit(Result.Error(CineMatesExceptions.GenericException)) // Emit error state with the exception
     }
 }
 
-private fun convertErrorBody(errorBody: ResponseBody?): ErrorResponse? {
-    return try {
-        val gson = Gson()
-        val errorBodyString = errorBody?.string()
-        val type: Type = object : TypeToken<ErrorResponse>() {}.type
-        gson.fromJson(errorBodyString, type)
-    } catch (exception: Exception) {
-        null
-    }
-}

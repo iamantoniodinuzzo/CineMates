@@ -10,6 +10,7 @@ import android.widget.ProgressBar
 import androidx.annotation.StyleRes
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.indisparte.network.error.CineMatesExceptions
 import com.indisparte.ui.R
 import com.indisparte.ui.databinding.ViewEmptyStateBinding
 import com.indisparte.util.extension.gone
@@ -307,4 +308,13 @@ class StatefulRecyclerView @JvmOverloads constructor(
     }
 }
 
+
+fun StatefulRecyclerView.showError(exception: CineMatesExceptions){
+    hideLoading()
+    val errorMessage = context.getString(exception.messageRes)
+    setEmptyStateTitle(errorMessage)
+    exception.drawableRes?.let {
+        setEmptyStateImage(it)
+    }
+}
 

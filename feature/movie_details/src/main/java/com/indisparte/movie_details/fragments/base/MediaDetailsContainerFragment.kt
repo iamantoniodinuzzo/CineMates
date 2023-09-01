@@ -92,8 +92,8 @@ abstract class MediaDetailsContainerFragment(
         if (!mapOfFragments.containsKey(fragment)) {
             mapOfFragments[fragment] = titleRes
             viewPagerAdapter.addFragment(fragment, title)
-            viewPagerAdapter.notifyDataSetChanged()
-            //TODO retrieve position and call notifyItemInserted
+            val index = viewPagerAdapter.getFragmentIndex(fragment)
+            viewPagerAdapter.notifyItemInserted(index)
         }
     }
 
@@ -104,9 +104,9 @@ abstract class MediaDetailsContainerFragment(
      */
     protected fun removeFragment(fragment: Fragment) {
         mapOfFragments.remove(fragment)
+        val index = viewPagerAdapter.getFragmentIndex(fragment)
         viewPagerAdapter.removeFragment(fragment)
-        viewPagerAdapter.notifyDataSetChanged()
-        //TODO retrieve position and call notifyItemRemoved
+        viewPagerAdapter.notifyItemRemoved(index)
 
     }
 

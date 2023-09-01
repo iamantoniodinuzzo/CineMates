@@ -11,7 +11,7 @@ import com.indisparte.home.databinding.ListItemSectionBinding
 import com.indisparte.home.util.Section
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
-import com.indisparte.network.Result
+import com.indisparte.network.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
 import com.indisparte.ui.adapter.PeopleAdapter
 import com.indisparte.ui.adapter.TvShowAdapter
@@ -113,24 +113,23 @@ class SectionAdapter(private val fragment: Fragment) :
                         }
                     }
                     adapter = movieAdapter
-                    when (movieSection.movies) {
-                        is Result.Error -> {
+                    movieSection.moviesResult.whenResources(
+                        onSuccess = { movies ->
                             recyclerView.hideLoading()
-                            val errorMessage = movieSection.movies.exception.message
-                            this.setEmptyStateTitle("Error")
-                            this.setEmptyStateSubtitle(errorMessage)
-                        }
-
-                        is Result.Loading -> {
+                            movieAdapter.submitList(movies)
+                        },
+                        onError = { exception ->
+                            recyclerView.hideLoading()
+                            val errorMessage = context.getString(exception.messageRes)
+                            exception.drawableRes?.let {
+                                this.setEmptyStateImage(it)
+                            }
+                            this.setEmptyStateTitle(errorMessage)
+                        },
+                        onLoading = {
                             recyclerView.showLoading()
                         }
-
-                        is Result.Success -> {
-                            recyclerView.hideLoading()
-                            movieAdapter.submitList(movieSection.movies.data)
-                        }
-
-                    }
+                    )
                 }
             }
 
@@ -148,26 +147,24 @@ class SectionAdapter(private val fragment: Fragment) :
                 recyclerView.apply {
                     val tvShowAdapter = TvShowAdapter()
                     adapter = tvShowAdapter
-                    when (tvShowSection.tvShows) {
-                        is Result.Error -> {
+
+                    tvShowSection.tvShowsResult.whenResources(
+                        onSuccess = { tvShows ->
                             recyclerView.hideLoading()
-                            val errorMessage = tvShowSection.tvShows.exception.message
-                            this.setEmptyStateTitle("Error")//TODO string res
-                            this.setEmptyStateSubtitle(errorMessage)
-
-                        }
-
-                        is Result.Loading -> {
+                            tvShowAdapter.submitList(tvShows)
+                        },
+                        onError = { exception ->
+                            recyclerView.hideLoading()
+                            val errorMessage = context.getString(exception.messageRes)
+                            exception.drawableRes?.let {
+                                this.setEmptyStateImage(it)
+                            }
+                            this.setEmptyStateTitle(errorMessage)
+                        },
+                        onLoading = {
                             recyclerView.showLoading()
                         }
-
-                        is Result.Success -> {
-                            recyclerView.hideLoading()
-                            tvShowAdapter.submitList(tvShowSection.tvShows.data)
-                        }
-
-                    }
-
+                    )
                 }
             }
         }
@@ -184,34 +181,31 @@ class SectionAdapter(private val fragment: Fragment) :
                 recyclerView.apply {
                     val peopleAdapter = PeopleAdapter()
                     adapter = peopleAdapter
-                    peopleAdapter.setOnItemClickListener{person->
+                    peopleAdapter.setOnItemClickListener { person ->
                         val activity = fragment.requireActivity()
                         if (activity is ToFlowNavigable) {
                             activity.navigateToFlow(NavigationFlow.PersonDetailsFlow(person.id))
                         }
                     }
-                    when (peopleSection.people) {
-                        is Result.Error -> {
+
+                    peopleSection.peopleResult.whenResources(
+                        onSuccess = { persons ->
                             recyclerView.hideLoading()
-                            val errorMessage = peopleSection.people.exception.message
-                            this.setEmptyStateTitle("Error")//TODO add to string res
-                            this.setEmptyStateSubtitle(
-                                errorMessage
-                            )
-
-                        }
-
-                        is Result.Loading -> {
+                            peopleAdapter.submitList(persons)
+                        },
+                        onError = { exception ->
+                            recyclerView.hideLoading()
+                            val errorMessage = context.getString(exception.messageRes)
+                            exception.drawableRes?.let {
+                                this.setEmptyStateImage(it)
+                            }
+                            this.setEmptyStateTitle(errorMessage)
+                        },
+                        onLoading = {
                             recyclerView.showLoading()
+
                         }
-
-                        is Result.Success -> {
-                            recyclerView.hideLoading()
-                            peopleAdapter.submitList(peopleSection.people.data)
-                        }
-
-                    }
-
+                    )
                 }
             }
         }

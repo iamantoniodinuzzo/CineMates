@@ -3,10 +3,10 @@ package com.indisparte.movie_details.fragments
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.ajalt.timberkt.Timber
-import com.indisparte.ui.fragment.ListFragment
 import com.indisparte.network.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding
+import com.indisparte.ui.fragment.ListFragment
 import com.indisparte.util.extension.collectIn
 
 
@@ -31,19 +31,13 @@ class MovieSimilarFragment :
         viewModel.similarMovies.collectIn(viewLifecycleOwner) { resources ->
             resources?.whenResources(
                 onSuccess = { similar ->
-                    LOG.d("Content loaded: ${similar.map { it.mediaName }}")
                     hideLoading()
                     adapter.submitList(similar)
                 },
                 onError = { error ->
-                    val errorMessage = error?.message
-                    LOG.e("Error: $errorMessage")
-                    binding.recyclerView.setEmptyStateSubtitle(errorMessage)
-                    hideLoading()
-
+                    showError(error)
                 },
                 onLoading = {
-                    LOG.d("Loading content...")
                     showLoading()
 
                 }

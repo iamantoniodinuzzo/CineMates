@@ -2,7 +2,6 @@ package com.indisparte.media_search.fragments
 
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.github.ajalt.timberkt.Timber
 import com.indisparte.media_search.R
 import com.indisparte.movie_data.Movie
 import com.indisparte.navigation.NavigationFlow
@@ -27,9 +26,10 @@ class SearchMovieFragment :
         //init recyclerview
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(requireContext(), 3)
+            //Base empty state
             setEmptyStateTitle("Search CineMates")
             setEmptyStateSubtitle("Find your favorites movies, TV shows and people.")
-            setEmptyStateImage(R.drawable.ic_search)
+            setEmptyStateImage(R.drawable.ic_empty_box)
         }
         adapter.setOnItemClickListener { item ->
             val activity = requireActivity()
@@ -43,18 +43,13 @@ class SearchMovieFragment :
         viewModel.moviesBySearch.collectIn(viewLifecycleOwner) { result ->
             result.whenResources(
                 onSuccess = { movies ->
-                    Timber.tag(TAG).d("Search result: $movies")
                     binding.recyclerView.hideLoading()
                     adapter.submitList(movies)
                 },
                 onError = { exception ->
-                    val errorMessage = exception?.message
-                    Timber.tag(TAG).e("Error: $errorMessage")
-                    binding.recyclerView.hideLoading()
-                    binding.recyclerView.setEmptyStateSubtitle(errorMessage)
+                   showError(exception)
                 },
                 onLoading = {
-                    Timber.tag(TAG).d("Loading search results")
                     binding.recyclerView.showLoading()
                 }
             )

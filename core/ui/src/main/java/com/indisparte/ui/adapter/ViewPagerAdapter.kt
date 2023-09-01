@@ -29,6 +29,10 @@ class ViewPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
         }
     }
 
+    fun getFragmentIndex(fragment: Fragment):Int{
+        return fragments.indexOf(fragment)
+    }
+
     override fun createFragment(position: Int): Fragment {
         return fragments[position]
     }

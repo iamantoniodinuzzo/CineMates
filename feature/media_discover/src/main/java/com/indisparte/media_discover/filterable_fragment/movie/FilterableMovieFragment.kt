@@ -3,14 +3,14 @@ package com.indisparte.media_discover.filterable_fragment.movie
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.github.ajalt.timberkt.Timber
 import com.indisparte.media_discover.R
 import com.indisparte.media_discover.filterable_fragment.FilterSheetRequestListener
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
+import com.indisparte.network.error.CineMatesExceptions
 import com.indisparte.network.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
-import com.indisparte.ui.adapter.OnItemClickListener
+import com.indisparte.ui.custom_view.showError
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding
 import com.indisparte.ui.fragment.ListFragment
 import com.indisparte.util.extension.collectIn
@@ -22,10 +22,12 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class FilterableMovieFragment :
-    ListFragment<com.indisparte.movie_data.Movie, ListItemMediaSmallBinding, MovieAdapter>(MovieAdapter()), FilterSheetRequestListener {
+    ListFragment<com.indisparte.movie_data.Movie, ListItemMediaSmallBinding, MovieAdapter>(
+        MovieAdapter()
+    ), FilterSheetRequestListener {
 
     private val TAG: String = FilterableMovieFragment::class.simpleName!!
-    private val viewModel: FilterableMovieFragmentViewModel by navGraphViewModels(R.id.discover_graph){
+    private val viewModel: FilterableMovieFragmentViewModel by navGraphViewModels(R.id.discover_graph) {
         defaultViewModelProviderFactory
     }
 
@@ -34,9 +36,7 @@ class FilterableMovieFragment :
         binding.lifecycleOwner = this
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(requireContext(), 3)
-            setEmptyStateTitle("No results")
-            setEmptyStateSubtitle("It seems that these filters are not matched by any film")
-            setEmptyStateImage(R.drawable.ic_filters)
+            showError(CineMatesExceptions.EmptyResponse)
         }
         adapter.setOnItemClickListener { item ->
             val activity = requireActivity()
@@ -50,18 +50,13 @@ class FilterableMovieFragment :
         viewModel.filteredFilms.collectIn(viewLifecycleOwner) { result ->
             result.whenResources(
                 onSuccess = { movies ->
-                    Timber.tag(TAG).d("Filtering result: $movies")
                     binding.recyclerView.hideLoading()
                     adapter.submitList(movies)
                 },
                 onError = { exception ->
-                    val errorMessage = exception?.message
-                    Timber.tag(TAG).e("Error: $errorMessage")
-                    binding.recyclerView.hideLoading()
-                    binding.recyclerView.setEmptyStateSubtitle(errorMessage)
+                    showError(exception)
                 },
                 onLoading = {
-                    Timber.tag(TAG).d("Loading the filter result")
                     binding.recyclerView.showLoading()
                 }
             )

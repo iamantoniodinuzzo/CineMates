@@ -107,6 +107,12 @@
         <item name="android:textColor">@color/white_new</item>
     </style>
 
+    <style name="ChoiceChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">?attr/colorSecondary</item>
+        <item name="chipCornerRadius">10dp</item>
+        <item name="android:textColor">@color/white_new</item>
+    </style>
+
 
     <style name="CustomDialogStyle" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="android:windowBackground">@drawable/custom_dialog_background</item>

@@ -17,6 +17,7 @@
 
         <TextView
             android:id="@+id/textTitleInfo"
+            android:layout_marginHorizontal="@dimen/base_margin"
             style="@style/BigTitleTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,6 +28,7 @@
 
         <TextView
             android:id="@+id/release_information_title"
+            android:layout_marginHorizontal="@dimen/base_margin"
             style="@style/SmallTitleTextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,6 +39,7 @@
             android:id="@+id/release_information_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/base_margin"
             android:layout_marginTop="@dimen/base_margin"
             android:clipToPadding="false"
             android:orientation="horizontal"
@@ -50,10 +53,11 @@
             android:layout_marginTop="@dimen/base_margin"
             android:layout_marginBottom="@dimen/base_margin"
             android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/base_margin"
             app:hideIfValueEmpty="true"
             app:textSize="@dimen/medium_text_size"
-
             app:title="Original title"
+            app:textTitleStyle="normal"
             app:titleTextColor="?attr/colorOnSecondary"
             app:value="@{movie.originalTitle}"
             app:valueTextColor="@color/white_new" />
@@ -65,9 +69,10 @@
             android:layout_marginBottom="@dimen/base_margin"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
+            android:layout_marginHorizontal="@dimen/base_margin"
             app:textSize="@dimen/medium_text_size"
-
             app:title="Tagline"
+            app:textTitleStyle="normal"
             app:titleTextColor="?attr/colorOnSecondary"
             app:value="@{movie.tagline}"
             app:valueTextColor="@color/white_new" />
@@ -78,12 +83,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/base_margin"
             android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/base_margin"
             app:hideIfValueEmpty="true"
             app:textSize="@dimen/medium_text_size"
-
             app:title="Status"
             app:titleTextColor="?attr/colorOnSecondary"
             app:value="@{movie.status}"
+            app:textTitleStyle="normal"
             app:valueTextColor="@color/white_new" />
 
         <com.indisparte.ui.custom_view.LinearLayoutInfoView
@@ -93,9 +99,11 @@
             android:layout_marginBottom="@dimen/base_margin"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
+            android:layout_marginHorizontal="@dimen/base_margin"
             app:textSize="@dimen/medium_text_size"
             app:title="Runtime"
             app:titleTextColor="?attr/colorOnSecondary"
+            app:textTitleStyle="normal"
             app:value="@{movie.formattedRuntime}"
             app:valueTextColor="@color/white_new" />
 
@@ -104,10 +112,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/base_margin"
+            android:layout_marginHorizontal="@dimen/base_margin"
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
             app:textSize="@dimen/medium_text_size"
             app:title="Original language"
+            app:textTitleStyle="normal"
             app:titleTextColor="?attr/colorOnSecondary"
             app:value="@{movie.originalLanguage}"
             app:valueTextColor="@color/white_new" />
@@ -120,9 +130,10 @@
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
             app:textSize="@dimen/medium_text_size"
-
+            android:layout_marginHorizontal="@dimen/base_margin"
             app:title="Companies"
             app:titleTextColor="?attr/colorOnSecondary"
+            app:textTitleStyle="normal"
             app:value="@{movie.productCompaniesConcatenatedString}"
             app:valueTextColor="@color/white_new" />
 
@@ -134,9 +145,10 @@
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
             app:textSize="@dimen/medium_text_size"
-
+            android:layout_marginHorizontal="@dimen/base_margin"
             app:title="Budget"
             app:titleTextColor="?attr/colorOnSecondary"
+            app:textTitleStyle="normal"
             app:value="@{movie.formattedBudget}"
             app:valueTextColor="@color/white_new" />
 
@@ -147,8 +159,9 @@
             android:orientation="horizontal"
             app:hideIfValueEmpty="true"
             app:textSize="@dimen/medium_text_size"
-
+            android:layout_marginHorizontal="@dimen/base_margin"
             app:title="Revenue"
+            app:textTitleStyle="normal"
             app:titleTextColor="?attr/colorOnSecondary"
             app:value="@{movie.formattedRevenue}"
             app:valueTextColor="@color/white_new" />

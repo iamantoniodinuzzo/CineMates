@@ -20,6 +20,7 @@ import com.indisparte.movie_details.adapter.ReleaseDateAdapter
 import com.indisparte.movie_details.adapter.VideoAdapter
 import com.indisparte.movie_details.databinding.CustomWatchProviderChipBinding
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
+import com.indisparte.movie_details.databinding.LayoutGenreChipBinding
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources
@@ -182,7 +183,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             resources.whenResources(
                 onSuccess = { movieDetails ->
                     binding.movie = movieDetails
-                    LOG.d("Movie details loaded: $movieDetails")
                     // Setup genre group
                     setGenresChipGroup(movieDetails.genres)
                 },
@@ -198,17 +198,16 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     }
 
 
-    private fun setGenresChipGroup(genres: List<Genre>) {// TODO: cleanup
+    private fun setGenresChipGroup(genres: List<Genre>) {
         if (genres.isEmpty()) {
-            LOG.d("Genres is empty, hide title")
             binding.genresTitle.gone()
             return
         }
-        LOG.d("Genres is not empty")
         binding.genresTitle.visible()
         chipGroupGenres.removeAllViews()
         for (chipData in genres) {
-            val chip = Chip(chipGroupGenres.context)
+            val chipBinding = LayoutGenreChipBinding.inflate(layoutInflater)
+            val chip: Chip = chipBinding.root
 
             chip.text = chipData.name
             chip.tag = chipData.id

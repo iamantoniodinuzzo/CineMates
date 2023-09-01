@@ -155,7 +155,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dividerFeatureCrew"
-                android:layout_marginHorizontal="@dimen/base_margin"
                 android:layout_marginTop="@dimen/base_margin"
                 app:movie="@{movie}" />
 

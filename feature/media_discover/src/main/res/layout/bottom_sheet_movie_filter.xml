@@ -2,7 +2,6 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottomSheet"
     style="@style/Widget.MaterialComponents.BottomSheet.Modal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,7 +14,7 @@
         android:layout_height="wrap_content"
         style="@style/HugeTitleTextViewStyle"
         android:layout_marginTop="@dimen/base_margin"
-        android:text="Custom Filter"
+        android:text="@string/custom_filter_title"
         android:textAppearance="@style/HugeTitleTextViewStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +27,7 @@
         style="@style/SmallTitleTextViewStyle"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/base_margin"
-        android:text="Sort by"
+        android:text="@string/custom_filter_sort_by_title"
         android:textAppearance="@style/SmallTitleTextViewStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lblTitle" />
@@ -42,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@id/lblSortBy">
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/cg_sort_types"
+            android:id="@+id/cgSortTypes"
             android:clipToPadding="false"
             android:layout_width="wrap_content"
             android:paddingStart="@dimen/base_margin"
@@ -70,7 +69,7 @@
         android:layout_marginTop="@dimen/base_margin"
         android:layout_marginStart="@dimen/base_margin"
         style="@style/SmallTitleTextViewStyle"
-        android:text="Genres"
+        android:text="@string/custom_filter_genres_title"
         android:textAppearance="@style/SmallTitleTextViewStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sortDivider" />
@@ -85,7 +84,7 @@
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/cgGenres"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:singleLine="true"
             android:clipToPadding="false"
@@ -114,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/base_margin"
         android:layout_marginTop="@dimen/base_margin"
-        android:text="Apply"
+        android:text="@string/custom_filter_apply_action"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/frameLayout"
         app:layout_constraintTop_toBottomOf="@id/dividerFilter" />
@@ -136,7 +135,7 @@
             style="@style/SecondaryCustomMaterialButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Reset All" />
+            android:text="@string/custom_filter_reset_all_action" />
 
     </FrameLayout>
 

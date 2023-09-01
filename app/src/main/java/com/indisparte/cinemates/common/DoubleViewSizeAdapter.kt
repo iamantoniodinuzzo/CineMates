@@ -16,7 +16,7 @@ import com.indisparte.cinemates.util.ViewSize
  * @param longItemLayoutResId The layout resource ID of the RecyclerView item layout for Long view episodeGroupType.
  * @param smallItemLayoutResId The layout resource ID of the RecyclerView item layout for Small view episodeGroupType.
  *
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 abstract class DoubleViewSizeAdapter<T, VDBLong : ViewDataBinding, VDBSmall : ViewDataBinding>(
     private val longItemLayoutResId: Int,

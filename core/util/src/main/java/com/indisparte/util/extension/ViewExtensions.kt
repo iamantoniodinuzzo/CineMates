@@ -11,7 +11,6 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.google.android.material.snackbar.Snackbar
 
 
 /**
@@ -54,18 +53,7 @@ fun AppCompatActivity.isDarkMode(): Boolean {
     }
 }
 
-fun AppCompatActivity.showSnackbar(view: View, message: String, isError: Boolean = false) {
-    val sb = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
-    if (isError)
-        sb.setBackgroundTint(loadColor(com.google.android.material.R.color.design_default_color_error))
-            .setTextColor(loadColor(com.google.android.material.R.color.design_default_color_on_error))
-            .show()
-    else
-        sb.setBackgroundTint(loadColor(com.google.android.material.R.color.design_default_color_secondary))
-            .setTextColor(loadColor(com.google.android.material.R.color.design_default_color_on_secondary))
-            .show()
 
-}
 
 fun EditText.addTextChangeListener(
     afterTextChanged: ((Editable?) -> Unit)? = null,

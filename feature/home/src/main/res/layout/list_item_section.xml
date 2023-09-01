@@ -4,49 +4,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
 
-
-    </data>
-
-    <RelativeLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/linearLayoutCompat"
+        <TextView
+            android:id="@+id/textSectionTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="start"
+            style="@style/BigTitleTextViewStyle"
+            android:paddingStart="@dimen/base_margin"
+            android:paddingTop="@dimen/base_margin"
+            android:paddingBottom="@dimen/base_margin"
+            tools:text="@tools:sample/first_names" />
 
-            <TextView
-                android:id="@+id/textSectionTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                style="@style/HugeTitleTextViewStyle"
-                android:paddingStart="@dimen/base_margin"
-                android:paddingTop="@dimen/base_margin"
-                tools:text="@tools:sample/first_names" />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <com.indisparte.ui.custom_view.StatefulRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/base_margin"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/list_item_media_small" />
 
-                <com.indisparte.ui.custom_view.StatefulRecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    tools:listitem="@layout/list_item_media_small"
-                    android:layout_marginTop="@dimen/base_margin"
-                    android:orientation="horizontal"
-                    android:paddingStart="@dimen/base_margin"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-            </RelativeLayout>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
-    </RelativeLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

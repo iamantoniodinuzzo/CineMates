@@ -1,13 +1,7 @@
 <resources>
     <string name="app_name">CineMates</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--Chip to mediaFilter movie by specification-->
-    <string name="chip_popular">Popular</string>
-    <string name="chip_upcoming">Upcoming
-    </string>
-    <string name="chip_top_rated">Top Rated</string>
-    <string name="chip_on_air">On the Air</string>
 
     <string name="fragment_media_similar">Similar</string>
     <string name="fragment_media_cast">Cast</string>
@@ -23,8 +17,6 @@
     <string name="sort_popularity">Popularity</string>
     <string name="sort_release_date">Release Date</string>
     <string name="sort_revenue">Revenue</string>
-    <string name="sort_primary_release_date">Primary Release Date</string>
-    <string name="sort_original_title">Original Title</string>
     <string name="sort_vote_average">Vote Average</string>
     <string name="sort_vote_count">Vote Count</string>
     <string name="sort_first_air_date">First Air Date</string>

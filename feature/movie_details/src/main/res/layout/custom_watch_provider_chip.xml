@@ -24,7 +24,8 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 app:loadImage="@{watchProvider.completeLogoPathW780}"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                tools:src="@tools:sample/backgrounds/scenic"
+                android:importantForAccessibility="no" />
 
 
     </com.google.android.material.card.MaterialCardView>

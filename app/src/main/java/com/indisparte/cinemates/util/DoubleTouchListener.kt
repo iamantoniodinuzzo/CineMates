@@ -2,11 +2,10 @@ package com.indisparte.cinemates.util
 
 import android.view.MotionEvent
 import android.view.View
-import com.google.android.youtube.player.internal.v
 
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 abstract class DoubleTouchListener: View.OnTouchListener {
     private var lastClickTime: Long = 0

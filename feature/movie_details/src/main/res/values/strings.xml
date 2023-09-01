@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="movie_about_watch_on_title">Watch on</string>
+    <string name="movie_about_genres_title">Genres</string>
+    <string name="movie_about_featured_crew_title">Featured Crew</string>
+    <string name="movie_about_trailers_title">Trailers</string>
+    <string name="movie_about_information_title">Information</string>
+    <string name="movie_about_release_information_title">Release information</string>
+</resources>

@@ -33,13 +33,9 @@ class CollectionPartsFragment : BaseFragment<FragmentCollectionPartsBinding>() {
     override fun initializeViews() {
         binding.collectionParts.enableInnerScrollViewPager()
         binding.collectionParts.adapter = adapter
-        adapter.setOnItemClickListener(object :OnItemClickListener<com.indisparte.movie_data.Movie>{
-            override fun onItemClick(item: com.indisparte.movie_data.Movie) {
-                //update view model selected movie
-                viewModel.onDetailsFragmentReady(item.id)
-            }
-
-        })
+        adapter.setOnItemClickListener { item -> //update view model selected movie
+            viewModel.onDetailsFragmentReady(item.id)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

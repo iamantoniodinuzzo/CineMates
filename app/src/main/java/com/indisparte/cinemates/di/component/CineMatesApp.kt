@@ -1,7 +1,6 @@
 package com.indisparte.cinemates.di.component
 
 import android.app.Application
-import android.content.Context
 import android.os.StrictMode
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.HiltAndroidApp

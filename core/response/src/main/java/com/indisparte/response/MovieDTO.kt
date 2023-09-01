@@ -2,12 +2,11 @@ package com.indisparte.response
 
 
 import com.google.gson.annotations.SerializedName
-import java.text.SimpleDateFormat
 import java.util.*
 
 /**
  * Depicts a movie with generic information
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 data class MovieDTO(
     val adult: Boolean,
@@ -25,29 +24,11 @@ data class MovieDTO(
     @SerializedName("poster_path")
     val posterPath: String?,
     @SerializedName("release_date")
-    private val releaseDate: String,
+    val releaseDate: String,
     val title: String,
     val video: Boolean,
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-) {
-    protected fun dateFormatter(date: String): String {
-        return if (date.isNotEmpty()) {
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val outputFormat = SimpleDateFormat.getDateInstance()
-            val formattedDate = inputFormat.parse(date)
-            outputFormat.format(formattedDate)
-        } else {
-            ""
-        }
-    }
-
-    val formattedReleaseDate: String
-        get() {
-            return dateFormatter(releaseDate)
-        }
-
-
-}
+)

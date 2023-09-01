@@ -12,16 +12,16 @@ import com.indisparte.ui.adapter.BaseAdapter
  * @author Antonio Di Nuzzo 
  */
 class BackdropAdapter :
-    BaseAdapter<com.indisparte.common.Backdrop, ListItemBackdropBinding>(object : DiffUtil.ItemCallback<com.indisparte.common.Backdrop>() {
-        override fun areItemsTheSame(oldItem: com.indisparte.common.Backdrop, newItem: com.indisparte.common.Backdrop): Boolean {
+    BaseAdapter<Backdrop, ListItemBackdropBinding>(object : DiffUtil.ItemCallback<Backdrop>() {
+        override fun areItemsTheSame(oldItem: Backdrop, newItem: Backdrop): Boolean {
             return oldItem.completePosterPathW780 == newItem.completePosterPathW780
         }
 
-        override fun areContentsTheSame(oldItem: com.indisparte.common.Backdrop, newItem: com.indisparte.common.Backdrop): Boolean {
+        override fun areContentsTheSame(oldItem: Backdrop, newItem: Backdrop): Boolean {
             return oldItem == newItem
         }
     }) {
-    override fun bind(binding: ListItemBackdropBinding, item: com.indisparte.common.Backdrop) {
+    override fun bind(binding: ListItemBackdropBinding, item: Backdrop) {
         binding.path = item.completePosterPathW780
         binding.root.setOnClickListener {
             // TODO: Show Backdrop

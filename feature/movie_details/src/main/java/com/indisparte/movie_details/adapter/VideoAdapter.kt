@@ -11,17 +11,17 @@ import com.indisparte.ui.adapter.BaseAdapter
 /**
  * @author Antonio Di Nuzzo (Indisparte)
  */
-class VideoAdapter : BaseAdapter<com.indisparte.common.Video, ListItemYtVideoBinding>(object :
-    DiffUtil.ItemCallback<com.indisparte.common.Video>() {
-    override fun areItemsTheSame(oldItem: com.indisparte.common.Video, newItem: com.indisparte.common.Video): Boolean {
+class VideoAdapter : BaseAdapter<Video, ListItemYtVideoBinding>(object :
+    DiffUtil.ItemCallback<Video>() {
+    override fun areItemsTheSame(oldItem: Video, newItem: Video): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: com.indisparte.common.Video, newItem: com.indisparte.common.Video): Boolean {
+    override fun areContentsTheSame(oldItem: Video, newItem: Video): Boolean {
         return oldItem == newItem
     }
 }) {
-    override fun bind(binding: ListItemYtVideoBinding, item: com.indisparte.common.Video) {
+    override fun bind(binding: ListItemYtVideoBinding, item: Video) {
         binding.apply {
             video = item
             root.setOnClickListener {

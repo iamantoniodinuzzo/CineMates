@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="top_destination_home">Home</string>
+    <string name="top_destination_discover">Discover</string>
+    <string name="top_destination_search">Search</string>
+</resources>

@@ -11,7 +11,7 @@ fun MovieDTO.toMovie(): com.indisparte.movie_data.Movie {
         posterPath = this.posterPath,
         id = this.id,
         popularity = this.popularity,
-        releaseDate = this.formattedReleaseDate,
+        releaseDate = this.releaseDate,
         title = this.title,
         voteAverage = this.voteAverage
     )

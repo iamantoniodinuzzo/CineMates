@@ -10,8 +10,8 @@ import com.indisparte.tv.response.EpisodeGroupDTO
 import com.indisparte.tv.response.EpisodeGroupDetailsDTO
 
 
-fun EpisodeGroupDTO.mapToEpisodeGroup(): com.indisparte.tv.EpisodeGroup {
-    return com.indisparte.tv.EpisodeGroup(
+fun EpisodeGroupDTO.mapToEpisodeGroup(): EpisodeGroup {
+    return EpisodeGroup(
         description = this.description,
         episodeCount = this.episodeCount,
         groupCount = this.groupCount,
@@ -22,8 +22,8 @@ fun EpisodeGroupDTO.mapToEpisodeGroup(): com.indisparte.tv.EpisodeGroup {
     )
 }
 
-fun EpisodeGroupDetailsDTO.mapToEpisodeGroupDetails(): com.indisparte.tv.EpisodeGroupDetails {
-    return com.indisparte.tv.EpisodeGroupDetails(
+fun EpisodeGroupDetailsDTO.mapToEpisodeGroupDetails(): EpisodeGroupDetails {
+    return EpisodeGroupDetails(
         description = this.description,
         episodeCount = this.episodeCount,
         groupCount = this.groupCount,
@@ -35,8 +35,8 @@ fun EpisodeGroupDetailsDTO.mapToEpisodeGroupDetails(): com.indisparte.tv.Episode
     )
 }
 
-fun EpisodeDTO.mapToEpisode(): com.indisparte.tv.Episode {
-    return com.indisparte.tv.Episode(
+fun EpisodeDTO.mapToEpisode(): Episode {
+    return Episode(
         airDate = this.airDate,
         episodeNumber = this.episodeNumber,
         id = this.id,
@@ -50,8 +50,8 @@ fun EpisodeDTO.mapToEpisode(): com.indisparte.tv.Episode {
     )
 }
 
-fun CreatedByDTO.mapToCreatedBy(): com.indisparte.tv.CreatedBy {
-    return com.indisparte.tv.CreatedBy(
+fun CreatedByDTO.mapToCreatedBy(): CreatedBy {
+    return CreatedBy(
         creditId = this.creditId,
         gender = this.gender,
         id = this.id,

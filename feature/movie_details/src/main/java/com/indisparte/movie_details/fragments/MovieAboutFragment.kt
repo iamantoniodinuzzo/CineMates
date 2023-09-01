@@ -120,7 +120,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
     private fun fetchReleaseDates() {
         viewModel.releaseDates.collectIn(viewLifecycleOwner) { resources ->
-            resources?.whenResources(
+            resources.whenResources(
                 onSuccess = { releaseDates ->
                     LOG.d("Release Dates loaded! $releaseDates")
                     releaseDateAdapter.submitList(releaseDates)
@@ -139,7 +139,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
     private fun fetchMovieCrew() {
         viewModel.crew.collectIn(viewLifecycleOwner) { resources ->
-            resources?.whenResources(
+            resources.whenResources(
                 onSuccess = { crewList ->
                     LOG.d("Crew loaded! ${crewList.map { it.name }}")
                     crewAdapter.submitList(crewList.takeEvenNumberOfItems())
@@ -159,7 +159,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
     private fun fetchVideos() {
         viewModel.videos.collectIn(viewLifecycleOwner) { resources ->
-            resources?.whenResources(
+            resources.whenResources(
                 onSuccess = { videos ->
                     LOG.d("Videos loaded! $videos")
                     videoAdapter.submitList(videos)
@@ -187,7 +187,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                     setGenresChipGroup(movieDetails.genres)
                 },
                 onError = { error ->
-                    val errorMessage = error?.message
+                    val errorMessage = error.message
                     LOG.e("Error $errorMessage")
                 },
                 onLoading = {
@@ -212,9 +212,9 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             chip.text = chipData.name
             chip.tag = chipData.id
 
-            chip.setOnClickListener { chip ->
+            chip.setOnClickListener { selectedChip ->
                 // TODO: Search movies with this genre id
-                showToastMessage("Soon - Search ${chip.tag} id")
+                showToastMessage("Soon - Search ${selectedChip.tag} id")
             }
             chipGroupGenres.addView(chip)
         }

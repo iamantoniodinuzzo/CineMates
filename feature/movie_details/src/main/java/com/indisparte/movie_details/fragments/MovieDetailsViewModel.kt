@@ -2,11 +2,21 @@ package com.indisparte.movie_details.fragments
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.indisparte.common.Backdrop
+import com.indisparte.common.CountryResult
+import com.indisparte.common.Video
+import com.indisparte.movie_data.CollectionDetails
+import com.indisparte.movie_data.Movie
+import com.indisparte.movie_data.MovieDetails
+import com.indisparte.movie_data.ReleaseDate
 import com.indisparte.movie_data.findReleaseDateByCountry
 import com.indisparte.movie_data.getLatestReleaseCertification
 import com.indisparte.movie_data.repository.MovieRepository
 import com.indisparte.network.Result
+import com.indisparte.network.error.CineMatesExceptions
 import com.indisparte.network.succeeded
+import com.indisparte.person.Cast
+import com.indisparte.person.Crew
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,29 +45,30 @@ class MovieDetailsViewModel
 
     private val LOG = Timber.tag("MovieDetailsViewModel")
 
-    private val _selectedMovie = MutableSharedFlow<Result<com.indisparte.movie_data.MovieDetails>>()
-    val selectedMovie: SharedFlow<Result<com.indisparte.movie_data.MovieDetails>> get() = _selectedMovie.asSharedFlow()
-    private val _videos = MutableStateFlow<Result<List<com.indisparte.common.Video>>?>(null)
-    val videos: StateFlow<Result<List<com.indisparte.common.Video>>?> get() = _videos
-    private val _cast = MutableStateFlow<Result<List<com.indisparte.person.Cast>>?>(null)
-    val cast: StateFlow<Result<List<com.indisparte.person.Cast>>?> get() = _cast
+    private val _selectedMovie = MutableSharedFlow<Result<MovieDetails>>()
+    val selectedMovie: SharedFlow<Result<MovieDetails>> get() = _selectedMovie.asSharedFlow()
+    private val _videos = MutableStateFlow<Result<List<Video>>>(Result.Success(emptyList()))
+    val videos: StateFlow<Result<List<Video>>> get() = _videos
+    private val _cast = MutableStateFlow<Result<List<Cast>>>(Result.Success(emptyList()))
+    val cast: StateFlow<Result<List<Cast>>> get() = _cast
 
-    private val _similarMovies = MutableStateFlow<Result<List<com.indisparte.movie_data.Movie>>?>(null)
-    val similarMovies: StateFlow<Result<List<com.indisparte.movie_data.Movie>>?> get() = _similarMovies
-    private val _watchProviders = MutableStateFlow<Result<com.indisparte.common.CountryResult?>>(Result.Success(null))
-    val watchProviders: StateFlow<Result<com.indisparte.common.CountryResult?>> get() = _watchProviders
-    private val _crew = MutableStateFlow<Result<List<com.indisparte.person.Crew>>?>(null)
-    val crew: StateFlow<Result<List<com.indisparte.person.Crew>>?> get() = _crew
-    private val _releaseDates = MutableStateFlow<Result<List<com.indisparte.movie_data.ReleaseDate>>?>(null)
-    val releaseDates: StateFlow<Result<List<com.indisparte.movie_data.ReleaseDate>>?> get() = _releaseDates
+    private val _similarMovies = MutableStateFlow<Result<List<Movie>>>(Result.Success(emptyList()))
+    val similarMovies: StateFlow<Result<List<Movie>>> get() = _similarMovies
+    private val _watchProviders = MutableStateFlow<Result<CountryResult?>>(Result.Success(null))
+    val watchProviders: StateFlow<Result<CountryResult?>> get() = _watchProviders
+    private val _crew = MutableStateFlow<Result<List<Crew>>>(Result.Success(emptyList()))
+    val crew: StateFlow<Result<List<Crew>>> get() = _crew
+    private val _releaseDates =
+        MutableStateFlow<Result<List<ReleaseDate>>>(Result.Success(emptyList()))
+    val releaseDates: StateFlow<Result<List<ReleaseDate>>> get() = _releaseDates
     private val _latestCertification = MutableStateFlow<String?>(null)
     val latestCertification: StateFlow<String?> get() = _latestCertification
 
-    private val _backdrops = MutableStateFlow<Result<List<com.indisparte.common.Backdrop>>?>(null)
-    val backdrops: StateFlow<Result<List<com.indisparte.common.Backdrop>>?> get() = _backdrops
+    private val _backdrops = MutableStateFlow<Result<List<Backdrop>>>(Result.Success(emptyList()))
+    val backdrops: StateFlow<Result<List<Backdrop>>?> get() = _backdrops
 
-    private val _collectionParts = MutableStateFlow<Result<com.indisparte.movie_data.CollectionDetails>?>(null)
-    val collectionParts: StateFlow<Result<com.indisparte.movie_data.CollectionDetails>?> get() = _collectionParts
+    private val _collectionParts = MutableStateFlow<Result<CollectionDetails>?>(null)
+    val collectionParts: StateFlow<Result<CollectionDetails>?> get() = _collectionParts
 
     init {
         observeSelectedMovie()
@@ -91,13 +102,13 @@ class MovieDetailsViewModel
             _selectedMovie.emit(Result.Loading)
             try {
                 movieRepository.getDetails(movieId).collectLatest { movieDetails ->
-                    LOG.d("Movie details: $movieDetails")
                     _selectedMovie.emit(movieDetails)
                 }
-            } catch (e: Exception) {
+            } catch (e: CineMatesExceptions) {
                 _selectedMovie.emit(Result.Error(e))
             }
         }
+
     }
 
     private fun getCollectionDetails(collectionId: Int) {
@@ -108,7 +119,7 @@ class MovieDetailsViewModel
                     .collectLatest { collectionDetails ->
                         _collectionParts.emit(collectionDetails)
                     }
-            } catch (e: Exception) {
+            } catch (e: CineMatesExceptions) {
                 _collectionParts.emit(Result.Error(e))
             }
         }
@@ -121,7 +132,7 @@ class MovieDetailsViewModel
                 movieRepository.getBackdrop(id).collectLatest { backdrops ->
                     _backdrops.emit(backdrops)
                 }
-            } catch (e: Exception) {
+            } catch (e: CineMatesExceptions) {
                 _backdrops.emit(Result.Error(e))
             }
         }
@@ -134,7 +145,7 @@ class MovieDetailsViewModel
                 movieRepository.getVideos(movieId).collectLatest { videos ->
                     _videos.emit(videos)
                 }
-            } catch (e: Exception) {
+            } catch (e: CineMatesExceptions) {
                 _videos.emit(Result.Error(e))
             }
         }
@@ -147,7 +158,7 @@ class MovieDetailsViewModel
                 movieRepository.getSimilar(movieId).collectLatest { similar ->
                     _similarMovies.emit(similar)
                 }
-            } catch (e: Exception) {
+            } catch (e: CineMatesExceptions) {
                 _similarMovies.emit(Result.Error(e))
             }
         }
@@ -161,7 +172,7 @@ class MovieDetailsViewModel
                     _cast.emit(cast)
 
                 }
-            } catch (e: Exception) {
+            } catch (e: CineMatesExceptions) {
                 _cast.emit(Result.Error(e))
             }
         }
@@ -175,7 +186,7 @@ class MovieDetailsViewModel
                     .collectLatest { countryResult ->
                         _watchProviders.emit(countryResult)
                     }
-            } catch (e: Exception) {
+            } catch (e: CineMatesExceptions) {
                 _watchProviders.emit(Result.Error(e))
             }
         }
@@ -188,7 +199,7 @@ class MovieDetailsViewModel
                 movieRepository.getCrew(movieId).collectLatest { crew ->
                     _crew.emit(crew)
                 }
-            } catch (e: Exception) {
+            } catch (e: CineMatesExceptions) {
                 _crew.emit(Result.Error(e))
             }
         }
@@ -222,7 +233,7 @@ class MovieDetailsViewModel
                     }
 
                 }
-            } catch (e: Exception) {
+            } catch (e: CineMatesExceptions) {
                 _releaseDates.emit(Result.Error(e))
             }
         }

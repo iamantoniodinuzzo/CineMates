@@ -96,8 +96,8 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         viewModel.selectedMovie.collectIn(viewLifecycleOwner) { resources ->
             resources.whenResources(
                 onSuccess = { movieDetails ->
-                    LOG.d("Movie details loaded: $movieDetails")
                     binding.media = movieDetails
+                    LOG.d("Success: $movieDetails")
                     //I set the title here, without using data binding, because the 'app:title attribute' of the toolbar does not allow dynamic change
                     binding.toolbar.title = movieDetails.title
                     //check if movie is a part of collection
@@ -110,9 +110,8 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
                     }
                 },
                 onError = { error ->
-                    val errorMessage = error?.message
-                    LOG.d("Error: $errorMessage)")
-                    showToastMessage("$errorMessage")
+                    val errorMessage = requireContext().getString(error.messageRes)
+                    showToastMessage(errorMessage)
                     findNavController().navigateUp()
                 },
                 onLoading = {

@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import retrofit2.Response
+import timber.log.Timber
 import java.io.IOException
 
 
@@ -47,10 +48,10 @@ fun <T, O> getListFromResponse(
         // Returning HttpException's message
         val code = e.code()
         val apiExceptions = ApiException.fromCode(code)
-        Result.Error(apiExceptions)
+        emit(Result.Error(apiExceptions))
     } catch (e: IOException) {
         // Returning no internet message
-        Result.Error(CineMatesExceptions.NoNetworkException)
+        emit(Result.Error(CineMatesExceptions.NoNetworkException))
     } catch (e: Exception) {
         emit(Result.Error(CineMatesExceptions.GenericException)) // Emit error state with the exception
     }
@@ -87,7 +88,7 @@ fun <T, O> getSingleFromResponse(
                 emit(Result.Error(CineMatesExceptions.EmptyResponse)) // Emit error state for empty response
             }
         } else {
-
+            Timber.tag("SingleResponse").e(response.message())
             emit(
                 Result.Error(
                     CineMatesExceptions.GenericException
@@ -96,12 +97,13 @@ fun <T, O> getSingleFromResponse(
         }
     } catch (e: HttpException) {
         // Returning HttpException's message
+        Timber.tag("SingleResponse").e("From HttpException ${e.localizedMessage}")
         val code = e.code()
         val apiExceptions = ApiException.fromCode(code)
-        Result.Error(apiExceptions)
+        emit(Result.Error(apiExceptions))
     } catch (e: IOException) {
         // Returning no internet message
-        Result.Error(CineMatesExceptions.NoNetworkException)
+        emit(Result.Error(CineMatesExceptions.NoNetworkException))
     } catch (e: Exception) {
         emit(Result.Error(CineMatesExceptions.GenericException)) // Emit error state with the exception
     }

@@ -20,7 +20,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/base_margin">
+            android:paddingStart="@dimen/base_margin"
+            android:paddingEnd="@dimen/base_margin">
 
             <com.indisparte.ui.custom_view.PosterView
                 android:id="@+id/movie_poster"
@@ -53,12 +54,13 @@
                 android:layout_marginStart="@dimen/base_margin"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/movie_poster"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/movie_title"
-                    style="@style/SmallTitleTextViewStyle"
+                    style="@style/BigTitleTextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@{movieCredit.title}"
@@ -66,7 +68,7 @@
 
                 <TextView
                     android:id="@+id/credit"
-                    style="@style/BodyTextViewStyle"
+                    style="@style/SmallTitleTextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/base_margin"
@@ -74,6 +76,14 @@
                     android:textColor="?attr/colorAccent"
                     tools:text="@tools:sample/full_names" />
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:background="?attr/colorOnSecondary"
+                app:layout_constraintTop_toBottomOf="@id/movie_poster" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

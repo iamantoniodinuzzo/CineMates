@@ -79,8 +79,8 @@ class StatefulRecyclerView @JvmOverloads constructor(
     private fun applyDefaultValues() {
 
         // Set default values for the empty state views
-        val defaultTitleStyle = R.style.SmallTitleTextViewStyle
-        val defaultSubTitleStyle = R.style.BodyTextViewStyle
+        val defaultTitleStyle = R.style.BigTitleTextViewStyle
+        val defaultSubTitleStyle = R.style.SmallTitleTextViewStyle
 
         // Apply default values to the empty state views
 
@@ -308,7 +308,10 @@ class StatefulRecyclerView @JvmOverloads constructor(
     }
 }
 
-
+/**
+ * Hide loading status and show an error message with an icon if present.
+ * @param exception The [CineMatesExceptions] tho show
+ */
 fun StatefulRecyclerView.showError(exception: CineMatesExceptions){
     hideLoading()
     val errorMessage = context.getString(exception.messageRes)

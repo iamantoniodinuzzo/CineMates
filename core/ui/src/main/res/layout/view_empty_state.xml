@@ -15,6 +15,9 @@
             android:id="@+id/empty_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_margin"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_marginEnd="@dimen/base_margin"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -22,13 +25,14 @@
                 android:id="@+id/ivEmptyStateImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:importantForAccessibility="no"
                 app:tint="?attr/colorOnSecondary"
-                tools:src="@drawable/baseline_blind_24"
-                android:importantForAccessibility="no" />
+                tools:src="@drawable/ic_empty_box" />
 
             <TextView
                 android:id="@+id/tvEmptyStateTitle"
-                style="@style/SmallTitleTextViewStyle"
+                style="@style/BigTitleTextViewStyle"
+                android:layout_marginTop="@dimen/base_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
@@ -37,8 +41,9 @@
 
             <TextView
                 android:id="@+id/tvEmptyStateSubtitle"
-                style="@style/BodyTextViewStyle"
+                style="@style/SmallTitleTextViewStyle"
                 android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/base_margin"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 tools:text="Empty Subtitle"
@@ -50,6 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
+                android:layout_marginTop="@dimen/base_margin"
                 tools:text="Empty Button"
                 tools:visibility="visible" />
 

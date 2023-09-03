@@ -105,7 +105,11 @@ class PersonDetails(
         val today = LocalDate.now()
 
         val endDate = deathDay?.let { LocalDate.parse(it, dateFormat) } ?: today
-        val startDate = LocalDate.parse(birthday, dateFormat)
+        val startDate: LocalDate = try {
+            LocalDate.parse(birthday, dateFormat)
+        } catch (e: NullPointerException) {
+            return ""
+        }
 
         val period = Period.between(startDate, endDate)
         val years = period.years

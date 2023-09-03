@@ -28,13 +28,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding true
         dataBinding true
     }
 }
 
 dependencies {
+    implementation project(':core:network')
 
     implementation libs.bundles.androidX
     implementation libs.material

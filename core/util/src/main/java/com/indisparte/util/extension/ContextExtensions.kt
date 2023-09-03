@@ -1,7 +1,6 @@
 package com.indisparte.util.extension
 
 import android.content.Context
-import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 

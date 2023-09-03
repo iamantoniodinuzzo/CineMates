@@ -12,6 +12,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.indisparte.movie_details.databinding.FragmentMediaDetailsBinding
 import com.indisparte.ui.adapter.ViewPagerAdapter
 import com.indisparte.ui.fragment.BaseFragment
+import com.indisparte.util.extension.gone
+import com.indisparte.util.extension.visible
 import kotlin.math.abs
 
 typealias FragmentTitleMap = LinkedHashMap<Fragment, @receiver:StringRes Int>
@@ -110,5 +112,14 @@ abstract class MediaDetailsContainerFragment(
 
     }
 
+    protected fun showLoading() {
+        binding.loadingProgressBar.visible()
+        binding.content.gone()
+    }
+
+    protected fun hideLoading() {
+        binding.loadingProgressBar.gone()
+        binding.content.visible()
+    }
 
 }

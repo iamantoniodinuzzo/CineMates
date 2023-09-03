@@ -76,122 +76,44 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fetchMovieDetails()
-
-        fetchVideos()
-
-        fetchMovieCrew()
-
-        fetchReleaseDates()
-
-        fetchWatchProviders()
+        fetchMovieInfo()
 
         binding.movieInfo.linearLayoutMovieInfo.hideIfVisibleViewsArLessThan(2)
 
     }
 
-    private fun fetchWatchProviders() {
-        viewModel.watchProviders.collectIn(viewLifecycleOwner) { resource ->
-            resource.whenResources(
-                onSuccess = { countryResult ->
-                    if (countryResult != null) {
-                        binding.justWatch.root.visible()
-                        binding.watchProviderTitle.visible()
-                        setWatchProvidersChipGroup(countryResult)
-                        progressWatchProvider.hide()
-                    } else {
-                        binding.justWatch.root.gone()
-                        binding.watchProviderTitle.gone()
-                    }
-                },
-                onError = { error ->
-                    val errorMessage = error.message
-                    LOG.e("Error: $errorMessage")
-                    progressWatchProvider.hide()
-                },
-                onLoading = {
-                    LOG.d("Watch providers Loading...")
-                    progressWatchProvider.show()
-                }
-            )
-        }
-    }
-
-
-    private fun fetchReleaseDates() {
-        viewModel.releaseDates.collectIn(viewLifecycleOwner) { resources ->
-            resources.whenResources(
-                onSuccess = { releaseDates ->
-                    LOG.d("Release Dates loaded! $releaseDates")
-                    releaseDateAdapter.submitList(releaseDates)
-                },
-                onError = { error ->
-                    val errorMessage = error?.message
-                    LOG.e("Error: $errorMessage")
-                },
-                onLoading = {
-                    LOG.d("Release Dates Loading...")
-                }
-            )
-        }
-    }
-
-
-    private fun fetchMovieCrew() {
-        viewModel.crew.collectIn(viewLifecycleOwner) { resources ->
-            resources.whenResources(
-                onSuccess = { crewList ->
-                    LOG.d("Crew loaded! ${crewList.map { it.name }}")
-                    crewAdapter.submitList(crewList.takeEvenNumberOfItems())
-                    binding.crewTitle.apply {
-                        if (crewList.isEmpty()) gone() else visible()
-                    }
-                },
-                onError = { error ->
-                    LOG.e(error.message)
-                },
-                onLoading = {
-                    LOG.d("Crew Loading...")
-                }
-            )
-        }
-    }
-
-    private fun fetchVideos() {
-        viewModel.videos.collectIn(viewLifecycleOwner) { resources ->
-            resources.whenResources(
-                onSuccess = { videos ->
-                    LOG.d("Videos loaded! $videos")
-                    videoAdapter.submitList(videos)
-                    binding.trailerTitle.apply {
-                        if (videos.isEmpty()) gone() else visible()
-                    }
-                },
-                onError = { error ->
-                    LOG.e(error.message)
-                },
-                onLoading = {
-                    LOG.d("Videos Loading...")
-                }
-            )
-        }
-    }
-
-
-    private fun fetchMovieDetails() {
-        viewModel.selectedMovie.collectIn(viewLifecycleOwner) { resources ->
-            resources.whenResources(
-                onSuccess = { movieDetails ->
-                    binding.movie = movieDetails
+    private fun fetchMovieInfo() {
+        viewModel.movieInfo.collectIn(viewLifecycleOwner) { resource ->
+            resource?.whenResources(
+                onSuccess = {
+                    LOG.d("Loaded all details")
+//                    Load movie details
+                    binding.movie = it.movieDetails
                     // Setup genre group
-                    setGenresChipGroup(movieDetails.genres)
+                    setGenresChipGroup(it.movieDetails.genres)
+//                    Load watch provider
+                    setWatchProvidersChipGroup(it.watchProvider)
+//                    Load release dates
+                    releaseDateAdapter.submitList(it.releaseDates)
+//                    Load crew
+                    crewAdapter.submitList(it.crew.takeEvenNumberOfItems())
+                    binding.crewTitle.apply {
+                        if (it.crew.isEmpty()) gone() else visible()
+                    }
+//                    Load videos
+                    videoAdapter.submitList(it.videos)
+                    binding.trailerTitle.apply {
+                        if (it.videos.isEmpty()) gone() else visible()
+                    }
+
                 },
-                onError = { error ->
-                    val errorMessage = error.message
-                    LOG.e("Error $errorMessage")
+                onError = { exception ->
+                    val message = requireContext().getString(exception.messageRes)
+                    LOG.e("An error occurred $message")
                 },
                 onLoading = {
-                    LOG.d("Movie details Loading...")
+                    LOG.d("Loading movie info...")
+
                 }
             )
         }
@@ -220,24 +142,32 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         }
     }
 
-    private fun setWatchProvidersChipGroup(countryResult: CountryResult) {
-        chipGroupWatchProviders.removeAllViews()
-        val watchProviders = countryResult.allWatchProviders
-        for (chipData in watchProviders) {
-            val chipBinding: CustomWatchProviderChipBinding =
-                CustomWatchProviderChipBinding.inflate(layoutInflater)
+    private fun setWatchProvidersChipGroup(countryResult: CountryResult?) {
+        if (countryResult != null) {
+            binding.justWatch.root.visible()
+            binding.watchProviderTitle.visible()
+            chipGroupWatchProviders.removeAllViews()
+            val watchProviders = countryResult.allWatchProviders
+            for (chipData in watchProviders) {
+                val chipBinding: CustomWatchProviderChipBinding =
+                    CustomWatchProviderChipBinding.inflate(layoutInflater)
 
-            chipBinding.watchProvider = chipData
+                chipBinding.watchProvider = chipData
 
-            val chip = chipBinding.root
+                val chip = chipBinding.root
 
-            chip.layoutParams = providerChipLayoutParams
+                chip.layoutParams = providerChipLayoutParams
 
-            chipGroupWatchProviders.addView(chip)
+                chipGroupWatchProviders.addView(chip)
 
-        }
-        binding.justWatch.root.setOnClickListener {
-            openLinkInBrowser(countryResult.link)
+            }
+            binding.justWatch.root.setOnClickListener {
+                openLinkInBrowser(countryResult.link)
+            }
+            progressWatchProvider.hide()
+        } else {
+            binding.justWatch.root.gone()
+            binding.watchProviderTitle.gone()
         }
     }
 

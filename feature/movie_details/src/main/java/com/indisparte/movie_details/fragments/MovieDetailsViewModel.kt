@@ -12,6 +12,7 @@ import com.indisparte.movie_data.ReleaseDate
 import com.indisparte.movie_data.findReleaseDateByCountry
 import com.indisparte.movie_data.getLatestReleaseCertification
 import com.indisparte.movie_data.repository.MovieRepository
+import com.indisparte.movie_details.model.MovieInfoUiState
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
 import com.indisparte.network.succeeded
@@ -20,12 +21,12 @@ import com.indisparte.person.Crew
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
@@ -43,32 +44,43 @@ class MovieDetailsViewModel
     private val movieRepository: MovieRepository,
 ) : ViewModel() {
 
-    private val LOG = Timber.tag("MovieDetailsViewModel")
+    private val LOG = Timber.tag(MovieDetailsViewModel::class.java.simpleName)
 
     private val _selectedMovie = MutableSharedFlow<Result<MovieDetails>>()
-    val selectedMovie: SharedFlow<Result<MovieDetails>> get() = _selectedMovie.asSharedFlow()
+
+    /*Videos*/
     private val _videos = MutableStateFlow<Result<List<Video>>>(Result.Success(emptyList()))
-    val videos: StateFlow<Result<List<Video>>> get() = _videos
+
+    /*Cast*/
     private val _cast = MutableStateFlow<Result<List<Cast>>>(Result.Success(emptyList()))
     val cast: StateFlow<Result<List<Cast>>> get() = _cast
 
+    /*Similar movies*/
     private val _similarMovies = MutableStateFlow<Result<List<Movie>>>(Result.Success(emptyList()))
     val similarMovies: StateFlow<Result<List<Movie>>> get() = _similarMovies
+
+    /*Watch providers*/
     private val _watchProviders = MutableStateFlow<Result<CountryResult?>>(Result.Success(null))
-    val watchProviders: StateFlow<Result<CountryResult?>> get() = _watchProviders
+
+    /*Crew*/
     private val _crew = MutableStateFlow<Result<List<Crew>>>(Result.Success(emptyList()))
-    val crew: StateFlow<Result<List<Crew>>> get() = _crew
+
+    /*Release Dates*/
     private val _releaseDates =
         MutableStateFlow<Result<List<ReleaseDate>>>(Result.Success(emptyList()))
-    val releaseDates: StateFlow<Result<List<ReleaseDate>>> get() = _releaseDates
+
+    /*Latest certification*/
     private val _latestCertification = MutableStateFlow<String?>(null)
-    val latestCertification: StateFlow<String?> get() = _latestCertification
 
+    /*Backdrops*/
     private val _backdrops = MutableStateFlow<Result<List<Backdrop>>>(Result.Success(emptyList()))
-    val backdrops: StateFlow<Result<List<Backdrop>>?> get() = _backdrops
 
+    /*Collection parts*/
     private val _collectionParts = MutableStateFlow<Result<CollectionDetails>?>(null)
     val collectionParts: StateFlow<Result<CollectionDetails>?> get() = _collectionParts
+
+    private val _movieInfo = MutableStateFlow<Result<MovieInfoUiState>?>(null)
+    val movieInfo: StateFlow<Result<MovieInfoUiState>?> get() = _movieInfo
 
     init {
         observeSelectedMovie()
@@ -79,7 +91,7 @@ class MovieDetailsViewModel
 
     private fun observeSelectedMovie() {
         viewModelScope.launch {
-            selectedMovie.filter { it.succeeded }.map { it as Result.Success }
+            _selectedMovie.filter { it.succeeded }.map { it as Result.Success }
                 .mapNotNull { it.data }.distinctUntilChanged().collect { movieDetails ->
                     LOG.d("Get details about ${movieDetails.title}..")
                     getVideos(movieDetails.id)
@@ -94,6 +106,56 @@ class MovieDetailsViewModel
                         getCollectionDetails(collection.id)
                     }
                 }
+
+
+        }
+
+        viewModelScope.launch {
+            populateMovieInfo()
+        }
+    }
+
+    private suspend fun populateMovieInfo() {
+        _movieInfo.emit(Result.Loading)
+
+        val movieDetailsResult =
+            _selectedMovie.filterIsInstance<Result.Success<MovieDetails>>().firstOrNull()
+        val videosResult = _videos.filterIsInstance<Result.Success<List<Video>>>().firstOrNull()
+        val watchProviderResult =
+            _watchProviders.filterIsInstance<Result.Success<CountryResult?>>().firstOrNull()
+        val releaseDatesResult =
+            _releaseDates.filterIsInstance<Result.Success<List<ReleaseDate>>>().firstOrNull()
+        val backdropsResult =
+            _backdrops.filterIsInstance<Result.Success<List<Backdrop>>>().firstOrNull()
+        val crew =
+            _crew.filterIsInstance<Result.Success<List<Crew>>>().firstOrNull()
+
+        if (movieDetailsResult != null && videosResult != null && watchProviderResult != null
+            && releaseDatesResult != null && backdropsResult != null && crew != null
+        ) {
+
+            // Tutti i dati sono stati ottenuti con successo
+            val movieInfo = MovieInfoUiState(
+                movieDetails = movieDetailsResult.data,
+                videos = videosResult.data,
+                watchProvider = watchProviderResult.data,
+                releaseDates = releaseDatesResult.data,
+                latestCertification = _latestCertification.value,
+                backdrops = backdropsResult.data,
+                crew = crew.data
+            )
+
+            _movieInfo.emit(Result.Success(movieInfo))
+        } else {
+            // Gestisci un errore in caso di fallimento nella ricezione dei dati
+            val error = _selectedMovie.filterIsInstance<Result.Error>()
+                .firstOrNull() ?: _videos.filterIsInstance<Result.Error>()
+                .firstOrNull() ?: _watchProviders.filterIsInstance<Result.Error>()
+                .firstOrNull() ?: _releaseDates.filterIsInstance<Result.Error>()
+                .firstOrNull() ?: _backdrops.filterIsInstance<Result.Error>()
+                .firstOrNull()
+
+            _movieInfo.emit(Result.Error(error?.exception ?: CineMatesExceptions.GenericException))
         }
     }
 
@@ -179,6 +241,7 @@ class MovieDetailsViewModel
     }
 
     private fun getWatchProviders(movieId: Int) {
+
         viewModelScope.launch {
             _watchProviders.emit(Result.Loading)
             try {
@@ -202,6 +265,7 @@ class MovieDetailsViewModel
             } catch (e: CineMatesExceptions) {
                 _crew.emit(Result.Error(e))
             }
+
         }
     }
 

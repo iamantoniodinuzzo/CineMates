@@ -58,65 +58,48 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fetchSelectedMovieDetails()
-        fetchLatestCertification()
-        fetchMovieBackdrops()
-
+        fetchMovieInfo()
     }
 
-    private fun fetchMovieBackdrops() {
-        viewModel.backdrops.collectIn(viewLifecycleOwner) { resources ->
+    private fun fetchMovieInfo() {
+        viewModel.movieInfo.collectIn(viewLifecycleOwner) { resources ->
             resources?.whenResources(
-                onSuccess = { backdrops ->
-                    backdropAdapter.submitList(backdrops)
-                },
-                onError = {
-                    val errorMessage = it?.message
-                    LOG.e("Error: $errorMessage")
-                },
-                onLoading = {
-                    LOG.d("Loading Backdrops...")
-                }
-            )
-
-        }
-    }
-
-    private fun fetchLatestCertification() {
-        viewModel.latestCertification.collectIn(viewLifecycleOwner) { latestCertification ->
-            binding.certification.apply {
-                text = latestCertification
-                if (!latestCertification.isNullOrEmpty()) visible() else gone()
-            }
-
-        }
-    }
-
-    private fun fetchSelectedMovieDetails() {
-        viewModel.selectedMovie.collectIn(viewLifecycleOwner) { resources ->
-            resources.whenResources(
-                onSuccess = { movieDetails ->
-                    binding.media = movieDetails
-                    LOG.d("Success: $movieDetails")
-                    //I set the title here, without using data binding, because the 'app:title attribute' of the toolbar does not allow dynamic change
-                    binding.toolbar.title = movieDetails.title
+                onSuccess = {
+                    LOG.d("Loaded all details")
+//                    Load movie details
+                    binding.media = it.movieDetails
+                    //Set the title here, without using data binding, because the 'app:title' attribute of the toolbar does not allow dynamic change
+                    binding.toolbar.title = it.movieDetails.title
                     //check if movie is a part of collection
-                    if (movieDetails.belongsToCollection != null) {
+                    if (it.movieDetails.belongsToCollection != null) {
                         LOG.d("Movie is a part of collection, add CollectionFragment.")
                         addFragment(collectionPartsFragment, R.string.fragment_collection)
                     } else {
                         LOG.d("Movie is not a part of collection, remove CollectionFragment if present")
                         removeFragment(collectionPartsFragment)
                     }
+//                    Load backdrops
+                    backdropAdapter.submitList(it.backdrops)
+//                    Load certification
+                    binding.certification.apply {
+                        text = it.latestCertification
+                        if (!it.latestCertification.isNullOrEmpty()) visible() else gone()
+                    }
+                    hideLoading()
+
                 },
-                onError = { error ->
-                    val errorMessage = requireContext().getString(error.messageRes)
-                    showToastMessage(errorMessage)
+                onError = { exception ->
+                    val errorMessage = requireContext().getString(exception.messageRes)
+                    LOG.e("An error occurred $errorMessage")
+                    showToastMessage(errorMessage)//TODO maybe a dialog
                     findNavController().navigateUp()
                 },
                 onLoading = {
-                    LOG.d("Movie details loading...")
-                })
+                    LOG.d("Loading movie info...")
+                    showLoading()
+                }
+            )
+
         }
     }
 

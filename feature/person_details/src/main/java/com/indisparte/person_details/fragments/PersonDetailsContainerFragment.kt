@@ -9,6 +9,7 @@ import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.indisparte.network.whenResources
@@ -82,11 +83,13 @@ class PersonDetailsContainerFragment : BaseFragment<FragmentPersonDetailsContain
         viewModel.personDetails.collectIn(viewLifecycleOwner) { result ->
             result.whenResources(
                 onSuccess = {
-                    LOG.d("Person details: $it")
                     binding.person = it
                 },
                 onError = { exception ->
-                    LOG.e("Error: $exception")
+                    val errorMessage = requireContext().getString(exception.messageRes)
+                    LOG.e("Error: $errorMessage")
+                    showToastMessage(errorMessage)
+                    findNavController().navigateUp()
                 },
                 onLoading = {
                     LOG.d("Loading person details...")

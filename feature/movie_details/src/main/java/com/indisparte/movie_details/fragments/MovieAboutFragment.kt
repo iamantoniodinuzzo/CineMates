@@ -20,11 +20,11 @@ import com.indisparte.movie_details.adapter.ReleaseDateAdapter
 import com.indisparte.movie_details.adapter.VideoAdapter
 import com.indisparte.movie_details.databinding.CustomWatchProviderChipBinding
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
-import com.indisparte.movie_details.databinding.LayoutGenreChipBinding
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources
 import com.indisparte.person.Crew
+import com.indisparte.ui.databinding.LayoutChoiceChipBinding
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
 import com.indisparte.util.extension.enableInnerScrollViewPager
@@ -128,7 +128,7 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         binding.genresTitle.visible()
         chipGroupGenres.removeAllViews()
         for (chipData in genres) {
-            val chipBinding = LayoutGenreChipBinding.inflate(layoutInflater)
+            val chipBinding = LayoutChoiceChipBinding.inflate(layoutInflater)
             val chip: Chip = chipBinding.root
 
             chip.text = chipData.name

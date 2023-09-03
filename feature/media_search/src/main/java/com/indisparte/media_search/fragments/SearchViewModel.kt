@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.github.ajalt.timberkt.Timber
 import com.indisparte.media_search.repository.MovieSearchRepository
 import com.indisparte.network.Result
+import com.indisparte.network.error.CineMatesExceptions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -66,7 +67,7 @@ constructor(
                     _moviesBySearch.emit(result)
 
                 }
-            } catch (e: Exception) {
+            } catch (e: CineMatesExceptions) {
                 _moviesBySearch.emit(Result.Error(e))
             }
         }

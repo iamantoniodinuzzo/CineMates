@@ -144,7 +144,7 @@
         <item name="android:textSize">16sp</item> <!-- Set textSize to your desired size -->
         <item name="android:textColor">?colorOnSecondary
         </item> <!-- Set textSize to your desired size -->
-        <item name="android:backgroundTint">?colorPrimary</item>
+        <item name="android:backgroundTint">?colorSecondary</item>
     </style>
 
 

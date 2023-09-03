@@ -3,8 +3,10 @@ package com.indisparte.person_details.fragments
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.actor.repository.PeopleRepository
+import com.indisparte.movie_data.MovieCredit
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.person.PersonDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -22,11 +24,11 @@ constructor(
     private val personDetailsRepository: PeopleRepository,
 ) : ViewModel() {
     private val LOG = Timber.tag(PersonDetailsViewModel::class.java.simpleName)
-    private val _personDetails = MutableStateFlow<Result<com.indisparte.person.PersonDetails>>(Result.Loading)
-    val personDetails: SharedFlow<Result<com.indisparte.person.PersonDetails>> get() = _personDetails.asSharedFlow()
+    private val _personDetails = MutableStateFlow<Result<PersonDetails>>(Result.Loading)
+    val personDetails: SharedFlow<Result<PersonDetails>> get() = _personDetails.asSharedFlow()
 
-    private val _movieCredits = MutableStateFlow<Result<List<com.indisparte.movie_data.MovieCredit>>>(Result.Loading)
-    val movieCredits: StateFlow<Result<List<com.indisparte.movie_data.MovieCredit>>> get() = _movieCredits
+    private val _movieCredits = MutableStateFlow<Result<List<MovieCredit>>>(Result.Loading)
+    val movieCredits: StateFlow<Result<List<MovieCredit>>> get() = _movieCredits
 
 
     fun getPersonDetailsAndCredits(id: Int) {

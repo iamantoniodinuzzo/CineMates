@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.chip.Chip
 import com.indisparte.network.whenResources
 import com.indisparte.person_details.databinding.FragmentPersonAboutBinding
+import com.indisparte.ui.databinding.LayoutChoiceChipBinding
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
 import com.indisparte.util.extension.gone
@@ -36,7 +37,8 @@ class PersonAboutFragment : BaseFragment<FragmentPersonAboutBinding>() {
                     populateKnownAsChipGroup(it.alsoKnownAs)
                 },
                 onError = { exception ->
-                    LOG.e("Error: $exception ")
+                    val errorMessage = requireContext().getString(exception.messageRes)
+                    LOG.e("Error: $errorMessage ")
                 },
                 onLoading = {
                     LOG.d("Loading person details...")
@@ -49,7 +51,9 @@ class PersonAboutFragment : BaseFragment<FragmentPersonAboutBinding>() {
         if (alsoKnownAs.isNotEmpty()) {
             chipGroup.removeAllViews()
             alsoKnownAs.forEach { otherName ->
-                val chip = Chip(requireContext())
+
+                val chipBinding = LayoutChoiceChipBinding.inflate(layoutInflater)
+                val chip: Chip = chipBinding.root
 
                 chip.text = otherName
 

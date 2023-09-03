@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.ajalt.timberkt.Timber
 import com.indisparte.media_search.repository.MovieSearchRepository
+import com.indisparte.movie_data.Movie
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,8 +28,8 @@ constructor(
     private val _query = MutableStateFlow("")
     private val query: StateFlow<String> get() = _query
 
-    private val _moviesBySearch = MutableStateFlow<Result<List<com.indisparte.movie_data.Movie>>>(Result.Success(emptyList()))
-    val moviesBySearch: StateFlow<Result<List<com.indisparte.movie_data.Movie>>> get() = _moviesBySearch
+    private val _moviesBySearch = MutableStateFlow<Result<List<Movie>>>(Result.Success(emptyList()))
+    val moviesBySearch: StateFlow<Result<List<Movie>>> get() = _moviesBySearch
 
     init {
         observeQueryChanges()
@@ -55,7 +56,6 @@ constructor(
     }
 
     private fun emptyValues() {
-        Timber.tag("SearchViewModel").d("Empty values")
         _moviesBySearch.value = Result.Success(emptyList())
     }
 

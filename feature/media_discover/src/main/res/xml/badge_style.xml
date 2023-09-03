@@ -3,6 +3,6 @@
     style="@style/Widget.MaterialComponents.Badge"
     app:backgroundColor="?attr/colorAccent"
     app:badgeTextColor="?attr/colorOnPrimary"
-    app:horizontalOffset="10dp"
+    app:horizontalOffset="15dp"
     app:maxCharacterCount="2"
     app:verticalOffset="8dp" />

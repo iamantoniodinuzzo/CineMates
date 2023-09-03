@@ -169,7 +169,7 @@ class MovieFilterBottomSheet : BottomSheetDialogFragment() {
                     }
                 },
                 onError = { exception ->
-                    LOG.e("Error: ${exception?.message}")
+                    LOG.e("Error: ${exception.message}")
                 },
                 onLoading = {
                     LOG.d("Loading genres...")

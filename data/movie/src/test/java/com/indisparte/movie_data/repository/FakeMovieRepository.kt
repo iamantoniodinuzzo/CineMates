@@ -10,6 +10,7 @@ import com.indisparte.movie_data.MovieDetails
 import com.indisparte.movie_data.ReleaseDatesByCountry
 import com.indisparte.movie_data.util.MovieListType
 import com.indisparte.network.Result
+import com.indisparte.network.error.CineMatesExceptions
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import kotlinx.coroutines.flow.Flow
@@ -29,10 +30,20 @@ class FakeMovieRepository : MovieRepository {
     private val releaseDatesMap = mutableMapOf<Int, List<ReleaseDatesByCountry>>()
     private val backdropsMap = mutableMapOf<Int, List<Backdrop>>()
     private val collectionDetailsMap = mutableMapOf<Int, CollectionDetails>()
+    private var cineMatesExceptions: CineMatesExceptions? = null
+    private var shouldEmitException: Boolean = false
 
     // Helper methods to set fake data in the fake repository
     fun addMovie(movie: Movie) {
         movies.add(movie)
+    }
+
+    fun setShouldEmitException(emit: Boolean) {
+        shouldEmitException = emit
+    }
+
+    fun setExceptionToEmit(cineMatesExceptions: CineMatesExceptions) {
+        this.cineMatesExceptions = cineMatesExceptions
     }
 
     fun addWatchProviders(watchProviderId: Int, countryResult: CountryResult?) {
@@ -88,36 +99,44 @@ class FakeMovieRepository : MovieRepository {
         // Clear data for other functions as well
     }
 
+    private fun <T> emitResult(data: T): Flow<Result<T>> {
+        return if (shouldEmitException) {
+            flow {
+                emit(Result.Error(cineMatesExceptions ?: CineMatesExceptions.GenericException))
+            }
+        } else {
+            flow {
+                emit(Result.Success(data))
+            }
+        }
+    }
+
     override fun getByListType(movieListType: MovieListType): Flow<Result<List<Movie>>> {
-        // Implement the behavior to return fake data for getByListType
-        return flow { emit(Result.Success(movies)) }
+        return emitResult(movies)
     }
 
     override fun getTrending(timeWindow: TimeWindow): Flow<Result<List<Movie>>> {
-        // Implement the behavior to return fake data for getTrending
-        return flow { emit(Result.Success(movies)) }
+        return emitResult(movies)
     }
 
     override fun getDetails(movieId: Int): Flow<Result<MovieDetails>> {
-        // Implement the behavior to return fake data for getDetails
         val fakeData = movieDetailsMap[movieId]!!
-        return flow { emit(Result.Success(fakeData)) }
+        return emitResult(fakeData)
     }
 
     override fun getSimilar(movieId: Int): Flow<Result<List<Movie>>> {
-        // Implement the behavior to return fake data for getSimilar
         val fakeData = similarMoviesMap[movieId]
-        return flow { emit(Result.Success(fakeData ?: emptyList())) }
+        return emitResult(fakeData ?: emptyList())
     }
 
     override fun getCast(movieId: Int): Flow<Result<List<Cast>>> {
         val fakeData = castMap[movieId]!!
-        return flow { emit(Result.Success(fakeData)) }
+        return emitResult(fakeData)
     }
 
     override fun getCrew(movieId: Int): Flow<Result<List<Crew>>> {
         val fakeData = crewMap[movieId]!!
-        return flow { emit(Result.Success(fakeData)) }
+        return emitResult(fakeData)
     }
 
     override fun getWatchProviders(
@@ -125,27 +144,27 @@ class FakeMovieRepository : MovieRepository {
         country: String,
     ): Flow<Result<CountryResult?>> {
         val fakeData = watchProvidersMap[movieId]
-        return flow { emit(Result.Success(fakeData)) }
+        return emitResult(fakeData)
     }
 
     override fun getVideos(movieId: Int): Flow<Result<List<Video>>> {
         val fakeData = videosMap[movieId]
-        return flow { emit(Result.Success(fakeData ?: emptyList())) }
+        return emitResult(fakeData ?: emptyList())
     }
 
     override fun getReleaseDates(movieId: Int): Flow<Result<List<ReleaseDatesByCountry>>> {
         val fakeData = releaseDatesMap[movieId]
-        return flow { emit(Result.Success(fakeData ?: emptyList())) }
+        return emitResult(fakeData ?: emptyList())
     }
 
     override fun getBackdrop(movieId: Int): Flow<Result<List<Backdrop>>> {
         val fakeData = backdropsMap[movieId]
-        return flow { emit(Result.Success(fakeData ?: emptyList())) }
+        return emitResult(fakeData ?: emptyList())
     }
 
     override fun getCollectionDetails(collectionId: Int): Flow<Result<CollectionDetails>> {
         val fakeData = collectionDetailsMap[collectionId]!!
-        return flow { emit(Result.Success(fakeData)) }
+        return emitResult(fakeData)
     }
 
 

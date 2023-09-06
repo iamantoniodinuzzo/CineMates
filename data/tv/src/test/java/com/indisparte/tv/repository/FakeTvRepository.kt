@@ -4,6 +4,7 @@ import com.indisparte.common.CountryResult
 import com.indisparte.common.Video
 import com.indisparte.filter.TimeWindow
 import com.indisparte.network.Result
+import com.indisparte.network.error.CineMatesExceptions
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import com.indisparte.tv.EpisodeGroup
@@ -29,11 +30,21 @@ class FakeTvRepository : TvRepository {
     private val seasonDetailsMap = mutableMapOf<Pair<Int, Int>, SeasonDetails>()
     private val watchProvidersMap = mutableMapOf<Int, CountryResult?>()
     private val videosMap = mutableMapOf<Int, List<Video>>()
+    private var cineMatesExceptions: CineMatesExceptions? = null
+    private var shouldEmitException: Boolean = false
 
 
     // Helper methods to set fake data in the fake repository
     fun addTvShow(tvShow: TvShow) {
         tvShows.add(tvShow)
+    }
+
+    fun setShouldEmitException(emit: Boolean) {
+        shouldEmitException = emit
+    }
+
+    fun setExceptionToEmit(cineMatesExceptions: CineMatesExceptions) {
+        this.cineMatesExceptions = cineMatesExceptions
     }
 
     fun addTvShowDetails(id: Int, details: TvShowDetails) {
@@ -86,61 +97,73 @@ class FakeTvRepository : TvRepository {
         videosMap.clear()
     }
 
+    private fun <T> emitResult(data: T): Flow<Result<T>> {
+        return if (shouldEmitException) {
+            flow {
+                emit(Result.Error(cineMatesExceptions ?: CineMatesExceptions.GenericException))
+            }
+        } else {
+            flow {
+                emit(Result.Success(data))
+            }
+        }
+    }
+
     override fun getSpecificTVList(tvListType: TvListType): Flow<Result<List<TvShow>>> {
         // Implement the behavior to return fake data for getSpecificTVList
-        return flow { emit(Result.Success(tvShows)) }
+        return emitResult(tvShows)
     }
 
     override fun getTrending(timeWindow: TimeWindow): Flow<Result<List<TvShow>>> {
         // Implement the behavior to return fake data for getTrending
-        return flow { emit(Result.Success(tvShows)) }
+        return emitResult(tvShows)
     }
 
     override fun getDetails(id: Int): Flow<Result<TvShowDetails>> {
         // Implement the behavior to return fake data for getDetails
         val fakeData = tvShowDetailsMap[id]!!
-        return flow { emit(Result.Success(fakeData)) }
+        return emitResult(fakeData)
     }
 
     override fun getSimilar(id: Int): Flow<Result<List<TvShow>>> {
         // Implement the behavior to return fake data for getSimilar
-        val fakeData = similarTvShowsMap[id]
-        return flow { emit(Result.Success(fakeData ?: emptyList())) }
+        val fakeData = similarTvShowsMap[id]!!
+        return emitResult(fakeData)
     }
 
     override fun getCast(id: Int): Flow<Result<List<Cast>>> {
         val fakeData = castMap[id]!!
-        return flow { emit(Result.Success(fakeData)) }
+        return emitResult(fakeData)
     }
 
     override fun getCrew(id: Int): Flow<Result<List<Crew>>> {
         val fakeData = crewMap[id]!!
-        return flow { emit(Result.Success(fakeData)) }
+        return emitResult(fakeData)
     }
 
     override fun getEpisodeGroup(id: Int): Flow<Result<List<EpisodeGroup>>> {
         val fakeData = episodeGroupMap[id]!!
-        return flow { emit(Result.Success(fakeData)) }
+        return emitResult(fakeData)
     }
 
     override fun getEpisodeGroupDetails(episodeGroupId: String): Flow<Result<EpisodeGroupDetails>> {
         val fakeData = episodeGroupDetailsMap[episodeGroupId]!!
-        return flow { emit(Result.Success(fakeData)) }
+        return emitResult(fakeData)
     }
 
     override fun getSeasonDetails(tvId: Int, seasonNumber: Int): Flow<Result<SeasonDetails>> {
         val fakeData = seasonDetailsMap[Pair(tvId, seasonNumber)]!!
-        return flow { emit(Result.Success(fakeData)) }
+        return emitResult(fakeData)
     }
 
     override fun getWatchProviders(tvId: Int, country: String): Flow<Result<CountryResult?>> {
         val fakeData = watchProvidersMap[tvId]
-        return flow { emit(Result.Success(fakeData)) }
+        return emitResult(fakeData)
     }
 
     override fun getVideos(tvId: Int): Flow<Result<List<Video>>> {
         val fakeData = videosMap[tvId]!!
-        return flow { emit(Result.Success(fakeData)) }
+        return emitResult(fakeData)
     }
 
 

@@ -2,7 +2,7 @@ name: 🐞 Bug Report
 description: File a bug report
 title: "[Bug]: "
 labels: ["bug"]
-prijects: ["CineMates"]
+projects: ["CineMates"]
 assignees:
   - iamantoniodinuzzo
 body:

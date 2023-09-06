@@ -2,6 +2,7 @@ name: 🚀 Feature request
 description: Suggest an feature / idea for this project
 title: "[Feature Request / Suggestion]: "
 labels: ["enhancement"]
+projects: ["CineMates"]
 body:
   - type: markdown
     attributes:

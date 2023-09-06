@@ -1,21 +1,21 @@
 package com.indisparte.tv.repository
 
-import com.indisparte.filter.TimeWindow
-import com.indisparte.person.Cast
 import com.indisparte.common.CountryResult
+import com.indisparte.common.Video
+import com.indisparte.filter.TimeWindow
+import com.indisparte.network.Result
+import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import com.indisparte.tv.EpisodeGroup
 import com.indisparte.tv.EpisodeGroupDetails
 import com.indisparte.tv.SeasonDetails
 import com.indisparte.tv.TvShow
 import com.indisparte.tv.TvShowDetails
-import com.indisparte.common.Video
-import com.indisparte.network.Result
 import com.indisparte.tv.util.TvListType
 import kotlinx.coroutines.flow.Flow
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 interface TvRepository {
     fun getSpecificTVList(tvListType: TvListType): Flow<Result<List<TvShow>>>

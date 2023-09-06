@@ -20,6 +20,6 @@ _Put an `x` in the boxes that apply. You can also fill these out after creating 
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] I have added necessary documentation (if appropriate)
 
-## Further comments
+## Further comments or screenshots (if appropriate) 
 
 If this is a relatively large or complex change, kick off the discussion by explaining why you chose the solution you did and what alternatives you considered, etc...

@@ -1,4 +1,4 @@
-package com.indisparte.movie_data.repository
+package com.indisparte.movie_data.repository.fake
 
 import com.indisparte.common.Backdrop
 import com.indisparte.common.CountryResult
@@ -8,6 +8,7 @@ import com.indisparte.movie_data.CollectionDetails
 import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.MovieDetails
 import com.indisparte.movie_data.ReleaseDatesByCountry
+import com.indisparte.movie_data.repository.MovieRepository
 import com.indisparte.movie_data.util.MovieListType
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
@@ -36,6 +37,9 @@ class FakeMovieRepository : MovieRepository {
     // Helper methods to set fake data in the fake repository
     fun addMovie(movie: Movie) {
         movies.add(movie)
+    }
+    fun addMovies(movies: List<Movie>){
+        this.movies.addAll(movies)
     }
 
     fun setShouldEmitException(emit: Boolean) {

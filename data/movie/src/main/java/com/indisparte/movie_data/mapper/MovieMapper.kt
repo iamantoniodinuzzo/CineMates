@@ -1,5 +1,17 @@
 package com.indisparte.movie_data.mapper
 
+import com.indisparte.common.Backdrop
+import com.indisparte.common.Genre
+import com.indisparte.common.ProductionCompany
+import com.indisparte.common.ProductionCountry
+import com.indisparte.common.SpokenLanguage
+import com.indisparte.common.Video
+import com.indisparte.movie_data.BelongsToCollection
+import com.indisparte.movie_data.CollectionDetails
+import com.indisparte.movie_data.Movie
+import com.indisparte.movie_data.MovieDetails
+import com.indisparte.movie_data.ReleaseDate
+import com.indisparte.movie_data.ReleaseDatesByCountry
 import com.indisparte.movie_data.response.BelongsToCollectionDTO
 import com.indisparte.movie_data.response.CastDTO
 import com.indisparte.movie_data.response.CollectionDetailsResponseDTO
@@ -7,6 +19,8 @@ import com.indisparte.movie_data.response.CrewDTO
 import com.indisparte.movie_data.response.MovieDetailsDTO
 import com.indisparte.movie_data.response.ReleaseDateDTO
 import com.indisparte.movie_data.response.ReleaseDatesByCountryDTO
+import com.indisparte.person.Cast
+import com.indisparte.person.Crew
 import com.indisparte.response.BackdropDTO
 import com.indisparte.response.GenreDTO
 import com.indisparte.response.MovieDTO
@@ -15,12 +29,11 @@ import com.indisparte.response.ProductionCountryDTO
 import com.indisparte.response.SpokenLanguageDTO
 import com.indisparte.response.VideoDTO
 
-
 /**
  * @author Antonio Di Nuzzo
  */
-fun MovieDTO.toMovie(): com.indisparte.movie_data.Movie {
-    return com.indisparte.movie_data.Movie(
+fun MovieDTO.toMovie(): Movie {
+    return Movie(
         adult = this.adult,
         posterPath = this.posterPath,
         id = this.id,
@@ -31,8 +44,8 @@ fun MovieDTO.toMovie(): com.indisparte.movie_data.Movie {
     )
 }
 
-fun MovieDetailsDTO.toMovieDetails(): com.indisparte.movie_data.MovieDetails {
-    return com.indisparte.movie_data.MovieDetails(
+fun MovieDetailsDTO.toMovieDetails(): MovieDetails {
+    return MovieDetails(
         adult = this.adult, backdropPath = this.backdropPath,
         belongsToCollection = this.belongsToCollection?.mapToBelongToCollection(),
         budget = this.budget,
@@ -59,8 +72,8 @@ fun MovieDetailsDTO.toMovieDetails(): com.indisparte.movie_data.MovieDetails {
     )
 }
 
-fun BelongsToCollectionDTO.mapToBelongToCollection(): com.indisparte.movie_data.BelongsToCollection {
-    return com.indisparte.movie_data.BelongsToCollection(
+fun BelongsToCollectionDTO.mapToBelongToCollection(): BelongsToCollection {
+    return BelongsToCollection(
         backdropPath = this.backdropPath,
         id = this.id,
         name = this.name,
@@ -68,28 +81,28 @@ fun BelongsToCollectionDTO.mapToBelongToCollection(): com.indisparte.movie_data.
     )
 }
 
-fun GenreDTO.mapToGenre(): com.indisparte.common.Genre {
-    return com.indisparte.common.Genre(id = this.id, name = this.name)
+fun GenreDTO.mapToGenre(): Genre {
+    return Genre(id = this.id, name = this.name)
 }
 
-fun ProductionCompanyDTO.mapToProductionCompany(): com.indisparte.common.ProductionCompany {
-    return com.indisparte.common.ProductionCompany(
+fun ProductionCompanyDTO.mapToProductionCompany(): ProductionCompany {
+    return ProductionCompany(
         id = this.id,
         logoPath = this.logoPath,
         name = this.name
     )
 }
 
-fun ProductionCountryDTO.mapToProductionCountry(): com.indisparte.common.ProductionCountry {
-    return com.indisparte.common.ProductionCountry(name = this.name)
+fun ProductionCountryDTO.mapToProductionCountry(): ProductionCountry {
+    return ProductionCountry(name = this.name)
 }
 
-fun SpokenLanguageDTO.mapToSpokenLanguage(): com.indisparte.common.SpokenLanguage {
-    return com.indisparte.common.SpokenLanguage(englishName = this.englishName, name = this.name)
+fun SpokenLanguageDTO.mapToSpokenLanguage(): SpokenLanguage {
+    return SpokenLanguage(englishName = this.englishName, name = this.name)
 }
 
-fun CastDTO.mapToCast(): com.indisparte.person.Cast {
-    return com.indisparte.person.Cast(
+fun CastDTO.mapToCast(): Cast {
+    return Cast(
         adult = this.adult,
         castId = this.castId,
         character = this.character,
@@ -105,8 +118,8 @@ fun CastDTO.mapToCast(): com.indisparte.person.Cast {
     )
 }
 
-fun CrewDTO.mapToCrew(): com.indisparte.person.Crew {
-    return com.indisparte.person.Crew(
+fun CrewDTO.mapToCrew(): Crew {
+    return Crew(
         adult = this.adult,
         creditId = this.creditId,
         department = this.department,
@@ -121,8 +134,8 @@ fun CrewDTO.mapToCrew(): com.indisparte.person.Crew {
     )
 }
 
-fun VideoDTO.mapToVideo(): com.indisparte.common.Video {
-    return com.indisparte.common.Video(
+fun VideoDTO.mapToVideo(): Video {
+    return Video(
         id = this.id,
         key = this.key,
         name = this.name,
@@ -132,31 +145,31 @@ fun VideoDTO.mapToVideo(): com.indisparte.common.Video {
     )
 }
 
-fun ReleaseDateDTO.mapToReleaseDate(): com.indisparte.movie_data.ReleaseDate {
-    return com.indisparte.movie_data.ReleaseDate(
+fun ReleaseDateDTO.mapToReleaseDate(): ReleaseDate {
+    return ReleaseDate(
         certification = this.certification,
         releaseDate = this.releaseDate,
         type = this.type
     )
 }
 
-fun ReleaseDatesByCountryDTO.mapToReleaseDatesByCountry(): com.indisparte.movie_data.ReleaseDatesByCountry {
-    return com.indisparte.movie_data.ReleaseDatesByCountry(
+fun ReleaseDatesByCountryDTO.mapToReleaseDatesByCountry(): ReleaseDatesByCountry {
+    return ReleaseDatesByCountry(
         country = this.iso31661,
         releaseDates = this.releaseDates.map { it.mapToReleaseDate() }
     )
 }
 
-fun BackdropDTO.mapToBackdrop(): com.indisparte.common.Backdrop {
-    return com.indisparte.common.Backdrop(
+fun BackdropDTO.mapToBackdrop(): Backdrop {
+    return Backdrop(
         filePath = this.filePath,
         height = this.height,
         width = this.width
     )
 }
 
-fun CollectionDetailsResponseDTO.mapToCollectionDetails(): com.indisparte.movie_data.CollectionDetails {
-    return com.indisparte.movie_data.CollectionDetails(
+fun CollectionDetailsResponseDTO.mapToCollectionDetails(): CollectionDetails {
+    return CollectionDetails(
         backdropPath = this.backdropPath,
         id = this.id,
         name = this.name,

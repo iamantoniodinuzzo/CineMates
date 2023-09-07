@@ -1,4 +1,4 @@
-package com.indisparte.tv.repository
+package com.indisparte.tv.repository.fake
 
 import com.indisparte.common.CountryResult
 import com.indisparte.common.Video
@@ -12,6 +12,7 @@ import com.indisparte.tv.EpisodeGroupDetails
 import com.indisparte.tv.SeasonDetails
 import com.indisparte.tv.TvShow
 import com.indisparte.tv.TvShowDetails
+import com.indisparte.tv.repository.TvRepository
 import com.indisparte.tv.util.TvListType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -37,6 +38,9 @@ class FakeTvRepository : TvRepository {
     // Helper methods to set fake data in the fake repository
     fun addTvShow(tvShow: TvShow) {
         tvShows.add(tvShow)
+    }
+    fun addTvShows(tvShows: List<TvShow>) {
+        this.tvShows.addAll(tvShows)
     }
 
     fun setShouldEmitException(emit: Boolean) {

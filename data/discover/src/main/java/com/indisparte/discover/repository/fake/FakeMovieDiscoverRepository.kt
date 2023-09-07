@@ -1,6 +1,8 @@
-package com.indisparte.genre.repository
+package com.indisparte.discover.repository.fake
 
-import com.indisparte.common.Genre
+import com.indisparte.discover.repository.MovieDiscoverRepository
+import com.indisparte.filter.MediaDiscoverFilter
+import com.indisparte.movie_data.Movie
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
 import kotlinx.coroutines.flow.Flow
@@ -9,9 +11,8 @@ import kotlinx.coroutines.flow.flow
 /**
  * @author Antonio Di Nuzzo
  */
-class FakeGenreRepository : GenreRepository {
-    private val movieGenres = mutableListOf<Genre>()
-    private val tvGenres = mutableListOf<Genre>()
+class FakeMovieDiscoverRepository : MovieDiscoverRepository {
+    private val movieResultsMap = mutableMapOf<MediaDiscoverFilter, List<Movie>>()
     private var cineMatesExceptions: CineMatesExceptions? = null
     private var shouldEmitException: Boolean = false
 
@@ -34,28 +35,19 @@ class FakeGenreRepository : GenreRepository {
             }
         }
     }
-    override fun getMovieGenreList(): Flow<Result<List<Genre>>> {
-        // Implement the behavior to return fake data for getMovieGenreList
-        return emitResult(movieGenres)
+    override fun discoverMoviesByFilter(movieFilter: MediaDiscoverFilter): Flow<Result<List<Movie>>> {
+        // Implement the behavior to return fake data for discoverMoviesByFilter
+        val fakeData = movieResultsMap[movieFilter]!!
+        return emitResult(fakeData)
     }
 
-    override fun getTvGenreList(): Flow<Result<List<Genre>>> {
-        // Implement the behavior to return fake data for getTvGenreList
-        return emitResult(tvGenres)
-    }
-
-    // Helper methods to set fake data in the fake repository
-    fun addMovieGenres(genres: List<Genre>) {
-        movieGenres.addAll(genres)
-    }
-
-    fun addTvGenres(genres: List<Genre>) {
-        tvGenres.addAll(genres)
+    // Helper method to set fake data in the fake repository
+    fun addMovieResults(filter: MediaDiscoverFilter, results: List<Movie>) {
+        movieResultsMap[filter] = results
     }
 
     // Helper method to clear all fake data
     fun clearData() {
-        movieGenres.clear()
-        tvGenres.clear()
+        movieResultsMap.clear()
     }
 }

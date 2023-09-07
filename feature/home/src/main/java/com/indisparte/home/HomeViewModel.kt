@@ -31,8 +31,8 @@ constructor(
 ) : ViewModel() {
 
 
-    private val _sections = MutableStateFlow<List<Section>>(emptyList())
-    val sections: StateFlow<List<Section>> get() = _sections
+    private val _sections = MutableStateFlow<Set<Section>>(emptySet())
+    val sections: StateFlow<Set<Section>> get() = _sections
 
     private val sectionMap = mutableMapOf<Int, Section>()
 
@@ -129,7 +129,7 @@ constructor(
 
     private fun updateSection(section: Section) {
         sectionMap[section.titleResId] = section
-        _sections.value = sectionMap.values.toList()
+        _sections.value = sectionMap.values.toSet()
     }
 
 }

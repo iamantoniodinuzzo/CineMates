@@ -1,6 +1,6 @@
-package com.indisparte.discover.repository
+package com.indisparte.media_search.repository.fake
 
-import com.indisparte.filter.MediaDiscoverFilter
+import com.indisparte.media_search.repository.MovieSearchRepository
 import com.indisparte.movie_data.Movie
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
@@ -10,10 +10,26 @@ import kotlinx.coroutines.flow.flow
 /**
  * @author Antonio Di Nuzzo
  */
-class FakeMovieDiscoverRepository : MovieDiscoverRepository {
-    private val movieResultsMap = mutableMapOf<MediaDiscoverFilter, List<Movie>>()
+class FakeMovieSearchRepository : MovieSearchRepository {
+    private val movieSearchResults = mutableMapOf<String, List<Movie>>()
     private var cineMatesExceptions: CineMatesExceptions? = null
     private var shouldEmitException: Boolean = false
+
+    override fun searchMovieByTitle(title: String): Flow<Result<List<Movie>>> {
+        // Implement the behavior to return fake data for searchMovieByTitle
+        val fakeData = movieSearchResults[title] ?: emptyList()
+        return emitResult(fakeData)
+    }
+
+    // Helper method to set fake data in the fake repository
+    fun addSearchResults(title: String, results: List<Movie>) {
+        movieSearchResults[title] = results
+    }
+
+    // Helper method to clear all fake data
+    fun clearData() {
+        movieSearchResults.clear()
+    }
 
     fun setShouldEmitException(emit: Boolean) {
         shouldEmitException = emit
@@ -22,7 +38,6 @@ class FakeMovieDiscoverRepository : MovieDiscoverRepository {
     fun setExceptionToEmit(cineMatesExceptions: CineMatesExceptions) {
         this.cineMatesExceptions = cineMatesExceptions
     }
-
     private fun <T> emitResult(data: T): Flow<Result<T>> {
         return if (shouldEmitException) {
             flow {
@@ -33,20 +48,5 @@ class FakeMovieDiscoverRepository : MovieDiscoverRepository {
                 emit(Result.Success(data))
             }
         }
-    }
-    override fun discoverMoviesByFilter(movieFilter: MediaDiscoverFilter): Flow<Result<List<Movie>>> {
-        // Implement the behavior to return fake data for discoverMoviesByFilter
-        val fakeData = movieResultsMap[movieFilter]!!
-        return emitResult(fakeData)
-    }
-
-    // Helper method to set fake data in the fake repository
-    fun addMovieResults(filter: MediaDiscoverFilter, results: List<Movie>) {
-        movieResultsMap[filter] = results
-    }
-
-    // Helper method to clear all fake data
-    fun clearData() {
-        movieResultsMap.clear()
     }
 }

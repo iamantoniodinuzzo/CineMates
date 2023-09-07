@@ -51,12 +51,19 @@ dependencies {
     implementation project(':data:tv')
     implementation project(':data:people')
 
+    testImplementation(libs.junitTest)
+    testImplementation project(':core:testing')
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2")
+    testImplementation "com.google.truth:truth:1.1.4"
+    testImplementation project(':data:movie')
+    testImplementation project(':data:tv')
+    testImplementation project(':data:people')
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintLayout)
     implementation(libs.legacy)
     implementation(libs.fragmentKtx)
-    testImplementation(libs.junitTest)
     androidTestImplementation(libs.junitAndroidTest)
     androidTestImplementation(libs.espresso)
 

@@ -1,5 +1,6 @@
-package com.indisparte.actor.repository
+package com.indisparte.actor.repository.fake
 
+import com.indisparte.actor.repository.PeopleRepository
 import com.indisparte.filter.TimeWindow
 import com.indisparte.movie_data.MovieCredit
 import com.indisparte.network.Result

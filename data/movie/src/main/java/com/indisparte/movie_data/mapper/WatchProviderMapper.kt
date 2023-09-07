@@ -1,13 +1,14 @@
 package com.indisparte.movie_data.mapper
 
+import com.indisparte.common.CountryResult
+import com.indisparte.common.WatchProvider
 import com.indisparte.response.CountryResultDTO
 import com.indisparte.response.WatchProviderDTO
-
 /**
  * @author Antonio Di Nuzzo
  */
-fun CountryResultDTO.mapToCountryResult(): com.indisparte.common.CountryResult {
-    return com.indisparte.common.CountryResult(
+fun CountryResultDTO.mapToCountryResult(): CountryResult {
+    return CountryResult(
         link = this.link,
         flatrate = this.flatrate?.map { it.mapToWatchProvider() },
         rent = this.rent?.map { it.mapToWatchProvider() },
@@ -16,8 +17,8 @@ fun CountryResultDTO.mapToCountryResult(): com.indisparte.common.CountryResult {
     )
 }
 
-fun WatchProviderDTO.mapToWatchProvider(): com.indisparte.common.WatchProvider {
-    return com.indisparte.common.WatchProvider(
+fun WatchProviderDTO.mapToWatchProvider(): WatchProvider {
+    return WatchProvider(
         displayPriority = this.displayPriority,
         logoPath = this.logoPath,
         providerName = this.providerName

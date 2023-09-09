@@ -4,6 +4,9 @@ import com.indisparte.common.Backdrop
 import com.indisparte.common.CountryResult
 import com.indisparte.common.Video
 import com.indisparte.common.WatchProvider
+import com.indisparte.movie_data.BelongsToCollection
+import com.indisparte.movie_data.CollectionDetails
+import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.MovieDetails
 import com.indisparte.movie_data.ReleaseDate
 import com.indisparte.movie_data.ReleaseDatesByCountry
@@ -15,11 +18,10 @@ import com.indisparte.person.Crew
 import com.indisparte.testing.util.MainDispatcherRule
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
+import junit.framework.TestCase.assertNull
 import junit.framework.TestCase.assertTrue
-import junit.framework.TestCase.fail
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -38,8 +40,41 @@ class MovieDetailsViewModelTest {
 
     private val goodMovieId = 4567
     private val badMovieId = 1
+    private val collectionId = 8636
 
-    private val fakeMovieDetails = MovieDetails(
+
+    private val fakeMovieDetailsWithCollection = MovieDetails(
+        adult = false,
+        backdropPath = null,
+        belongsToCollection = BelongsToCollection(
+            backdropPath = null,
+            id = collectionId,
+            name = "Rudolph Brady",
+            posterPath = null
+        ),
+        budget = 1897,
+        genres = listOf(),
+        homepage = "epicurei",
+        id = goodMovieId,
+        originalLanguage = "elementum",
+        originalTitle = "theophrastus",
+        overview = "viris",
+        popularity = 14.15,
+        posterPath = null,
+        productionCompanies = listOf(),
+        productionCountries = listOf(),
+        releaseDate = "patrioque",
+        revenue = 9227,
+        runtime = 5557,
+        spokenLanguages = listOf(),
+        status = "necessitatibus",
+        tagline = "no",
+        title = "agam",
+        video = true,
+        voteAverage = 16.17,
+        voteCount = 9468
+    )
+    private val fakeMovieDetailsWithoutCollection = MovieDetails(
         adult = false,
         backdropPath = null,
         belongsToCollection = null,
@@ -64,6 +99,27 @@ class MovieDetailsViewModelTest {
         video = true,
         voteAverage = 16.17,
         voteCount = 9468
+    )
+
+    private val fakeSimilarMovies = listOf<Movie>(
+        Movie(
+            adult = false,
+            id = 3955,
+            popularity = 0.1,
+            posterPath = null,
+            releaseDate = null,
+            title = "graeco",
+            voteAverage = 2.3
+        ),
+        Movie(
+            adult = false,
+            id = 9079,
+            popularity = 4.5,
+            posterPath = null,
+            releaseDate = null,
+            title = "pericula",
+            voteAverage = 6.7
+        )
     )
     private val fakeVideos = listOf<Video>(
         Video(
@@ -152,6 +208,15 @@ class MovieDetailsViewModelTest {
         )
     )
 
+    private val fakeCollectionDetails = CollectionDetails(
+        backdropPath = null,
+        id = collectionId,
+        name = "Katherine Collier",
+        overview = null,
+        parts = listOf(),
+        posterPath = null
+    )
+
     @Before
     fun setUp() {
         fakeMovieRepository = FakeMovieRepository()
@@ -159,9 +224,9 @@ class MovieDetailsViewModelTest {
     }
 
     @Test
-    fun `test successful movie details retrieval`() = runTest {
-        // Arrange
-        fakeMovieRepository.addMovieDetails(goodMovieId, fakeMovieDetails)
+    fun `test successful movie details retrieval`() = runBlocking {
+        // Given
+        fakeMovieRepository.addMovieDetails(goodMovieId, fakeMovieDetailsWithCollection)
         fakeMovieRepository.addVideos(goodMovieId, fakeVideos)
         fakeMovieRepository.addWatchProviders(goodMovieId, fakeWatchProvider)
         fakeMovieRepository.addReleaseDates(goodMovieId, fakeReleaseDates)
@@ -169,47 +234,104 @@ class MovieDetailsViewModelTest {
         fakeMovieRepository.addCrew(goodMovieId, fakeCrew)
         fakeMovieRepository.addCast(goodMovieId, fakeCast)
 
-        // Act
+        // When
         viewModel.onDetailsFragmentReady(goodMovieId)
 
-        // Assert
+        // Then
         val movieInfo = viewModel.movieInfo.first()
         assertNotNull(movieInfo)
         assertTrue(movieInfo is Result.Success)
 
         val successResult = movieInfo as Result.Success
-        assertEquals(fakeMovieDetails, successResult.data.movieDetails)
+        assertEquals(fakeMovieDetailsWithCollection, successResult.data.movieDetails)
         // Add more assertions for other data if needed
     }
 
     @Test
     fun `test error in movie details retrieval`() = runBlocking {
-        // Arrange
+        // Given
         fakeMovieRepository.setShouldEmitException(true)
         val exception = CineMatesExceptions.GenericException
         fakeMovieRepository.setExceptionToEmit(exception)
 
-        // Act
+        // When
         viewModel.onDetailsFragmentReady(goodMovieId)
 
-        // Assert
-        // Wait for movieInfo to transition from Result.Loading to Error
-        val movieInfo = viewModel.movieInfo.value
-        if (movieInfo is Result.Loading) {
-            viewModel.movieInfo.collect {
-                if (it is Result.Error) {
-                    // Assert
-                    assertNotNull(it)
-                    assertEquals(exception, it.exception)
-                }
-            }
-        } else {
-            // If movieInfo is not in Loading state, fail the test
-            fail("Expected movieInfo to be in Loading state, but it's in ${movieInfo?.javaClass?.simpleName}")
-        }
+        // Then
+        val movieInfo = viewModel.movieInfo.first()
+        assertNotNull(movieInfo)
+        assertTrue(movieInfo is Result.Error)
+
+        val errorResult = movieInfo as Result.Error
+        assertEquals(errorResult.exception, exception)
+    }
+
+    @Test
+    fun testGetCollectionPartsSuccess() = runBlocking {
+        //Given
+        fakeMovieRepository.addMovieDetails(goodMovieId, fakeMovieDetailsWithCollection)
+        fakeMovieRepository.addCollectionDetails(collectionId, fakeCollectionDetails)
+
+        // When
+        viewModel.onDetailsFragmentReady(goodMovieId)
+
+        // Then
+        val collectionParts = viewModel.collectionParts.first()
+        assertNotNull(collectionParts)
+        assertTrue(collectionParts is Result.Success)
+
+        val successResult = collectionParts as Result.Success
+        assertEquals(successResult, collectionParts)
 
     }
 
+    @Test
+    fun getCollection_movieWithNoCollection_success() = runBlocking{
+        //GIVEN
+        fakeMovieRepository.addMovieDetails(goodMovieId, fakeMovieDetailsWithoutCollection)
+
+        //WHEN
+        viewModel.onDetailsFragmentReady(goodMovieId)
+
+        //THEN
+        val collectionParts = viewModel.collectionParts.first()
+        assertNull(collectionParts)
+
+    }
+
+    @Test
+    fun testGetSimilarMoviesSuccess() = runBlocking {
+        // Given
+        fakeMovieRepository.addSimilarMovies(goodMovieId, fakeSimilarMovies)
+
+        // When
+        viewModel.onDetailsFragmentReady(goodMovieId)
+
+        // Then
+        val similarMovies = viewModel.similarMovies.first()
+        assertNotNull(similarMovies)
+        assertTrue(similarMovies is Result.Success)
+
+        val successResult = similarMovies as Result.Success
+        assertEquals(successResult, similarMovies)
+    }
+
+    @Test
+    fun testGetCastSuccess() = runBlocking {
+        // Given
+        fakeMovieRepository.addCast(goodMovieId, fakeCast)
+
+        // When
+        viewModel.onDetailsFragmentReady(goodMovieId)
+
+        // Then
+        val cast = viewModel.cast.first()
+        assertNotNull(cast)
+        assertTrue(cast is Result.Success)
+
+        val successResult = cast as Result.Success
+        assertEquals(successResult, cast)
+    }
 
 
     @After

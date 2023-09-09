@@ -30,7 +30,7 @@ class FakeMovieRepository : MovieRepository {
     private val videosMap = mutableMapOf<Int, List<Video>>()
     private val releaseDatesMap = mutableMapOf<Int, List<ReleaseDatesByCountry>>()
     private val backdropsMap = mutableMapOf<Int, List<Backdrop>>()
-    private val collectionDetailsMap = mutableMapOf<Int, CollectionDetails>()
+    private val collectionDetailsMap = mutableMapOf<Int, CollectionDetails?>()
     private var cineMatesExceptions: CineMatesExceptions? = null
     private var shouldEmitException: Boolean = false
 
@@ -67,8 +67,8 @@ class FakeMovieRepository : MovieRepository {
         backdropsMap[movieId] = backdrops
     }
 
-    fun addCollectionDetails(movieId: Int, collectionDetails: CollectionDetails) {
-        collectionDetailsMap[movieId] = collectionDetails
+    fun addCollectionDetails(collectionId: Int, collectionDetails: CollectionDetails) {
+        collectionDetailsMap[collectionId] = collectionDetails
     }
 
     fun addMovieDetails(movieId: Int, details: MovieDetails) {

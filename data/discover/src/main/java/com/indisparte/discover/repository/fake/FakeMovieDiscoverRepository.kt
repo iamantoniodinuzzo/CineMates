@@ -24,8 +24,8 @@ class FakeMovieDiscoverRepository : MovieDiscoverRepository {
         this.cineMatesExceptions = cineMatesExceptions
     }
 
-    private fun <T> emitResult(data: T): Flow<Result<T>> {
-        return if (shouldEmitException) {
+    private fun <T> emitResult(data: T?): Flow<Result<T>> {
+        return if (shouldEmitException || data == null) {
             flow {
                 emit(Result.Error(cineMatesExceptions ?: CineMatesExceptions.GenericException))
             }
@@ -37,7 +37,7 @@ class FakeMovieDiscoverRepository : MovieDiscoverRepository {
     }
     override fun discoverMoviesByFilter(movieFilter: MediaDiscoverFilter): Flow<Result<List<Movie>>> {
         // Implement the behavior to return fake data for discoverMoviesByFilter
-        val fakeData = movieResultsMap[movieFilter]!!
+        val fakeData = movieResultsMap[movieFilter]
         return emitResult(fakeData)
     }
 

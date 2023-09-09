@@ -34,7 +34,7 @@ constructor(
 
     data class UiState(
         val sortType: MovieSortOptions? = MovieSortOptions.DescendingPopularity,
-        val genresId: Set<Int>? = emptySet(),
+        val genresId: Set<Int>? = null,
         val clearAllFilters: Boolean = false,
         val applyAllFilters: Boolean = false,
     ) {
@@ -47,7 +47,6 @@ constructor(
     }
 
 
-
     init {
         getMovieGenres()
     }
@@ -58,7 +57,6 @@ constructor(
             try {
                 genreRepository.getMovieGenreList().collectLatest {
                     _movieGenres.emit(it)
-
                 }
             } catch (e: CineMatesExceptions) {
                 _movieGenres.emit(Result.Error(e))
@@ -74,18 +72,16 @@ constructor(
 
     fun selectGenre(genreId: Int) {
         _uiState.update {
-            val genres = it.genresId?.toMutableSet()?.apply {
-                add(genreId)
-            }
+            val genres = (it.genresId ?: mutableSetOf()).toMutableSet()
+            genres.add(genreId)
             it.copy(genresId = genres)
         }
     }
 
     fun deselectGenre(genreId: Int) {
         _uiState.update {
-            val genres = it.genresId?.toMutableSet()?.apply {
-                remove(genreId)
-            }
+            val genres = (it.genresId ?: mutableSetOf()).toMutableSet()
+            genres.remove(genreId)
             it.copy(genresId = genres)
         }
     }
@@ -94,7 +90,7 @@ constructor(
         _uiState.update {
             it.copy(
                 clearAllFilters = true,
-                genresId = emptySet(),
+                genresId = null,
                 sortType = MovieSortOptions.DescendingPopularity
             )
         }
@@ -106,7 +102,6 @@ constructor(
             it.copy(applyAllFilters = true)
         }
     }
-
 
 
 }

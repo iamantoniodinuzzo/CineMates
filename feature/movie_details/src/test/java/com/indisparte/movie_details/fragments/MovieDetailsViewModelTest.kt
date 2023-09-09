@@ -39,6 +39,7 @@ class MovieDetailsViewModelTest {
     private lateinit var fakeMovieRepository: FakeMovieRepository
 
     private val goodMovieId = 4567
+    private val goodMovieId2 = 6904
     private val badMovieId = 1
     private val collectionId = 8636
 
@@ -56,6 +57,37 @@ class MovieDetailsViewModelTest {
         genres = listOf(),
         homepage = "epicurei",
         id = goodMovieId,
+        originalLanguage = "elementum",
+        originalTitle = "theophrastus",
+        overview = "viris",
+        popularity = 14.15,
+        posterPath = null,
+        productionCompanies = listOf(),
+        productionCountries = listOf(),
+        releaseDate = "patrioque",
+        revenue = 9227,
+        runtime = 5557,
+        spokenLanguages = listOf(),
+        status = "necessitatibus",
+        tagline = "no",
+        title = "agam",
+        video = true,
+        voteAverage = 16.17,
+        voteCount = 9468
+    )
+    private val fakeSecondMovieDetailsWithCollection = MovieDetails(
+        adult = false,
+        backdropPath = null,
+        belongsToCollection = BelongsToCollection(
+            backdropPath = null,
+            id = collectionId,
+            name = "Rudolph Brady",
+            posterPath = null
+        ),
+        budget = 1897,
+        genres = listOf(),
+        homepage = "epicurei",
+        id = goodMovieId2,
         originalLanguage = "elementum",
         originalTitle = "theophrastus",
         overview = "viris",
@@ -331,6 +363,49 @@ class MovieDetailsViewModelTest {
 
         val successResult = cast as Result.Success
         assertEquals(successResult, cast)
+    }
+
+    @Test
+    fun `test update selected movie and load movie info`() = runBlocking {
+        // Given
+        fakeMovieRepository.addMovieDetails(goodMovieId, fakeMovieDetailsWithCollection)
+        fakeMovieRepository.addVideos(goodMovieId, fakeVideos)
+        fakeMovieRepository.addWatchProviders(goodMovieId, fakeWatchProvider)
+        fakeMovieRepository.addReleaseDates(goodMovieId, fakeReleaseDates)
+        fakeMovieRepository.addBackdrops(goodMovieId, fakeBackdrops)
+        fakeMovieRepository.addCrew(goodMovieId, fakeCrew)
+        fakeMovieRepository.addCast(goodMovieId, fakeCast)
+
+        // When
+        viewModel.onDetailsFragmentReady(goodMovieId)
+
+        // Then
+        val initialSelectedMovie = viewModel.selectedMovie.first()
+        assertNotNull(initialSelectedMovie)
+        assertTrue(initialSelectedMovie is Result.Success)
+        assertEquals(goodMovieId, (initialSelectedMovie as Result.Success).data.id)
+
+        // When
+        fakeMovieRepository.addMovieDetails(goodMovieId2, fakeSecondMovieDetailsWithCollection)
+        fakeMovieRepository.addVideos(goodMovieId2, fakeVideos)
+        fakeMovieRepository.addWatchProviders(goodMovieId2, fakeWatchProvider)
+        fakeMovieRepository.addReleaseDates(goodMovieId2, fakeReleaseDates)
+        fakeMovieRepository.addBackdrops(goodMovieId2, fakeBackdrops)
+        fakeMovieRepository.addCrew(goodMovieId2, fakeCrew)
+        fakeMovieRepository.addCast(goodMovieId2, fakeCast)
+
+        viewModel.onDetailsFragmentReady(goodMovieId2)
+
+        // Then
+        val updatedSelectedMovie = viewModel.selectedMovie.first()
+        assertNotNull(updatedSelectedMovie)
+        assertTrue(updatedSelectedMovie is Result.Success)
+        assertEquals(goodMovieId2, (updatedSelectedMovie as Result.Success).data.id)
+
+        // Verifica che tutti i dati di movieInfo siano caricati
+        val movieInfo = viewModel.movieInfo.first()
+        assertNotNull(movieInfo)
+        assertTrue(movieInfo is Result.Success)
     }
 
 

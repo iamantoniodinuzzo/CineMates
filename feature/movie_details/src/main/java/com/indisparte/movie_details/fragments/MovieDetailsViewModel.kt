@@ -23,8 +23,10 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
@@ -45,6 +47,7 @@ class MovieDetailsViewModel
     private val LOG = Timber.tag(MovieDetailsViewModel::class.java.simpleName)
 
     private val _selectedMovie = MutableSharedFlow<Result<MovieDetails>>()
+    val selectedMovie: SharedFlow<Result<MovieDetails>> get() = _selectedMovie
 
     /*Videos*/
     private val _videos = MutableStateFlow<Result<List<Video>>>(Result.Success(emptyList()))
@@ -88,34 +91,34 @@ class MovieDetailsViewModel
 
     private fun observeSelectedMovie() {
         viewModelScope.launch {
-            _selectedMovie.collect { result ->
+            _selectedMovie.distinctUntilChanged().collect { result ->
                 when (result) {
                     is Result.Success -> {
                         val movieDetails = result.data
-                        LOG.d("Get details about ${movieDetails.title}..")
-                        val videosDeferred = async { getVideos(movieDetails.id) }
-                        val castDeferred = async { getCast(movieDetails.id) }
-                        val similarMoviesDeferred = async { getSimilar(movieDetails.id) }
-                        val watchProvidersDeferred = async { getWatchProviders(movieDetails.id) }
-                        val crewDeferred = async { getCrew(movieDetails.id) }
-                        val releaseDatesDeferred = async { getReleaseDates(movieDetails.id) }
-                        val backdropsDeferred = async { getBackdrops(movieDetails.id) }
-                        movieDetails.belongsToCollection?.let { collection ->
-                            LOG.d("${movieDetails.title} is part of a Collection, retrieve collection details..")
-                            val collectionDetailsDeferred =
-                                async { getCollectionDetails(collection.id) }
-                            collectionDetailsDeferred.await()
-                        }
+                         LOG.d("Get details about ${movieDetails.title}..")
+                         val videosDeferred = async { getVideos(movieDetails.id) }
+                         val castDeferred = async { getCast(movieDetails.id) }
+                         val similarMoviesDeferred = async { getSimilar(movieDetails.id) }
+                         val watchProvidersDeferred = async { getWatchProviders(movieDetails.id) }
+                         val crewDeferred = async { getCrew(movieDetails.id) }
+                         val releaseDatesDeferred = async { getReleaseDates(movieDetails.id) }
+                         val backdropsDeferred = async { getBackdrops(movieDetails.id) }
+                         movieDetails.belongsToCollection?.let { collection ->
+                             LOG.d("${movieDetails.title} is part of a Collection, retrieve collection details..")
+                             val collectionDetailsDeferred =
+                                 async { getCollectionDetails(collection.id) }
+                             collectionDetailsDeferred.await()
+                         }
 
-                        awaitAll(
-                            videosDeferred,
-                            castDeferred,
-                            similarMoviesDeferred,
-                            watchProvidersDeferred,
-                            crewDeferred,
-                            releaseDatesDeferred,
-                            backdropsDeferred
-                        )
+                          awaitAll(
+                              videosDeferred,
+                              castDeferred,
+                              similarMoviesDeferred,
+                              watchProvidersDeferred,
+                              crewDeferred,
+                              releaseDatesDeferred,
+                              backdropsDeferred
+                          )
 
                     }
 
@@ -146,6 +149,8 @@ class MovieDetailsViewModel
 
     private suspend fun populateMovieInfo() {
 
+        LOG.d("Populate movie info")
+
         val movieDetailsResult =
             _selectedMovie.filterIsInstance<Result.Success<MovieDetails>>().firstOrNull()
         val videosResult = _videos.filterIsInstance<Result.Success<List<Video>>>().firstOrNull()
@@ -172,6 +177,7 @@ class MovieDetailsViewModel
                 backdrops = backdropsResult.data,
                 crew = crew.data
             )
+            LOG.d("Emit successful movie info")
 
             _movieInfo.emit(Result.Success(movieInfo))
         } else {
@@ -182,6 +188,8 @@ class MovieDetailsViewModel
                 .firstOrNull() ?: _releaseDates.filterIsInstance<Result.Error>()
                 .firstOrNull() ?: _backdrops.filterIsInstance<Result.Error>()
                 .firstOrNull()
+
+            LOG.d("Emit error in  movie info")
 
             _movieInfo.emit(
                 Result.Error(

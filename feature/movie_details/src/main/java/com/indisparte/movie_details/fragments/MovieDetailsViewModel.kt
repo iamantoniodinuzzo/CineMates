@@ -16,11 +16,14 @@ import com.indisparte.movie_details.model.MovieInfoUiState
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
 import com.indisparte.network.succeeded
+import com.indisparte.network.whenResources
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -87,55 +90,65 @@ class MovieDetailsViewModel
         observeSelectedMovie()
     }
 
-    fun onDetailsFragmentReady(id: Int) = getMovieDetails(id)
+    fun onDetailsFragmentReady(id: Int) {
+        getMovieDetails(id)
+        getCast(id)
+        getSimilar(id)
+    }
+
+    private fun getMovieDetails(id: Int) {
+        viewModelScope.launch {
+            _selectedMovie.emit(Result.Loading)
+            LOG.d("Loading state movie details...")
+            try {
+                movieRepository.getDetails(id).collectLatest { movieDetails ->
+                    LOG.d("Emit success with movie details: $movieDetails")
+                    _selectedMovie.emit(movieDetails)
+                }
+            } catch (e: CineMatesExceptions) {
+                LOG.e("An error in movie details: $e")
+                _selectedMovie.emit(Result.Error(e))
+            }
+        }
+    }
 
     private fun observeSelectedMovie() {
         viewModelScope.launch {
             _selectedMovie.distinctUntilChanged().collect { result ->
-                when (result) {
-                    is Result.Success -> {
-                        val movieDetails = result.data
-                         LOG.d("Get details about ${movieDetails.title}..")
-                         val videosDeferred = async { getVideos(movieDetails.id) }
-                         val castDeferred = async { getCast(movieDetails.id) }
-                         val similarMoviesDeferred = async { getSimilar(movieDetails.id) }
-                         val watchProvidersDeferred = async { getWatchProviders(movieDetails.id) }
-                         val crewDeferred = async { getCrew(movieDetails.id) }
-                         val releaseDatesDeferred = async { getReleaseDates(movieDetails.id) }
-                         val backdropsDeferred = async { getBackdrops(movieDetails.id) }
-                         movieDetails.belongsToCollection?.let { collection ->
-                             LOG.d("${movieDetails.title} is part of a Collection, retrieve collection details..")
-                             val collectionDetailsDeferred =
-                                 async { getCollectionDetails(collection.id) }
-                             collectionDetailsDeferred.await()
-                         }
+                result.whenResources(
+                    onSuccess = { movieDetails ->
+                        LOG.d("Get details about ${movieDetails.title}..")
+                        val videosDeferred = async { getVideos(movieDetails.id)}
+                        val watchProvidersDeferred = async { getWatchProviders(movieDetails.id) }
+                        val crewDeferred = async { getCrew(movieDetails.id) }
+                        val releaseDatesDeferred = async { getReleaseDates(movieDetails.id) }
+                        val backdropsDeferred = async { getBackdrops(movieDetails.id) }
+                        movieDetails.belongsToCollection?.let { collection ->
+                            LOG.d("${movieDetails.title} is part of a Collection, retrieve collection details..")
+                            val collectionDetailsDeferred =
+                                async { getCollectionDetails(collection.id) }
+                            collectionDetailsDeferred.await()
+                        }
 
-                          awaitAll(
-                              videosDeferred,
-                              castDeferred,
-                              similarMoviesDeferred,
-                              watchProvidersDeferred,
-                              crewDeferred,
-                              releaseDatesDeferred,
-                              backdropsDeferred
-                          )
+                        awaitAll(
+                            videosDeferred,
+                            watchProvidersDeferred,
+                            crewDeferred,
+                            releaseDatesDeferred,
+                            backdropsDeferred
+                        )
 
-                    }
-
-                    is Result.Error -> {
-                        val error = result.exception
+                    },
+                    onError = { error ->
                         LOG.e("Error in selected movie: $error")
                         _movieInfo.emit(Result.Error(error))
-                    }
-
-                    is Result.Loading -> {
+                    },
+                    onLoading = {
                         _movieInfo.emit(Result.Loading)
-                    }
 
-                    else -> {
-                        // Gestisci altri casi, se necessario
                     }
-                }
+                )
+
 
             }
         }
@@ -147,75 +160,56 @@ class MovieDetailsViewModel
     }
 
 
-    private suspend fun populateMovieInfo() {
+    private suspend fun populateMovieInfo() = coroutineScope {
+        try {
+            val movieDetailsResult =
+                _selectedMovie.filterIsInstance<Result.Success<MovieDetails>>().firstOrNull()
+            val videosResult = _videos.filterIsInstance<Result.Success<List<Video>>>().firstOrNull()
+            val watchProviderResult =
+                _watchProviders.filterIsInstance<Result.Success<CountryResult?>>().firstOrNull()
+            val releaseDatesResult =
+                _releaseDates.filterIsInstance<Result.Success<List<ReleaseDate>>>().firstOrNull()
+            val backdropsResult =
+                _backdrops.filterIsInstance<Result.Success<List<Backdrop>>>().firstOrNull()
+            val crew =
+                _crew.filterIsInstance<Result.Success<List<Crew>>>().firstOrNull()
 
-        LOG.d("Populate movie info")
-
-        val movieDetailsResult =
-            _selectedMovie.filterIsInstance<Result.Success<MovieDetails>>().firstOrNull()
-        val videosResult = _videos.filterIsInstance<Result.Success<List<Video>>>().firstOrNull()
-        val watchProviderResult =
-            _watchProviders.filterIsInstance<Result.Success<CountryResult?>>().firstOrNull()
-        val releaseDatesResult =
-            _releaseDates.filterIsInstance<Result.Success<List<ReleaseDate>>>().firstOrNull()
-        val backdropsResult =
-            _backdrops.filterIsInstance<Result.Success<List<Backdrop>>>().firstOrNull()
-        val crew =
-            _crew.filterIsInstance<Result.Success<List<Crew>>>().firstOrNull()
-
-        if (movieDetailsResult != null && videosResult != null && watchProviderResult != null
-            && releaseDatesResult != null && backdropsResult != null && crew != null
-        ) {
-
-            // Tutti i dati sono stati ottenuti con successo
-            val movieInfo = MovieInfoUiState(
-                movieDetails = movieDetailsResult.data,
-                videos = videosResult.data,
-                watchProvider = watchProviderResult.data,
-                releaseDates = releaseDatesResult.data,
-                latestCertification = _latestCertification.value,
-                backdrops = backdropsResult.data,
-                crew = crew.data
-            )
-            LOG.d("Emit successful movie info")
-
-            _movieInfo.emit(Result.Success(movieInfo))
-        } else {
-            // Gestisci un errore in caso di fallimento nella ricezione dei dati
-            val error = _selectedMovie.filterIsInstance<Result.Error>()
-                .firstOrNull() ?: _videos.filterIsInstance<Result.Error>()
-                .firstOrNull() ?: _watchProviders.filterIsInstance<Result.Error>()
-                .firstOrNull() ?: _releaseDates.filterIsInstance<Result.Error>()
-                .firstOrNull() ?: _backdrops.filterIsInstance<Result.Error>()
-                .firstOrNull()
-
-            LOG.d("Emit error in  movie info")
-
-            _movieInfo.emit(
-                Result.Error(
-                    error?.exception ?: CineMatesExceptions.GenericException
+            if (movieDetailsResult != null && videosResult != null && watchProviderResult != null
+                && releaseDatesResult != null && backdropsResult != null && crew != null
+            ) {
+                // Tutti i dati sono stati ottenuti con successo
+                val movieInfo = MovieInfoUiState(
+                    movieDetails = movieDetailsResult.data,
+                    videos = videosResult.data,
+                    watchProvider = watchProviderResult.data,
+                    releaseDates = releaseDatesResult.data,
+                    latestCertification = _latestCertification.value,
+                    backdrops = backdropsResult.data,
+                    crew = crew.data
                 )
-            )
-        }
-
-    }
-
-    private fun getMovieDetails(movieId: Int) {
-        viewModelScope.launch {
-            _selectedMovie.emit(Result.Loading)
-            LOG.d("Loading state movie details...")
-            try {
-                movieRepository.getDetails(movieId).collectLatest { movieDetails ->
-                    LOG.d("Emit success with movie details: ${movieDetails}")
-                    _selectedMovie.emit(movieDetails)
-                }
-            } catch (e: CineMatesExceptions) {
-                LOG.e("An error in movie details: $e")
-                _selectedMovie.emit(Result.Error(e))
+                LOG.d("Emit successful movie info")
+                _movieInfo.emit(Result.Success(movieInfo))
+            } else {
+                // Gestisci un errore in caso di fallimento nella ricezione dei dati
+                val error = _selectedMovie.filterIsInstance<Result.Error>()
+                    .firstOrNull() ?: _videos.filterIsInstance<Result.Error>()
+                    .firstOrNull() ?: _watchProviders.filterIsInstance<Result.Error>()
+                    .firstOrNull() ?: _releaseDates.filterIsInstance<Result.Error>()
+                    .firstOrNull() ?: _backdrops.filterIsInstance<Result.Error>()
+                    .firstOrNull()
+                LOG.d("Emit error in  movie info")
+                _movieInfo.emit(
+                    Result.Error(
+                        error?.exception ?: CineMatesExceptions.GenericException
+                    )
+                )
             }
+        } catch (e: Exception) {
+            LOG.e("Error populating movie info: $e")
+            _movieInfo.emit(Result.Error(CineMatesExceptions.GenericException))
         }
-
     }
+
 
     private suspend fun getCollectionDetails(collectionId: Int) {
         _collectionParts.emit(Result.Loading)
@@ -244,45 +238,42 @@ class MovieDetailsViewModel
 
     }
 
-    private suspend fun getVideos(movieId: Int) {
-        _videos.emit(Result.Loading)
-        try {
-            movieRepository.getVideos(movieId).collectLatest { videos ->
-
-                _videos.emit(videos)
-            }
+    private fun getVideos(movieId: Int): Flow<Result<List<Video>>> {
+        return try {
+            movieRepository.getVideos(movieId)
         } catch (e: CineMatesExceptions) {
-
-            _videos.emit(Result.Error(e))
+            throw e
         }
 
     }
 
-    private suspend fun getSimilar(movieId: Int) {
+    private fun getSimilar(movieId: Int) {
+        viewModelScope.launch {
+            _similarMovies.emit(Result.Loading)
+            try {
+                movieRepository.getSimilar(movieId).collectLatest { similar ->
 
-        _similarMovies.emit(Result.Loading)
-        try {
-            movieRepository.getSimilar(movieId).collectLatest { similar ->
+                    _similarMovies.emit(similar)
+                }
+            } catch (e: CineMatesExceptions) {
 
-                _similarMovies.emit(similar)
+                _similarMovies.emit(Result.Error(e))
             }
-        } catch (e: CineMatesExceptions) {
-
-            _similarMovies.emit(Result.Error(e))
         }
 
     }
 
-    private suspend fun getCast(movieId: Int) {
+    private fun getCast(movieId: Int) {
+        viewModelScope.launch {
+            _cast.emit(Result.Loading)
+            try {
+                movieRepository.getCast(movieId).collectLatest { cast ->
+                    _cast.emit(cast)
 
-        _cast.emit(Result.Loading)
-        try {
-            movieRepository.getCast(movieId).collectLatest { cast ->
-                _cast.emit(cast)
-
+                }
+            } catch (e: CineMatesExceptions) {
+                _cast.emit(Result.Error(e))
             }
-        } catch (e: CineMatesExceptions) {
-            _cast.emit(Result.Error(e))
         }
     }
 

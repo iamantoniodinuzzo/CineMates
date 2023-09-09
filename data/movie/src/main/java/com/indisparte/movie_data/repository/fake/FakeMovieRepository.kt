@@ -38,7 +38,8 @@ class FakeMovieRepository : MovieRepository {
     fun addMovie(movie: Movie) {
         movies.add(movie)
     }
-    fun addMovies(movies: List<Movie>){
+
+    fun addMovies(movies: List<Movie>) {
         this.movies.addAll(movies)
     }
 
@@ -103,8 +104,8 @@ class FakeMovieRepository : MovieRepository {
         // Clear data for other functions as well
     }
 
-    private fun <T> emitResult(data: T): Flow<Result<T>> {
-        return if (shouldEmitException) {
+    private fun <T> emitResult(data: T?): Flow<Result<T>> {
+        return if (shouldEmitException || data == null) {
             flow {
                 emit(Result.Error(cineMatesExceptions ?: CineMatesExceptions.GenericException))
             }
@@ -124,22 +125,22 @@ class FakeMovieRepository : MovieRepository {
     }
 
     override fun getDetails(movieId: Int): Flow<Result<MovieDetails>> {
-        val fakeData = movieDetailsMap[movieId]!!
+        val fakeData = movieDetailsMap[movieId]
         return emitResult(fakeData)
     }
 
     override fun getSimilar(movieId: Int): Flow<Result<List<Movie>>> {
         val fakeData = similarMoviesMap[movieId]
-        return emitResult(fakeData ?: emptyList())
+        return emitResult(fakeData)
     }
 
     override fun getCast(movieId: Int): Flow<Result<List<Cast>>> {
-        val fakeData = castMap[movieId]!!
+        val fakeData = castMap[movieId]
         return emitResult(fakeData)
     }
 
     override fun getCrew(movieId: Int): Flow<Result<List<Crew>>> {
-        val fakeData = crewMap[movieId]!!
+        val fakeData = crewMap[movieId]
         return emitResult(fakeData)
     }
 
@@ -153,21 +154,21 @@ class FakeMovieRepository : MovieRepository {
 
     override fun getVideos(movieId: Int): Flow<Result<List<Video>>> {
         val fakeData = videosMap[movieId]
-        return emitResult(fakeData ?: emptyList())
+        return emitResult(fakeData)
     }
 
     override fun getReleaseDates(movieId: Int): Flow<Result<List<ReleaseDatesByCountry>>> {
         val fakeData = releaseDatesMap[movieId]
-        return emitResult(fakeData ?: emptyList())
+        return emitResult(fakeData)
     }
 
     override fun getBackdrop(movieId: Int): Flow<Result<List<Backdrop>>> {
         val fakeData = backdropsMap[movieId]
-        return emitResult(fakeData ?: emptyList())
+        return emitResult(fakeData)
     }
 
     override fun getCollectionDetails(collectionId: Int): Flow<Result<CollectionDetails>> {
-        val fakeData = collectionDetailsMap[collectionId]!!
+        val fakeData = collectionDetailsMap[collectionId]
         return emitResult(fakeData)
     }
 

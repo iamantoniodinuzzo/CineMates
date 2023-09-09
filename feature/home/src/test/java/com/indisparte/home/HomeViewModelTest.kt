@@ -12,7 +12,7 @@ import com.indisparte.testing.util.MainDispatcherRule
 import com.indisparte.tv.TvShow
 import com.indisparte.tv.repository.fake.FakeTvRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -41,7 +41,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `fetchData should update sections correctly`() = runTest {
+    fun `fetchData should update sections correctly`() = runBlocking {
         val fakeMovies = listOf<Movie>(
             Movie(
                 adult = false,
@@ -103,7 +103,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `fetchData should handle repository error`() = runTest {
+    fun `fetchData should handle repository error`() = runBlocking {
         // Arrange
         movieRepository.setShouldEmitException(true)
         tvRepository.setShouldEmitException(true)

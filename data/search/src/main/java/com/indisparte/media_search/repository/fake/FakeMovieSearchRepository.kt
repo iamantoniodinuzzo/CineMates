@@ -21,12 +21,10 @@ class FakeMovieSearchRepository : MovieSearchRepository {
         return emitResult(fakeData)
     }
 
-    // Helper method to set fake data in the fake repository
     fun addSearchResults(title: String, results: List<Movie>) {
         movieSearchResults[title] = results
     }
 
-    // Helper method to clear all fake data
     fun clearData() {
         movieSearchResults.clear()
     }

@@ -52,6 +52,9 @@ dependencies {
     implementation(libs.legacy)
     implementation(libs.fragmentKtx)
     testImplementation(libs.junitTest)
+    testImplementation project(':core:testing')
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2")
+    testImplementation "com.google.truth:truth:1.1.4"
     androidTestImplementation(libs.junitAndroidTest)
     androidTestImplementation(libs.espresso)
 

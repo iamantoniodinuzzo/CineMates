@@ -42,7 +42,7 @@ dependencies {
 
     implementation libs.bundles.androidX
     testImplementation libs.junitTest
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2"
+
 
     //Retrofit
     implementation libs.bundles.retrofit

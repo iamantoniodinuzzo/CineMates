@@ -20,6 +20,7 @@ minSdk = "22"
 targetSdk = "34"
 room = "2.5.1"
 timber = "1.5.1"
+truth = "1.1.4"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -33,6 +34,8 @@ espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "esp
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+google-truth = { module = "com.google.truth:truth", version.ref = "truth" }
 retrofit2-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit2-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }

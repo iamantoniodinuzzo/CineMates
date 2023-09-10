@@ -39,7 +39,6 @@ dependencies {
 
     implementation project(":core:util")
     implementation project(":core:network")
-//    implementation project(":core:model:base")
     implementation project(":core:model:person")
     implementation project(":core:model:movie")
     implementation project(":core:model:tv")

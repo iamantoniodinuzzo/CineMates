@@ -4,7 +4,7 @@ import com.indisparte.media_search.repository.fake.FakeMovieSearchRepository
 import com.indisparte.movie_data.Movie
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
-import com.indisparte.testing.util.MainDispatcherRule
+import com.indisparte.testing.util.rule.MainDispatcherRule
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.flow.first

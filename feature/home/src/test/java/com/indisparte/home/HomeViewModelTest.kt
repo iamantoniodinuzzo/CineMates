@@ -8,7 +8,7 @@ import com.indisparte.movie_data.repository.fake.FakeMovieRepository
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
 import com.indisparte.person.Person
-import com.indisparte.testing.util.MainDispatcherRule
+import com.indisparte.testing.util.rule.MainDispatcherRule
 import com.indisparte.tv.TvShow
 import com.indisparte.tv.repository.fake.FakeTvRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi

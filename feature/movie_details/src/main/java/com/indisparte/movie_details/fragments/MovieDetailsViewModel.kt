@@ -8,30 +8,27 @@ import com.indisparte.common.Video
 import com.indisparte.movie_data.CollectionDetails
 import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.MovieDetails
-import com.indisparte.movie_data.ReleaseDate
+import com.indisparte.movie_data.ReleaseDatesByCountry
 import com.indisparte.movie_data.findReleaseDateByCountry
 import com.indisparte.movie_data.getLatestReleaseCertification
 import com.indisparte.movie_data.repository.MovieRepository
 import com.indisparte.movie_details.model.MovieInfoUiState
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
-import com.indisparte.network.succeeded
 import com.indisparte.network.whenResources
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.Locale
@@ -52,9 +49,6 @@ class MovieDetailsViewModel
     private val _selectedMovie = MutableSharedFlow<Result<MovieDetails>>()
     val selectedMovie: SharedFlow<Result<MovieDetails>> get() = _selectedMovie
 
-    /*Videos*/
-    private val _videos = MutableStateFlow<Result<List<Video>>>(Result.Success(emptyList()))
-
     /*Cast*/
     private val _cast = MutableStateFlow<Result<List<Cast>>>(Result.Success(emptyList()))
     val cast: StateFlow<Result<List<Cast>>> get() = _cast
@@ -62,22 +56,6 @@ class MovieDetailsViewModel
     /*Similar movies*/
     private val _similarMovies = MutableStateFlow<Result<List<Movie>>>(Result.Success(emptyList()))
     val similarMovies: StateFlow<Result<List<Movie>>> get() = _similarMovies
-
-    /*Watch providers*/
-    private val _watchProviders = MutableStateFlow<Result<CountryResult?>>(Result.Success(null))
-
-    /*Crew*/
-    private val _crew = MutableStateFlow<Result<List<Crew>>>(Result.Success(emptyList()))
-
-    /*Release Dates*/
-    private val _releaseDates =
-        MutableStateFlow<Result<List<ReleaseDate>>>(Result.Success(emptyList()))
-
-    /*Latest certification*/
-    private val _latestCertification = MutableStateFlow<String?>(null)
-
-    /*Backdrops*/
-    private val _backdrops = MutableStateFlow<Result<List<Backdrop>>>(Result.Success(emptyList()))
 
     /*Collection parts*/
     private val _collectionParts = MutableStateFlow<Result<CollectionDetails>?>(null)
@@ -102,11 +80,11 @@ class MovieDetailsViewModel
             LOG.d("Loading state movie details...")
             try {
                 movieRepository.getDetails(id).collectLatest { movieDetails ->
-                    LOG.d("Emit success with movie details: $movieDetails")
+                    LOG.d("Emit movie details result: $movieDetails")
                     _selectedMovie.emit(movieDetails)
                 }
             } catch (e: CineMatesExceptions) {
-                LOG.e("An error in movie details: $e")
+                LOG.e("An error in get movie details: $e")
                 _selectedMovie.emit(Result.Error(e))
             }
         }
@@ -118,26 +96,11 @@ class MovieDetailsViewModel
                 result.whenResources(
                     onSuccess = { movieDetails ->
                         LOG.d("Get details about ${movieDetails.title}..")
-                        val videosDeferred = async { getVideos(movieDetails.id)}
-                        val watchProvidersDeferred = async { getWatchProviders(movieDetails.id) }
-                        val crewDeferred = async { getCrew(movieDetails.id) }
-                        val releaseDatesDeferred = async { getReleaseDates(movieDetails.id) }
-                        val backdropsDeferred = async { getBackdrops(movieDetails.id) }
+                        loadMovieInfo(movieDetails)
                         movieDetails.belongsToCollection?.let { collection ->
                             LOG.d("${movieDetails.title} is part of a Collection, retrieve collection details..")
-                            val collectionDetailsDeferred =
-                                async { getCollectionDetails(collection.id) }
-                            collectionDetailsDeferred.await()
+                            getCollectionDetails(collection.id)
                         }
-
-                        awaitAll(
-                            videosDeferred,
-                            watchProvidersDeferred,
-                            crewDeferred,
-                            releaseDatesDeferred,
-                            backdropsDeferred
-                        )
-
                     },
                     onError = { error ->
                         LOG.e("Error in selected movie: $error")
@@ -152,15 +115,72 @@ class MovieDetailsViewModel
 
             }
         }
-        viewModelScope.launch {
-            populateMovieInfo()
+    }
 
+    private fun loadMovieInfo(
+        movieDetailsResult: MovieDetails,
+    ) {
+        viewModelScope.launch {
+            LOG.d("Try to load movie infos")
+            try {
+                val movieId = movieDetailsResult.id
+                val country = Locale.getDefault().country
+                combine(
+                    movieRepository.getDetails(movieId)
+                        .flowOn(Dispatchers.IO),
+                    movieRepository.getVideos(movieId)
+                        .flowOn(Dispatchers.IO),
+                    movieRepository.getWatchProviders(movieId, country)
+                        .flowOn(Dispatchers.IO),
+                    movieRepository.getCrew(movieId)
+                        .flowOn(Dispatchers.IO),
+                    movieRepository.getReleaseDates(movieId)
+                        .flowOn(Dispatchers.IO),
+                    movieRepository.getBackdrop(movieId)
+                        .flowOn(Dispatchers.IO),
+                ) { (details, videos, watchProviders, crew, releaseDates, backdrops) ->
+                    listOf(details, videos, watchProviders, crew, releaseDates, backdrops)
+                }.filter { result -> result.all { it is Result.Success } }
+                    .collectLatest { results ->
+                        LOG.d("All movie infos are a Result.Success")
+                        val movieDetails = (results[0] as Result.Success<MovieDetails>).data
+                        val videosResult = (results[1] as Result.Success<List<Video>>).data
+                        val watchProvidersResult =
+                            (results[2] as Result.Success<CountryResult>).data
+                        val crewResult = (results[3] as Result.Success<List<Crew>>).data
+                        val releaseDatesResult =
+                            (results[4] as Result.Success<List<ReleaseDatesByCountry>>).data
+                        val backdropsResult = (results[5] as Result.Success<List<Backdrop>>).data
+
+                        val releaseDates =
+                            releaseDatesResult.findReleaseDateByCountry(country) ?: emptyList()
+                        val latestCertification = releaseDates.getLatestReleaseCertification()
+
+                        val movieInfoUiState = MovieInfoUiState(
+                            movieDetails,
+                            videosResult,
+                            watchProvidersResult,
+                            releaseDates,
+                            latestCertification,
+                            backdropsResult,
+                            crewResult
+                        )
+                        LOG.d("Emit Movie Info UI State")
+                        _movieInfo.emit(Result.Success(movieInfoUiState))
+                    }
+
+            } catch (e: Exception) {
+                LOG.e("Error in loadMovieInfo: ${e.localizedMessage}")
+                _movieInfo.emit(
+                    Result.Error(CineMatesExceptions.GenericException)
+                )
+            }
         }
 
     }
 
 
-    private suspend fun populateMovieInfo() = coroutineScope {
+   /* private suspend fun populateMovieInfo() = coroutineScope {
         try {
             val movieDetailsResult =
                 _selectedMovie.filterIsInstance<Result.Success<MovieDetails>>().firstOrNull()
@@ -208,41 +228,22 @@ class MovieDetailsViewModel
             LOG.e("Error populating movie info: $e")
             _movieInfo.emit(Result.Error(CineMatesExceptions.GenericException))
         }
-    }
+    }*/
 
 
-    private suspend fun getCollectionDetails(collectionId: Int) {
-        _collectionParts.emit(Result.Loading)
-        try {
-            movieRepository.getCollectionDetails(collectionId)
-                .collectLatest { collectionDetails ->
+    private fun getCollectionDetails(collectionId: Int) {
+        viewModelScope.launch {
+            _collectionParts.emit(Result.Loading)
+            try {
+                movieRepository.getCollectionDetails(collectionId)
+                    .collectLatest { collectionDetails ->
 
-                    _collectionParts.emit(collectionDetails)
-                }
-        } catch (e: CineMatesExceptions) {
+                        _collectionParts.emit(collectionDetails)
+                    }
+            } catch (e: CineMatesExceptions) {
 
-            _collectionParts.emit(Result.Error(e))
-        }
-
-    }
-
-    private suspend fun getBackdrops(id: Int) {
-        _backdrops.emit(Result.Loading)
-        try {
-            movieRepository.getBackdrop(id).collectLatest { backdrops ->
-                _backdrops.emit(backdrops)
+                _collectionParts.emit(Result.Error(e))
             }
-        } catch (e: CineMatesExceptions) {
-            _backdrops.emit(Result.Error(e))
-        }
-
-    }
-
-    private fun getVideos(movieId: Int): Flow<Result<List<Video>>> {
-        return try {
-            movieRepository.getVideos(movieId)
-        } catch (e: CineMatesExceptions) {
-            throw e
         }
 
     }
@@ -278,66 +279,6 @@ class MovieDetailsViewModel
     }
 
 
-    private suspend fun getWatchProviders(movieId: Int) {
-
-        _watchProviders.emit(Result.Loading)
-        try {
-            movieRepository.getWatchProviders(movieId, Locale.getDefault().country)
-                .collectLatest { countryResult ->
-                    _watchProviders.emit(countryResult)
-                }
-        } catch (e: CineMatesExceptions) {
-            _watchProviders.emit(Result.Error(e))
-        }
-    }
-
-
-    private suspend fun getCrew(movieId: Int) {
-
-        _crew.emit(Result.Loading)
-        try {
-            movieRepository.getCrew(movieId).collectLatest { crew ->
-                _crew.emit(crew)
-            }
-        } catch (e: CineMatesExceptions) {
-            _crew.emit(Result.Error(e))
-        }
-
-
-    }
-
-    private suspend fun getReleaseDates(movieId: Int) {
-
-        _releaseDates.emit(Result.Loading)
-        try {
-            movieRepository.getReleaseDates(movieId).collectLatest {
-                if (it is Result.Error) {
-                    val error = it.exception
-                    _releaseDates.emit(Result.Error(error))
-                } else if (it.succeeded) {
-                    val successResult = it as Result.Success
-                    val currentCountry = Locale.getDefault().country
-                    val releaseDatesInCurrentCountry =
-                        successResult.data.findReleaseDateByCountry(currentCountry)
-
-                    //Get and set latest certification
-                    val latestCertification =
-                        releaseDatesInCurrentCountry?.getLatestReleaseCertification()
-                    _latestCertification.value = latestCertification
-                    //Emit latest release dates in the current country
-                    LOG.d("Release dates in $currentCountry : $releaseDatesInCurrentCountry")
-                    _releaseDates.emit(
-                        Result.Success(
-                            releaseDatesInCurrentCountry ?: emptyList()
-                        )
-                    )
-
-                }
-
-            }
-        } catch (e: CineMatesExceptions) {
-            _releaseDates.emit(Result.Error(e))
-        }
-    }
-
 }
+
+private operator fun <T> Array<T>.component6(): T = get(5)

@@ -7,6 +7,7 @@ import com.indisparte.filter.TimeWindow
 import com.indisparte.movie_data.CollectionDetails
 import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.MovieDetails
+import com.indisparte.movie_data.ReleaseDate
 import com.indisparte.movie_data.ReleaseDatesByCountry
 import com.indisparte.movie_data.repository.MovieRepository
 import com.indisparte.movie_data.util.MovieListType
@@ -28,7 +29,8 @@ class FakeMovieRepository : MovieRepository {
     private val crewMap = mutableMapOf<Int, List<Crew>>()
     private val watchProvidersMap = mutableMapOf<Int, CountryResult?>()
     private val videosMap = mutableMapOf<Int, List<Video>>()
-    private val releaseDatesMap = mutableMapOf<Int, List<ReleaseDatesByCountry>>()
+    private val releaseDatesByCountryMap = mutableMapOf<Int, List<ReleaseDatesByCountry>>()
+    private val releaseDatesMap = mutableMapOf<Int, List<ReleaseDate>>()
     private val backdropsMap = mutableMapOf<Int, List<Backdrop>>()
     private val collectionDetailsMap = mutableMapOf<Int, CollectionDetails?>()
     private var cineMatesExceptions: CineMatesExceptions? = null
@@ -59,9 +61,14 @@ class FakeMovieRepository : MovieRepository {
         videosMap[movieId] = videos
     }
 
-    fun addReleaseDates(movieId: Int, releaseDates: List<ReleaseDatesByCountry>) {
+    fun addReleaseDatesByCountry(movieId: Int, releaseDatesByCountries: List<ReleaseDatesByCountry>) {
+        releaseDatesByCountryMap[movieId] = releaseDatesByCountries
+    }
+
+    fun addReleaseDates(movieId: Int, releaseDates: List<ReleaseDate>){
         releaseDatesMap[movieId] = releaseDates
     }
+
 
     fun addBackdrops(movieId: Int, backdrops: List<Backdrop>) {
         backdropsMap[movieId] = backdrops
@@ -100,7 +107,7 @@ class FakeMovieRepository : MovieRepository {
         similarMoviesMap.clear()
         videosMap.clear()
         castMap.clear()
-        releaseDatesMap.clear()
+        releaseDatesByCountryMap.clear()
         // Clear data for other functions as well
     }
 
@@ -158,7 +165,7 @@ class FakeMovieRepository : MovieRepository {
     }
 
     override fun getReleaseDates(movieId: Int): Flow<Result<List<ReleaseDatesByCountry>>> {
-        val fakeData = releaseDatesMap[movieId]
+        val fakeData = releaseDatesByCountryMap[movieId]
         return emitResult(fakeData)
     }
 

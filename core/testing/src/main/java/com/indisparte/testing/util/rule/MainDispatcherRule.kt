@@ -1,4 +1,4 @@
-package com.indisparte.testing.util
+package com.indisparte.testing.util.rule
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

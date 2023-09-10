@@ -10,39 +10,79 @@ import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.MovieDetails
 import com.indisparte.movie_data.ReleaseDate
 import com.indisparte.movie_data.ReleaseDatesByCountry
+import com.indisparte.movie_data.findReleaseDateByCountry
 import com.indisparte.movie_data.repository.fake.FakeMovieRepository
+import com.indisparte.movie_details.model.MovieInfoUiState
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
-import com.indisparte.testing.util.MainDispatcherRule
+import com.indisparte.testing.util.rule.MainDispatcherRule
+import com.indisparte.testing.util.rule.TimberRule
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
 import junit.framework.TestCase.assertNull
 import junit.framework.TestCase.assertTrue
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
+import org.junit.ClassRule
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
+import timber.log.Timber
+import java.util.Locale
 
 /**
  * @author Antonio Di Nuzzo
  */
+@OptIn(ExperimentalCoroutinesApi::class)
 class MovieDetailsViewModelTest {
+
     @get:Rule
     val rule: TestRule = MainDispatcherRule()
 
+
+    companion object {
+        @get:ClassRule
+        @JvmStatic
+        var timberRule = TimberRule()
+    }
+
     private lateinit var viewModel: MovieDetailsViewModel
     private lateinit var fakeMovieRepository: FakeMovieRepository
-
     private val goodMovieId = 4567
     private val goodMovieId2 = 6904
     private val badMovieId = 1
     private val collectionId = 8636
+    private val country = Locale.getDefault().country
+    private val latestCertification = "libris"
 
+    private val fakeReleaseDatesByCountry = listOf(
+        ReleaseDatesByCountry(
+            country = country,
+            releaseDates = listOf(
+                ReleaseDate(
+                    certification = latestCertification,
+                    releaseDate = "detraxit",
+                    type = 3384
+                )
+            )
+        ),
+        ReleaseDatesByCountry(
+            country = "Brunei", releaseDates = listOf(
+                ReleaseDate(
+                    certification = "neque", releaseDate = "sem", type = 9138
+                )
+            )
+        )
+    )
+    private val releaseDates =
+        fakeReleaseDatesByCountry.findReleaseDateByCountry(country) ?: emptyList()
 
     private val fakeMovieDetailsWithCollection = MovieDetails(
         adult = false,
@@ -194,18 +234,7 @@ class MovieDetailsViewModelTest {
             )
         )
     )
-    private val fakeReleaseDates = listOf(
-        ReleaseDatesByCountry(
-            country = "Albania",
-            releaseDates = listOf(
-                ReleaseDate(
-                    certification = "libris",
-                    releaseDate = "detraxit",
-                    type = 3384
-                )
-            )
-        )
-    )
+
     private val fakeBackdrops =
         listOf(Backdrop(filePath = "similique", height = 7930, width = 8620))
     private val fakeCrew = listOf(
@@ -249,114 +278,212 @@ class MovieDetailsViewModelTest {
         posterPath = null
     )
 
+
     @Before
     fun setUp() {
         fakeMovieRepository = FakeMovieRepository()
-        viewModel = MovieDetailsViewModel(fakeMovieRepository)
+        viewModel = MovieDetailsViewModel(fakeMovieRepository)/*
+        testDispatcher = TestCoroutineDispatcher()
+        testCoroutineScope = TestCoroutineScope(testDispatcher)*/
     }
 
     @Test
-    fun `test successful movie details retrieval`() = runBlocking {
-        // Given
-        fakeMovieRepository.addMovieDetails(goodMovieId, fakeMovieDetailsWithCollection)
-        fakeMovieRepository.addVideos(goodMovieId, fakeVideos)
-        fakeMovieRepository.addWatchProviders(goodMovieId, fakeWatchProvider)
-        fakeMovieRepository.addReleaseDates(goodMovieId, fakeReleaseDates)
-        fakeMovieRepository.addBackdrops(goodMovieId, fakeBackdrops)
-        fakeMovieRepository.addCrew(goodMovieId, fakeCrew)
-        fakeMovieRepository.addCast(goodMovieId, fakeCast)
+    fun `Given valid movie info, when fetching movie info, then result is success`() =
+        runBlockingTest {
+            // GIVEN
+            val movieInfo = MovieInfoUiState(
+                fakeMovieDetailsWithCollection,
+                fakeVideos,
+                fakeWatchProvider,
+                releaseDates,
+                latestCertification,
+                fakeBackdrops,
+                fakeCrew
+            )
 
-        // When
-        viewModel.onDetailsFragmentReady(goodMovieId)
 
-        // Then
-        val movieInfo = viewModel.movieInfo.first()
-        assertNotNull(movieInfo)
-        assertTrue(movieInfo is Result.Success)
+            fakeMovieRepository.addMovieDetails(goodMovieId, fakeMovieDetailsWithCollection)
+            fakeMovieRepository.addVideos(goodMovieId, fakeVideos)
+            fakeMovieRepository.addWatchProviders(goodMovieId, fakeWatchProvider)
+            fakeMovieRepository.addReleaseDatesByCountry(goodMovieId, fakeReleaseDatesByCountry)
+            fakeMovieRepository.addBackdrops(goodMovieId, fakeBackdrops)
+            fakeMovieRepository.addCrew(goodMovieId, fakeCrew)
 
-        val successResult = movieInfo as Result.Success
-        assertEquals(fakeMovieDetailsWithCollection, successResult.data.movieDetails)
-        // Add more assertions for other data if needed
-    }
+            // WHEN
+            viewModel.onDetailsFragmentReady(goodMovieId)
+
+            // THEN
+            val movieInfoResult =
+                viewModel.movieInfo.filterIsInstance<Result.Success<MovieInfoUiState>>().first()
+
+            // Assicurati che tutte le operazioni asincrone siano completate prima di proseguire
+            advanceUntilIdle()
+
+            assertEquals(movieInfo, movieInfoResult.data)
+        }
+
+    /*Fleaky test, sometimes give errors*/
+    @Test
+    fun `Given a new selected movie, when updating selected movie, then movie info data changes`() =
+        runBlockingTest {
+            // GIVEN
+            val initialMovieInfo = MovieInfoUiState(
+                fakeMovieDetailsWithCollection,
+                fakeVideos,
+                fakeWatchProvider,
+                releaseDates,
+                latestCertification,
+                fakeBackdrops,
+                fakeCrew
+            )
+
+            //Initial movie details
+            fakeMovieRepository.addMovieDetails(goodMovieId, fakeMovieDetailsWithCollection)
+            fakeMovieRepository.addVideos(goodMovieId, fakeVideos)
+            fakeMovieRepository.addWatchProviders(goodMovieId, fakeWatchProvider)
+            fakeMovieRepository.addReleaseDatesByCountry(goodMovieId, fakeReleaseDatesByCountry)
+            fakeMovieRepository.addBackdrops(goodMovieId, fakeBackdrops)
+            fakeMovieRepository.addCrew(goodMovieId, fakeCrew)
+
+
+            // WHEN
+            viewModel.onDetailsFragmentReady(goodMovieId)
+
+            // THEN
+            val movieInfoResult =
+                viewModel.movieInfo.filterIsInstance<Result.Success<MovieInfoUiState>>().first()
+
+            // Assicurati che tutte le operazioni asincrone siano completate prima di proseguire
+            advanceUntilIdle()
+
+            assertEquals(initialMovieInfo, movieInfoResult.data)
+
+            //GIVEN
+            val newMovieInfo = MovieInfoUiState(
+                fakeSecondMovieDetailsWithCollection,
+                fakeVideos,
+                fakeWatchProvider,
+                releaseDates,
+                latestCertification,
+                fakeBackdrops,
+                fakeCrew
+            )
+
+            //new movie details
+            fakeMovieRepository.addMovieDetails(goodMovieId2, fakeSecondMovieDetailsWithCollection)
+            fakeMovieRepository.addVideos(goodMovieId2, fakeVideos)
+            fakeMovieRepository.addWatchProviders(goodMovieId2, fakeWatchProvider)
+            fakeMovieRepository.addReleaseDatesByCountry(goodMovieId2, fakeReleaseDatesByCountry)
+            fakeMovieRepository.addBackdrops(goodMovieId2, fakeBackdrops)
+            fakeMovieRepository.addCrew(goodMovieId2, fakeCrew)
+
+            // WHEN
+            viewModel.onDetailsFragmentReady(goodMovieId2)
+
+            // THEN
+            val newMovieInfoResult =
+                viewModel.movieInfo.filterIsInstance<Result.Success<MovieInfoUiState>>().first()
+
+            // Assicurati che tutte le operazioni asincrone siano completate prima di proseguire
+            advanceUntilIdle()
+
+            assertEquals(newMovieInfo, newMovieInfoResult.data)
+
+
+        }
+
 
     @Test
-    fun `test error in movie details retrieval`() = runBlocking {
-        // Given
-        fakeMovieRepository.setShouldEmitException(true)
+    fun `Given an error in any data fetch, when fetching movie info, then result is error`() =
+        runBlockingTest {
+// GIVEN
+            val exception = CineMatesExceptions.GenericException
+            fakeMovieRepository.setShouldEmitException(true)
+            fakeMovieRepository.setExceptionToEmit(exception)
+
+// WHEN
+            viewModel.onDetailsFragmentReady(goodMovieId)
+
+// THEN
+            val movieInfoResult = viewModel.movieInfo.value
+            assertTrue(movieInfoResult is Result.Error)
+            assertEquals(exception, (movieInfoResult as Result.Error).exception)
+        }
+
+    @Test
+    fun `Given valid collection details, when fetching collection details, then result is success`() =
+        runBlockingTest {
+// GIVEN
+            fakeMovieRepository.addMovieDetails(goodMovieId, fakeMovieDetailsWithCollection)
+            fakeMovieRepository.addCollectionDetails(collectionId, fakeCollectionDetails)
+
+// WHEN
+            viewModel.onDetailsFragmentReady(goodMovieId)
+
+// THEN
+            val collectionDetailsResult = viewModel.collectionParts.value
+            Timber.tag("Valid collection details").d("Collection result : $collectionDetailsResult")
+            assertTrue(collectionDetailsResult is Result.Success)
+            assertEquals(fakeCollectionDetails, (collectionDetailsResult as Result.Success).data)
+        }
+
+    @Test
+    fun `Given a movie without, when fetching collection details, then result is success`() =
+        runBlockingTest {
+// GIVEN
+            fakeMovieRepository.addMovieDetails(goodMovieId2, fakeMovieDetailsWithoutCollection)
+
+// WHEN
+            viewModel.onDetailsFragmentReady(goodMovieId2)
+
+// THEN
+            val collectionDetailsResult = viewModel.collectionParts.value
+            assertNull(collectionDetailsResult)
+        }
+
+
+    @Test
+    fun `Given valid similar movies, when fetching similar movies, then result is success`() =
+        runBlockingTest {
+// GIVEN
+            fakeMovieRepository.addSimilarMovies(goodMovieId, fakeSimilarMovies)
+
+// WHEN
+            viewModel.onDetailsFragmentReady(goodMovieId)
+
+// THEN
+            val similarMoviesResult = viewModel.similarMovies.value
+            assertTrue(similarMoviesResult is Result.Success)
+
+            val successResult = similarMoviesResult as Result.Success
+            assertEquals(fakeSimilarMovies, successResult.data)
+        }
+
+    @Test
+    fun `Given an error, when fetching similar movies, then result is error`() = runBlockingTest {
+// GIVEN
         val exception = CineMatesExceptions.GenericException
+        fakeMovieRepository.setShouldEmitException(true)
         fakeMovieRepository.setExceptionToEmit(exception)
 
-        // When
+// WHEN
         viewModel.onDetailsFragmentReady(goodMovieId)
 
-        // Then
-        val movieInfo = viewModel.movieInfo.first()
-        assertNotNull(movieInfo)
-        assertTrue(movieInfo is Result.Error)
-
-        val errorResult = movieInfo as Result.Error
-        assertEquals(errorResult.exception, exception)
+// THEN
+        val similarMoviesResult = viewModel.similarMovies.value
+        assertTrue(similarMoviesResult is Result.Error)
+        assertEquals(exception, (similarMoviesResult as Result.Error).exception)
     }
 
     @Test
-    fun testGetCollectionPartsSuccess() = runBlocking {
-        //Given
-        fakeMovieRepository.addMovieDetails(goodMovieId, fakeMovieDetailsWithCollection)
-        fakeMovieRepository.addCollectionDetails(collectionId, fakeCollectionDetails)
-
-        // When
-        viewModel.onDetailsFragmentReady(goodMovieId)
-
-        // Then
-        val collectionParts = viewModel.collectionParts.first()
-        assertNotNull(collectionParts)
-        assertTrue(collectionParts is Result.Success)
-
-        val successResult = collectionParts as Result.Success
-        assertEquals(successResult, collectionParts)
-
-    }
-
-    @Test
-    fun getCollection_movieWithNoCollection_success() = runBlocking{
-        //GIVEN
-        fakeMovieRepository.addMovieDetails(goodMovieId, fakeMovieDetailsWithoutCollection)
-
-        //WHEN
-        viewModel.onDetailsFragmentReady(goodMovieId)
-
-        //THEN
-        val collectionParts = viewModel.collectionParts.first()
-        assertNull(collectionParts)
-
-    }
-
-    @Test
-    fun testGetSimilarMoviesSuccess() = runBlocking {
-        // Given
-        fakeMovieRepository.addSimilarMovies(goodMovieId, fakeSimilarMovies)
-
-        // When
-        viewModel.onDetailsFragmentReady(goodMovieId)
-
-        // Then
-        val similarMovies = viewModel.similarMovies.first()
-        assertNotNull(similarMovies)
-        assertTrue(similarMovies is Result.Success)
-
-        val successResult = similarMovies as Result.Success
-        assertEquals(successResult, similarMovies)
-    }
-
-    @Test
-    fun testGetCastSuccess() = runBlocking {
-        // Given
+    fun `Given valid cast, when fetching cast, then result is success`() = runBlockingTest {
+// Given
         fakeMovieRepository.addCast(goodMovieId, fakeCast)
 
-        // When
+// When
         viewModel.onDetailsFragmentReady(goodMovieId)
 
-        // Then
+// Then
         val cast = viewModel.cast.first()
         assertNotNull(cast)
         assertTrue(cast is Result.Success)
@@ -366,46 +493,19 @@ class MovieDetailsViewModelTest {
     }
 
     @Test
-    fun `test update selected movie and load movie info`() = runBlocking {
-        // Given
-        fakeMovieRepository.addMovieDetails(goodMovieId, fakeMovieDetailsWithCollection)
-        fakeMovieRepository.addVideos(goodMovieId, fakeVideos)
-        fakeMovieRepository.addWatchProviders(goodMovieId, fakeWatchProvider)
-        fakeMovieRepository.addReleaseDates(goodMovieId, fakeReleaseDates)
-        fakeMovieRepository.addBackdrops(goodMovieId, fakeBackdrops)
-        fakeMovieRepository.addCrew(goodMovieId, fakeCrew)
-        fakeMovieRepository.addCast(goodMovieId, fakeCast)
+    fun `Given an error, when fetching cast, then result is error`() = runBlockingTest {
+// GIVEN
+        val exception = CineMatesExceptions.GenericException
+        fakeMovieRepository.setShouldEmitException(true)
+        fakeMovieRepository.setExceptionToEmit(exception)
 
-        // When
+// WHEN
         viewModel.onDetailsFragmentReady(goodMovieId)
 
-        // Then
-        val initialSelectedMovie = viewModel.selectedMovie.first()
-        assertNotNull(initialSelectedMovie)
-        assertTrue(initialSelectedMovie is Result.Success)
-        assertEquals(goodMovieId, (initialSelectedMovie as Result.Success).data.id)
-
-        // When
-        fakeMovieRepository.addMovieDetails(goodMovieId2, fakeSecondMovieDetailsWithCollection)
-        fakeMovieRepository.addVideos(goodMovieId2, fakeVideos)
-        fakeMovieRepository.addWatchProviders(goodMovieId2, fakeWatchProvider)
-        fakeMovieRepository.addReleaseDates(goodMovieId2, fakeReleaseDates)
-        fakeMovieRepository.addBackdrops(goodMovieId2, fakeBackdrops)
-        fakeMovieRepository.addCrew(goodMovieId2, fakeCrew)
-        fakeMovieRepository.addCast(goodMovieId2, fakeCast)
-
-        viewModel.onDetailsFragmentReady(goodMovieId2)
-
-        // Then
-        val updatedSelectedMovie = viewModel.selectedMovie.first()
-        assertNotNull(updatedSelectedMovie)
-        assertTrue(updatedSelectedMovie is Result.Success)
-        assertEquals(goodMovieId2, (updatedSelectedMovie as Result.Success).data.id)
-
-        // Verifica che tutti i dati di movieInfo siano caricati
-        val movieInfo = viewModel.movieInfo.first()
-        assertNotNull(movieInfo)
-        assertTrue(movieInfo is Result.Success)
+// THEN
+        val castResult = viewModel.cast.first()
+        assertTrue(castResult is Result.Error)
+        assertEquals(exception, (castResult as Result.Error).exception)
     }
 
 

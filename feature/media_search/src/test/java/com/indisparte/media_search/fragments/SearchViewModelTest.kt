@@ -7,8 +7,8 @@ import com.indisparte.network.error.CineMatesExceptions
 import com.indisparte.testing.util.rule.MainDispatcherRule
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -17,6 +17,7 @@ import org.junit.Test
 /**
  * @author Antonio Di Nuzzo
  */
+@OptIn(ExperimentalCoroutinesApi::class)
 class SearchViewModelTest {
 
     @get:Rule
@@ -31,72 +32,85 @@ class SearchViewModelTest {
         viewModel = SearchViewModel(fakeMovieSearchRepository)
     }
 
-    @Test
-    fun searchMovies_withResults_success() = runBlocking {
-        // Given
-        val query = "Harry Potter"
-        val fakeResults = listOf(
-            Movie(
-                adult = false,
-                id = 4854,
-                popularity = 8.9,
-                posterPath = null,
-                releaseDate = null,
-                title = "deseruisse",
-                voteAverage = 10.11
-            ),
-            Movie(
-                adult = false,
-                id = 1640,
-                popularity = 12.13,
-                posterPath = null,
-                releaseDate = null,
-                title = "posse",
-                voteAverage = 14.15
-            )
-        )
-        fakeMovieSearchRepository.addSearchResults(query, fakeResults)
 
-        // When
+
+    @Test
+    fun `Given non-empty query, when searching movies successfully, then moviesBySearch contains success data`() = runBlockingTest {
+        // GIVEN
+        val query = "MovieTitle"
+        val fakeMovies = listOf(Movie(
+            adult = false,
+            id = 1616,
+            popularity = 0.1,
+            posterPath = null,
+            releaseDate = null,
+            title = "movet",
+            voteAverage = 2.3
+        ),
+        Movie(
+            adult = false,
+            id = 5092,
+            popularity = 4.5,
+            posterPath = null,
+            releaseDate = null,
+            title = "integer",
+            voteAverage = 6.7
+        ))
+        fakeMovieSearchRepository.addSearchResults(query, fakeMovies)
+
+        // WHEN
         viewModel.updateQuery(query)
 
-        // Then
-        val moviesResult = viewModel.moviesBySearch.first()
-        assertTrue(moviesResult is Result.Success)
-        assertEquals(fakeResults, (moviesResult as Result.Success).data)
+        // THEN
+        val moviesBySearch = viewModel.moviesBySearch.value
+        assertTrue(moviesBySearch is Result.Success)
+        assertEquals(fakeMovies, (moviesBySearch as Result.Success).data)
     }
 
     @Test
-    fun searchMovies_noResults_success() = runBlocking {
-        // Given
-        val query = "Nonexistent Movie"
-        val fakeResults = emptyList<Movie>()
-        fakeMovieSearchRepository.addSearchResults(query, fakeResults)
+    fun `Given empty query, when updating query, then moviesBySearch contains empty success data`() = runBlockingTest {
+        // GIVEN
+        val query = ""
 
-        // When
+        // WHEN
         viewModel.updateQuery(query)
 
-        // Then
-        val moviesResult = viewModel.moviesBySearch.first()
-        assertTrue(moviesResult is Result.Success)
-        assertEquals(fakeResults, (moviesResult as Result.Success).data)
+        // THEN
+        val moviesBySearch = viewModel.moviesBySearch.value
+        assertTrue(moviesBySearch is Result.Success)
+        assertEquals(emptyList<Movie>(), (moviesBySearch as Result.Success).data)
     }
 
     @Test
-    fun searchMovies_withError_error() = runBlocking {
-        // Given
-        val query = "Error Movie"
-        val error = CineMatesExceptions.NoNetworkException
+    fun `Given non-empty query, when searching movies with error, then moviesBySearch contains error result`() = runBlockingTest {
+        // GIVEN
+        val query = "MovieTitle"
         fakeMovieSearchRepository.setShouldEmitException(true)
-        fakeMovieSearchRepository.setExceptionToEmit(error)
 
-        // When
+        // WHEN
         viewModel.updateQuery(query)
 
-        // Then
-        val moviesResult = viewModel.moviesBySearch.first()
-        assertTrue(moviesResult is Result.Error)
-        assertEquals(error, (moviesResult as Result.Error).exception)
+        // THEN
+        val moviesBySearch = viewModel.moviesBySearch.value
+        assertTrue(moviesBySearch is Result.Error)
+    }
+
+    @Test
+    fun `Given non-empty query, when searching movies with exception, then moviesBySearch contains error result`() = runBlockingTest {
+        // GIVEN
+        val query = "MovieTitle"
+        val exception = CineMatesExceptions.GenericException
+        fakeMovieSearchRepository.setExceptionToEmit(exception)
+
+        // WHEN
+        viewModel.updateQuery(query)
+
+        // THEN
+        val moviesBySearch = viewModel.moviesBySearch.value
+
+
+        assertTrue(moviesBySearch is Result.Error)
+        assertEquals(exception, (moviesBySearch as Result.Error).exception)
     }
 
 

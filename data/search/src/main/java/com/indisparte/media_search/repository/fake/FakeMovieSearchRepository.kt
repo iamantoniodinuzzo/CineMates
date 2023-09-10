@@ -17,7 +17,7 @@ class FakeMovieSearchRepository : MovieSearchRepository {
 
     override fun searchMovieByTitle(title: String): Flow<Result<List<Movie>>> {
         // Implement the behavior to return fake data for searchMovieByTitle
-        val fakeData = movieSearchResults[title] ?: emptyList()
+        val fakeData = movieSearchResults[title]
         return emitResult(fakeData)
     }
 
@@ -36,8 +36,8 @@ class FakeMovieSearchRepository : MovieSearchRepository {
     fun setExceptionToEmit(cineMatesExceptions: CineMatesExceptions) {
         this.cineMatesExceptions = cineMatesExceptions
     }
-    private fun <T> emitResult(data: T): Flow<Result<T>> {
-        return if (shouldEmitException) {
+    private fun <T> emitResult(data: T?): Flow<Result<T>> {
+        return if (shouldEmitException || data == null) {
             flow {
                 emit(Result.Error(cineMatesExceptions ?: CineMatesExceptions.GenericException))
             }

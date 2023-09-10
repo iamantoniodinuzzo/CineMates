@@ -33,7 +33,7 @@ android {
 dependencies {
 
     implementation(libs.junitTest)
-    testImplementation(libs.coroutines.test)
+    implementation(libs.coroutines.test)
 
     // Kotlin Extensions
     implementation(libs.core.ktx)

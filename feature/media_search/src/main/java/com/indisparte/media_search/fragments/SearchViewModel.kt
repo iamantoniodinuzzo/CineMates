@@ -2,7 +2,6 @@ package com.indisparte.media_search.fragments
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.ajalt.timberkt.Timber
 import com.indisparte.media_search.repository.MovieSearchRepository
 import com.indisparte.movie_data.Movie
 import com.indisparte.network.Result
@@ -36,13 +35,12 @@ constructor(
     }
 
     fun updateQuery(query: String) {
-        Timber.tag("SearchViewModel").d("Query is: $query")
         _query.value = query
     }
 
     private fun observeQueryChanges() {
         viewModelScope.launch {
-            query.collectLatest {
+            _query.collectLatest {
                 if (it.isNotEmpty()) {
                     //search media
                     searchMovies(it)

@@ -29,7 +29,7 @@ class MovieSimilarFragment :
             viewModel.onDetailsFragmentReady(item.id)
         }
         viewModel.similarMovies.collectIn(viewLifecycleOwner) { resources ->
-            resources?.whenResources(
+            resources.whenResources(
                 onSuccess = { similar ->
                     hideLoading()
                     adapter.submitList(similar)

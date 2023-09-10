@@ -1,4 +1,4 @@
-package com.indisparte.home
+package com.indisparte.testing
 
 import org.junit.Test
 

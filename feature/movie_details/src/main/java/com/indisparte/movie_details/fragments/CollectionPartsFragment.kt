@@ -9,7 +9,6 @@ import com.github.ajalt.timberkt.Timber
 import com.indisparte.movie_details.databinding.FragmentCollectionPartsBinding
 import com.indisparte.network.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
-import com.indisparte.ui.custom_view.showError
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
 import com.indisparte.util.extension.enableInnerScrollViewPager
@@ -47,7 +46,7 @@ class CollectionPartsFragment : BaseFragment<FragmentCollectionPartsBinding>() {
                     adapter.submitList(collectionDetails.parts)
                 },
                 onError = { error ->
-                    binding.collectionParts.showError(error)
+//                    binding.collectionParts.showError(error)
                 },
                 onLoading = {
                     binding.collectionParts.showLoading()

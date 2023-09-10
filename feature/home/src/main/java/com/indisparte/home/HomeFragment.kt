@@ -15,7 +15,7 @@ import com.indisparte.util.extension.collectIn
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- *@author Antonio Di Nuzzo (Indisparte)
+ *@author Antonio Di Nuzzo
  */
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -57,7 +57,7 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     viewModel.sections.collectIn(viewLifecycleOwner) {
-        sectionAdapter.submitSectionList(it)
+        sectionAdapter.submitSectionList(it.toList())
     }
 
 }

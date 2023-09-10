@@ -52,6 +52,9 @@ dependencies {
     implementation(libs.legacy)
     implementation(libs.fragmentKtx)
     testImplementation(libs.junitTest)
+    testImplementation project(':core:testing')
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.google.truth)
     androidTestImplementation(libs.junitAndroidTest)
     androidTestImplementation(libs.espresso)
 

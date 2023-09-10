@@ -51,12 +51,19 @@ dependencies {
     implementation project(':data:tv')
     implementation project(':data:people')
 
+    testImplementation(libs.junitTest)
+    testImplementation project(':core:testing')
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.google.truth)
+    testImplementation project(':data:movie')
+    testImplementation project(':data:tv')
+    testImplementation project(':data:people')
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintLayout)
     implementation(libs.legacy)
     implementation(libs.fragmentKtx)
-    testImplementation(libs.junitTest)
     androidTestImplementation(libs.junitAndroidTest)
     androidTestImplementation(libs.espresso)
 

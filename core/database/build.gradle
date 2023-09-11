@@ -33,13 +33,21 @@ android {
 
 dependencies {
 
+    implementation project(":core:model:common")
+
+    implementation libs.bundles.androidX
     implementation(libs.bundles.coroutines)
-    testImplementation(libs.junitTest)
     androidTestImplementation(libs.junitAndroidTest)
-    androidTestImplementation(libs.espresso)
 
     //Room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
+
+    // Dagger Hilt
+    implementation libs.dagger.core
+    kapt libs.dagger.compiler
+
+    //Timber
+    implementation(libs.timber)
 }

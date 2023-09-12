@@ -5,7 +5,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.indisparte.database.entity.GenreEntity
+import com.indisparte.database.model.GenreEntity
+import kotlinx.coroutines.flow.Flow
 
 /**
  *@author Antonio Di Nuzzo
@@ -14,12 +15,11 @@ import com.indisparte.database.entity.GenreEntity
 interface GenreDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertGenreList(genreList: List<GenreEntity>)
+    fun insertGenreList(genres: List<GenreEntity>)
 
-    @Query("SELECT * FROM GenreEntity")
-    suspend fun getAllGenreList(): List<GenreEntity>
+    @Query("SELECT * FROM genres")
+    fun getAllGenres(): Flow<List<GenreEntity>>
 
     @Update
-    suspend fun updateGenre(genre: GenreEntity)
-
+    fun updateGenre(genreEntity: GenreEntity)
 }

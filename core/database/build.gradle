@@ -40,9 +40,19 @@ dependencies {
     androidTestImplementation(libs.junitAndroidTest)
 
     //Room
-    implementation(libs.room.runtime)
+    /*implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    kapt(libs.room.compiler)
+    kapt(libs.room.compiler)*/
+
+    var room_version = "2.5.2"
+    implementation("androidx.room:room-runtime:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$room_version")
+    // optional - Test helpers
+    testImplementation("androidx.room:room-testing:$room_version")
+    androidTestImplementation "androidx.test:runner:1.5.2"
+
 
     // Dagger Hilt
     implementation libs.dagger.core

@@ -1,4 +1,4 @@
-package com.indisparte.database.entity
+package com.indisparte.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 /**
  *@author Antonio Di Nuzzo
  */
-@Entity
+@Entity(tableName = "genres")
 data class GenreEntity(
     @PrimaryKey val id: Int,
     val name: String,
-    val isFavorite: Boolean,
+    var isFavorite: Boolean,
 )

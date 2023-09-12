@@ -1,52 +1,53 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
 }
 
 android {
-    namespace = "com.indisparte.database"
-    compileSdk = libs.versions.targetSdk.get().toInteger()
+    namespace 'com.indisparte.database'
+    compileSdk libs.versions.targetSdk.get().toInteger()
 
     defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInteger()
-        targetSdk = libs.versions.targetSdk.get().toInteger()
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
-            )
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = '1.8'
     }
 }
 
 dependencies {
 
-    implementation libs.bundles.androidX
-    testImplementation libs.junitTest
+    implementation project(":core:model:common")
 
-    // Dagger Hilt
-    implementation libs.dagger.core
-    kapt libs.dagger.compiler
-
-    // Coroutines
-    implementation libs.bundles.coroutines
+    implementation(libs.bundles.androidX)
+    implementation(libs.bundles.coroutines)
+    androidTestImplementation(libs.bundles.androidTest)
 
     //Room
-    implementation libs.room.runtime
-    kapt libs.room.compiler
+    implementation(libs.bundles.room)
+    kapt(libs.room.compiler)
+    testImplementation(libs.room.testing)
+
+    // Dagger Hilt
+    implementation(libs.dagger.core)
+    kapt(libs.dagger.compiler)
+
+    //Timber
+    implementation(libs.timber)
 }

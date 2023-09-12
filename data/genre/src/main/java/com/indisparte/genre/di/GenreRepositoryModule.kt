@@ -1,7 +1,7 @@
 package com.indisparte.genre.di
 
 import com.indisparte.genre.repository.GenreRepository
-import com.indisparte.genre.repository.GenreRepositoryImpl
+import com.indisparte.genre.repository.OfflineFirstGenreRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,6 +18,6 @@ abstract class GenreRepositoryModule {
     @Binds
     @ViewModelScoped
     abstract fun bindGenreRepository(
-        genreRepositoryImpl: GenreRepositoryImpl,
+        genreRepositoryImpl: OfflineFirstGenreRepositoryImpl,
     ): GenreRepository
 }

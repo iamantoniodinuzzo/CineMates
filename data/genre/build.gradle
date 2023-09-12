@@ -37,6 +37,7 @@ dependencies {
     implementation project(":core:model:common")
     implementation project(":core:response")
     implementation project(":core:network")
+    implementation project(":core:database")
 
     implementation libs.bundles.androidX
     testImplementation libs.junitTest
@@ -50,5 +51,8 @@ dependencies {
 
     // Kotlin Coroutines
     implementation(libs.bundles.coroutines)
+
+    //Timber
+    implementation(libs.timber)
 
 }

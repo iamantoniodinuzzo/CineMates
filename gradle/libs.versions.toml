@@ -21,6 +21,7 @@ targetSdk = "34"
 room = "2.5.2"
 timber = "1.5.1"
 truth = "1.1.4"
+testRunner = "1.5.2"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -49,14 +50,18 @@ dagger-core = { module = "com.google.dagger:hilt-android", version.ref = "dagger
 dagger-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-room-runtime = {module = "androidx.room:room-runtime", version.ref = "room"}
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 timber = { module = "com.github.ajalt:timberkt", version.ref = "timber" }
+test-runner = { module = "androidx.test:runner", version.ref = "testRunner" }
 
 [bundles]
 coroutines = ["coroutines.core", "coroutines.android"]
 retrofit = ["retrofit2.core", "retrofit2.converter", "logging.interceptor", "okhttp.core"]
 navigation = ["navigation.fragment", "navigation.ui", "navigation-features"]
 androidX = ["core.ktx", "appcompat", "constraintLayout"]
+room = ["room-runtime", "room-ktx"]
+androidTest = ["junitAndroidTest", "test-runner" ]
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }

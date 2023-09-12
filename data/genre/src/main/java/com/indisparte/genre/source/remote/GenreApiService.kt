@@ -1,4 +1,4 @@
-package com.indisparte.genre.source
+package com.indisparte.genre.source.remote
 
 import com.indisparte.response.GenreResponseDTO
 import retrofit2.Response
@@ -8,7 +8,7 @@ import retrofit2.http.QueryMap
 /**
  * @author Antonio Di Nuzzo
  */
-interface GenreDataSource {
+interface GenreApiService {
     @GET("genre/movie/list")
     suspend fun getMovieGenreList(@QueryMap queries: Map<String, String>): Response<GenreResponseDTO>
 

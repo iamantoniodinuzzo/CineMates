@@ -28,7 +28,6 @@ object DatabaseModule {
             databaseName
         ).fallbackToDestructiveMigration().build()
 
-
     @Provides
     @Singleton
     fun provideGenreDao(

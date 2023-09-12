@@ -52,4 +52,7 @@ dependencies {
     // Kotlin Coroutines
     implementation(libs.bundles.coroutines)
 
+    //Timber
+    implementation(libs.timber)
+
 }

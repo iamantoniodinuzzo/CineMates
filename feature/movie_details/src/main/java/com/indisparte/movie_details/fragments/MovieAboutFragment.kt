@@ -25,6 +25,8 @@ import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources
 import com.indisparte.person.Crew
 import com.indisparte.ui.databinding.LayoutChoiceChipBinding
+import com.indisparte.ui.databinding.LayoutFavoriteChipBinding
+import com.indisparte.ui.dialog.DialogHelper
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
 import com.indisparte.util.extension.enableInnerScrollViewPager
@@ -127,9 +129,14 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
         }
         binding.genresTitle.visible()
         chipGroupGenres.removeAllViews()
+
         for (chipData in genres) {
-            val chipBinding = LayoutChoiceChipBinding.inflate(layoutInflater)
-            val chip: Chip = chipBinding.root
+            val chipBinding = if (!chipData.isFavorite)
+                LayoutChoiceChipBinding.inflate(layoutInflater)
+            else
+                LayoutFavoriteChipBinding.inflate(layoutInflater)
+
+            val chip: Chip = chipBinding.root as Chip
 
             chip.text = chipData.name
             chip.tag = chipData.id
@@ -138,8 +145,60 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
                 // TODO: Search movies with this genre id
                 showToastMessage("Soon - Search ${selectedChip.tag} id")
             }
+            chip.setOnLongClickListener {
+                updateChipStatusAndLayout(chipData, chip, genres)
+                true
+            }
+
             chipGroupGenres.addView(chip)
         }
+    }
+
+    private fun updateChipStatusAndLayout(
+        chipData: Genre,
+        chip: Chip,
+        genres: List<Genre>,
+    ) {
+
+        val (title, message) = if (chipData.isFavorite) {
+            Pair(
+                getString(R.string.dialog_title_remove_from_favorites),
+                getString(
+                    R.string.dialog_message_remove_from_favorite,
+                    chip.text
+                )
+            )
+        } else {
+            Pair(
+                getString(R.string.dialog_title_set_as_favorite),
+                getString(
+                    R.string.dialog_message_set_as_favorite,
+                    chip.text
+                )
+            )
+        }
+        val dialogHelper = DialogHelper(requireContext())
+        val dialog = dialogHelper.createConfirmationDialog(
+            title,
+            message = message,
+            positiveButtonText = getString(R.string.positive_btn_text),
+            negativeButtonText = getString(R.string.negative_btn_text),
+            positiveAction = {
+                chipData.isFavorite = !chipData.isFavorite
+
+                // TODO: Add chipData to database with update function
+
+                // Remove the existing Chip
+                chipGroupGenres.removeView(chip)
+
+                // Recursive call to recreate the Chip with the updated layout
+                setGenresChipGroup(genres)
+            },
+            negativeAction = {
+                // Do nothing or you can handle additional action
+            }
+        )
+        dialog.show()
     }
 
     private fun setWatchProvidersChipGroup(countryResult: CountryResult?) {

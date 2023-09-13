@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Movie about strings-->
     <string name="movie_about_watch_on_title">Watch on</string>
     <string name="movie_about_genres_title">Genres</string>
     <string name="movie_about_featured_crew_title">Featured Crew</string>
     <string name="movie_about_trailers_title">Trailers</string>
     <string name="movie_about_information_title">Information</string>
     <string name="movie_about_release_information_title">Release information</string>
+
+    <!--Dialogs-->
+    <string name="dialog_title_set_as_favorite">Set as Favorite</string>
+    <string name="dialog_title_remove_from_favorites">Remove from Favorites</string>
+    <string name="dialog_message_remove_from_favorite">"Do you want to remove '%1$s' from your favorites?"</string>
+    <string name="dialog_message_set_as_favorite">"Do you want to set '%1$s' as one of your favorite genres?"</string>
+    <string name="positive_btn_text">Yes</string>
+    <string name="negative_btn_text">No</string>
+
 </resources>

@@ -24,6 +24,7 @@ constructor(
     private val genreRemoteDataSource: GenreRemoteDataSource,
 ) : GenreRepository {
 
+    // TODO: Generalize with an inline func this SSOT 
     override fun getMovieGenreList(): Flow<Result<List<Genre>>> = flow {
         // Prima di accedere al database, controlla se ci sono dati salvati
         val localGenres = genreLocalDataSource.getAllSavedGenres().firstOrNull()
@@ -59,6 +60,13 @@ constructor(
 
         }
     }.flowOn(Dispatchers.IO)
+
+
+
+
+
+
+
 
 
     override fun getTvGenreList(): Flow<Result<List<Genre>>> = flow {

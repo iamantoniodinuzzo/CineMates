@@ -2,5 +2,7 @@
 <resources>
     <string name="top_destination_home">Home</string>
     <string name="top_destination_discover">Discover</string>
+    <string name="top_destination_saved">Saved</string>
+    <string name="top_destination_profile">Profile</string>
     <string name="top_destination_search">Search</string>
 </resources>

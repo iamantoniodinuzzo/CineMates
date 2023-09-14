@@ -41,8 +41,11 @@ class FakeGenreRepository : GenreRepository {
         return emitResult(movieGenres)
     }
 
-    override fun getGenresByIds(genresId: List<Int>): Flow<List<Genre>> {
-        TODO("Not yet implemented")
+    override fun getGenresByIds(genresId: List<Int>): Flow<List<Genre>> = flow {
+        val genres = movieGenres.filter { movieGenre ->
+            movieGenre.id in genresId
+        }
+        emit(genres)
     }
 
     override fun getTvGenreList(): Flow<Result<List<Genre>>> {

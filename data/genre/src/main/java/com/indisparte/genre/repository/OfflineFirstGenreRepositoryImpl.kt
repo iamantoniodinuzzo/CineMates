@@ -4,7 +4,6 @@ import com.indisparte.common.Genre
 import com.indisparte.genre.source.local.GenreLocalDataSource
 import com.indisparte.genre.source.remote.GenreRemoteDataSource
 import com.indisparte.network.Result
-import com.indisparte.network.error.CineMatesExceptions
 import com.indisparte.network.fetchFromLocalOrRemote
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -32,8 +31,12 @@ constructor(
     }
 
 
-    override fun getTvGenreList(): Flow<Result<List<Genre>>> = flow {
-        emit(Result.Error(CineMatesExceptions.EmptyResponse))
+    override fun getTvGenreList(): Flow<Result<List<Genre>>> {
+        return fetchFromLocalOrRemote(
+            localFetch = { genreLocalDataSource.getAllSavedGenres().firstOrNull() },
+            remoteFetch = { genreRemoteDataSource.getTvGenreList() },
+            saveToLocal = { genres -> genreLocalDataSource.insertGenres(genres) }
+        )
     }
 
     override fun updateSavedGenre(genre: Genre): Flow<Int> = flow {

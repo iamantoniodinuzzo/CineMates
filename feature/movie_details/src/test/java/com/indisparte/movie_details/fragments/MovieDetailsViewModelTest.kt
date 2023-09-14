@@ -2,8 +2,10 @@ package com.indisparte.movie_details.fragments
 
 import com.indisparte.common.Backdrop
 import com.indisparte.common.CountryResult
+import com.indisparte.common.Genre
 import com.indisparte.common.Video
 import com.indisparte.common.WatchProvider
+import com.indisparte.genre.repository.fake.FakeGenreRepository
 import com.indisparte.movie_data.BelongsToCollection
 import com.indisparte.movie_data.CollectionDetails
 import com.indisparte.movie_data.Movie
@@ -34,7 +36,6 @@ import org.junit.ClassRule
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import timber.log.Timber
 import java.util.Locale
 
 /**
@@ -55,6 +56,7 @@ class MovieDetailsViewModelTest {
 
     private lateinit var viewModel: MovieDetailsViewModel
     private lateinit var fakeMovieRepository: FakeMovieRepository
+    private lateinit var fakeGenreRepository: FakeGenreRepository
     private val goodMovieId = 4567
     private val goodMovieId2 = 6904
     private val badMovieId = 1
@@ -62,6 +64,11 @@ class MovieDetailsViewModelTest {
     private val country = Locale.getDefault().country
     private val latestCertification = "libris"
 
+
+    private val fakeGenres = listOf(
+        Genre(id = 4269, name = "Leila Faulkner", isFavorite = false),
+        Genre(id = 3853, name = "Eve McCarty", isFavorite = false)
+    )
     private val fakeReleaseDatesByCountry = listOf(
         ReleaseDatesByCountry(
             country = country,
@@ -94,7 +101,7 @@ class MovieDetailsViewModelTest {
             posterPath = null
         ),
         budget = 1897,
-        genres = listOf(),
+        genres = fakeGenres,
         homepage = "epicurei",
         id = goodMovieId,
         originalLanguage = "elementum",
@@ -125,7 +132,7 @@ class MovieDetailsViewModelTest {
             posterPath = null
         ),
         budget = 1897,
-        genres = listOf(),
+        genres = fakeGenres,
         homepage = "epicurei",
         id = goodMovieId2,
         originalLanguage = "elementum",
@@ -151,7 +158,7 @@ class MovieDetailsViewModelTest {
         backdropPath = null,
         belongsToCollection = null,
         budget = 1897,
-        genres = listOf(),
+        genres = fakeGenres,
         homepage = "epicurei",
         id = goodMovieId,
         originalLanguage = "elementum",
@@ -282,9 +289,8 @@ class MovieDetailsViewModelTest {
     @Before
     fun setUp() {
         fakeMovieRepository = FakeMovieRepository()
-        viewModel = MovieDetailsViewModel(fakeMovieRepository)/*
-        testDispatcher = TestCoroutineDispatcher()
-        testCoroutineScope = TestCoroutineScope(testDispatcher)*/
+        fakeGenreRepository = FakeGenreRepository()
+        viewModel = MovieDetailsViewModel(fakeMovieRepository, fakeGenreRepository)
     }
 
     @Test
@@ -422,7 +428,6 @@ class MovieDetailsViewModelTest {
 
 // THEN
             val collectionDetailsResult = viewModel.collectionParts.value
-            Timber.tag("Valid collection details").d("Collection result : $collectionDetailsResult")
             assertTrue(collectionDetailsResult is Result.Success)
             assertEquals(fakeCollectionDetails, (collectionDetailsResult as Result.Success).data)
         }
@@ -508,6 +513,40 @@ class MovieDetailsViewModelTest {
         assertEquals(exception, (castResult as Result.Error).exception)
     }
 
+    @Test
+    fun `Given a genre, when updating genre, then genre is updated in repository`() =
+        runBlockingTest {
+            // GIVEN
+            fakeGenreRepository.addMovieGenres(fakeGenres)
+            val genreUpdated = fakeGenres.first()
+            genreUpdated.isFavorite = true
+
+            // WHEN
+            viewModel.updateGenre(genreUpdated)
+
+            // THEN
+            val updatedGenreList = fakeGenreRepository.getMovieGenreList().first()
+            assertTrue(updatedGenreList is Result.Success)
+            updatedGenreList as Result.Success
+            assertEquals(updatedGenreList.data.find { genreUpdated.id == it.id }, genreUpdated)
+
+        }
+
+    @Test
+    fun `Given an error, when updating genre, then error is propagated`() = runBlockingTest {
+        // GIVEN
+        fakeGenreRepository.setShouldEmitException(true)
+        val exception = CineMatesExceptions.GenericException
+        fakeGenreRepository.setExceptionToEmit(exception)
+
+        // WHEN
+        viewModel.updateGenre(Genre(id = 4269, name = "Leila Faulkner", isFavorite = false))
+
+        // THEN
+        val updatedGenreList = fakeGenreRepository.getMovieGenreList().first()
+        assertTrue(updatedGenreList is Result.Error)
+        assertEquals(exception, (updatedGenreList as Result.Error).exception)
+    }
 
     @After
     fun tearDown() {

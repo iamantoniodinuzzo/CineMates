@@ -30,10 +30,12 @@ constructor(
         emit(mappedData)
     }.flowOn(Dispatchers.IO)
 
-    fun updateGenre(genre: Genre) = flow<Nothing> {
-        Timber.tag("GenreLocalDataSource").d("Update $genre")
+    //FIXME this method does not work
+    fun updateGenre(genre: Genre) = flow<Int> {
         val mappedGenre = genre.asEntity()
-        dao.updateGenre(mappedGenre)
+        val result = dao.updateGenre(mappedGenre)
+        Timber.tag("GenreLocalDataSource").d("Update $result $genre")
+        emit(result)
     }.flowOn(Dispatchers.IO)
 
     fun getAllGenresById(genresIds: List<Int>): Flow<List<Genre>> = flow{

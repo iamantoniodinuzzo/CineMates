@@ -23,7 +23,7 @@ interface GenreDao {
     fun getAllGenresById(genreIds: List<Int>): List<GenreEntity>
 
     @Update
-    fun updateGenre(genreEntity: GenreEntity)
+    fun updateGenre(genreEntity: GenreEntity):Int
 
 
 }

@@ -78,8 +78,8 @@ class MovieDetailsViewModel
 
 
     fun updateGenre(genre: Genre) {
-        LOG.d("Update $genre")
-        genreRepository.updateSavedGenre(genre)
+            LOG.d("Update $genre")
+            genreRepository.updateSavedGenre(genre)
 
     }
 
@@ -120,7 +120,6 @@ class MovieDetailsViewModel
 
                     }
                 )
-
 
             }
         }

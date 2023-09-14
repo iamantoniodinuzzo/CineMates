@@ -5,11 +5,11 @@ import com.indisparte.genre.source.local.GenreLocalDataSource
 import com.indisparte.genre.source.remote.GenreRemoteDataSource
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.fetchFromLocalOrRemote
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -23,40 +23,12 @@ constructor(
     private val genreRemoteDataSource: GenreRemoteDataSource,
 ) : GenreRepository {
 
-    // TODO: Generalize with an inline func this SSOT 
-    override fun getMovieGenreList(): Flow<Result<List<Genre>>> = flow {
-        // Prima di accedere al database, controlla se ci sono dati salvati
-        val localGenres = genreLocalDataSource.getAllSavedGenres().firstOrNull()
-
-        if (!localGenres.isNullOrEmpty()) {
-            // Se ci sono dati nel database locale, emettili direttamente
-            Timber.tag("GenreRepository").d("Emit genre from DB")
-            emit(Result.Success(localGenres))
-        } else {
-            // Se non ci sono dati nel database locale, recuperali dall'API
-            genreRemoteDataSource.getMovieGenreList().collect { apiResult ->
-                when (apiResult) {
-                    is Result.Success -> {
-                        // Salva i dati nell'API nel database locale
-                        genreLocalDataSource.insertGenres(apiResult.data)
-                        Timber.tag("GenreRepository").d("Emit genre from API")
-                        emit(Result.Success(apiResult.data))
-                    }
-
-                    is Result.Error -> {
-                        // Se si verifica un errore nell'API, emetti un errore
-                        emit(Result.Error(apiResult.exception))
-                    }
-
-                    is Result.Loading -> {
-                        // Il caso di caricamento dovrebbe essere già gestito dal tuo repository
-                        // se vuoi supportare il caricamento graduale.
-                        emit(Result.Loading)
-                    }
-                }
-            }
-
-        }
+    override fun getMovieGenreList(): Flow<Result<List<Genre>>> {
+        return fetchFromLocalOrRemote(
+            localFetch = { genreLocalDataSource.getAllSavedGenres().firstOrNull() },
+            remoteFetch = { genreRemoteDataSource.getMovieGenreList() },
+            saveToLocal = { genres -> genreLocalDataSource.insertGenres(genres) }
+        )
     }
 
 

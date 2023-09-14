@@ -35,6 +35,7 @@ class FakeGenreRepository : GenreRepository {
             }
         }
     }
+
     override fun getMovieGenreList(): Flow<Result<List<Genre>>> {
         // Implement the behavior to return fake data for getMovieGenreList
         return emitResult(movieGenres)
@@ -49,8 +50,12 @@ class FakeGenreRepository : GenreRepository {
         return emitResult(tvGenres)
     }
 
-    override fun updateSavedGenre(genre: Genre):Flow<Nothing>{
-        TODO("Not yet implemented")
+    override fun updateSavedGenre(genre: Genre): Flow<Int> = flow {
+        val updated = movieGenres.find { it.id == genre.id }?.let {
+            it.isFavorite = genre.isFavorite
+            1
+        } ?: 0
+        emit(updated)
     }
 
     // Helper methods to set fake data in the fake repository

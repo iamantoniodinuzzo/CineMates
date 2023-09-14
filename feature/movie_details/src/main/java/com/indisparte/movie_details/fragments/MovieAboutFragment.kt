@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.github.ajalt.timberkt.Timber
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -32,6 +33,7 @@ import com.indisparte.util.extension.collectIn
 import com.indisparte.util.extension.enableInnerScrollViewPager
 import com.indisparte.util.extension.gone
 import com.indisparte.util.extension.visible
+import kotlinx.coroutines.launch
 
 class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
@@ -185,8 +187,9 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             negativeButtonText = getString(R.string.negative_btn_text),
             positiveAction = {
                 chipData.isFavorite = !chipData.isFavorite
-
-                // TODO: Add chipData to database with update function
+                lifecycleScope.launch {
+                    viewModel.updateGenre(chipData)
+                }
 
                 // Remove the existing Chip
                 chipGroupGenres.removeView(chip)

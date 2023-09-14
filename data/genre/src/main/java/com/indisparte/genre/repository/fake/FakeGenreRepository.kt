@@ -40,9 +40,17 @@ class FakeGenreRepository : GenreRepository {
         return emitResult(movieGenres)
     }
 
+    override fun getGenresByIds(genresId: List<Int>): Flow<List<Genre>> {
+        TODO("Not yet implemented")
+    }
+
     override fun getTvGenreList(): Flow<Result<List<Genre>>> {
         // Implement the behavior to return fake data for getTvGenreList
         return emitResult(tvGenres)
+    }
+
+    override fun updateSavedGenre(genre: Genre):Flow<Nothing>{
+        TODO("Not yet implemented")
     }
 
     // Helper methods to set fake data in the fake repository

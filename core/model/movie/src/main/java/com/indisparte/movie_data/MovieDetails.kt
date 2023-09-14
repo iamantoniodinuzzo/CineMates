@@ -41,7 +41,7 @@ class MovieDetails(
     private val backdropPath: String?,
     val belongsToCollection: BelongsToCollection?,
     private val budget: Long,
-    val genres: List<Genre>,
+    var genres: List<Genre>,
     val homepage: String,
     id: Int,
     val originalLanguage: String,

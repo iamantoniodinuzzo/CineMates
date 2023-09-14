@@ -78,8 +78,11 @@ class MovieDetailsViewModel
 
 
     fun updateGenre(genre: Genre) {
-            LOG.d("Update $genre")
-            genreRepository.updateSavedGenre(genre)
+        viewModelScope.launch {
+            val result = genreRepository.updateSavedGenre(genre).first()
+            LOG.d("Update $genre, result= $result")
+
+        }
 
     }
 

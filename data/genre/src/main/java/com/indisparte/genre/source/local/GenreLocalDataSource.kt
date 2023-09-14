@@ -30,11 +30,10 @@ constructor(
         emit(mappedData)
     }.flowOn(Dispatchers.IO)
 
-    //FIXME this method does not work
-    fun updateGenre(genre: Genre) = flow<Int> {
+    fun updateGenre(genre: Genre) = flow {
         val mappedGenre = genre.asEntity()
         val result = dao.updateGenre(mappedGenre)
-        Timber.tag("GenreLocalDataSource").d("Update $result $genre")
+        Timber.tag("GenreLocalDataSource").d("Update $result row with $genre")
         emit(result)
     }.flowOn(Dispatchers.IO)
 

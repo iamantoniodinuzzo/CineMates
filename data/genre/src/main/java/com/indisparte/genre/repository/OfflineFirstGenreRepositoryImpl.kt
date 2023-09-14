@@ -6,6 +6,7 @@ import com.indisparte.genre.source.remote.GenreRemoteDataSource
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
@@ -63,7 +64,10 @@ constructor(
         emit(Result.Error(CineMatesExceptions.EmptyResponse))
     }
 
-    override fun updateSavedGenre(genre: Genre): Flow<Int> = genreLocalDataSource.updateGenre(genre)
+    override fun updateSavedGenre(genre: Genre): Flow<Int> = flow {
+        val result = genreLocalDataSource.updateGenre(genre).first()
+        emit(result)
+    }
 
 
     override fun getGenresByIds(genresId: List<Int>): Flow<List<Genre>> =

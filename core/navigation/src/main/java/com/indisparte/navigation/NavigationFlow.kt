@@ -1,7 +1,7 @@
 package com.indisparte.navigation
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 sealed class NavigationFlow(val msg: String?) {
     object HomeFlow : NavigationFlow(null)

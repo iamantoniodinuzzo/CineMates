@@ -27,8 +27,8 @@ class FakePeopleRepository : PeopleRepository {
         this.cineMatesExceptions = cineMatesExceptions
     }
 
-    private fun <T> emitResult(data: T): Flow<Result<T>> {
-        return if (shouldEmitException) {
+    private fun <T> emitResult(data: T?): Flow<Result<T>> {
+        return if (shouldEmitException || data == null) {
             flow {
                 emit(Result.Error(cineMatesExceptions ?: CineMatesExceptions.GenericException))
             }
@@ -40,7 +40,7 @@ class FakePeopleRepository : PeopleRepository {
     }
     override fun getPersonDetails(personId: Int): Flow<Result<PersonDetails>> {
         // Implement the behavior to return fake data for getPersonDetails
-        val fakeData = personDetailsMap[personId]!!
+        val fakeData = personDetailsMap[personId]
         return emitResult(fakeData)
     }
 
@@ -51,13 +51,13 @@ class FakePeopleRepository : PeopleRepository {
 
     override fun getTrendingPersons(timeWindow: TimeWindow): Flow<Result<List<Person>>> {
         // Implement the behavior to return fake data for getTrendingPersons
-        val fakeData = trendingPersonsMap[timeWindow]!!
+        val fakeData = trendingPersonsMap[timeWindow]
         return emitResult(fakeData)
     }
 
     override fun getMovieCredits(personId: Int): Flow<Result<List<MovieCredit>>> {
         // Implement the behavior to return fake data for getMovieCredits
-        val fakeData = movieCreditsMap[personId]!!
+        val fakeData = movieCreditsMap[personId]
         return emitResult(fakeData)
     }
 

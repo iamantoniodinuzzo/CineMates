@@ -9,7 +9,7 @@ import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
-import com.indisparte.movie_details.databinding.FragmentMediaDetailsBinding
+import com.indisparte.movie_details.databinding.FragmentMediaDetailsContainerBinding
 import com.indisparte.ui.adapter.ViewPagerAdapter
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.gone
@@ -34,14 +34,14 @@ typealias FragmentTitleMap = LinkedHashMap<Fragment, @receiver:StringRes Int>
 
 abstract class MediaDetailsContainerFragment(
     private val mapOfFragments: FragmentTitleMap,
-) : BaseFragment<FragmentMediaDetailsBinding>() {
+) : BaseFragment<FragmentMediaDetailsContainerBinding>() {
     /**
      * Secondary constructor used when no fragments are initially provided.
      */
     constructor() : this(linkedMapOf())
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMediaDetailsBinding
-        get() = FragmentMediaDetailsBinding::inflate
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMediaDetailsContainerBinding
+        get() = FragmentMediaDetailsContainerBinding::inflate
 
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

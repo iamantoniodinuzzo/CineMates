@@ -6,11 +6,11 @@ import com.indisparte.actor.mapper.mapToPersonDetails
 import com.indisparte.actor.source.PeopleDataSource
 import com.indisparte.filter.TimeWindow
 import com.indisparte.movie_data.MovieCredit
-import com.indisparte.person.Person
-import com.indisparte.person.PersonDetails
 import com.indisparte.network.Result
 import com.indisparte.network.getListFromResponse
 import com.indisparte.network.getSingleFromResponse
+import com.indisparte.person.Person
+import com.indisparte.person.PersonDetails
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -30,7 +30,6 @@ constructor(
             mapper = { response -> response.mapToPersonDetails() }
         )
 
-    //todo need to cache this people
     override fun getPopularPersons(): Flow<Result<List<Person>>> =
         getListFromResponse(
             request = { peopleDataSource.getPopularPersons(queryMap) },

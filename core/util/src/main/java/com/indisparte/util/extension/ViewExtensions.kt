@@ -102,3 +102,4 @@ fun RecyclerView.enableInnerScrollViewPager() {
 }
 
 
+

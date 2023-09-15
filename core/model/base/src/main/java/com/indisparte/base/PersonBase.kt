@@ -1,14 +1,18 @@
 package com.indisparte.base
 
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.indisparte.base.Constants.IMAGE_BASE_URL_W500
 import com.indisparte.base.Constants.IMAGE_BASE_URL_W780
 
-
-enum class Gender(val value: Int, @StringRes val genderResId: Int) {
-    NON_BINARY(3, R.string.non_binary_gender),
-    MALE(2, R.string.male_gender),
-    FEMALE(1, R.string.female_gender),
+enum class Gender(
+    val value: Int,
+    @StringRes val genderResId: Int,
+    @DrawableRes val genderDrawableId: Int? = null,
+) {
+    NON_BINARY(3, R.string.non_binary_gender, R.drawable.ic_non_binary),
+    MALE(2, R.string.male_gender, R.drawable.ic_male),
+    FEMALE(1, R.string.female_gender, R.drawable.ic_female),
     OTHER(0, R.string.other_gender);
 
     companion object {

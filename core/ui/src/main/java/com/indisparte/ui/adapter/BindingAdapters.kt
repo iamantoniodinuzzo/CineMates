@@ -1,12 +1,15 @@
 package com.indisparte.ui.adapter
 
 import android.widget.ImageView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.indisparte.ui.R
 import com.indisparte.ui.custom_view.PosterView
+import com.indisparte.util.extension.gone
+import com.indisparte.util.extension.visible
 
 /**
  * @author Antonio Di Nuzzo (Indisparte)
@@ -20,6 +23,15 @@ fun loadImage(view: ImageView, url: String?) {
         .transition(DrawableTransitionOptions.withCrossFade())
         .diskCacheStrategy(DiskCacheStrategy.DATA)
         .into(view)
+}
+
+@BindingAdapter("loadDrawable")
+fun loadDrawable(view: ImageView, drawableResId: Int?) {
+    drawableResId?.let {
+        view.visible()
+        val drawable = AppCompatResources.getDrawable(view.context, it)
+        view.setImageDrawable(drawable)
+    }?: view.gone()
 }
 
 @BindingAdapter("pv_chipValue")

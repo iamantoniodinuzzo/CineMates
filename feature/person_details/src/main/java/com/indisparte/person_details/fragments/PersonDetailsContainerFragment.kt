@@ -18,6 +18,8 @@ import com.indisparte.person_details.databinding.FragmentPersonDetailsContainerB
 import com.indisparte.ui.adapter.ViewPagerAdapter
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
+import com.indisparte.util.extension.gone
+import com.indisparte.util.extension.visible
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import kotlin.math.abs
@@ -60,6 +62,16 @@ class PersonDetailsContainerFragment : BaseFragment<FragmentPersonDetailsContain
 
     }
 
+    private fun showLoading() {
+        binding.loadingProgressBar.visible()
+        binding.content.gone()
+    }
+
+    private fun hideLoading() {
+        binding.loadingProgressBar.gone()
+        binding.content.visible()
+    }
+
     private fun initViewPager() {
         binding.apply {
             viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
@@ -82,16 +94,20 @@ class PersonDetailsContainerFragment : BaseFragment<FragmentPersonDetailsContain
         //use views here
         viewModel.personDetails.collectIn(viewLifecycleOwner) { result ->
             result.whenResources(
-                onSuccess = {
-                    binding.person = it
+                onSuccess = {personDetails->
+                    hideLoading()
+                    LOG.d("Person Gender: ${personDetails.formattedGender}")
+                    binding.person = personDetails
                 },
                 onError = { exception ->
+                    hideLoading()
                     val errorMessage = requireContext().getString(exception.messageRes)
                     LOG.e("Error: $errorMessage")
                     showToastMessage(errorMessage)
                     findNavController().navigateUp()
                 },
                 onLoading = {
+                    showLoading()
                     LOG.d("Loading person details...")
                 }
             )

@@ -318,17 +318,17 @@ class MovieDetailsViewModelTest {
             // WHEN
             viewModel.onDetailsFragmentReady(goodMovieId)
 
+            // Assicurati che tutte le operazioni asincrone siano completate prima di proseguire
+            advanceUntilIdle()
+            
             // THEN
             val movieInfoResult =
                 viewModel.movieInfo.filterIsInstance<Result.Success<MovieInfoUiState>>().first()
 
-            // Assicurati che tutte le operazioni asincrone siano completate prima di proseguire
-            advanceUntilIdle()
 
             assertEquals(movieInfo, movieInfoResult.data)
         }
 
-    /*Fleaky test, sometimes give errors*/
     @Test
     fun `Given a new selected movie, when updating selected movie, then movie info data changes`() =
         runBlockingTest {

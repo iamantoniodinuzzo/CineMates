@@ -28,7 +28,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -149,10 +148,10 @@ class MovieDetailsViewModel
                         .flowOn(Dispatchers.IO),
                 ) { (details, videos, watchProviders, crew, releaseDates, backdrops) ->
                     listOf(details, videos, watchProviders, crew, releaseDates, backdrops)
-                }.filter { result -> result.all { it is Result.Success } }
-                    .collectLatest { results ->
-                        // TODO: And the exceptions?
+                }.collectLatest { results ->
+                    if (results.all { it is Result.Success }) {
                         LOG.d("All movie info's are a Result.Success")
+
                         val movieDetails = (results[0] as Result.Success<MovieDetails>).data
                         val videosResult = (results[1] as Result.Success<List<Video>>).data
                         val watchProvidersResult =
@@ -177,7 +176,16 @@ class MovieDetailsViewModel
                         )
                         LOG.d("Emit Movie Info UI State")
                         _movieInfo.emit(Result.Success(movieInfoUiState))
+                    } else if (results.any { it is Result.Error }) {
+                        val error: CineMatesExceptions = (results.find { it is Result.Error }
+                            ?: CineMatesExceptions.GenericException) as CineMatesExceptions
+                        LOG.e("At least one movie info is not Result.Success, emit $error")
+                        _movieInfo.emit(
+                            Result.Error(error)
+                        )
                     }
+
+                }
 
             } catch (e: Exception) {
                 LOG.e("Error in loadMovieInfo: ${e.localizedMessage}")
@@ -188,57 +196,6 @@ class MovieDetailsViewModel
         }
 
     }
-
-
-    /* private suspend fun populateMovieInfo() = coroutineScope {
-         try {
-             val movieDetailsResult =
-                 _selectedMovie.filterIsInstance<Result.Success<MovieDetails>>().firstOrNull()
-             val videosResult = _videos.filterIsInstance<Result.Success<List<Video>>>().firstOrNull()
-             val watchProviderResult =
-                 _watchProviders.filterIsInstance<Result.Success<CountryResult?>>().firstOrNull()
-             val releaseDatesResult =
-                 _releaseDates.filterIsInstance<Result.Success<List<ReleaseDate>>>().firstOrNull()
-             val backdropsResult =
-                 _backdrops.filterIsInstance<Result.Success<List<Backdrop>>>().firstOrNull()
-             val crew =
-                 _crew.filterIsInstance<Result.Success<List<Crew>>>().firstOrNull()
-
-             if (movieDetailsResult != null && videosResult != null && watchProviderResult != null
-                 && releaseDatesResult != null && backdropsResult != null && crew != null
-             ) {
-                 // Tutti i dati sono stati ottenuti con successo
-                 val movieInfo = MovieInfoUiState(
-                     movieDetails = movieDetailsResult.data,
-                     videos = videosResult.data,
-                     watchProvider = watchProviderResult.data,
-                     releaseDates = releaseDatesResult.data,
-                     latestCertification = _latestCertification.value,
-                     backdrops = backdropsResult.data,
-                     crew = crew.data
-                 )
-                 LOG.d("Emit successful movie info")
-                 _movieInfo.emit(Result.Success(movieInfo))
-             } else {
-                 // Gestisci un errore in caso di fallimento nella ricezione dei dati
-                 val error = _selectedMovie.filterIsInstance<Result.Error>()
-                     .firstOrNull() ?: _videos.filterIsInstance<Result.Error>()
-                     .firstOrNull() ?: _watchProviders.filterIsInstance<Result.Error>()
-                     .firstOrNull() ?: _releaseDates.filterIsInstance<Result.Error>()
-                     .firstOrNull() ?: _backdrops.filterIsInstance<Result.Error>()
-                     .firstOrNull()
-                 LOG.d("Emit error in  movie info")
-                 _movieInfo.emit(
-                     Result.Error(
-                         error?.exception ?: CineMatesExceptions.GenericException
-                     )
-                 )
-             }
-         } catch (e: Exception) {
-             LOG.e("Error populating movie info: $e")
-             _movieInfo.emit(Result.Error(CineMatesExceptions.GenericException))
-         }
-     }*/
 
 
     private fun getCollectionDetails(collectionId: Int) {

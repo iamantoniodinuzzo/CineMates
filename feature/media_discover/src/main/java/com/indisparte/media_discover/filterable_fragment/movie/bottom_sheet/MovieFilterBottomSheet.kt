@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.badge.BadgeDrawable
@@ -35,7 +36,7 @@ class MovieFilterBottomSheet : BottomSheetDialogFragment() {
     }
     private lateinit var badgeDrawable: BadgeDrawable
     private lateinit var latestAppliedFilter: MediaDiscoverFilter
-
+    private var myFavGenresId: List<Int> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,8 +59,35 @@ class MovieFilterBottomSheet : BottomSheetDialogFragment() {
             filterViewModel.resetFilters()
         }
 
+        binding.applyFavGenresChip.setOnCheckedChangeListener { _, selected ->
+            if (selected) {
+                filterViewModel.applyFavGenres()
+                updateGenreSelectionWithMyFavGenres(addMyFavGenres = true)
+                Toast.makeText(
+                    requireContext(),
+                    "Selected all your favorite genres",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                filterViewModel.removeFavGenres()
+                updateGenreSelectionWithMyFavGenres(addMyFavGenres = false)
+                Toast.makeText(
+                    requireContext(),
+                    "Unchecked all your favorite genres",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
 
         return binding.root
+    }
+
+    private fun updateGenreSelectionWithMyFavGenres(addMyFavGenres: Boolean) {
+        myFavGenresId.forEach { genreId ->
+            val myFavGenreChip = binding.cgGenres.findViewById<Chip>(genreId)
+            myFavGenreChip?.isChecked = addMyFavGenres
+        }
     }
 
     @androidx.annotation.OptIn(
@@ -127,6 +155,17 @@ class MovieFilterBottomSheet : BottomSheetDialogFragment() {
                 }
 
             }
+
+
+        filterViewModel.myFavGenres.collectIn(viewLifecycleOwner) { myFavGenres ->
+            binding.applyFavGenresChip.isEnabled = myFavGenres.isNotEmpty()
+            myFavGenresId = myFavGenres.map { it.id }
+            //set apply fav genres chip selected if almost a fav genres is selected
+            binding.applyFavGenresChip.isChecked =
+                latestAppliedFilter.withGenresIds?.any { it in myFavGenresId } ?: false
+        }
+
+
     }
 
     /**
@@ -176,6 +215,7 @@ class MovieFilterBottomSheet : BottomSheetDialogFragment() {
                 }
             )
         }
+
     }
 
 
@@ -209,7 +249,9 @@ class MovieFilterBottomSheet : BottomSheetDialogFragment() {
 
                 // Set the chip's checked state based on the latest applied filter
                 chip.isChecked = (latestAppliedFilter.sortBy?.id == chip.id)
+
             }
+
     }
 
 

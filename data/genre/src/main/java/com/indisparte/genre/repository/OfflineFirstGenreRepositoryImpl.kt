@@ -44,6 +44,11 @@ constructor(
         emit(result)
     }
 
+    override fun getMyFavGenres(): Flow<List<Genre>> = flow {
+        val result = genreLocalDataSource.getAllMyFavGenres().first()
+        emit(result)
+    }
+
 
     override fun getGenresByIds(genresId: List<Int>): Flow<List<Genre>> =
         genreLocalDataSource.getAllGenresById(genresId)

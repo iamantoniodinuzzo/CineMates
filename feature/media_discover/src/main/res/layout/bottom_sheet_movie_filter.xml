@@ -10,9 +10,9 @@
 
     <TextView
         android:id="@+id/lblTitle"
+        style="@style/HugeTitleTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/HugeTitleTextViewStyle"
         android:layout_marginTop="@dimen/base_margin"
         android:text="@string/custom_filter_title"
         android:textAppearance="@style/HugeTitleTextViewStyle"
@@ -22,10 +22,10 @@
 
     <TextView
         android:id="@+id/lblSortBy"
-        android:layout_marginStart="@dimen/base_margin"
-        android:layout_width="wrap_content"
         style="@style/SmallTitleTextViewStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_margin"
         android:layout_marginTop="@dimen/base_margin"
         android:text="@string/custom_filter_sort_by_title"
         android:textAppearance="@style/SmallTitleTextViewStyle"
@@ -42,10 +42,10 @@
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/cgSortTypes"
-            android:clipToPadding="false"
             android:layout_width="wrap_content"
-            android:paddingStart="@dimen/base_margin"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/base_margin"
             app:selectionRequired="true"
             app:singleSelection="true" />
 
@@ -64,11 +64,11 @@
 
     <TextView
         android:id="@+id/lblGenres"
+        style="@style/SmallTitleTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/base_margin"
         android:layout_marginStart="@dimen/base_margin"
-        style="@style/SmallTitleTextViewStyle"
+        android:layout_marginTop="@dimen/base_margin"
         android:text="@string/custom_filter_genres_title"
         android:textAppearance="@style/SmallTitleTextViewStyle"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,34 +86,47 @@
             android:id="@+id/cgGenres"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:singleLine="true"
             android:clipToPadding="false"
-            app:chipSpacingVertical="8dp"
             android:paddingStart="@dimen/base_margin"
+            app:chipSpacingVertical="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lblGenres" />
+            app:layout_constraintTop_toBottomOf="@id/lblGenres"
+            app:singleLine="true" />
     </HorizontalScrollView>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/apply_fav_genres_chip"
+        style="@style/SingleFilterChipStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_margin"
+        android:layout_marginTop="@dimen/base_margin"
+        android:enabled="false"
+        android:text="Apply my favorite genres"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutGenres" />
+
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/dividerFilter"
-        android:layout_marginHorizontal="@dimen/base_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/base_margin"
         android:layout_marginTop="@dimen/base_margin"
         android:background="?attr/colorOnSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutGenres" />
+        app:layout_constraintTop_toBottomOf="@id/apply_fav_genres_chip" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnApply"
         style="@style/PrimaryCustomMaterialButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/base_margin"
         android:layout_marginStart="@dimen/base_margin"
         android:layout_marginTop="@dimen/base_margin"
+        android:layout_marginEnd="@dimen/base_margin"
         android:text="@string/custom_filter_apply_action"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/frameLayout"
@@ -123,11 +136,11 @@
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_margin"
         android:layout_marginEnd="@dimen/base_margin"
+        android:background="@android:color/transparent"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:layout_marginStart="@dimen/base_margin"
-        android:background="@android:color/transparent"
         app:layout_constraintEnd_toStartOf="@id/btnApply"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/btnApply">

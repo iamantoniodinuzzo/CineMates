@@ -29,6 +29,9 @@ constructor(
     private val _movieGenres = MutableStateFlow<Result<List<Genre>>>(Result.Success(emptyList()))
     val movieGenres: StateFlow<Result<List<Genre>>> get() = _movieGenres
 
+    private val _myFavGenres = MutableStateFlow<List<Genre>>(emptyList())
+    val myFavGenres: StateFlow<List<Genre>> get() = _myFavGenres
+
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
@@ -49,6 +52,15 @@ constructor(
 
     init {
         getMovieGenres()
+        getMyFavGenres()
+    }
+
+    private fun getMyFavGenres() {
+        viewModelScope.launch {
+            genreRepository.getMyFavGenres().collectLatest {
+                _myFavGenres.emit(it)
+            }
+        }
     }
 
     private fun getMovieGenres() {
@@ -75,6 +87,24 @@ constructor(
             val genres = (it.genresId ?: mutableSetOf()).toMutableSet()
             genres.add(genreId)
             it.copy(genresId = genres)
+        }
+    }
+
+    fun applyFavGenres() {
+        _uiState.update { uiState ->
+            val genres = (uiState.genresId ?: mutableSetOf()).toMutableSet()
+            val myFavGenresId = myFavGenres.value.map { myFavGenre -> myFavGenre.id }
+            genres.addAll(myFavGenresId)
+            uiState.copy(genresId = genres)
+        }
+    }
+
+    fun removeFavGenres() {
+        _uiState.update { uiState ->
+            val genres = (uiState.genresId ?: mutableSetOf()).toMutableSet()
+            val myFavGenresId = myFavGenres.value.map { myFavGenre -> myFavGenre.id }
+            genres.removeAll(myFavGenresId.toSet())
+            uiState.copy(genresId = genres)
         }
     }
 

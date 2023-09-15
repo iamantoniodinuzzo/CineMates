@@ -1,6 +1,6 @@
 package com.indisparte.movie_data.di
 
-import com.indisparte.movie_data.source.MovieDataSource
+import com.indisparte.movie_data.source.remote.MovieDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.indisparte.movie_data.source
+package com.indisparte.movie_data.source.remote
 
 import com.indisparte.movie_data.response.CastDTO
 import com.indisparte.movie_data.response.CollectionDetailsResponseDTO

@@ -41,7 +41,7 @@ class MovieDetails(
     private val backdropPath: String?,
     val belongsToCollection: BelongsToCollection?,
     private val budget: Long,
-    var genres: List<Genre>,
+    val genres: List<Genre>,
     val homepage: String,
     id: Int,
     val originalLanguage: String,
@@ -70,6 +70,16 @@ class MovieDetails(
     title = title,
     voteAverage = voteAverage
 ) {
+
+    fun updateGenres(updatedGenres:List<Genre>){
+        val idToGenreMap = updatedGenres.associateBy { it.id }
+
+        genres.forEach { genre ->
+            idToGenreMap[genre.id]?.let { updatedGenre ->
+                genre.isFavorite = updatedGenre.isFavorite
+            }
+        }
+    }
 
     /**
      * Gets the budget of the movie in a formatted currency string.

@@ -151,6 +151,7 @@ class MovieDetailsViewModel
                     listOf(details, videos, watchProviders, crew, releaseDates, backdrops)
                 }.filter { result -> result.all { it is Result.Success } }
                     .collectLatest { results ->
+                        // TODO: And the exceptions?
                         LOG.d("All movie info's are a Result.Success")
                         val movieDetails = (results[0] as Result.Success<MovieDetails>).data
                         val videosResult = (results[1] as Result.Success<List<Video>>).data
@@ -164,12 +165,6 @@ class MovieDetailsViewModel
                         val releaseDates =
                             releaseDatesResult.findReleaseDateByCountry(country) ?: emptyList()
                         val latestCertification = releaseDates.getLatestReleaseCertification()
-
-                        //get updated genres from local database to check which genre is favorite
-                        val genresId = movieDetails.genres.map { it.id }
-                        val updatedGenresFlow = genreRepository.getGenresByIds(genresId)
-                        //update current movie details genres
-                        movieDetails.genres = updatedGenresFlow.first()
 
                         val movieInfoUiState = MovieInfoUiState(
                             movieDetails,

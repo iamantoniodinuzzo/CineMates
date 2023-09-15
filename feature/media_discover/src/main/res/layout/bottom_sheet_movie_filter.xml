@@ -102,9 +102,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/base_margin"
         android:layout_marginTop="@dimen/base_margin"
+        android:enabled="false"
         android:text="Apply my favorite genres"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutGenres" />
+
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/dividerFilter"

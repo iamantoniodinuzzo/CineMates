@@ -71,6 +71,16 @@ class MovieDetails(
     voteAverage = voteAverage
 ) {
 
+    fun updateGenres(updatedGenres:List<Genre>){
+        val idToGenreMap = updatedGenres.associateBy { it.id }
+
+        genres.forEach { genre ->
+            idToGenreMap[genre.id]?.let { updatedGenre ->
+                genre.isFavorite = updatedGenre.isFavorite
+            }
+        }
+    }
+
     /**
      * Gets the budget of the movie in a formatted currency string.
      */

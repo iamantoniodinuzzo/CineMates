@@ -141,10 +141,6 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             chip.text = chipData.name
             chip.tag = chipData.id
 
-            chip.setOnClickListener { selectedChip ->
-                // TODO: Search movies with this genre id
-                showToastMessage("Soon - Search ${selectedChip.tag} id")
-            }
             chip.setOnLongClickListener {
                 updateChipStatusAndLayout(chipData, chip, genres)
                 true
@@ -186,7 +182,8 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
             positiveAction = {
                 chipData.isFavorite = !chipData.isFavorite
 
-                // TODO: Add chipData to database with update function
+                viewModel.updateGenre(chipData)
+
 
                 // Remove the existing Chip
                 chipGroupGenres.removeView(chip)

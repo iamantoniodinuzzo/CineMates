@@ -6,7 +6,7 @@ import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavOptions
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
  */
 private fun buildDeepLink(destination: DeepLinkDestination) =
     NavDeepLinkRequest.Builder

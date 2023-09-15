@@ -97,7 +97,7 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/apply_fav_genres_chip"
-        style="@style/CustomFilterChipStyle"
+        style="@style/SingleFilterChipStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/base_margin"

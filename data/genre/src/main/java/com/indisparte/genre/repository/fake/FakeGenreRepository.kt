@@ -61,6 +61,10 @@ class FakeGenreRepository : GenreRepository {
         emit(updated)
     }
 
+    override fun getMyFavGenres(): Flow<List<Genre>> {
+        TODO("Not yet implemented")
+    }
+
     // Helper methods to set fake data in the fake repository
     fun addMovieGenres(genres: List<Genre>) {
         movieGenres.addAll(genres)

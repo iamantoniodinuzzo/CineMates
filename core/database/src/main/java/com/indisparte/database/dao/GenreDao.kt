@@ -19,11 +19,14 @@ interface GenreDao {
     @Query("SELECT * FROM genres")
     fun getAllGenres(): List<GenreEntity>
 
+    @Query("SELECT * FROM genres WHERE isFavorite==1")
+    fun getAllMyFavGenres(): List<GenreEntity>
+
     @Query("SELECT * FROM genres WHERE id IN (:genreIds)")
     fun getAllGenresById(genreIds: List<Int>): List<GenreEntity>
 
     @Update
-    fun updateGenre(genreEntity: GenreEntity):Int
+    fun updateGenre(genreEntity: GenreEntity): Int
 
 
 }

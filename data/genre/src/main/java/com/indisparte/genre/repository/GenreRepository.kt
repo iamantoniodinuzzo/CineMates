@@ -12,4 +12,6 @@ interface GenreRepository {
     fun getGenresByIds(genresId: List<Int>): Flow<List<Genre>>
     fun getTvGenreList(): Flow<Result<List<Genre>>>
     fun updateSavedGenre(genre: Genre): Flow<Int>
+
+    fun getMyFavGenres():Flow<List<Genre>>
 }

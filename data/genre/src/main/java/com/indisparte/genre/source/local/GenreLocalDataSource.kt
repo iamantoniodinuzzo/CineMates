@@ -30,6 +30,12 @@ constructor(
         emit(mappedData)
     }.flowOn(Dispatchers.IO)
 
+    fun getAllMyFavGenres() = flow {
+        val entityData = dao.getAllMyFavGenres()
+        val mappedData = entityData.map { it.asDomain() }
+        emit(mappedData)
+    }.flowOn(Dispatchers.IO)
+
     fun updateGenre(genre: Genre) = flow {
         val mappedGenre = genre.asEntity()
         val result = dao.updateGenre(mappedGenre)

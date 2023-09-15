@@ -104,6 +104,7 @@
         <item name="chipBackgroundColor">@color/background_color_chip_state_list</item>
         <item name="chipStrokeColor">@color/royal_blue_100</item>
         <item name="chipStrokeWidth">2dp</item>
+        <item name="chipIconTint">?attr/colorOnSecondary</item>
         <item name="chipCornerRadius">@dimen/base_corner_radius</item>
         <item name="android:textColor">@color/white_new</item>
     </style>
@@ -119,7 +120,7 @@
         <item name="chipCornerRadius">@dimen/base_corner_radius</item>
         <item name="android:textColor">@color/white_new</item>
         <item name="chipIcon">@drawable/ic_favorite</item>
-        <item name="chipIconTint">@color/vermilion_100</item>
+        <item name="chipIconTint">?attr/colorAccent</item>
         <item name="chipStrokeColor">?attr/colorAccent</item> <!-- Colore del bordo -->
         <item name="chipStrokeWidth">2dp</item> <!-- Larghezza del bordo -->
     </style>

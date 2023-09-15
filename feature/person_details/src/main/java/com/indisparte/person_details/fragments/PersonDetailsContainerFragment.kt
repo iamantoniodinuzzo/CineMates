@@ -94,9 +94,10 @@ class PersonDetailsContainerFragment : BaseFragment<FragmentPersonDetailsContain
         //use views here
         viewModel.personDetails.collectIn(viewLifecycleOwner) { result ->
             result.whenResources(
-                onSuccess = {
+                onSuccess = {personDetails->
                     hideLoading()
-                    binding.person = it
+                    LOG.d("Person Gender: ${personDetails.formattedGender}")
+                    binding.person = personDetails
                 },
                 onError = { exception ->
                     hideLoading()

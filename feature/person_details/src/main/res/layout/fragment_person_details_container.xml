@@ -24,6 +24,7 @@
             android:indeterminate="true" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -34,7 +35,6 @@
                 android:background="?attr/colorPrimary">
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
-                    android:id="@+id/content"
                     style="@style/HugeTitleTextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"
@@ -75,19 +75,33 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <com.indisparte.ui.custom_view.PosterView
+                        <FrameLayout
                             android:id="@+id/person_poster"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="140dp"
-                            android:scaleType="centerCrop"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:pv_cornerRadius="100dp"
-                            app:pv_imageUrl="@{person.completeProfilePathW780}"
-                            app:pv_posterHeight="140dp"
-                            app:pv_posterWidth="140dp" />
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <com.indisparte.ui.custom_view.PosterView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:scaleType="centerCrop"
+                                app:pv_cornerRadius="100dp"
+                                app:pv_imageUrl="@{person.completeProfilePathW780}"
+                                app:pv_posterHeight="140dp"
+                                app:pv_posterWidth="140dp" />
+
+                            <ImageView
+                                android:id="@+id/gender_icon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:loadDrawable="@{person.formattedGender.genderDrawableId}"
+                                tools:src="@tools:sample/backgrounds/scenic"
+                                android:layout_gravity="end|bottom" />
+
+                        </FrameLayout>
 
                         <TextView
                             android:id="@+id/person_name"

@@ -1,3 +1,4 @@
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -54,7 +55,6 @@ dependencies {
     implementation project(':feature:media_discover')
     implementation project(':feature:person_details')
 
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintLayout)
@@ -92,5 +92,10 @@ dependencies {
     //Timber
     implementation(libs.timber)
 
+    //LeakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
+
+
 
 }
+

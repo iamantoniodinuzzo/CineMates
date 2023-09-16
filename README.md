@@ -71,6 +71,9 @@ If you have 💡 ideas 💡 you can submit them [here](https://github.com/Indisp
 - [RecyclerViewEmptyStateSupport](https://github.com/Indisparte/CineMates/blob/develop/RecyclerViewEmptyStateSupport/README.md)
 - [PosterView](https://github.com/Indisparte/CineMates/blob/develop/PosterView/README.md)
 
+### Dependency Graph
+![](gradle/dependency-graph/project.dot.png)
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/Indisparte/CineMates.svg?style=for-the-badge

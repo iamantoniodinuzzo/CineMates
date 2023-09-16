@@ -8,6 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:padding="@dimen/base_margin"
         android:layout_height="match_parent">
 
         <com.indisparte.ui.custom_view.StatefulRecyclerView

@@ -3,6 +3,7 @@ package com.indisparte.media_discover.filterable_fragment.movie
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.github.ajalt.timberkt.Timber
 import com.indisparte.media_discover.R
 import com.indisparte.media_discover.filterable_fragment.FilterSheetRequestListener
 import com.indisparte.navigation.NavigationFlow
@@ -26,7 +27,6 @@ class FilterableMovieFragment :
         MovieAdapter()
     ), FilterSheetRequestListener {
 
-    private val TAG: String = FilterableMovieFragment::class.simpleName!!
     private val viewModel: FilterableMovieFragmentViewModel by navGraphViewModels(R.id.discover_graph) {
         defaultViewModelProviderFactory
     }
@@ -67,7 +67,12 @@ class FilterableMovieFragment :
     }
 
     override fun onRequestFilterSheet() {
-        findNavController().navigate(R.id.action_customFilterFragment_to_movieFilter)
+        try {
+            findNavController().navigate(R.id.action_customFilterFragment_to_movieFilter)
+        } catch (e: IllegalArgumentException) {
+            Timber.tag("FilterableMovieFragment")
+                .e("App crash denied, clicked two times on filter menu item")
+        }
     }
 
 }

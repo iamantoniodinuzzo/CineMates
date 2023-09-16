@@ -77,7 +77,7 @@ class FilterableContainerFragment : BaseFragment<FragmentContainerFilterableBind
                     }
 
                     else -> {
-                        false
+                        true
                     }
                 }
 

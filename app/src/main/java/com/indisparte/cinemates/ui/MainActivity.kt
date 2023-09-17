@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
         setContentView(binding.root)
         setupNavigation()
 
-
     }
 
     private fun setupNavigation() = binding.bottomNavigationView.run {

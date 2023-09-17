@@ -1,8 +1,10 @@
 package com.indisparte.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.actor.repository.PeopleRepository
+import com.indisparte.genre.repository.GenreRepository
 import com.indisparte.home.util.Section
 import com.indisparte.movie_data.repository.MovieRepository
 import com.indisparte.movie_data.util.MovieListType
@@ -28,8 +30,9 @@ constructor(
     private val movieRepository: MovieRepository,
     private val tvRepository: TvRepository,
     private val peopleRepository: PeopleRepository,
+    private val genreRepository: GenreRepository,
 ) : ViewModel() {
-
+    private val TAG = HomeViewModel::class.simpleName
 
     private val _sections = MutableStateFlow<Set<Section>>(emptySet())
     val sections: StateFlow<Set<Section>> get() = _sections
@@ -38,13 +41,24 @@ constructor(
 
     init {
         fetchData()
+        fetchGenres()
+    }
+
+    private fun fetchGenres() {
+        viewModelScope.launch {
+            val deferred = async { genreRepository.fetchAllGenres() }
+
+            deferred.await()
+            Log.d(TAG, "fetchGenres: Update all genres ")
+        }
+
     }
 
 
     private suspend fun fetchPopularMovies() {
         movieRepository.getByListType(MovieListType.POPULAR).collect { resource ->
-                val movieSection = Section.MovieSection(R.string.section_popular_movie, resource)
-                updateSection(movieSection)
+            val movieSection = Section.MovieSection(R.string.section_popular_movie, resource)
+            updateSection(movieSection)
         }
     }
 

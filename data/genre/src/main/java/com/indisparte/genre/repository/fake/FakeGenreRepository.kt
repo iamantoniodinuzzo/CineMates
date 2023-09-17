@@ -53,6 +53,10 @@ class FakeGenreRepository : GenreRepository {
         return emitResult(tvGenres)
     }
 
+    override fun getAllGenres(): Flow<List<Genre>> {
+        TODO("Not yet implemented")
+    }
+
     override fun updateSavedGenre(genre: Genre): Flow<Int> = flow {
         val updated = movieGenres.find { it.id == genre.id }?.let {
             it.isFavorite = genre.isFavorite
@@ -62,6 +66,10 @@ class FakeGenreRepository : GenreRepository {
     }
 
     override fun getMyFavGenres(): Flow<List<Genre>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun fetchAllGenres() {
         TODO("Not yet implemented")
     }
 

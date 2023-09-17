@@ -40,7 +40,7 @@ inline fun <T> fetchFromLocalOrRemote(
                 is Result.Success -> {
                     Timber.tag("Repository").d("Saving data to local source")
                     saveToLocal(remoteResult.data) // Save data locally
-                    emit(Result.Success(remoteResult.data))
+//                    emit(Result.Success(remoteResult.data))
                 }
 
                 is Result.Error -> {
@@ -52,6 +52,13 @@ inline fun <T> fetchFromLocalOrRemote(
                     // Handle loading state if needed
                     emit(Result.Loading)
                 }
+            }
+        }
+        // Emit the local data if available
+        if (localData.isNullOrEmpty()) {
+            val updatedLocalData = localFetch.invoke()
+            if (!updatedLocalData.isNullOrEmpty()) {
+                emit(Result.Success(updatedLocalData.filterNotNull()))
             }
         }
     }

@@ -10,7 +10,7 @@ import com.indisparte.database.model.GenreEntity
  */
 @Database(
     entities = [GenreEntity::class],
-    version = 1
+    version = 2
 )
 abstract class CineMatesDatabase : RoomDatabase() {
     abstract fun getGenreDao(): GenreDao

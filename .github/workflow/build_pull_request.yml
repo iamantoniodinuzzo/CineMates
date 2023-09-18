@@ -1,0 +1,56 @@
+name: Build Pull Request
+on: pull_request
+jobs:
+  test_job:
+    name: Test
+    runs_on: ubuntu_latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Restore Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/cache
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Run Debug Tests
+        run: ./gradlew testDebugUnitTest
+      - name: Upload Test Reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-reports
+          path: '**/build/reports/tests/'
+
+  lint_job:
+    name: Lint
+    runs-on: unubtu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Restore Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/cache
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Run Debug ktlint
+        run: ./gradlew ktlintDebugCheck
+
+      - name: Run Debug Lint
+        run: ./gradlew lintDebug
+
+      - name: Upload Lint Reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: lint-reports
+          path: '**/build/reports/lint-results-*'

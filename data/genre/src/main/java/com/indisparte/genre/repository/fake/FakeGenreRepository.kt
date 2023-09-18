@@ -1,6 +1,7 @@
 package com.indisparte.genre.repository.fake
 
 import com.indisparte.common.Genre
+import com.indisparte.common.MediaType
 import com.indisparte.genre.repository.GenreRepository
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
@@ -38,6 +39,8 @@ class FakeGenreRepository : GenreRepository {
     }
 
     override fun getMovieGenreList(): Flow<Result<List<Genre>>> {
+        val movieGenres =
+            localGenres.filter { it.mediaType == MediaType.MOVIE || it.mediaType == MediaType.BOTH }
         return emitResult(movieGenres)
     }
 
@@ -49,6 +52,8 @@ class FakeGenreRepository : GenreRepository {
     }
 
     override fun getTvGenreList(): Flow<Result<List<Genre>>> {
+        val tvGenres =
+            localGenres.filter { it.mediaType == MediaType.TV || it.mediaType == MediaType.BOTH }
         return emitResult(tvGenres)
     }
 
@@ -57,7 +62,7 @@ class FakeGenreRepository : GenreRepository {
     }
 
     override fun updateSavedGenre(genre: Genre): Flow<Int> = flow {
-        val updated = movieGenres.find { it.id == genre.id }?.let {
+        val updated = localGenres.find { it.id == genre.id }?.let {
             it.isFavorite = genre.isFavorite
             1
         } ?: 0
@@ -70,16 +75,17 @@ class FakeGenreRepository : GenreRepository {
     }
 
     override suspend fun fetchAllGenres() {
-        val allGenres = movieGenres.union(tvGenres).toList()
-        localGenres.addAll(allGenres)
+        localGenres.addAll(movieGenres)
+        localGenres.addAll(tvGenres)
+
     }
 
     fun addMovieGenres(genres: List<Genre>) {
-        movieGenres.addAll(genres)
+        localGenres.addAll(genres)
     }
 
     fun addTvGenres(genres: List<Genre>) {
-        tvGenres.addAll(genres)
+        localGenres.addAll(genres)
     }
 
     // Helper method to clear all fake data

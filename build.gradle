@@ -1,4 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.vanniktech:gradle-dependency-graph-generator-plugin:0.8.0"
+    }
+}
 plugins{
     alias(libs.plugins.jetbrains.kotlin) apply false
     alias(libs.plugins.dagger.android) apply false
@@ -11,3 +19,6 @@ plugins{
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+
+apply plugin: "com.vanniktech.dependency.graph.generator"

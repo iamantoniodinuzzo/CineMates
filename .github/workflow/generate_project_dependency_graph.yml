@@ -1,0 +1,39 @@
+name: Generate Project Dependency Graph
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  generate-dependency-graph:
+    name: Generate Dependency Graph
+    continue-on-error: true
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Graphviz
+      uses: ts-graphviz/setup-graphviz@v1
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    - name: Build and Generate Dependency Graph
+      run: |
+        ./gradlew generateProjectDependencyGraph
+
+    - name: Commmit
+      run: |
+          git config --local user.email 'action@github.com'
+          git config --local user.name 'GitHub Action'
+          git diff --quiet && git diff --staged --quiet || git commit -am 'Update dependency graph'
+
+    - name: Push
+      uses: ad-m/github-push-action@develop
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}

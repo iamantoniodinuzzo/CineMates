@@ -74,7 +74,6 @@ constructor(
 
                     LOG.d("Insert all genres locally...")
 
-                    // TODO: Solution to avoid firstOrNull call
                     genreLocalDataSource.insertGenres(movieGenres, MediaType.MOVIE).firstOrNull()
                     genreLocalDataSource.insertGenres(tvGenres, MediaType.TV).firstOrNull()
                     genreLocalDataSource.insertGenres(commonGenres, MediaType.BOTH).firstOrNull()

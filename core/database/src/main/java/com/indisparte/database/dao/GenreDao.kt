@@ -19,6 +19,15 @@ interface GenreDao {
     @Query("SELECT * FROM genres")
     fun getAllGenres(): List<GenreEntity>
 
+    /**
+     * Retrieves a list of genres filtered by media type from the database.
+     *
+     * @param mediaTypeId The media type ID to filter by.
+     * @return A list of [GenreEntity] objects matching the specified media type filter and [MediaType.BOTH]
+     */
+    @Query("SELECT * FROM genres WHERE mediaType IN (:mediaTypeId, 0)")
+    fun getAllGenresByMediaType(mediaTypeId: Int): List<GenreEntity>
+
     @Query("SELECT * FROM genres WHERE isFavorite==1")
     fun getAllMyFavGenres(): List<GenreEntity>
 

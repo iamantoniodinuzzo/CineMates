@@ -2,6 +2,7 @@ package com.indisparte.movie_data.mapper
 
 import com.indisparte.common.Backdrop
 import com.indisparte.common.Genre
+import com.indisparte.common.MediaType
 import com.indisparte.common.ProductionCompany
 import com.indisparte.common.ProductionCountry
 import com.indisparte.common.SpokenLanguage
@@ -49,7 +50,7 @@ fun MovieDetailsDTO.toMovieDetails(): MovieDetails {
         adult = this.adult, backdropPath = this.backdropPath,
         belongsToCollection = this.belongsToCollection?.mapToBelongToCollection(),
         budget = this.budget,
-        genres = this.genres.map { it.mapToGenre() },
+        genres = this.genres.map { it.mapToGenre(MediaType.MOVIE) },
         homepage = this.homepage,
         id = this.id,
         originalLanguage = this.originalLanguage,
@@ -81,8 +82,8 @@ fun BelongsToCollectionDTO.mapToBelongToCollection(): BelongsToCollection {
     )
 }
 
-fun GenreDTO.mapToGenre(): Genre {
-    return Genre(id = this.id, name = this.name)
+fun GenreDTO.mapToGenre(mediaType: MediaType): Genre {
+    return Genre(id = this.id, name = this.name, mediaType = mediaType)
 }
 
 fun ProductionCompanyDTO.mapToProductionCompany(): ProductionCompany {

@@ -50,6 +50,7 @@ dependencies {
     implementation project(':data:movie')
     implementation project(':data:tv')
     implementation project(':data:people')
+    implementation project(':data:genre')
 
     testImplementation(libs.junitTest)
     testImplementation project(':core:testing')

@@ -1,6 +1,7 @@
 package com.indisparte.genre.repository.fake
 
 import com.indisparte.common.Genre
+import com.indisparte.common.MediaType
 import com.indisparte.genre.repository.GenreRepository
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.flow
 class FakeGenreRepository : GenreRepository {
     private val movieGenres = mutableListOf<Genre>()
     private val tvGenres = mutableListOf<Genre>()
+    private val localGenres = mutableListOf<Genre>()
     private var cineMatesExceptions: CineMatesExceptions? = null
     private var shouldEmitException: Boolean = false
 
@@ -24,8 +26,8 @@ class FakeGenreRepository : GenreRepository {
         this.cineMatesExceptions = cineMatesExceptions
     }
 
-    private fun <T> emitResult(data: T): Flow<Result<T>> {
-        return if (shouldEmitException) {
+    private fun <T> emitResult(data: T?): Flow<Result<T>> {
+        return if (shouldEmitException || data == null) {
             flow {
                 emit(Result.Error(cineMatesExceptions ?: CineMatesExceptions.GenericException))
             }
@@ -37,46 +39,59 @@ class FakeGenreRepository : GenreRepository {
     }
 
     override fun getMovieGenreList(): Flow<Result<List<Genre>>> {
-        // Implement the behavior to return fake data for getMovieGenreList
+        val movieGenres =
+            localGenres.filter { it.mediaType == MediaType.MOVIE || it.mediaType == MediaType.BOTH }
         return emitResult(movieGenres)
     }
 
     override fun getGenresByIds(genresId: List<Int>): Flow<List<Genre>> = flow {
-        val genres = movieGenres.filter { movieGenre ->
+        val genres = localGenres.filter { movieGenre ->
             movieGenre.id in genresId
         }
         emit(genres)
     }
 
     override fun getTvGenreList(): Flow<Result<List<Genre>>> {
-        // Implement the behavior to return fake data for getTvGenreList
+        val tvGenres =
+            localGenres.filter { it.mediaType == MediaType.TV || it.mediaType == MediaType.BOTH }
         return emitResult(tvGenres)
     }
 
+    override fun getAllGenres(): Flow<List<Genre>> = flow {
+        emit(localGenres)
+    }
+
     override fun updateSavedGenre(genre: Genre): Flow<Int> = flow {
-        val updated = movieGenres.find { it.id == genre.id }?.let {
+        val updated = localGenres.find { it.id == genre.id }?.let {
             it.isFavorite = genre.isFavorite
             1
         } ?: 0
         emit(updated)
     }
 
-    override fun getMyFavGenres(): Flow<List<Genre>> {
-        TODO("Not yet implemented")
+    override fun getMyFavGenres(): Flow<List<Genre>> = flow {
+        val myFavGenres = localGenres.filter { it.isFavorite }
+        emit(myFavGenres)
     }
 
-    // Helper methods to set fake data in the fake repository
+    override suspend fun fetchAllGenres() {
+        localGenres.addAll(movieGenres)
+        localGenres.addAll(tvGenres)
+
+    }
+
     fun addMovieGenres(genres: List<Genre>) {
-        movieGenres.addAll(genres)
+        localGenres.addAll(genres)
     }
 
     fun addTvGenres(genres: List<Genre>) {
-        tvGenres.addAll(genres)
+        localGenres.addAll(genres)
     }
 
     // Helper method to clear all fake data
     fun clearData() {
         movieGenres.clear()
         tvGenres.clear()
+        localGenres.clear()
     }
 }

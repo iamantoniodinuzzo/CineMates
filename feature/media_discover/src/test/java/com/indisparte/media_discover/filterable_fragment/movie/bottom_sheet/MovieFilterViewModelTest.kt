@@ -1,6 +1,8 @@
 package com.indisparte.media_discover.filterable_fragment.movie.bottom_sheet
 
+import com.google.common.truth.Truth.assertThat
 import com.indisparte.common.Genre
+import com.indisparte.common.MediaType
 import com.indisparte.filter.MovieSortOptions
 import com.indisparte.genre.repository.fake.FakeGenreRepository
 import com.indisparte.network.Result
@@ -12,6 +14,7 @@ import junit.framework.TestCase.assertNull
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
@@ -29,10 +32,19 @@ class MovieFilterViewModelTest {
 
     private lateinit var viewModel: MovieFilterViewModel
     private lateinit var fakeGenreRepository: FakeGenreRepository
+    private val movieMediaType = MediaType.MOVIE
+    private val bothMediaType = MediaType.BOTH
+    private val fakeMovieGenres = listOf(
+        Genre(1, "Action", mediaType = bothMediaType),
+        Genre(2, "Drama", mediaType = bothMediaType),
+        Genre(id = 1149, name = "Naomi Cunningham", mediaType = movieMediaType)
+    )
 
     @Before
     fun setupViewModel() {
         fakeGenreRepository = FakeGenreRepository()
+
+        fakeGenreRepository.addMovieGenres(fakeMovieGenres)
 
         viewModel = MovieFilterViewModel(fakeGenreRepository)
     }
@@ -111,18 +123,34 @@ class MovieFilterViewModelTest {
     }
 
     @Test
-    fun `test loading movie genres`() = runBlockingTest {
-        // Given
-        val fakeGenres = listOf(Genre(1, "Action"), Genre(2, "Drama"))
-        fakeGenreRepository.addMovieGenres(fakeGenres)
+    fun `test loading movie genres`() = runBlocking {
 
+        // Given
+        /* val movieMediaType = MediaType.MOVIE
+         val bothMediaType = MediaType.BOTH
+         val fakeMovieGenres = listOf(
+             Genre(1, "Action", mediaType = bothMediaType),
+             Genre(2, "Drama", mediaType = bothMediaType),
+             Genre(id = 1149, name = "Naomi Cunningham", mediaType = movieMediaType)
+         )
+         val fakeTvGenres = listOf(
+             Genre(
+                 id = 4602,
+                 name = "Nolan Guerra",
+                 mediaType = MediaType.TV
+             )
+         )
+
+         fakeGenreRepository.addMovieGenres(fakeMovieGenres)
+ */
         // When
         // ViewModel is initialized in setupViewModel
 
         // Then
         val movieGenres = viewModel.movieGenres.first()
         val successResult = movieGenres as Result.Success
-        assertEquals(fakeGenres, successResult.data)
+        assertEquals(fakeMovieGenres, successResult.data)
+        assertThat(successResult.data.size).isEqualTo(3)
     }
 
     @Test
@@ -140,7 +168,7 @@ class MovieFilterViewModelTest {
     }
 
     @After
-    fun tearDown(){
+    fun tearDown() {
         fakeGenreRepository.clearData()
     }
 }

@@ -39,8 +39,7 @@ inline fun <T> fetchFromLocalOrRemote(
             when (remoteResult) {
                 is Result.Success -> {
                     Timber.tag("Repository").d("Saving data to local source")
-                    saveToLocal(remoteResult.data) // Save data locally
-//                    emit(Result.Success(remoteResult.data))
+                    saveToLocal(remoteResult.data) 
                 }
 
                 is Result.Error -> {

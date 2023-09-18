@@ -1,6 +1,7 @@
 package com.indisparte.home.util
 
 import androidx.annotation.StringRes
+import com.indisparte.movie_data.Movie
 import com.indisparte.network.Result
 
 
@@ -18,7 +19,7 @@ sealed class Section(@StringRes val titleResId: Int) {
      */
     class MovieSection(
         @StringRes titleResId: Int,
-        val moviesResult: Result<List<com.indisparte.movie_data.Movie>>,
+        val moviesResult: Result<List<Movie>>,
     ) :
         Section(titleResId) {
         override fun toString(): String {

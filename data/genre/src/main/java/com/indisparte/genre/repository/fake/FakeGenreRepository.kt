@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.flow
 class FakeGenreRepository : GenreRepository {
     private val movieGenres = mutableListOf<Genre>()
     private val tvGenres = mutableListOf<Genre>()
+    private val localGenres = mutableListOf<Genre>()
     private var cineMatesExceptions: CineMatesExceptions? = null
     private var shouldEmitException: Boolean = false
 
@@ -24,8 +25,8 @@ class FakeGenreRepository : GenreRepository {
         this.cineMatesExceptions = cineMatesExceptions
     }
 
-    private fun <T> emitResult(data: T): Flow<Result<T>> {
-        return if (shouldEmitException) {
+    private fun <T> emitResult(data: T?): Flow<Result<T>> {
+        return if (shouldEmitException || data == null) {
             flow {
                 emit(Result.Error(cineMatesExceptions ?: CineMatesExceptions.GenericException))
             }
@@ -37,24 +38,22 @@ class FakeGenreRepository : GenreRepository {
     }
 
     override fun getMovieGenreList(): Flow<Result<List<Genre>>> {
-        // Implement the behavior to return fake data for getMovieGenreList
         return emitResult(movieGenres)
     }
 
     override fun getGenresByIds(genresId: List<Int>): Flow<List<Genre>> = flow {
-        val genres = movieGenres.filter { movieGenre ->
+        val genres = localGenres.filter { movieGenre ->
             movieGenre.id in genresId
         }
         emit(genres)
     }
 
     override fun getTvGenreList(): Flow<Result<List<Genre>>> {
-        // Implement the behavior to return fake data for getTvGenreList
         return emitResult(tvGenres)
     }
 
-    override fun getAllGenres(): Flow<List<Genre>> {
-        TODO("Not yet implemented")
+    override fun getAllGenres(): Flow<List<Genre>> = flow {
+        emit(localGenres)
     }
 
     override fun updateSavedGenre(genre: Genre): Flow<Int> = flow {
@@ -65,15 +64,16 @@ class FakeGenreRepository : GenreRepository {
         emit(updated)
     }
 
-    override fun getMyFavGenres(): Flow<List<Genre>> {
-        TODO("Not yet implemented")
+    override fun getMyFavGenres(): Flow<List<Genre>> = flow {
+        val myFavGenres = localGenres.filter { it.isFavorite }
+        emit(myFavGenres)
     }
 
     override suspend fun fetchAllGenres() {
-        TODO("Not yet implemented")
+        val allGenres = movieGenres.union(tvGenres).toList()
+        localGenres.addAll(allGenres)
     }
 
-    // Helper methods to set fake data in the fake repository
     fun addMovieGenres(genres: List<Genre>) {
         movieGenres.addAll(genres)
     }
@@ -86,5 +86,6 @@ class FakeGenreRepository : GenreRepository {
     fun clearData() {
         movieGenres.clear()
         tvGenres.clear()
+        localGenres.clear()
     }
 }

@@ -2,6 +2,7 @@ package com.indisparte.home
 
 import com.google.common.truth.Truth.assertThat
 import com.indisparte.actor.repository.fake.FakePeopleRepository
+import com.indisparte.genre.repository.fake.FakeGenreRepository
 import com.indisparte.home.util.Section
 import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.repository.fake.FakeMovieRepository
@@ -11,7 +12,6 @@ import com.indisparte.person.Person
 import com.indisparte.testing.util.rule.MainDispatcherRule
 import com.indisparte.tv.TvShow
 import com.indisparte.tv.repository.fake.FakeTvRepository
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
@@ -20,29 +20,33 @@ import org.junit.Test
 import org.junit.rules.TestRule
 
 
+
 /**
  * @author Antonio Di Nuzzo
  */
-@OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModelTest {
 
     @get:Rule
     val rule: TestRule = MainDispatcherRule()
 
     private lateinit var viewModel: HomeViewModel
-    private val movieRepository: FakeMovieRepository = FakeMovieRepository()
-    private val tvRepository: FakeTvRepository = FakeTvRepository()
-    private val peopleRepository: FakePeopleRepository = FakePeopleRepository()
-
+    private lateinit var movieRepository: FakeMovieRepository
+    private lateinit var tvRepository: FakeTvRepository
+    private lateinit var peopleRepository: FakePeopleRepository
+    private lateinit var genreRepository: FakeGenreRepository
 
     @Before
     fun setup() {
-        viewModel = HomeViewModel(movieRepository, tvRepository, peopleRepository)
+        movieRepository = FakeMovieRepository()
+        tvRepository = FakeTvRepository()
+        peopleRepository = FakePeopleRepository()
+        genreRepository = FakeGenreRepository()
+        viewModel = HomeViewModel(movieRepository, tvRepository, peopleRepository, genreRepository)
     }
 
     @Test
     fun `fetchData should update sections correctly`() = runBlocking {
-        val fakeMovies = listOf<Movie>(
+        val fakeMovies = listOf(
             Movie(
                 adult = false,
                 id = 5512,

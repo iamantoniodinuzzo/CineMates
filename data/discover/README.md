@@ -1,3 +1,3 @@
 # :data:discover module
 
-![Dependency raph](/docs/images/dep_grapg_discover.png)
+![Dependency graph](/docs/images/dep_graph_discover.png)

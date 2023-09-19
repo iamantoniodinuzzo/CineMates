@@ -33,9 +33,9 @@ android {
 
 dependencies {
 
-    implementation project(":core:model:tv")
-    implementation project(":core:model:filter")
-    implementation project(":core:model:person")
+    api project(":core:model:tv")
+    api project(":core:model:filter")
+    api project(":core:model:person")
     implementation project(":core:response")
     implementation project(":core:network")
 

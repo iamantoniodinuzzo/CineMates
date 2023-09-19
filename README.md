@@ -1,89 +1,68 @@
 
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
--->
-
-# CineMates
-![GitHub last commit][last-commit-shield]
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+<h1 align="center">CineMates</h1>
 
 <p align="center">
-  <img src="https://github.com/Indisparte/CineMates/blob/main/assets/logo.png?raw=true" alt="CineMates Logo"/>
+  <a href="https://opensource.org/licenses/Apache-2.0"><img alt="Last Commit" src="https://img.shields.io/github/last-commit/iamantoniodinuzzo/CineMates.svg?style=for-the-badge"/></a>
+  <a href="https://android-arsenal.com/api?level=21"><img alt="Contributors" src="https://img.shields.io/github/contributors/iamantoniodinuzzo/CineMates.svg?style=for-the-badge"/></a>
+  <a href="https://github.com/iamantoniodinuzzo/CineMates/network/members"><img alt="Forks" src="https://img.shields.io/github/forks/iamantoniodinuzzo/CineMates.svg?style=for-the-badge"/></a> <br>
+  <a href="https://github.com/iamantoniodinuzzo/CineMates/stargazers"><img alt="Stargazers" src="https://img.shields.io/github/stars/iamantoniodinuzzo/CineMates.svg?style=for-the-badge"/></a>
+  <a href="https://github.com/iamantoniodinuzzo/CineMates/issues"><img alt="Issues" src="https://img.shields.io/github/issues/iamantoniodinuzzo/CineMates.svg?style=for-the-badge"/></a>
+  <a href="https://github.com/iamantoniodinuzzo/CineMates/blob/main/LICENSE.txt"><img alt="License" src="https://img.shields.io/github/license/iamantoniodinuzzo/CineMates.svg?style=for-the-badge"/></a> 
 </p>
 
-## 🔎 Project Overview
-The application is still in its initial state, lacking all the necessary tests to make it a secure and stable application.
-
-The purpose of this application is to provide the user with a tool to track down all information regarding movies and TV series.
-
-The project is constantly changing as a personal gym in Android development.
-
-## 🗝 API Key.
-Find a file called `local.properties` in the `.gradle` file in the home directory.
-
-- Add `TMDB_API_KEY = "YOUR-API-KEY"` (*The API of The Movie DB obtainable [here](https://www.themoviedb.org/?language=en)*)
-- Add `YT_API_KEY = "YOUR-API-KEY"` (*The API of Youtube obtainable [here](https://console.cloud.google.com/apis/dashboard)*)
-
-## 👨‍💻 What I learned.
-- Retrieve data from the Internet with **Retrofit** and the **API** of [TheMovieDB](https://developers.themoviedb.org/3/getting-started)
-- Use **ListAdapters** and **DiffUtil**
-- Use the **MVVM** pattern
-- Incorporate **data binding** and **view binding**
-- Use the **Navigation**, **ViewPager2**  component.
-- **Flow** and **MutableStateFlow**
-- Use **Dagger Hilt** for dependency injection.
-- **Clean Architecture**
-- Create unique customize views to reduce boilerplate code
-- [Version Catalogue](https://developer.android.com/build/migrate-to-catalogs)
-## 📽 Screenshots
-
-**Home** | **Movie details** | **Actor details** | **Tv Details** | **Search** |
-:-----------------------------:|:-----------------------------:|:-----------------------------:|:-----------------------------:|:-----------------------------:
-![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/home.png) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/movie_details.png) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/actor_details.png) | ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/tv_details.png)| ![](https://github.com/Indisparte/CineMates/blob/main/assets/Gif/search.png) 
+<p align="center">  
+🎥 <b>CineMates</b> demonstrates modern Android development with Hilt, Coroutines, Flow, Jetpack (Room, ViewModel), and Material Design based on MVVM architecture and Modularization.
+</p>
+</br>
 
 
-## 🤝 Contributing 
-Feel free to open an [Issues](https://github.com/Indisparte/CineMates/issues) or submit a [Pull requests](https://github.com/Indisparte/CineMates/pulls) for any bugs/enhancement.
+<p align="center">
+  <img src="/assets/logo.png" alt="Logo"/>
+</p>
 
-If you have 💡 ideas 💡 you can submit them [here](https://github.com/Indisparte/CineMates/discussions/categories/ideas).
+## Download ⬇️
+> 👷‍♂️ Section in preparation
 
-## 📚 Libraries
-- [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/) 
-- [Android Data Binding](https://developer.android.com/topic/libraries/data-binding/)
-- [Retrofit](http://square.github.io/retrofit/)
-- [Glide](https://github.com/bumptech/glide) 
-- [Hilt Library](https://developer.android.com/training/dependency-injection/hilt-android)
-- [YouTube Library](https://developers.google.com/youtube/android/player)
-- [CircleIndicator](https://github.com/ongakuer/CircleIndicator)
-### Personal
-- [HorizontalChipView](https://github.com/Indisparte/CineMates/blob/develop/HorizontalChipView/README.md)
-- [LinearLayoutInfo](https://github.com/Indisparte/CineMates/blob/develop/LinearLayoutInfo/README.md)
-- [MoreLessTextView](https://github.com/Indisparte/CineMates/blob/develop/MoreLessTextView/README.md)
-- [RecyclerViewEmptyStateSupport](https://github.com/Indisparte/CineMates/blob/develop/RecyclerViewEmptyStateSupport/README.md)
-- [PosterView](https://github.com/Indisparte/CineMates/blob/develop/PosterView/README.md)
+## Tech stack 🧱
+- Minimum SDK level 22
+- [Kotlin](https://kotlinlang.org/) based, [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) for asynchronous.
+- Jetpack
+  - **Lifecycle**: Observe Android lifecycles and handle UI states upon the lifecycle changes.
+  - **ViewModel**: Manages UI-related data holder and lifecycle aware. Allows data to survive configuration changes such as screen rotations.
+  - **DataBinding**: Binds UI components in your layouts to data sources in your app using a declarative format rather than programmatically.
+  - **Room**: Constructs Database by providing an abstraction layer over SQLite to allow fluent database access.
+  - [Hilt](https://dagger.dev/hilt/): for dependency injection.
+- **Architecture**
+  - **MVVM Architecture** (View - DataBinding - ViewModel - Model)
+  - **Repository Pattern**
+- [Retrofit2 & OkHttp3](https://github.com/square/retrofit): Construct the REST APIs and paging network data.
+- [Material-Components](https://github.com/material-components/material-components-android): Material design components for building ripple animation, and CardView.
+- [Glide](https://github.com/bumptech/glide): Loading images from network.
+- **Custom Views**
+  - [LinearLayoutInfoView](https://github.com/iamantoniodinuzzo/CineMates/blob/feat/documentation/core/ui/src/main/java/com/indisparte/ui/custom_view/LinearLayoutInfoView.kt): A simple way to display a simple section of text (vertical or horizontal) consisting of a title and a value.
+  - [MoreLessTextView](https://github.com/iamantoniodinuzzo/CineMates/blob/feat/documentation/core/ui/src/main/java/com/indisparte/ui/custom_view/MoreLessTextView.kt): A simple way to display an expandable TextView as needed.
+  - [PosterView](https://github.com/iamantoniodinuzzo/CineMates/blob/feat/documentation/core/ui/src/main/java/com/indisparte/ui/custom_view/PosterView.kt): A simple way to display a media poster featuring an image and a title.
+  - [StatefulRecyclerView](https://github.com/iamantoniodinuzzo/CineMates/blob/feat/documentation/core/ui/src/main/java/com/indisparte/ui/custom_view/StatefulRecyclerView.kt): A RecyclerView that handles the loading, error, and empty states.
+- [Timber](https://github.com/JakeWharton/timber): A logger with a small, extensible API.
 
-### Dependency Graph
-![](gradle/dependency-graph/project.dot.png)
+## Open API 🍽️
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/Indisparte/CineMates.svg?style=for-the-badge
-[contributors-url]: https://github.com/Indisparte/CineMates/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Indisparte/CineMates.svg?style=for-the-badge
-[forks-url]: https://github.com/Indisparte/CineMates/network/members
-[stars-shield]: https://img.shields.io/github/stars/Indisparte/CineMates.svg?style=for-the-badge
-[stars-url]: https://github.com/Indisparte/CineMates/stargazers
-[issues-shield]: https://img.shields.io/github/issues/Indisparte/CineMates.svg?style=for-the-badge
-[issues-url]: https://github.com/Indisparte/CineMates/issues
-[license-shield]: https://img.shields.io/github/license/Indisparte/CineMates.svg?style=for-the-badge
-[license-url]: https://github.com/Indisparte/CineMates/blob/main/LICENSE.txt
-[last-commit-shield]: https://img.shields.io/github/last-commit/Indisparte/CineMates.svg?style=for-the-badge
+<img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" align="right" width="19%"/>
+
+**CineMates** using the __[TheMovieDB](https://developer.themoviedb.org/reference/intro/getting-started)__ for constructing RESTful API.<br>
+TheMovieDB provides a RESTful API interface to highly detailed objects built from thousands of lines of data related to Movie and Tv Series.
+
+
+## Screenshots 🖼️
+> 👷‍♂️ Section in preparation
+
+
+## Contributing 🤝 
+Feel free to open an __[Issues](https://github.com/iamantoniodinuzzo/CineMates/issues)__ 🐛 or submit a __[Pull requests](https://github.com/iamantoniodinuzzo/CineMates/pulls)__ ❔ for any bugs/enhancement.
+
+If you have ideas 💡 you can submit them __[here](https://github.com/Indisparte/CineMates/discussions/categories/ideas)__.
+
+## Find this repository useful? :heart:
+Support it by joining __[stargazers](https://github.com/iamantoniodinuzzo/CineMates/stargazers)__ for this repository. :star: <br>
+Also, __[follow me](https://github.com/iamantoniodinuzzo)__ on GitHub for my next creations! 🤩
+

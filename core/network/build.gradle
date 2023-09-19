@@ -48,6 +48,8 @@ dependencies {
 
     //Retrofit
     implementation(libs.bundles.retrofit)
+    testImplementation(libs.androidx.arch.core)
+
 
     // Dagger Hilt
     implementation(libs.hilt.android)

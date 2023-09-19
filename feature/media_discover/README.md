@@ -1,3 +1,3 @@
-# :feature:media_discover
+# :feature:media_discover module
 
-![Dependency Graph](../docs/images/dep_graph_media_discover.png)
+![Dependency graph](/docs/images/dep_graph_media_discover.png)

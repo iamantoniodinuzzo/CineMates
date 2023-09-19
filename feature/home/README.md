@@ -1,3 +1,3 @@
-# :feature:home
+# :feature:home module
 
-![Dependency Graph](../docs/images/dep_graph_home.png)
+![Dependency graph](/docs/images/dep_graph_home.png)

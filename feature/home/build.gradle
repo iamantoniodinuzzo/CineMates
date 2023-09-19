@@ -42,10 +42,7 @@ dependencies {
     implementation project(':core:util')
     implementation project(':core:ui')
     implementation project(':core:network')
-    implementation project(':core:model:tv')
-    implementation project(':core:model:person')
-    implementation project(':core:model:movie')
-    implementation project(':core:model:filter')
+
     implementation project(':core:navigation')
     implementation project(':data:movie')
     implementation project(':data:tv')

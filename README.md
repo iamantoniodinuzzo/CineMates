@@ -31,13 +31,13 @@
   - **ViewModel**: Manages UI-related data holder and lifecycle aware. Allows data to survive configuration changes such as screen rotations.
   - **DataBinding**: Binds UI components in your layouts to data sources in your app using a declarative format rather than programmatically.
   - **Room**: Constructs Database by providing an abstraction layer over SQLite to allow fluent database access.
-  - [**Hilt**](https://dagger.dev/hilt/): for dependency injection.
+  - [Hilt](https://dagger.dev/hilt/): for dependency injection.
 - **Architecture**
   - **MVVM Architecture** (View - DataBinding - ViewModel - Model)
   - **Repository Pattern**
-- [**Retrofit2 & OkHttp3**](https://github.com/square/retrofit): Construct the REST APIs and paging network data.
-- [**Material-Components**](https://github.com/material-components/material-components-android): Material design components for building ripple animation, and CardView.
-- [**Glide**](https://github.com/bumptech/glide): Loading images from network.
+- [Retrofit2 & OkHttp3](https://github.com/square/retrofit): Construct the REST APIs and paging network data.
+- [Material-Components](https://github.com/material-components/material-components-android): Material design components for building ripple animation, and CardView.
+- [Glide](https://github.com/bumptech/glide): Loading images from network.
 - **Custom Views**
   - [LinearLayoutInfoView](https://github.com/iamantoniodinuzzo/CineMates/blob/feat/documentation/core/ui/src/main/java/com/indisparte/ui/custom_view/LinearLayoutInfoView.kt): A simple way to display a simple section of text (vertical or horizontal) consisting of a title and a value.
   - [MoreLessTextView](https://github.com/iamantoniodinuzzo/CineMates/blob/feat/documentation/core/ui/src/main/java/com/indisparte/ui/custom_view/MoreLessTextView.kt): A simple way to display an expandable TextView as needed.

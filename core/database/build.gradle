@@ -41,12 +41,12 @@ dependencies {
 
     //Room
     implementation(libs.bundles.room)
-    kapt(libs.room.compiler)
+    kapt(libs.androidx.room.compiler)
     testImplementation(libs.room.testing)
 
     // Dagger Hilt
-    implementation(libs.dagger.core)
-    kapt(libs.dagger.compiler)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     //Timber
     implementation(libs.timber)

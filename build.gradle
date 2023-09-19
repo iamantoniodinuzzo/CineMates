@@ -4,15 +4,18 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+        classpath(libs.agp)
+        classpath(libs.kotlin.gradlePlugin)
+        classpath(libs.hilt.plugin)
         classpath "com.vanniktech:gradle-dependency-graph-generator-plugin:0.8.0"
     }
 }
+
 plugins{
-    alias(libs.plugins.jetbrains.kotlin) apply false
-    alias(libs.plugins.dagger.android) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.hilt.plugin) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.safeargs) apply false
-    id 'org.jetbrains.kotlin.jvm' version '1.8.20' apply false
 }
 
 

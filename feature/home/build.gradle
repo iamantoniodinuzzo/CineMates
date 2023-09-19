@@ -52,7 +52,7 @@ dependencies {
     testImplementation(libs.junitTest)
     testImplementation project(':core:testing')
     testImplementation(libs.coroutines.test)
-    testImplementation(libs.google.truth)
+    testImplementation(libs.truth)
     testImplementation project(':data:movie')
     testImplementation project(':data:tv')
     testImplementation project(':data:people')
@@ -61,9 +61,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.constraintLayout)
     implementation(libs.legacy)
-    implementation(libs.fragmentKtx)
-    androidTestImplementation(libs.junitAndroidTest)
-    androidTestImplementation(libs.espresso)
+    implementation(libs.androidx.fragment)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso)
 
     // Kotlin Extensions
     implementation(libs.core.ktx)
@@ -75,6 +75,6 @@ dependencies {
     implementation(libs.bundles.navigation)
 
     // Dagger Hilt
-    implementation(libs.dagger.core)
-    kapt(libs.dagger.compiler)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 }

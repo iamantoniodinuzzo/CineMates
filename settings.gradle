@@ -13,6 +13,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+
 }
 rootProject.name = "CineMates"
 include ':app'

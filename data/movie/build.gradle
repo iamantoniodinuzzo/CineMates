@@ -42,16 +42,16 @@ dependencies {
     implementation project(":core:database")
 
 
-    implementation libs.bundles.androidX
-    testImplementation libs.junitTest
+    implementation(libs.bundles.androidX)
+    testImplementation(libs.junitTest)
 
 
     //Retrofit
-    implementation libs.bundles.retrofit
+    implementation(libs.bundles.retrofit)
 
     // Dagger Hilt
-    implementation(libs.dagger.core)
-    kapt(libs.dagger.compiler)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     // Kotlin Coroutines
     implementation(libs.bundles.coroutines)

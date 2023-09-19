@@ -46,8 +46,8 @@ dependencies {
     implementation libs.bundles.retrofit
 
     // Dagger Hilt
-    implementation(libs.dagger.core)
-    kapt(libs.dagger.compiler)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     // Kotlin Coroutines
     implementation(libs.bundles.coroutines)

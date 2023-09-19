@@ -44,13 +44,13 @@ dependencies {
     implementation project(":core:model:tv")
     implementation project(":core:navigation")
 
-    implementation libs.bundles.androidX
-    implementation libs.material
-    testImplementation libs.junitTest
-    androidTestImplementation libs.junitAndroidTest
+    implementation(libs.bundles.androidX)
+    implementation(libs.material)
+    testImplementation(libs.junitTest)
+    androidTestImplementation(libs.androidx.junit)
 
 
     // Glide Image Loading Library for Android
-    implementation libs.glide.core
-    kapt libs.glide.compiler
+    implementation(libs.glide.core)
+    kapt(libs.glide.compiler)
 }

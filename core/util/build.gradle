@@ -37,14 +37,14 @@ android {
 dependencies {
     implementation project(':core:network')
 
-    implementation libs.bundles.androidX
-    implementation libs.material
-    testImplementation libs.junitTest
-    androidTestImplementation libs.junitAndroidTest
+    implementation(libs.bundles.androidX)
+    implementation(libs.material)
+    testImplementation(libs.junitTest)
+    androidTestImplementation(libs.androidx.junit)
 
     // Coroutines
-    implementation libs.bundles.coroutines
+    implementation(libs.bundles.coroutines)
 
     // Fragment
-    implementation libs.fragmentKtx
+    implementation(libs.androidx.fragment)
 }

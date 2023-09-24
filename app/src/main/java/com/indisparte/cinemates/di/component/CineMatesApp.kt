@@ -2,8 +2,8 @@ package com.indisparte.cinemates.di.component
 
 import android.app.Application
 import android.os.StrictMode
-import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
 
 /**
  * @author Antonio Di Nuzzo

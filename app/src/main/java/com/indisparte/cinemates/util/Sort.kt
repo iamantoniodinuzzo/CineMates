@@ -1,7 +1,6 @@
 package com.indisparte.cinemates.util
 
 import androidx.annotation.StringRes
-import com.indisparte.cinemates.R
 
 /**
  * Enumeration representing sorting order.
@@ -10,8 +9,8 @@ import com.indisparte.cinemates.R
  * @author Antonio Di Nuzzo (Indisparte)
  */
 enum class Order(val value: String, @StringRes val nameResId: Int) {
-    ASC("asc", R.string.order_asc),
-    DESC("desc", R.string.order_desc);
+    ASC("asc", com.indisparte.ui.R.string.order_asc),
+    DESC("desc", com.indisparte.ui.R.string.order_desc);
 
     override fun toString(): String {
         return value
@@ -59,9 +58,9 @@ enum class TvSort(val value: String, @StringRes val nameResId: Int) {
 }*/
 
 sealed class MediaSortOption(val value: String, @StringRes val nameResId: Int) {
-    object Popular : MediaSortOption("popularity", R.string.sort_popularity)
+    object Popular : MediaSortOption("popularity", com.indisparte.ui.R.string.sort_popularity)
 
-    object ReleaseDate : MediaSortOption("release_date", R.string.sort_release_date)
+    object ReleaseDate : MediaSortOption("release_date", com.indisparte.ui.R.string.sort_release_date)
 
     override fun toString(): String {
         return value
@@ -71,17 +70,17 @@ sealed class MediaSortOption(val value: String, @StringRes val nameResId: Int) {
 }
 
 sealed class MovieSortOption(value: String, nameResId: Int) : MediaSortOption(value, nameResId) {
-    object Revenue : MovieSortOption("revenue", R.string.sort_revenue)
+    object Revenue : MovieSortOption("revenue", com.indisparte.ui.R.string.sort_revenue)
 
-    object VoteAverage : MovieSortOption("vote_average", R.string.sort_vote_average)
+    object VoteAverage : MovieSortOption("vote_average", com.indisparte.ui.R.string.sort_vote_average)
 
-    object VoteCount : MovieSortOption("vote_count", R.string.sort_vote_count)
+    object VoteCount : MovieSortOption("vote_count", com.indisparte.ui.R.string.sort_vote_count)
 
     // Add more movie-specific sorting options here
 }
 
 sealed class TvSortOption(value: String, nameResId: Int) : MediaSortOption(value, nameResId) {
-    object FirstAirDate : TvSortOption("first_air_date", R.string.sort_first_air_date)
+    object FirstAirDate : TvSortOption("first_air_date", com.indisparte.ui.R.string.sort_first_air_date)
 
     // Add more TV-specific sorting options here
 }

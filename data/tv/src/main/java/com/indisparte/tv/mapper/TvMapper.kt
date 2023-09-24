@@ -20,7 +20,7 @@ import com.indisparte.tv.response.CastDTO
 import com.indisparte.tv.response.CrewDTO
 import com.indisparte.tv.response.GroupDTO
 import com.indisparte.tv.response.NetworkDTO
-import com.indisparte.tv.response.TvShowDTO
+import com.indisparte.response.TvShowDTO
 import com.indisparte.tv.response.TvShowDetailsDTO
 
 /**

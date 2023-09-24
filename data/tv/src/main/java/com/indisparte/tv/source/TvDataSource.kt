@@ -3,6 +3,7 @@ package com.indisparte.tv.source
 import com.indisparte.network.GenericResponse
 import com.indisparte.response.CreditResponseDTO
 import com.indisparte.response.ImagesResponseDTO
+import com.indisparte.response.TvShowDTO
 import com.indisparte.response.VideoResponseDTO
 import com.indisparte.response.WatchProvidersResponseDTO
 import com.indisparte.tv.response.CastDTO
@@ -10,7 +11,6 @@ import com.indisparte.tv.response.CrewDTO
 import com.indisparte.tv.response.EpisodeGroupDTO
 import com.indisparte.tv.response.EpisodeGroupDetailsDTO
 import com.indisparte.tv.response.SeasonDetailsDTO
-import com.indisparte.tv.response.TvShowDTO
 import com.indisparte.tv.response.TvShowDetailsDTO
 import retrofit2.Response
 import retrofit2.http.GET
@@ -88,7 +88,7 @@ interface TvDataSource {
 
     @GET("trending/tv/{time_window}")
     suspend fun getTrending(
-        @Path("time_window") time_window: String,
+        @Path("time_window") timeWindow: String,
         @QueryMap queries: Map<String, String>,
     ): Response<GenericResponse<TvShowDTO>>
 

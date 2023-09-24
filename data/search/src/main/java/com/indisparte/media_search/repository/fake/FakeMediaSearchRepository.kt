@@ -27,12 +27,16 @@ class FakeMediaSearchRepository : MediaSearchRepository {
         return emitResult(fakeData)
     }
 
-    fun addSearchResults(title: String, results: List<Movie>) {
+    fun addMovieSearchResults(title: String, results: List<Movie>) {
         movieSearchResults[title] = results
+    }
+    fun addTvSearchResults(title: String, results: List<TvShow>) {
+        tvShowSearchResults[title] = results
     }
 
     fun clearData() {
         movieSearchResults.clear()
+        tvShowSearchResults.clear()
     }
 
     fun setShouldEmitException(emit: Boolean) {

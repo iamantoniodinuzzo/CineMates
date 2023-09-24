@@ -2,9 +2,7 @@ package com.indisparte.media_search.fragments
 
 
 import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
@@ -13,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
-import com.indisparte.media_search.databinding.FragmentSearchBinding
+import com.indisparte.media_search.databinding.FragmentContainerSearchBinding
 import com.indisparte.ui.adapter.ViewPagerAdapter
 import com.indisparte.ui.fragment.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,18 +22,19 @@ private typealias SearchFragmentTitleMap = LinkedHashMap<Fragment, @receiver:Str
  *@author Antonio Di Nuzzo
  */
 @AndroidEntryPoint
-class SearchFragment : BaseFragment<FragmentSearchBinding>() {
+class SearchContainerFragment : BaseFragment<FragmentContainerSearchBinding>() {
 
     private val viewModel: SearchViewModel by viewModels()
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private lateinit var searchFragments: SearchFragmentTitleMap
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSearchBinding
-        get() = FragmentSearchBinding::inflate
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentContainerSearchBinding
+        get() = FragmentContainerSearchBinding::inflate
 
     override fun initializeViews() {
         viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         searchFragments = linkedMapOf(
-            SearchMovieFragment() to com.indisparte.ui.R.string.fragment_movie_title
+            SearchMovieFragment() to com.indisparte.ui.R.string.fragment_movie_title,
+            SearchTvFragment() to com.indisparte.ui.R.string.fragment_tv_title
         )
 
         binding.apply {
@@ -59,7 +58,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                     viewModel.updateQuery("")
                     true
                 }
-                
+
                 setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String): Boolean {
                         return false

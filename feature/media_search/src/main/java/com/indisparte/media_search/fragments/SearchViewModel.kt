@@ -6,6 +6,7 @@ import com.indisparte.media_search.repository.MediaSearchRepository
 import com.indisparte.movie_data.Movie
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.tv.TvShow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,6 +31,10 @@ constructor(
     private val _moviesBySearch = MutableStateFlow<Result<List<Movie>>>(Result.Success(emptyList()))
     val moviesBySearch: StateFlow<Result<List<Movie>>> get() = _moviesBySearch
 
+    private val _tvShowBySearch =
+        MutableStateFlow<Result<List<TvShow>>>(Result.Success(emptyList()))
+    val tvShowBySearch: StateFlow<Result<List<TvShow>>> get() = _tvShowBySearch
+
     init {
         observeQueryChanges()
     }
@@ -44,6 +49,7 @@ constructor(
                 if (it.isNotEmpty()) {
                     //search media
                     searchMovies(it)
+                    searchTvShow(it)
                 } else {
                     //clean all results
                     emptyValues()
@@ -53,8 +59,23 @@ constructor(
         }
     }
 
+    private fun searchTvShow(query: String) {
+        viewModelScope.launch {
+            _tvShowBySearch.emit(Result.Loading)
+            try {
+                mediaSearchRepository.searchTvByTitle(query).collectLatest { result ->
+                    _tvShowBySearch.emit(result)
+
+                }
+            } catch (e: CineMatesExceptions) {
+                _tvShowBySearch.emit(Result.Error(e))
+            }
+        }
+    }
+
     private fun emptyValues() {
         _moviesBySearch.value = Result.Success(emptyList())
+        _tvShowBySearch.value = Result.Success(emptyList())
     }
 
     private fun searchMovies(query: String) {

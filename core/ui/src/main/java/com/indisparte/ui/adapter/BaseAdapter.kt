@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
+fun interface OnItemClickListener<T> {
+    fun onItemClick(item: T)
+}
 
 /**
  * This is a base adapter class for RecyclerViews, which uses data binding to bind items to views.
@@ -37,6 +40,12 @@ abstract class BaseAdapter<T, VB : ViewDataBinding>(
      * @return The view binding for the item view
      */
     protected abstract fun createBinding(parent: ViewGroup, viewType: Int): VB
+
+    protected var itemClickListener: OnItemClickListener<T>? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener<T>) {
+        itemClickListener = listener
+    }
 
     /**
      * This method is called by the RecyclerView to display the data at the specified position.

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import com.indisparte.movie_details.databinding.ListItemCastLongBinding
 import com.indisparte.person.Cast
 import com.indisparte.ui.adapter.BaseAdapter
-import com.indisparte.ui.adapter.OnItemClickListener
 
 
 /**
@@ -22,11 +21,7 @@ class CastAdapter :
             return oldItem == newItem
         }
     }) {
-    private var itemClickListener: OnItemClickListener<Cast>? = null
 
-    fun setOnItemClickListener(listener: OnItemClickListener<Cast>) {
-        itemClickListener = listener
-    }
     override fun bind(binding: ListItemCastLongBinding, item: Cast) {
         binding.cast = item
         binding.root.setOnClickListener {

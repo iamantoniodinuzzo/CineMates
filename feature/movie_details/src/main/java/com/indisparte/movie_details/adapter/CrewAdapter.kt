@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import com.indisparte.movie_details.databinding.ListItemCrewBinding
 import com.indisparte.person.Crew
 import com.indisparte.ui.adapter.BaseAdapter
-import com.indisparte.ui.adapter.OnItemClickListener
-import timber.log.Timber
 
 class CrewAdapter : BaseAdapter<Crew, ListItemCrewBinding>(
     object : DiffUtil.ItemCallback<Crew>() {
@@ -22,11 +20,7 @@ class CrewAdapter : BaseAdapter<Crew, ListItemCrewBinding>(
     }
 ) {
 
-    private var itemClickListener: OnItemClickListener<Crew>? = null
-    fun setOnItemClickListener(listener: OnItemClickListener<Crew>) {
-        itemClickListener = listener
-    }
-    private val LOG = Timber.tag(CrewAdapter::class.java.simpleName)
+
     override fun bind(binding: ListItemCrewBinding, item: Crew) {
         binding.crew = item
         binding.root.setOnClickListener {

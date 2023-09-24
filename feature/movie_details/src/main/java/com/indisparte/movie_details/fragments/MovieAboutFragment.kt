@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.viewModels
-import com.github.ajalt.timberkt.Timber
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.progressindicator.CircularProgressIndicator
@@ -32,6 +31,7 @@ import com.indisparte.util.extension.collectIn
 import com.indisparte.util.extension.enableInnerScrollViewPager
 import com.indisparte.util.extension.gone
 import com.indisparte.util.extension.visible
+import timber.log.Timber
 
 class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 

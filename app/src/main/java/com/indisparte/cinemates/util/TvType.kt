@@ -1,7 +1,6 @@
 package com.indisparte.cinemates.util
 
 import androidx.annotation.StringRes
-import com.indisparte.cinemates.R
 
 /**
  * An enumeration representing the various types of TV shows.
@@ -19,13 +18,13 @@ import com.indisparte.cinemates.R
  * @author Antonio Di Nuzzo (Indisparte)
  */
 enum class TvType(val id: Int, val value: String, @StringRes val nameResId: Int) {
-    DOCUMENTARY(0, "documentary", R.string.tv_type_documentary),
-    NEWS(1, "news", R.string.tv_type_news),
-    MINISERIES(2, "miniseries", R.string.tv_type_miniseries),
-    REALITY(3, "reality", R.string.tv_type_reality),
-    SCRIPTED(4, "scripted", R.string.tv_type_scripted),
-    TALK_SHOW(5, "talk_show", R.string.tv_type_talk_show),
-    VIDEO(6, "video", R.string.tv_type_video);
+    DOCUMENTARY(0, "documentary", com.indisparte.ui.R.string.tv_type_documentary),
+    NEWS(1, "news", com.indisparte.ui.R.string.tv_type_news),
+    MINISERIES(2, "miniseries", com.indisparte.ui.R.string.tv_type_miniseries),
+    REALITY(3, "reality", com.indisparte.ui.R.string.tv_type_reality),
+    SCRIPTED(4, "scripted", com.indisparte.ui.R.string.tv_type_scripted),
+    TALK_SHOW(5, "talk_show", com.indisparte.ui.R.string.tv_type_talk_show),
+    VIDEO(6, "video", com.indisparte.ui.R.string.tv_type_video);
 
     override fun toString(): String {
         return value

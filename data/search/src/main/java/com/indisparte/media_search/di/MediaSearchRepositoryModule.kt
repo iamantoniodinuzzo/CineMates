@@ -1,7 +1,7 @@
 package com.indisparte.media_search.di
 
-import com.indisparte.media_search.repository.MovieSearchRepository
-import com.indisparte.media_search.repository.MovieSearchRepositoryImpl
+import com.indisparte.media_search.repository.MediaSearchRepository
+import com.indisparte.media_search.repository.MediaSearchRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,11 +14,11 @@ import dagger.hilt.android.scopes.ViewModelScoped
  */
 @Module
 @InstallIn(ViewModelComponent::class)
-abstract class MovieSearchRepositoryModule {
+abstract class MediaSearchRepositoryModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindMovieSearchRepository(
-        movieSearchRepositoryImpl: MovieSearchRepositoryImpl,
-    ): MovieSearchRepository
+    abstract fun bindMediaSearchRepository(
+        mediaSearchRepositoryImpl: MediaSearchRepositoryImpl,
+    ): MediaSearchRepository
 }

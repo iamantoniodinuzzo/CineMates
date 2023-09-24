@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.github.ajalt.timberkt.Timber
 import com.indisparte.movie_details.databinding.FragmentCollectionPartsBinding
 import com.indisparte.network.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn
 import com.indisparte.util.extension.enableInnerScrollViewPager
+import timber.log.Timber
 
 
 /**

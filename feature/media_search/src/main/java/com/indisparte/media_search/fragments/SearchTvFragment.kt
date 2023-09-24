@@ -2,11 +2,10 @@ package com.indisparte.media_search.fragments
 
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.indisparte.movie_data.Movie
-import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources
-import com.indisparte.ui.adapter.MovieAdapter
+import com.indisparte.tv.TvShow
+import com.indisparte.ui.adapter.TvShowAdapter
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding
 import com.indisparte.ui.fragment.ListFragment
 import com.indisparte.util.extension.collectIn
@@ -15,11 +14,11 @@ import com.indisparte.util.extension.collectIn
 /**
  * @author Antonio Di Nuzzo
  */
-class SearchMovieFragment :
-    ListFragment<Movie, ListItemMediaSmallBinding, MovieAdapter>(MovieAdapter()) {
+class SearchTvFragment :
+    ListFragment<TvShow, ListItemMediaSmallBinding, TvShowAdapter>(TvShowAdapter()) {
 
     private val viewModel: SearchViewModel by viewModels({requireParentFragment()})
-    private val TAG: String = SearchMovieFragment::class.simpleName!!
+    private val TAG: String = SearchTvFragment::class.simpleName!!
 
     override fun initializeViews() {
         //init recyclerview
@@ -33,13 +32,13 @@ class SearchMovieFragment :
         adapter.setOnItemClickListener { item ->
             val activity = requireActivity()
             if (activity is ToFlowNavigable) {
-                activity.navigateToFlow(NavigationFlow.MovieDetailsFlow(item.id))
+                // TODO: Navigate to TvShow details fragment
             }
         }
     }
 
     override fun addItemsToTheAdapter() {
-        viewModel.moviesBySearch.collectIn(viewLifecycleOwner) { result ->
+        viewModel.tvShowBySearch.collectIn(viewLifecycleOwner) { result ->
             result.whenResources(
                 onSuccess = { movies ->
                     binding.recyclerView.hideLoading()

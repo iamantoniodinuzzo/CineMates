@@ -1,6 +1,6 @@
 package com.indisparte.media_search.di
 
-import com.indisparte.media_search.source.MovieSearchDataSource
+import com.indisparte.media_search.source.MediaSearchDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,10 +13,10 @@ import javax.inject.Singleton
  */
 @Module
 @InstallIn(SingletonComponent::class)
-object MovieSearchApiModule {
+object MediaSearchApiModule {
 
     @Singleton
     @Provides
-    fun provideMovieSearchDatSource(retrofit: Retrofit): MovieSearchDataSource =
-        retrofit.create(MovieSearchDataSource::class.java)
+    fun provideMediaSearchDatSource(retrofit: Retrofit): MediaSearchDataSource =
+        retrofit.create(MediaSearchDataSource::class.java)
 }

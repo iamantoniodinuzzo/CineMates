@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search_graph"
-    app:startDestination="@id/searchFragment">
+    app:startDestination="@id/searchContainerFragment">
 
     <fragment
-        android:id="@+id/searchFragment"
-        tools:layout="@layout/fragment_search"
-        android:name="com.indisparte.media_search.fragments.SearchFragment"
+        android:id="@+id/searchContainerFragment"
+        tools:layout="@layout/fragment_container_search"
+        android:name="com.indisparte.media_search.fragments.SearchContainerFragment"
         android:label="Search" />
 </navigation>

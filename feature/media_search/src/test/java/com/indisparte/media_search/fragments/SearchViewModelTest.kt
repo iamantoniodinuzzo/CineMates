@@ -1,6 +1,6 @@
 package com.indisparte.media_search.fragments
 
-import com.indisparte.media_search.repository.fake.FakeMovieSearchRepository
+import com.indisparte.media_search.repository.fake.FakeMediaSearchRepository
 import com.indisparte.movie_data.Movie
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
@@ -24,11 +24,11 @@ class SearchViewModelTest {
     val rule = MainDispatcherRule()
 
     private lateinit var viewModel: SearchViewModel
-    private lateinit var fakeMovieSearchRepository: FakeMovieSearchRepository
+    private lateinit var fakeMovieSearchRepository: FakeMediaSearchRepository
 
     @Before
     fun setUp() {
-        fakeMovieSearchRepository = FakeMovieSearchRepository()
+        fakeMovieSearchRepository = FakeMediaSearchRepository()
         viewModel = SearchViewModel(fakeMovieSearchRepository)
     }
 

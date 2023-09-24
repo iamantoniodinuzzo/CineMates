@@ -3,7 +3,6 @@ package com.indisparte.media_discover.filterable_fragment.movie
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.github.ajalt.timberkt.Timber
 import com.indisparte.media_discover.R
 import com.indisparte.media_discover.filterable_fragment.FilterSheetRequestListener
 import com.indisparte.navigation.NavigationFlow
@@ -16,6 +15,7 @@ import com.indisparte.ui.databinding.ListItemMediaSmallBinding
 import com.indisparte.ui.fragment.ListFragment
 import com.indisparte.util.extension.collectIn
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
 /**

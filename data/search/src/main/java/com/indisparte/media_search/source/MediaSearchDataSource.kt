@@ -10,7 +10,7 @@ import retrofit2.http.QueryMap
 /**
  * @author Antonio Di Nuzzo
  */
-interface MovieSearchDataSource {
+interface MediaSearchDataSource {
 
     @GET("search/movie")
     suspend fun searchMovieByTitle(

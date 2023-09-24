@@ -1,6 +1,6 @@
 package com.indisparte.media_search.repository.fake
 
-import com.indisparte.media_search.repository.MovieSearchRepository
+import com.indisparte.media_search.repository.MediaSearchRepository
 import com.indisparte.movie_data.Movie
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flow
 /**
  * @author Antonio Di Nuzzo
  */
-class FakeMovieSearchRepository : MovieSearchRepository {
+class FakeMediaSearchRepository : MediaSearchRepository {
     private val movieSearchResults = mutableMapOf<String, List<Movie>>()
     private var cineMatesExceptions: CineMatesExceptions? = null
     private var shouldEmitException: Boolean = false

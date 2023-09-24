@@ -38,7 +38,7 @@ class PersonDetailsContainerFragment : BaseFragment<FragmentPersonDetailsContain
     private val mapOfFragments: FragmentTitleMap =
         linkedMapOf(
             PersonAboutFragment() to R.string.fragment_person_about_title,
-            MovieCreditsFragment() to R.string.fragment_movie_title
+            MovieCreditsFragment() to com.indisparte.ui.R.string.fragment_movie_title
         )
 
     override fun initializeViews() {

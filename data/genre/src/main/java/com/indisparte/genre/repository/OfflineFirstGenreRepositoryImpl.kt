@@ -1,6 +1,5 @@
 package com.indisparte.genre.repository
 
-import com.github.ajalt.timberkt.Timber
 import com.indisparte.common.Genre
 import com.indisparte.common.MediaType
 import com.indisparte.genre.source.local.GenreLocalDataSource
@@ -13,6 +12,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
+import timber.log.Timber
 import javax.inject.Inject
 
 

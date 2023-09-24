@@ -2,7 +2,7 @@ package com.indisparte.media_search.fragments
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.indisparte.media_search.repository.MovieSearchRepository
+import com.indisparte.media_search.repository.MediaSearchRepository
 import com.indisparte.movie_data.Movie
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
@@ -21,7 +21,7 @@ import javax.inject.Inject
 class SearchViewModel
 @Inject
 constructor(
-    private val movieSearchRepository: MovieSearchRepository,
+    private val mediaSearchRepository: MediaSearchRepository,
 ) : ViewModel() {
 
     private val _query = MutableStateFlow("")
@@ -61,7 +61,7 @@ constructor(
         viewModelScope.launch {
             _moviesBySearch.emit(Result.Loading)
             try {
-                movieSearchRepository.searchMovieByTitle(query).collectLatest { result ->
+                mediaSearchRepository.searchMovieByTitle(query).collectLatest { result ->
                     _moviesBySearch.emit(result)
 
                 }

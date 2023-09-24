@@ -2,7 +2,6 @@ package com.indisparte.media_search.fragments
 
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.indisparte.media_search.R
 import com.indisparte.movie_data.Movie
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
@@ -29,7 +28,7 @@ class SearchMovieFragment :
             //Base empty state
             setEmptyStateTitle("Search CineMates")
             setEmptyStateSubtitle("Find your favorites movies, TV shows and people.")
-            setEmptyStateImage(R.drawable.ic_empty_box)
+            setEmptyStateImage(com.indisparte.network.R.drawable.ic_empty_box)
         }
         adapter.setOnItemClickListener { item ->
             val activity = requireActivity()

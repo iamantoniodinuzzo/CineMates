@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 /**
  * @author Antonio Di Nuzzo
  */
-interface MovieSearchRepository {
+interface MediaSearchRepository {
 
      fun searchMovieByTitle(title:String): Flow<Result<List<Movie>>>
 }

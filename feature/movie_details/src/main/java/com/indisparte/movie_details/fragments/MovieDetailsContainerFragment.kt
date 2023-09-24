@@ -6,7 +6,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
-import com.github.ajalt.timberkt.Timber
 import com.indisparte.movie_details.adapter.BackdropAdapter
 import com.indisparte.movie_details.fragments.base.MediaDetailsContainerFragment
 import com.indisparte.navigation.NavigationFlow
@@ -17,6 +16,7 @@ import com.indisparte.util.extension.collectIn
 import com.indisparte.util.extension.gone
 import com.indisparte.util.extension.visible
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 /**
  * @author Antonio Di Nuzzo

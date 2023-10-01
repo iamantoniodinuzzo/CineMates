@@ -1,6 +1,7 @@
 package com.indisparte.movie_data
 
 import com.indisparte.base.Media
+import com.indisparte.base.MediaType
 
 /**
  * Represents a movie.
@@ -27,7 +28,8 @@ open class Movie(
     mediaName = title,
     popularity = popularity,
     posterPath = posterPath,
-    voteAverage = voteAverage
+    voteAverage = voteAverage,
+    mediaType = MediaType.MOVIE
 ) {
     /**
      * Gets the formatted release date of the movie.

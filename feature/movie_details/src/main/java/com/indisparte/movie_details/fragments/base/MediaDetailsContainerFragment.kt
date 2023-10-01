@@ -44,6 +44,8 @@ abstract class MediaDetailsContainerFragment(
         get() = FragmentMediaDetailsContainerBinding::inflate
 
     private lateinit var viewPagerAdapter: ViewPagerAdapter
+    protected abstract fun saveMedia()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeViewPager()
@@ -51,8 +53,8 @@ abstract class MediaDetailsContainerFragment(
         binding.apply {
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             fab.setOnClickListener {
-                // TODO: Generalize action
-                Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
+                saveMedia()
             }
 
 

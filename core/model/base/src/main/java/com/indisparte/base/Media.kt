@@ -5,11 +5,12 @@ import com.indisparte.base.Constants.IMAGE_BASE_URL_W780
 import kotlin.math.roundToInt
 
 enum class MediaType(val id: Int) {
-    BOTH(0), MOVIE(1), TV(2);
+    MOVIE_TV(0), MOVIE(1), TV(2), EPISODE(3);
 
     companion object {
+        @Throws(NoSuchElementException::class)
         fun fromId(id: Int): MediaType {
-            return values().firstOrNull { it.id == id }
+            return values().find { it.id == id }
                 ?: throw NoSuchElementException("There is no media type with this id: $id")
         }
     }

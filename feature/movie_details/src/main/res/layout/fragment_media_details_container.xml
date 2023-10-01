@@ -198,8 +198,8 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/base_margin"
                 android:backgroundTint="?attr/colorAccent"
-                android:contentDescription="TODO"
-                android:src="@drawable/round_add_24" />
+                android:contentDescription="Set as favorite"
+                android:src="@drawable/ic_favorite_border" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </FrameLayout>

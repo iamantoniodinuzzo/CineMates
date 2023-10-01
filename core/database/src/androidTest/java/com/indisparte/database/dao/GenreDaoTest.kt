@@ -81,7 +81,7 @@ class GenreDaoTest {
     fun testGetAllGenresByMediaTypeSuccess() = runBlocking {
         // GIVEN
         val movieMediaType = MediaType.MOVIE.id
-        val bothMediaType = MediaType.BOTH.id
+        val MOVIETVMediaType = MediaType.MOVIE_TV.id
         val genres = listOf(
             GenreEntity(
                 id = 7077,
@@ -105,7 +105,7 @@ class GenreDaoTest {
                 id = 1234,
                 name = "Test Genre",
                 isFavorite = false,
-                mediaType = bothMediaType
+                mediaType = MOVIETVMediaType
             )
         )
 

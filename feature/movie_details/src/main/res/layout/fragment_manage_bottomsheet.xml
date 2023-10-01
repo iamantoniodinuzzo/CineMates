@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:drawableTop="@drawable/ic_favorite_state"
+                android:drawableTop="@drawable/ic_favorite"
                 android:textAllCaps="false"
                 android:textColor="@color/alabaster"
                 android:textOff="Add to favorite"

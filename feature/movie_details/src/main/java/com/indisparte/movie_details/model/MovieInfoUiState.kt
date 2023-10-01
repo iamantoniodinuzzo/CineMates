@@ -17,5 +17,5 @@ data class MovieInfoUiState(
     val releaseDates: List<ReleaseDate>,
     val latestCertification: String? = null,
     val backdrops: List<Backdrop>,
-    val crew : List<Crew>
+    val crew: List<Crew>,
 )

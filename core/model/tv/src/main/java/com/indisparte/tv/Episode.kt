@@ -1,6 +1,7 @@
 package com.indisparte.tv
 
 import com.indisparte.base.Media
+import com.indisparte.base.MediaType
 
 
 /**
@@ -29,7 +30,7 @@ open class Episode(
     stillPath: String?,
     voteAverage: Double,
 ) : Media(
-    id = id, mediaName = name, popularity = null, posterPath = stillPath, voteAverage = voteAverage
+    id = id, mediaName = name, popularity = null, posterPath = stillPath, voteAverage = voteAverage, mediaType = MediaType.EPISODE
 ) {
     /**
      * Returns the formatted air date of the episode.

@@ -1,6 +1,7 @@
 package com.indisparte.tv
 
 import com.indisparte.base.Media
+import com.indisparte.base.MediaType
 
 /**
  * Represents a TV show with basic information.
@@ -22,5 +23,6 @@ open class TvShow(
     name,
     popularity = popularity,
     posterPath = posterPath,
-    voteAverage = voteAverage
+    voteAverage = voteAverage,
+    mediaType = MediaType.TV
 )

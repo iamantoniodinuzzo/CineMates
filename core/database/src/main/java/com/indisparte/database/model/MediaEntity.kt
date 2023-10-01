@@ -15,8 +15,7 @@ data class MediaEntity(
     val popularity: Double?,
     val posterPath: String?,
     val voteAverage: Double,
-    val mediaType: Int? = -1,
-    var isFavorite: Boolean = false,
+    val mediaType: Int
 )
 
 fun MediaEntity.asDomain(): Media {
@@ -26,10 +25,7 @@ fun MediaEntity.asDomain(): Media {
         popularity = this.popularity,
         posterPath = this.posterPath,
         voteAverage = this.voteAverage,
-        mediaType = this.mediaType?.let { MediaType.fromId(it) }
-            ?: throw NullPointerException("Media type cannot be null"),
-        isFavorite = this.isFavorite
-
+        mediaType = MediaType.fromId(this.mediaType)
     )
 }
 
@@ -41,6 +37,5 @@ fun Media.asEntity(): MediaEntity {
         posterPath = this.posterPath,
         voteAverage = this.voteAverage,
         mediaType = this.mediaType.id,
-        isFavorite = this.isFavorite
     )
 }

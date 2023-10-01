@@ -1,5 +1,6 @@
 package com.indisparte.movie_data.repository
 
+import com.indisparte.base.Media
 import com.indisparte.common.Backdrop
 import com.indisparte.common.CountryResult
 import com.indisparte.common.Video
@@ -35,5 +36,13 @@ interface MovieRepository {
 
     fun getBackdrop(movieId: Int): Flow<Result<List<Backdrop>>>
     fun getCollectionDetails(collectionId: Int): Flow<Result<CollectionDetails>>
+
+    fun setMovieAsFavorite(movie: Movie): Flow<Result<Boolean>>
+
+    fun isMovieByThisIdFavorite(movieId: Int): Flow<Result<Boolean>>
+
+    fun getAllFavoriteMovies(): Flow<Result<List<Media>>>
+
+    fun removeMovieFromFavorite(movie: Movie): Flow<Nothing>
 
 }

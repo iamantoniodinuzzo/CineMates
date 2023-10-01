@@ -1,7 +1,7 @@
 package com.indisparte.genre.repository
 
+import com.indisparte.base.MediaType
 import com.indisparte.common.Genre
-import com.indisparte.common.MediaType
 import com.indisparte.genre.source.local.GenreLocalDataSource
 import com.indisparte.genre.source.remote.GenreRemoteDataSource
 import com.indisparte.network.Result
@@ -76,7 +76,7 @@ constructor(
 
                     genreLocalDataSource.insertGenres(movieGenres, MediaType.MOVIE).firstOrNull()
                     genreLocalDataSource.insertGenres(tvGenres, MediaType.TV).firstOrNull()
-                    genreLocalDataSource.insertGenres(commonGenres, MediaType.BOTH).firstOrNull()
+                    genreLocalDataSource.insertGenres(commonGenres, MediaType.MOVIE_TV).firstOrNull()
                     LOG.d("All genres inserted locally")
 
                 }

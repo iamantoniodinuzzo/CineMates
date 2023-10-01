@@ -65,6 +65,9 @@ class MovieDetailsViewModel
     private val _movieInfo = MutableStateFlow<Result<MovieInfoUiState>?>(null)
     val movieInfo: StateFlow<Result<MovieInfoUiState>?> get() = _movieInfo
 
+    private val _isSetAsFavorite = MutableStateFlow<Result<Boolean>?>(null)
+    val isSetAsFavorite: StateFlow<Result<Boolean>?> get() = _isSetAsFavorite
+
     init {
         observeSelectedMovie()
     }
@@ -81,6 +84,14 @@ class MovieDetailsViewModel
             genreRepository.updateSavedGenre(genre).first()
         }
 
+    }
+
+    fun setMovieAsFavorite(currentMovie: MovieDetails) {
+        viewModelScope.launch {
+            movieRepository.setMovieAsFavorite(currentMovie).collectLatest {
+                _isSetAsFavorite.emit(it)
+            }
+        }
     }
 
     private fun getMovieDetails(id: Int) {
@@ -146,8 +157,17 @@ class MovieDetailsViewModel
                         .flowOn(Dispatchers.IO),
                     movieRepository.getBackdrop(movieId)
                         .flowOn(Dispatchers.IO),
-                ) { (details, videos, watchProviders, crew, releaseDates, backdrops) ->
-                    listOf(details, videos, watchProviders, crew, releaseDates, backdrops)
+                    movieRepository.isMovieByThisIdFavorite(movieId)
+                ) { (details, videos, watchProviders, crew, releaseDates, backdrops, mediaAsFavorite) ->
+                    listOf(
+                        details,
+                        videos,
+                        watchProviders,
+                        crew,
+                        releaseDates,
+                        backdrops,
+                        mediaAsFavorite
+                    )
                 }.collectLatest { results ->
                     if (results.all { it is Result.Success }) {
                         LOG.d("All movie info's are a Result.Success")
@@ -161,6 +181,8 @@ class MovieDetailsViewModel
                             (results[4] as Result.Success<List<ReleaseDatesByCountry>>).data
                         val backdropsResult = (results[5] as Result.Success<List<Backdrop>>).data
 
+                        val isMovieFavorite = (results[6] as Result.Success<Boolean>).data
+
                         val releaseDates =
                             releaseDatesResult.findReleaseDateByCountry(country) ?: emptyList()
                         val latestCertification = releaseDates.getLatestReleaseCertification()
@@ -172,10 +194,11 @@ class MovieDetailsViewModel
                             releaseDates,
                             latestCertification,
                             backdropsResult,
-                            crewResult
+                            crewResult,
                         )
                         LOG.d("Emit Movie Info UI State")
                         _movieInfo.emit(Result.Success(movieInfoUiState))
+                        _isSetAsFavorite.emit(Result.Success(isMovieFavorite))
                     } else if (results.any { it is Result.Error }) {
                         val error: CineMatesExceptions = (results.find { it is Result.Error }
                             ?: CineMatesExceptions.GenericException) as CineMatesExceptions
@@ -249,3 +272,4 @@ class MovieDetailsViewModel
 }
 
 private operator fun <T> Array<T>.component6(): T = get(5)
+private operator fun <T> Array<T>.component7(): T = get(6)

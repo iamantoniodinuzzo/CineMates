@@ -46,6 +46,7 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     override fun initializeViews() {
         backdropAdapter = BackdropAdapter()
         backdropAdapter.registerAdapterDataObserver(binding.circleIndicator.adapterDataObserver)
+
         viewModel.onDetailsFragmentReady(movieIdArgs.id)
         backdropViewPager = binding.backdropViewPager
         backdropViewPager.adapter = backdropAdapter
@@ -55,8 +56,6 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
             ((this.requireActivity()) as ToFlowNavigable).navigateToFlow(NavigationFlow.HomeFlow)
         }
 
-        // Assicurati di impostare il lifecycle owner del binding
-        binding.lifecycleOwner = this
     }
 
     override fun saveMedia() {
@@ -68,33 +67,22 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
 
         fetchMovieInfo()
 
-        viewModel.isSetAsFavorite.collectIn(viewLifecycleOwner) { result ->
-            result?.whenResources(
-                onSuccess = { isFavorite ->
-                    currentMovie.isFavorite = isFavorite
-                    binding.media = currentMovie
-                    binding.executePendingBindings()
-                    LOG.d("Movie is favorite now? $isFavorite")
-                },
-                onError = { exception ->
-                    val errorMessage = exception.message
-                    LOG.e(errorMessage)
-                }
-            )
-        }
     }
 
     private fun fetchMovieInfo() {
         viewModel.movieInfo.collectIn(viewLifecycleOwner) { resources ->
-            resources?.whenResources(
+            resources.whenResources(
                 onSuccess = {
                     withContext(Dispatchers.Main) {
-                        LOG.d("Loaded all details, movie is favorite")
-//                    Load movie details
+                        LOG.d("Update UI with details.")
+                        //Load movie details
                         binding.media = it.movieDetails
                         currentMovie = it.movieDetails
+                        binding.executePendingBindings()
+
                         //Set the title here, without using data binding, because the 'app:title' attribute of the toolbar does not allow dynamic change
                         binding.toolbar.title = it.movieDetails.title
+
                         //check if movie is a part of collection
                         if (it.movieDetails.belongsToCollection != null) {
                             LOG.d("Movie is a part of collection, add CollectionFragment.")
@@ -103,9 +91,9 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
                             LOG.d("Movie is not a part of collection, remove CollectionFragment if present")
                             removeFragment(collectionPartsFragment)
                         }
-//                    Load backdrops
+                        //Load backdrops
                         backdropAdapter.submitList(it.backdrops)
-//                    Load certification
+                        //Load certification
                         binding.certification.apply {
                             text = it.latestCertification
                             if (!it.latestCertification.isNullOrEmpty()) visible() else gone()
@@ -131,6 +119,8 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
             )
 
         }
+
+
     }
 
 

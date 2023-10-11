@@ -11,7 +11,7 @@ import com.indisparte.person.Crew
  *@author Antonio Di Nuzzo
  */
 data class MovieInfoUiState(
-    val movieDetails: MovieDetails,
+    var movieDetails: MovieDetails,
     val videos: List<Video>,
     val watchProvider: CountryResult? = null,
     val releaseDates: List<ReleaseDate>,

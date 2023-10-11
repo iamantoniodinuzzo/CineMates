@@ -132,7 +132,7 @@ class FakeMovieRepository : MovieRepository {
         return emitResult(movies)
     }
 
-    override fun getDetails(movieId: Int): Flow<Result<MovieDetails>> {
+    override fun getMovieDetailsAndUpdateWithLocalData(movieId: Int): Flow<Result<MovieDetails>> {
         val fakeData = movieDetailsMap[movieId]
         return emitResult(fakeData)
     }

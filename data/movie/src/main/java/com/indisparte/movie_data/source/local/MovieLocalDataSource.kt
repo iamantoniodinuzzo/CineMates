@@ -28,7 +28,7 @@ constructor(
         return@withContext deferredInsertionResult.await()
     }
 
-    suspend fun getFavoriteMovie(movieId: Int): Boolean = withContext(Dispatchers.IO) {
+    suspend fun isFavoriteMedia(movieId: Int): Boolean = withContext(Dispatchers.IO) {
         val deferredBoolean = async { dao.isMediaFavorite(movieId) }
 
         return@withContext deferredBoolean.await()

@@ -8,7 +8,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
  *@author Antonio Di Nuzzo
  */
 @BindingAdapter("app:isFavorite")
-fun updateFavoriteFABBtn(fab: FloatingActionButton, isFavorite: Boolean) {
+fun updateFabIcon(fab: FloatingActionButton, isFavorite: Boolean) {
     val drawableResId: Int =
         if (isFavorite) com.indisparte.movie_details.R.drawable.ic_favorite_filled
         else com.indisparte.movie_details.R.drawable.ic_favorite_border

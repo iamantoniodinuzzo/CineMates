@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.Flow
 interface MovieRepository {
     fun getByListType(movieListType: MovieListType): Flow<Result<List<Movie>>>
     fun getTrending(timeWindow: TimeWindow): Flow<Result<List<Movie>>>
-    fun getDetails(movieId: Int): Flow<Result<MovieDetails>>
+    fun getMovieDetailsAndUpdateWithLocalData(movieId: Int): Flow<Result<MovieDetails>>
     fun getSimilar(movieId: Int): Flow<Result<List<Movie>>>
     fun getCast(movieId: Int): Flow<Result<List<Cast>>>
     fun getCrew(movieId: Int): Flow<Result<List<Crew>>>

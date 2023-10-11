@@ -35,7 +35,7 @@ interface MediaDao {
     fun getAllFavoriteMedia(): List<MediaEntity>
 
     @Delete
-    fun deleteMedia(media: MediaEntity)
+    fun deleteMedia(media: MediaEntity):Int
 
 
 }

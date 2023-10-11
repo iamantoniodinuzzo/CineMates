@@ -41,13 +41,19 @@ constructor(
 
     }
 
-    suspend fun removeMovieFromFavorite(movie: Movie) {
+    suspend fun removeMovieFromFavorite(movie: Movie): Boolean =
         withContext(Dispatchers.IO) {
             val entity = movie.asEntity()
-            dao.deleteMedia(
-                entity
-            )
+            val deferredInt = async {
+                dao.deleteMedia(
+                    entity
+                )
+            }
+
+            val resultInt = deferredInt.await()
+
+            return@withContext resultInt != 0
         }
-    }
+
 
 }

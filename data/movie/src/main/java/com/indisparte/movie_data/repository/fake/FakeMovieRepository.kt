@@ -184,15 +184,13 @@ class FakeMovieRepository : MovieRepository {
         TODO("Not yet implemented")
     }
 
-    override fun isMovieByThisIdFavorite(movieId: Int): Flow<Result<Boolean>> {
-        TODO("Not yet implemented")
-    }
+
 
     override fun getAllFavoriteMovies(): Flow<Result<List<Media>>> {
         TODO("Not yet implemented")
     }
 
-    override fun removeMovieFromFavorite(movie: Movie): Flow<Nothing> {
+    override fun removeMovieFromFavorite(movie: Movie): Flow<Boolean> {
         TODO("Not yet implemented")
     }
 

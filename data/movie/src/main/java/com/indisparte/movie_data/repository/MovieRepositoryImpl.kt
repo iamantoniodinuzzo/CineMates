@@ -42,36 +42,37 @@ constructor(
         movieRemoteDataSource.getTrending(timeWindow)
 
 
-    override fun getMovieDetailsAndUpdateWithLocalData(movieId: Int): Flow<Result<MovieDetails>> = flow {
-        // Get movie details from API and update it with local data
-        movieRemoteDataSource.getDetails(movieId).collect { response ->
-            response.whenResources(
-                onSuccess = { movieDetails ->
-                    //get updated genres from local database to check which genre of current movie, is favorite
-                    val favoriteLocalGenres =
-                        genreLocalDataSource.getAllGenresById(movieDetails.genres.map { it.id })
-                            .first()
-                    // Update movie details genres with local genre status
-                    movieDetails.updateGenres(favoriteLocalGenres)
+    override fun getMovieDetailsAndUpdateWithLocalData(movieId: Int): Flow<Result<MovieDetails>> =
+        flow {
+            // Get movie details from API and update it with local data
+            movieRemoteDataSource.getDetails(movieId).collect { response ->
+                response.whenResources(
+                    onSuccess = { movieDetails ->
+                        //get updated genres from local database to check which genre of current movie, is favorite
+                        val favoriteLocalGenres =
+                            genreLocalDataSource.getAllGenresById(movieDetails.genres.map { it.id })
+                                .first()
+                        // Update movie details genres with local genre status
+                        movieDetails.updateGenres(favoriteLocalGenres)
 
-                    //Check if current movie is a favorite movie
-                    val isFavorite = movieLocalDataSource.isFavoriteMedia(movieDetails.id)
-                    // Update isFavorite variable
-                    movieDetails.isFavorite = isFavorite
+                        //Check if current movie is a favorite movie
+                        val isFavorite = movieLocalDataSource.isFavoriteMedia(movieDetails.id)
+                        // Update isFavorite variable
+                        movieDetails.isFavorite = isFavorite
 
-                    emit(Result.Success(movieDetails))
-                },
-                onError = {
-                    emit(response)
-                },
-                onLoading = {
-                    emit(response)
-                }
+                        emit(Result.Success(movieDetails))
+                    },
+                    onError = {
+                        emit(response)
+                    },
+                    onLoading = {
+                        emit(response)
+                    }
 
-            )
+                )
+            }
+
         }
-
-    }
 
     override fun getSimilar(movieId: Int): Flow<Result<List<Movie>>> =
         movieRemoteDataSource.getSimilar(movieId)
@@ -99,18 +100,11 @@ constructor(
     override fun getCollectionDetails(collectionId: Int): Flow<Result<CollectionDetails>> =
         movieRemoteDataSource.getCollectionDetails(collectionId)
 
-    override fun setMovieAsFavorite(movie: Movie): Flow<Result<Boolean>> = flow {
-        emit(Result.Loading)
+    override fun setMovieAsFavorite(movie: Movie): Flow<Boolean> = flow {
         val result = movieLocalDataSource.insertFavoriteMovie(movie)
-        emit(Result.Success(result))
+        emit(result)
     }
 
-    override fun isMovieByThisIdFavorite(movieId: Int): Flow<Result<Boolean>> = flow {
-        emit(Result.Loading)
-        val result = movieLocalDataSource.isFavoriteMedia(movieId)
-        emit(Result.Success(result))
-
-    }
 
     override fun getAllFavoriteMovies(): Flow<Result<List<Media>>> = flow {
         emit(Result.Loading)
@@ -118,8 +112,9 @@ constructor(
         emit(Result.Success(result))
     }
 
-    override fun removeMovieFromFavorite(movie: Movie) = flow<Nothing> {
-        movieLocalDataSource.removeMovieFromFavorite(movie)
+    override fun removeMovieFromFavorite(movie: Movie) = flow {
+        val result = movieLocalDataSource.removeMovieFromFavorite(movie)
+        emit(result)
     }
 
 }

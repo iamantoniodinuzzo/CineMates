@@ -18,7 +18,6 @@ import com.indisparte.movie_details.model.MovieInfoUiState
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
 import com.indisparte.network.succeeded
-import com.indisparte.network.whenResources
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -69,8 +68,6 @@ class MovieDetailsViewModel
     val movieInfo: StateFlow<Result<MovieInfoUiState>> get() = _movieInfo
 
 
-
-
     fun onDetailsFragmentReady(id: Int) {
         getMovieDetails(id)
         getCast(id)
@@ -87,16 +84,22 @@ class MovieDetailsViewModel
 
     fun setMovieAsFavorite(currentMovie: MovieDetails) {
         viewModelScope.launch {
-            movieRepository.setMovieAsFavorite(currentMovie).collectLatest { isFavoriteResult ->
-                isFavoriteResult.whenResources(
-                    onSuccess = { isFavorite ->
-                        LOG.d("Update ${currentMovie.title}, isFavorite: $isFavorite")
-                        currentMovie.isFavorite = isFavorite
-                        _selectedMovie.emit(Result.Success(currentMovie))
-                    },
-                    onError = {
-                        _selectedMovie.emit(Result.Error(it))
-                    })
+            movieRepository.setMovieAsFavorite(currentMovie).collectLatest { isFavorite ->
+
+                LOG.d("Update ${currentMovie.title}, isFavorite: $isFavorite")
+                currentMovie.isFavorite = isFavorite
+                _selectedMovie.emit(Result.Success(currentMovie))
+
+            }
+        }
+    }
+
+    fun removeMovieFromFavorite(currentMovie: MovieDetails) {
+        viewModelScope.launch {
+            movieRepository.removeMovieFromFavorite(currentMovie).collectLatest { removed ->
+                LOG.d("Update ${currentMovie.title}, removed: $removed")
+                currentMovie.isFavorite = false
+                _selectedMovie.emit(Result.Success(currentMovie))
             }
         }
     }
@@ -130,7 +133,6 @@ class MovieDetailsViewModel
             }
         }
     }
-
 
 
     private fun loadMovieInfo(

@@ -2,7 +2,6 @@ package com.indisparte.movie_details.fragments
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -72,16 +71,14 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         viewModel.isSetAsFavorite.collectIn(viewLifecycleOwner) { result ->
             result?.whenResources(
                 onSuccess = { isFavorite ->
-                    val drawable: Int =
-                        if (isFavorite) com.indisparte.movie_details.R.drawable.ic_favorite_filled
-                        else com.indisparte.movie_details.R.drawable.ic_favorite_border
-
-                    binding.fab.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            drawable
-                        )
-                    )
+                    currentMovie.isFavorite = isFavorite
+                    binding.media = currentMovie
+                    binding.executePendingBindings()
+                    LOG.d("Movie is favorite now? $isFavorite")
+                },
+                onError = { exception ->
+                    val errorMessage = exception.message
+                    LOG.e(errorMessage)
                 }
             )
         }

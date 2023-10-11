@@ -197,6 +197,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/base_margin"
+                app:isFavorite="@{media.favorite}"
                 android:backgroundTint="?attr/colorAccent"
                 android:contentDescription="Set as favorite"
                 android:src="@drawable/ic_favorite_border" />

@@ -127,7 +127,7 @@ class MovieFilterViewModelTest {
 
         // Given
         /* val movieMediaType = MediaType.MOVIE
-         val bothMediaType = MediaType.BOTH
+         val bothMediaType = MediaType.MOVIE_TV
          val fakeMovieGenres = listOf(
              Genre(1, "Action", mediaType = bothMediaType),
              Genre(2, "Drama", mediaType = bothMediaType),

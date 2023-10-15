@@ -1,8 +1,8 @@
 package com.indisparte.movie_data.mapper
 
+import com.indisparte.base.MediaType
 import com.indisparte.common.Backdrop
 import com.indisparte.common.Genre
-import com.indisparte.common.MediaType
 import com.indisparte.common.ProductionCompany
 import com.indisparte.common.ProductionCountry
 import com.indisparte.common.SpokenLanguage

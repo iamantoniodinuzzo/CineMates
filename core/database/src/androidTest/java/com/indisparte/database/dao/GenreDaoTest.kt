@@ -4,7 +4,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import com.indisparte.common.MediaType
+import com.indisparte.base.MediaType
 import com.indisparte.database.CineMatesDatabase
 import com.indisparte.database.model.GenreEntity
 import junit.framework.TestCase.assertEquals
@@ -81,7 +81,7 @@ class GenreDaoTest {
     fun testGetAllGenresByMediaTypeSuccess() = runBlocking {
         // GIVEN
         val movieMediaType = MediaType.MOVIE.id
-        val bothMediaType = MediaType.TV.id
+        val MOVIETVMediaType = MediaType.MOVIE_TV.id
         val genres = listOf(
             GenreEntity(
                 id = 7077,
@@ -105,7 +105,7 @@ class GenreDaoTest {
                 id = 1234,
                 name = "Test Genre",
                 isFavorite = false,
-                mediaType = bothMediaType
+                mediaType = MOVIETVMediaType
             )
         )
 
@@ -114,7 +114,7 @@ class GenreDaoTest {
         val filteredGenres = dao.getAllGenresByMediaType(movieMediaType)
 
         // THEN
-        assertEquals(3, filteredGenres.size)
+        assertEquals(genres.size, filteredGenres.size)
     }
 
     @Test

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -44,6 +43,8 @@ abstract class MediaDetailsContainerFragment(
         get() = FragmentMediaDetailsContainerBinding::inflate
 
     private lateinit var viewPagerAdapter: ViewPagerAdapter
+    protected abstract fun saveMedia()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeViewPager()
@@ -51,8 +52,7 @@ abstract class MediaDetailsContainerFragment(
         binding.apply {
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             fab.setOnClickListener {
-                // TODO: Generalize action
-                Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
+                saveMedia()
             }
 
 

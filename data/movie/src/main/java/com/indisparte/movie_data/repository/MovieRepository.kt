@@ -1,5 +1,6 @@
 package com.indisparte.movie_data.repository
 
+import com.indisparte.base.Media
 import com.indisparte.common.Backdrop
 import com.indisparte.common.CountryResult
 import com.indisparte.common.Video
@@ -20,7 +21,7 @@ import kotlinx.coroutines.flow.Flow
 interface MovieRepository {
     fun getByListType(movieListType: MovieListType): Flow<Result<List<Movie>>>
     fun getTrending(timeWindow: TimeWindow): Flow<Result<List<Movie>>>
-    fun getDetails(movieId: Int): Flow<Result<MovieDetails>>
+    fun getMovieDetailsAndUpdateWithLocalData(movieId: Int): Flow<Result<MovieDetails>>
     fun getSimilar(movieId: Int): Flow<Result<List<Movie>>>
     fun getCast(movieId: Int): Flow<Result<List<Cast>>>
     fun getCrew(movieId: Int): Flow<Result<List<Crew>>>
@@ -35,5 +36,12 @@ interface MovieRepository {
 
     fun getBackdrop(movieId: Int): Flow<Result<List<Backdrop>>>
     fun getCollectionDetails(collectionId: Int): Flow<Result<CollectionDetails>>
+
+    fun setMovieAsFavorite(movie: Movie): Flow<Boolean>
+
+
+    fun getAllFavoriteMovies(): Flow<Result<List<Media>>>
+
+    fun removeMovieFromFavorite(movie: Movie): Flow<Boolean>
 
 }

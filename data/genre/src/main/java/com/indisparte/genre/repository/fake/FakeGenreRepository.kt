@@ -1,7 +1,7 @@
 package com.indisparte.genre.repository.fake
 
+import com.indisparte.base.MediaType
 import com.indisparte.common.Genre
-import com.indisparte.common.MediaType
 import com.indisparte.genre.repository.GenreRepository
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
@@ -40,7 +40,7 @@ class FakeGenreRepository : GenreRepository {
 
     override fun getMovieGenreList(): Flow<Result<List<Genre>>> {
         val movieGenres =
-            localGenres.filter { it.mediaType == MediaType.MOVIE || it.mediaType == MediaType.BOTH }
+            localGenres.filter { it.mediaType == MediaType.MOVIE || it.mediaType == MediaType.MOVIE_TV }
         return emitResult(movieGenres)
     }
 
@@ -53,7 +53,7 @@ class FakeGenreRepository : GenreRepository {
 
     override fun getTvGenreList(): Flow<Result<List<Genre>>> {
         val tvGenres =
-            localGenres.filter { it.mediaType == MediaType.TV || it.mediaType == MediaType.BOTH }
+            localGenres.filter { it.mediaType == MediaType.TV || it.mediaType == MediaType.MOVIE_TV }
         return emitResult(tvGenres)
     }
 

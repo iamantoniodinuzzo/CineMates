@@ -4,6 +4,17 @@ import com.indisparte.base.Constants.IMAGE_BASE_URL_W500
 import com.indisparte.base.Constants.IMAGE_BASE_URL_W780
 import kotlin.math.roundToInt
 
+enum class MediaType(val id: Int) {
+    MOVIE_TV(0), MOVIE(1), TV(2), EPISODE(3);
+
+    companion object {
+        @Throws(NoSuchElementException::class)
+        fun fromId(id: Int): MediaType {
+            return values().find { it.id == id }
+                ?: throw NoSuchElementException("There is no media type with this id: $id")
+        }
+    }
+}
 
 /**
  * Represents a media item with properties such as id, name, popularity, etc.
@@ -20,8 +31,10 @@ open class Media(
     val id: Int,
     val mediaName: String,
     val popularity: Double?,
-    private val posterPath: String?,
-    private val voteAverage: Double,
+    val posterPath: String?,
+    val voteAverage: Double,
+    val mediaType: MediaType,
+    var isFavorite: Boolean = false,
 ) : TMDBItem() {
 
     val voteAverageRounded: String

@@ -1,5 +1,6 @@
 package com.indisparte.movie_data.repository.fake
 
+import com.indisparte.base.Media
 import com.indisparte.common.Backdrop
 import com.indisparte.common.CountryResult
 import com.indisparte.common.Video
@@ -131,7 +132,7 @@ class FakeMovieRepository : MovieRepository {
         return emitResult(movies)
     }
 
-    override fun getDetails(movieId: Int): Flow<Result<MovieDetails>> {
+    override fun getMovieDetailsAndUpdateWithLocalData(movieId: Int): Flow<Result<MovieDetails>> {
         val fakeData = movieDetailsMap[movieId]
         return emitResult(fakeData)
     }
@@ -177,6 +178,20 @@ class FakeMovieRepository : MovieRepository {
     override fun getCollectionDetails(collectionId: Int): Flow<Result<CollectionDetails>> {
         val fakeData = collectionDetailsMap[collectionId]
         return emitResult(fakeData)
+    }
+
+    override fun setMovieAsFavorite(movie: Movie): Flow<Nothing> {
+        TODO("Not yet implemented")
+    }
+
+
+
+    override fun getAllFavoriteMovies(): Flow<Result<List<Media>>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun removeMovieFromFavorite(movie: Movie): Flow<Boolean> {
+        TODO("Not yet implemented")
     }
 
 

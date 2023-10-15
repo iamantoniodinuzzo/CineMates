@@ -2,8 +2,8 @@ package com.indisparte.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.indisparte.base.MediaType
 import com.indisparte.common.Genre
-import com.indisparte.common.MediaType
 
 /**
  *@author Antonio Di Nuzzo
@@ -22,6 +22,7 @@ fun GenreEntity.asDomain(): Genre {
         name = this.name,
         isFavorite = this.isFavorite,
         mediaType = this.mediaType?.let { MediaType.fromId(it) }
+            ?: throw NullPointerException("Media type cannot be null")
     )
 }
 

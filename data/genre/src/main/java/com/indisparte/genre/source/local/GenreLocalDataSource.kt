@@ -1,7 +1,7 @@
 package com.indisparte.genre.source.local
 
+import com.indisparte.base.MediaType
 import com.indisparte.common.Genre
-import com.indisparte.common.MediaType
 import com.indisparte.database.dao.GenreDao
 import com.indisparte.database.model.asDomain
 import com.indisparte.database.model.asEntity

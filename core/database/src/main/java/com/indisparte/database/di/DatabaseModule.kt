@@ -34,5 +34,11 @@ object DatabaseModule {
         database: CineMatesDatabase,
     ) = database.getGenreDao()
 
+    @Provides
+    @Singleton
+    fun provideMediaDao(
+        database: CineMatesDatabase,
+    ) = database.getMediaDao()
+
 
 }

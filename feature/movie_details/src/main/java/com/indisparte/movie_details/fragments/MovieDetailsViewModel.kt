@@ -17,17 +17,17 @@ import com.indisparte.movie_data.repository.MovieRepository
 import com.indisparte.movie_details.model.MovieInfoUiState
 import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
-import com.indisparte.network.whenResources
+import com.indisparte.network.succeeded
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -49,6 +49,8 @@ class MovieDetailsViewModel
     private val LOG = Timber.tag(MovieDetailsViewModel::class.java.simpleName)
 
     private val _selectedMovie = MutableSharedFlow<Result<MovieDetails>>()
+    val selectedMovie: SharedFlow<Result<MovieDetails>> get() = _selectedMovie
+
 
     /*Cast*/
     private val _cast = MutableStateFlow<Result<List<Cast>>>(Result.Success(emptyList()))
@@ -62,12 +64,9 @@ class MovieDetailsViewModel
     private val _collectionParts = MutableStateFlow<Result<CollectionDetails>?>(null)
     val collectionParts: StateFlow<Result<CollectionDetails>?> get() = _collectionParts
 
-    private val _movieInfo = MutableStateFlow<Result<MovieInfoUiState>?>(null)
-    val movieInfo: StateFlow<Result<MovieInfoUiState>?> get() = _movieInfo
+    private val _movieInfo = MutableStateFlow<Result<MovieInfoUiState>>(Result.Loading)
+    val movieInfo: StateFlow<Result<MovieInfoUiState>> get() = _movieInfo
 
-    init {
-        observeSelectedMovie()
-    }
 
     fun onDetailsFragmentReady(id: Int) {
         getMovieDetails(id)
@@ -83,15 +82,51 @@ class MovieDetailsViewModel
 
     }
 
+    fun setMovieAsFavorite(currentMovie: MovieDetails) {
+        viewModelScope.launch {
+            movieRepository.setMovieAsFavorite(currentMovie).collectLatest { isFavorite ->
+
+                LOG.d("Update ${currentMovie.title}, isFavorite: $isFavorite")
+                currentMovie.isFavorite = isFavorite
+                _selectedMovie.emit(Result.Success(currentMovie))
+
+            }
+        }
+    }
+
+    fun removeMovieFromFavorite(currentMovie: MovieDetails) {
+        viewModelScope.launch {
+            movieRepository.removeMovieFromFavorite(currentMovie).collectLatest { removed ->
+                LOG.d("Update ${currentMovie.title}, removed: $removed")
+                currentMovie.isFavorite = false
+                _selectedMovie.emit(Result.Success(currentMovie))
+            }
+        }
+    }
+
     private fun getMovieDetails(id: Int) {
         viewModelScope.launch {
             _selectedMovie.emit(Result.Loading)
             LOG.d("Loading state movie details...")
             try {
-                movieRepository.getDetails(id).collectLatest { movieDetails ->
-                    LOG.d("Emit movie details result: $movieDetails")
-                    _selectedMovie.emit(movieDetails)
-                }
+                movieRepository.getMovieDetailsAndUpdateWithLocalData(id)
+                    .collectLatest { movieDetailsResult ->
+                        LOG.d("Emit movie details result: $movieDetailsResult")
+                        _selectedMovie.emit(movieDetailsResult)
+                        //Check if operation succeeded
+                        if (movieDetailsResult.succeeded) {
+                            val movieDetails = (movieDetailsResult as Result.Success).data
+                            LOG.d("Get details about ${movieDetails.title}..")
+                            loadMovieInfo(movieDetails)
+                            //Check if current movie is a part of collection
+                            movieDetails.belongsToCollection?.let { collection ->
+                                LOG.d("${movieDetails.title} is part of a Collection, retrieve collection details..")
+                                getCollectionDetails(collection.id)
+                            }
+                        } else {
+                            _selectedMovie.emit(Result.Error(CineMatesExceptions.EmptyResponse))
+                        }
+                    }
             } catch (e: CineMatesExceptions) {
                 LOG.e("An error in get movie details: $e")
                 _selectedMovie.emit(Result.Error(e))
@@ -99,31 +134,6 @@ class MovieDetailsViewModel
         }
     }
 
-    private fun observeSelectedMovie() {
-        viewModelScope.launch {
-            _selectedMovie.distinctUntilChanged().collect { result ->
-                result.whenResources(
-                    onSuccess = { movieDetails ->
-                        LOG.d("Get details about ${movieDetails.title}..")
-                        loadMovieInfo(movieDetails)
-                        movieDetails.belongsToCollection?.let { collection ->
-                            LOG.d("${movieDetails.title} is part of a Collection, retrieve collection details..")
-                            getCollectionDetails(collection.id)
-                        }
-                    },
-                    onError = { error ->
-                        LOG.e("Error in selected movie: $error")
-                        _movieInfo.emit(Result.Error(error))
-                    },
-                    onLoading = {
-                        _movieInfo.emit(Result.Loading)
-
-                    }
-                )
-
-            }
-        }
-    }
 
     private fun loadMovieInfo(
         movieDetailsResult: MovieDetails,
@@ -134,7 +144,7 @@ class MovieDetailsViewModel
                 val movieId = movieDetailsResult.id
                 val country = Locale.getDefault().country
                 combine(
-                    movieRepository.getDetails(movieId)
+                    movieRepository.getMovieDetailsAndUpdateWithLocalData(movieId)
                         .flowOn(Dispatchers.IO),
                     movieRepository.getVideos(movieId)
                         .flowOn(Dispatchers.IO),
@@ -147,7 +157,14 @@ class MovieDetailsViewModel
                     movieRepository.getBackdrop(movieId)
                         .flowOn(Dispatchers.IO),
                 ) { (details, videos, watchProviders, crew, releaseDates, backdrops) ->
-                    listOf(details, videos, watchProviders, crew, releaseDates, backdrops)
+                    listOf(
+                        details,
+                        videos,
+                        watchProviders,
+                        crew,
+                        releaseDates,
+                        backdrops
+                    )
                 }.collectLatest { results ->
                     if (results.all { it is Result.Success }) {
                         LOG.d("All movie info's are a Result.Success")
@@ -172,7 +189,7 @@ class MovieDetailsViewModel
                             releaseDates,
                             latestCertification,
                             backdropsResult,
-                            crewResult
+                            crewResult,
                         )
                         LOG.d("Emit Movie Info UI State")
                         _movieInfo.emit(Result.Success(movieInfoUiState))

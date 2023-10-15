@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -53,7 +52,6 @@ abstract class MediaDetailsContainerFragment(
         binding.apply {
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             fab.setOnClickListener {
-                Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
                 saveMedia()
             }
 

@@ -2,6 +2,7 @@ package com.indisparte.movie_details.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -59,7 +60,18 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     }
 
     override fun saveMedia() {
-        viewModel.setMovieAsFavorite(currentMovie)
+        if(currentMovie.isFavorite){
+            viewModel.removeMovieFromFavorite(currentMovie)
+        }else{
+            viewModel.setMovieAsFavorite(currentMovie)
+        }
+        makeResultToast(!currentMovie.isFavorite, "Favorite")
+    }
+
+    private fun makeResultToast(result: Boolean, where: String) {
+        val text = if (result) "Added to"
+        else "Removed from"
+        Toast.makeText(context, "$text $where", Toast.LENGTH_SHORT).show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,6 +79,19 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
 
         fetchMovieInfo()
 
+        observeCurrentSelectedMovieStatus()
+
+    }
+
+    private fun observeCurrentSelectedMovieStatus() {
+        viewModel.selectedMovie.collectIn(viewLifecycleOwner){selectedMovieResult->
+            selectedMovieResult.whenResources(onSuccess = {currentSelectedMovie->
+                binding.media = currentSelectedMovie
+                binding.executePendingBindings()
+                currentMovie = currentSelectedMovie
+            })
+
+        }
     }
 
     private fun fetchMovieInfo() {

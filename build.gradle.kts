@@ -7,7 +7,6 @@ buildscript {
         classpath(libs.agp)
         classpath(libs.kotlin.gradlePlugin)
         classpath(libs.hilt.plugin)
-        classpath "com.vanniktech:gradle-dependency-graph-generator-plugin:0.8.0"
     }
 }
 
@@ -19,9 +18,3 @@ plugins{
 }
 
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
-
-
-apply plugin: "com.vanniktech.dependency.graph.generator"

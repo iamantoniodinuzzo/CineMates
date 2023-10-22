@@ -5,6 +5,7 @@ import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.indisparte.media_discover.R
 import com.indisparte.media_discover.filterable_fragment.FilterSheetRequestListener
+import com.indisparte.movie_data.Movie
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.error.CineMatesExceptions
@@ -23,7 +24,7 @@ import timber.log.Timber
  */
 @AndroidEntryPoint
 class FilterableMovieFragment :
-    ListFragment<com.indisparte.movie_data.Movie, ListItemMediaSmallBinding, MovieAdapter>(
+    ListFragment<Movie, ListItemMediaSmallBinding, MovieAdapter>(
         MovieAdapter()
     ), FilterSheetRequestListener {
 

@@ -44,33 +44,33 @@ constructor(
 
     override fun getMovieDetailsAndUpdateWithLocalData(movieId: Int): Flow<Result<MovieDetails>> =
         flow {
-            // Get movie details from API and update it with local data
-            movieRemoteDataSource.getDetails(movieId).collect { response ->
-                response.whenResources(
-                    onSuccess = { movieDetails ->
-                        //get updated genres from local database to check which genre of current movie, is favorite
-                        val favoriteLocalGenres =
-                            genreLocalDataSource.getAllGenresById(movieDetails.genres.map { it.id })
-                                .first()
-                        // Update movie details genres with local genre status
-                        movieDetails.updateGenres(favoriteLocalGenres)
+                // Get movie details from API and update it with local data
+                movieRemoteDataSource.getDetails(movieId).collect { response ->
+                    response.whenResources(
+                        onSuccess = { movieDetails ->
+                            //get updated genres from local database to check which genre of current movie, is favorite
+                            val favoriteLocalGenres =
+                                genreLocalDataSource.getAllGenresById(movieDetails.genres.map { it.id })
+                                    .first()
+                            // Update movie details genres with local genre status
+                            movieDetails.updateGenres(favoriteLocalGenres)
 
-                        //Check if current movie is a favorite movie
-                        val isFavorite = movieLocalDataSource.isFavoriteMedia(movieDetails.id)
-                        // Update isFavorite variable
-                        movieDetails.isFavorite = isFavorite
+                            //Check if current movie is a favorite movie
+                            val isFavorite = movieLocalDataSource.isFavoriteMedia(movieDetails.id)
+                            // Update isFavorite variable
+                            movieDetails.isFavorite = isFavorite
 
-                        emit(Result.Success(movieDetails))
-                    },
-                    onError = {
-                        emit(response)
-                    },
-                    onLoading = {
-                        emit(response)
-                    }
+                            emit(Result.Success(movieDetails))
+                        },
+                        onError = {
+                            emit(response)
+                        },
+                        onLoading = {
+                            emit(response)
+                        }
 
-                )
-            }
+                    )
+                }
 
         }
 

@@ -5,6 +5,7 @@ import com.indisparte.database.dao.MediaDao
 import com.indisparte.database.model.asDomain
 import com.indisparte.database.model.asEntity
 import com.indisparte.movie_data.Movie
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
@@ -17,9 +18,10 @@ class MovieLocalDataSource
 @Inject
 constructor(
     private val dao: MediaDao,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
-    suspend fun insertFavoriteMovie(movie: Movie): Boolean = withContext(Dispatchers.IO) {
+    suspend fun insertFavoriteMovie(movie: Movie): Boolean = withContext(ioDispatcher) {
         val entity = movie.asEntity()
         val deferredInsertionResult = async {
             dao.insertFavoriteMovie(entity)
@@ -28,13 +30,13 @@ constructor(
         return@withContext deferredInsertionResult.await()
     }
 
-    suspend fun isFavoriteMedia(movieId: Int): Boolean = withContext(Dispatchers.IO) {
+    suspend fun isFavoriteMedia(movieId: Int): Boolean = withContext(ioDispatcher) {
         val deferredBoolean = async { dao.isMediaFavorite(movieId) }
 
         return@withContext deferredBoolean.await()
     }
 
-    suspend fun getAllFavoriteMedia(): List<Media> = withContext(Dispatchers.IO) {
+    suspend fun getAllFavoriteMedia(): List<Media> = withContext(ioDispatcher) {
         val deferredList = async { dao.getAllFavoriteMedia() }
 
         return@withContext deferredList.await().map { it.asDomain() }
@@ -42,7 +44,7 @@ constructor(
     }
 
     suspend fun removeMovieFromFavorite(movie: Movie): Boolean =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             val entity = movie.asEntity()
             val deferredInt = async {
                 dao.deleteMedia(

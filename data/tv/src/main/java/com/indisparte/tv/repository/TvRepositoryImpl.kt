@@ -38,7 +38,6 @@ constructor(
     private val queryMap: MutableMap<String, String>,
 ) : TvRepository {
 
-    //todo need to cache this tv
     override fun getSpecificTVList(tvListType: TvListType): Flow<Result<List<TvShow>>> =
         getListFromResponse(
             request = { tvDataSource.getTvListByType(tvListType.value, queryMap) },

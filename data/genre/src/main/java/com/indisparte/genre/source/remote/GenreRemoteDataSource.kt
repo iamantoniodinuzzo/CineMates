@@ -13,19 +13,19 @@ import javax.inject.Inject
 class GenreRemoteDataSource
 @Inject
 constructor(
-    private val genreApiService: GenreApiService,
+    private val genreDataSource: GenreDataSource,
     private val queryMap: Map<String, String>,
 ) {
 
     fun getMovieGenreList(): Flow<Result<List<Genre>>> =
         getListFromResponse(
-            request = { genreApiService.getMovieGenreList(queryMap) },
+            request = { genreDataSource.getMovieGenreList(queryMap) },
             mapper = { response -> response.genres.map { it.mapToGenre() } }
         )
 
     fun getTvGenreList(): Flow<Result<List<Genre>>> =
         getListFromResponse(
-            request = { genreApiService.getTvGenreList(queryMap) },
+            request = { genreDataSource.getTvGenreList(queryMap) },
             mapper = { response -> response.genres.map { it.mapToGenre() } }
         )
 }

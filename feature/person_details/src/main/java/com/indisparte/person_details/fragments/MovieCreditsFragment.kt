@@ -2,6 +2,7 @@ package com.indisparte.person_details.fragments
 
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.indisparte.movie_data.MovieCredit
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources
@@ -15,7 +16,7 @@ import timber.log.Timber
  *@author Antonio Di Nuzzo
  */
 class MovieCreditsFragment :
-    ListFragment<com.indisparte.movie_data.MovieCredit, ListItemMediaCreditsLongBinding, MovieCreditAdapter>(
+    ListFragment<MovieCredit, ListItemMediaCreditsLongBinding, MovieCreditAdapter>(
         MovieCreditAdapter()
     ) {
     private val LOG = Timber.tag(MovieCreditsFragment::class.java.simpleName)

@@ -1,6 +1,6 @@
 package com.indisparte.genre.di
 
-import com.indisparte.genre.source.remote.GenreApiService
+import com.indisparte.genre.source.remote.GenreDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +16,6 @@ import javax.inject.Singleton
 object GenreApiModule {
     @Singleton
     @Provides
-    fun provideGenreDataSource(retrofit: Retrofit): GenreApiService =
-        retrofit.create(GenreApiService::class.java)
+    fun provideGenreDataSource(retrofit: Retrofit): GenreDataSource =
+        retrofit.create(GenreDataSource::class.java)
 }

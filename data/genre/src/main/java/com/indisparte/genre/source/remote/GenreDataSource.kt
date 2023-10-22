@@ -8,7 +8,7 @@ import retrofit2.http.QueryMap
 /**
  * @author Antonio Di Nuzzo
  */
-interface GenreApiService {
+interface GenreDataSource {
     @GET("genre/movie/list")
     suspend fun getMovieGenreList(@QueryMap queries: Map<String, String>): Response<GenreResponseDTO>
 

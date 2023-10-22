@@ -86,23 +86,23 @@ class MovieAboutFragment : BaseFragment<FragmentMovieAboutBinding>() {
 
     private fun fetchMovieInfo() {
         viewModel.movieInfo.collectIn(viewLifecycleOwner) { resource ->
-            resource?.whenResources(
+            resource.whenResources(
                 onSuccess = {
                     LOG.d("Loaded all details")
-//                    Load movie details
+        //                    Load movie details
                     binding.movie = it.movieDetails
                     // Setup genre group
                     setGenresChipGroup(it.movieDetails.genres)
-//                    Load watch provider
+        //                    Load watch provider
                     setWatchProvidersChipGroup(it.watchProvider)
-//                    Load release dates
+        //                    Load release dates
                     releaseDateAdapter.submitList(it.releaseDates)
-//                    Load crew
+        //                    Load crew
                     crewAdapter.submitList(it.crew.takeEvenNumberOfItems())
                     binding.crewTitle.apply {
                         if (it.crew.isEmpty()) gone() else visible()
                     }
-//                    Load videos
+        //                    Load videos
                     videoAdapter.submitList(it.videos)
                     binding.trailerTitle.apply {
                         if (it.videos.isEmpty()) gone() else visible()

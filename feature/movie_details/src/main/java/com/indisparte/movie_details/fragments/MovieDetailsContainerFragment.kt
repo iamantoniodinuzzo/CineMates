@@ -60,9 +60,9 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     }
 
     override fun saveMedia() {
-        if(currentMovie.isFavorite){
+        if (currentMovie.isFavorite) {
             viewModel.removeMovieFromFavorite(currentMovie)
-        }else{
+        } else {
             viewModel.setMovieAsFavorite(currentMovie)
         }
         makeResultToast(!currentMovie.isFavorite, "Favorite")
@@ -84,12 +84,14 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     }
 
     private fun observeCurrentSelectedMovieStatus() {
-        viewModel.selectedMovie.collectIn(viewLifecycleOwner){selectedMovieResult->
-            selectedMovieResult.whenResources(onSuccess = {currentSelectedMovie->
-                binding.media = currentSelectedMovie
-                binding.executePendingBindings()
-                currentMovie = currentSelectedMovie
-            })
+        viewModel.selectedMovie.collectIn(viewLifecycleOwner) { selectedMovieResult ->
+            selectedMovieResult.whenResources(
+                onSuccess = { currentSelectedMovie ->
+                    binding.media = currentSelectedMovie
+                    binding.executePendingBindings()
+                    currentMovie = currentSelectedMovie
+                }
+            )
 
         }
     }
@@ -98,7 +100,6 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         viewModel.movieInfo.collectIn(viewLifecycleOwner) { resources ->
             resources.whenResources(
                 onSuccess = {
-                    withContext(Dispatchers.Main) {
                         LOG.d("Update UI with details.")
                         //Load movie details
                         binding.media = it.movieDetails
@@ -124,22 +125,17 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
                             if (!it.latestCertification.isNullOrEmpty()) visible() else gone()
                         }
                         hideLoading()
-                    }
 
                 },
                 onError = { exception ->
-                    withContext(Dispatchers.Main) {
                         val errorMessage = requireContext().getString(exception.messageRes)
                         LOG.e("An error occurred $errorMessage")
                         showToastMessage(errorMessage)//TODO maybe a dialog
                         findNavController().navigateUp()
-                    }
                 },
                 onLoading = {
-                    withContext(Dispatchers.Main) {
                         LOG.d("Loading movie info...")
                         showLoading()
-                    }
                 }
             )
 

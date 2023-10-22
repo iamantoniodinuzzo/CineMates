@@ -21,7 +21,6 @@ import com.indisparte.network.succeeded
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -29,7 +28,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.Locale
@@ -144,18 +142,12 @@ class MovieDetailsViewModel
                 val movieId = movieDetailsResult.id
                 val country = Locale.getDefault().country
                 combine(
-                    movieRepository.getMovieDetailsAndUpdateWithLocalData(movieId)
-                        .flowOn(Dispatchers.IO),
-                    movieRepository.getVideos(movieId)
-                        .flowOn(Dispatchers.IO),
-                    movieRepository.getWatchProviders(movieId, country)
-                        .flowOn(Dispatchers.IO),
-                    movieRepository.getCrew(movieId)
-                        .flowOn(Dispatchers.IO),
-                    movieRepository.getReleaseDates(movieId)
-                        .flowOn(Dispatchers.IO),
-                    movieRepository.getBackdrop(movieId)
-                        .flowOn(Dispatchers.IO),
+                    movieRepository.getMovieDetailsAndUpdateWithLocalData(movieId),
+                    movieRepository.getVideos(movieId),
+                    movieRepository.getWatchProviders(movieId, country),
+                    movieRepository.getCrew(movieId),
+                    movieRepository.getReleaseDates(movieId),
+                    movieRepository.getBackdrop(movieId),
                 ) { (details, videos, watchProviders, crew, releaseDates, backdrops) ->
                     listOf(
                         details,
@@ -221,7 +213,6 @@ class MovieDetailsViewModel
             try {
                 movieRepository.getCollectionDetails(collectionId)
                     .collectLatest { collectionDetails ->
-
                         _collectionParts.emit(collectionDetails)
                     }
             } catch (e: CineMatesExceptions) {

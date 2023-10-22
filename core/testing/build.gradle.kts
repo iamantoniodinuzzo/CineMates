@@ -43,4 +43,5 @@ dependencies {
 
     //Timber
     implementation(libs.timber)
+    implementation(libs.androidx.junit.ktx)
 }

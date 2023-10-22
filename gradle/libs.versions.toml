@@ -72,6 +72,7 @@ junitTest = { module = "junit:junit", version.ref = "junit" }
 test-runner = { module = "androidx.test:runner", version.ref = "testRunner" }
 androidx-arch-core = { module = "androidx.arch.core:core-testing", version.ref = "androidxArchCore" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version = "1.1.5" }
 
 [bundles]
 coroutines = ["coroutines.core", "coroutines.android"]

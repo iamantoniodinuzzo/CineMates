@@ -1,6 +1,6 @@
 package com.indisparte.actor.di
 
-import com.indisparte.actor.source.PeopleDataSource
+import com.indisparte.actor.source.remote.PeopleDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -61,6 +61,18 @@ class FakePeopleRepository : PeopleRepository {
         return emitResult(fakeData)
     }
 
+    override fun setPersonAsFavorite(person: Person): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override fun removePersonAsFavorite(person: Person): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAllFavoritePerson(): Flow<List<Person>> {
+        TODO("Not yet implemented")
+    }
+
     // Helper methods to set fake data in the fake repository
     fun addPersonDetails(personId: Int, details: PersonDetails) {
         personDetailsMap[personId] = details

@@ -34,6 +34,7 @@ dependencies {
 
     implementation (project(":core:model:common"))
     implementation (project(":core:model:base"))
+    implementation (project(":core:model:person"))
 
     implementation(libs.bundles.androidX)
     implementation(libs.bundles.coroutines)

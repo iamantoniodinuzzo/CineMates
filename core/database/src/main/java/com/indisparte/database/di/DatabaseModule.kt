@@ -23,10 +23,10 @@ object DatabaseModule {
     fun providesDatabase(
         application: Application,
     ): CineMatesDatabase = Room.databaseBuilder(
-            application,
-            CineMatesDatabase::class.java,
-            databaseName
-        ).fallbackToDestructiveMigration().build()
+        application,
+        CineMatesDatabase::class.java,
+        databaseName
+    ).fallbackToDestructiveMigration().build()
 
     @Provides
     @Singleton
@@ -39,6 +39,13 @@ object DatabaseModule {
     fun provideMediaDao(
         database: CineMatesDatabase,
     ) = database.getMediaDao()
+
+
+    @Provides
+    @Singleton
+    fun providePersonDao(
+        database: CineMatesDatabase,
+    ) = database.getPersonDao()
 
 
 }

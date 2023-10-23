@@ -3,7 +3,6 @@ package com.indisparte.person
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.indisparte.base.Constants
-import com.indisparte.base.PersonBase
 import com.indisparte.common.Poster
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -49,15 +48,17 @@ class PersonDetails(
     popularity: Double,
     profilePath: String?,
     val images: List<Poster>,
-) : PersonBase(
+) : Person(
     adult = adult,
     gender = gender,
     id = id,
     knownForDepartment = knownForDepartment,
     name = name,
     popularity = popularity,
-    profilePath = profilePath
+    profilePath = profilePath,
 ) {
+
+
     val formattedBirthDay: String?
         get() {
             return formatDate(birthday)

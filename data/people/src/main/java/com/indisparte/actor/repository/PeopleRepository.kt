@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
  * @author Antonio Di Nuzzo
  */
 interface PeopleRepository {
-    fun getPersonDetails(personId: Int): Flow<Result<PersonDetails>>
+    fun getPersonDetailsAndUpdateWithLocalData(personId: Int): Flow<Result<PersonDetails>>
     fun getPopularPersons(): Flow<Result<List<Person>>>
     fun getTrendingPersons(timeWindow: TimeWindow): Flow<Result<List<Person>>>
 

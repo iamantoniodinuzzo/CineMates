@@ -38,7 +38,7 @@ class FakePeopleRepository : PeopleRepository {
             }
         }
     }
-    override fun getPersonDetails(personId: Int): Flow<Result<PersonDetails>> {
+    override fun getPersonDetailsAndUpdateWithLocalData(personId: Int): Flow<Result<PersonDetails>> {
         // Implement the behavior to return fake data for getPersonDetails
         val fakeData = personDetailsMap[personId]
         return emitResult(fakeData)

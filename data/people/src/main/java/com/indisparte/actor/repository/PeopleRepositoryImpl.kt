@@ -5,6 +5,7 @@ import com.indisparte.actor.source.remote.PeopleRemoteDataSource
 import com.indisparte.filter.TimeWindow
 import com.indisparte.movie_data.MovieCredit
 import com.indisparte.network.Result
+import com.indisparte.network.whenResources
 import com.indisparte.person.Person
 import com.indisparte.person.PersonDetails
 import kotlinx.coroutines.flow.Flow
@@ -21,8 +22,27 @@ constructor(
     private val peopleRemoteDataSource: PeopleRemoteDataSource,
     private val peopleLocalDataSource: PeopleLocalDataSource,
 ) : PeopleRepository {
-    override fun getPersonDetails(personId: Int): Flow<Result<PersonDetails>> =
-        peopleRemoteDataSource.getPersonDetails(personId)
+    override fun getPersonDetailsAndUpdateWithLocalData(personId: Int): Flow<Result<PersonDetails>> =
+        flow {
+            //Get person details from API
+            peopleRemoteDataSource.getPersonDetails(personId).collect { response ->
+                response.whenResources(
+                    onSuccess = { personDetails ->
+                        //Check if is my fav person
+                        val isFavoritePerson = peopleLocalDataSource.isFavoritePerson(personId)
+                        //Update attribute
+                        personDetails.isFavorite = isFavoritePerson
+
+                        emit(Result.Success(personDetails))
+
+                    }, onError = {
+                        emit(response)
+                    }, onLoading = {
+                        emit(response)
+                    }
+                )
+            }
+        }
 
     override fun getPopularPersons(): Flow<Result<List<Person>>> =
         peopleRemoteDataSource.getPopularPersons()
@@ -39,12 +59,12 @@ constructor(
             emit(result > 0)
         }
 
-    override fun removePersonAsFavorite(person: Person):Flow<Boolean> = flow{
+    override fun removePersonAsFavorite(person: Person): Flow<Boolean> = flow {
         val result = peopleLocalDataSource.removeFavoritePerson(person)
-        emit(result>0)
+        emit(result > 0)
     }
 
-    override fun getAllFavoritePerson():Flow<List<Person>> = flow{
+    override fun getAllFavoritePerson(): Flow<List<Person>> = flow {
         val result = peopleLocalDataSource.getAllFavoritePerson()
         emit(result)
     }

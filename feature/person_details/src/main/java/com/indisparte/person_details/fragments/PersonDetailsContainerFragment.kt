@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.indisparte.network.whenResources
+import com.indisparte.person.PersonDetails
 import com.indisparte.person_details.R
 import com.indisparte.person_details.databinding.FragmentPersonDetailsContainerBinding
 import com.indisparte.ui.adapter.ViewPagerAdapter
@@ -35,6 +36,7 @@ class PersonDetailsContainerFragment : BaseFragment<FragmentPersonDetailsContain
     private val args: PersonDetailsContainerFragmentArgs by navArgs()
     private val viewModel: PersonDetailsViewModel by viewModels()
     private lateinit var viewPagerAdapter: ViewPagerAdapter
+    private lateinit var currentPerson: PersonDetails
     private val mapOfFragments: FragmentTitleMap =
         linkedMapOf(
             PersonAboutFragment() to R.string.fragment_person_about_title,
@@ -50,7 +52,7 @@ class PersonDetailsContainerFragment : BaseFragment<FragmentPersonDetailsContain
         binding.apply {
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             fab.setOnClickListener {
-                Toast.makeText(requireContext(), "Soon", Toast.LENGTH_SHORT).show()
+                updatePersonStatus()
             }
 
             appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -61,6 +63,22 @@ class PersonDetailsContainerFragment : BaseFragment<FragmentPersonDetailsContain
         }
 
     }
+
+    private fun updatePersonStatus() {
+        if (currentPerson.isFavorite) {
+            viewModel.removePersonAsFavorite(currentPerson)
+        } else {
+            viewModel.setPersonAsFavorite(currentPerson)
+        }
+        makeResultToast(!currentPerson.isFavorite, "Favorite")
+    }
+
+    private fun makeResultToast(result: Boolean, where: String) {
+        val text = if (result) "Added to"
+        else "Removed from"
+        Toast.makeText(context, "$text $where", Toast.LENGTH_SHORT).show()
+    }
+
 
     private fun showLoading() {
         binding.loadingProgressBar.visible()
@@ -94,10 +112,11 @@ class PersonDetailsContainerFragment : BaseFragment<FragmentPersonDetailsContain
         //use views here
         viewModel.personDetails.collectIn(viewLifecycleOwner) { result ->
             result.whenResources(
-                onSuccess = {personDetails->
+                onSuccess = { personDetails ->
                     hideLoading()
-                    LOG.d("Person Gender: ${personDetails.formattedGender}")
                     binding.person = personDetails
+                    binding.executePendingBindings()
+                    currentPerson = personDetails
                 },
                 onError = { exception ->
                     hideLoading()

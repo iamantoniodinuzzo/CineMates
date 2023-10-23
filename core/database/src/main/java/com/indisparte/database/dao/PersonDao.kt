@@ -22,4 +22,7 @@ interface PersonDao {
     @Query("SELECT * FROM person ")
     fun getAllFavoritePerson(): List<FavoritePersonEntity>
 
+    @Query("SELECT EXISTS (SELECT * FROM person WHERE id = :personId)")
+    fun isPersonFavorite(personId: Int): Boolean
+
 }

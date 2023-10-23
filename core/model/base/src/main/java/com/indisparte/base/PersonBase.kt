@@ -41,6 +41,7 @@ abstract class PersonBase(
     val name: String,
     val popularity: Double,
     val profilePath: String?,
+    var isFavorite: Boolean = false
 ) : TMDBItem() {
 
     val completeProfilePathW780: String?

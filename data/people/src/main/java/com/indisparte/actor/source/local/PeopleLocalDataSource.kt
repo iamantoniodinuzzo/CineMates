@@ -42,4 +42,9 @@ constructor(
         return@withContext allFavoritePersonAsDomain
     }
 
+    suspend fun isFavoritePerson(personId: Int) = withContext(ioDispatcher) {
+        val deferredBoolean = async { dao.isPersonFavorite(personId) }
+        return@withContext deferredBoolean.await()
+    }
+
 }

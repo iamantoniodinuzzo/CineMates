@@ -14,7 +14,7 @@ import com.indisparte.base.PersonBase
  * @property profilePath The path to the profile image of the person.
  * @author Antonio Di Nuzzo
  */
-class Person(
+open class Person(
     adult: Boolean,
     gender: Int,
     id: Int,

@@ -98,7 +98,7 @@
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 app:loadDrawable="@{person.formattedGender.genderDrawableId}"
-                                tools:src="@tools:sample/backgrounds/scenic"
+                                tools:src="@drawable/ic_male"
                                 android:layout_gravity="end|bottom" />
 
                         </FrameLayout>
@@ -167,8 +167,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/base_margin"
+                app:isFavorite="@{person.favorite}"
                 android:backgroundTint="?attr/colorAccent"
-                android:importantForAccessibility="no"
                 android:src="@drawable/ic_favorite" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

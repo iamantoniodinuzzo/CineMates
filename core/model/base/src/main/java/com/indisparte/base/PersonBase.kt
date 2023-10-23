@@ -35,12 +35,13 @@ enum class Gender(
  */
 abstract class PersonBase(
     val adult: Boolean,
-    private val gender: Int,
+    val gender: Int,
     val id: Int,
     val knownForDepartment: String,
     val name: String,
     val popularity: Double,
-    private val profilePath: String?,
+    val profilePath: String?,
+    var isFavorite: Boolean = false
 ) : TMDBItem() {
 
     val completeProfilePathW780: String?

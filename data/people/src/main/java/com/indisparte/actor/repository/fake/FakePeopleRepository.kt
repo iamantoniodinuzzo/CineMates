@@ -38,7 +38,7 @@ class FakePeopleRepository : PeopleRepository {
             }
         }
     }
-    override fun getPersonDetails(personId: Int): Flow<Result<PersonDetails>> {
+    override fun getPersonDetailsAndUpdateWithLocalData(personId: Int): Flow<Result<PersonDetails>> {
         // Implement the behavior to return fake data for getPersonDetails
         val fakeData = personDetailsMap[personId]
         return emitResult(fakeData)
@@ -59,6 +59,18 @@ class FakePeopleRepository : PeopleRepository {
         // Implement the behavior to return fake data for getMovieCredits
         val fakeData = movieCreditsMap[personId]
         return emitResult(fakeData)
+    }
+
+    override fun setPersonAsFavorite(person: Person): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override fun removePersonAsFavorite(person: Person): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAllFavoritePerson(): Flow<List<Person>> {
+        TODO("Not yet implemented")
     }
 
     // Helper methods to set fake data in the fake repository

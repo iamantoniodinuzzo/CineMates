@@ -8,10 +8,10 @@ import com.indisparte.network.Result
 import com.indisparte.network.error.CineMatesExceptions
 import com.indisparte.person.PersonDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -24,8 +24,8 @@ constructor(
     private val personDetailsRepository: PeopleRepository,
 ) : ViewModel() {
     private val LOG = Timber.tag(PersonDetailsViewModel::class.java.simpleName)
-    private val _personDetails = MutableStateFlow<Result<PersonDetails>>(Result.Loading)
-    val personDetails: SharedFlow<Result<PersonDetails>> get() = _personDetails.asSharedFlow()
+    private val _personDetails = MutableSharedFlow<Result<PersonDetails>>()
+    val personDetails: SharedFlow<Result<PersonDetails>> get() = _personDetails
 
     private val _movieCredits = MutableStateFlow<Result<List<MovieCredit>>>(Result.Loading)
     val movieCredits: StateFlow<Result<List<MovieCredit>>> get() = _movieCredits
@@ -39,13 +39,13 @@ constructor(
     }
 
     private suspend fun getPersonDetails(id: Int) {
-        _personDetails.value = Result.Loading
+        _personDetails.emit(Result.Loading)
         try {
-            personDetailsRepository.getPersonDetails(id).collectLatest {
-                _personDetails.value = it
+            personDetailsRepository.getPersonDetailsAndUpdateWithLocalData(id).collectLatest {
+                _personDetails.emit(it)
             }
         } catch (e: CineMatesExceptions) {
-            _personDetails.value = Result.Error(e)
+            _personDetails.emit(Result.Error(e))
         }
     }
 
@@ -57,6 +57,29 @@ constructor(
             }
         } catch (e: CineMatesExceptions) {
             _movieCredits.value = Result.Error(e)
+        }
+    }
+
+    fun setPersonAsFavorite(person: PersonDetails) {
+        viewModelScope.launch {
+            personDetailsRepository.setPersonAsFavorite(person).collectLatest { isFavorite ->
+                LOG.d("${person.name} is now favorite?: $isFavorite")
+                person.isFavorite = isFavorite
+                _personDetails.emit(Result.Success(person))
+
+            }
+        }
+    }
+
+    fun removePersonAsFavorite(person: PersonDetails) {
+        viewModelScope.launch {
+            personDetailsRepository.removePersonAsFavorite(person).collectLatest { isFavorite ->
+                LOG.d("${person.name} is removed from favorite? $isFavorite")
+                person.isFavorite = !isFavorite
+                _personDetails.emit(Result.Success(person))
+
+
+            }
         }
     }
 

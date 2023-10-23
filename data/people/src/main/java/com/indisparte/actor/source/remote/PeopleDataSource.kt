@@ -1,4 +1,4 @@
-package com.indisparte.actor.source
+package com.indisparte.actor.source.remote
 
 import com.indisparte.actor.response.MovieCreditResponseDTO
 import com.indisparte.actor.response.PersonDTO

@@ -38,6 +38,7 @@ dependencies {
     api(project(":core:model:movie"))
     implementation(project(":core:response"))
     implementation(project(":core:network"))
+    implementation(project(":core:database"))
 
     implementation(libs.bundles.androidX)
     testImplementation(libs.junitTest)

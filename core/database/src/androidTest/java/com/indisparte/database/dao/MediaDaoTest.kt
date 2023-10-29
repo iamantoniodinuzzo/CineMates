@@ -47,14 +47,13 @@ class MediaDaoTest {
             posterPath = null,
             voteAverage = 8.9,
             mediaType = mediaType.id,
-            isFavorite = true
         )
 
         //WHEN
         dao.insertMedia(media)
 
         //THEN
-        val loadedGenres = dao.getAllMyFavMediaByMediaType(mediaType.id)
+        val loadedGenres = dao.getAllFavoriteMedia()
         assertTrue(loadedGenres.contains(media))
 
     }
@@ -71,7 +70,6 @@ class MediaDaoTest {
             posterPath = null,
             voteAverage = 10.11,
             mediaType = movieMediaType.id,
-            isFavorite = false
         )
         val medias = listOf(
             MediaEntity(
@@ -81,7 +79,6 @@ class MediaDaoTest {
                 posterPath = null,
                 voteAverage = 12.13,
                 mediaType = tvMediaType.id,
-                isFavorite = true
             ),
             MediaEntity(
                 id = 9944,
@@ -89,7 +86,7 @@ class MediaDaoTest {
                 popularity = null,
                 posterPath = null,
                 voteAverage = 14.15,
-                mediaType = movieMediaType.id, isFavorite = true
+                mediaType = movieMediaType.id
 
             ),
             notMyFavMedia
@@ -124,7 +121,6 @@ class MediaDaoTest {
                 posterPath = null,
                 voteAverage = 16.17,
                 mediaType = movieMediaType,
-                isFavorite = true
             ),
             MediaEntity(
                 id = 1504,
@@ -133,7 +129,6 @@ class MediaDaoTest {
                 posterPath = null,
                 voteAverage = 18.19,
                 mediaType = movieMediaType,
-                isFavorite = true
             )
         )
 
@@ -145,8 +140,6 @@ class MediaDaoTest {
                 posterPath = null,
                 voteAverage = 20.21,
                 mediaType = tvMediaType,
-                isFavorite = true
-
             ),
             MediaEntity(
                 id = 3071,
@@ -155,8 +148,6 @@ class MediaDaoTest {
                 posterPath = null,
                 voteAverage = 22.23,
                 mediaType = tvMediaType,
-                isFavorite = true
-
             )
         )
         val notFavMovie = MediaEntity(
@@ -166,7 +157,6 @@ class MediaDaoTest {
             posterPath = null,
             voteAverage = 26.27,
             mediaType = movieMediaType,
-            isFavorite = false
         )
 
 
@@ -177,7 +167,6 @@ class MediaDaoTest {
             posterPath = null,
             voteAverage = 28.29,
             mediaType = tvMediaType,
-            isFavorite = false
         )
 
 

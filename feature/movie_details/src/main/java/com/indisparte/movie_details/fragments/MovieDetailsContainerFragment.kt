@@ -18,8 +18,6 @@ import com.indisparte.util.extension.collectIn
 import com.indisparte.util.extension.gone
 import com.indisparte.util.extension.visible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 /**
@@ -38,7 +36,6 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     private val viewModel: MovieDetailsViewModel by viewModels()
     private val movieIdArgs: MovieDetailsContainerFragmentArgs by navArgs()
     private lateinit var backdropAdapter: BackdropAdapter
-    private lateinit var backdropViewPager: ViewPager2
     private val collectionPartsFragment: CollectionPartsFragment by lazy {
         CollectionPartsFragment()
     }
@@ -46,12 +43,20 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
 
     override fun initializeViews() {
         backdropAdapter = BackdropAdapter()
-        backdropAdapter.registerAdapterDataObserver(binding.circleIndicator.adapterDataObserver)
 
         viewModel.onDetailsFragmentReady(movieIdArgs.id)
-        backdropViewPager = binding.backdropViewPager
-        backdropViewPager.adapter = backdropAdapter
-        binding.circleIndicator.setViewPager(backdropViewPager)
+
+        binding.backdropViewPager.apply {
+            adapter = backdropAdapter
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    val totalBackdropsCount = backdropAdapter.itemCount
+                    val currentBackdropPosition = position + 1
+                    binding.backdropCounter.text = "$currentBackdropPosition/$totalBackdropsCount"
+                }
+            })
+        }
+
 
         binding.toolbar.setNavigationOnClickListener {
             ((this.requireActivity()) as ToFlowNavigable).navigateToFlow(NavigationFlow.HomeFlow)
@@ -100,42 +105,43 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         viewModel.movieInfo.collectIn(viewLifecycleOwner) { resources ->
             resources.whenResources(
                 onSuccess = {
-                        LOG.d("Update UI with details.")
-                        //Load movie details
-                        binding.media = it.movieDetails
-                        currentMovie = it.movieDetails
-                        binding.executePendingBindings()
+                    LOG.d("Update UI with details.")
+                    //Load movie details
+                    binding.media = it.movieDetails
+                    currentMovie = it.movieDetails
+                    binding.executePendingBindings()
 
-                        //Set the title here, without using data binding, because the 'app:title' attribute of the toolbar does not allow dynamic change
-                        binding.toolbar.title = it.movieDetails.title
+                    //Set the title here, without using data binding, because the 'app:title' attribute of the toolbar does not allow dynamic change
+                    binding.toolbar.title = it.movieDetails.title
 
-                        //check if movie is a part of collection
-                        if (it.movieDetails.belongsToCollection != null) {
-                            LOG.d("Movie is a part of collection, add CollectionFragment.")
-                            addFragment(collectionPartsFragment, R.string.fragment_collection)
-                        } else {
-                            LOG.d("Movie is not a part of collection, remove CollectionFragment if present")
-                            removeFragment(collectionPartsFragment)
-                        }
-                        //Load backdrops
-                        backdropAdapter.submitList(it.backdrops)
-                        //Load certification
-                        binding.certification.apply {
-                            text = it.latestCertification
-                            if (!it.latestCertification.isNullOrEmpty()) visible() else gone()
-                        }
-                        hideLoading()
+                    //check if movie is a part of collection
+                    if (it.movieDetails.belongsToCollection != null) {
+                        LOG.d("Movie is a part of collection, add CollectionFragment.")
+                        addFragment(collectionPartsFragment, R.string.fragment_collection)
+                    } else {
+                        LOG.d("Movie is not a part of collection, remove CollectionFragment if present")
+                        removeFragment(collectionPartsFragment)
+                    }
+                    //Load backdrops
+                    backdropAdapter.submitList(it.backdrops)
+
+                    //Load certification
+                    binding.certification.apply {
+                        text = it.latestCertification
+                        if (!it.latestCertification.isNullOrEmpty()) visible() else gone()
+                    }
+                    hideLoading()
 
                 },
                 onError = { exception ->
-                        val errorMessage = requireContext().getString(exception.messageRes)
-                        LOG.e("An error occurred $errorMessage")
-                        showToastMessage(errorMessage)//TODO maybe a dialog
-                        findNavController().navigateUp()
+                    val errorMessage = requireContext().getString(exception.messageRes)
+                    LOG.e("An error occurred $errorMessage")
+                    showToastMessage(errorMessage)//TODO maybe a dialog
+                    findNavController().navigateUp()
                 },
                 onLoading = {
-                        LOG.d("Loading movie info...")
-                        showLoading()
+                    LOG.d("Loading movie info...")
+                    showLoading()
                 }
             )
 

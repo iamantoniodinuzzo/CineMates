@@ -66,5 +66,4 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.timber)
-    implementation("me.relex:circleindicator:2.1.6")
 }

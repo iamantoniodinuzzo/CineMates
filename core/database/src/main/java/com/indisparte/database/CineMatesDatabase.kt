@@ -3,6 +3,7 @@ package com.indisparte.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.indisparte.database.dao.GenreDao
+import com.indisparte.database.dao.ListDao
 import com.indisparte.database.dao.MediaDao
 import com.indisparte.database.dao.PersonDao
 import com.indisparte.database.model.FavoriteMediaEntity
@@ -22,5 +23,6 @@ import com.indisparte.database.model.MediaEntity
 abstract class CineMatesDatabase : RoomDatabase() {
     abstract fun getGenreDao(): GenreDao
     abstract fun getMediaDao(): MediaDao
+    abstract fun getListDao(): ListDao
     abstract fun getPersonDao(): PersonDao
 }

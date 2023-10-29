@@ -48,4 +48,11 @@ object DatabaseModule {
     ) = database.getPersonDao()
 
 
+    @Provides
+    @Singleton
+    fun provideListDao(
+        database: CineMatesDatabase,
+    ) = database.getListDao()
+
+
 }

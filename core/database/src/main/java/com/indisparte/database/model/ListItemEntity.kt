@@ -1,5 +1,6 @@
 package com.indisparte.database.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
@@ -28,6 +29,7 @@ data class ListItemEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val mediaId: Int,
     val listId: Int,
-    val position: Int,
-    val updateDate: String,
+    var position: Int,
+    @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
+    val updateDate: String = "",
 )

@@ -31,8 +31,11 @@ interface MediaDao {
     @Query("SELECT EXISTS (SELECT * FROM favorite_media WHERE mediaId = :mediaId)")
     fun isMediaFavorite(mediaId: Int): Boolean
 
-    @Query("SELECT * FROM media INNER JOIN favorite_media ON media.id = favorite_media.mediaId")
-    fun getAllFavoriteMedia(): List<MediaEntity>
+    @Query("SELECT * FROM media INNER JOIN favorite_media ON media.id = favorite_media.mediaId AND mediaType = :mediaType")
+    fun getAllFavoriteMediaByMediaType(mediaType: Int): List<MediaEntity>
+
+    @Query("SELECT * FROM media WHERE id = :mediaId")
+    fun getMediaById(mediaId: Int): MediaEntity?
 
     @Delete
     fun deleteMedia(media: MediaEntity):Int

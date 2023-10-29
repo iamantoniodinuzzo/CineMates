@@ -1,6 +1,7 @@
 package com.indisparte.movie_data.source.local
 
 import com.indisparte.base.Media
+import com.indisparte.base.MediaType
 import com.indisparte.database.dao.MediaDao
 import com.indisparte.database.model.asDomain
 import com.indisparte.database.model.asEntity
@@ -37,7 +38,7 @@ constructor(
     }
 
     suspend fun getAllFavoriteMedia(): List<Media> = withContext(ioDispatcher) {
-        val deferredList = async { dao.getAllFavoriteMedia() }
+        val deferredList = async { dao.getAllFavoriteMediaByMediaType(MediaType.MOVIE.id) }
 
         return@withContext deferredList.await().map { it.asDomain() }
 

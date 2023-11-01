@@ -13,7 +13,7 @@ okhttp = "5.0.0-alpha.11"
 retrofit = "2.9.0"
 navigation = "2.5.1"
 glide = "4.15.1"
-dagger = "2.46.1"
+dagger = "2.48.1"
 jetbrainsPlugin = "1.7.20"
 androidGradlePlugin = "7.3.1"
 

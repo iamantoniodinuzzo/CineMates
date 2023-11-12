@@ -20,7 +20,6 @@ class ManageMediaBottomDialog : BottomSheetDialogFragment() {
     private val manageMediaViewModel: ManageMediaViewModel by viewModels()
     private val args: ManageMediaBottomDialogArgs by navArgs()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -32,12 +31,15 @@ class ManageMediaBottomDialog : BottomSheetDialogFragment() {
 
 
         binding.btnWatch.setOnClickListener {
+            manageMediaViewModel.setMovieAsSeen(currentMovie)
         }
 
         binding.btnLike.setOnClickListener {
+            manageMediaViewModel.setMovieAsFavorite(currentMovie)
         }
 
         binding.btnWatchlist.setOnClickListener {
+            manageMediaViewModel.setMovieAsToSee(currentMovie)
         }
 
         // Aggiorna l'UI in base allo stato del media (visto, preferito, da vedere)

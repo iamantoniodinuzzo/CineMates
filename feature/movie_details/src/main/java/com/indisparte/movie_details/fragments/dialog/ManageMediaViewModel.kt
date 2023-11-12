@@ -39,5 +39,41 @@ constructor(
         }
     }
 
+    fun setMovieAsToSee(movie: Movie) {
+        viewModelScope.launch {
+            movieRepository.setMovieAsToSee(movie).collectLatest {
+                Timber.tag(ManageMediaViewModel::class.java.simpleName)
+                    .d("Movie inserito tra i da vedere: $it")
+            }
+        }
+    }
+
+    fun removeMovieFromToSee(movie: Movie){
+        viewModelScope.launch {
+            movieRepository.removeMovieFromToSee(movie).collectLatest {
+                Timber.tag(ManageMediaViewModel::class.java.simpleName)
+                    .d("Movie rimosso dai da vedere: $it")
+            }
+        }
+    }
+
+    fun setMovieAsSeen(movie: Movie) {
+        viewModelScope.launch {
+            movieRepository.setMovieAsSeen(movie).collectLatest {
+                Timber.tag(ManageMediaViewModel::class.java.simpleName)
+                    .d("Movie inserito tra i visti: $it")
+            }
+        }
+    }
+
+    fun removeMovieFromSeen(movie: Movie){
+        viewModelScope.launch {
+            movieRepository.removeMovieFromSeen(movie).collectLatest {
+                Timber.tag(ManageMediaViewModel::class.java.simpleName)
+                    .d("Movie rimosso dai visti: $it")
+            }
+        }
+    }
+
 
 }

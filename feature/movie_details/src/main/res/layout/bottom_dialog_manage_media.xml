@@ -17,8 +17,8 @@
             android:id="@+id/top_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="?attr/colorOnPrimary"
             android:layout_marginTop="@dimen/base_margin"
+            android:background="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,52 +32,55 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/top_divider">
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatToggleButton
                 android:id="@+id/btn_watch"
-                style="@style/PrimaryCustomMaterialButtonStyle"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:backgroundTint="?attr/colorSecondary"
-                android:text="Watch"
-                app:icon="@drawable/ic_eye_outlined"
-                app:iconGravity="top"
-                app:iconSize="32dp"
-                app:iconTint="?attr/colorOnPrimary" />
+                android:drawableTop="@drawable/ic_toggle_eye"
+                android:drawableTint="?attr/colorOnPrimary"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                android:textOff="Watched"
+                android:textOn="Watched"
+                android:textSize="@dimen/big_text_size"/>
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatToggleButton
                 android:id="@+id/btn_like"
-                style="@style/PrimaryCustomMaterialButtonStyle"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:backgroundTint="?attr/colorSecondary"
-                android:text="Like"
-                app:icon="@drawable/ic_favorite_outlined"
-                app:iconGravity="top"
-                app:iconSize="32dp"
-                app:iconTint="?attr/colorOnPrimary" />
+                android:drawableTop="@drawable/ic_toggle_favorite"
+                android:drawableTint="?attr/colorOnPrimary"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                android:textOff="Favorite"
+                android:textOn="Favorite"
+                android:textSize="@dimen/big_text_size" />
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatToggleButton
                 android:id="@+id/btn_watchlist"
-                style="@style/PrimaryCustomMaterialButtonStyle"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Watchlist"
                 android:backgroundTint="?attr/colorSecondary"
-                app:icon="@drawable/ic_bookmark_outlined"
-                app:iconGravity="top"
-                app:iconSize="32dp"
-                app:iconTint="?attr/colorOnPrimary" />
+                android:drawableTop="@drawable/ic_toggle_bookmark"
+                android:drawableTint="?attr/colorOnPrimary"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                android:textOff="Watchlist"
+                android:textOn="Watchlist"
+                android:textSize="@dimen/big_text_size" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/bottom_divider"
             android:layout_width="match_parent"
-            android:background="?attr/colorOnPrimary"
             android:layout_height="1dp"
+            android:background="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_action_group" />

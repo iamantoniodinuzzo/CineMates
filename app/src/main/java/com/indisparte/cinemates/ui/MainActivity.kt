@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
@@ -16,6 +18,7 @@ import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.Navigator
 import com.indisparte.navigation.ToFlowNavigable
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), ToFlowNavigable {
@@ -47,27 +50,31 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
             )
         )
 
-        lifecycleScope.launchWhenResumed {
-            navController.addOnDestinationChangedListener { _: NavController, destination: NavDestination, _: Bundle? ->
-                val isATopDestination =
-                    appBarConfiguration.topLevelDestinations.contains(destination.id)
-                isVisible = if (isATopDestination) {
-                    if (!isVisible)
-                        startAnimation(
-                            AnimationUtils.loadAnimation(
-                                this@MainActivity,
-                                R.anim.slide_up
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                navController.addOnDestinationChangedListener { _: NavController, destination: NavDestination, _: Bundle? ->
+                    val isATopDestination =
+                        appBarConfiguration.topLevelDestinations.contains(destination.id)
+                    isVisible = if (isATopDestination) {
+                        if (!isVisible)
+                            startAnimation(
+                                AnimationUtils.loadAnimation(
+                                    this@MainActivity,
+                                    R.anim.slide_up
+                                )
                             )
-                        )
-                    true
-                } else {
-                    startAnimation(
-                        AnimationUtils.loadAnimation(
-                            this@MainActivity,
-                            R.anim.slide_down
-                        )
-                    )
-                    false
+                        true
+                    } else {
+                        if (isVisible)
+                            startAnimation(
+                                AnimationUtils.loadAnimation(
+                                    this@MainActivity,
+                                    R.anim.slide_down
+                                )
+                            )
+
+                        false
+                    }
                 }
             }
         }

@@ -20,7 +20,7 @@ import com.indisparte.database.entity.ToSeeMediaEntity
 @Database(
     entities = [GenreEntity::class, MediaEntity::class, FavoriteMediaEntity::class, ToSeeMediaEntity::class,
         SeenMediaEntity::class, FavoritePersonEntity::class, ListEntity::class, ListItemEntity::class],
-    version = 7
+    version = 9
 )
 abstract class CineMatesDatabase : RoomDatabase() {
     abstract fun getGenreDao(): GenreDao

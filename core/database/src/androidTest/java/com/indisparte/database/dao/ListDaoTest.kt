@@ -1,20 +1,15 @@
 package com.indisparte.database.dao
 
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.indisparte.base.MediaType
-import com.indisparte.database.CineMatesDatabase
-import com.indisparte.database.model.ListEntity
-import com.indisparte.database.model.ListItemEntity
-import com.indisparte.database.model.MediaEntity
+import com.indisparte.database.entity.ListEntity
+import com.indisparte.database.entity.ListItemEntity
+import com.indisparte.database.entity.MediaEntity
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
 import junit.framework.TestCase.assertNull
 import junit.framework.TestCase.assertTrue
-import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,22 +19,18 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-class ListDaoTest {
+class ListDaoTest : BaseDaoTest() {
 
-    private lateinit var db: CineMatesDatabase
     private lateinit var listDao: ListDao
 
     @Before
-    fun initDb() {
-        db = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            CineMatesDatabase::class.java
-        ).allowMainThreadQueries().build()
-        listDao = db.getListDao()
+    override fun setup() {
+        super.setup()
+        listDao = testDatabase.getListDao()
     }
 
     @Test
-    fun testInsertAndLoadListSuccess() = runBlocking {
+    fun testInsertAndLoadListSuccess() = runBlockingTest {
         // GIVEN
         val list = ListEntity(
             title = "My List",
@@ -56,7 +47,7 @@ class ListDaoTest {
     }
 
     @Test
-    fun testDeleteListSuccess() = runBlocking {
+    fun testDeleteListSuccess() = runBlockingTest {
         // GIVEN
         val list = ListEntity(
             title = "To Delete",
@@ -74,7 +65,7 @@ class ListDaoTest {
     }
 
     @Test
-    fun testGetMediaInListSuccess() = runBlocking {
+    fun testGetMediaInListSuccess() = runBlockingTest {
         // GIVEN
         val media = MediaEntity(
             id = 1234,
@@ -104,7 +95,7 @@ class ListDaoTest {
     }
 
     @Test
-    fun testGetMediaInListWithTypeSuccess() = runBlocking {
+    fun testGetMediaInListWithTypeSuccess() = runBlockingTest {
         // GIVEN
         val mediaType = MediaType.MOVIE.id
 
@@ -160,9 +151,9 @@ class ListDaoTest {
             updateDate = "2023-10-30"
         )
 
-        listDao.insertMediaInList(listId, media1, 0 )
-        listDao.insertMediaInList(listId, media2, 1 )
-        listDao.insertMediaInList(listId, media3, 2 )
+        listDao.insertMediaInList(listId, media1, 0)
+        listDao.insertMediaInList(listId, media2, 1)
+        listDao.insertMediaInList(listId, media3, 2)
         // WHEN
         val loadedMedia = listDao.getMediaInListWithType(listId, mediaType)
 
@@ -173,7 +164,7 @@ class ListDaoTest {
     }
 
     @Test
-    fun testInsertMediaInListSuccess() = runBlocking {
+    fun testInsertMediaInListSuccess() = runBlockingTest {
         // GIVEN
         val media = MediaEntity(
             id = 1000,
@@ -199,7 +190,7 @@ class ListDaoTest {
     }
 
     @Test
-    fun testDeleteMediaFromListSuccess() = runBlocking {
+    fun testDeleteMediaFromListSuccess() = runBlockingTest {
         // GIVEN
         val media = MediaEntity(
             id = 1234,
@@ -234,45 +225,45 @@ class ListDaoTest {
         assertNull(listDao.getMediaById(media.id))
     }
 
-  /*  @Test
-    fun testUpdateMediaPositionSuccess() = runBlocking {
-        // GIVEN
-        val media = MediaEntity(
-            id = 1234,
-            mediaName = "Test Media",
-            popularity = 7.8,
-            posterPath = "poster_path",
-            voteAverage = 9.0,
-            mediaType = MediaType.MOVIE.id
-        )
+    /*  @Test
+      fun testUpdateMediaPositionSuccess() = runBlockingTest {
+          // GIVEN
+          val media = MediaEntity(
+              id = 1234,
+              mediaName = "Test Media",
+              popularity = 7.8,
+              posterPath = "poster_path",
+              voteAverage = 9.0,
+              mediaType = MediaType.MOVIE.id
+          )
 
-        val list = ListEntity(
-            title = "My List",
-            description = "My List Description"
-        )
-        listDao.insertList(list)
-        val listId = listDao.getAllLists().find { it.title == list.title }?.id!!
+          val list = ListEntity(
+              title = "My List",
+              description = "My List Description"
+          )
+          listDao.insertList(list)
+          val listId = listDao.getAllLists().find { it.title == list.title }?.id!!
 
-        val listItem = ListItemEntity(
-            listId = listId,
-            mediaId = media.id,
-            position = 1,
-            updateDate = "2023-10-30"
-        )
-        listDao.insertMediaInList(listId, media, 0)
+          val listItem = ListItemEntity(
+              listId = listId,
+              mediaId = media.id,
+              position = 1,
+              updateDate = "2023-10-30"
+          )
+          listDao.insertMediaInList(listId, media, 0)
 
-        // WHEN
-        listItem.position = 2
-        listDao.updateMediaPosition(listItem)
+          // WHEN
+          listItem.position = 2
+          listDao.updateMediaPosition(listItem)
 
-        // THEN
-        val loadedMedia = listDao.getMediaInList(listId)
-        assertEquals(1, loadedMedia.size)
-        assertEquals(2, loadedMedia[0].position)
-    }*/
+          // THEN
+          val loadedMedia = listDao.getMediaInList(listId)
+          assertEquals(1, loadedMedia.size)
+          assertEquals(2, loadedMedia[0].position)
+      }*/
 
     @Test
-    fun testUpdateListTitleAndDescriptionSuccess() = runBlocking {
+    fun testUpdateListTitleAndDescriptionSuccess() = runBlockingTest {
         // GIVEN
         val list = ListEntity(
             title = "My List",
@@ -295,6 +286,4 @@ class ListDaoTest {
         assertEquals(updatedList, loadedList)
     }
 
-    @After
-    fun closeDb() = db.close()
 }

@@ -38,10 +38,15 @@ interface MovieRepository {
     fun getCollectionDetails(collectionId: Int): Flow<Result<CollectionDetails>>
 
     fun setMovieAsFavorite(movie: Movie): Flow<Boolean>
-
+    fun setMovieAsToSee(movie: Movie): Flow<Boolean>
+    fun setMovieAsSeen(movie: Movie): Flow<Boolean>
 
     fun getAllFavoriteMovies(): Flow<Result<List<Media>>>
+    fun getAllToSeeMovies(): Flow<Result<List<Media>>>
+    fun getAllSeenMovies(): Flow<Result<List<Media>>>
 
     fun removeMovieFromFavorite(movie: Movie): Flow<Boolean>
+    fun removeMovieFromSeen(movie: Movie): Flow<Boolean>
+    fun removeMovieFromToSee(movie: Movie): Flow<Boolean>
 
 }

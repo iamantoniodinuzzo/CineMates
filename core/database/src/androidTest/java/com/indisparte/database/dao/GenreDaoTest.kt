@@ -3,7 +3,7 @@ package com.indisparte.database.dao
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.indisparte.base.MediaType
-import com.indisparte.database.model.GenreEntity
+import com.indisparte.database.entity.GenreEntity
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Before

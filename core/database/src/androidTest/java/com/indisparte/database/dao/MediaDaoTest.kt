@@ -1,17 +1,12 @@
 package com.indisparte.database.dao
 
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.indisparte.base.MediaType
-import com.indisparte.database.CineMatesDatabase
-import com.indisparte.database.model.MediaEntity
+import com.indisparte.database.entity.MediaEntity
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNull
 import junit.framework.TestCase.assertTrue
-import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,22 +17,18 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-class MediaDaoTest {
+class MediaDaoTest : BaseDaoTest() {
 
-    private lateinit var db: CineMatesDatabase
     private lateinit var dao: MediaDao
 
     @Before
-    fun initDb() {
-        db = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            CineMatesDatabase::class.java
-        ).allowMainThreadQueries().build()
-        dao = db.getMediaDao()
+    override fun setup() {
+        super.setup()
+        dao = testDatabase.getMediaDao()
     }
 
     @Test
-    fun testInsertAndLoadMediaSuccess() = runBlocking {
+    fun testInsertAndLoadMediaSuccess() = runBlockingTest {
         //GIVEN
         val mediaTypeId = MediaType.MOVIE.id
         val media = MediaEntity(
@@ -59,7 +50,7 @@ class MediaDaoTest {
     }
 
     @Test
-    fun testUpdateAndLoadMediaSuccess() = runBlocking {
+    fun testUpdateAndLoadMediaSuccess() = runBlockingTest {
         //GIVEN
         val movieMediaType = MediaType.MOVIE
         val tvMediaType = MediaType.TV
@@ -107,7 +98,7 @@ class MediaDaoTest {
     }
 
     @Test
-    fun testGetAllFavMediaByMediaTypeSuccess() = runBlocking {
+    fun testGetAllFavMediaByMediaTypeSuccess() = runBlockingTest {
         // GIVEN
         val movieMediaType = MediaType.MOVIE.id
         val tvMediaType = MediaType.TV.id
@@ -183,7 +174,7 @@ class MediaDaoTest {
 
 
     @Test
-    fun testGetMediaByIdSuccess() = runBlocking {
+    fun testGetMediaByIdSuccess() = runBlockingTest {
         // GIVEN
         val myId = 7077
         val media = MediaEntity(
@@ -205,7 +196,7 @@ class MediaDaoTest {
     }
 
     @Test
-    fun testGetMediaByIdNull() = runBlocking {
+    fun testGetMediaByIdNull() = runBlockingTest {
         // GIVEN
         val myId = 7077
         val media = MediaEntity(
@@ -226,7 +217,5 @@ class MediaDaoTest {
         assertNull(loadedMovieById)
     }
 
-    @After
-    fun closeDb() = db.close()
 
 }

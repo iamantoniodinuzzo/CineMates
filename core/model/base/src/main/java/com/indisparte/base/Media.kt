@@ -36,7 +36,30 @@ open class Media(
     val voteAverage: Double,
     val mediaType: MediaType,
     var isFavorite: Boolean = false,
+    private var _isToSee: Boolean = false,
+    private var _isSeen: Boolean = false,
 ) : TMDBItem(), Serializable {
+
+    var isToSee: Boolean
+        get() = _isToSee
+        set(value) {
+            // Quando isToSee viene impostato su true, imposta isSeen su false
+            _isToSee = value
+            if (value) {
+                _isSeen = false
+            }
+        }
+
+    var isSeen: Boolean
+        get() = _isSeen
+        set(value) {
+            // Quando isSeen viene impostato su true, imposta isToSee su false
+            _isSeen = value
+            if (value) {
+                _isToSee = false
+            }
+        }
+
 
     val voteAverageRounded: String
         get() = if (voteAverage == 0.0) {

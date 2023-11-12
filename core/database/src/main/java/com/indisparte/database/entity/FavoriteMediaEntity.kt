@@ -1,4 +1,4 @@
-package com.indisparte.database.model
+package com.indisparte.database.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey

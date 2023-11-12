@@ -54,8 +54,7 @@ dependencies {
     testImplementation(libs.junitTest)
     testImplementation(libs.coroutines.test)
     testImplementation(libs.truth)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso)
+    androidTestImplementation(libs.bundles.androidTest)
 
     implementation(libs.core.ktx)
     implementation(libs.bundles.coroutines)

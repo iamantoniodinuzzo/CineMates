@@ -59,8 +59,7 @@ dependencies {
     implementation(libs.legacy)
     implementation(libs.androidx.fragment)
     testImplementation(libs.junitTest)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso)
+    androidTestImplementation(libs.bundles.androidTest)
 
     // Kotlin Extensions
     implementation(libs.core.ktx)

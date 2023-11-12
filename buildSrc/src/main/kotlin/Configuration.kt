@@ -2,8 +2,8 @@
  *@author Antonio Di Nuzzo
  */
 object Configuration {
-    const val compileSdk = 34
-    const val targetSdk = 34
+    const val compileSdk = 33
+    const val targetSdk = 33
     const val minSdk = 22
     private const val majorVersion = 1
     private const val minorVersion = 0

@@ -42,7 +42,7 @@ dependencies {
     implementation(libs.bundles.androidX)
     implementation(libs.material)
     testImplementation(libs.junitTest)
-    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.bundles.androidTest)
 
     // Coroutines
     implementation(libs.bundles.coroutines)

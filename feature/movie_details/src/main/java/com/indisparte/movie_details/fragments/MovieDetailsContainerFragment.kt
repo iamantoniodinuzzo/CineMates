@@ -6,9 +6,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
+import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.MovieDetails
 import com.indisparte.movie_details.adapter.BackdropAdapter
 import com.indisparte.movie_details.fragments.base.MediaDetailsContainerFragment
+import com.indisparte.movie_details.fragments.dialog.BottomDialogListener
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources
@@ -30,7 +32,7 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         MovieCastFragment() to R.string.fragment_media_cast,
         MovieSimilarFragment() to R.string.fragment_media_similar,
     )
-) {
+), BottomDialogListener {
     private val LOG = Timber.tag(MovieDetailsContainerFragment::class.java.simpleName)
     private val viewModel: MovieDetailsViewModel by viewModels()
     private val movieIdArgs: MovieDetailsContainerFragmentArgs by navArgs()
@@ -64,7 +66,10 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
     }
 
     override fun saveMedia() {
-        val action = MovieDetailsContainerFragmentDirections.actionMovieDetailsContainerFragmentToManageMediaBottomDialog(currentMovie)
+        val action =
+            MovieDetailsContainerFragmentDirections.actionMovieDetailsContainerFragmentToManageMediaBottomDialog(
+                currentMovie
+            )
         findNavController().navigate(action)
     }
 
@@ -137,6 +142,13 @@ class MovieDetailsContainerFragment : MediaDetailsContainerFragment(
         }
 
 
+    }
+
+    override fun onBottomDialogClosed(movieUpdated: Movie) {
+        //Update current movie
+        currentMovie.isFavorite = movieUpdated.isFavorite
+        currentMovie.isSeen = movieUpdated.isSeen
+        currentMovie.isToSee = movieUpdated.isToSee
     }
 
 

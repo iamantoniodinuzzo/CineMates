@@ -2,6 +2,7 @@ package com.indisparte.base
 
 import com.indisparte.base.Constants.IMAGE_BASE_URL_W500
 import com.indisparte.base.Constants.IMAGE_BASE_URL_W780
+import java.io.Serializable
 import kotlin.math.roundToInt
 
 enum class MediaType(val id: Int) {
@@ -35,7 +36,7 @@ open class Media(
     val voteAverage: Double,
     val mediaType: MediaType,
     var isFavorite: Boolean = false,
-) : TMDBItem() {
+) : TMDBItem(), Serializable {
 
     val voteAverageRounded: String
         get() = if (voteAverage == 0.0) {

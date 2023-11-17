@@ -46,7 +46,8 @@ class MainActivity : AppCompatActivity(), ToFlowNavigable {
             setOf(
                 com.indisparte.home.R.id.homeFragment,
                 com.indisparte.media_search.R.id.searchContainerFragment,
-                com.indisparte.media_discover.R.id.discoverFragment
+                com.indisparte.media_discover.R.id.discoverFragment,
+                com.indisparte.saved.R.id.savedFragment
             )
         )
 

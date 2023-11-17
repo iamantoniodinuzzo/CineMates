@@ -4,9 +4,9 @@ package com.indisparte.navigation
  * @author Antonio Di Nuzzo
  */
 sealed class NavigationFlow(val msg: String?) {
-    object HomeFlow : NavigationFlow(null)
+    data object HomeFlow : NavigationFlow(null)
     class MovieDetailsFlow(movieId: Int) : NavigationFlow(movieId.toString())
     class PersonDetailsFlow(personId: Int) : NavigationFlow(personId.toString())
-    object SearchFlow : NavigationFlow(null)
-    object DiscoverFlow : NavigationFlow(null)
+    data object SearchFlow : NavigationFlow(null)
+    data object DiscoverFlow : NavigationFlow(null)
 }

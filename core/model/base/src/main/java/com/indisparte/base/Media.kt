@@ -90,5 +90,9 @@ open class Media(
         return result
     }
 
+    override fun toString(): String {
+        return "Media(id=$id, mediaName='$mediaName', popularity=$popularity, voteAverage=$voteAverage, isFavorite=$isFavorite, isToSee=$isToSee, isSeen=$isSeen)"
+    }
+
 
 }

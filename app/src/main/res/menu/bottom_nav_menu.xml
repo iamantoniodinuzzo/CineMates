@@ -9,6 +9,7 @@
         android:icon="@drawable/ic_discover_selector"
         android:title="@string/top_destination_discover" />
     <item
+        android:id="@id/saved_graph"
         android:icon="@drawable/ic_saved_selector"
         android:title="@string/top_destination_saved" />
     <item

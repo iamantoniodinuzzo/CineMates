@@ -48,6 +48,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
     implementation(project(":feature:home"))
+    implementation(project(":feature:saved"))
     implementation(project(":feature:movie_details"))
     implementation(project(":feature:media_search"))
     implementation(project(":feature:media_discover"))

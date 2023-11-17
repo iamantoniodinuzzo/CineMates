@@ -1,4 +1,4 @@
-package com.indisparte.saved
+package com.indisparte.saved.history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,25 +17,19 @@ import javax.inject.Inject
  *@author Antonio Di Nuzzo
  */
 @HiltViewModel
-class SavedViewModel
+class HistoryViewModel
 @Inject
 constructor(
     private val movieRepository: MovieRepository,
 ) : ViewModel() {
-    private val LOG = Timber.tag(SavedViewModel::class.java.simpleName)
-
-    private val _watchlist = MutableStateFlow<Result<List<Media>>>(Result.Success(emptyList()))
-    val watchlist: StateFlow<Result<List<Media>>> get() = _watchlist
+    private val LOG = Timber.tag(HistoryViewModel::class.java.simpleName)
 
     private val _history = MutableStateFlow<Result<List<Media>>>(Result.Success(emptyList()))
     val history: StateFlow<Result<List<Media>>> get() = _history
 
-    init {
-        getMovieWatchList()
-        getMovieHistory()
-    }
 
-    private fun getMovieHistory() {
+
+     fun getMovieHistory() {
         viewModelScope.launch {
             movieRepository.getAllSeenMovies().collectLatest {
                 _history.emit(it)
@@ -43,13 +37,7 @@ constructor(
         }
     }
 
-    private fun getMovieWatchList() {
-        viewModelScope.launch {
-            movieRepository.getAllToSeeMovies().collectLatest {
-                _watchlist.emit(it)
-            }
-        }
-    }
+
 
 
 }

@@ -237,15 +237,15 @@ interface MediaDao {
     fun isMediaToSee(mediaId: Int): Boolean
 
     @Transaction
-    @Query("SELECT * FROM media INNER JOIN favorite_media ON media.id = favorite_media.mediaId AND mediaType = :mediaType")
+    @Query("SELECT media.id, media.mediaName, media.popularity, media.posterPath,media.voteAverage, media.mediaType  FROM media INNER JOIN favorite_media ON media.id = favorite_media.mediaId AND mediaType = :mediaType")
     fun getAllFavoriteMediaByMediaType(mediaType: Int): List<MediaEntity>
 
     @Transaction
-    @Query("SELECT * FROM media INNER JOIN seen_media ON media.id = seen_media.mediaId AND mediaType = :mediaType")
+    @Query("SELECT media.id, media.mediaName, media.popularity, media.posterPath,media.voteAverage, media.mediaType  FROM media INNER JOIN seen_media ON media.id = seen_media.mediaId AND mediaType = :mediaType")
     fun getSeenMediaByMediaType(mediaType: Int): List<MediaEntity>
 
     @Transaction
-    @Query("SELECT * FROM media INNER JOIN to_see_media ON media.id = to_see_media.mediaId AND mediaType = :mediaType")
+    @Query("SELECT media.id, media.mediaName, media.popularity, media.posterPath,media.voteAverage, media.mediaType  FROM media INNER JOIN to_see_media ON media.id = to_see_media.mediaId AND mediaType = :mediaType")
     fun getToSeeMediaByMediaType(mediaType: Int): List<MediaEntity>
 
     // Recupero di tutti i media di una lista

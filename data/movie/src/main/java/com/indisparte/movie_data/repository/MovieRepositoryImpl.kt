@@ -1,5 +1,6 @@
 package com.indisparte.movie_data.repository
 
+import android.util.Log
 import com.indisparte.base.Media
 import com.indisparte.common.Backdrop
 import com.indisparte.common.CountryResult
@@ -135,6 +136,7 @@ constructor(
     override fun getAllToSeeMovies(): Flow<Result<List<Media>>> = flow {
         emit(Result.Loading)
         val result = movieLocalDataSource.getAllToSeeMovie()
+        Log.d("MovieRepoImpl", "getAllToSeeMovies: $result")
         emit(Result.Success(result))
     }
 

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="saved_fragment_watchlist_title">Watchlist</string>
+    <string name="saved_fragment_history_title">History</string>
+</resources>

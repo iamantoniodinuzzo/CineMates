@@ -51,14 +51,14 @@ class FilterableMovieFragment :
         viewModel.filteredFilms.collectIn(viewLifecycleOwner) { result ->
             result.whenResources(
                 onSuccess = { movies ->
-                    binding.recyclerView.hideLoading()
+                    hideLoading()
                     adapter.submitList(movies)
                 },
                 onError = { exception ->
                     showError(exception)
                 },
                 onLoading = {
-                    binding.recyclerView.showLoading()
+                    showLoading()
                 }
             )
 

@@ -2,7 +2,7 @@ package com.indisparte.movie_data.source.local
 
 import com.indisparte.common.Genre
 import com.indisparte.database.dao.GenreDao
-import com.indisparte.database.model.asDomain
+import com.indisparte.database.entity.asDomain
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

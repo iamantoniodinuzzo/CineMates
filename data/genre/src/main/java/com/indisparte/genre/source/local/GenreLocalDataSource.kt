@@ -3,8 +3,8 @@ package com.indisparte.genre.source.local
 import com.indisparte.base.MediaType
 import com.indisparte.common.Genre
 import com.indisparte.database.dao.GenreDao
-import com.indisparte.database.model.asDomain
-import com.indisparte.database.model.asEntity
+import com.indisparte.database.entity.asDomain
+import com.indisparte.database.entity.asEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

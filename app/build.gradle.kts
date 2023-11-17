@@ -48,6 +48,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
     implementation(project(":feature:home"))
+    implementation(project(":feature:saved"))
     implementation(project(":feature:movie_details"))
     implementation(project(":feature:media_search"))
     implementation(project(":feature:media_discover"))
@@ -59,8 +60,7 @@ dependencies {
     implementation(libs.legacy)
     implementation(libs.androidx.fragment)
     testImplementation(libs.junitTest)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso)
+    androidTestImplementation(libs.bundles.androidTest)
 
     // Kotlin Extensions
     implementation(libs.core.ktx)

@@ -1,17 +1,12 @@
 package com.indisparte.database.dao
 
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.indisparte.base.MediaType
-import com.indisparte.database.CineMatesDatabase
-import com.indisparte.database.model.MediaEntity
+import com.indisparte.database.entity.MediaEntity
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNull
 import junit.framework.TestCase.assertTrue
-import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,45 +17,40 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-class MediaDaoTest {
+class MediaDaoTest : BaseDaoTest() {
 
-    private lateinit var db: CineMatesDatabase
     private lateinit var dao: MediaDao
 
     @Before
-    fun initDb() {
-        db = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            CineMatesDatabase::class.java
-        ).allowMainThreadQueries().build()
-        dao = db.getMediaDao()
+    override fun setup() {
+        super.setup()
+        dao = testDatabase.getMediaDao()
     }
 
     @Test
-    fun testInsertAndLoadMediaSuccess() = runBlocking {
+    fun testInsertAndLoadMediaSuccess() = runBlockingTest {
         //GIVEN
-        val mediaType = MediaType.MOVIE
+        val mediaTypeId = MediaType.MOVIE.id
         val media = MediaEntity(
             id = 3651,
             mediaName = "Ben Chase",
             popularity = null,
             posterPath = null,
             voteAverage = 8.9,
-            mediaType = mediaType.id,
-            isFavorite = true
+            mediaType = mediaTypeId,
         )
 
         //WHEN
         dao.insertMedia(media)
 
         //THEN
-        val loadedGenres = dao.getAllMyFavMediaByMediaType(mediaType.id)
-        assertTrue(loadedGenres.contains(media))
+        val entityList = dao.getAllFavoriteMediaByMediaType(mediaTypeId)
+        assertTrue(entityList.contains(media))
 
     }
 
     @Test
-    fun testUpdateAndLoadMediaSuccess() = runBlocking {
+    fun testUpdateAndLoadMediaSuccess() = runBlockingTest {
         //GIVEN
         val movieMediaType = MediaType.MOVIE
         val tvMediaType = MediaType.TV
@@ -71,7 +61,6 @@ class MediaDaoTest {
             posterPath = null,
             voteAverage = 10.11,
             mediaType = movieMediaType.id,
-            isFavorite = false
         )
         val medias = listOf(
             MediaEntity(
@@ -81,7 +70,6 @@ class MediaDaoTest {
                 posterPath = null,
                 voteAverage = 12.13,
                 mediaType = tvMediaType.id,
-                isFavorite = true
             ),
             MediaEntity(
                 id = 9944,
@@ -89,7 +77,7 @@ class MediaDaoTest {
                 popularity = null,
                 posterPath = null,
                 voteAverage = 14.15,
-                mediaType = movieMediaType.id, isFavorite = true
+                mediaType = movieMediaType.id
 
             ),
             notMyFavMedia
@@ -99,20 +87,18 @@ class MediaDaoTest {
         medias.forEach {
             dao.insertMedia(it)
         }
-        notMyFavMedia.isFavorite = true
-        val myFavMedia = notMyFavMedia
-        dao.updateMedia(myFavMedia)
+        dao.insertMedia(notMyFavMedia)
 
         //THEN
-        val loadFavMovies = dao.getAllMyFavMediaByMediaType(movieMediaType.id)
+        val loadFavMovies = dao.getAllFavoriteMediaByMediaType(movieMediaType.id)
         assertEquals(2, loadFavMovies.size)
-        val mediaToCheck = loadFavMovies.find { it.id == myFavMedia.id }
-        assertEquals(mediaToCheck, myFavMedia)
+        val mediaToCheck = loadFavMovies.find { it.id == notMyFavMedia.id }
+        assertEquals(mediaToCheck, notMyFavMedia)
 
     }
 
     @Test
-    fun testGetAllFavMediaByMediaTypeSuccess() = runBlocking {
+    fun testGetAllFavMediaByMediaTypeSuccess() = runBlockingTest {
         // GIVEN
         val movieMediaType = MediaType.MOVIE.id
         val tvMediaType = MediaType.TV.id
@@ -124,7 +110,6 @@ class MediaDaoTest {
                 posterPath = null,
                 voteAverage = 16.17,
                 mediaType = movieMediaType,
-                isFavorite = true
             ),
             MediaEntity(
                 id = 1504,
@@ -133,7 +118,6 @@ class MediaDaoTest {
                 posterPath = null,
                 voteAverage = 18.19,
                 mediaType = movieMediaType,
-                isFavorite = true
             )
         )
 
@@ -145,8 +129,6 @@ class MediaDaoTest {
                 posterPath = null,
                 voteAverage = 20.21,
                 mediaType = tvMediaType,
-                isFavorite = true
-
             ),
             MediaEntity(
                 id = 3071,
@@ -155,8 +137,6 @@ class MediaDaoTest {
                 posterPath = null,
                 voteAverage = 22.23,
                 mediaType = tvMediaType,
-                isFavorite = true
-
             )
         )
         val notFavMovie = MediaEntity(
@@ -166,7 +146,6 @@ class MediaDaoTest {
             posterPath = null,
             voteAverage = 26.27,
             mediaType = movieMediaType,
-            isFavorite = false
         )
 
 
@@ -177,7 +156,6 @@ class MediaDaoTest {
             posterPath = null,
             voteAverage = 28.29,
             mediaType = tvMediaType,
-            isFavorite = false
         )
 
 
@@ -186,8 +164,8 @@ class MediaDaoTest {
         allMedias.forEach {
             dao.insertMedia(it)
         }
-        val loadedFavoriteMovies = dao.getAllMyFavMediaByMediaType(movieMediaType)
-        val loadedFavoriteTv = dao.getAllMyFavMediaByMediaType(tvMediaType)
+        val loadedFavoriteMovies = dao.getAllFavoriteMediaByMediaType(movieMediaType)
+        val loadedFavoriteTv = dao.getAllFavoriteMediaByMediaType(tvMediaType)
 
         // THEN
         assertEquals(favoriteMovies.size, loadedFavoriteMovies.size)
@@ -196,7 +174,7 @@ class MediaDaoTest {
 
 
     @Test
-    fun testGetMediaByIdSuccess() = runBlocking {
+    fun testGetMediaByIdSuccess() = runBlockingTest {
         // GIVEN
         val myId = 7077
         val media = MediaEntity(
@@ -206,20 +184,19 @@ class MediaDaoTest {
             posterPath = null,
             voteAverage = 24.25,
             mediaType = MediaType.MOVIE.id,
-            isFavorite = false
         )
 
 
         // WHEN
         dao.insertMedia(media)
-        val loadedMovieById = dao.getMediaFromId(myId)
+        val loadedMovieById = dao.getMediaById(myId)
 
         // THEN
         assertEquals(media, loadedMovieById)
     }
 
     @Test
-    fun testGetMediaByIdNull() = runBlocking {
+    fun testGetMediaByIdNull() = runBlockingTest {
         // GIVEN
         val myId = 7077
         val media = MediaEntity(
@@ -229,19 +206,16 @@ class MediaDaoTest {
             posterPath = null,
             voteAverage = 24.25,
             mediaType = MediaType.MOVIE.id,
-            isFavorite = false
         )
 
 
         // WHEN
         dao.insertMedia(media)
-        val loadedMovieById = dao.getMediaFromId(myId)
+        val loadedMovieById = dao.getMediaById(myId)
 
         // THEN
         assertNull(loadedMovieById)
     }
 
-    @After
-    fun closeDb() = db.close()
 
 }

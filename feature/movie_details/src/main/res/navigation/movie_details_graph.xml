@@ -13,5 +13,17 @@
         <argument
             android:name="id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_movieDetailsContainerFragment_to_manageMediaBottomDialog"
+            app:destination="@id/manageMediaBottomDialog" />
     </fragment>
+    <dialog
+        android:id="@+id/manageMediaBottomDialog"
+        tools:layout="@layout/bottom_dialog_manage_media"
+        android:name="com.indisparte.movie_details.fragments.dialog.ManageMediaBottomDialog"
+        android:label="ManageMediaBottomDialog" >
+        <argument
+            android:name="movie"
+            app:argType="com.indisparte.movie_data.Movie" />
+    </dialog>
 </navigation>

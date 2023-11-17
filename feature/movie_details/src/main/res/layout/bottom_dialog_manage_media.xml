@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="media"
+            type="com.indisparte.base.Media" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?colorSecondary">
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/top_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/base_margin"
+            android:background="?attr/colorOnPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/btn_action_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_divider">
+
+            <androidx.appcompat.widget.AppCompatToggleButton
+                android:id="@+id/btn_watch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="?attr/colorSecondary"
+                android:drawableTop="@drawable/ic_toggle_eye"
+                android:drawableTint="?attr/colorOnPrimary"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                android:textOff="Watched"
+                android:textOn="Watched"
+                android:textSize="@dimen/big_text_size"/>
+
+            <androidx.appcompat.widget.AppCompatToggleButton
+                android:id="@+id/btn_like"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="?attr/colorSecondary"
+                android:drawableTop="@drawable/ic_toggle_favorite"
+                android:drawableTint="?attr/colorOnPrimary"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                android:textOff="Favorite"
+                android:textOn="Favorite"
+                android:textSize="@dimen/big_text_size" />
+
+            <androidx.appcompat.widget.AppCompatToggleButton
+                android:id="@+id/btn_watchlist"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="?attr/colorSecondary"
+                android:drawableTop="@drawable/ic_toggle_bookmark"
+                android:drawableTint="?attr/colorOnPrimary"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnPrimary"
+                android:textOff="Watchlist"
+                android:textOn="Watchlist"
+                android:textSize="@dimen/big_text_size" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/bottom_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorOnPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_action_group" />
+
+        <TextView
+            android:id="@+id/title_personal_list"
+            style="@style/BigTitleTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_margin"
+            android:layout_marginTop="@dimen/base_margin"
+            android:text="Personal Lists"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bottom_divider" />
+
+        <!--        Inserire una recycler view con pulsante-->
+        <com.google.android.material.button.MaterialButton
+            style="@style/PrimaryCustomMaterialButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/base_margin"
+            android:text="Create list"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_personal_list" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

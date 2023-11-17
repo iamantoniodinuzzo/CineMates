@@ -1,16 +1,11 @@
 package com.indisparte.database.dao
 
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.indisparte.base.MediaType
-import com.indisparte.database.CineMatesDatabase
-import com.indisparte.database.model.GenreEntity
+import com.indisparte.database.entity.GenreEntity
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
-import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,22 +16,18 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-class GenreDaoTest {
+class GenreDaoTest : BaseDaoTest() {
 
-    private lateinit var db: CineMatesDatabase
     private lateinit var dao: GenreDao
 
     @Before
-    fun initDb() {
-        db = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            CineMatesDatabase::class.java
-        ).allowMainThreadQueries().build()
-        dao = db.getGenreDao()
+    override fun setup() {
+        super.setup()
+        dao = testDatabase.getGenreDao()
     }
 
     @Test
-    fun testInsertAndLoadGenresSuccess() = runBlocking {
+    fun testInsertAndLoadGenresSuccess() = runBlockingTest {
         //GIVEN
         val genres = listOf(
             GenreEntity(id = 7077, name = "Marietta Leonard", isFavorite = false),
@@ -54,7 +45,7 @@ class GenreDaoTest {
     }
 
     @Test
-    fun testUpdateAndLoadGenresSuccess() = runBlocking {
+    fun testUpdateAndLoadGenresSuccess() = runBlockingTest {
         //GIVEN
         val notMyFavGenre = GenreEntity(id = 5908, name = "Francis Church", isFavorite = false)
         val genres = listOf(
@@ -78,7 +69,7 @@ class GenreDaoTest {
     }
 
     @Test
-    fun testGetAllGenresByMediaTypeSuccess() = runBlocking {
+    fun testGetAllGenresByMediaTypeSuccess() = runBlockingTest {
         // GIVEN
         val movieMediaType = MediaType.MOVIE.id
         val MOVIETVMediaType = MediaType.MOVIE_TV.id
@@ -118,7 +109,7 @@ class GenreDaoTest {
     }
 
     @Test
-    fun testGetAllMyFavGenresSuccess() = runBlocking {
+    fun testGetAllMyFavGenresSuccess() = runBlockingTest {
         // GIVEN
         val genres = listOf(
             GenreEntity(id = 7077, name = "Marietta Leonard", isFavorite = true),
@@ -136,7 +127,7 @@ class GenreDaoTest {
     }
 
     @Test
-    fun testGetAllGenresByIdSuccess() = runBlocking {
+    fun testGetAllGenresByIdSuccess() = runBlockingTest {
         // GIVEN
         val genreIds = listOf(7077, 2524)
         val genres = listOf(
@@ -153,7 +144,5 @@ class GenreDaoTest {
         assertEquals(2, loadedGenres.size)
     }
 
-    @After
-    fun closeDb() = db.close()
 
 }

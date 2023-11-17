@@ -56,8 +56,7 @@ dependencies {
     testImplementation(libs.junitTest)
     testImplementation(libs.coroutines.test)
     testImplementation(libs.truth)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso)
+    androidTestImplementation(libs.bundles.androidTest)
 
     implementation(libs.core.ktx)
     implementation(libs.bundles.coroutines)
@@ -66,5 +65,4 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.timber)
-    implementation("me.relex:circleindicator:2.1.6")
 }

@@ -62,8 +62,7 @@ dependencies {
     implementation(libs.constraintLayout)
     implementation(libs.legacy)
     implementation(libs.androidx.fragment)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso)
+    androidTestImplementation(libs.bundles.androidTest)
 
     implementation(libs.core.ktx)
     implementation(libs.bundles.coroutines)

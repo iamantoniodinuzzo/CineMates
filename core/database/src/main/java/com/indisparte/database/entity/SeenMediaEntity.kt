@@ -1,5 +1,6 @@
-package com.indisparte.database.model
+package com.indisparte.database.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
@@ -8,7 +9,7 @@ import androidx.room.PrimaryKey
  *@author Antonio Di Nuzzo
  */
 @Entity(
-    tableName = "favorite_media",
+    tableName = "seen_media",
     foreignKeys = [ForeignKey(
         entity = MediaEntity::class,
         parentColumns = ["id"],
@@ -16,7 +17,7 @@ import androidx.room.PrimaryKey
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class FavoriteMediaEntity(
+data class SeenMediaEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val mediaId: Int,
 )

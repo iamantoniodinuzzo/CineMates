@@ -80,28 +80,6 @@ class MovieDetailsViewModel
 
     }
 
-    fun setMovieAsFavorite(currentMovie: MovieDetails) {
-        viewModelScope.launch {
-            movieRepository.setMovieAsFavorite(currentMovie).collectLatest { isFavorite ->
-
-                LOG.d("Update ${currentMovie.title}, isFavorite: $isFavorite")
-                currentMovie.isFavorite = isFavorite
-                _selectedMovie.emit(Result.Success(currentMovie))
-
-            }
-        }
-    }
-
-    fun removeMovieFromFavorite(currentMovie: MovieDetails) {
-        viewModelScope.launch {
-            movieRepository.removeMovieFromFavorite(currentMovie).collectLatest { removed ->
-                LOG.d("Update ${currentMovie.title}, removed: $removed")
-                currentMovie.isFavorite = false
-                _selectedMovie.emit(Result.Success(currentMovie))
-            }
-        }
-    }
-
     private fun getMovieDetails(id: Int) {
         viewModelScope.launch {
             _selectedMovie.emit(Result.Loading)

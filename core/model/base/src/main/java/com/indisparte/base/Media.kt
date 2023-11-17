@@ -2,6 +2,7 @@ package com.indisparte.base
 
 import com.indisparte.base.Constants.IMAGE_BASE_URL_W500
 import com.indisparte.base.Constants.IMAGE_BASE_URL_W780
+import java.io.Serializable
 import kotlin.math.roundToInt
 
 enum class MediaType(val id: Int) {
@@ -35,7 +36,30 @@ open class Media(
     val voteAverage: Double,
     val mediaType: MediaType,
     var isFavorite: Boolean = false,
-) : TMDBItem() {
+    private var _isToSee: Boolean = false,
+    private var _isSeen: Boolean = false,
+) : TMDBItem(), Serializable {
+
+    var isToSee: Boolean
+        get() = _isToSee
+        set(value) {
+            // Quando isToSee viene impostato su true, imposta isSeen su false
+            _isToSee = value
+            if (value) {
+                _isSeen = false
+            }
+        }
+
+    var isSeen: Boolean
+        get() = _isSeen
+        set(value) {
+            // Quando isSeen viene impostato su true, imposta isToSee su false
+            _isSeen = value
+            if (value) {
+                _isToSee = false
+            }
+        }
+
 
     val voteAverageRounded: String
         get() = if (voteAverage == 0.0) {
@@ -64,6 +88,10 @@ open class Media(
         var result = id
         result = 31 * result + mediaName.hashCode()
         return result
+    }
+
+    override fun toString(): String {
+        return "Media(id=$id, mediaName='$mediaName', popularity=$popularity, voteAverage=$voteAverage, isFavorite=$isFavorite, isToSee=$isToSee, isSeen=$isSeen)"
     }
 
 

@@ -184,13 +184,36 @@ class FakeMovieRepository : MovieRepository {
         TODO("Not yet implemented")
     }
 
+    override fun setMovieAsToSee(movie: Movie): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override fun setMovieAsSeen(movie: Movie): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
 
 
     override fun getAllFavoriteMovies(): Flow<Result<List<Media>>> {
         TODO("Not yet implemented")
     }
 
+    override fun getAllToSeeMovies(): Flow<Result<List<Media>>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAllSeenMovies(): Flow<Result<List<Media>>> {
+        TODO("Not yet implemented")
+    }
+
     override fun removeMovieFromFavorite(movie: Movie): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override fun removeMovieFromSeen(movie: Movie): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override fun removeMovieFromToSee(movie: Movie): Flow<Boolean> {
         TODO("Not yet implemented")
     }
 

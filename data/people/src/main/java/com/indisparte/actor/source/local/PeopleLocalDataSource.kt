@@ -1,8 +1,8 @@
 package com.indisparte.actor.source.local
 
 import com.indisparte.database.dao.PersonDao
-import com.indisparte.database.model.asDomain
-import com.indisparte.database.model.asEntity
+import com.indisparte.database.entity.asDomain
+import com.indisparte.database.entity.asEntity
 import com.indisparte.person.Person
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

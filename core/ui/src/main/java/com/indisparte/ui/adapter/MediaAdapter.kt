@@ -3,11 +3,45 @@ package com.indisparte.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import com.indisparte.base.Media
 import com.indisparte.movie_data.Movie
 import com.indisparte.person.Person
 import com.indisparte.tv.TvShow
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding
 import com.indisparte.ui.databinding.ListItemPersonSmallBinding
+
+
+//Media Adapter
+class MediaAdapter : BaseAdapter<Media, ListItemMediaSmallBinding>(
+    object : DiffUtil.ItemCallback<Media>() {
+        override fun areItemsTheSame(oldItem: Media, newItem: Media): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Media, newItem: Media): Boolean {
+            return oldItem == newItem
+        }
+    }
+) {
+
+    override fun bind(binding: ListItemMediaSmallBinding, item: Media) {
+        binding.apply {
+            media = item
+            root.setOnClickListener {
+                itemClickListener?.onItemClick(item) // TODO: Show a toast if is null
+
+            }
+        }
+    }
+
+    override fun createBinding(parent: ViewGroup, viewType: Int): ListItemMediaSmallBinding {
+        val inflater = LayoutInflater.from(parent.context)
+        return ListItemMediaSmallBinding.inflate(inflater, parent, false)
+    }
+}
+
+
+
 
 // Movie Adapter
 class MovieAdapter : BaseAdapter<Movie, ListItemMediaSmallBinding>(

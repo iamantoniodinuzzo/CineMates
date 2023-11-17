@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:indeterminate="true"/>
+            android:indeterminate="true" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/content"
@@ -68,25 +68,29 @@
                                 android:layout_height="match_parent"
                                 android:background="?attr/colorSecondary" />
 
-                            <me.relex.circleindicator.CircleIndicator3
-                                android:id="@+id/circleIndicator"
-                                android:layout_width="match_parent"
-                                android:layout_height="?attr/actionBarSize"
-                                android:layout_gravity="top"
-                                app:ci_drawable="@drawable/primary_radius"
-                                app:ci_drawable_unselected="@drawable/secondary_radius" />
 
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/gradient_top"
+                                app:layout_constraintBottom_toBottomOf="@id/media_backdrop"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/backdrop_counter"
+                                style="@style/SmallTitleTextViewStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end|bottom"
+                                android:layout_marginEnd="@dimen/base_margin"
+                                android:layout_marginBottom="@dimen/base_margin"
+                                android:textColor="?colorOnPrimary"
+                                tools:text="2/12" />
                         </FrameLayout>
 
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:background="@drawable/gradient_top"
-                            app:layout_constraintBottom_toBottomOf="@id/media_backdrop"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.indisparte.ui.custom_view.PosterView
                             android:id="@+id/media_poster"
@@ -197,10 +201,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/base_margin"
-                app:isFavorite="@{media.favorite}"
                 android:backgroundTint="?attr/colorAccent"
                 android:contentDescription="Set as favorite"
-                android:src="@drawable/ic_favorite_border" />
+                android:src="@drawable/round_add_24" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </FrameLayout>

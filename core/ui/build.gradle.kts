@@ -48,7 +48,7 @@ dependencies {
     implementation(libs.bundles.androidX)
     implementation(libs.material)
     testImplementation(libs.junitTest)
-    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.bundles.androidTest)
 
     // Glide Image Loading Library for Android
     implementation(libs.glide.core)

@@ -26,7 +26,7 @@ object DatabaseModule {
         application,
         CineMatesDatabase::class.java,
         databaseName
-    ).fallbackToDestructiveMigration().build()
+    ).fallbackToDestructiveMigration().build()// TODO: Set migration
 
     @Provides
     @Singleton
@@ -46,6 +46,7 @@ object DatabaseModule {
     fun providePersonDao(
         database: CineMatesDatabase,
     ) = database.getPersonDao()
+
 
 
 }

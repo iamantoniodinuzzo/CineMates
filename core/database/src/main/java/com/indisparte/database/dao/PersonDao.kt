@@ -5,7 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.indisparte.database.model.FavoritePersonEntity
+import com.indisparte.database.entity.FavoritePersonEntity
 
 /**
  *@author Antonio Di Nuzzo

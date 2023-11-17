@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.indisparte.database.model.GenreEntity
+import com.indisparte.database.entity.GenreEntity
 
 /**
  *@author Antonio Di Nuzzo

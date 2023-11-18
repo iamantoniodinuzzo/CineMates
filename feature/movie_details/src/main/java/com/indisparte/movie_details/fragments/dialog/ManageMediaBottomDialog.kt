@@ -10,11 +10,13 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.indisparte.movie_data.Movie
 import com.indisparte.movie_details.databinding.BottomDialogManageMediaBinding
+import com.indisparte.network.whenResources
+import com.indisparte.util.extension.collectIn
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 internal fun interface BottomDialogListener {
-    fun onBottomDialogClosed(movieUpdated:Movie)
+    fun onBottomDialogClosed(movieUpdated: Movie)
 }
 
 /**
@@ -82,6 +84,23 @@ class ManageMediaBottomDialog : BottomSheetDialogFragment() {
         }
 
         binding.createListBtn.setOnClickListener {
+// TODO: Aprire dialog per la creazione della lista
+        }
+
+        manageMediaViewModel.list.collectIn(viewLifecycleOwner) { result ->
+            result.whenResources(
+                onSuccess = { mediaLists ->
+                    // TODO: Show in recyclerview
+                    LOG.d("Media lists: $mediaLists")
+
+                },
+                onError = { exception ->
+                    LOG.e(exception)
+                },
+                onLoading = {
+                    LOG.i("Load private lists")
+                }
+            )
 
         }
 

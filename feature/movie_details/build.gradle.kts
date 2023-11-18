@@ -46,6 +46,7 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":data:movie"))
     implementation(project(":data:genre"))
+    implementation(project(":data:list"))
 
     implementation(libs.appcompat)
     implementation(libs.material)

@@ -10,7 +10,8 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 
 /**
- * @author Antonio Di Nuzzo (Indisparte)
+ * @author Antonio Di Nuzzo
+ *
  */
 @Module
 @InstallIn(ViewModelComponent::class)

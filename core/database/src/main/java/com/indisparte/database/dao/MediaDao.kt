@@ -29,12 +29,6 @@ interface MediaDao {
     fun deleteMediaById(mediaId: Int)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertList(list: ListEntity): Long
-
-    @Delete
-    fun deleteList(listEntity: ListEntity): Int
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavoriteMedia(favoriteMovie: FavoriteMediaEntity): Long
 
     @Query("DELETE FROM favorite_media WHERE mediaId = :mediaId")
@@ -253,18 +247,12 @@ interface MediaDao {
     @Query("SELECT media.* FROM media INNER JOIN list_item ON media.id = list_item.mediaId WHERE list_item.listId = :listId")
     fun getMediaInList(listId: Int): List<MediaEntity>
 
-    // Recupero di una lista
-    @Query("SELECT * FROM list WHERE id = :listId")
-    fun getList(listId: Int): ListEntity
 
     // Recupero di tutti i media di una lista specificando il media type
     @Transaction
     @Query("SELECT media.* FROM media INNER JOIN list_item ON media.id = list_item.mediaId WHERE list_item.listId = :listId AND media.mediaType = :mediaType")
     fun getMediaInListWithType(listId: Int, mediaType: Int): List<MediaEntity>
 
-    // Recupero di tutte le liste
-    @Query("SELECT * FROM list")
-    fun getAllLists(): List<ListEntity>
 
     // Inserimento di un media nella lista
     @Insert

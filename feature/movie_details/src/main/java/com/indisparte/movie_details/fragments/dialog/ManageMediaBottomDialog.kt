@@ -81,6 +81,10 @@ class ManageMediaBottomDialog : BottomSheetDialogFragment() {
             updateUI(currentMovie)
         }
 
+        binding.createListBtn.setOnClickListener {
+
+        }
+
 
         return view
     }

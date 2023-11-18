@@ -25,6 +25,7 @@ testRunner = "1.5.2"
 kotlin = "1.9.0"
 androidxArchCore = "2.2.0"
 androidTestJunit = "1.1.5"
+org-jetbrains-kotlin-jvm = "1.9.0"
 
 
 
@@ -91,3 +92,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
+org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }

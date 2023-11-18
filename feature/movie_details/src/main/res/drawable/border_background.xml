@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- File: res/drawable/square_border.xml -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@android:color/transparent" /> <!-- Colore di sfondo trasparente -->
-    <corners android:radius="@dimen/base_corner_radius" /> <!-- Angoli arrotondati con raggio di 8dp -->
-    <stroke
-        android:width="2dp"
-        android:color="?attr/colorAccent" /> <!-- Colore del contorno rosso (sostituisci con il colore desiderato) -->
-</shape>

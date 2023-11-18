@@ -84,7 +84,7 @@ class ManageMediaBottomDialog : BottomSheetDialogFragment() {
         }
 
         binding.createListBtn.setOnClickListener {
-// TODO: Aprire dialog per la creazione della lista
+            // TODO: Aprire dialog per la creazione della lista
         }
 
         manageMediaViewModel.list.collectIn(viewLifecycleOwner) { result ->
@@ -98,7 +98,7 @@ class ManageMediaBottomDialog : BottomSheetDialogFragment() {
                     LOG.e(exception)
                 },
                 onLoading = {
-                    LOG.i("Load private lists")
+                    LOG.i("Loading private lists...")
                 }
             )
 

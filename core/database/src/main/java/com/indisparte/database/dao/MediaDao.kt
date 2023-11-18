@@ -182,6 +182,7 @@ interface MediaDao {
         val existingMedia = getMediaById(media.id)
         if (existingMedia == null) {
             // Il media non esiste, quindi inseriscilo nella tabella MediaEntity
+
             val insertionResult = insertMedia(media)
             if (insertionResult == 0L)
                 return false
@@ -259,7 +260,7 @@ interface MediaDao {
 
 
     // Inserimento di un media nella lista
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertListItem(listItem: ListItemEntity):Long
 
     @Query("SELECT * FROM media WHERE id = :mediaId")

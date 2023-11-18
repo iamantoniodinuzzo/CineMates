@@ -49,6 +49,8 @@ class ManageMediaBottomDialog : BottomSheetDialogFragment() {
         mediaListAdapter.setOnItemClickListener { mediaList ->
             manageMediaViewModel.addMovieToList(mediaList.id, currentMovie, customListsNextIndex)
         }
+        binding.personalLists.adapter = mediaListAdapter
+
     }
 
     override fun onCreateView(

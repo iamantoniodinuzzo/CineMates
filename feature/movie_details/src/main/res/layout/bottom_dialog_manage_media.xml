@@ -101,8 +101,10 @@
             android:id="@+id/personal_lists"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxHeight="100dp"
             android:clipToPadding="false"
             android:padding="@dimen/base_margin"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:emptyStateSubtitle="Nessuna lista qui"
             app:layout_constraintTop_toBottomOf="@id/title_personal_list" />
 

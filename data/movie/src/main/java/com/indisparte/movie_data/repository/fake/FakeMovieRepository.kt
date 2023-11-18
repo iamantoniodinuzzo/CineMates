@@ -217,5 +217,9 @@ class FakeMovieRepository : MovieRepository {
         TODO("Not yet implemented")
     }
 
+    override fun insertMovieInList(listId: Int, movie: Movie, position: Int): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
+
 
 }

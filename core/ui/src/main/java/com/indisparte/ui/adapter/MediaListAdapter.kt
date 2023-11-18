@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.indisparte.list.MediaList
+import com.indisparte.ui.databinding.ListItemMediaListBinding
 
 /**
  *@author Antonio Di Nuzzo

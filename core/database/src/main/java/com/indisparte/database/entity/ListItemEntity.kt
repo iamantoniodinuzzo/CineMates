@@ -3,7 +3,6 @@ package com.indisparte.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
 
 /**
  *@author Antonio Di Nuzzo
@@ -23,10 +22,10 @@ import androidx.room.PrimaryKey
             childColumns = ["listId"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    primaryKeys = ["mediaId", "listId"]
 )
 data class ListItemEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val mediaId: Int,
     val listId: Int,
     var position: Int,

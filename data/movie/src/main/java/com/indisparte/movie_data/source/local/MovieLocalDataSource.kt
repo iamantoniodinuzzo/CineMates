@@ -19,7 +19,7 @@ class MovieLocalDataSource
 @Inject
 constructor(
     private val mediaDao: MediaDao,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
 
     suspend fun insertFavoriteMovie(movie: Movie): Boolean = withContext(ioDispatcher) {
@@ -73,6 +73,7 @@ constructor(
         return@withContext deferredList.await().map { it.asDomain() }
 
     }
+
     suspend fun getAllToSeeMovie(): List<Media> = withContext(ioDispatcher) {
         val deferredList = async { mediaDao.getToSeeMediaByMediaType(MediaType.MOVIE.id) }
 
@@ -129,6 +130,16 @@ constructor(
             return@withContext result
         }
 
+    suspend fun insertMovieInList(listId: Int, movie: Movie, position: Int): Boolean =
+        withContext(ioDispatcher) {
+            val mediaEntity = movie.asEntity()
+            val deferredResult = async {
+                mediaDao.insertMediaInList(listId, mediaEntity, position)
+            }
+
+            val result = deferredResult.await()
+            return@withContext result
+        }
 
 
 }

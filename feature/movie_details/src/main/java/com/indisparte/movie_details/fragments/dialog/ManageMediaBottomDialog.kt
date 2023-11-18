@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -13,9 +14,11 @@ import com.indisparte.movie_details.databinding.BottomDialogManageMediaBinding
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources
+import com.indisparte.ui.adapter.MediaListAdapter
 import com.indisparte.util.extension.collectIn
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import kotlin.properties.Delegates
 
 internal fun interface BottomDialogListener {
     fun onBottomDialogClosed(movieUpdated: Movie)
@@ -34,11 +37,18 @@ class ManageMediaBottomDialog : BottomSheetDialogFragment() {
     private val args: ManageMediaBottomDialogArgs by navArgs()
     private var listener: BottomDialogListener? = null
     private lateinit var currentMovie: Movie
+    private var customListsNextIndex by Delegates.notNull<Int>()
+    private val mediaListAdapter: MediaListAdapter by lazy {
+        MediaListAdapter()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         listener = requireActivity() as? BottomDialogListener
 
+        mediaListAdapter.setOnItemClickListener { mediaList ->
+            manageMediaViewModel.addMovieToList(mediaList.id, currentMovie, customListsNextIndex)
+        }
     }
 
     override fun onCreateView(
@@ -95,8 +105,9 @@ class ManageMediaBottomDialog : BottomSheetDialogFragment() {
         manageMediaViewModel.list.collectIn(viewLifecycleOwner) { result ->
             result.whenResources(
                 onSuccess = { mediaLists ->
-                    // TODO: Show in recyclerview
                     LOG.d("Media lists: $mediaLists")
+                    customListsNextIndex = mediaLists.size + 1
+                    mediaListAdapter.submitList(mediaLists)
 
                 },
                 onError = { exception ->
@@ -107,6 +118,19 @@ class ManageMediaBottomDialog : BottomSheetDialogFragment() {
                 }
             )
 
+        }
+
+        manageMediaViewModel.movieListInsertion.collectIn(viewLifecycleOwner) { result ->
+            result?.let {
+                val message = if (it) {
+                    "Inserito"
+                } else {
+                    "Non inserito"
+                }
+
+                Toast.makeText(requireContext(), "Film $message nella lista", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
 
 
@@ -124,5 +148,6 @@ class ManageMediaBottomDialog : BottomSheetDialogFragment() {
         binding.btnWatch.isChecked = currentMovie.isSeen
         binding.btnWatchlist.isChecked = currentMovie.isToSee
         binding.executePendingBindings()
+        binding.personalLists.setEmptyStateSubtitle("Nessuna lista qui")
     }
 }

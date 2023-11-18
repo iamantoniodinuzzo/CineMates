@@ -31,6 +31,9 @@ constructor(
     private val _lists = MutableStateFlow<Result<List<MediaList>>>(Result.Success(emptyList()))
     val list: StateFlow<Result<List<MediaList>>> get() = _lists
 
+     private val _movieListInsertion = MutableStateFlow<Boolean?>(null)
+      val movieListInsertion: StateFlow<Boolean?> get() = _movieListInsertion
+
     init {
         getAllPersonaList()
     }
@@ -39,6 +42,14 @@ constructor(
         viewModelScope.launch {
             mediaListRepository.getAllList().collectLatest {
                 _lists.emit(it)
+            }
+        }
+    }
+
+    fun addMovieToList(listId: Int, movie: Movie, position: Int) {
+        viewModelScope.launch {
+            movieRepository.insertMovieInList(listId, movie, position).collectLatest {
+                _movieListInsertion.emit(it)
             }
         }
     }

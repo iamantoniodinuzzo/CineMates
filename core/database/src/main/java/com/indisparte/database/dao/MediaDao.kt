@@ -178,11 +178,13 @@ interface MediaDao {
     }
 
     @Transaction
-    fun insertMediaInList(listId: Int, media: MediaEntity, position: Int) {
+    fun insertMediaInList(listId: Int, media: MediaEntity, position: Int): Boolean {
         val existingMedia = getMediaById(media.id)
         if (existingMedia == null) {
             // Il media non esiste, quindi inseriscilo nella tabella MediaEntity
-            insertMedia(media)
+            val insertionResult = insertMedia(media)
+            if (insertionResult == 0L)
+                return false
         }
 
         // Ora puoi inserire il media nella lista
@@ -192,7 +194,9 @@ interface MediaDao {
             position = position,
             updateDate = ""
         )
-        insertListItem(listItem)
+        val insertionResult = insertListItem(listItem)
+
+        return insertionResult > 0L
     }
 
     // Eliminazione di un media da una lista
@@ -256,7 +260,7 @@ interface MediaDao {
 
     // Inserimento di un media nella lista
     @Insert
-    fun insertListItem(listItem: ListItemEntity)
+    fun insertListItem(listItem: ListItemEntity):Long
 
     @Query("SELECT * FROM media WHERE id = :mediaId")
     fun getMediaById(mediaId: Int): MediaEntity?

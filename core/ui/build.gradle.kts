@@ -43,6 +43,7 @@ dependencies {
     implementation(project(":core:model:person"))
     implementation(project(":core:model:movie"))
     implementation(project(":core:model:tv"))
+    implementation(project(":core:model:list"))
     implementation(project(":core:navigation"))
 
     implementation(libs.bundles.androidX)

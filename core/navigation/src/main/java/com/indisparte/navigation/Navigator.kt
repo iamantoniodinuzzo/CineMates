@@ -17,6 +17,7 @@ class Navigator {
                 navigationFlow.msg?.toInt() ?: 0
             )
         )
+
         is NavigationFlow.SearchFlow -> navController.navigate(NavGraphDirections.actionGlobalSearchFlow())
         is NavigationFlow.DiscoverFlow -> navController.navigate(NavGraphDirections.actionGlobalDiscoverFlow())
         is NavigationFlow.PersonDetailsFlow -> navController.navigate(
@@ -24,5 +25,7 @@ class Navigator {
                 navigationFlow.msg?.toInt() ?: 0
             )
         )
+
+        is NavigationFlow.MediaListCreationFlow -> navController.navigate(NavGraphDirections.actionGlobalListCreationFlow())
     }
 }

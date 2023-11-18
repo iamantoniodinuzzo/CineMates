@@ -10,6 +10,8 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.indisparte.movie_data.Movie
 import com.indisparte.movie_details.databinding.BottomDialogManageMediaBinding
+import com.indisparte.navigation.NavigationFlow
+import com.indisparte.navigation.ToFlowNavigable
 import com.indisparte.network.whenResources
 import com.indisparte.util.extension.collectIn
 import dagger.hilt.android.AndroidEntryPoint
@@ -84,7 +86,10 @@ class ManageMediaBottomDialog : BottomSheetDialogFragment() {
         }
 
         binding.createListBtn.setOnClickListener {
-            // TODO: Aprire dialog per la creazione della lista
+            val activity = requireActivity()
+            if (activity is ToFlowNavigable) {
+                activity.navigateToFlow(NavigationFlow.MediaListCreationFlow)
+            }
         }
 
         manageMediaViewModel.list.collectIn(viewLifecycleOwner) { result ->

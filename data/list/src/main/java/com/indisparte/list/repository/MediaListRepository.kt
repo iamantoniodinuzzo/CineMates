@@ -1,6 +1,6 @@
 package com.indisparte.list.repository
 
-import com.indisparte.list.MediaList
+import com.indisparte.media_list.MediaList
 import com.indisparte.network.Result
 import kotlinx.coroutines.flow.Flow
 

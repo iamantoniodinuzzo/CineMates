@@ -2,7 +2,7 @@ package com.indisparte.movie_details.fragments.dialog
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.indisparte.list.MediaList
+import com.indisparte.media_list.MediaList
 import com.indisparte.list.repository.MediaListRepository
 import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.repository.MovieRepository

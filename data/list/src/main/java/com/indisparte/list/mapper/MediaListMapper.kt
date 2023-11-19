@@ -1,7 +1,7 @@
 package com.indisparte.list.mapper
 
 import com.indisparte.database.entity.ListEntity
-import com.indisparte.list.MediaList
+import com.indisparte.media_list.MediaList
 
 /**
  *@author Antonio Di Nuzzo

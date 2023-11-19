@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.indisparte.list.MediaList
+import com.indisparte.media_list.MediaList
 import com.indisparte.list_creation.databinding.FragmentMediaListCreationBinding
 import com.indisparte.network.whenResources
 import com.indisparte.ui.fragment.BaseFragment

@@ -2,7 +2,7 @@ package com.indisparte.list_creation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.indisparte.list.MediaList
+import com.indisparte.media_list.MediaList
 import com.indisparte.list.repository.MediaListRepository
 import com.indisparte.network.Result
 import dagger.hilt.android.lifecycle.HiltViewModel

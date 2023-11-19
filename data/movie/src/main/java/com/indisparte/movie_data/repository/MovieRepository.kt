@@ -49,4 +49,7 @@ interface MovieRepository {
     fun removeMovieFromSeen(movie: Movie): Flow<Boolean>
     fun removeMovieFromToSee(movie: Movie): Flow<Boolean>
 
+
+    fun insertMovieInList(listId: Int, movie: Movie, position: Int):Flow<Boolean>
+
 }

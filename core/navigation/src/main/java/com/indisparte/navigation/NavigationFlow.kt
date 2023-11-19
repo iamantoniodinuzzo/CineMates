@@ -9,4 +9,5 @@ sealed class NavigationFlow(val msg: String?) {
     class PersonDetailsFlow(personId: Int) : NavigationFlow(personId.toString())
     data object SearchFlow : NavigationFlow(null)
     data object DiscoverFlow : NavigationFlow(null)
+    data object MediaListCreationFlow:NavigationFlow(null)
 }

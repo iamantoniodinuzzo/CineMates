@@ -44,7 +44,7 @@
                 android:textColor="?attr/colorOnPrimary"
                 android:textOff="Watched"
                 android:textOn="Watched"
-                android:textSize="@dimen/big_text_size"/>
+                android:textSize="@dimen/big_text_size" />
 
             <androidx.appcompat.widget.AppCompatToggleButton
                 android:id="@+id/btn_like"
@@ -97,16 +97,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bottom_divider" />
 
+        <com.indisparte.ui.custom_view.StatefulRecyclerView
+            android:id="@+id/personal_lists"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="100dp"
+            android:clipToPadding="false"
+            android:padding="@dimen/base_margin"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:emptyStateSubtitle="Nessuna lista qui"
+            app:layout_constraintTop_toBottomOf="@id/title_personal_list" />
+
+
         <!--        Inserire una recycler view con pulsante-->
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/create_list_btn"
             style="@style/PrimaryCustomMaterialButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/base_margin"
             android:text="Create list"
+            app:icon="@drawable/round_add_24"
+            app:iconTint="?attr/colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_personal_list" />
+            app:layout_constraintTop_toBottomOf="@id/personal_lists" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -15,6 +15,7 @@ plugins{
     alias(libs.plugins.hilt.plugin) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.safeargs) apply false
+    alias(libs.plugins.org.jetbrains.kotlin.jvm) apply false
 }
 
 

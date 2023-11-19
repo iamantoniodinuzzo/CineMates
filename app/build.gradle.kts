@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":feature:media_search"))
     implementation(project(":feature:media_discover"))
     implementation(project(":feature:person_details"))
+    implementation(project(":feature:list_creation"))
 
     implementation(libs.appcompat)
     implementation(libs.material)

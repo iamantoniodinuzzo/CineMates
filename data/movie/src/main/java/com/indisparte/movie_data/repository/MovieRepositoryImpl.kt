@@ -161,6 +161,11 @@ constructor(
         emit(result)
     }
 
+    override fun insertMovieInList(listId: Int, movie: Movie, position: Int): Flow<Boolean> = flow {
+        val result = movieLocalDataSource.insertMovieInList(listId, movie, position)
+        emit(result)
+    }
+
 }
 
 

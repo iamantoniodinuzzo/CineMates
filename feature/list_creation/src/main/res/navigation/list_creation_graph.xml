@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list_creation_graph"
+    app:startDestination="@id/mediaListCreationFragment">
+
+    <fragment
+        android:id="@+id/mediaListCreationFragment"
+        tools:layout="@layout/fragment_media_list_creation"
+        android:name="com.indisparte.list_creation.MediaListCreationFragment"
+        android:label="MediaListCreationFragment" />
+</navigation>

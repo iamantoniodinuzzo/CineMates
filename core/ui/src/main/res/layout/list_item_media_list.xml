@@ -7,7 +7,7 @@
 
         <variable
             name="list"
-            type="com.indisparte.list.MediaList" />
+            type="com.indisparte.media_list.MediaList" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

@@ -1,4 +1,4 @@
-package com.indisparte.list
+package com.indisparte.media_list
 
 data class MediaList(
     val id: Int = 0,

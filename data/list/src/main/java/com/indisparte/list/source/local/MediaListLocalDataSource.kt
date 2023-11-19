@@ -1,7 +1,7 @@
 package com.indisparte.list.source.local
 
 import com.indisparte.database.dao.ListDao
-import com.indisparte.list.MediaList
+import com.indisparte.media_list.MediaList
 import com.indisparte.list.mapper.asDomain
 import com.indisparte.list.mapper.asEntity
 import kotlinx.coroutines.CoroutineDispatcher

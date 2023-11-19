@@ -4,38 +4,19 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+
 }
+apply<MainGradlePlugin>()
 
 val key: String = gradleLocalProperties(rootDir).getProperty("TMDB_API_KEY")
 
 android {
     namespace = "com.indisparte.network"
-    compileSdk = Configuration.compileSdk
 
     defaultConfig {
-        minSdk = Configuration.minSdk
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-
         buildConfigField("String", "TMDB_API_KEY", key)
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }
 
 dependencies {

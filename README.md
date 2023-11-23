@@ -31,7 +31,6 @@ The project is constantly changing as a personal gym in Android development.
 Find a file called `local.properties` in the `.gradle` file in the home directory.
 
 - Add `TMDB_API_KEY = "YOUR-API-KEY"` (*The API of The Movie DB obtainable [here](https://www.themoviedb.org/?language=en)*)
-- Add `YT_API_KEY = "YOUR-API-KEY"` (*The API of Youtube obtainable [here](https://console.cloud.google.com/apis/dashboard)*)
 
 ## 👨‍💻 What I learned.
 - Retrieve data from the Internet with **Retrofit** and the **API** of [TheMovieDB](https://developers.themoviedb.org/3/getting-started)

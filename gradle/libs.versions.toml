@@ -48,6 +48,6 @@ navigation = ["navigation.fragment", "navigation.ui", "navigation-features"]
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
-jetbrains-kotlin = { id = "org.jetbrains.kotlin.android", version = "1.8.22" }
+jetbrains-kotlin = { id = "org.jetbrains.kotlin.android", version = "1.9.21" }
 dagger-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }

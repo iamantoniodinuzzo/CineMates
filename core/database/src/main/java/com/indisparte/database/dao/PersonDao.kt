@@ -5,19 +5,14 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.indisparte.database.dao.base.BaseDao
 import com.indisparte.database.entity.FavoritePersonEntity
 
 /**
  *@author Antonio Di Nuzzo
  */
 @Dao
-interface PersonDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavoritePerson(personEntity: FavoritePersonEntity): Long
-
-    @Delete
-    fun removeFavoritePerson(personEntity: FavoritePersonEntity): Int
+interface PersonDao :BaseDao<FavoritePersonEntity>{
 
     @Query("SELECT * FROM person ")
     fun getAllFavoritePerson(): List<FavoritePersonEntity>

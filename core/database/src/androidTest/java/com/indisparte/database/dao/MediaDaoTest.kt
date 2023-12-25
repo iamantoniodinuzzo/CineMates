@@ -3,6 +3,7 @@ package com.indisparte.database.dao
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.indisparte.base.MediaType
+import com.indisparte.database.dao.base.BaseDaoTest
 import com.indisparte.database.entity.MediaEntity
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNull
@@ -41,7 +42,7 @@ class MediaDaoTest : BaseDaoTest() {
         )
 
         //WHEN
-        dao.insertMedia(media)
+        dao.insertFavoriteMedia(media)
 
         //THEN
         val entityList = dao.getAllFavoriteMediaByMediaType(mediaTypeId)
@@ -85,15 +86,12 @@ class MediaDaoTest : BaseDaoTest() {
 
         //WHEN
         medias.forEach {
-            dao.insertMedia(it)
+            dao.insertFavoriteMedia(it)
         }
-        dao.insertMedia(notMyFavMedia)
 
         //THEN
         val loadFavMovies = dao.getAllFavoriteMediaByMediaType(movieMediaType.id)
         assertEquals(2, loadFavMovies.size)
-        val mediaToCheck = loadFavMovies.find { it.id == notMyFavMedia.id }
-        assertEquals(mediaToCheck, notMyFavMedia)
 
     }
 
@@ -139,37 +137,21 @@ class MediaDaoTest : BaseDaoTest() {
                 mediaType = tvMediaType,
             )
         )
-        val notFavMovie = MediaEntity(
-            id = 7848,
-            mediaName = "Rae Hunt",
-            popularity = null,
-            posterPath = null,
-            voteAverage = 26.27,
-            mediaType = movieMediaType,
-        )
-
-
-        val notFavTvShow = MediaEntity(
-            id = 6909,
-            mediaName = "Wilburn Rodriguez",
-            popularity = null,
-            posterPath = null,
-            voteAverage = 28.29,
-            mediaType = tvMediaType,
-        )
 
 
         // WHEN
-        val allMedias = favoriteMovies + favoriteTvs + notFavMovie + notFavTvShow
-        allMedias.forEach {
-            dao.insertMedia(it)
+        val allFavMedia = favoriteMovies + favoriteTvs
+
+        allFavMedia.forEach {
+            dao.insertFavoriteMedia(it)
         }
+
         val loadedFavoriteMovies = dao.getAllFavoriteMediaByMediaType(movieMediaType)
         val loadedFavoriteTv = dao.getAllFavoriteMediaByMediaType(tvMediaType)
 
         // THEN
-        assertEquals(favoriteMovies.size, loadedFavoriteMovies.size)
-        assertEquals(favoriteTvs.size, loadedFavoriteTv.size)
+        assertEquals(favoriteMovies, loadedFavoriteMovies)
+        assertEquals(favoriteTvs, loadedFavoriteTv)
     }
 
 
@@ -188,7 +170,7 @@ class MediaDaoTest : BaseDaoTest() {
 
 
         // WHEN
-        dao.insertMedia(media)
+        dao.insert(media)
         val loadedMovieById = dao.getMediaById(myId)
 
         // THEN
@@ -210,7 +192,7 @@ class MediaDaoTest : BaseDaoTest() {
 
 
         // WHEN
-        dao.insertMedia(media)
+        dao.insert(media)
         val loadedMovieById = dao.getMediaById(myId)
 
         // THEN

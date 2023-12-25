@@ -1,4 +1,4 @@
-package com.indisparte.database.dao
+package com.indisparte.database.dao.base
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.After
@@ -27,9 +28,12 @@ abstract class BaseDaoTest {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     protected lateinit var testDatabase: CineMatesDatabase
+    protected lateinit var  testDispatcher:TestDispatcher
+
 
     @Before
     open fun setup() {
+        testDispatcher = StandardTestDispatcher()
         testDatabase = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
             CineMatesDatabase::class.java
@@ -42,7 +46,6 @@ abstract class BaseDaoTest {
     }
     @OptIn(ExperimentalCoroutinesApi::class)
     protected fun runBlockingTest(block: suspend () -> Unit) {
-        val testDispatcher = StandardTestDispatcher()
         runBlocking {
             Dispatchers.setMain(testDispatcher)
             block()

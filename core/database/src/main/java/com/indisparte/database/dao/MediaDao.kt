@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
+import com.indisparte.database.dao.base.BaseDao
 import com.indisparte.database.entity.FavoriteMediaEntity
 import com.indisparte.database.entity.ListEntity
 import com.indisparte.database.entity.ListItemEntity
@@ -18,12 +19,7 @@ import com.indisparte.database.entity.ToSeeMediaEntity
  *@author Antonio Di Nuzzo
  */
 @Dao
-interface MediaDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMedia(media: MediaEntity): Long
-
-    @Delete
-    fun deleteMedia(media: MediaEntity): Int
+interface MediaDao : BaseDao<MediaEntity> {
 
     @Query("DELETE FROM media WHERE id = :mediaId")
     fun deleteMediaById(mediaId: Int)
@@ -52,7 +48,7 @@ interface MediaDao {
         if (existingMedia == null) {
             //Il media non è stato mai memorizzato
             //memorizziamolo
-            val mediaInsertionResult = insertMedia(media)
+            val mediaInsertionResult = insert(media)
             if (mediaInsertionResult == 0L) {
                 //Se l'inserimento del media non ha avuto successo
                 //Restituisci false terminando il metodo
@@ -90,7 +86,7 @@ interface MediaDao {
         if (existingMedia == null) {
             //Il media non è stato mai memorizzato
             //Inseriamolo
-            val mediaInsertionResult = insertMedia(media)
+            val mediaInsertionResult = insert(media)
             if (mediaInsertionResult == 0L) {
                 //Se l'inserimento del media non ha avuto successo
                 //Restituisci false
@@ -137,7 +133,7 @@ interface MediaDao {
         if (existingMedia == null) {
             //Il media non è stato mai memorizzato
             //Inseriamolo
-            val mediaInsertionResult = insertMedia(media)
+            val mediaInsertionResult = insert(media)
             if (mediaInsertionResult == 0L) {
                 //Se l'inserimento del media non ha avuto successo
                 //Restituisci false
@@ -183,7 +179,7 @@ interface MediaDao {
         if (existingMedia == null) {
             // Il media non esiste, quindi inseriscilo nella tabella MediaEntity
 
-            val insertionResult = insertMedia(media)
+            val insertionResult = insert(media)
             if (insertionResult == 0L)
                 return false
         }
@@ -261,7 +257,7 @@ interface MediaDao {
 
     // Inserimento di un media nella lista
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertListItem(listItem: ListItemEntity):Long
+    fun insertListItem(listItem: ListItemEntity): Long
 
     @Query("SELECT * FROM media WHERE id = :mediaId")
     fun getMediaById(mediaId: Int): MediaEntity?

@@ -3,6 +3,7 @@ package com.indisparte.database.dao
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.indisparte.base.MediaType
+import com.indisparte.database.dao.base.BaseDaoTest
 import com.indisparte.database.entity.GenreEntity
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
@@ -36,7 +37,7 @@ class GenreDaoTest : BaseDaoTest() {
         )
 
         //WHEN
-        dao.insertGenreList(genres)
+        dao.insertAll(genres)
 
         //THEN
         val loadedGenres = dao.getAllGenres()
@@ -56,9 +57,9 @@ class GenreDaoTest : BaseDaoTest() {
         )
 
         //WHEN
-        dao.insertGenreList(genres)
+        dao.insertAll(genres)
         val myFavGenres = notMyFavGenre.copy(isFavorite = true)
-        dao.updateGenre(myFavGenres)
+        dao.update(myFavGenres)
 
         //THEN
         val loadGenres = dao.getAllGenres()
@@ -101,7 +102,7 @@ class GenreDaoTest : BaseDaoTest() {
         )
 
         // WHEN
-        dao.insertGenreList(genres)
+        dao.insertAll(genres)
         val filteredGenres = dao.getAllGenresByMediaType(movieMediaType)
 
         // THEN
@@ -119,7 +120,7 @@ class GenreDaoTest : BaseDaoTest() {
         )
 
         // WHEN
-        dao.insertGenreList(genres)
+        dao.insertAll(genres)
         val myFavGenres = dao.getAllMyFavGenres()
 
         // THEN
@@ -137,7 +138,7 @@ class GenreDaoTest : BaseDaoTest() {
         )
 
         // WHEN
-        dao.insertGenreList(genres)
+        dao.insertAll(genres)
         val loadedGenres = dao.getAllGenresById(genreIds)
 
         // THEN

@@ -24,8 +24,8 @@ import com.indisparte.database.entity.ToSeeMediaEntity
     version = 10
 )
 abstract class CineMatesDatabase : RoomDatabase() {
-    abstract fun getGenreDao(): GenreDao
-    abstract fun getMediaDao(): MediaDao
-    abstract fun getPersonDao(): PersonDao
-    abstract fun getListDao(): ListDao
+    abstract fun genreDao(): GenreDao
+    abstract fun mediaDao(): MediaDao
+    abstract fun personDao(): PersonDao
+    abstract fun listDao(): ListDao
 }

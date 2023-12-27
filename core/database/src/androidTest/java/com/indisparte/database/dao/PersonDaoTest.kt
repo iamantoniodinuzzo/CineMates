@@ -22,7 +22,7 @@ class PersonDaoTest : BaseDaoTest() {
     @Before
     override fun setup() {
         super.setup()
-        dao = testDatabase.getPersonDao()
+        dao = testDatabase.personDao()
     }
 
     @Test

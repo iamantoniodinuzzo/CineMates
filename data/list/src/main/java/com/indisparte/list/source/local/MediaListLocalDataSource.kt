@@ -23,7 +23,7 @@ constructor(
     suspend fun addList(mediaList: MediaList): Boolean = withContext(ioDispatcher) {
         val entityList = mediaList.asEntity()
         val deferredInsertionResult = async {
-            dao.insertList(entityList)
+            dao.insert(entityList)
         }
 
         val result = deferredInsertionResult.await()
@@ -34,7 +34,7 @@ constructor(
     suspend fun removeList(mediaList: MediaList): Boolean = withContext(ioDispatcher) {
         val entityList = mediaList.asEntity()
         val deferredInsertionResult = async {
-            dao.deleteList(entityList)
+            dao.delete(entityList)
         }
         val result = deferredInsertionResult.await()
 

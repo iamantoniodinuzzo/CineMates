@@ -1,5 +1,7 @@
 package com.indisparte.util.extension
 
+import android.app.Activity
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.text.Editable
@@ -13,6 +15,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlin.system.exitProcess
 
 
 /**
@@ -54,6 +61,7 @@ fun AppCompatActivity.isDarkMode(): Boolean {
         else -> false
     }
 }
+
 
 
 

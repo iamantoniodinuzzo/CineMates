@@ -28,7 +28,7 @@ abstract class BaseDaoTest {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     protected lateinit var testDatabase: CineMatesDatabase
-    protected lateinit var  testDispatcher:TestDispatcher
+    private lateinit var  testDispatcher:TestDispatcher
 
 
     @Before

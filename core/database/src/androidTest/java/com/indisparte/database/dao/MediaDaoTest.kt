@@ -25,7 +25,7 @@ class MediaDaoTest : BaseDaoTest() {
     @Before
     override fun setup() {
         super.setup()
-        dao = testDatabase.getMediaDao()
+        dao = testDatabase.mediaDao()
     }
 
     @Test

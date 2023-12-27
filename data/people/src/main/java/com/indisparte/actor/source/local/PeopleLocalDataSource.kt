@@ -23,7 +23,7 @@ constructor(
     suspend fun insertFavoritePerson(person: Person) = withContext(ioDispatcher) {
         val entity = person.asEntity()
         val deferredInsertionResult = async {
-            dao.insertFavoritePerson(entity)
+            dao.insert(entity)
         }
         return@withContext deferredInsertionResult.await()
     }
@@ -31,7 +31,7 @@ constructor(
     suspend fun removeFavoritePerson(person: Person) = withContext(ioDispatcher) {
         val entity = person.asEntity()
         val deferredDeletionResult = async {
-            dao.removeFavoritePerson(entity)
+            dao.delete(entity)
         }
         return@withContext deferredDeletionResult.await()
     }

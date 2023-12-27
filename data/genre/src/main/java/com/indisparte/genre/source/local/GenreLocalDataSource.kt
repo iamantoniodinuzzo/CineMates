@@ -23,9 +23,9 @@ constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     fun insertGenres(genres: List<Genre>, mediaType: MediaType) = flow<Nothing> {
-        val mappedEntity = genres.map { it.asEntity() }
-        val updatedMappedEntity = mappedEntity.map { it.copy(mediaType = mediaType.id) }
-        dao.insertGenreList(updatedMappedEntity)
+        val genreEntities = genres.map { it.asEntity() }
+        val entities = genreEntities.map { it.copy(mediaType = mediaType.id) }
+        dao.insertAll(entities)
     }.flowOn(ioDispatcher)
 
     fun getAllSavedGenres() = flow {
@@ -55,7 +55,7 @@ constructor(
     fun updateGenre(genre: Genre) = flow {
         val mappedGenre = genre.asEntity()
         val mappedUpdated = mappedGenre.copy(mediaType = genre.mediaType?.id)
-        val result = dao.updateGenre(mappedUpdated)
+        val result = dao.update(mappedUpdated)
         Timber.tag("GenreLocalDataSource").d("Update $result row with $mappedGenre")
         emit(result)
     }.flowOn(ioDispatcher)

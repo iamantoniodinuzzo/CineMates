@@ -23,7 +23,7 @@ class ListDaoTest : BaseDaoTest() {
     @Before
     override fun setup() {
         super.setup()
-        dao = testDatabase.getListDao()
+        dao = testDatabase.listDao()
     }
 
     @Test

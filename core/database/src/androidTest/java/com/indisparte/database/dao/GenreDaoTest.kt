@@ -24,7 +24,7 @@ class GenreDaoTest : BaseDaoTest() {
     @Before
     override fun setup() {
         super.setup()
-        dao = testDatabase.getGenreDao()
+        dao = testDatabase.genreDao()
     }
 
     @Test

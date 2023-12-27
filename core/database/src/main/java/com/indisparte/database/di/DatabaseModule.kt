@@ -32,26 +32,26 @@ object DatabaseModule {
     @Singleton
     fun provideGenreDao(
         database: CineMatesDatabase,
-    ) = database.getGenreDao()
+    ) = database.genreDao()
 
     @Provides
     @Singleton
     fun provideMediaDao(
         database: CineMatesDatabase,
-    ) = database.getMediaDao()
+    ) = database.mediaDao()
 
 
     @Provides
     @Singleton
     fun providePersonDao(
         database: CineMatesDatabase,
-    ) = database.getPersonDao()
+    ) = database.personDao()
 
     @Provides
     @Singleton
     fun provideListDao(
         database: CineMatesDatabase,
-    ) = database.getListDao()
+    ) = database.listDao()
 
 
 

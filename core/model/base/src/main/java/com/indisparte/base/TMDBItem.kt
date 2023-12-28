@@ -1,9 +1,10 @@
 package com.indisparte.base
 
-import java.text.NumberFormat
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.Currency
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 /**
@@ -31,7 +32,25 @@ abstract class TMDBItem {
          */
         const val OUTPUT_DATE_TIME_FORMAT = "dd MMMM yyyy"
 
-        const val TMDB_RELEASE_DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        const val TMDB_RELEASE_DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss[.SSS]'Z'"
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun formatDateCompat(inputDate: String?, inputFormat: String? = null): String? {
+        if (inputDate.isNullOrEmpty()) {
+            return null
+        }
+
+        val inputFormat =
+            DateTimeFormatter.ofPattern(inputFormat ?: TMDB_DATE_TIME_FORMAT)
+        val outputFormat = DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT)
+
+        return try {
+            val date = inputFormat.parse(inputDate)
+            date?.let { outputFormat.format(it) }
+        } catch (e: ParseException) {
+            null
+        }
     }
 
     /**
@@ -41,6 +60,14 @@ abstract class TMDBItem {
      * @return The formatted date in the output format, or null if the input is empty or invalid.
      */
     protected fun formatDate(inputDate: String?, inputFormat: String? = null): String? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            formatDate(inputDate, inputFormat)
+        } else {
+            formatDateLegacy(inputDate, inputFormat)
+        }
+    }
+
+    private fun formatDateLegacy(inputDate: String?, inputFormat: String? = null): String? {
         if (inputDate.isNullOrEmpty()) {
             return null
         }
@@ -52,7 +79,7 @@ abstract class TMDBItem {
         return try {
             val date = inputFormat.parse(inputDate)
             date?.let { outputFormat.format(it) }
-        } catch (e: ParseException) {
+        } catch (e: java.text.ParseException) {
             null
         }
     }
@@ -79,19 +106,32 @@ abstract class TMDBItem {
      * @return A formatted string representing the currency amount (e.g., "$1.5 mln").
      */
     protected fun formatCurrency(amount: Long): String {
-        if (amount == 0L)
-            return ""
+        return if (amount >= 1_000_000) {
+            val divisor = if (amount >= 1_000_000_000) {
+                1_000_000_000
+            } else {
+                1_000_000
+            }
 
-        val currency = Currency.getInstance(Locale.getDefault())
-        val formatter = NumberFormat.getCurrencyInstance(Locale.getDefault())
-        formatter.currency = currency
+            val value = amount.toDouble() / divisor
+            val formattedValue = if (value % 1 == 0.0) {
+                value.toInt().toString()
+            } else {
+                String.format("%.1f", value)
+            }
 
-        return when {
-            amount >= 1_000_000_000 -> "${amount / 1_000_000_000} mld"
-            amount >= 1_000_000 -> "${amount / 1_000_000} mln"
-            else -> formatter.format(amount)
+            val unit = if (amount >= 1_000_000_000) {
+                "mld"
+            } else {
+                "mln"
+            }
+
+            "$formattedValue $unit"
+        } else {
+            amount.toString()
         }
     }
+
 
     /**
      * Generates the complete image path by combining the base URL and the relative path.

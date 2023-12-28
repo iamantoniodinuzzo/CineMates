@@ -1,12 +1,14 @@
 package com.indisparte.movie_data
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import com.indisparte.base.TMDBItem
 import com.indisparte.movie.R
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import kotlin.math.abs
 
 /**
  * Represents the different types of release for a media item.
@@ -41,7 +43,7 @@ enum class ReleaseType(val type: Int, @StringRes val releaseStringRes: Int) {
  */
 data class ReleaseDate(
     val certification: String,
-    private val releaseDate: String,
+    val releaseDate: String,
     private val type: Int,
 ) : TMDBItem() {
 
@@ -63,10 +65,27 @@ data class ReleaseDate(
 /**
  * Extension function to retrieve the certification of the latest release date in the list.
  */
+@RequiresApi(Build.VERSION_CODES.O)
 fun List<ReleaseDate>.getLatestReleaseCertification(): String {
-    val latestRelease = this.maxByOrNull { it.formattedReleaseDate?:"" }
+    val formatter = DateTimeFormatter.ofPattern(TMDBItem.TMDB_RELEASE_DATE_FORMAT_UTC)
+    val now = LocalDate.now()
 
-    return latestRelease?.certification ?: ""
+    return this.mapNotNull { releaseDate ->
+        try {
+            val data = LocalDate.parse(releaseDate.releaseDate, formatter)
+            val distance = abs(now.toEpochDay() - data.toEpochDay())
+            Pair(releaseDate.certification, distance)
+        } catch (e: DateTimeParseException) {
+            // Gestire il parsing della data non riuscito
+            println("Errore durante il parsing della data: ${releaseDate.releaseDate}")
+            null
+        } catch (e: Exception) {
+            // Gestire altre eccezioni
+            println("Errore sconosciuto: ${e.message}")
+            null
+        }
+    }.minByOrNull { it.second }?.first ?: ""
+
 }
 
 

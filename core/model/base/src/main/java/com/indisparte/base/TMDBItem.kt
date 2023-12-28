@@ -30,6 +30,8 @@ abstract class TMDBItem {
          * This constant specifies an output date and time format used for displaying dates, which is "dd MMMM yyyy"
          */
         const val OUTPUT_DATE_TIME_FORMAT = "dd MMMM yyyy"
+
+        const val TMDB_RELEASE_DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     }
 
     /**
@@ -38,12 +40,13 @@ abstract class TMDBItem {
      * @param inputDate The date to format.
      * @return The formatted date in the output format, or null if the input is empty or invalid.
      */
-    protected fun formatDate(inputDate: String?): String? {
+    protected fun formatDate(inputDate: String?, inputFormat: String? = null): String? {
         if (inputDate.isNullOrEmpty()) {
             return null
         }
 
-        val inputFormat = SimpleDateFormat(TMDB_DATE_TIME_FORMAT, Locale.getDefault())
+        val inputFormat =
+            SimpleDateFormat(inputFormat ?: TMDB_DATE_TIME_FORMAT, Locale.getDefault())
         val outputFormat = SimpleDateFormat(OUTPUT_DATE_TIME_FORMAT, Locale.getDefault())
 
         return try {

@@ -16,14 +16,14 @@ package com.indisparte.movie_data
  */
 class MovieCredit(
     adult: Boolean,
-    private val character: String?,
+    val character: String?,
     id: Int,
     popularity: Double,
     posterPath: String?,
     releaseDate: String?,
     title: String,
     voteAverage: Double,
-    private val department: String?,
+    val department: String?,
 ) : Movie(
     adult,
     id,

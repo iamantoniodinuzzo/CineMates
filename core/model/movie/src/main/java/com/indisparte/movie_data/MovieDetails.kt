@@ -69,6 +69,11 @@ class MovieDetails(
     voteAverage = voteAverage
 ) {
 
+    /**
+     * Updates the genres of the movie based on the provided list of updated genres.
+     *
+     * @param updatedGenres The list of genres with updated information.
+     */
     fun updateGenres(updatedGenres: List<Genre>) {
         val idToGenreMap = updatedGenres.associateBy { it.id }
 
@@ -109,10 +114,13 @@ class MovieDetails(
     val completeBackdropPathW500: String?
         get() = getCompleteImagePath(IMAGE_BASE_URL_W500, backdropPath)
 
+
     /**
      * Gets a concatenated string of production company names.
+     *
+     * @return The concatenated string of production company names.
      */
-    val productCompaniesConcatenatedString: String
+    val productionCompaniesName: String
         get() = productionCompanies.joinToString(", ") { it.name }
 
     override fun toString(): String {

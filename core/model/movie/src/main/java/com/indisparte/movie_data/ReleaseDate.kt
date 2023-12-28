@@ -1,7 +1,7 @@
 package com.indisparte.movie_data
 
 import androidx.annotation.StringRes
-import com.indisparte.base.TMDBItem.Companion.OUTPUT_DATE_TIME_FORMAT
+import com.indisparte.base.TMDBItem
 import com.indisparte.movie.R
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -16,16 +16,19 @@ import java.util.TimeZone
  * @author Antonio Di Nuzzo
  */
 enum class ReleaseType(val type: Int, @StringRes val releaseStringRes: Int) {
-    Premiere(1, R.string.release_premiere),
-    TheatricalLimited(2, R.string.release_theatrical_limited),
-    Theatrical(3, R.string.release_theatrical),
-    Digital(4, R.string.release_digital),
-    Physical(5, R.string.release_physical),
+    PREMIERE(1, R.string.release_premiere),
+    THEATRICAL_LIMITED(2, R.string.release_theatrical_limited),
+    THEATRICAL(3, R.string.release_theatrical),
+    DIGITAL(4, R.string.release_digital),
+    PHYSICAL(5, R.string.release_physical),
     TV(6, R.string.release_tv);
 
     companion object {
-        fun fromValue(value: Int): ReleaseType? =
-            ReleaseType.values().firstOrNull { it.type == value }
+        @Throws(NoSuchElementException::class)
+        fun fromValue(value: Int): ReleaseType {
+            return ReleaseType.values().find { it.type == value }
+                ?: throw NoSuchElementException("There is no Release type with this value: $value")
+        }
     }
 }
 
@@ -40,50 +43,28 @@ data class ReleaseDate(
     val certification: String,
     private val releaseDate: String,
     private val type: Int,
-) {
-    companion object {
-        private const val TMDB_RELEASE_DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-    }
+) : TMDBItem() {
 
     /**
      * The release type based on the type value.
      */
-    val releaseType: ReleaseType?
+    val releaseType: ReleaseType
         get() = ReleaseType.fromValue(type)
 
     /**
      * The formatted release date in the device's local format.
      */
-    val formattedReleaseDate: String
+    val formattedReleaseDate: String?
         get() {
-            return convertToLocaleDateString(releaseDate)
+            return formatDate(releaseDate, TMDB_RELEASE_DATE_FORMAT_UTC)
         }
-
-    private fun convertToLocaleDateString(inputDateString: String): String {
-        try {
-            val outputFormat = SimpleDateFormat(OUTPUT_DATE_TIME_FORMAT, Locale.getDefault())
-
-            val inputFormat = SimpleDateFormat(TMDB_RELEASE_DATE_FORMAT_UTC, Locale.getDefault())
-            inputFormat.timeZone = TimeZone.getTimeZone("UTC")
-
-            // Parse the input string into a Date object
-            val date: Date = inputFormat.parse(inputDateString) ?: return ""
-
-            // Format the date in the device's local format
-            return outputFormat.format(date)
-        } catch (e: Exception) {
-            // In case of errors, return an empty string or an error message
-            e.printStackTrace()
-            return ""
-        }
-    }
 }
 
 /**
  * Extension function to retrieve the certification of the latest release date in the list.
  */
 fun List<ReleaseDate>.getLatestReleaseCertification(): String {
-    val latestRelease = this.maxByOrNull { it.formattedReleaseDate }
+    val latestRelease = this.maxByOrNull { it.formattedReleaseDate?:"" }
 
     return latestRelease?.certification ?: ""
 }

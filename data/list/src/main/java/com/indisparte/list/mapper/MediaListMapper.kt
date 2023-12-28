@@ -21,6 +21,5 @@ fun ListEntity.asDomain(): MediaList {
         id = this.id,
         title = this.title,
         description = this.description,
-        updateDate = this.updateDate
     )
 }

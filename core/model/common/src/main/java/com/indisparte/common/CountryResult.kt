@@ -17,19 +17,6 @@ data class CountryResult(
     val buy: List<WatchProvider>? = null,
     val free: List<WatchProvider>? = null,
 ) {
-    /**
-     * The total number of distinct watch providers available across all categories.
-     */
-    val totalDistinctWatchProviders: Int by lazy {
-        val watchProvidersSet: MutableSet<WatchProvider> = mutableSetOf()
-
-        flatrate?.let { watchProvidersSet.addAll(it) }
-        rent?.let { watchProvidersSet.addAll(it) }
-        buy?.let { watchProvidersSet.addAll(it) }
-        free?.let { watchProvidersSet.addAll(it) }
-
-        watchProvidersSet.size
-    }
 
     /**
      * The list of all watch providers across all categories, sorted by display priority.

@@ -108,7 +108,6 @@ class MediaListCreationFragment : BaseFragment<FragmentMediaListCreationBinding>
                         MediaList(
                             title = title,
                             description = description,
-                            updateDate = System.currentTimeMillis().toString()
                         )
                     )
                 }

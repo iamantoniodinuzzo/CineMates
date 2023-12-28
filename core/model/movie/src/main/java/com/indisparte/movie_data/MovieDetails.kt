@@ -1,7 +1,5 @@
 package com.indisparte.movie_data
 
-import com.indisparte.base.Constants.IMAGE_BASE_URL_W500
-import com.indisparte.base.Constants.IMAGE_BASE_URL_W780
 import com.indisparte.common.Genre
 import com.indisparte.common.ProductionCompany
 import com.indisparte.common.ProductionCountry
@@ -71,7 +69,12 @@ class MovieDetails(
     voteAverage = voteAverage
 ) {
 
-    fun updateGenres(updatedGenres:List<Genre>){
+    /**
+     * Updates the genres of the movie based on the provided list of updated genres.
+     *
+     * @param updatedGenres The list of genres with updated information.
+     */
+    fun updateGenres(updatedGenres: List<Genre>) {
         val idToGenreMap = updatedGenres.associateBy { it.id }
 
         genres.forEach { genre ->
@@ -111,10 +114,13 @@ class MovieDetails(
     val completeBackdropPathW500: String?
         get() = getCompleteImagePath(IMAGE_BASE_URL_W500, backdropPath)
 
+
     /**
      * Gets a concatenated string of production company names.
+     *
+     * @return The concatenated string of production company names.
      */
-    val productCompaniesConcatenatedString: String
+    val productionCompaniesName: String
         get() = productionCompanies.joinToString(", ") { it.name }
 
     override fun toString(): String {

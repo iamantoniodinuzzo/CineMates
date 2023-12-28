@@ -1,7 +1,5 @@
 package com.indisparte.common
 
-import com.indisparte.base.Constants
-
 /**
  * Represents a network that broadcasts or streams media content.
  *
@@ -25,7 +23,7 @@ data class Network(
      */
     val formattedLogoPathW780: String?
         get() = getCompleteImagePath(
-            Constants.IMAGE_BASE_URL_W780,
+            IMAGE_BASE_URL_W780,
             logoPath
         )
 
@@ -37,7 +35,7 @@ data class Network(
      */
     val formattedLogoPathW500: String?
         get() = getCompleteImagePath(
-            Constants.IMAGE_BASE_URL_W500,
+            IMAGE_BASE_URL_W500,
             logoPath
         )
 }

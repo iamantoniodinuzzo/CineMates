@@ -6,46 +6,48 @@ import java.text.SimpleDateFormat
 import java.util.Currency
 import java.util.Locale
 
-object Constants {
-    /**
-     * This constant stores the base URL for retrieving images with a width of 780 pixels from the TMDB (The Movie Database) API.
-     */
-    const val IMAGE_BASE_URL_W780 = "https://image.tmdb.org/t/p/w780"
-
-    /**
-     * This constant stores the base URL for retrieving images with a width of 500 pixels from the TMDB API.
-     */
-    const val IMAGE_BASE_URL_W500 = "https://image.tmdb.org/t/p/w500"
-
-    /**
-     *  This constant specifies the date and time format used by the TMDB API, which is "yyyy-MM-dd"
-     */
-    const val TMDB_DATE_TIME_FORMAT = "yyyy-MM-dd"
-
-    /**
-     * This constant specifies an output date and time format used for displaying dates, which is "dd MMMM yyyy"
-     */
-    const val OUTPUT_DATE_TIME_FORMAT = "dd MMMM yyyy"
-
-}
-
 /**
  *@author Antonio Di Nuzzo
  */
 abstract class TMDBItem {
+    companion object {
+        /**
+         * This constant stores the base URL for retrieving images with a width of 780 pixels from the TMDB (The Movie Database) API.
+         */
+        const val IMAGE_BASE_URL_W780 = "https://image.tmdb.org/t/p/w780"
+
+        /**
+         * This constant stores the base URL for retrieving images with a width of 500 pixels from the TMDB API.
+         */
+        const val IMAGE_BASE_URL_W500 = "https://image.tmdb.org/t/p/w500"
+
+        /**
+         *  This constant specifies the date and time format used by the TMDB API, which is "yyyy-MM-dd"
+         */
+        const val TMDB_DATE_TIME_FORMAT = "yyyy-MM-dd"
+
+        /**
+         * This constant specifies an output date and time format used for displaying dates, which is "dd MMMM yyyy"
+         */
+        const val OUTPUT_DATE_TIME_FORMAT = "dd MMMM yyyy"
+
+        const val TMDB_RELEASE_DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    }
+
     /**
      * Formats a date from an input format to an output format.
      *
      * @param inputDate The date to format.
      * @return The formatted date in the output format, or null if the input is empty or invalid.
      */
-    protected fun formatDate(inputDate: String?): String? {
+    protected fun formatDate(inputDate: String?, inputFormat: String? = null): String? {
         if (inputDate.isNullOrEmpty()) {
             return null
         }
 
-        val inputFormat = SimpleDateFormat(Constants.TMDB_DATE_TIME_FORMAT, Locale.getDefault())
-        val outputFormat = SimpleDateFormat(Constants.OUTPUT_DATE_TIME_FORMAT, Locale.getDefault())
+        val inputFormat =
+            SimpleDateFormat(inputFormat ?: TMDB_DATE_TIME_FORMAT, Locale.getDefault())
+        val outputFormat = SimpleDateFormat(OUTPUT_DATE_TIME_FORMAT, Locale.getDefault())
 
         return try {
             val date = inputFormat.parse(inputDate)
@@ -101,4 +103,6 @@ abstract class TMDBItem {
     protected fun getCompleteImagePath(baseUrl: String, urlToImage: String?): String? {
         return if (urlToImage.isNullOrEmpty()) null else "$baseUrl$urlToImage"
     }
+
+
 }

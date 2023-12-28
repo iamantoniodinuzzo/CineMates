@@ -21,9 +21,17 @@ enum class EpisodeGroupType(val value: Int, @StringRes val typeResId: Int) {
 
     companion object {
         /**
-         * Converts the given [value] into the corresponding [EpisodeGroupType].
+         * Retrieves an [EpisodeGroupType] based on its numerical value.
+         *
+         * @param type The numerical value of the episode group type.
+         * @return The corresponding [EpisodeGroupType] enum value.
+         * @throws NoSuchElementException If no episode group type with the specified value is found.
          */
-        fun fromValue(type: Int) = EpisodeGroupType.values().find { it.value == type }
+        @Throws(NoSuchElementException::class)
+        fun fromValue(type: Int): EpisodeGroupType {
+            return EpisodeGroupType.values().find { it.value == type }
+                ?: throw NoSuchElementException("There is no Episode Group type with this value: $type")
+        }
     }
 }
 
@@ -51,7 +59,7 @@ open class EpisodeGroup(
     /**
      * Returns the [EpisodeGroupType] of the episode group.
      */
-    val episodeGroupType: EpisodeGroupType?
+    val episodeGroupType: EpisodeGroupType
         get() = EpisodeGroupType.fromValue(type)
 
 }

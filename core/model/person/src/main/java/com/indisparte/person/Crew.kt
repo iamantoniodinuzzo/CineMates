@@ -1,6 +1,6 @@
 package com.indisparte.person
 
-import com.indisparte.base.PersonBase
+import com.indisparte.base.Person
 
 /**
  * Represents a crew member of a movie or TV show.
@@ -24,7 +24,7 @@ class Crew(
     val originalName: String,
     popularity: Double,
     profilePath: String?,
-) : PersonBase(
+) : Person(
     adult = adult,
     gender = gender,
     id = id,

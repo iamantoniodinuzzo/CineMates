@@ -4,5 +4,8 @@ data class MediaList(
     val id: Int = 0,
     val title: String,
     val description: String?,
-    val updateDate: String = ""
-)
+){
+    var updateDate: String = System.currentTimeMillis().toString()
+
+
+}

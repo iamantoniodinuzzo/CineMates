@@ -1,7 +1,5 @@
 package com.indisparte.movie_data
 
-import com.indisparte.base.Constants.IMAGE_BASE_URL_W500
-import com.indisparte.base.Constants.IMAGE_BASE_URL_W780
 import com.indisparte.base.TMDBItem
 
 

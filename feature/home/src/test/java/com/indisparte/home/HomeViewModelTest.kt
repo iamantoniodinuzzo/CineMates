@@ -8,7 +8,7 @@ import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.repository.fake.FakeMovieRepository
 import com.indisparte.network.util.Result
 import com.indisparte.network.exception.CineMatesException
-import com.indisparte.person.Person
+import com.indisparte.base.Person
 import com.indisparte.testing.util.rule.MainDispatcherRule
 import com.indisparte.tv.TvShow
 import com.indisparte.tv.repository.fake.FakeTvRepository

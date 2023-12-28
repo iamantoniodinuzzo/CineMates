@@ -1,6 +1,5 @@
 package com.indisparte.tv
 
-import com.indisparte.base.Constants
 import com.indisparte.common.Genre
 import com.indisparte.common.Network
 import com.indisparte.common.ProductionCompany
@@ -84,9 +83,9 @@ class TvShowDetails(
     voteAverage
 ) {
     val completeBackdropPathW780: String?
-        get() = getCompleteImagePath(Constants.IMAGE_BASE_URL_W780, backdropPath)
+        get() = getCompleteImagePath(IMAGE_BASE_URL_W780, backdropPath)
     val completeBackdropPathW500: String?
-        get() = getCompleteImagePath(Constants.IMAGE_BASE_URL_W500, backdropPath)
+        get() = getCompleteImagePath(IMAGE_BASE_URL_W500, backdropPath)
 
     val formattedListEpisodeRuntime: List<String>
         get() = episodeRunTime.map { formatRuntime(it) }

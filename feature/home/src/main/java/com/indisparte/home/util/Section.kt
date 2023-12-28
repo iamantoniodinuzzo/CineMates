@@ -3,7 +3,7 @@ package com.indisparte.home.util
 import androidx.annotation.StringRes
 import com.indisparte.movie_data.Movie
 import com.indisparte.network.util.Result
-import com.indisparte.person.Person
+import com.indisparte.base.Person
 import com.indisparte.tv.TvShow
 
 

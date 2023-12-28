@@ -2,7 +2,7 @@ package com.indisparte.person
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.indisparte.base.Constants
+import com.indisparte.base.Person
 import com.indisparte.common.Poster
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -73,7 +73,7 @@ class PersonDetails(
         }
 
     private fun calculateAge(): String {
-        val dateFormat = SimpleDateFormat(Constants.TMDB_DATE_TIME_FORMAT, Locale.getDefault())
+        val dateFormat = SimpleDateFormat(TMDB_DATE_TIME_FORMAT, Locale.getDefault())
 
         val today = Calendar.getInstance()
 
@@ -101,7 +101,7 @@ class PersonDetails(
     @RequiresApi(Build.VERSION_CODES.O)
     private fun calculateAgeApiO(): String {
         val dateFormat =
-            DateTimeFormatter.ofPattern(Constants.TMDB_DATE_TIME_FORMAT, Locale.getDefault())
+            DateTimeFormatter.ofPattern(TMDB_DATE_TIME_FORMAT, Locale.getDefault())
 
         val today = LocalDate.now()
 

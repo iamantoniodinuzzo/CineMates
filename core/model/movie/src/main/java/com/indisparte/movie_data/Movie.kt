@@ -20,7 +20,7 @@ open class Movie(
     id: Int,
     popularity: Double,
     posterPath: String?,
-    protected val releaseDate: String?,
+    val releaseDate: String?,
     val title: String,
     voteAverage: Double,
 ) : Media(
@@ -33,14 +33,17 @@ open class Movie(
 ) {
     /**
      * Gets the formatted release date of the movie.
+     *
+     * @return The formatted release date as a string, or null if the release date is not available.
      */
     val formattedReleaseDate: String?
-        get() {
-            return formatDate(releaseDate)
-        }
+        get() = formatDate(releaseDate)
+        
 
     /**
      * Returns a string representation of the Movie object.
+     *
+     * @return A string containing relevant information about the Movie.
      */
     override fun toString(): String {
         return "Movie(adult=$adult, releaseDate='$releaseDate', title='$title')"

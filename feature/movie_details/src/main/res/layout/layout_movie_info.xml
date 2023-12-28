@@ -134,7 +134,7 @@
             app:title="Companies"
             app:titleTextColor="?attr/colorOnSecondary"
             app:textTitleStyle="normal"
-            app:value="@{movie.productCompaniesConcatenatedString}"
+            app:value="@{movie.productionCompaniesName}"
             app:valueTextColor="@color/white_new" />
 
         <com.indisparte.ui.custom_view.LinearLayoutInfoView

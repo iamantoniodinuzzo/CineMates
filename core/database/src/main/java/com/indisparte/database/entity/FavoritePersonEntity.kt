@@ -2,7 +2,7 @@ package com.indisparte.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.indisparte.person.Person
+import com.indisparte.base.Person
 
 /**
  *@author Antonio Di Nuzzo

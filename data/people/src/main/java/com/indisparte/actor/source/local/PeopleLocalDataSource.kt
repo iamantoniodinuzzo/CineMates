@@ -3,7 +3,7 @@ package com.indisparte.actor.source.local
 import com.indisparte.database.dao.PersonDao
 import com.indisparte.database.entity.asDomain
 import com.indisparte.database.entity.asEntity
-import com.indisparte.person.Person
+import com.indisparte.base.Person
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

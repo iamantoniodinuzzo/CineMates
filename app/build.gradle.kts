@@ -60,7 +60,7 @@ dependencies {
     implementation(libs.constraintLayout)
     implementation(libs.legacy)
     implementation(libs.androidx.fragment)
-    testImplementation(libs.junitTest)
+//    testImplementation(libs.junitTest)
     androidTestImplementation(libs.bundles.androidTest)
 
     // Kotlin Extensions

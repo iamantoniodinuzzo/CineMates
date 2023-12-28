@@ -2,14 +2,10 @@ package com.indisparte.network
 
 import com.indisparte.network.error.ApiException
 import com.indisparte.network.error.CineMatesExceptions
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
 import retrofit2.Response
-import timber.log.Timber
 import java.io.IOException
 
 
@@ -30,7 +26,6 @@ import java.io.IOException
 fun <T, O> getListFromResponse(
     request: suspend () -> Response<T>,
     mapper: (T) -> List<O>,
-    ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ): Flow<Result<List<O>>> = flow {
     emit(Result.Loading) // Emit loading state
     try {
@@ -59,7 +54,7 @@ fun <T, O> getListFromResponse(
     } catch (e: Exception) {
         emit(Result.Error(CineMatesExceptions.GenericException)) // Emit error state with the exception
     }
-}.flowOn(ioDispatcher)
+}
 
 /**
  * Executes a network request using the provided [request] function and processes the response
@@ -77,23 +72,21 @@ fun <T, O> getListFromResponse(
 fun <T, O> getSingleFromResponse(
     request: suspend () -> Response<T>,
     mapper: (T) -> O,
-    ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ): Flow<Result<O>> = flow {
     emit(Result.Loading) // Emit loading state
     try {
         val response = request.invoke()
         if (response.isSuccessful) {
 
-            val data = response.body()
-            if (data != null) {
-                val mappedData = mapper(data)
+            val responseData = response.body()
+            if (responseData != null) {
+                val mappedData = mapper(responseData)
                 emit(Result.Success(mappedData)) // Emit success state with the retrieved movie details
 
             } else {
                 emit(Result.Error(CineMatesExceptions.EmptyResponse)) // Emit error state for empty response
             }
         } else {
-            Timber.tag("SingleResponse").e(response.message())
             emit(
                 Result.Error(
                     CineMatesExceptions.GenericException
@@ -102,7 +95,6 @@ fun <T, O> getSingleFromResponse(
         }
     } catch (e: HttpException) {
         // Returning HttpException's message
-        Timber.tag("SingleResponse").e("From HttpException ${e.localizedMessage}")
         val code = e.code()
         val apiExceptions = ApiException.fromCode(code)
         emit(Result.Error(apiExceptions))
@@ -112,5 +104,5 @@ fun <T, O> getSingleFromResponse(
     } catch (e: Exception) {
         emit(Result.Error(CineMatesExceptions.GenericException)) // Emit error state with the exception
     }
-}.flowOn(ioDispatcher)
+}
 

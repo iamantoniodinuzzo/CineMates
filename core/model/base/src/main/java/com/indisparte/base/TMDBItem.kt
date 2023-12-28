@@ -2,11 +2,9 @@ package com.indisparte.base
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import java.text.NumberFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
-import java.util.Currency
 import java.util.Locale
 
 /**
@@ -37,14 +35,8 @@ abstract class TMDBItem {
         const val TMDB_RELEASE_DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss[.SSS]'Z'"
     }
 
-    /**
-     * Formats a date from an input format to an output format.
-     *
-     * @param inputDate The date to format.
-     * @return The formatted date in the output format, or null if the input is empty or invalid.
-     */
     @RequiresApi(Build.VERSION_CODES.O)
-    protected fun formatDate(inputDate: String?, inputFormat: String? = null): String? {
+    private fun formatDateCompat(inputDate: String?, inputFormat: String? = null): String? {
         if (inputDate.isNullOrEmpty()) {
             return null
         }
@@ -57,6 +49,37 @@ abstract class TMDBItem {
             val date = inputFormat.parse(inputDate)
             date?.let { outputFormat.format(it) }
         } catch (e: ParseException) {
+            null
+        }
+    }
+
+    /**
+     * Formats a date from an input format to an output format.
+     *
+     * @param inputDate The date to format.
+     * @return The formatted date in the output format, or null if the input is empty or invalid.
+     */
+    protected fun formatDate(inputDate: String?, inputFormat: String? = null): String? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            formatDate(inputDate, inputFormat)
+        } else {
+            formatDateLegacy(inputDate, inputFormat)
+        }
+    }
+
+    private fun formatDateLegacy(inputDate: String?, inputFormat: String? = null): String? {
+        if (inputDate.isNullOrEmpty()) {
+            return null
+        }
+
+        val inputFormat =
+            SimpleDateFormat(inputFormat ?: TMDB_DATE_TIME_FORMAT, Locale.getDefault())
+        val outputFormat = SimpleDateFormat(OUTPUT_DATE_TIME_FORMAT, Locale.getDefault())
+
+        return try {
+            val date = inputFormat.parse(inputDate)
+            date?.let { outputFormat.format(it) }
+        } catch (e: java.text.ParseException) {
             null
         }
     }

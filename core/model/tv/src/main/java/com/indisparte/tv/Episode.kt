@@ -30,21 +30,24 @@ open class Episode(
     stillPath: String?,
     voteAverage: Double,
 ) : Media(
-    id = id, mediaName = name, popularity = null, posterPath = stillPath, voteAverage = voteAverage, mediaType = MediaType.EPISODE
+    id = id,
+    mediaName = name,
+    popularity = null,
+    posterPath = stillPath,
+    voteAverage = voteAverage,
+    mediaType = MediaType.EPISODE
 ) {
     /**
      * Returns the formatted air date of the episode.
      */
     val formattedAirDate: String?
-        get() {
-            return formatDate(airDate)
-        }
+        get() = formatDate(airDate)
+
 
     /**
      * Returns the formatted runtime of the episode.
      */
     val formattedRuntime: String
-        get() {
-            return formatRuntime(runtime)
-        }
+        get() = formatRuntime(runtime)
+
 }

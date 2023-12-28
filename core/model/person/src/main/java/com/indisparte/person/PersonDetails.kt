@@ -2,6 +2,7 @@ package com.indisparte.person
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.indisparte.base.Person
 import com.indisparte.common.Poster
 import java.text.SimpleDateFormat
 import java.time.LocalDate

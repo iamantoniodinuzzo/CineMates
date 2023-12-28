@@ -5,7 +5,7 @@ import com.indisparte.filter.TimeWindow
 import com.indisparte.movie_data.MovieCredit
 import com.indisparte.network.util.Result
 import com.indisparte.network.exception.CineMatesException
-import com.indisparte.person.Person
+import com.indisparte.base.Person
 import com.indisparte.person.PersonDetails
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

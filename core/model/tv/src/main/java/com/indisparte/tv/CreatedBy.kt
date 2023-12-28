@@ -1,6 +1,7 @@
 package com.indisparte.tv
 
-import com.indisparte.base.PersonBase
+import com.indisparte.base.Person
+
 
 /**
  * Represents a person who was credited as the creator of a media entity, such as a TV show.
@@ -18,7 +19,7 @@ class CreatedBy(
     id: Int,
     name: String,
     profilePath: String?,
-) : PersonBase(
+) : Person(
     adult = false,
     gender,
     id,

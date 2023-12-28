@@ -29,21 +29,19 @@ enum class Gender(
     }
 }
 
-
 /**
- * Represents basic information about a person.
- * @param adult Indicates whether the person is an adult.
- * @param gender The gender of the person as an integer value.
- * @param id The unique identifier for the person.
- * @param knownForDepartment The department for which the person is known.
- * @param name The name of the person.
- * @param popularity The popularity score of the person.
- * @param profilePath The relative path to the profile image of the person, or null if not available.
- * @param isFavorite Indicates whether the person is marked as a favorite.
+ * Represents a person involved in the entertainment industry, such as an actor, director, or crew member.
  *
+ * @property adult Indicates whether the person's content is intended for adult audiences.
+ * @property gender The gender of the person.
+ * @property id The unique ID associated with the person.
+ * @property knownForDepartment The department in which the person is known for working.
+ * @property name The name of the person.
+ * @property popularity The popularity score of the person.
+ * @property profilePath The path to the profile image of the person.
  * @author Antonio Di Nuzzo
  */
-abstract class PersonBase(
+open class Person(
     val adult: Boolean,
     val gender: Int,
     val id: Int,
@@ -80,7 +78,7 @@ abstract class PersonBase(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is PersonBase) return false
+        if (other !is Person) return false
 
         return (id == other.id) && (name == other.name)
     }

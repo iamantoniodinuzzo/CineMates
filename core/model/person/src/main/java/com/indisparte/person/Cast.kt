@@ -1,6 +1,6 @@
 package com.indisparte.person
 
-import com.indisparte.base.PersonBase
+import com.indisparte.base.Person
 
 
 /**
@@ -27,7 +27,7 @@ class Cast(
     val originalName: String,
     popularity: Double,
     profilePath: String?,
-) : PersonBase(
+) : Person(
     adult = adult,
     gender = gender,
     id = id,

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.indisparte.base.Media
 import com.indisparte.movie_data.Movie
-import com.indisparte.person.Person
+import com.indisparte.base.Person
 import com.indisparte.tv.TvShow
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding
 import com.indisparte.ui.databinding.ListItemPersonSmallBinding

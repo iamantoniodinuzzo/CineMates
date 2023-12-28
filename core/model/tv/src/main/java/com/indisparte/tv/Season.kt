@@ -1,6 +1,5 @@
 package com.indisparte.tv
 
-import com.indisparte.base.Constants
 
 /**
  * Represents a season of a TV show.
@@ -26,10 +25,10 @@ open class Season(
     val voteAverage: Int,
 ) : com.indisparte.base.TMDBItem() {
     val completePosterPathW780: String?
-        get() = getCompleteImagePath(Constants.IMAGE_BASE_URL_W780, posterPath)
+        get() = getCompleteImagePath(IMAGE_BASE_URL_W780, posterPath)
 
     val completePosterPathW500: String?
-        get() = getCompleteImagePath(Constants.IMAGE_BASE_URL_W500, posterPath)
+        get() = getCompleteImagePath(IMAGE_BASE_URL_W500, posterPath)
 
     val formattedAirDate: String?
         get() = formatDate(airDate)

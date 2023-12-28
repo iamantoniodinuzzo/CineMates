@@ -1,7 +1,5 @@
 package com.indisparte.movie_data
 
-import com.indisparte.base.Constants.IMAGE_BASE_URL_W500
-import com.indisparte.base.Constants.IMAGE_BASE_URL_W780
 import com.indisparte.common.Genre
 import com.indisparte.common.ProductionCompany
 import com.indisparte.common.ProductionCountry
@@ -71,7 +69,7 @@ class MovieDetails(
     voteAverage = voteAverage
 ) {
 
-    fun updateGenres(updatedGenres:List<Genre>){
+    fun updateGenres(updatedGenres: List<Genre>) {
         val idToGenreMap = updatedGenres.associateBy { it.id }
 
         genres.forEach { genre ->

@@ -1,6 +1,5 @@
 package com.indisparte.common
 
-import com.indisparte.base.Constants
 import com.indisparte.base.TMDBItem
 
 
@@ -22,7 +21,7 @@ data class Poster(
      * if the [filePath] is empty.
      */
     val formattedFilePathW780: String?
-        get() = getCompleteImagePath(Constants.IMAGE_BASE_URL_W780, filePath)
+        get() = getCompleteImagePath(IMAGE_BASE_URL_W780, filePath)
 
     /**
      * Gets the complete URL for the poster image with a width of 500 pixels.
@@ -31,5 +30,5 @@ data class Poster(
      * if the [filePath] is empty.
      */
     val formattedFilePathW500: String?
-        get() = getCompleteImagePath(Constants.IMAGE_BASE_URL_W500, filePath)
+        get() = getCompleteImagePath(IMAGE_BASE_URL_W500, filePath)
 }

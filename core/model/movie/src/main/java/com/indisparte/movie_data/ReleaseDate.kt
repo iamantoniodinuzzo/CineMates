@@ -1,7 +1,7 @@
 package com.indisparte.movie_data
 
 import androidx.annotation.StringRes
-import com.indisparte.base.Constants.OUTPUT_DATE_TIME_FORMAT
+import com.indisparte.base.TMDBItem.Companion.OUTPUT_DATE_TIME_FORMAT
 import com.indisparte.movie.R
 import java.text.SimpleDateFormat
 import java.util.Date

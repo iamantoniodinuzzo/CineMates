@@ -1,14 +1,29 @@
 package com.indisparte.base
 
-import com.indisparte.base.Constants.IMAGE_BASE_URL_W500
-import com.indisparte.base.Constants.IMAGE_BASE_URL_W780
 import java.io.Serializable
+import java.text.NumberFormat
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Currency
+import java.util.Locale
 import kotlin.math.roundToInt
 
+/**
+ * Enumeration representing the types of media, including movies, TV shows, and episodes.
+ *
+ * @param id The unique identifier for each media type.
+ */
 enum class MediaType(val id: Int) {
     MOVIE_TV(0), MOVIE(1), TV(2), EPISODE(3);
 
     companion object {
+        /**
+         * Retrieves a [MediaType] based on its unique identifier.
+         *
+         * @param id The unique identifier of the media type.
+         * @return The corresponding [MediaType] enum value.
+         * @throws NoSuchElementException If no media type with the specified id is found.
+         */
         @Throws(NoSuchElementException::class)
         fun fromId(id: Int): MediaType {
             return values().find { it.id == id }
@@ -18,14 +33,19 @@ enum class MediaType(val id: Int) {
 }
 
 /**
- * Represents a media item with properties such as id, name, popularity, etc.
- * @property id The unique identifier of the media item.
- * @property mediaName The name/title of the media item.
- * @property popularity The popularity of the media item.
- * @property completePosterPathW500 The complete path to the poster image of the media item.
- * @property completePosterPathW780 The complete path to the poster image of the media item.
- * @property voteAverageAsString The average vote/rating of the media item in string format
- * @property voteAverageRounded The average vote/rating rounded of the media item
+ * Represents a media item with common properties like ID, name, popularity, poster path, vote average, media type,
+ * and additional properties related to user preferences.
+ *
+ * @param id The unique identifier for the media item.
+ * @param mediaName The name or title of the media item.
+ * @param popularity The popularity score of the media item, or null if not available.
+ * @param posterPath The relative path to the poster image, or null if not available.
+ * @param voteAverage The average vote rating for the media item.
+ * @param mediaType The type of media (e.g., movie, TV show).
+ * @param isFavorite Indicates whether the media item is marked as a favorite.
+ * @param isToSee Indicates whether the user intends to watch the media item.
+ * @param isSeen Indicates whether the user has already seen the media item.
+ *
  * @author Antonio Di Nuzzo
  */
 open class Media(
@@ -40,6 +60,11 @@ open class Media(
     private var _isSeen: Boolean = false,
 ) : TMDBItem(), Serializable {
 
+    /**
+     * Gets or sets the "to see" status of the media item.
+     *
+     * When [isToSee] is set to true, [isSeen] is automatically set to false.
+     */
     var isToSee: Boolean
         get() = _isToSee
         set(value) {
@@ -50,6 +75,11 @@ open class Media(
             }
         }
 
+    /**
+     * Gets or sets the "seen" status of the media item.
+     *
+     * When [isSeen] is set to true, [isToSee] is automatically set to false.
+     */
     var isSeen: Boolean
         get() = _isSeen
         set(value) {
@@ -60,7 +90,11 @@ open class Media(
             }
         }
 
-
+    /**
+     * Gets the vote average rounded to one decimal place as a string.
+     *
+     * @return The formatted vote average string, or an empty string if the vote average is zero.
+     */
     val voteAverageRounded: String
         get() = if (voteAverage == 0.0) {
             ""
@@ -68,14 +102,31 @@ open class Media(
             ((voteAverage * 10).roundToInt() / 10.0).toString()
         }
 
+    /**
+     * Gets the complete poster image path for the media item with a width of 780 pixels.
+     *
+     * @return The complete image path, or null if the relative path is empty.
+     */
     val completePosterPathW780: String?
         get() = getCompleteImagePath(IMAGE_BASE_URL_W780, posterPath)
 
+    /**
+     * Gets the complete poster image path for the media item with a width of 500 pixels.
+     *
+     * @return The complete image path, or null if the relative path is empty.
+     */
     val completePosterPathW500: String?
         get() = getCompleteImagePath(IMAGE_BASE_URL_W500, posterPath)
 
+    /**
+     * Gets the vote average as a string.
+     *
+     * @return The string representation of the vote average.
+     */
     val voteAverageAsString: String
         get() = voteAverage.toString()
+
+
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

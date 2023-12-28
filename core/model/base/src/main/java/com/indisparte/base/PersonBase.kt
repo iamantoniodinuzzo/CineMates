@@ -2,8 +2,6 @@ package com.indisparte.base
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.indisparte.base.Constants.IMAGE_BASE_URL_W500
-import com.indisparte.base.Constants.IMAGE_BASE_URL_W780
 
 enum class Gender(
     val value: Int,

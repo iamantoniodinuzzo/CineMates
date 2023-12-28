@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.google.android.material.chip.Chip
-import com.indisparte.network.whenResources
+import com.indisparte.network.util.whenResources
 import com.indisparte.person_details.databinding.FragmentPersonAboutBinding
 import com.indisparte.ui.databinding.LayoutChoiceChipBinding
 import com.indisparte.ui.fragment.BaseFragment

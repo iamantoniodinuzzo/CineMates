@@ -4,7 +4,7 @@ import com.indisparte.base.MediaType
 import com.indisparte.common.Genre
 import com.indisparte.genre.source.local.GenreLocalDataSource
 import com.indisparte.genre.source.remote.GenreRemoteDataSource
-import com.indisparte.network.Result
+import com.indisparte.network.util.Result
 import com.indisparte.network.fetchFromLocalOrRemote
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest

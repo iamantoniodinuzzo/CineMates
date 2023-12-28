@@ -3,7 +3,7 @@ package com.indisparte.media_search.fragments
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.indisparte.navigation.ToFlowNavigable
-import com.indisparte.network.whenResources
+import com.indisparte.network.util.whenResources
 import com.indisparte.tv.TvShow
 import com.indisparte.ui.adapter.TvShowAdapter
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding

@@ -4,7 +4,7 @@ import com.indisparte.filter.TimeWindow
 import com.indisparte.movie_data.MovieCredit
 import com.indisparte.person.Person
 import com.indisparte.person.PersonDetails
-import com.indisparte.network.Result
+import com.indisparte.network.util.Result
 import kotlinx.coroutines.flow.Flow
 
 /**

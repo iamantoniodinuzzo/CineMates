@@ -1,5 +1,6 @@
 package com.indisparte.network
 
+import com.indisparte.network.util.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber

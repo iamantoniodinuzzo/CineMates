@@ -6,7 +6,7 @@ import com.indisparte.movie_details.adapter.CastAdapter
 import com.indisparte.movie_details.databinding.ListItemCastLongBinding
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
-import com.indisparte.network.whenResources
+import com.indisparte.network.util.whenResources
 import com.indisparte.person.Cast
 import com.indisparte.ui.fragment.ListFragment
 import com.indisparte.util.extension.collectIn

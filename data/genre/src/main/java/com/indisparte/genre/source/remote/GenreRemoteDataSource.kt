@@ -2,8 +2,8 @@ package com.indisparte.genre.source.remote
 
 import com.indisparte.common.Genre
 import com.indisparte.genre.mapper.mapToGenre
-import com.indisparte.network.Result
-import com.indisparte.network.getListFromResponse
+import com.indisparte.network.util.Result
+import com.indisparte.network.response.getListFromResponse
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

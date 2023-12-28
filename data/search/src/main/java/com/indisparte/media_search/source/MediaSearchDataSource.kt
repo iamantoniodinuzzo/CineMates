@@ -1,6 +1,6 @@
 package com.indisparte.media_search.source
 
-import com.indisparte.network.GenericResponse
+import com.indisparte.network.response.GenericResponse
 import com.indisparte.response.MovieDTO
 import com.indisparte.response.TvShowDTO
 import retrofit2.Response

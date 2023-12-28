@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.indisparte.media_list.MediaList
 import com.indisparte.list_creation.databinding.FragmentMediaListCreationBinding
-import com.indisparte.network.whenResources
+import com.indisparte.network.util.whenResources
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.Validator
 import com.indisparte.util.extension.collectIn

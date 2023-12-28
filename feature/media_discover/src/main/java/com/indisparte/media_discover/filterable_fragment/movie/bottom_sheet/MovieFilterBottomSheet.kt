@@ -18,7 +18,7 @@ import com.indisparte.media_discover.R
 import com.indisparte.media_discover.databinding.BottomSheetMovieFilterBinding
 import com.indisparte.media_discover.databinding.CustomFilterChipBinding
 import com.indisparte.media_discover.filterable_fragment.movie.FilterableMovieFragmentViewModel
-import com.indisparte.network.whenResources
+import com.indisparte.network.util.whenResources
 import com.indisparte.util.extension.collectIn
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.map

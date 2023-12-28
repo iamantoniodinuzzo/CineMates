@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.indisparte.movie_details.databinding.FragmentCollectionPartsBinding
-import com.indisparte.network.whenResources
+import com.indisparte.network.util.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
 import com.indisparte.ui.fragment.BaseFragment
 import com.indisparte.util.extension.collectIn

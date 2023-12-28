@@ -18,9 +18,9 @@ import com.indisparte.movie_data.mapper.mapToVideo
 import com.indisparte.movie_data.mapper.toMovie
 import com.indisparte.movie_data.mapper.toMovieDetails
 import com.indisparte.movie_data.util.MovieListType
-import com.indisparte.network.Result
-import com.indisparte.network.getListFromResponse
-import com.indisparte.network.getSingleFromResponse
+import com.indisparte.network.util.Result
+import com.indisparte.network.response.getListFromResponse
+import com.indisparte.network.response.getSingleFromResponse
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import kotlinx.coroutines.flow.Flow

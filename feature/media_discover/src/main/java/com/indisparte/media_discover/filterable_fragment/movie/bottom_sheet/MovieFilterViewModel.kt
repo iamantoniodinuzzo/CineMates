@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.indisparte.common.Genre
 import com.indisparte.filter.MovieSortOptions
 import com.indisparte.genre.repository.GenreRepository
-import com.indisparte.network.Result
-import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.util.Result
+import com.indisparte.network.exception.CineMatesException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -70,7 +70,7 @@ constructor(
                 genreRepository.getMovieGenreList().collectLatest {
                     _movieGenres.emit(it)
                 }
-            } catch (e: CineMatesExceptions) {
+            } catch (e: CineMatesException) {
                 _movieGenres.emit(Result.Error(e))
             }
         }

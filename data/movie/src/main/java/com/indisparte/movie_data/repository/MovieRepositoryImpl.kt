@@ -14,8 +14,8 @@ import com.indisparte.movie_data.source.local.GenreLocalDataSource
 import com.indisparte.movie_data.source.local.MovieLocalDataSource
 import com.indisparte.movie_data.source.remote.MovieRemoteDataSource
 import com.indisparte.movie_data.util.MovieListType
-import com.indisparte.network.Result
-import com.indisparte.network.whenResources
+import com.indisparte.network.util.Result
+import com.indisparte.network.util.whenResources
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import kotlinx.coroutines.flow.Flow

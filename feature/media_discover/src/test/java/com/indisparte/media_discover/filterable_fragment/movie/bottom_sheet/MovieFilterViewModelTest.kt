@@ -5,7 +5,7 @@ import com.indisparte.common.Genre
 import com.indisparte.common.MediaType
 import com.indisparte.filter.MovieSortOptions
 import com.indisparte.genre.repository.fake.FakeGenreRepository
-import com.indisparte.network.Result
+import com.indisparte.network.util.Result
 import com.indisparte.testing.util.rule.MainDispatcherRule
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse

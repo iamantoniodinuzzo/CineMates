@@ -15,9 +15,9 @@ import com.indisparte.movie_data.findReleaseDateByCountry
 import com.indisparte.movie_data.getLatestReleaseCertification
 import com.indisparte.movie_data.repository.MovieRepository
 import com.indisparte.movie_details.model.MovieInfoUiState
-import com.indisparte.network.Result
-import com.indisparte.network.error.CineMatesExceptions
-import com.indisparte.network.succeeded
+import com.indisparte.network.util.Result
+import com.indisparte.network.exception.CineMatesException
+import com.indisparte.network.util.succeeded
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -100,10 +100,10 @@ class MovieDetailsViewModel
                                 getCollectionDetails(collection.id)
                             }
                         } else {
-                            _selectedMovie.emit(Result.Error(CineMatesExceptions.EmptyResponse))
+                            _selectedMovie.emit(Result.Error(CineMatesException.EmptyResponse))
                         }
                     }
-            } catch (e: CineMatesExceptions) {
+            } catch (e: CineMatesException) {
                 LOG.e("An error in get movie details: $e")
                 _selectedMovie.emit(Result.Error(e))
             }
@@ -164,8 +164,8 @@ class MovieDetailsViewModel
                         LOG.d("Emit Movie Info UI State")
                         _movieInfo.emit(Result.Success(movieInfoUiState))
                     } else if (results.any { it is Result.Error }) {
-                        val error: CineMatesExceptions = (results.find { it is Result.Error }
-                            ?: CineMatesExceptions.GenericException) as CineMatesExceptions
+                        val error: CineMatesException = (results.find { it is Result.Error }
+                            ?: CineMatesException.GenericException) as CineMatesException
                         LOG.e("At least one movie info is not Result.Success, emit $error")
                         _movieInfo.emit(
                             Result.Error(error)
@@ -177,7 +177,7 @@ class MovieDetailsViewModel
             } catch (e: Exception) {
                 LOG.e("Error in loadMovieInfo: ${e.localizedMessage}")
                 _movieInfo.emit(
-                    Result.Error(CineMatesExceptions.GenericException)
+                    Result.Error(CineMatesException.GenericException)
                 )
             }
         }
@@ -193,7 +193,7 @@ class MovieDetailsViewModel
                     .collectLatest { collectionDetails ->
                         _collectionParts.emit(collectionDetails)
                     }
-            } catch (e: CineMatesExceptions) {
+            } catch (e: CineMatesException) {
 
                 _collectionParts.emit(Result.Error(e))
             }
@@ -209,7 +209,7 @@ class MovieDetailsViewModel
 
                     _similarMovies.emit(similar)
                 }
-            } catch (e: CineMatesExceptions) {
+            } catch (e: CineMatesException) {
 
                 _similarMovies.emit(Result.Error(e))
             }
@@ -225,7 +225,7 @@ class MovieDetailsViewModel
                     _cast.emit(cast)
 
                 }
-            } catch (e: CineMatesExceptions) {
+            } catch (e: CineMatesException) {
                 _cast.emit(Result.Error(e))
             }
         }

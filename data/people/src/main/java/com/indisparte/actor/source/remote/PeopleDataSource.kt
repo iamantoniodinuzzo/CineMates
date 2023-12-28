@@ -3,7 +3,7 @@ package com.indisparte.actor.source.remote
 import com.indisparte.actor.response.MovieCreditResponseDTO
 import com.indisparte.actor.response.PersonDTO
 import com.indisparte.actor.response.PersonDetailsDTO
-import com.indisparte.network.GenericResponse
+import com.indisparte.network.response.GenericResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

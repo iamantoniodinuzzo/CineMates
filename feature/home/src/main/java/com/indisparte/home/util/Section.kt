@@ -2,7 +2,9 @@ package com.indisparte.home.util
 
 import androidx.annotation.StringRes
 import com.indisparte.movie_data.Movie
-import com.indisparte.network.Result
+import com.indisparte.network.util.Result
+import com.indisparte.person.Person
+import com.indisparte.tv.TvShow
 
 
 /**
@@ -50,7 +52,7 @@ sealed class Section(@StringRes val titleResId: Int) {
      */
     class TvShowSection(
         @StringRes titleResId: Int,
-        val tvShowsResult: Result<List<com.indisparte.tv.TvShow>>,
+        val tvShowsResult: Result<List<TvShow>>,
     ) :
         Section(titleResId) {
         override fun toString(): String {
@@ -81,7 +83,7 @@ sealed class Section(@StringRes val titleResId: Int) {
      */
     class PeopleSection(
         @StringRes titleResId: Int,
-        val peopleResult: Result<List<com.indisparte.person.Person>>,
+        val peopleResult: Result<List<Person>>,
     ) :
         Section(titleResId) {
         override fun toString(): String {

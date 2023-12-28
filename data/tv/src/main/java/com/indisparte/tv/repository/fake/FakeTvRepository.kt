@@ -3,8 +3,8 @@ package com.indisparte.tv.repository.fake
 import com.indisparte.common.CountryResult
 import com.indisparte.common.Video
 import com.indisparte.filter.TimeWindow
-import com.indisparte.network.Result
-import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.util.Result
+import com.indisparte.network.exception.CineMatesException
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import com.indisparte.tv.EpisodeGroup
@@ -31,7 +31,7 @@ class FakeTvRepository : TvRepository {
     private val seasonDetailsMap = mutableMapOf<Pair<Int, Int>, SeasonDetails>()
     private val watchProvidersMap = mutableMapOf<Int, CountryResult?>()
     private val videosMap = mutableMapOf<Int, List<Video>>()
-    private var cineMatesExceptions: CineMatesExceptions? = null
+    private var cineMatesExceptions: CineMatesException? = null
     private var shouldEmitException: Boolean = false
 
 
@@ -47,7 +47,7 @@ class FakeTvRepository : TvRepository {
         shouldEmitException = emit
     }
 
-    fun setExceptionToEmit(cineMatesExceptions: CineMatesExceptions) {
+    fun setExceptionToEmit(cineMatesExceptions: CineMatesException) {
         this.cineMatesExceptions = cineMatesExceptions
     }
 
@@ -104,7 +104,7 @@ class FakeTvRepository : TvRepository {
     private fun <T> emitResult(data: T): Flow<Result<T>> {
         return if (shouldEmitException) {
             flow {
-                emit(Result.Error(cineMatesExceptions ?: CineMatesExceptions.GenericException))
+                emit(Result.Error(cineMatesExceptions ?: CineMatesException.GenericException))
             }
         } else {
             flow {

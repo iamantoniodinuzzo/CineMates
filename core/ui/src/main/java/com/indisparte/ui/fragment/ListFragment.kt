@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.exception.CineMatesException
 import com.indisparte.ui.adapter.BaseAdapter
 import com.indisparte.ui.databinding.FragmentListingItemsBinding
 
@@ -46,7 +46,7 @@ abstract class ListFragment<T, VB : ViewDataBinding, A : BaseAdapter<T, VB>>(
         binding.recyclerView.hideLoading()
     }
 
-    protected fun showError(exception: CineMatesExceptions) {
+    protected fun showError(exception: CineMatesException) {
         hideLoading()
         binding.recyclerView.apply {
             val errorMessage = context.getString(exception.messageRes)

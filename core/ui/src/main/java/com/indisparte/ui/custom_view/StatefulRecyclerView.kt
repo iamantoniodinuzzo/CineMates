@@ -10,7 +10,7 @@ import android.widget.ProgressBar
 import androidx.annotation.StyleRes
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.exception.CineMatesException
 import com.indisparte.ui.R
 import com.indisparte.ui.databinding.ViewEmptyStateBinding
 import com.indisparte.util.extension.gone
@@ -310,9 +310,9 @@ class StatefulRecyclerView @JvmOverloads constructor(
 
 /**
  * Hide loading status and show an error message with an icon if present.
- * @param exception The [CineMatesExceptions] tho show
+ * @param exception The [CineMatesException] tho show
  */
-fun StatefulRecyclerView.showError(exception: CineMatesExceptions){
+fun StatefulRecyclerView.showError(exception: CineMatesException){
     hideLoading()
     val errorMessage = context.getString(exception.messageRes)
     setEmptyStateTitle(errorMessage)

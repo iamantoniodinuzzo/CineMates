@@ -3,7 +3,7 @@ package com.indisparte.person_details.fragments
 import com.google.common.truth.Truth.assertThat
 import com.indisparte.actor.repository.fake.FakePeopleRepository
 import com.indisparte.movie_data.MovieCredit
-import com.indisparte.network.Result
+import com.indisparte.network.util.Result
 import com.indisparte.person.PersonDetails
 import com.indisparte.testing.util.rule.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi

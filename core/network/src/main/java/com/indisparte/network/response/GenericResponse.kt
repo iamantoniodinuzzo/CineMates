@@ -1,4 +1,4 @@
-package com.indisparte.network
+package com.indisparte.network.response
 
 import com.google.gson.annotations.SerializedName
 

@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.media_search.repository.MediaSearchRepository
 import com.indisparte.movie_data.Movie
-import com.indisparte.network.Result
-import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.util.Result
+import com.indisparte.network.exception.CineMatesException
 import com.indisparte.tv.TvShow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -67,7 +67,7 @@ constructor(
                     _tvShowBySearch.emit(result)
 
                 }
-            } catch (e: CineMatesExceptions) {
+            } catch (e: CineMatesException) {
                 _tvShowBySearch.emit(Result.Error(e))
             }
         }
@@ -86,7 +86,7 @@ constructor(
                     _moviesBySearch.emit(result)
 
                 }
-            } catch (e: CineMatesExceptions) {
+            } catch (e: CineMatesException) {
                 _moviesBySearch.emit(Result.Error(e))
             }
         }

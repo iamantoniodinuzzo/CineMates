@@ -1,6 +1,6 @@
 package com.indisparte.tv.source
 
-import com.indisparte.network.GenericResponse
+import com.indisparte.network.response.GenericResponse
 import com.indisparte.response.CreditResponseDTO
 import com.indisparte.response.ImagesResponseDTO
 import com.indisparte.response.TvShowDTO

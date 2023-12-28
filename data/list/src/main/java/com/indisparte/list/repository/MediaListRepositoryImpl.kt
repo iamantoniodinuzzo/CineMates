@@ -2,7 +2,7 @@ package com.indisparte.list.repository
 
 import com.indisparte.media_list.MediaList
 import com.indisparte.list.source.local.MediaListLocalDataSource
-import com.indisparte.network.Result
+import com.indisparte.network.util.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

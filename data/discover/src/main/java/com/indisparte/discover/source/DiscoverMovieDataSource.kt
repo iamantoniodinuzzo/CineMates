@@ -1,7 +1,7 @@
 package com.indisparte.discover.source
 
 import com.indisparte.filter.MovieSortOptions
-import com.indisparte.network.GenericResponse
+import com.indisparte.network.response.GenericResponse
 import com.indisparte.response.MovieDTO
 import retrofit2.Response
 import retrofit2.http.GET

@@ -15,8 +15,8 @@ import com.indisparte.movie_data.ReleaseDatesByCountry
 import com.indisparte.movie_data.findReleaseDateByCountry
 import com.indisparte.movie_data.repository.fake.FakeMovieRepository
 import com.indisparte.movie_details.model.MovieInfoUiState
-import com.indisparte.network.Result
-import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.util.Result
+import com.indisparte.network.exception.CineMatesException
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import com.indisparte.testing.util.rule.MainDispatcherRule
@@ -403,7 +403,7 @@ class MovieDetailsViewModelTest {
     fun `Given an error in any data fetch, when fetching movie info, then result is error`() =
         runBlockingTest {
 // GIVEN
-            val exception = CineMatesExceptions.GenericException
+            val exception = CineMatesException.GenericException
             fakeMovieRepository.setShouldEmitException(true)
             fakeMovieRepository.setExceptionToEmit(exception)
 
@@ -467,7 +467,7 @@ class MovieDetailsViewModelTest {
     @Test
     fun `Given an error, when fetching similar movies, then result is error`() = runBlockingTest {
 // GIVEN
-        val exception = CineMatesExceptions.GenericException
+        val exception = CineMatesException.GenericException
         fakeMovieRepository.setShouldEmitException(true)
         fakeMovieRepository.setExceptionToEmit(exception)
 
@@ -500,7 +500,7 @@ class MovieDetailsViewModelTest {
     @Test
     fun `Given an error, when fetching cast, then result is error`() = runBlockingTest {
 // GIVEN
-        val exception = CineMatesExceptions.GenericException
+        val exception = CineMatesException.GenericException
         fakeMovieRepository.setShouldEmitException(true)
         fakeMovieRepository.setExceptionToEmit(exception)
 
@@ -536,7 +536,7 @@ class MovieDetailsViewModelTest {
     fun `Given an error, when updating genre, then error is propagated`() = runBlockingTest {
         // GIVEN
         fakeGenreRepository.setShouldEmitException(true)
-        val exception = CineMatesExceptions.GenericException
+        val exception = CineMatesException.GenericException
         fakeGenreRepository.setExceptionToEmit(exception)
 
         // WHEN

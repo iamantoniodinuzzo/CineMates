@@ -1,7 +1,8 @@
-package com.indisparte.network
+package com.indisparte.network.response
 
-import com.indisparte.network.error.ApiException
-import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.util.Result
+import com.indisparte.network.exception.ApiException
+import com.indisparte.network.exception.CineMatesException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
@@ -36,11 +37,11 @@ fun <T, O> getListFromResponse(
                 val mappedData = mapper(responseData)
                 emit(Result.Success(mappedData)) // Emit success state with the retrieved movies
             } else {
-                emit(Result.Error(CineMatesExceptions.EmptyResponse)) // Emit error state for empty response
+                emit(Result.Error(CineMatesException.EmptyResponse)) // Emit error state for empty response
             }
         } else {
             emit(
-                Result.Error(CineMatesExceptions.GenericException)
+                Result.Error(CineMatesException.GenericException)
             ) // Emit error state with the error message
         }
     } catch (e: HttpException) {
@@ -50,9 +51,9 @@ fun <T, O> getListFromResponse(
         emit(Result.Error(apiExceptions))
     } catch (e: IOException) {
         // Returning no internet message
-        emit(Result.Error(CineMatesExceptions.NoNetworkException))
+        emit(Result.Error(CineMatesException.NoNetworkException))
     } catch (e: Exception) {
-        emit(Result.Error(CineMatesExceptions.GenericException)) // Emit error state with the exception
+        emit(Result.Error(CineMatesException.GenericException)) // Emit error state with the exception
     }
 }
 
@@ -84,12 +85,12 @@ fun <T, O> getSingleFromResponse(
                 emit(Result.Success(mappedData)) // Emit success state with the retrieved movie details
 
             } else {
-                emit(Result.Error(CineMatesExceptions.EmptyResponse)) // Emit error state for empty response
+                emit(Result.Error(CineMatesException.EmptyResponse)) // Emit error state for empty response
             }
         } else {
             emit(
                 Result.Error(
-                    CineMatesExceptions.GenericException
+                    CineMatesException.GenericException
                 )
             ) // Emit error state with the error message
         }
@@ -100,9 +101,9 @@ fun <T, O> getSingleFromResponse(
         emit(Result.Error(apiExceptions))
     } catch (e: IOException) {
         // Returning no internet message
-        emit(Result.Error(CineMatesExceptions.NoNetworkException))
+        emit(Result.Error(CineMatesException.NoNetworkException))
     } catch (e: Exception) {
-        emit(Result.Error(CineMatesExceptions.GenericException)) // Emit error state with the exception
+        emit(Result.Error(CineMatesException.GenericException)) // Emit error state with the exception
     }
 }
 

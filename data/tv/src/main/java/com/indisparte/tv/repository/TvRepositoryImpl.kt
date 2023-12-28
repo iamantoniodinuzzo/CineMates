@@ -3,9 +3,9 @@ package com.indisparte.tv.repository
 import com.indisparte.common.CountryResult
 import com.indisparte.common.Video
 import com.indisparte.filter.TimeWindow
-import com.indisparte.network.Result
-import com.indisparte.network.getListFromResponse
-import com.indisparte.network.getSingleFromResponse
+import com.indisparte.network.util.Result
+import com.indisparte.network.response.getListFromResponse
+import com.indisparte.network.response.getSingleFromResponse
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import com.indisparte.tv.EpisodeGroup

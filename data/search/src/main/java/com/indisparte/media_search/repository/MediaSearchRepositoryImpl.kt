@@ -4,8 +4,8 @@ import com.indisparte.media_search.mapper.toMovie
 import com.indisparte.media_search.mapper.toTvShow
 import com.indisparte.media_search.source.MediaSearchDataSource
 import com.indisparte.movie_data.Movie
-import com.indisparte.network.Result
-import com.indisparte.network.getListFromResponse
+import com.indisparte.network.util.Result
+import com.indisparte.network.response.getListFromResponse
 import com.indisparte.tv.TvShow
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

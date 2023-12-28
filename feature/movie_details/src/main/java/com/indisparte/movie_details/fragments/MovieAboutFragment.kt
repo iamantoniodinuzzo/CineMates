@@ -21,7 +21,7 @@ import com.indisparte.movie_details.databinding.CustomWatchProviderChipBinding
 import com.indisparte.movie_details.databinding.FragmentMovieAboutBinding
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
-import com.indisparte.network.whenResources
+import com.indisparte.network.util.whenResources
 import com.indisparte.person.Crew
 import com.indisparte.ui.databinding.LayoutChoiceChipBinding
 import com.indisparte.ui.databinding.LayoutFavoriteChipBinding

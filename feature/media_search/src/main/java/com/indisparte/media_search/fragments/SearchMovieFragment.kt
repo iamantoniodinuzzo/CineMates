@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.indisparte.movie_data.Movie
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
-import com.indisparte.network.whenResources
+import com.indisparte.network.util.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding
 import com.indisparte.ui.fragment.ListFragment

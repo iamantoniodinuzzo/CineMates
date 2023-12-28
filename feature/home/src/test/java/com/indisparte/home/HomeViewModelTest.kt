@@ -6,8 +6,8 @@ import com.indisparte.genre.repository.fake.FakeGenreRepository
 import com.indisparte.home.util.Section
 import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.repository.fake.FakeMovieRepository
-import com.indisparte.network.Result
-import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.util.Result
+import com.indisparte.network.exception.CineMatesException
 import com.indisparte.person.Person
 import com.indisparte.testing.util.rule.MainDispatcherRule
 import com.indisparte.tv.TvShow
@@ -115,15 +115,15 @@ class HomeViewModelTest {
         val expectedSections = listOf(
             Section.MovieSection(
                 R.string.section_popular_movie,
-                Result.Error(CineMatesExceptions.GenericException)
+                Result.Error(CineMatesException.GenericException)
             ),
             Section.PeopleSection(
                 R.string.section_popular_people,
-                Result.Error(CineMatesExceptions.GenericException)
+                Result.Error(CineMatesException.GenericException)
             ),
             Section.TvShowSection(
                 R.string.section_popular_tv,
-                Result.Error(CineMatesExceptions.GenericException)
+                Result.Error(CineMatesException.GenericException)
             )
         )
         // Act

@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.actor.repository.PeopleRepository
 import com.indisparte.movie_data.MovieCredit
-import com.indisparte.network.Result
-import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.util.Result
+import com.indisparte.network.exception.CineMatesException
 import com.indisparte.person.PersonDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -44,7 +44,7 @@ constructor(
             personDetailsRepository.getPersonDetailsAndUpdateWithLocalData(id).collectLatest {
                 _personDetails.emit(it)
             }
-        } catch (e: CineMatesExceptions) {
+        } catch (e: CineMatesException) {
             _personDetails.emit(Result.Error(e))
         }
     }
@@ -55,7 +55,7 @@ constructor(
             personDetailsRepository.getMovieCredits(id).collectLatest {
                 _movieCredits.value = it
             }
-        } catch (e: CineMatesExceptions) {
+        } catch (e: CineMatesException) {
             _movieCredits.value = Result.Error(e)
         }
     }

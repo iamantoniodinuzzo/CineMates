@@ -5,9 +5,9 @@ import com.indisparte.actor.mapper.mapToPerson
 import com.indisparte.actor.mapper.mapToPersonDetails
 import com.indisparte.filter.TimeWindow
 import com.indisparte.movie_data.MovieCredit
-import com.indisparte.network.Result
-import com.indisparte.network.getListFromResponse
-import com.indisparte.network.getSingleFromResponse
+import com.indisparte.network.util.Result
+import com.indisparte.network.response.getListFromResponse
+import com.indisparte.network.response.getSingleFromResponse
 import com.indisparte.person.Person
 import com.indisparte.person.PersonDetails
 import kotlinx.coroutines.flow.Flow

@@ -6,7 +6,7 @@ import com.indisparte.movie_data.response.CrewDTO
 import com.indisparte.response.MovieDTO
 import com.indisparte.movie_data.response.MovieDetailsDTO
 import com.indisparte.movie_data.response.ReleaseDatesByCountryDTO
-import com.indisparte.network.GenericResponse
+import com.indisparte.network.response.GenericResponse
 import com.indisparte.response.CreditResponseDTO
 import com.indisparte.response.ImagesResponseDTO
 import com.indisparte.response.VideoResponseDTO

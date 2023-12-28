@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.indisparte.base.Media
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
-import com.indisparte.network.error.CineMatesExceptions
-import com.indisparte.network.whenResources
+import com.indisparte.network.exception.CineMatesException
+import com.indisparte.network.util.whenResources
 import com.indisparte.ui.adapter.MediaAdapter
 import com.indisparte.ui.custom_view.showError
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding
@@ -53,7 +53,7 @@ class WatchlistFragment : ListFragment<Media, ListItemMediaSmallBinding, MediaAd
         binding.lifecycleOwner = this
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(requireContext(), 3)
-            showError(CineMatesExceptions.EmptyResponse)
+            showError(CineMatesException.EmptyResponse)
         }
         adapter.setOnItemClickListener { item ->
             LOG.d("Movie id: ${item.id}")

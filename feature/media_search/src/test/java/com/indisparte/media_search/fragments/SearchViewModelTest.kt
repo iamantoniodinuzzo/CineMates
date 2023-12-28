@@ -2,8 +2,8 @@ package com.indisparte.media_search.fragments
 
 import com.indisparte.media_search.repository.fake.FakeMediaSearchRepository
 import com.indisparte.movie_data.Movie
-import com.indisparte.network.Result
-import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.util.Result
+import com.indisparte.network.exception.CineMatesException
 import com.indisparte.testing.util.rule.MainDispatcherRule
 import com.indisparte.tv.TvShow
 import junit.framework.TestCase.assertEquals
@@ -155,7 +155,7 @@ class SearchViewModelTest {
         runBlockingTest {
             // GIVEN
             val query = "MovieTitle"
-            val exception = CineMatesExceptions.GenericException
+            val exception = CineMatesException.GenericException
             fakeMediaSearchRepository.setExceptionToEmit(exception)
 
             // WHEN
@@ -174,7 +174,7 @@ class SearchViewModelTest {
         runBlockingTest {
             // GIVEN
             val query = "TvTitle"
-            val exception = CineMatesExceptions.GenericException
+            val exception = CineMatesException.GenericException
             fakeMediaSearchRepository.setExceptionToEmit(exception)
 
             // WHEN

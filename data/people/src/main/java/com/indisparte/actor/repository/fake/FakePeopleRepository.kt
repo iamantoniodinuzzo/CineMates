@@ -3,8 +3,8 @@ package com.indisparte.actor.repository.fake
 import com.indisparte.actor.repository.PeopleRepository
 import com.indisparte.filter.TimeWindow
 import com.indisparte.movie_data.MovieCredit
-import com.indisparte.network.Result
-import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.util.Result
+import com.indisparte.network.exception.CineMatesException
 import com.indisparte.person.Person
 import com.indisparte.person.PersonDetails
 import kotlinx.coroutines.flow.Flow
@@ -17,20 +17,20 @@ class FakePeopleRepository : PeopleRepository {
     private val popularPersons = mutableListOf<Person>()
     private val trendingPersonsMap = mutableMapOf<TimeWindow, List<Person>>()
     private val movieCreditsMap = mutableMapOf<Int, List<MovieCredit>>()
-    private var cineMatesExceptions: CineMatesExceptions? = null
+    private var cineMatesExceptions: CineMatesException? = null
     private var shouldEmitException: Boolean = false
     fun setShouldEmitException(emit: Boolean) {
         shouldEmitException = emit
     }
 
-    fun setExceptionToEmit(cineMatesExceptions: CineMatesExceptions) {
+    fun setExceptionToEmit(cineMatesExceptions: CineMatesException) {
         this.cineMatesExceptions = cineMatesExceptions
     }
 
     private fun <T> emitResult(data: T?): Flow<Result<T>> {
         return if (shouldEmitException || data == null) {
             flow {
-                emit(Result.Error(cineMatesExceptions ?: CineMatesExceptions.GenericException))
+                emit(Result.Error(cineMatesExceptions ?: CineMatesException.GenericException))
             }
         } else {
             flow {

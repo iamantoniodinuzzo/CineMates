@@ -8,8 +8,8 @@ import com.indisparte.media_discover.filterable_fragment.FilterSheetRequestListe
 import com.indisparte.movie_data.Movie
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
-import com.indisparte.network.error.CineMatesExceptions
-import com.indisparte.network.whenResources
+import com.indisparte.network.exception.CineMatesException
+import com.indisparte.network.util.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
 import com.indisparte.ui.custom_view.showError
 import com.indisparte.ui.databinding.ListItemMediaSmallBinding
@@ -37,7 +37,7 @@ class FilterableMovieFragment :
         binding.lifecycleOwner = this
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(requireContext(), 3)
-            showError(CineMatesExceptions.EmptyResponse)
+            showError(CineMatesException.EmptyResponse)
         }
         adapter.setOnItemClickListener { item ->
             val activity = requireActivity()

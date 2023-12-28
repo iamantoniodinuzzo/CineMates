@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
-import com.indisparte.network.whenResources
+import com.indisparte.network.util.whenResources
 import com.indisparte.person.PersonDetails
 import com.indisparte.person_details.R
 import com.indisparte.person_details.databinding.FragmentPersonDetailsContainerBinding

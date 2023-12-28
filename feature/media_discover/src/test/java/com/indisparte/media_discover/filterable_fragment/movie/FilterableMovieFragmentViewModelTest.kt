@@ -4,7 +4,7 @@ import com.indisparte.discover.repository.fake.FakeMovieDiscoverRepository
 import com.indisparte.filter.MediaDiscoverFilter
 import com.indisparte.filter.MovieSortOptions
 import com.indisparte.movie_data.Movie
-import com.indisparte.network.Result
+import com.indisparte.network.util.Result
 import com.indisparte.testing.util.rule.MainDispatcherRule
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue

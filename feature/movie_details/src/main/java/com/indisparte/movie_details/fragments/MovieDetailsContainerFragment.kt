@@ -13,7 +13,7 @@ import com.indisparte.movie_details.fragments.base.MediaDetailsContainerFragment
 import com.indisparte.movie_details.fragments.dialog.BottomDialogListener
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
-import com.indisparte.network.whenResources
+import com.indisparte.network.util.whenResources
 import com.indisparte.ui.R
 import com.indisparte.util.extension.collectIn
 import com.indisparte.util.extension.gone

@@ -11,7 +11,7 @@ import com.indisparte.home.databinding.ListItemSectionBinding
 import com.indisparte.home.util.Section
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
-import com.indisparte.network.whenResources
+import com.indisparte.network.util.whenResources
 import com.indisparte.ui.adapter.MovieAdapter
 import com.indisparte.ui.adapter.PeopleAdapter
 import com.indisparte.ui.adapter.TvShowAdapter

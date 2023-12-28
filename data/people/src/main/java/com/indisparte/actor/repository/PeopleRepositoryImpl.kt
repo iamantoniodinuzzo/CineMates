@@ -4,8 +4,8 @@ import com.indisparte.actor.source.local.PeopleLocalDataSource
 import com.indisparte.actor.source.remote.PeopleRemoteDataSource
 import com.indisparte.filter.TimeWindow
 import com.indisparte.movie_data.MovieCredit
-import com.indisparte.network.Result
-import com.indisparte.network.whenResources
+import com.indisparte.network.util.Result
+import com.indisparte.network.util.whenResources
 import com.indisparte.person.Person
 import com.indisparte.person.PersonDetails
 import kotlinx.coroutines.flow.Flow

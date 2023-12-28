@@ -2,8 +2,8 @@ package com.indisparte.media_search.repository.fake
 
 import com.indisparte.media_search.repository.MediaSearchRepository
 import com.indisparte.movie_data.Movie
-import com.indisparte.network.Result
-import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.util.Result
+import com.indisparte.network.exception.CineMatesException
 import com.indisparte.tv.TvShow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.flow
 class FakeMediaSearchRepository : MediaSearchRepository {
     private val movieSearchResults = mutableMapOf<String, List<Movie>>()
     private val tvShowSearchResults = mutableMapOf<String, List<TvShow>>()
-    private var cineMatesExceptions: CineMatesExceptions? = null
+    private var cineMatesExceptions: CineMatesException? = null
     private var shouldEmitException: Boolean = false
 
     override fun searchMovieByTitle(title: String): Flow<Result<List<Movie>>> {
@@ -43,14 +43,14 @@ class FakeMediaSearchRepository : MediaSearchRepository {
         shouldEmitException = emit
     }
 
-    fun setExceptionToEmit(cineMatesExceptions: CineMatesExceptions) {
+    fun setExceptionToEmit(cineMatesExceptions: CineMatesException) {
         this.cineMatesExceptions = cineMatesExceptions
     }
 
     private fun <T> emitResult(data: T?): Flow<Result<T>> {
         return if (shouldEmitException || data == null) {
             flow {
-                emit(Result.Error(cineMatesExceptions ?: CineMatesExceptions.GenericException))
+                emit(Result.Error(cineMatesExceptions ?: CineMatesException.GenericException))
             }
         } else {
             flow {

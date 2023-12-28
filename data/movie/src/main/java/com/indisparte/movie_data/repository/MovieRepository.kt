@@ -10,7 +10,7 @@ import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.MovieDetails
 import com.indisparte.movie_data.ReleaseDatesByCountry
 import com.indisparte.movie_data.util.MovieListType
-import com.indisparte.network.Result
+import com.indisparte.network.util.Result
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import kotlinx.coroutines.flow.Flow

@@ -1,7 +1,7 @@
 package com.indisparte.genre.repository
 
 import com.indisparte.common.Genre
-import com.indisparte.network.Result
+import com.indisparte.network.util.Result
 import kotlinx.coroutines.flow.Flow
 
 /**

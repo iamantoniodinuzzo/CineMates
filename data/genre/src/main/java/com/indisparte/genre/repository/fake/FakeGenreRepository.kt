@@ -3,8 +3,8 @@ package com.indisparte.genre.repository.fake
 import com.indisparte.base.MediaType
 import com.indisparte.common.Genre
 import com.indisparte.genre.repository.GenreRepository
-import com.indisparte.network.Result
-import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.util.Result
+import com.indisparte.network.exception.CineMatesException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -15,21 +15,21 @@ class FakeGenreRepository : GenreRepository {
     private val movieGenres = mutableListOf<Genre>()
     private val tvGenres = mutableListOf<Genre>()
     private val localGenres = mutableListOf<Genre>()
-    private var cineMatesExceptions: CineMatesExceptions? = null
+    private var cineMatesExceptions: CineMatesException? = null
     private var shouldEmitException: Boolean = false
 
     fun setShouldEmitException(emit: Boolean) {
         shouldEmitException = emit
     }
 
-    fun setExceptionToEmit(cineMatesExceptions: CineMatesExceptions) {
+    fun setExceptionToEmit(cineMatesExceptions: CineMatesException) {
         this.cineMatesExceptions = cineMatesExceptions
     }
 
     private fun <T> emitResult(data: T?): Flow<Result<T>> {
         return if (shouldEmitException || data == null) {
             flow {
-                emit(Result.Error(cineMatesExceptions ?: CineMatesExceptions.GenericException))
+                emit(Result.Error(cineMatesExceptions ?: CineMatesException.GenericException))
             }
         } else {
             flow {

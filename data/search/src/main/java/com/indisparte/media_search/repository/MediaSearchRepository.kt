@@ -1,7 +1,7 @@
 package com.indisparte.media_search.repository
 
 import com.indisparte.movie_data.Movie
-import com.indisparte.network.Result
+import com.indisparte.network.util.Result
 import com.indisparte.tv.TvShow
 import kotlinx.coroutines.flow.Flow
 

@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.indisparte.movie_data.MovieCredit
 import com.indisparte.navigation.NavigationFlow
 import com.indisparte.navigation.ToFlowNavigable
-import com.indisparte.network.whenResources
+import com.indisparte.network.util.whenResources
 import com.indisparte.person_details.adapter.MovieCreditAdapter
 import com.indisparte.person_details.databinding.ListItemMediaCreditsLongBinding
 import com.indisparte.ui.fragment.ListFragment

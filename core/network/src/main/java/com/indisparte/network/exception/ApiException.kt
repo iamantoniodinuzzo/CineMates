@@ -1,31 +1,28 @@
-package com.indisparte.network.error
+package com.indisparte.network.exception
 
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.indisparte.network.R
 
 /**
- *@author Antonio Di Nuzzo
+ * Custom exception class representing various API-related errors.
+ *
+ * @property code The error code associated with the ApiException.
+ * @property messageRes The resource ID of the error message string.
+ *
+ * @author Antonio Di Nuzzo
  */
-sealed class CineMatesExceptions(
-    @StringRes val messageRes: Int,
-    @DrawableRes val drawableRes: Int? = null,
-) : Exception() {
-    data object NoNetworkException :
-        CineMatesExceptions(R.string.no_network_exception, R.drawable.ic_no_internet)
-
-    data object EmptyResponse :
-        CineMatesExceptions(R.string.empty_response_exception, R.drawable.ic_empty_box)
-
-    data object GenericException : CineMatesExceptions(R.string.something_went_wrong)
-}
-
 sealed class ApiException(
     val code: Int,
     @StringRes messageRes: Int,
-) : CineMatesExceptions(messageRes) {
+) : CineMatesException(messageRes) {
 
     companion object {
+        /**
+         * Creates an instance of ApiException based on the provided error code.
+         *
+         * @param code The error code to determine the specific ApiException.
+         * @return An instance of ApiException corresponding to the given error code.
+         */
         fun fromCode(code: Int): ApiException {
             return ApiException::class.nestedClasses.map { it.objectInstance as ApiException }
                 .find { it.code == code } ?: UnknownApiException
@@ -122,4 +119,3 @@ sealed class ApiException(
 
     data object InvalidInput : ApiException(47, R.string.invalid_input)
 }
-

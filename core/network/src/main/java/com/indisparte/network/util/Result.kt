@@ -1,6 +1,6 @@
-package com.indisparte.network
+package com.indisparte.network.util
 
-import com.indisparte.network.error.CineMatesExceptions
+import com.indisparte.network.exception.CineMatesException
 
 
 /**
@@ -8,7 +8,7 @@ import com.indisparte.network.error.CineMatesExceptions
  */
 sealed class Result<out R> {
     data class Success<out T>(val data: T) : Result<T>()
-    data class Error(val exception: CineMatesExceptions) : Result<Nothing>()
+    data class Error(val exception: CineMatesException) : Result<Nothing>()
     object Loading : Result<Nothing>()
 
     override fun toString(): String {
@@ -22,7 +22,7 @@ sealed class Result<out R> {
 
 inline fun <reified T> Result<T>.whenResources(
     onSuccess: (T) -> Unit = {},
-    onError: (CineMatesExceptions) -> Unit = {},
+    onError: (CineMatesException) -> Unit = {},
     onLoading: () -> Unit = {},
 ) {
     when (this) {

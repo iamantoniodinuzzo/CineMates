@@ -1,6 +1,6 @@
 package com.indisparte.actor.source.local
 
-import com.indisparte.database.dao.PersonDao
+import com.indisparte.database.dao.ActorDao
 import com.indisparte.database.entity.asDomain
 import com.indisparte.database.entity.asEntity
 import com.indisparte.base.Person
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class PeopleLocalDataSource
 @Inject
 constructor(
-    private val dao: PersonDao,
+    private val dao: ActorDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
 
@@ -37,13 +37,13 @@ constructor(
     }
 
     suspend fun getAllFavoritePerson() = withContext(ioDispatcher) {
-        val allFavoritePersonEntities = async { dao.getAllFavoritePerson() }.await()
+        val allFavoritePersonEntities = async { dao.getAllFavoriteActors() }.await()
         val allFavoritePersonAsDomain = allFavoritePersonEntities.map { it.asDomain() }
         return@withContext allFavoritePersonAsDomain
     }
 
     suspend fun isFavoritePerson(personId: Int) = withContext(ioDispatcher) {
-        val deferredBoolean = async { dao.isPersonFavorite(personId) }
+        val deferredBoolean = async { dao.isFavoriteActor(personId) }
         return@withContext deferredBoolean.await()
     }
 

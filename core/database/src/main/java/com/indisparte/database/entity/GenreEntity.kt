@@ -8,21 +8,19 @@ import com.indisparte.common.Genre
 /**
  *@author Antonio Di Nuzzo
  */
-@Entity(tableName = "genres")
+@Entity(tableName = "genre")
 data class GenreEntity(
     @PrimaryKey val id: Int,
     val name: String,
-    var isFavorite: Boolean,
-    val mediaType: Int? = -1,
+    val mediaType: Int,
 )
 
-fun GenreEntity.asDomain(): Genre {
+fun GenreEntity.asDomain(): Genre {// FIXME: Is favorite è di default false
     return Genre(
         id = this.id,
         name = this.name,
-        isFavorite = this.isFavorite,
-        mediaType = this.mediaType?.let { MediaType.fromId(it) }
-            ?: throw NullPointerException("Media type cannot be null")
+        isFavorite = false,
+        mediaType = this.mediaType.let { MediaType.fromId(it) }
     )
 }
 
@@ -30,7 +28,6 @@ fun Genre.asEntity(): GenreEntity {
     return GenreEntity(
         id = this.id,
         name = this.name,
-        isFavorite = this.isFavorite,
-        mediaType = mediaType?.id
+        mediaType = mediaType.id
     )
 }

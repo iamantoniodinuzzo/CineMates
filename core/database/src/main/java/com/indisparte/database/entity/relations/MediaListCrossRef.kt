@@ -1,14 +1,17 @@
-package com.indisparte.database.entity
+package com.indisparte.database.entity.relations
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import com.indisparte.database.entity.ListEntity
+import com.indisparte.database.entity.MediaEntity
+import java.util.Date
 
 /**
- *@author Antonio Di Nuzzo
+ * @author Antonio Di Nuzzo
  */
 @Entity(
-    tableName = "list_item",
+    tableName = "MediaListCrossRef",
+    primaryKeys = ["mediaId", "listId"],
     foreignKeys = [
         ForeignKey(
             entity = MediaEntity::class,
@@ -22,13 +25,11 @@ import androidx.room.ForeignKey
             childColumns = ["listId"],
             onDelete = ForeignKey.CASCADE
         )
-    ],
-    primaryKeys = ["mediaId", "listId"]
+    ]
 )
-data class ListItemEntity(
+data class MediaListCrossRef(
     val mediaId: Int,
     val listId: Int,
-    var position: Int,
-    @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
-    val updateDate: String = "",
+    val insertionDate: Date,
+    val position: Int,
 )

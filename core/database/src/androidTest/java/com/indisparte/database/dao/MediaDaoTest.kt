@@ -171,7 +171,7 @@ class MediaDaoTest : BaseDaoTest() {
 
         // WHEN
         dao.insert(media)
-        val loadedMovieById = dao.getMediaById(myId)
+        val loadedMovieById = dao.getMedia(myId)
 
         // THEN
         assertEquals(media, loadedMovieById)
@@ -193,7 +193,7 @@ class MediaDaoTest : BaseDaoTest() {
 
         // WHEN
         dao.insert(media)
-        val loadedMovieById = dao.getMediaById(myId)
+        val loadedMovieById = dao.getMedia(myId)
 
         // THEN
         assertNull(loadedMovieById)

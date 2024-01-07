@@ -15,7 +15,7 @@ data class MediaEntity(
     val popularity: Double?,
     val posterPath: String?,
     val voteAverage: Double,
-    val mediaType: Int
+    val mediaType: Int,
 )
 
 fun MediaEntity.asDomain(): Media {

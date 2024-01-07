@@ -15,9 +15,9 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-class PersonDaoTest : BaseDaoTest() {
+class ActorDaoTest : BaseDaoTest() {
 
-    private lateinit var dao: PersonDao
+    private lateinit var dao: ActorDao
 
     @Before
     override fun setup() {
@@ -42,7 +42,7 @@ class PersonDaoTest : BaseDaoTest() {
         dao.insert(favPerson)
 
         //THEN - verifica se il test è andato come ti aspettavi
-        val allFavPersons = dao.getAllFavoritePerson()
+        val allFavPersons = dao.getAllFavoriteActors()
         assertTrue(allFavPersons.contains(favPerson))
 
     }
@@ -61,12 +61,12 @@ class PersonDaoTest : BaseDaoTest() {
         )
         dao.insert(favPerson)
         //WHEN - le azioni e i cambiamenti del soggetto del test
-        val insertedPerson = dao.getAllFavoritePerson()[0]
+        val insertedPerson = dao.getAllFavoriteActors()[0]
         val updatedPerson = insertedPerson.copy(adult = true)
         dao.update(updatedPerson)
 
         //THEN - verifica se il test è andato come ti aspettavi
-        assertTrue(dao.getAllFavoritePerson()[0].adult)
+        assertTrue(dao.getAllFavoriteActors()[0].adult)
     }
 
 }

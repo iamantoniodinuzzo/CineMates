@@ -93,7 +93,7 @@ constructor(
     }
 
     override fun getMyFavGenres(): Flow<List<Genre>> = flow {
-        val result = genreLocalDataSource.getAllMyFavGenres().first()
+        val result = genreLocalDataSource.getAllUserFavGenres().first()
         emit(result)
     }
 

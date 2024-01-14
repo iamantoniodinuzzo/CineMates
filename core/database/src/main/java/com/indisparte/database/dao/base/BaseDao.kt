@@ -16,7 +16,7 @@ interface BaseDao<T> {
     fun insert(entity: T):Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(entities: List<T>)
+    fun insertAll(entities: List<T>):LongArray
 
     @Update
     fun update(entity: T): Int

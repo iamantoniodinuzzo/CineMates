@@ -49,6 +49,9 @@ interface UserDao : BaseDao<UserEntity> {
     @Query("SELECT * FROM user WHERE userId=:userId")
     fun getUserFavGenres(userId: Int): List<UserWithFavGenres>
 
+    @Query("SELECT * FROM UserFavGenreCrossRef WHERE userId=:userId AND genreId=:genreId ")
+    fun getUserFavGenre(userId: Int, genreId:Int):UserFavGenreCrossRef?
+
     @Transaction
     @Query("SELECT * FROM user WHERE userId=:userId")
     fun getUserFavActors(userId: Int): List<UserWithFavActors>

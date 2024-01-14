@@ -4,6 +4,7 @@ import com.indisparte.database.dao.ActorDao
 import com.indisparte.database.entity.asDomain
 import com.indisparte.database.entity.asEntity
 import com.indisparte.base.Person
+import com.indisparte.database.dao.UserDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -16,14 +17,15 @@ import javax.inject.Inject
 class PeopleLocalDataSource
 @Inject
 constructor(
-    private val dao: ActorDao,
+    private val actorDao: ActorDao,
+    private val userDao: UserDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
 
     suspend fun insertFavoritePerson(person: Person) = withContext(ioDispatcher) {
         val entity = person.asEntity()
         val deferredInsertionResult = async {
-            dao.insert(entity)
+            actorDao.insert(entity)
         }
         return@withContext deferredInsertionResult.await()
     }
@@ -31,19 +33,19 @@ constructor(
     suspend fun removeFavoritePerson(person: Person) = withContext(ioDispatcher) {
         val entity = person.asEntity()
         val deferredDeletionResult = async {
-            dao.delete(entity)
+            actorDao.delete(entity)
         }
         return@withContext deferredDeletionResult.await()
     }
 
     suspend fun getAllFavoritePerson() = withContext(ioDispatcher) {
-        val allFavoritePersonEntities = async { dao.getAllFavoriteActors() }.await()
+        val allFavoritePersonEntities = async { actorDao.getAllFavoriteActors() }.await()
         val allFavoritePersonAsDomain = allFavoritePersonEntities.map { it.asDomain() }
         return@withContext allFavoritePersonAsDomain
     }
 
     suspend fun isFavoritePerson(personId: Int) = withContext(ioDispatcher) {
-        val deferredBoolean = async { dao.isFavoriteActor(personId) }
+        val deferredBoolean = async { actorDao.isFavoriteActor(personId) }
         return@withContext deferredBoolean.await()
     }
 

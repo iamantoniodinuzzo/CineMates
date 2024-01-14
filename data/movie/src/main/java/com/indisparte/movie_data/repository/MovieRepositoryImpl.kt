@@ -10,7 +10,6 @@ import com.indisparte.movie_data.CollectionDetails
 import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.MovieDetails
 import com.indisparte.movie_data.ReleaseDatesByCountry
-import com.indisparte.movie_data.source.local.GenreLocalDataSource
 import com.indisparte.movie_data.source.local.MovieLocalDataSource
 import com.indisparte.movie_data.source.remote.MovieRemoteDataSource
 import com.indisparte.movie_data.util.MovieListType

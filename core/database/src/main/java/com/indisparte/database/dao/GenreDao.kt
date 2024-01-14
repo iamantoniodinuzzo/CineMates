@@ -18,6 +18,9 @@ interface GenreDao : BaseDao<GenreEntity> {
     @Query("SELECT * FROM genre")
     fun getAllGenres(): List<GenreEntity>
 
+    @Query("SELECT * FROM genre WHERE genreId=:id")
+    fun getGenreById(id:Int):GenreEntity?
+
     /**
      * Retrieves a list of genres filtered by media type from the database.
      *

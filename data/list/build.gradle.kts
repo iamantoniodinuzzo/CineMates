@@ -13,6 +13,7 @@ android {
 
 dependencies {
     api(project(":core:model:media_list"))
+    api(project(":core:model:base"))
     implementation(project(":core:response"))
     implementation(project(":core:network"))
     implementation(project(":core:database"))

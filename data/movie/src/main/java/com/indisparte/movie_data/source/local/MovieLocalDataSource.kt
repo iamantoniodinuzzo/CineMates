@@ -86,7 +86,7 @@ constructor(
     }
 
     suspend fun isFavoriteMovie(movieId: Int): Boolean = withContext(ioDispatcher) {
-        // FIXME: How to check 
+        // FIXME: How to check
 
         return@withContext false
     }

@@ -28,7 +28,7 @@ constructor(
 
     override fun getAllList(): Flow<Result<List<MediaList>>> = flow {
         emit(Result.Loading)
-        val result = mediaListLocalDataSource.getAllList()
+        val result = mediaListLocalDataSource.getAllListByUserId()
         emit(Result.Success(result))
     }
 

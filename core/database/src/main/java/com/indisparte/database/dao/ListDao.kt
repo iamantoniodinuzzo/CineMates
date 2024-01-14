@@ -28,4 +28,5 @@ interface ListDao : BaseDao<ListEntity> {
     @Query("SELECT * FROM media where mediaId !=:mediaId")
     fun getListsNotContainingMedia(mediaId: Int): List<MediaWithLists>
 
+
 }

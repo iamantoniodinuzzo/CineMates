@@ -2,6 +2,7 @@ package com.indisparte.database.entity.relations
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import com.indisparte.database.entity.ListEntity
 import com.indisparte.database.entity.MediaEntity
 import java.util.Date
@@ -12,16 +13,20 @@ import java.util.Date
 @Entity(
     tableName = "MediaListCrossRef",
     primaryKeys = ["mediaId", "listId"],
+    indices = [
+        Index("mediaId"),
+        Index("listId")
+    ],
     foreignKeys = [
         ForeignKey(
             entity = MediaEntity::class,
-            parentColumns = ["id"],
+            parentColumns = ["mediaId"],
             childColumns = ["mediaId"],
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = ListEntity::class,
-            parentColumns = ["id"],
+            parentColumns = ["listId"],
             childColumns = ["listId"],
             onDelete = ForeignKey.CASCADE
         )

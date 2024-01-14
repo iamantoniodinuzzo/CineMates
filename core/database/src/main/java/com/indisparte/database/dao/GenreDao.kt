@@ -15,7 +15,7 @@ import com.indisparte.database.entity.relations.GenreMediaCrossRef
 @Dao
 interface GenreDao : BaseDao<GenreEntity> {
 
-    @Query("SELECT * FROM genres")
+    @Query("SELECT * FROM genre")
     fun getAllGenres(): List<GenreEntity>
 
     /**
@@ -27,25 +27,11 @@ interface GenreDao : BaseDao<GenreEntity> {
     @Query("SELECT * FROM genre WHERE mediaType IN (:mediaTypeId, 0)")
     fun getAllGenresByMediaType(mediaTypeId: Int): List<GenreEntity>
 
-    @Query("SELECT * FROM genre WHERE id IN (:genreIds)")
+    @Query("SELECT * FROM genre WHERE genreId IN (:genreIds)")
     fun getAllGenresById(genreIds: List<Int>): List<GenreEntity>
 
-    @Transaction
-    @Query("SELECT * FROM genre INNER JOIN UserFavGenreCrossRef ON genre.id = UserFavGenreCrossRef.genreId WHERE UserFavGenreCrossRef.userId = :userId")
-    fun getUserFavoriteGenres(userId: Int): List<GenreEntity>
-
-    @Transaction
-    fun insertGenresForMedia(mediaId: Int, genres: List<GenreEntity>) {
-
-        // Creazione di una lista di GenreMediaCrossRef associati al mediaId
-        val genreMediaCrossRefList = genres.map { GenreMediaCrossRef(mediaId, it.id) }
-
-        // Inserimento nella tabella GenreMediaCrossRef
-        insertGenresInMedia(genreMediaCrossRefList)
-    }
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertGenresInMedia(genreMediaCrossRefList: List<GenreMediaCrossRef>): Long
+    fun insertGenresInMedia(genreMediaCrossRefList: List<GenreMediaCrossRef>): LongArray
 
     override fun delete(entity: GenreEntity): Int =
         throw UnsupportedOperationException("Can't delete a genre!")

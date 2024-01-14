@@ -1,21 +1,19 @@
 package com.indisparte.database.entity.relations
 
 import androidx.room.Embedded
-import androidx.room.Junction
 import androidx.room.Relation
-import com.indisparte.common.Genre
-import com.indisparte.database.entity.GenreEntity
+import com.indisparte.database.entity.ListEntity
 import com.indisparte.database.entity.UserEntity
 
 /**
  * @author Antonio Di Nuzzo
  */
-data class UserWithFavGenres(
+data class UserWithListAndMedia(
     @Embedded val user: UserEntity,
     @Relation(
+        entity = ListEntity::class,
         parentColumn = "userId",
-        entityColumn = "genreId",
-        associateBy = Junction(UserFavGenreCrossRef::class)
+        entityColumn = "ownerId"
     )
-    val genres: List<GenreEntity>,
+    val lists: List<ListWithMedias>,
 )

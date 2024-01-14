@@ -20,29 +20,10 @@ interface ActorDao : BaseDao<ActorEntity> {
     fun insertUserFavActor(userFavActorCrossRef: UserFavActorCrossRef): Long
 
     @Transaction
-    @Query("SELECT * FROM actor INNER JOIN UserFavActorCrossRef ON actor.id = UserFavActorCrossRef.actorId WHERE UserFavActorCrossRef.userId = :userId")
-    fun getFavoriteActors(userId: Int): List<ActorEntity>
-
-    @Transaction
     @Query("DELETE FROM UserFavActorCrossRef WHERE actorId = :actorId AND userId = :userId")
     fun deleteUserFavActor(actorId: Int, userId: Int): Int
 
-    @Transaction
-    fun setActorAsFavorite(actor: ActorEntity, userId: Int): Boolean {
-        // Verifica se l'attore esiste nella tabella Actor
-        val existingActor = getActor(actor.id)
 
-        // Se l'attore non esiste, inseriscilo nella tabella Actor
-        if (existingActor == null) {
-            insert(actor)
-        }
-
-        // Inserisce l'attore tra i preferiti dell'utente
-        val userFavActorCrossRef = UserFavActorCrossRef(actorId = actor.id, userId = userId, favDate = Date())
-        val insertionResult = insertUserFavActor(userFavActorCrossRef)
-        return insertionResult > 0
-    }
-
-    @Query("SELECT * FROM actor WHERE id = :actorId LIMIT 1")
+    @Query("SELECT * FROM actor WHERE actorId = :actorId LIMIT 1")
     fun getActor(actorId: Int): ActorEntity?
 }

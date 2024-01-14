@@ -2,11 +2,16 @@ package com.indisparte.database.di
 
 import android.app.Application
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.indisparte.database.CineMatesDatabase
+import com.indisparte.database.entity.UserEntity
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import java.util.Date
+import java.util.concurrent.Executors
 import javax.inject.Singleton
 
 /**
@@ -17,6 +22,14 @@ import javax.inject.Singleton
 object DatabaseModule {
 
     private const val databaseName = "CineMates.db"
+
+    @Volatile
+    private var INSTANCE: CineMatesDatabase? = null
+
+    fun getInstance(application: Application): CineMatesDatabase =
+        INSTANCE ?: synchronized(this) {
+            INSTANCE ?: providesDatabase(application).also { INSTANCE = it }
+        }
 
     @Provides
     @Singleton
@@ -52,8 +65,6 @@ object DatabaseModule {
     fun provideListDao(
         database: CineMatesDatabase,
     ) = database.listDao()
-
-
 
 
 }

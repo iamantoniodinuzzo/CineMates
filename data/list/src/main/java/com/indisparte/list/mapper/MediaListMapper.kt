@@ -9,7 +9,7 @@ import com.indisparte.media_list.MediaList
 
 fun MediaList.asEntity(): ListEntity {
     return ListEntity(
-        id = this.id,
+        listId = this.id,
         title = this.title,
         description = this.description,
         updateDate = this.updateDate
@@ -18,7 +18,7 @@ fun MediaList.asEntity(): ListEntity {
 
 fun ListEntity.asDomain(): MediaList {
     return MediaList(
-        id = this.id,
+        id = this.listId,
         title = this.title,
         description = this.description,
     )

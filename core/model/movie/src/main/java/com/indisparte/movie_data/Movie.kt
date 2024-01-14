@@ -23,6 +23,7 @@ open class Movie(
     val releaseDate: String?,
     val title: String,
     voteAverage: Double,
+    val genreIds: List<Int>
 ) : Media(
     id = id,
     mediaName = title,

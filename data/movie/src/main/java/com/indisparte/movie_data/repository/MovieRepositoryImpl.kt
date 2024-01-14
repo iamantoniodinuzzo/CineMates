@@ -129,7 +129,7 @@ constructor(
 
     override fun getAllFavoriteMovies(): Flow<Result<List<Media>>> = flow {
         emit(Result.Loading)
-        val result = movieLocalDataSource.getAllFavoriteMedia()
+        val result = movieLocalDataSource.getUserFavMedias()
         emit(Result.Success(result))
     }
 

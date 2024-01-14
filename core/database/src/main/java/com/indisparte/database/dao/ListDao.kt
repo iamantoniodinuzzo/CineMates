@@ -5,6 +5,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.indisparte.database.dao.base.BaseDao
 import com.indisparte.database.entity.ListEntity
+import com.indisparte.database.entity.relations.MediaWithLists
 
 /**
  *@author Antonio Di Nuzzo
@@ -13,18 +14,18 @@ import com.indisparte.database.entity.ListEntity
 interface ListDao : BaseDao<ListEntity> {
 
     // Recupero di una lista
-    @Query("SELECT * FROM list WHERE id = :listId")
+    @Query("SELECT * FROM list WHERE listId = :listId")
     fun getList(listId: Int): ListEntity?
 
-    @Query("SELECT * FROM list WHERE ownerId=:userId")
-    fun getAllListsByUserId(userId: Int): List<ListEntity>
-
+    //Recupero le liste associate ad un media
     @Transaction
-    @Query("SELECT * FROM list INNER JOIN MediaListCrossRef ON list.id = MediaListCrossRef.listId WHERE MediaListCrossRef.mediaId = :mediaId")
-    fun getListsContainingMedia(mediaId: Int): List<ListEntity>
+    @Query("SELECT * FROM media WHERE mediaId=:mediaId")
+    fun getListsContainingMedia(mediaId: Int): List<MediaWithLists>
 
+
+    //Recupero le liste non associate ad un media
     @Transaction
-    @Query("SELECT * FROM list WHERE NOT EXISTS (SELECT 1 FROM MediaListCrossRef WHERE list.id = MediaListCrossRef.listId AND MediaListCrossRef.mediaId = :mediaId)")
-    fun getListsNotContainingMedia(mediaId: Int): List<ListEntity>
+    @Query("SELECT * FROM media where mediaId !=:mediaId")
+    fun getListsNotContainingMedia(mediaId: Int): List<MediaWithLists>
 
 }

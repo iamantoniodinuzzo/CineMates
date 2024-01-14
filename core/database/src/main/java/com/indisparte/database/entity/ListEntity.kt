@@ -1,16 +1,17 @@
 package com.indisparte.database.entity
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.util.Date
 
 /**
  *@author Antonio Di Nuzzo
  */
-@Entity(tableName = "list")
+@Entity(tableName = "list", indices = [Index("listId")])
 data class ListEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val listId: Int = 0,
     var title: String,
     var description: String?,
     var updateDate: Date,

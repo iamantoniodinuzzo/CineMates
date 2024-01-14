@@ -2,6 +2,7 @@ package com.indisparte.database.entity.relations
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import com.indisparte.database.entity.ActorEntity
 import com.indisparte.database.entity.UserEntity
 import java.util.Date
@@ -12,16 +13,17 @@ import java.util.Date
 @Entity(
     tableName = "UserFavActorCrossRef",
     primaryKeys = ["actorId", "userId"],
+    indices = [Index("actorId"), Index("userId")],
     foreignKeys = [
         ForeignKey(
             entity = ActorEntity::class,
-            parentColumns = ["id"],
+            parentColumns = ["actorId"],
             childColumns = ["actorId"],
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = UserEntity::class,
-            parentColumns = ["id"],
+            parentColumns = ["userId"],
             childColumns = ["userId"],
             onDelete = ForeignKey.CASCADE
         )

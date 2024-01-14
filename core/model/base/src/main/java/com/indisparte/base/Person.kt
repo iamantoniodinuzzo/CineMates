@@ -29,6 +29,9 @@ enum class Gender(
     }
 }
 
+// FIXME: La classe person deve essere raffinata in quanto non rappresenta un a persona generalizzata ma un membro di un media
+//Andrebbe creata un'entità sepaarata che contenga attributi caratteristici di una persona che lavora nel cinema
+//lasciando questa entità il più astratta possibile
 /**
  * Represents a person involved in the entertainment industry, such as an actor, director, or crew member.
  *

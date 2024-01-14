@@ -12,5 +12,5 @@ data class ActorEntity(
     @PrimaryKey
     val actorId: Int,
     val name: String,
-    val posterPath: String
+    val posterPath: String?
 )

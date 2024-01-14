@@ -4,6 +4,8 @@ import com.indisparte.actor.response.PersonDTO
 import com.indisparte.actor.response.PersonDetailsDTO
 import com.indisparte.common.Poster
 import com.indisparte.base.Person
+import com.indisparte.database.entity.ActorEntity
+import com.indisparte.person.Cast
 import com.indisparte.person.PersonDetails
 import com.indisparte.response.PosterDTO
 
@@ -50,6 +52,12 @@ fun PosterDTO.mapToPoster(): Poster {
         filePath = filePath
     )
 }
+
+fun Cast.asEntity():ActorEntity{
+    return ActorEntity(actorId = this.castId, name = this.name, posterPath = this.profilePath)
+}
+
+
 
 
 

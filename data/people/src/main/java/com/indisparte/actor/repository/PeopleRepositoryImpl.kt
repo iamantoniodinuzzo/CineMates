@@ -55,17 +55,17 @@ constructor(
 
     override fun setPersonAsFavorite(person: Person): Flow<Boolean> =
         flow {
-            val result = peopleLocalDataSource.insertFavoritePerson(person)
+            val result = peopleLocalDataSource.setActorAsFavorite(person)
             emit(result > 0)
         }
 
     override fun removePersonAsFavorite(person: Person): Flow<Boolean> = flow {
-        val result = peopleLocalDataSource.removeFavoritePerson(person)
+        val result = peopleLocalDataSource.removeFavoriteActor(person)
         emit(result > 0)
     }
 
     override fun getAllFavoritePerson(): Flow<List<Person>> = flow {
-        val result = peopleLocalDataSource.getAllFavoritePerson()
+        val result = peopleLocalDataSource.getUserFavActors()
         emit(result)
     }
 }

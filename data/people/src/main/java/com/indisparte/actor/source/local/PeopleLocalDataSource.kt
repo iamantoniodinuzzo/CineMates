@@ -1,6 +1,7 @@
 package com.indisparte.actor.source.local
 
 import com.indisparte.actor.mapper.asEntity
+import com.indisparte.base.Person
 import com.indisparte.database.dao.ActorDao
 import com.indisparte.database.dao.UserDao
 import com.indisparte.database.entity.relations.UserFavActorCrossRef
@@ -23,7 +24,7 @@ constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
 
-    suspend fun setActorAsFavorite(cast: Cast):Boolean = withContext(ioDispatcher) {
+    suspend fun setActorAsFavorite(cast: Person):Boolean = withContext(ioDispatcher) {
         //Check if actor is in table
         val actor = actorDao.getActor(cast.id)
         if (actor == null) {

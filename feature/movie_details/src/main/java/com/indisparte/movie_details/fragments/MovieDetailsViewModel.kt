@@ -1,5 +1,7 @@
 package com.indisparte.movie_details.fragments
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.common.Backdrop
@@ -66,6 +68,7 @@ class MovieDetailsViewModel
     val movieInfo: StateFlow<Result<MovieInfoUiState>> get() = _movieInfo
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onDetailsFragmentReady(id: Int) {
         getMovieDetails(id)
         getCast(id)
@@ -74,12 +77,13 @@ class MovieDetailsViewModel
 
 
     fun updateGenre(genre: Genre) {
-        viewModelScope.launch {
+      /*  viewModelScope.launch {
             genreRepository.updateSavedGenre(genre).first()
-        }
+        }*/
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun getMovieDetails(id: Int) {
         viewModelScope.launch {
             _selectedMovie.emit(Result.Loading)
@@ -111,6 +115,7 @@ class MovieDetailsViewModel
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun loadMovieInfo(
         movieDetailsResult: MovieDetails,
     ) {

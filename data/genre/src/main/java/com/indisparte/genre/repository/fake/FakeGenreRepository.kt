@@ -44,11 +44,12 @@ class FakeGenreRepository : GenreRepository {
         return emitResult(movieGenres)
     }
 
-    override fun getGenresByIds(genresId: List<Int>): Flow<List<Genre>> = flow {
-        val genres = localGenres.filter { movieGenre ->
+    override fun getGenresByIds(genresId: List<Int>): List<Genre> {
+
+        return localGenres.filter { movieGenre ->
             movieGenre.id in genresId
         }
-        emit(genres)
+
     }
 
     override fun getTvGenreList(): Flow<Result<List<Genre>>> {
@@ -57,17 +58,11 @@ class FakeGenreRepository : GenreRepository {
         return emitResult(tvGenres)
     }
 
-    override fun getAllGenres(): Flow<List<Genre>> = flow {
-        emit(localGenres)
+    override fun getAllGenres(): List<Genre> {
+        return localGenres
     }
 
-    override fun updateSavedGenre(genre: Genre): Flow<Int> = flow {
-        val updated = localGenres.find { it.id == genre.id }?.let {
-            it.isFavorite = genre.isFavorite
-            1
-        } ?: 0
-        emit(updated)
-    }
+
 
     override fun getMyFavGenres(): Flow<List<Genre>> = flow {
         val myFavGenres = localGenres.filter { it.isFavorite }

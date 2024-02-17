@@ -66,5 +66,11 @@ object DatabaseModule {
         database: CineMatesDatabase,
     ) = database.listDao()
 
+    @Provides
+    @Singleton
+    fun provideUserDao(
+        database: CineMatesDatabase,
+    ) = database.userDao()
+
 
 }

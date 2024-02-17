@@ -4,14 +4,13 @@ import com.indisparte.base.MediaType
 import com.indisparte.common.Genre
 import com.indisparte.genre.source.local.GenreLocalDataSource
 import com.indisparte.genre.source.remote.GenreRemoteDataSource
-import com.indisparte.network.util.Result
 import com.indisparte.network.fetchFromLocalOrRemote
+import com.indisparte.network.util.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -29,7 +28,7 @@ constructor(
 
     override fun getMovieGenreList(): Flow<Result<List<Genre>>> {
         return fetchFromLocalOrRemote(
-            localFetch = { genreLocalDataSource.getAllMovieGenres().firstOrNull() },
+            localFetch = { genreLocalDataSource.getAllMovieGenres() },
             remoteFetch = { genreRemoteDataSource.getMovieGenreList() },
             saveToLocal = { genres -> genreLocalDataSource.insertGenres(genres, MediaType.MOVIE) }
         )
@@ -38,19 +37,24 @@ constructor(
 
     override fun getTvGenreList(): Flow<Result<List<Genre>>> {
         return fetchFromLocalOrRemote(
-            localFetch = { genreLocalDataSource.getAllTvGenres().firstOrNull() },
+            localFetch = { genreLocalDataSource.getAllTvGenres() },
             remoteFetch = { genreRemoteDataSource.getTvGenreList() },
             saveToLocal = { genres -> genreLocalDataSource.insertGenres(genres, MediaType.TV) }
         )
     }
 
-    override fun getAllGenres(): Flow<List<Genre>> = genreLocalDataSource.getAllSavedGenres()
+    override fun getAllGenres(): List<Genre> {
+        val result = runBlocking {
+            genreLocalDataSource.getAllSavedGenres()
+        }
+        return result
+    }
 
     override suspend fun fetchAllGenres() {// TODO: Can use the fetchFromLocalOrRemote func? 
-        val localMovieGenres = genreLocalDataSource.getAllMovieGenres().firstOrNull()
-        val localTvGenres = genreLocalDataSource.getAllTvGenres().firstOrNull()
+        val localMovieGenres = genreLocalDataSource.getAllMovieGenres()
+        val localTvGenres = genreLocalDataSource.getAllTvGenres()
 
-        if (localMovieGenres.isNullOrEmpty() || localTvGenres.isNullOrEmpty()) {
+        if (localMovieGenres.isEmpty() || localTvGenres.isEmpty()) {
             LOG.d("Retrieve remote genres 'cos one or both locals are null")
             val remoteMovieGenresFlow = genreRemoteDataSource.getMovieGenreList()
             val remoteTvGenresFlow = genreRemoteDataSource.getTvGenreList()
@@ -74,9 +78,9 @@ constructor(
 
                     LOG.d("Insert all genres locally...")
 
-                    genreLocalDataSource.insertGenres(movieGenres, MediaType.MOVIE).firstOrNull()
-                    genreLocalDataSource.insertGenres(tvGenres, MediaType.TV).firstOrNull()
-                    genreLocalDataSource.insertGenres(commonGenres, MediaType.MOVIE_TV).firstOrNull()
+                    genreLocalDataSource.insertGenres(movieGenres, MediaType.MOVIE)
+                    genreLocalDataSource.insertGenres(tvGenres, MediaType.TV)
+                    genreLocalDataSource.insertGenres(commonGenres, MediaType.MOVIE_TV)
                     LOG.d("All genres inserted locally")
 
                 }
@@ -87,17 +91,14 @@ constructor(
     }
 
 
-    override fun updateSavedGenre(genre: Genre): Flow<Int> = flow {
-        val result = genreLocalDataSource.updateGenre(genre).first()
-        emit(result)
-    }
-
     override fun getMyFavGenres(): Flow<List<Genre>> = flow {
-        val result = genreLocalDataSource.getAllUserFavGenres().first()
+        val result = genreLocalDataSource.getAllUserFavGenres()
         emit(result)
     }
 
 
-    override fun getGenresByIds(genresId: List<Int>): Flow<List<Genre>> =
+    override fun getGenresByIds(genresId: List<Int>): List<Genre> = runBlocking {
         genreLocalDataSource.getAllGenresById(genresId)
+
+    }
 }

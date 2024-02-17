@@ -12,7 +12,7 @@ interface MediaListRepository {
     fun addList(mediaList: MediaList): Flow<Result<Boolean>>
     fun removeList(mediaList: MediaList): Flow<Result<Boolean>>
 
-    fun getAllList(): Flow<Result<List<MediaList>>>
+    fun getAllListsByUserId(userId:Int): Flow<Result<List<MediaList>>>
 
     fun getListWithId(listId: Int): Flow<Result<MediaList?>>
 

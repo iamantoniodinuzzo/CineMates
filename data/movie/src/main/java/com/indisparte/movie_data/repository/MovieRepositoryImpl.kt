@@ -6,6 +6,7 @@ import com.indisparte.common.Backdrop
 import com.indisparte.common.CountryResult
 import com.indisparte.common.Video
 import com.indisparte.filter.TimeWindow
+import com.indisparte.genre.source.local.GenreLocalDataSource
 import com.indisparte.movie_data.CollectionDetails
 import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.MovieDetails
@@ -51,7 +52,6 @@ constructor(
                         //get updated genres from local database to check which genre of current movie, is favorite
                         val favoriteLocalGenres =
                             genreLocalDataSource.getAllGenresById(movieDetails.genres.map { it.id })
-                                .first()
                         // Update movie details genres with local genre status
                         movieDetails.updateGenres(favoriteLocalGenres)
 

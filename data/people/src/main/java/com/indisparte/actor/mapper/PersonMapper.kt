@@ -53,8 +53,8 @@ fun PosterDTO.mapToPoster(): Poster {
     )
 }
 
-fun Cast.asEntity():ActorEntity{
-    return ActorEntity(actorId = this.castId, name = this.name, posterPath = this.profilePath)
+fun Person.asEntity():ActorEntity{
+    return ActorEntity(actorId = this.id, name = this.name, posterPath = this.profilePath)
 }
 
 

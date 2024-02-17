@@ -1,5 +1,6 @@
 package com.indisparte.tv.mapper
 
+import com.indisparte.base.MediaType
 import com.indisparte.common.Genre
 import com.indisparte.common.Network
 import com.indisparte.common.ProductionCompany
@@ -12,6 +13,7 @@ import com.indisparte.response.GenreDTO
 import com.indisparte.response.ProductionCompanyDTO
 import com.indisparte.response.ProductionCountryDTO
 import com.indisparte.response.SpokenLanguageDTO
+import com.indisparte.response.TvShowDTO
 import com.indisparte.response.VideoDTO
 import com.indisparte.tv.Group
 import com.indisparte.tv.TvShow
@@ -20,7 +22,6 @@ import com.indisparte.tv.response.CastDTO
 import com.indisparte.tv.response.CrewDTO
 import com.indisparte.tv.response.GroupDTO
 import com.indisparte.tv.response.NetworkDTO
-import com.indisparte.response.TvShowDTO
 import com.indisparte.tv.response.TvShowDetailsDTO
 
 /**
@@ -43,7 +44,7 @@ fun TvShowDetailsDTO.mapToTvShowDetails(): TvShowDetails {
         createdBy = this.createdBy.map { it.mapToCreatedBy() },
         episodeRunTime = this.episodeRunTime,
         firstAirDate = this.firstAirDate,
-        genres = this.genres.map { it.mapToGenre() },
+        genres = this.genres.map { it.mapToGenre(MediaType.TV) },
         homepage = this.homepage,
         id = this.id,
         inProduction = this.inProduction,
@@ -74,7 +75,6 @@ fun TvShowDetailsDTO.mapToTvShowDetails(): TvShowDetails {
 }
 
 
-
 fun NetworkDTO.mapToNetwork(): Network {
     return Network(
         id = this.id,
@@ -84,8 +84,8 @@ fun NetworkDTO.mapToNetwork(): Network {
     )
 }
 
-fun GenreDTO.mapToGenre(): Genre {
-    return Genre(id = this.id, name = this.name)
+fun GenreDTO.mapToGenre(mediaType: MediaType): Genre {
+    return Genre(id = this.id, name = this.name, mediaType = mediaType)
 }
 
 fun ProductionCompanyDTO.mapToProductionCompany(): ProductionCompany {
@@ -130,6 +130,7 @@ fun CastDTO.mapToCast(): Cast {
         profilePath = this.profilePath
     )
 }
+
 fun CrewDTO.mapToCrew(): Crew {
     return Crew(
         adult = this.adult,

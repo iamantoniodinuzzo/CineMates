@@ -26,10 +26,10 @@ constructor(
         emit(Result.Success(result))
     }
 
-    override fun getAllList(): Flow<Result<List<MediaList>>> = flow {
+    override fun getAllListsByUserId(userId:Int): Flow<Result<List<MediaList>>> = flow {
         emit(Result.Loading)
-        val result = mediaListLocalDataSource.getAllListByUserId()
-        emit(Result.Success(result))
+        val result = mediaListLocalDataSource.getAllListByUserId(userId)
+        emit(Result.Success(result.keys.toList()))
     }
 
     override fun getListWithId(listId: Int): Flow<Result<MediaList?>> = flow{

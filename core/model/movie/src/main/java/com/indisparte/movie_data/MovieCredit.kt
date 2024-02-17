@@ -31,7 +31,8 @@ class MovieCredit(
     posterPath,
     releaseDate,
     title,
-    voteAverage
+    voteAverage,
+    genreIds = listOf()
 ) {
     /**
      * Gets the credit description, which can be either the character name or the department.

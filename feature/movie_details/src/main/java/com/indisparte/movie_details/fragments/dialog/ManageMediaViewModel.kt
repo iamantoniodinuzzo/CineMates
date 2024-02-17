@@ -40,7 +40,8 @@ constructor(
 
     private fun getAllPersonaList() {
         viewModelScope.launch {
-            mediaListRepository.getAllList().collectLatest {
+            // TODO: passing user id
+            mediaListRepository.getAllListsByUserId(userId = 0).collectLatest {
                 _lists.emit(it)
             }
         }

@@ -28,7 +28,7 @@ interface GenreRepository {
      * @return A [Flow] of [Result] containing the list of TV show genres.
      */
     fun getTvGenreList(): Flow<Result<List<Genre>>>
-    fun getAllGenres(): Flow<List<Genre>>
+    fun getAllGenres(): List<Genre>
 
     /**
      * Retrieves a list of genres based on their unique identifiers [genresId] from the local data source.
@@ -39,19 +39,7 @@ interface GenreRepository {
      * @return A Flow emitting a list of genres that match the provided IDs. The emitted list may be
      * empty if no genres were found for the given IDs.
      */
-    fun getGenresByIds(genresId: List<Int>): Flow<List<Genre>>
-
-    /**
-     * Updates a saved genre in the local data source. This function updates the provided [genre] in
-     * the local data source and emits the result as a Flow of an integer value.
-     *
-     * @param genre The genre to be updated in the local data source.
-     *
-     * @return A Flow emitting the result of the update operation. The emitted value represents the
-     * number of rows affected by the update. A value greater than 0 indicates a successful update,
-     * while 0 indicates that no rows were updated.
-     */
-    fun updateSavedGenre(genre: Genre): Flow<Int>
+    fun getGenresByIds(genresId: List<Int>): List<Genre>
 
     /**
      * Retrieves a list of favorite genres stored in the local data source.

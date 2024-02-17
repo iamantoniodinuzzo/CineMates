@@ -108,6 +108,7 @@ class MediaListCreationFragment : BaseFragment<FragmentMediaListCreationBinding>
                         MediaList(
                             title = title,
                             description = description,
+                            ownerId = 0
                         )
                     )
                 }

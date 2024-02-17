@@ -50,7 +50,6 @@ constructor(
 
     suspend fun insertFavoriteMovie(movie: Movie): Boolean = withContext(ioDispatcher) {
         //Check if movie already saved
-        Log.d(TAG, "Percorso di salvataggio ${movie.title}")
         val savedMovie = mediaDao.getMedia(movie.id)
         if (savedMovie == null) {
             Log.d(TAG, "${movie.title} non è mai stato salvato, lo salvo")
@@ -59,26 +58,20 @@ constructor(
             if (!savingResult)
             //Unsuccessful insertion
                 return@withContext false
-            Log.d(TAG, "Il salvataggio ha avuto successo")
         }
 
         //Set movie as favorite
-        Log.d(TAG, "Inserisco ora ${movie.title} tra i preferiti dell'utente")
         val favDate = Date(System.currentTimeMillis())
         // FIXME: Need to pass the user id as params or saved refs
         val crossRef = UserFavMediaCrossRef(mediaId = movie.id, userId = 0, favDate = favDate)
         val saveAsFavResult = mediaDao.insertUserFavMediaCrossRef(crossRef)
-        if (saveAsFavResult <= 0)
-        //Unsuccessful insertion
-            return@withContext false
-        Log.d(TAG, "L'inserimento tra i preferiti ha avuto successo")
-
-        return@withContext true
+        return@withContext saveAsFavResult > 0
 
     }
 
     suspend fun insertToSeeMovie(movie: Movie): Boolean = withContext(ioDispatcher) {
         // TODO: Come inserire in una lista di default
+        Log.d(TAG, "Inizio il percorso per il salvataggio in Watchlist")
 
         return@withContext false
     }

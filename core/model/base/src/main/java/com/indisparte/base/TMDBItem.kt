@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.Locale
 
 /**
@@ -36,32 +37,25 @@ abstract class TMDBItem {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun formatDateCompat(inputDate: String?, inputFormat: String? = null): String? {
+    private fun formatDateUsingApi26(inputDate: String?, inputFormat: String? = null): String? {
         if (inputDate.isNullOrEmpty()) {
             return null
         }
 
-        val inputFormat =
-            DateTimeFormatter.ofPattern(inputFormat ?: TMDB_DATE_TIME_FORMAT)
+        val definitiveInputFormat = DateTimeFormatter.ofPattern(inputFormat ?: TMDB_DATE_TIME_FORMAT)
         val outputFormat = DateTimeFormatter.ofPattern(OUTPUT_DATE_TIME_FORMAT)
 
         return try {
-            val date = inputFormat.parse(inputDate)
+            val date = definitiveInputFormat.parse(inputDate)
             date?.let { outputFormat.format(it) }
-        } catch (e: ParseException) {
+        } catch (e: DateTimeParseException) {
             null
         }
     }
 
-    /**
-     * Formats a date from an input format to an output format.
-     *
-     * @param inputDate The date to format.
-     * @return The formatted date in the output format, or null if the input is empty or invalid.
-     */
     protected fun formatDate(inputDate: String?, inputFormat: String? = null): String? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            formatDate(inputDate, inputFormat)
+            formatDateUsingApi26(inputDate, inputFormat)
         } else {
             formatDateLegacy(inputDate, inputFormat)
         }
@@ -72,17 +66,17 @@ abstract class TMDBItem {
             return null
         }
 
-        val inputFormat =
-            SimpleDateFormat(inputFormat ?: TMDB_DATE_TIME_FORMAT, Locale.getDefault())
+        val definitiveInputFormat = SimpleDateFormat(inputFormat ?: TMDB_DATE_TIME_FORMAT, Locale.getDefault())
         val outputFormat = SimpleDateFormat(OUTPUT_DATE_TIME_FORMAT, Locale.getDefault())
 
         return try {
-            val date = inputFormat.parse(inputDate)
+            val date = definitiveInputFormat.parse(inputDate)
             date?.let { outputFormat.format(it) }
-        } catch (e: java.text.ParseException) {
+        } catch (e: ParseException) {
             null
         }
     }
+
 
     /**
      * Formats a runtime value in minutes into a human-readable string representation.

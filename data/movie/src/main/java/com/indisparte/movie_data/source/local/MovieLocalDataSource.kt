@@ -1,5 +1,6 @@
 package com.indisparte.movie_data.source.local
 
+import android.util.Log
 import com.indisparte.base.Media
 import com.indisparte.database.dao.GenreDao
 import com.indisparte.database.dao.MediaDao
@@ -12,7 +13,6 @@ import com.indisparte.database.entity.relations.UserFavMediaCrossRef
 import com.indisparte.movie_data.Movie
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import java.util.Date
 import javax.inject.Inject
@@ -29,6 +29,8 @@ constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
 
+    private val TAG = MovieLocalDataSource::class.java.simpleName
+
     private fun saveMovie(movie: Movie): Boolean {
         //Save movie in media table
         val savingResult = mediaDao.insert(movie.asEntity())
@@ -41,26 +43,27 @@ constructor(
         val genreMediaCrossRefList = movieGenresId.map { GenreMediaCrossRef(movie.id, it) }
 
         val insertionResult = genreDao.insertGenresInMedia(genreMediaCrossRefList)
-        if (insertionResult.any { it <= 0 })
-            return false
-
-        return true
+        return !insertionResult.any { it <= 0 }
 
 
     }
 
     suspend fun insertFavoriteMovie(movie: Movie): Boolean = withContext(ioDispatcher) {
         //Check if movie already saved
+        Log.d(TAG, "Percorso di salvataggio ${movie.title}")
         val savedMovie = mediaDao.getMedia(movie.id)
         if (savedMovie == null) {
+            Log.d(TAG, "${movie.title} non è mai stato salvato, lo salvo")
             //The movie has never been saved before
             val savingResult = saveMovie(movie)
             if (!savingResult)
             //Unsuccessful insertion
                 return@withContext false
+            Log.d(TAG, "Il salvataggio ha avuto successo")
         }
 
         //Set movie as favorite
+        Log.d(TAG, "Inserisco ora ${movie.title} tra i preferiti dell'utente")
         val favDate = Date(System.currentTimeMillis())
         // FIXME: Need to pass the user id as params or saved refs
         val crossRef = UserFavMediaCrossRef(mediaId = movie.id, userId = 0, favDate = favDate)
@@ -68,6 +71,7 @@ constructor(
         if (saveAsFavResult <= 0)
         //Unsuccessful insertion
             return@withContext false
+        Log.d(TAG, "L'inserimento tra i preferiti ha avuto successo")
 
         return@withContext true
 
@@ -85,10 +89,12 @@ constructor(
         return@withContext false
     }
 
-    suspend fun isFavoriteMovie(movieId: Int): Boolean = withContext(ioDispatcher) {
-        // FIXME: How to check
+    suspend fun isUserFavoriteMovie(movieId: Int, userId:Int): Boolean = withContext(ioDispatcher) {
+        //FIXME: Utilizza lo userId
+        val result = userDao.getUserFavMedias(userId = userId)
+        val isInResult = result[0].favMedias.find { it.mediaId == movieId }
 
-        return@withContext false
+        return@withContext isInResult != null
     }
 
     suspend fun isToSeeMovie(movieId: Int): Boolean = withContext(ioDispatcher) {
@@ -170,14 +176,15 @@ constructor(
             return@withContext insertionResult > 0
         }
 
-    suspend fun removeMovieFromList(mediaId:Int, listId:Int):Boolean = withContext(ioDispatcher){
-        val crossRefToRemove =
-            mediaDao.getMediaInList(listId, mediaId) ?: //Movie never been in list
-            return@withContext false
+    suspend fun removeMovieFromList(mediaId: Int, listId: Int): Boolean =
+        withContext(ioDispatcher) {
+            val crossRefToRemove =
+                mediaDao.getMediaInList(listId, mediaId) ?: //Movie never been in list
+                return@withContext false
 
-        val deletionResult = mediaDao.deleteMediaFromList(crossRefToRemove)
+            val deletionResult = mediaDao.deleteMediaFromList(crossRefToRemove)
 
-        return@withContext deletionResult > 0
-    }
+            return@withContext deletionResult > 0
+        }
 
 }

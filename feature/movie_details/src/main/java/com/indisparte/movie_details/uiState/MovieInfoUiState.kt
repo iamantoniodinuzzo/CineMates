@@ -1,4 +1,4 @@
-package com.indisparte.movie_details.model
+package com.indisparte.movie_details.uiState
 
 import com.indisparte.common.Backdrop
 import com.indisparte.common.CountryResult

@@ -2,8 +2,8 @@ package com.indisparte.movie_details.fragments.dialog
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.indisparte.media_list.MediaList
 import com.indisparte.list.repository.MediaListRepository
+import com.indisparte.media_list.MediaList
 import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.repository.MovieRepository
 import com.indisparte.network.util.Result
@@ -31,8 +31,8 @@ constructor(
     private val _lists = MutableStateFlow<Result<List<MediaList>>>(Result.Success(emptyList()))
     val list: StateFlow<Result<List<MediaList>>> get() = _lists
 
-     private val _movieListInsertion = MutableStateFlow<Boolean?>(null)
-      val movieListInsertion: StateFlow<Boolean?> get() = _movieListInsertion
+    private val _movieListInsertion = MutableStateFlow<Boolean?>(null)
+    val movieListInsertion: StateFlow<Boolean?> get() = _movieListInsertion
 
     init {
         getAllPersonaList()

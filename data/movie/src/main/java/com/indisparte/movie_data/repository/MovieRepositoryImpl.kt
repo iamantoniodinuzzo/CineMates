@@ -19,7 +19,6 @@ import com.indisparte.network.util.whenResources
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -34,6 +33,7 @@ constructor(
     private val genreLocalDataSource: GenreLocalDataSource,
     private val movieLocalDataSource: MovieLocalDataSource,
 ) : MovieRepository {
+
 
     override fun getByListType(movieListType: MovieListType): Flow<Result<List<Movie>>> =
         movieRemoteDataSource.getByListType(movieListType)
@@ -56,7 +56,8 @@ constructor(
                         movieDetails.updateGenres(favoriteLocalGenres)
 
                         //Check if current movie is a favorite movie
-                        val isFavorite = movieLocalDataSource.isFavoriteMovie(movieDetails.id)
+                        //FIXME: Passare lo user id opportuno
+                        val isFavorite = movieLocalDataSource.isUserFavoriteMovie(movieDetails.id,0)
                         // Update isFavorite variable
                         movieDetails.isFavorite = isFavorite
 

@@ -14,7 +14,7 @@ import com.indisparte.movie_data.ReleaseDate
 import com.indisparte.movie_data.ReleaseDatesByCountry
 import com.indisparte.movie_data.findReleaseDateByCountry
 import com.indisparte.movie_data.repository.fake.FakeMovieRepository
-import com.indisparte.movie_details.model.MovieInfoUiState
+import com.indisparte.movie_details.uiState.MovieInfoUiState
 import com.indisparte.network.util.Result
 import com.indisparte.network.exception.CineMatesException
 import com.indisparte.person.Cast

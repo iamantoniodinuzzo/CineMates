@@ -16,7 +16,7 @@ import com.indisparte.movie_data.ReleaseDatesByCountry
 import com.indisparte.movie_data.findReleaseDateByCountry
 import com.indisparte.movie_data.getLatestReleaseCertification
 import com.indisparte.movie_data.repository.MovieRepository
-import com.indisparte.movie_details.model.MovieInfoUiState
+import com.indisparte.movie_details.uiState.MovieInfoUiState
 import com.indisparte.network.util.Result
 import com.indisparte.network.exception.CineMatesException
 import com.indisparte.network.util.succeeded
@@ -29,7 +29,6 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.Locale

@@ -9,7 +9,9 @@ import androidx.room.Transaction
 import com.indisparte.database.dao.base.BaseDao
 import com.indisparte.database.entity.MediaEntity
 import com.indisparte.database.entity.relations.GenreWithMedias
+import com.indisparte.database.entity.relations.MediaDefaultListCrossRef
 import com.indisparte.database.entity.relations.MediaListCrossRef
+import com.indisparte.database.entity.relations.MediaWithDefaultLists
 import com.indisparte.database.entity.relations.MediaWithLists
 import com.indisparte.database.entity.relations.UserFavMediaCrossRef
 
@@ -39,7 +41,7 @@ interface MediaDao : BaseDao<MediaEntity> {
 
     @Transaction
     @Query("SELECT * FROM media where mediaId =:mediaId")
-    fun getMediaWithLists(mediaId: Int): List<MediaWithLists>
+    fun getMediaWithLists(mediaId: Int): List<MediaWithDefaultLists>
 
     @Query("SELECT * FROM MediaListCrossRef WHERE mediaId = :mediaId AND listId = :listId LIMIT 1")
     fun getMediaInList(listId: Int, mediaId: Int): MediaListCrossRef?
@@ -54,5 +56,22 @@ interface MediaDao : BaseDao<MediaEntity> {
     @Transaction
     @Query("SELECT * FROM genre WHERE genreId= :genreId")
     fun getMediasByGenre(genreId: Int): List<GenreWithMedias>
+
+
+    // MEDIA IN DEFAULT LIST
+    @Transaction
+    @Query("SELECT * FROM media where mediaId =:mediaId")
+    fun getMediaWithDefaultLists(mediaId: Int): List<MediaWithDefaultLists>
+
+    @Query("SELECT * FROM MediaDefaultListCrossRef WHERE mediaId = :mediaId AND listId = :listId LIMIT 1")
+    fun getMediaInDefaultList(listId: Int, mediaId: Int): MediaDefaultListCrossRef?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertMediaDefaultListCrossRef(crossRef: MediaDefaultListCrossRef): Long
+
+    @Delete
+    fun deleteMediaFromDefaultList(crossRef: MediaDefaultListCrossRef): Int
+
+
 
 }

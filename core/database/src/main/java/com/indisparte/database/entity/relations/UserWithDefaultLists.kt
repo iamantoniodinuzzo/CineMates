@@ -2,6 +2,7 @@ package com.indisparte.database.entity.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.indisparte.database.entity.DefaultListEntity
 import com.indisparte.database.entity.ListEntity
 import com.indisparte.database.entity.UserEntity
 
@@ -14,5 +15,5 @@ data class UserWithDefaultLists(
         parentColumn = "userId",
         entityColumn = "ownerId"
     )
-    val lists: List<ListEntity>,
+    val lists: List<DefaultListEntity>,
 )

@@ -7,16 +7,16 @@ import com.indisparte.database.entity.DefaultListEntity
 import com.indisparte.database.entity.ListEntity
 import com.indisparte.database.entity.MediaEntity
 
+
 /**
- * @author Antonio Di Nuzzo
+ *@author Antonio Di Nuzzo
  */
-data class DefaultListWithMedias(
-    @Embedded
-    val list: DefaultListEntity,
+data class MediaWithDefaultLists(
+    @Embedded val mediaEntity: MediaEntity,
     @Relation(
-        parentColumn = "listId",
-        entityColumn = "mediaId",
+        parentColumn = "mediaId",
+        entityColumn = "listId",
         associateBy = Junction(MediaDefaultListCrossRef::class)
     )
-    val medias: List<MediaEntity>,
+    val listsWithMedia: List<DefaultListEntity>,
 )

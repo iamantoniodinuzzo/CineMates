@@ -68,6 +68,12 @@ object DatabaseModule {
 
     @Provides
     @Singleton
+    fun provideDefaultListDao(
+        database: CineMatesDatabase,
+    ) = database.defaultListDao()
+
+    @Provides
+    @Singleton
     fun provideUserDao(
         database: CineMatesDatabase,
     ) = database.userDao()

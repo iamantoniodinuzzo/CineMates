@@ -15,5 +15,5 @@ data class UserWithDefaultListAndMedia(
         parentColumn = "userId",
         entityColumn = "ownerId"
     )
-    val lists: List<ListWithMedias>,
+    val lists: List<DefaultListWithMedias>,
 )

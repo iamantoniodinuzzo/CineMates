@@ -12,10 +12,10 @@ import java.util.Date
  */
 @Entity(
     tableName = "MediaDefaultListCrossRef",
-    primaryKeys = ["mediaId", "defaultListId"],
+    primaryKeys = ["mediaId", "listId"],
     indices = [
         Index("mediaId"),
-        Index("defaultListId")
+        Index("listId")
     ],
     foreignKeys = [
         ForeignKey(

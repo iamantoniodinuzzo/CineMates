@@ -28,7 +28,6 @@ import java.util.Date
 class MediaDaoTest : BaseDaoTest() {
 
     private lateinit var mediaDao: MediaDao
-    private val fakeUserId = 1
     private val fakeMediaId = 1
     private lateinit var fakeMedia: MediaEntity
 
@@ -45,20 +44,14 @@ class MediaDaoTest : BaseDaoTest() {
 
         )
         mediaDao = testDatabase.mediaDao()
-        testDatabase.userDao().insert(
-            UserEntity(
-                userId = fakeUserId,
-                name = "Federico Freeman",
-                subscriptionDate = Date(System.currentTimeMillis())
-            )
-        )
+
     }
 
     @Test
     fun insertUserFavMediaCrossRef() {
         mediaDao.insert(fakeMedia)
         val crossRef = UserFavMediaCrossRef(
-            userId = fakeUserId,
+            userId = defaultUserEntity.userId,
             mediaId = fakeMediaId,
             favDate = Date(System.currentTimeMillis())
         )
@@ -87,15 +80,15 @@ class MediaDaoTest : BaseDaoTest() {
         mediaDao.insert(fakeMedia)
         val crossRef = UserFavMediaCrossRef(
             mediaId = fakeMediaId,
-            userId = fakeUserId,
+            userId = defaultUserEntity.userId,
             favDate = Date(System.currentTimeMillis())
         )
         mediaDao.insertUserFavMediaCrossRef(crossRef)
 
-        val result = mediaDao.getUserFavMedia(fakeMediaId, fakeUserId)
+        val result = mediaDao.getUserFavMedia(fakeMediaId, defaultUserEntity.userId)
         assertNotNull(result)
         assertEquals(fakeMediaId, result?.mediaId)
-        assertEquals(fakeUserId, result?.userId)
+        assertEquals(defaultUserEntity.userId, result?.userId)
     }
 
     @Test
@@ -104,7 +97,7 @@ class MediaDaoTest : BaseDaoTest() {
 
         val crossRef = UserFavMediaCrossRef(
             mediaId = fakeMediaId,
-            userId = fakeUserId,
+            userId = defaultUserEntity.userId,
             favDate = Date(System.currentTimeMillis())
         )
         mediaDao.insertUserFavMediaCrossRef(crossRef)

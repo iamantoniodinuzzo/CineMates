@@ -34,12 +34,18 @@ abstract class BaseDaoTest {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     protected lateinit var testDatabase: CineMatesDatabase
+    protected lateinit var defaultUserEntity:  UserEntity
     private lateinit var  testDispatcher:TestDispatcher
 
 
     @Before
     open fun setup() {
         testDispatcher = StandardTestDispatcher()
+        defaultUserEntity = UserEntity(
+            userId = 1,
+            name = "Bernadette McCormick",
+            subscriptionDate = Date(System.currentTimeMillis())
+        )
         testDatabase = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
             CineMatesDatabase::class.java
@@ -49,11 +55,7 @@ abstract class BaseDaoTest {
                 //io thread
                 Executors.newSingleThreadExecutor().execute {
                     DatabaseModule.getInstance(ApplicationProvider.getApplicationContext()).userDao().insert(
-                        UserEntity(
-                            userId = 1,
-                            name = "Federico Freeman",
-                            subscriptionDate = Date(System.currentTimeMillis())
-                        )
+                        defaultUserEntity
                     )
                 }
             }

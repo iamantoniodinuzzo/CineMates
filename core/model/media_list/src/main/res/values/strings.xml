@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="to_see_default_title">To See</string>
+    <string name="seen_default_title">Seen</string>
+</resources>

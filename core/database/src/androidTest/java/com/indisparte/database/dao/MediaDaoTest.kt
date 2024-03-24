@@ -2,12 +2,10 @@ package com.indisparte.database.dao
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import com.indisparte.base.MediaType
 import com.indisparte.database.dao.base.BaseDaoTest
-import com.indisparte.database.entity.GenreEntity
-import com.indisparte.database.entity.MediaEntity
-import com.indisparte.database.entity.UserEntity
-import com.indisparte.database.entity.relations.GenreWithMedias
+import com.indisparte.database.entity.DefaultListEntity
+import com.indisparte.database.entity.ListEntity
+import com.indisparte.database.entity.relations.MediaDefaultListCrossRef
 import com.indisparte.database.entity.relations.MediaListCrossRef
 import com.indisparte.database.entity.relations.UserFavMediaCrossRef
 import junit.framework.TestCase.assertEquals
@@ -28,31 +26,53 @@ import java.util.Date
 class MediaDaoTest : BaseDaoTest() {
 
     private lateinit var mediaDao: MediaDao
-    private val fakeMediaId = 1
-    private lateinit var fakeMedia: MediaEntity
+    private lateinit var userDao: UserDao
+    private lateinit var listDao: ListDao
+    private lateinit var defaultListDao: DefaultListDao
+    private var fakeListId: Int = 1
+    private lateinit var defaultList1: DefaultListEntity
+    private lateinit var defaultList2: DefaultListEntity
 
     @Before
     override fun setup() {
         super.setup()
-        fakeMedia = MediaEntity(
-            mediaId = fakeMediaId,
-            mediaName = "Christa Cooke",
-            popularity = null,
-            posterPath = null,
-            voteAverage = 14.15,
-            mediaType = 1
-
-        )
         mediaDao = testDatabase.mediaDao()
+        userDao = testDatabase.userDao()
+        listDao = testDatabase.listDao()
+        defaultListDao = testDatabase.defaultListDao()
+        defaultList1 = DefaultListEntity(
+            listId = 4,
+            defaultTitle = "seen",
+            ownerId = defaultUserEntity.userId
+        )
+        defaultList2 = DefaultListEntity(
+            listId = 5,
+            defaultTitle = "to_see",
+            ownerId = defaultUserEntity.userId
+        )
+        listDao.insert(
+            ListEntity(
+                listId = fakeListId,
+                title = "iuvaret",
+                description = null,
+                updateDate = Date(System.currentTimeMillis()),
+                creationDate = Date(System.currentTimeMillis()),
+                isPrivate = false,
+                ownerId = defaultUserEntity.userId
+            )
+        )
 
+        defaultListDao.insert(defaultList1)
+        defaultListDao.insert(defaultList2)
+        userDao.insert(defaultUserEntity)
+        mediaDao.insert(defaultMediaEntity)
     }
 
     @Test
     fun insertUserFavMediaCrossRef() {
-        mediaDao.insert(fakeMedia)
         val crossRef = UserFavMediaCrossRef(
             userId = defaultUserEntity.userId,
-            mediaId = fakeMediaId,
+            mediaId = defaultMediaEntity.mediaId,
             favDate = Date(System.currentTimeMillis())
         )
 
@@ -62,10 +82,8 @@ class MediaDaoTest : BaseDaoTest() {
 
     @Test
     fun getMedia() {
-        mediaDao.insert(fakeMedia)
-
-        val result = mediaDao.getMedia(fakeMediaId)
-        assertEquals(fakeMediaId, result?.mediaId)
+        val result = mediaDao.getMedia(defaultMediaEntity.mediaId)
+        assertEquals(defaultMediaEntity.mediaId, result?.mediaId)
     }
 
     @Test
@@ -77,26 +95,23 @@ class MediaDaoTest : BaseDaoTest() {
 
     @Test
     fun getUserFavMedia() {
-        mediaDao.insert(fakeMedia)
         val crossRef = UserFavMediaCrossRef(
-            mediaId = fakeMediaId,
+            mediaId = defaultMediaEntity.mediaId,
             userId = defaultUserEntity.userId,
             favDate = Date(System.currentTimeMillis())
         )
         mediaDao.insertUserFavMediaCrossRef(crossRef)
 
-        val result = mediaDao.getUserFavMedia(fakeMediaId, defaultUserEntity.userId)
+        val result = mediaDao.getUserFavMedia(defaultMediaEntity.mediaId, defaultUserEntity.userId)
         assertNotNull(result)
-        assertEquals(fakeMediaId, result?.mediaId)
+        assertEquals(defaultMediaEntity.mediaId, result?.mediaId)
         assertEquals(defaultUserEntity.userId, result?.userId)
     }
 
     @Test
     fun deleteMediaFromFavorites() {
-        mediaDao.insert(fakeMedia)
-
         val crossRef = UserFavMediaCrossRef(
-            mediaId = fakeMediaId,
+            mediaId = defaultMediaEntity.mediaId,
             userId = defaultUserEntity.userId,
             favDate = Date(System.currentTimeMillis())
         )
@@ -110,25 +125,52 @@ class MediaDaoTest : BaseDaoTest() {
     @Test
     fun givenAMediaWithAssociatedListsWhenQueryingMediaWithListsThenTheCorrectMediaWithListsIsReturned() {
         // Given
-        val media = MediaEntity(mediaId = 1, mediaName = "Test Media",
-            popularity = null,
-            posterPath = null,
-            voteAverage = 2.3,
-            mediaType = 8507, )
-        val list1 = MediaListCrossRef(listId = 1, mediaId = 1, insertionDate = Date(System.currentTimeMillis()), position = 0,)
-        val list2 = MediaListCrossRef(listId = 2, mediaId = 1, insertionDate =Date(System.currentTimeMillis()), position = 1,)
+        val list1 = ListEntity(
+            listId = 1,
+            title = "facilisis",
+            description = null,
+            updateDate = Date(System.currentTimeMillis()),
+            creationDate = Date(System.currentTimeMillis()),
+            isPrivate = false,
+            ownerId = defaultUserEntity.userId
+        )
+        val list2 = ListEntity(
+            listId = 2,
+            title = "facis",
+            description = null,
+            updateDate = Date(System.currentTimeMillis()),
+            creationDate = Date(System.currentTimeMillis()),
+            isPrivate = false,
+            ownerId = defaultUserEntity.userId
+        )
 
-        mediaDao.insert(media)
-        mediaDao.insertMediaListCrossRef(list1)
-        mediaDao.insertMediaListCrossRef(list2)
+
+        val mediaListCrossRef1 = MediaListCrossRef(
+            listId = list1.listId,
+            mediaId = defaultMediaEntity.mediaId,
+            insertionDate = Date(System.currentTimeMillis()),
+            position = 0,
+        )
+        val mediaListCrossRef2 = MediaListCrossRef(
+            listId = list2.listId,
+            mediaId = defaultMediaEntity.mediaId,
+            insertionDate = Date(System.currentTimeMillis()),
+            position = 1,
+        )
+        listDao.insert(list1)
+        listDao.insert(list2)
+
+        mediaDao.insert(defaultMediaEntity)
+        mediaDao.insertMediaListCrossRef(mediaListCrossRef1)
+        mediaDao.insertMediaListCrossRef(mediaListCrossRef2)
 
         // When
         runBlockingTest {
-            val mediaWithLists = mediaDao.getMediaWithLists(1)
+            val mediaWithLists = mediaDao.getMediaWithLists(defaultMediaEntity.mediaId)
 
             // Then
             assertNotNull(mediaWithLists)
-            assertEquals(media, mediaWithLists[0].mediaEntity)
+            assertEquals(defaultMediaEntity, mediaWithLists[0].mediaEntity)
             assertEquals(2, mediaWithLists[0].listsWithMedia.size)
         }
     }
@@ -137,21 +179,21 @@ class MediaDaoTest : BaseDaoTest() {
     @Test
     fun testGetMediaInList() {
         // Given
-        val listId = 2
-        val mediaId = 2
-        val crossRef = MediaListCrossRef(listId = listId, mediaId = mediaId,
-            insertionDate =Date(System.currentTimeMillis()),
-            position = 9772,)
+        val crossRef = MediaListCrossRef(
+            listId = fakeListId, mediaId = defaultMediaEntity.mediaId,
+            insertionDate = Date(System.currentTimeMillis()),
+            position = 9772,
+        )
         mediaDao.insertMediaListCrossRef(crossRef)
 
         // When
         runBlockingTest {
-            val retrievedCrossRef = mediaDao.getMediaInList(listId, mediaId)
+            val retrievedCrossRef = mediaDao.getMediaInList(fakeListId, defaultMediaEntity.mediaId)
 
             // Then
             assertNotNull(retrievedCrossRef)
-            assertEquals(listId, retrievedCrossRef?.listId)
-            assertEquals(mediaId, retrievedCrossRef?.mediaId)
+            assertEquals(fakeListId, retrievedCrossRef?.listId)
+            assertEquals(defaultMediaEntity.mediaId, retrievedCrossRef?.mediaId)
         }
     }
 
@@ -159,7 +201,12 @@ class MediaDaoTest : BaseDaoTest() {
     @Test
     fun testInsertMediaListCrossRef() {
         // Given
-        val crossRef = MediaListCrossRef(listId = 3, mediaId = fakeMediaId, insertionDate =Date(System.currentTimeMillis()), position = 4087,)
+        val crossRef = MediaListCrossRef(
+            listId = fakeListId,
+            mediaId = defaultMediaEntity.mediaId,
+            insertionDate = Date(System.currentTimeMillis()),
+            position = 4087,
+        )
 
         // When
         runBlockingTest {
@@ -174,9 +221,11 @@ class MediaDaoTest : BaseDaoTest() {
     @Test
     fun testDeleteMediaFromList() {
         // Given
-        val crossRefToDelete = MediaListCrossRef(listId = 4, mediaId = 4,
-            insertionDate =Date(System.currentTimeMillis()),
-            position = 8061,)
+        val crossRefToDelete = MediaListCrossRef(
+            listId = fakeListId, mediaId = defaultMediaEntity.mediaId,
+            insertionDate = Date(System.currentTimeMillis()),
+            position = 8061,
+        )
         mediaDao.insertMediaListCrossRef(crossRefToDelete)
 
         // When
@@ -188,6 +237,59 @@ class MediaDaoTest : BaseDaoTest() {
         }
     }
 
+
+    //TEST DEFAULT LISTS
+
+    @Test
+    fun getMediaWithDefaultList_successfully() {
+        //GIVEN - tutto quello che ti serve per testare
+
+        mediaDao.insertMediaDefaultListCrossRef(
+            MediaDefaultListCrossRef(
+                mediaId = defaultMediaEntity.mediaId,
+                listId = defaultList1.listId,
+                insertionDate = Date(System.currentTimeMillis()),
+                position = 0
+            )
+        )
+
+        //WHEN - le azioni e i cambiamenti del soggetto del test
+        val result = mediaDao.getMediaWithDefaultLists(defaultMediaEntity.mediaId)
+
+
+        //THEN - verifica se il test è andato come ti aspettavi
+        assertEquals(result[0].mediaEntity, defaultMediaEntity)
+        assert(result[0].listsWithMedia.contains(defaultList1))
+
+    }
+
+    @Test
+    fun deleteMediaFromDefaultList_successfully() {
+        //GIVEN - tutto quello che ti serve per testare
+        mediaDao.insertMediaDefaultListCrossRef(
+            MediaDefaultListCrossRef(
+                mediaId = defaultMediaEntity.mediaId,
+                listId = defaultList1.listId,
+                insertionDate = Date(System.currentTimeMillis()),
+                position = 0
+            )
+        )
+        val mediaDefaultListCrossRef =
+            mediaDao.getMediaInDefaultList(defaultList1.listId, defaultMediaEntity.mediaId)
+
+
+        //WHEN - le azioni e i cambiamenti del soggetto del test
+        val result = mediaDefaultListCrossRef?.let { mediaDao.deleteMediaFromDefaultList(it) }
+        val mediaDefaultListCrossRefAfterDeletion =
+            mediaDao.getMediaInDefaultList(defaultList1.listId, defaultMediaEntity.mediaId)
+
+        //THEN - verifica se il test è andato come ti aspettavi
+        assertNotNull(mediaDefaultListCrossRef)
+        assertEquals(1, result)
+        assertNull(mediaDefaultListCrossRefAfterDeletion)
+
+
+    }
 
 
 }

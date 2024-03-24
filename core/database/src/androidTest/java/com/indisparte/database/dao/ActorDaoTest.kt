@@ -15,15 +15,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import java.util.*
 
-// FIXME: Ogni volta devo inserire l'utente e l'attore. Questo deve essere generalizzato specialmente per l'utente 
 @RunWith(AndroidJUnit4ClassRunner::class)
 @SmallTest
 class ActorDaoTest : BaseDaoTest() {
 
     private lateinit var actorDao: ActorDao
     private lateinit var userDao: UserDao
-    private lateinit var userEntity: UserEntity
-    private lateinit var actorEntity: ActorEntity
     private lateinit var userFavActorCrossRef: UserFavActorCrossRef
 
     @Before
@@ -31,37 +28,33 @@ class ActorDaoTest : BaseDaoTest() {
         super.setup()
         actorDao = testDatabase.personDao()
         userDao = testDatabase.userDao()
-        actorEntity = ActorEntity(actorId = 1, name = "Bryan Berger", posterPath = null)
-        userEntity = UserEntity(userId = 1, name = "Jordan Cochran", subscriptionDate = Date(System.currentTimeMillis()))
         userFavActorCrossRef = UserFavActorCrossRef(
-            actorEntity.actorId,
+            defaultActorEntity.actorId,
             1,
             favDate = Date(System.currentTimeMillis())
         ) // Assuming actorId and userId are both 1
-
-
 
     }
 
     @Test
     fun insertActor() = runBlockingTest {
-        val actorInsertionResult = actorDao.insert(actorEntity)
+        val actorInsertionResult = actorDao.insert(defaultActorEntity)
         assertEquals(1, actorInsertionResult)
 
     }
 
     @Test
     fun getActor() = runBlockingTest {
-         actorDao.insert(actorEntity)
-        val result = actorDao.getActor(actorEntity.actorId)
-        assertEquals(actorEntity, result)
+         actorDao.insert(defaultActorEntity)
+        val result = actorDao.getActor(defaultActorEntity.actorId)
+        assertEquals(defaultActorEntity, result)
     }
 
     @ExperimentalCoroutinesApi
     @Test
     fun insertUserFavActor_insertsAndRetrievesCorrectly() = runBlockingTest {
-        actorDao.insert(actorEntity)
-        userDao.insert(userEntity)
+        actorDao.insert(defaultActorEntity)
+        userDao.insert(defaultUserEntity)
         val rowId = actorDao.insertUserFavActor(userFavActorCrossRef)
         assertEquals(1, rowId)
 
@@ -72,15 +65,15 @@ class ActorDaoTest : BaseDaoTest() {
     @ExperimentalCoroutinesApi
     @Test
     fun deleteUserFavActor_deletesCorrectly() = runBlockingTest {
-        actorDao.insert(actorEntity)
-        userDao.insert(userEntity)
+        actorDao.insert(defaultActorEntity)
+        userDao.insert(defaultUserEntity)
         actorDao.insertUserFavActor(userFavActorCrossRef)
 
         val deletedRows =
             actorDao.deleteUserFavActor(userFavActorCrossRef.actorId, userFavActorCrossRef.userId)
         assertEquals(1, deletedRows)
 
-        val deleteActor = actorDao.delete(actorEntity)
+        val deleteActor = actorDao.delete(defaultActorEntity)
 
         val retrievedActor = actorDao.getActor(userFavActorCrossRef.actorId)
         assertNull(retrievedActor)

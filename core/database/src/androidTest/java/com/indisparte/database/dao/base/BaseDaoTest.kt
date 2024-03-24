@@ -7,8 +7,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
+import com.indisparte.base.MediaType
 import com.indisparte.database.CineMatesDatabase
 import com.indisparte.database.di.DatabaseModule
+import com.indisparte.database.entity.ActorEntity
+import com.indisparte.database.entity.MediaEntity
 import com.indisparte.database.entity.UserEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,12 +32,15 @@ import java.util.concurrent.Executors
  */
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-abstract class BaseDaoTest {
+open class BaseDaoTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     protected lateinit var testDatabase: CineMatesDatabase
     protected lateinit var defaultUserEntity:  UserEntity
+    protected lateinit var defaultActorEntity: ActorEntity
+    protected lateinit var defaultMediaEntity: MediaEntity
+
     private lateinit var  testDispatcher:TestDispatcher
 
 
@@ -46,6 +52,16 @@ abstract class BaseDaoTest {
             name = "Bernadette McCormick",
             subscriptionDate = Date(System.currentTimeMillis())
         )
+        defaultActorEntity = ActorEntity(actorId = 1, name = "Bryan Berger", posterPath = null)
+        defaultMediaEntity = MediaEntity(
+            mediaId = 1,
+            mediaName = "Elwood Kelly",
+            popularity = null,
+            posterPath = null,
+            voteAverage = 2.3,
+            mediaType = MediaType.MOVIE.id
+        )
+
         testDatabase = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
             CineMatesDatabase::class.java
@@ -56,6 +72,16 @@ abstract class BaseDaoTest {
                 Executors.newSingleThreadExecutor().execute {
                     DatabaseModule.getInstance(ApplicationProvider.getApplicationContext()).userDao().insert(
                         defaultUserEntity
+                    )
+                }
+                Executors.newSingleThreadExecutor().execute {
+                    DatabaseModule.getInstance(ApplicationProvider.getApplicationContext()).personDao().insert(
+                        defaultActorEntity
+                    )
+                }
+                Executors.newSingleThreadExecutor().execute {
+                    DatabaseModule.getInstance(ApplicationProvider.getApplicationContext()).mediaDao().insert(
+                        defaultMediaEntity
                     )
                 }
             }

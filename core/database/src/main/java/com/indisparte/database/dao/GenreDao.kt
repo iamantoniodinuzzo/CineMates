@@ -8,6 +8,7 @@ import androidx.room.Transaction
 import com.indisparte.database.dao.base.BaseDao
 import com.indisparte.database.entity.GenreEntity
 import com.indisparte.database.entity.relations.GenreMediaCrossRef
+import com.indisparte.database.entity.relations.MediaWithGenres
 
 /**
  *@author Antonio Di Nuzzo

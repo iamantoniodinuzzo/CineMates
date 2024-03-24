@@ -41,7 +41,7 @@ interface MediaDao : BaseDao<MediaEntity> {
 
     @Transaction
     @Query("SELECT * FROM media where mediaId =:mediaId")
-    fun getMediaWithLists(mediaId: Int): List<MediaWithDefaultLists>
+    fun getMediaWithLists(mediaId: Int): List<MediaWithLists>
 
     @Query("SELECT * FROM MediaListCrossRef WHERE mediaId = :mediaId AND listId = :listId LIMIT 1")
     fun getMediaInList(listId: Int, mediaId: Int): MediaListCrossRef?

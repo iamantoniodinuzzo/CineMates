@@ -4,6 +4,7 @@ import androidx.test.filters.SmallTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.indisparte.base.MediaType
 import com.indisparte.database.dao.base.BaseDaoTest
+import com.indisparte.database.entity.DefaultListEntity
 import com.indisparte.database.entity.GenreEntity
 import com.indisparte.database.entity.relations.UserFavActorCrossRef
 import com.indisparte.database.entity.relations.UserFavGenreCrossRef
@@ -27,6 +28,7 @@ class UserDaoTest : BaseDaoTest() {
     private lateinit var genreDao: GenreDao
     private lateinit var actorDao: ActorDao
     private lateinit var mediaDao: MediaDao
+    private lateinit var userDefaultListDao: DefaultListDao
     private lateinit var defaultFavGenre: GenreEntity
 
 
@@ -36,6 +38,7 @@ class UserDaoTest : BaseDaoTest() {
         actorDao = testDatabase.personDao()
         genreDao = testDatabase.genreDao()
         mediaDao = testDatabase.mediaDao()
+        userDefaultListDao = testDatabase.defaultListDao()
         defaultFavGenre =
             GenreEntity(genreId = 3171, name = "Carey Hays", mediaType = MediaType.MOVIE.id)
         genreDao.insert(defaultFavGenre)
@@ -205,6 +208,37 @@ class UserDaoTest : BaseDaoTest() {
 
     //USER DEFAULT LISTS
     //TODO: Metodi da testare
+    @Test
+    fun getUserDefaultLists_successfully() {
+        //GIVEN - tutto quello che ti serve per testare
+        val listEntity = DefaultListEntity(
+            listId = 1,
+            defaultTitle = "seen",
+            ownerId = defaultUserEntity.userId
+        )
+        userDefaultListDao.insertAll(
+            listOf(
+                listEntity,
+                DefaultListEntity(
+                    listId = 2,
+                    defaultTitle = "to_see",
+                    ownerId = defaultUserEntity.userId
+                ),
+            ),
 
+            )
+
+        //WHEN - le azioni e i cambiamenti del soggetto del test
+        val result = userDao.getUserDefaultLists(defaultUserEntity.userId)
+
+        //THEN - verifica se il test è andato come ti aspettavi
+        assertEquals(result[0].user, defaultUserEntity)
+        assert(
+            result[0].lists.contains(
+                listEntity
+            ),
+        )
+
+    }
 
 }

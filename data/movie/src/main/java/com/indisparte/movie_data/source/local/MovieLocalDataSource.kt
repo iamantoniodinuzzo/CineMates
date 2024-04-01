@@ -2,12 +2,14 @@ package com.indisparte.movie_data.source.local
 
 import android.util.Log
 import com.indisparte.base.Media
+import com.indisparte.database.dao.DefaultListDao
 import com.indisparte.database.dao.GenreDao
 import com.indisparte.database.dao.MediaDao
 import com.indisparte.database.dao.UserDao
 import com.indisparte.database.entity.asDomain
 import com.indisparte.database.entity.asEntity
 import com.indisparte.database.entity.relations.GenreMediaCrossRef
+import com.indisparte.database.entity.relations.MediaDefaultListCrossRef
 import com.indisparte.database.entity.relations.MediaListCrossRef
 import com.indisparte.database.entity.relations.UserFavMediaCrossRef
 import com.indisparte.movie_data.Movie
@@ -26,6 +28,7 @@ constructor(
     private val mediaDao: MediaDao,
     private val genreDao: GenreDao,
     private val userDao: UserDao,
+    private val defaultListDao: DefaultListDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
 
@@ -50,15 +53,7 @@ constructor(
 
     suspend fun insertFavoriteMovie(movie: Movie): Boolean = withContext(ioDispatcher) {
         //Check if movie already saved
-        val savedMovie = mediaDao.getMedia(movie.id)
-        if (savedMovie == null) {
-            Log.d(TAG, "${movie.title} non è mai stato salvato, lo salvo")
-            //The movie has never been saved before
-            val savingResult = saveMovie(movie)
-            if (!savingResult)
-            //Unsuccessful insertion
-                return@withContext false
-        }
+        if (isMovieAlreadySaved(movie)) return@withContext false
 
         //Set movie as favorite
         val favDate = Date(System.currentTimeMillis())
@@ -69,29 +64,50 @@ constructor(
 
     }
 
-    suspend fun insertToSeeMovie(movie: Movie): Boolean = withContext(ioDispatcher) {
-        // TODO: Come inserire in una lista di default
-        Log.d(TAG, "Inizio il percorso per il salvataggio in Watchlist")
-
-        return@withContext false
+    private fun isMovieAlreadySaved(movie: Movie): Boolean {
+        val savedMovie = mediaDao.getMedia(movie.id)
+        if (savedMovie == null) {
+            Log.d(TAG, "${movie.title} non è mai stato salvato, lo salvo")
+            //The movie has never been saved before
+            val savingResult = saveMovie(movie)
+            if (!savingResult)
+            //Unsuccessful insertion
+                return true
+        }
+        return false
     }
 
-    suspend fun insertSeenMovie(movie: Movie): Boolean = withContext(ioDispatcher) {
-        // TODO: Come inserire in una lista di default
+    suspend fun insertInDefaultList(movie: Movie, defaultListId: Int): Boolean =
+        withContext(ioDispatcher) {
+            //Check if movie already saved
+            if (isMovieAlreadySaved(movie)) return@withContext false
 
-        return@withContext false
-    }
+            //Set movie in default list
+            val insertionDate = Date(System.currentTimeMillis())
+            val crossRef = MediaDefaultListCrossRef(
+                mediaId = movie.id,
+                listId = defaultListId,
+                insertionDate = insertionDate,
+                position = 0
+            )
+            val result = mediaDao.insertMediaDefaultListCrossRef(crossRef)
+            return@withContext result > 0
+        }
 
-    suspend fun isUserFavoriteMovie(movieId: Int, userId:Int): Boolean = withContext(ioDispatcher) {
-        //FIXME: Utilizza lo userId
-        val result = userDao.getUserFavMedias(userId = userId)
-        val isInResult = result[0].favMedias.find { it.mediaId == movieId }
+    suspend fun isUserFavoriteMovie(movieId: Int, userId: Int): Boolean =
+        withContext(ioDispatcher) {
+            //FIXME: Utilizza lo userId
+            val result = userDao.getUserFavMedias(userId = userId)
+            val isInResult = result[0].favMedias.find { it.mediaId == movieId }
 
-        return@withContext isInResult != null
-    }
+            return@withContext isInResult != null
+        }
 
     suspend fun isToSeeMovie(movieId: Int): Boolean = withContext(ioDispatcher) {
         // FIXME: How to check
+
+        //FIXME: Passare lo user id
+
 
         return@withContext false
     }
@@ -111,13 +127,16 @@ constructor(
     }
 
     suspend fun getAllToSeeMovie(): List<Media> = withContext(ioDispatcher) {
-// FIXME: Come restituire la lista dei film da vedere
+        val userWithDefaultListAndMedia = userDao.getUserDefaultListsWithMedias(userId = 0)[0]
+
+
         return@withContext emptyList()
 
     }
 
     suspend fun getAllSeenMovie(): List<Media> = withContext(ioDispatcher) {
-// FIXME: Come restituire la lista dei film visti
+        val userWithDefaultListAndMedia = userDao.getUserDefaultListsWithMedias(userId = 0)[0]
+
         return@withContext emptyList()
 
     }

@@ -1,4 +1,5 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+//import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import java.util.Properties
 
 plugins {
     id("com.android.library")
@@ -8,13 +9,17 @@ plugins {
 }
 apply<MainGradlePlugin>()
 
-val key: String = gradleLocalProperties(rootDir).getProperty("TMDB_API_KEY")
+//val key: String = gradleLocalProperties(rootDir).getProperty("TMDB_API_KEY")
 
+val apikeyPropertiesFile: File = rootProject.file("local.properties")
+val apikeyProperties = Properties().apply {
+    load(apikeyPropertiesFile.inputStream())
+}
 android {
     namespace = "com.indisparte.network"
 
     defaultConfig {
-        buildConfigField("String", "TMDB_API_KEY", key)
+        buildConfigField("String", "TMDB_API_KEY",  apikeyProperties["TMDB_API_KEY"].toString())
     }
 
 }

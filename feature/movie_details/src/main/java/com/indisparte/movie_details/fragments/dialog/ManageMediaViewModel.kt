@@ -42,7 +42,7 @@ constructor(
         viewModelScope.launch {
             // TODO: passing user id
             mediaListRepository.getAllListsByUserId(userId = 0).collectLatest {
-                _lists.emit(it)
+//                _lists.emit(it)
             }
         }
     }

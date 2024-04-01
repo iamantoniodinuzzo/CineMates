@@ -26,6 +26,7 @@ kotlin = "1.9.0"
 androidxArchCore = "2.2.0"
 androidTestJunit = "1.1.5"
 org-jetbrains-kotlin-jvm = "1.9.0"
+annotationJvm = "1.7.1"
 
 
 
@@ -76,6 +77,7 @@ test-runner = { module = "androidx.test:runner", version.ref = "testRunner" }
 androidx-arch-core = { module = "androidx.arch.core:core-testing", version.ref = "androidxArchCore" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 junitAndroid = { module = "androidx.test.ext:junit", version.ref = "androidTestJunit" }
+androidx-annotation-jvm = { group = "androidx.annotation", name = "annotation-jvm", version.ref = "annotationJvm" }
 
 
 [bundles]

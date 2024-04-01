@@ -41,7 +41,8 @@ fun MovieDTO.toMovie(): Movie {
         popularity = this.popularity,
         releaseDate = this.releaseDate,
         title = this.title,
-        voteAverage = this.voteAverage
+        voteAverage = this.voteAverage,
+        genreIds = this.genres
     )
 }
 

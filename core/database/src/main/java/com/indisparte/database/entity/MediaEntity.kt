@@ -1,6 +1,7 @@
 package com.indisparte.database.entity
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.indisparte.base.Media
 import com.indisparte.base.MediaType
@@ -8,19 +9,19 @@ import com.indisparte.base.MediaType
 /**
  *@author Antonio Di Nuzzo
  */
-@Entity(tableName = "media")
+@Entity(tableName = "media", indices = [Index("mediaId")])
 data class MediaEntity(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val mediaId: Int,
     val mediaName: String,
     val popularity: Double?,
     val posterPath: String?,
     val voteAverage: Double,
-    val mediaType: Int
+    val mediaType: Int,
 )
 
 fun MediaEntity.asDomain(): Media {
     return Media(
-        id = this.id,
+        id = this.mediaId,
         mediaName = this.mediaName,
         popularity = this.popularity,
         posterPath = this.posterPath,
@@ -31,7 +32,7 @@ fun MediaEntity.asDomain(): Media {
 
 fun Media.asEntity(): MediaEntity {
     return MediaEntity(
-        id = this.id,
+        mediaId = this.id,
         mediaName = this.mediaName,
         popularity = this.popularity,
         posterPath = this.posterPath,

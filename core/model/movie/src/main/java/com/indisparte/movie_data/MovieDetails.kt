@@ -66,7 +66,8 @@ class MovieDetails(
     posterPath = posterPath,
     releaseDate = releaseDate,
     title = title,
-    voteAverage = voteAverage
+    voteAverage = voteAverage,
+    genreIds = genres.map { it.id }
 ) {
 
     /**

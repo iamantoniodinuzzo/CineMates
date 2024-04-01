@@ -29,9 +29,10 @@ constructor(
                 response.whenResources(
                     onSuccess = { personDetails ->
                         //Check if is my fav person
-                        val isFavoritePerson = peopleLocalDataSource.isFavoritePerson(personId)
+                        //TODO: Ottieni lo user id
+                        val userFavPersons = peopleLocalDataSource.getUserFavActors(userId = 0).map { it.id }
                         //Update attribute
-                        personDetails.isFavorite = isFavoritePerson
+                        personDetails.isFavorite = (personDetails.id in userFavPersons)
 
                         emit(Result.Success(personDetails))
 
@@ -55,17 +56,20 @@ constructor(
 
     override fun setPersonAsFavorite(person: Person): Flow<Boolean> =
         flow {
-            val result = peopleLocalDataSource.insertFavoritePerson(person)
-            emit(result > 0)
+            val result = peopleLocalDataSource.setActorAsFavorite(person)
+            emit(result)
         }
 
+
     override fun removePersonAsFavorite(person: Person): Flow<Boolean> = flow {
-        val result = peopleLocalDataSource.removeFavoritePerson(person)
-        emit(result > 0)
+        // TODO: Ottieni lo userid
+        val result = peopleLocalDataSource.removeFavoriteActor(actorId = person.id, userId = 0)
+        emit(result)
     }
 
     override fun getAllFavoritePerson(): Flow<List<Person>> = flow {
-        val result = peopleLocalDataSource.getAllFavoritePerson()
+        //TODO: Ottieni lo user id
+        val result = peopleLocalDataSource.getUserFavActors(userId = 0)
         emit(result)
     }
 }

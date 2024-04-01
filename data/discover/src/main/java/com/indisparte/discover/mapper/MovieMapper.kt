@@ -13,6 +13,7 @@ fun MovieDTO.toMovie(): com.indisparte.movie_data.Movie {
         popularity = this.popularity,
         releaseDate = this.releaseDate,
         title = this.title,
-        voteAverage = this.voteAverage
+        voteAverage = this.voteAverage,
+        genreIds = this.genres
     )
 }

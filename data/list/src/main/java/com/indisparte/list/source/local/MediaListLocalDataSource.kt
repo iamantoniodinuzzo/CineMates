@@ -1,9 +1,12 @@
 package com.indisparte.list.source.local
 
+import com.indisparte.base.Media
 import com.indisparte.database.dao.ListDao
-import com.indisparte.media_list.MediaList
+import com.indisparte.database.dao.UserDao
+import com.indisparte.database.entity.asDomain
 import com.indisparte.list.mapper.asDomain
 import com.indisparte.list.mapper.asEntity
+import com.indisparte.media_list.MediaList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -16,38 +19,34 @@ import javax.inject.Inject
 class MediaListLocalDataSource
 @Inject
 constructor(
-    private val dao: ListDao,
+    private val listDao: ListDao,
+    private val userDao: UserDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
 
     suspend fun addList(mediaList: MediaList): Boolean = withContext(ioDispatcher) {
         val entityList = mediaList.asEntity()
-        val deferredInsertionResult = async {
-            dao.insert(entityList)
-        }
-
-        val result = deferredInsertionResult.await()
-
-        return@withContext result > 0
+        val insertionResult = listDao.insert(entityList)
+        return@withContext insertionResult > 0
     }
 
     suspend fun removeList(mediaList: MediaList): Boolean = withContext(ioDispatcher) {
         val entityList = mediaList.asEntity()
-        val deferredInsertionResult = async {
-            dao.delete(entityList)
+        val deletionResult = listDao.delete(entityList)
+
+        return@withContext deletionResult > 0
+    }
+
+    suspend fun getAllListByUserId(userId: Int): Map<MediaList, List<Media>> =
+        withContext(ioDispatcher) {
+            val result = userDao.getUserListsWithMedias(userId)[0]
+            val mappedResult =
+                result.lists.associate { listWithMedias -> listWithMedias.list.asDomain() to listWithMedias.medias.map { it.asDomain() } }
+            return@withContext mappedResult
         }
-        val result = deferredInsertionResult.await()
-
-        return@withContext result > 0
-    }
-
-    suspend fun getAllList(): List<MediaList> = withContext(ioDispatcher) {
-        val deferredMediaList = async { dao.getAllLists() }
-        return@withContext deferredMediaList.await().map { it.asDomain() }
-    }
 
     suspend fun getListWithId(listId: Int): MediaList? = withContext(ioDispatcher) {
-        val deferredResult = async { dao.getList(listId) }
+        val deferredResult = async { listDao.getList(listId) }
         return@withContext deferredResult.await()?.asDomain()
     }
 

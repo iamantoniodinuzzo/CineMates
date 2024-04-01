@@ -1,5 +1,7 @@
 package com.indisparte.movie_details.fragments
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.common.Backdrop
@@ -14,7 +16,7 @@ import com.indisparte.movie_data.ReleaseDatesByCountry
 import com.indisparte.movie_data.findReleaseDateByCountry
 import com.indisparte.movie_data.getLatestReleaseCertification
 import com.indisparte.movie_data.repository.MovieRepository
-import com.indisparte.movie_details.model.MovieInfoUiState
+import com.indisparte.movie_details.uiState.MovieInfoUiState
 import com.indisparte.network.util.Result
 import com.indisparte.network.exception.CineMatesException
 import com.indisparte.network.util.succeeded
@@ -27,7 +29,6 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.Locale
@@ -66,6 +67,7 @@ class MovieDetailsViewModel
     val movieInfo: StateFlow<Result<MovieInfoUiState>> get() = _movieInfo
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onDetailsFragmentReady(id: Int) {
         getMovieDetails(id)
         getCast(id)
@@ -74,12 +76,13 @@ class MovieDetailsViewModel
 
 
     fun updateGenre(genre: Genre) {
-        viewModelScope.launch {
+      /*  viewModelScope.launch {
             genreRepository.updateSavedGenre(genre).first()
-        }
+        }*/
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun getMovieDetails(id: Int) {
         viewModelScope.launch {
             _selectedMovie.emit(Result.Loading)
@@ -111,6 +114,7 @@ class MovieDetailsViewModel
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun loadMovieInfo(
         movieDetailsResult: MovieDetails,
     ) {

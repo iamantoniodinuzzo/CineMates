@@ -9,17 +9,21 @@ import com.indisparte.media_list.MediaList
 
 fun MediaList.asEntity(): ListEntity {
     return ListEntity(
-        id = this.id,
+        listId = this.id,
         title = this.title,
         description = this.description,
-        updateDate = this.updateDate
+        updateDate = this.updateDate,
+        creationDate = this.creationDate,
+        isPrivate = this.isPrivate,
+        ownerId = this.ownerId,
     )
 }
 
 fun ListEntity.asDomain(): MediaList {
     return MediaList(
-        id = this.id,
+        id = this.listId,
         title = this.title,
-        description = this.description,
+        description = this.description, isPrivate = this.isPrivate, ownerId = this.ownerId,
+        creationDate = this.creationDate, updateDate = this.updateDate
     )
 }

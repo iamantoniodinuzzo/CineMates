@@ -6,11 +6,11 @@ import com.indisparte.common.Backdrop
 import com.indisparte.common.CountryResult
 import com.indisparte.common.Video
 import com.indisparte.filter.TimeWindow
+import com.indisparte.genre.source.local.GenreLocalDataSource
 import com.indisparte.movie_data.CollectionDetails
 import com.indisparte.movie_data.Movie
 import com.indisparte.movie_data.MovieDetails
 import com.indisparte.movie_data.ReleaseDatesByCountry
-import com.indisparte.movie_data.source.local.GenreLocalDataSource
 import com.indisparte.movie_data.source.local.MovieLocalDataSource
 import com.indisparte.movie_data.source.remote.MovieRemoteDataSource
 import com.indisparte.movie_data.util.MovieListType
@@ -19,7 +19,6 @@ import com.indisparte.network.util.whenResources
 import com.indisparte.person.Cast
 import com.indisparte.person.Crew
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -34,6 +33,7 @@ constructor(
     private val genreLocalDataSource: GenreLocalDataSource,
     private val movieLocalDataSource: MovieLocalDataSource,
 ) : MovieRepository {
+
 
     override fun getByListType(movieListType: MovieListType): Flow<Result<List<Movie>>> =
         movieRemoteDataSource.getByListType(movieListType)
@@ -52,12 +52,12 @@ constructor(
                         //get updated genres from local database to check which genre of current movie, is favorite
                         val favoriteLocalGenres =
                             genreLocalDataSource.getAllGenresById(movieDetails.genres.map { it.id })
-                                .first()
                         // Update movie details genres with local genre status
                         movieDetails.updateGenres(favoriteLocalGenres)
 
                         //Check if current movie is a favorite movie
-                        val isFavorite = movieLocalDataSource.isFavoriteMovie(movieDetails.id)
+                        //FIXME: Passare lo user id opportuno
+                        val isFavorite = movieLocalDataSource.isUserFavoriteMovie(movieDetails.id,0)
                         // Update isFavorite variable
                         movieDetails.isFavorite = isFavorite
 
@@ -129,7 +129,7 @@ constructor(
 
     override fun getAllFavoriteMovies(): Flow<Result<List<Media>>> = flow {
         emit(Result.Loading)
-        val result = movieLocalDataSource.getAllFavoriteMedia()
+        val result = movieLocalDataSource.getUserFavMedias()
         emit(Result.Success(result))
     }
 

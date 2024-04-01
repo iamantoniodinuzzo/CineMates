@@ -1,5 +1,7 @@
 package com.indisparte.list.di
 
+import com.indisparte.list.repository.MediaDefaultListRepository
+import com.indisparte.list.repository.MediaDefaultListRepositoryImpl
 import com.indisparte.list.repository.MediaListRepository
 import com.indisparte.list.repository.MediaListRepositoryImpl
 import dagger.Binds
@@ -21,4 +23,10 @@ abstract class MediaListRepositoryModule {
     abstract fun bindMediaListRepository(
         mediaListRepositoryImpl: MediaListRepositoryImpl,
     ): MediaListRepository
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindMediaDefaultListRepository(
+        mediaDefaultListRepositoryImpl: MediaDefaultListRepositoryImpl,
+    ): MediaDefaultListRepository
 }

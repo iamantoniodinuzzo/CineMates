@@ -15,6 +15,7 @@ dependencies {
     api(project(":core:model:movie"))
     api(project(":core:model:filter"))
     api(project(":core:model:person"))
+    implementation(project(":data:genre"))
     implementation(project(":core:response"))
     implementation(project(":core:network"))
     implementation(project(":core:database"))

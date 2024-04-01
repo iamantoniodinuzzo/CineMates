@@ -1,13 +1,11 @@
 package com.indisparte.database.dao
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.indisparte.base.MediaType
 import com.indisparte.database.dao.base.BaseDaoTest
 import com.indisparte.database.entity.GenreEntity
-import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertTrue
-import org.junit.Before
+import com.indisparte.database.entity.relations.GenreMediaCrossRef
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -15,135 +13,78 @@ import org.junit.runner.RunWith
 /**
  *@author Antonio Di Nuzzo
  */
-@RunWith(AndroidJUnit4::class)
+@RunWith(AndroidJUnit4ClassRunner::class)
 @SmallTest
 class GenreDaoTest : BaseDaoTest() {
+    private lateinit var genreDao: GenreDao
 
-    private lateinit var dao: GenreDao
-
-    @Before
     override fun setup() {
         super.setup()
-        dao = testDatabase.genreDao()
+        genreDao = testDatabase.genreDao()
     }
 
     @Test
-    fun testInsertAndLoadGenresSuccess() = runBlockingTest {
-        //GIVEN
-        val genres = listOf(
-            GenreEntity(id = 7077, name = "Marietta Leonard", isFavorite = false),
-            GenreEntity(id = 5645, name = "Harriett French", isFavorite = false),
-            GenreEntity(id = 2524, name = "Ivy Hunter", isFavorite = false)
-        )
+    fun successfullyGetAllGenres() {
+        // Given
+        val genre1 = GenreEntity(1, "Action", MediaType.MOVIE.id)
+        val genre2 = GenreEntity(2, "Adventure", MediaType.TV.id)
+        val genreList = listOf(genre1, genre2)
+        genreDao.insertAll(genreList)
 
-        //WHEN
-        dao.insertAll(genres)
+        // When
+        val retrievedGenres = genreDao.getAllGenres()
 
-        //THEN
-        val loadedGenres = dao.getAllGenres()
-        assertTrue(loadedGenres.containsAll(genres))
-
+        // Then
+        assert(retrievedGenres.size == 2)
+        assert(retrievedGenres.contains(genre1))
+        assert(retrievedGenres.contains(genre2))
     }
 
     @Test
-    fun testUpdateAndLoadGenresSuccess() = runBlockingTest {
-        //GIVEN
-        val notMyFavGenre = GenreEntity(id = 5908, name = "Francis Church", isFavorite = false)
-        val genres = listOf(
-            GenreEntity(id = 7077, name = "Marietta Leonard", isFavorite = false),
-            GenreEntity(id = 5645, name = "Harriett French", isFavorite = false),
-            GenreEntity(id = 2524, name = "Ivy Hunter", isFavorite = false),
-            notMyFavGenre
-        )
+    fun successfullyGetGenreById() {
+        // Given
+        val genre = GenreEntity(1, "Action", MediaType.TV.id)
+        genreDao.insert(genre)
 
-        //WHEN
-        dao.insertAll(genres)
-        val myFavGenres = notMyFavGenre.copy(isFavorite = true)
-        dao.update(myFavGenres)
+        // When
+        val retrievedGenre = genreDao.getGenreById(1)
 
-        //THEN
-        val loadGenres = dao.getAllGenres()
-        assertEquals(genres.size, loadGenres.size)
-        val genreToCheck = loadGenres.find { it.id == notMyFavGenre.id }
-        assertEquals(genreToCheck, myFavGenres)
-
+        // Then
+        assert(retrievedGenre != null)
+        assert(retrievedGenre == genre)
     }
 
     @Test
-    fun testGetAllGenresByMediaTypeSuccess() = runBlockingTest {
-        // GIVEN
-        val movieMediaType = MediaType.MOVIE.id
-        val MOVIETVMediaType = MediaType.MOVIE_TV.id
-        val genres = listOf(
-            GenreEntity(
-                id = 7077,
-                name = "Marietta Leonard",
-                isFavorite = false,
-                mediaType = movieMediaType
-            ),
-            GenreEntity(
-                id = 5645,
-                name = "Harriett French",
-                isFavorite = false,
-                mediaType = movieMediaType
-            ),
-            GenreEntity(
-                id = 2524,
-                name = "Ivy Hunter",
-                isFavorite = false,
-                mediaType = movieMediaType
-            ),
-            GenreEntity(
-                id = 1234,
-                name = "Test Genre",
-                isFavorite = false,
-                mediaType = MOVIETVMediaType
-            )
-        )
+    fun successfullyGetGGenreByMediaType() {
+        // Given
+        val genre1 = GenreEntity(1, "Action", MediaType.MOVIE.id)
+        val genre2 = GenreEntity(2, "Adventure", MediaType.MOVIE.id)
+        val genre3 = GenreEntity(3, "Horror", MediaType.TV.id)
+        val genreList = listOf(genre1, genre2, genre3)
+        genreDao.insertAll(genreList)
 
-        // WHEN
-        dao.insertAll(genres)
-        val filteredGenres = dao.getAllGenresByMediaType(movieMediaType)
+        // When
+        val retrievedGenres = genreDao.getAllGenresByMediaType(MediaType.MOVIE.id)
 
-        // THEN
-        assertEquals(genres.size, filteredGenres.size)
+        // Then
+        assert(retrievedGenres.size == 2)
+        assert(retrievedGenres.contains(genre1))
+        assert(retrievedGenres.contains(genre2))
     }
 
-    @Test
-    fun testGetAllMyFavGenresSuccess() = runBlockingTest {
-        // GIVEN
-        val genres = listOf(
-            GenreEntity(id = 7077, name = "Marietta Leonard", isFavorite = true),
-            GenreEntity(id = 5645, name = "Harriett French", isFavorite = false),
-            GenreEntity(id = 2524, name = "Ivy Hunter", isFavorite = true),
-            GenreEntity(id = 1234, name = "Test Genre", isFavorite = true)
-        )
+    @Test(expected = UnsupportedOperationException::class)
+    fun failedGenreDeletion() {
+        // Given
+        val genre = GenreEntity(1, "Action", MediaType.TV.id)
 
-        // WHEN
-        dao.insertAll(genres)
-        val myFavGenres = dao.getAllMyFavGenres()
+        // When
+        genreDao.delete(genre)
 
-        // THEN
-        assertEquals(3, myFavGenres.size)
+        // Then
+        // Se l'eccezione UnsupportedOperationException non viene sollevata,
+        // il test fallirà automaticamente.
     }
 
-    @Test
-    fun testGetAllGenresByIdSuccess() = runBlockingTest {
-        // GIVEN
-        val genreIds = listOf(7077, 2524)
-        val genres = listOf(
-            GenreEntity(id = 7077, name = "Marietta Leonard", isFavorite = false),
-            GenreEntity(id = 5645, name = "Harriett French", isFavorite = false),
-            GenreEntity(id = 2524, name = "Ivy Hunter", isFavorite = false)
-        )
-
-        // WHEN
-        dao.insertAll(genres)
-        val loadedGenres = dao.getAllGenresById(genreIds)
-
-        // THEN
-        assertEquals(2, loadedGenres.size)
-    }
 
 
 }

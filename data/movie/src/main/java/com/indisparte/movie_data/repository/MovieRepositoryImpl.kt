@@ -117,7 +117,7 @@ constructor(
     }
 
     override fun setMovieAsToSee(movie: Movie): Flow<Boolean> = flow {
-        val result = movieLocalDataSource.insertToSeeMovie(movie)
+        val result = movieLocalDataSource.insertInDefaultList(movie)
         emit(result)
     }
 

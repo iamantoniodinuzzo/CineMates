@@ -6,7 +6,7 @@ import org.gradle.api.Project
 /**
  *@author Antonio Di Nuzzo
  */
-class MainGradlePlugin : Plugin<Project> {
+open class MainGradlePlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
 //        applyPlugins(project)
@@ -21,7 +21,7 @@ class MainGradlePlugin : Plugin<Project> {
          }
      }*/
 
-    private fun setProjectConfig(project: Project) {
+    protected open fun setProjectConfig(project: Project) {
         project.android().apply {
             compileSdk = Configuration.compileSdk
 
@@ -34,6 +34,14 @@ class MainGradlePlugin : Plugin<Project> {
             compileOptions {
                 sourceCompatibility = JavaVersion.VERSION_17
                 targetCompatibility = JavaVersion.VERSION_17
+            }
+            buildFeatures {
+                viewBinding = true
+                dataBinding  = true
+                compose  = true
+            }
+            composeOptions {
+                kotlinCompilerExtensionVersion = "1.5.1"
             }
         }
     }

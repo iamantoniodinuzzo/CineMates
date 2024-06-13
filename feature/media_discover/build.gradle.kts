@@ -18,13 +18,13 @@ apply<MainGradlePlugin>()
 android {
     namespace = "com.indisparte.media_discover"
 
-    buildFeatures {
+  /*  buildFeatures {
         viewBinding = true
         dataBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
-    }
+    }*/
 }
 
 dependencies {

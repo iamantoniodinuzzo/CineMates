@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indisparte.actor.repository.PeopleRepository
+import com.indisparte.base.Media
 import com.indisparte.genre.repository.GenreRepository
 import com.indisparte.home.util.Section
 import com.indisparte.movie_data.repository.MovieRepository
@@ -105,12 +106,12 @@ constructor(
         }
     }
 
-    private suspend fun fetchPopularPeople() {
-        peopleRepository.getPopularPersons().collect { resource ->
-            val peopleSection = Section.PeopleSection(R.string.section_popular_people, resource)
-            updateSection(peopleSection)
-        }
-    }
+//    private suspend fun fetchPopularPeople() {
+//        peopleRepository.getPopularPersons().collect { resource ->
+//            val peopleSection = Section.PeopleSection(R.string.section_popular_people, resource)
+//            updateSection(peopleSection)
+//        }
+//    }
 
 
     fun fetchData() {
@@ -119,7 +120,7 @@ constructor(
                 val popularMoviesDeferred = async { fetchPopularMovies() }
                 val upcomingMoviesDeferred = async { fetchUpcomingMovies() }
                 val trendingMoviesDeferred = async { fetchTrendingMovies() }
-                val popularPeopleDeferred = async { fetchPopularPeople() }
+//                val popularPeopleDeferred = async { fetchPopularPeople() }
                 val popularTvShowDeferred = async { fetchPopularTvShow() }
                 val onTheAirTvShowDeferred = async { fetchOnTheAirTvShow() }
                 val trendingTvShowDeferred = async { fetchTrendingTvShow() }
@@ -129,7 +130,7 @@ constructor(
                     popularMoviesDeferred,
                     upcomingMoviesDeferred,
                     trendingMoviesDeferred,
-                    popularPeopleDeferred,
+//                    popularPeopleDeferred,
                     popularTvShowDeferred,
                     onTheAirTvShowDeferred,
                     trendingTvShowDeferred,

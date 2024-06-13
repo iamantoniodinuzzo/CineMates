@@ -1,9 +1,11 @@
 package com.indisparte.home.util
 
 import androidx.annotation.StringRes
+import com.indisparte.base.Media
 import com.indisparte.movie_data.Movie
 import com.indisparte.network.util.Result
 import com.indisparte.base.Person
+import com.indisparte.base.TMDBItem
 import com.indisparte.tv.TvShow
 
 
@@ -12,33 +14,33 @@ import com.indisparte.tv.TvShow
  *
  * @param titleResId The string resource ID for the section title.
  */
-sealed class Section(@StringRes val titleResId: Int) {
+sealed class Section(@StringRes val titleResId: Int, val result: Result<List<Media>>) {
     /**
      * Subclass representing a movie section.
      *
      * @param titleResId The string resource ID for the section title.
-     * @param moviesResult The resource representing the list of movies.
+     * @param result The resource representing the list of movies.
      */
     class MovieSection(
         @StringRes titleResId: Int,
-        val moviesResult: Result<List<Movie>>,
+         result: Result<List<Movie>>,
     ) :
-        Section(titleResId) {
+        Section(titleResId, result) {
         override fun toString(): String {
-            return "MovieSection(moviesResult=$moviesResult)"
+            return "MovieSection(moviesResult=$result)"
         }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (other !is MovieSection) return false
 
-            if (moviesResult != other.moviesResult) return false
+            if (result != other.result) return false
 
             return true
         }
 
         override fun hashCode(): Int {
-            return moviesResult.hashCode()
+            return result.hashCode()
         }
 
 
@@ -54,7 +56,7 @@ sealed class Section(@StringRes val titleResId: Int) {
         @StringRes titleResId: Int,
         val tvShowsResult: Result<List<TvShow>>,
     ) :
-        Section(titleResId) {
+        Section(titleResId, tvShowsResult) {
         override fun toString(): String {
             return "TvShowSection(tvShowsResult=$tvShowsResult)"
         }
@@ -81,30 +83,30 @@ sealed class Section(@StringRes val titleResId: Int) {
      * @param titleResId The string resource ID for the section title.
      * @param peopleResult The resource representing the list of people.
      */
-    class PeopleSection(
-        @StringRes titleResId: Int,
-        val peopleResult: Result<List<Person>>,
-    ) :
-        Section(titleResId) {
-        override fun toString(): String {
-            return "PeopleSection(peopleResult=$peopleResult)"
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) return true
-            if (other !is PeopleSection) return false
-
-            if (peopleResult != other.peopleResult) return false
-
-            return true
-        }
-
-        override fun hashCode(): Int {
-            return peopleResult.hashCode()
-        }
-
-
-    }
+//    class PeopleSection(
+//        @StringRes titleResId: Int,
+//        val peopleResult: Result<List<Person>>,
+//    ) :
+//        Section(titleResId, peopleResult) {
+//        override fun toString(): String {
+//            return "PeopleSection(peopleResult=$peopleResult)"
+//        }
+//
+//        override fun equals(other: Any?): Boolean {
+//            if (this === other) return true
+//            if (other !is PeopleSection) return false
+//
+//            if (peopleResult != other.peopleResult) return false
+//
+//            return true
+//        }
+//
+//        override fun hashCode(): Int {
+//            return peopleResult.hashCode()
+//        }
+//
+//
+//    }
 
 
 }

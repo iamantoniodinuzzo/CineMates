@@ -27,7 +27,7 @@ fun CineMatesTheme(
     // Composition locals
     CompositionLocalProvider {
         MaterialTheme(
-            colorScheme = colorScheme,
+            colorScheme = DarkDefaultColorScheme,
             typography = CineMatesTypography,
             content = content,
         )

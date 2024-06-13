@@ -18,16 +18,16 @@ apply<MainGradlePlugin>()
 
 android {
     namespace = "com.indisparte.saved"
-
-    buildFeatures {
-        viewBinding = true
-        dataBinding = true
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
 }
+//    buildFeatures {
+//        viewBinding = true
+//        dataBinding = true
+//        compose = true
+//    }
+//    composeOptions {
+//        kotlinCompilerExtensionVersion = "1.5.1"
+//    }
+//}
 
 dependencies {
 

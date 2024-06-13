@@ -19,7 +19,7 @@ android {
     namespace = "com.indisparte.media_search"
 
 
-    buildFeatures {
+   /* buildFeatures {
         viewBinding = true
         dataBinding = true
         compose = true
@@ -27,7 +27,7 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
-    }
+    }*/
 
 }
 

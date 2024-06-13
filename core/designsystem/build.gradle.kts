@@ -9,17 +9,19 @@ apply<MainGradlePlugin>()
 android {
     namespace = "com.indisparte.designsystem"
 
-    buildFeatures {
-        viewBinding = true
-        dataBinding = true
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
+//    buildFeatures {
+//        viewBinding = true
+//        dataBinding  = true
+//        compose  = true
+//    }
+//    composeOptions {
+//        kotlinCompilerExtensionVersion = "1.5.1"
+//    }
 }
 
 dependencies {
+
+    implementation(project(":core:model:base"))
 
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -43,4 +45,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso)
+
+
+    implementation(libs.coil)
 }

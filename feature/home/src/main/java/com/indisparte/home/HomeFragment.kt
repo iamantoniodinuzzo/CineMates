@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.indisparte.designsystem.theme.CineMatesTheme
 import com.indisparte.home.adapter.SectionAdapter
 import com.indisparte.home.databinding.FragmentHomeBinding
 import com.indisparte.navigation.NavigationFlow
@@ -31,7 +32,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun initializeViews() {
         binding.apply {
-            recyclerViewSection.adapter = sectionAdapter
+//            recyclerViewSection.adapter = sectionAdapter
 
             toolbar.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
@@ -52,15 +53,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
+        viewModel.sections.collectIn(viewLifecycleOwner) { sections ->
 
-    viewModel.sections.collectIn(viewLifecycleOwner) {
-        sectionAdapter.submitSectionList(it.toList())
+            binding.apply {
+                composeView.setContent {
+                    CineMatesTheme {
+                        MediaSectionList(mediaSectionSet = sections)
+                    }
+                }
+            }
+//        sectionAdapter.submitSectionList(it.toList())
+        }
+
     }
-
-}
 
 
 }

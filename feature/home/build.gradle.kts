@@ -18,18 +18,19 @@ apply<MainGradlePlugin>()
 android {
     namespace = "com.indisparte.home"
 
-    buildFeatures {
-        viewBinding = true
-        dataBinding = true
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
+//    buildFeatures {
+//        viewBinding = true
+//        dataBinding = true
+//        compose = true
+//    }
+//    composeOptions {
+//        kotlinCompilerExtensionVersion = "1.5.1"
+//    }
 }
 
 dependencies {
     implementation(project(":core:util"))
+    implementation(project(":core:designsystem"))
     implementation(project(":core:ui"))
     implementation(project(":core:network"))
     implementation(project(":core:navigation"))

@@ -19,14 +19,14 @@ apply<MainGradlePlugin>()
 android {
     namespace = "com.indisparte.person_details"
 
-    buildFeatures {
+    /*buildFeatures {
         viewBinding = true
         dataBinding = true
         compose = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
-    }
+    }*/
 }
 
 dependencies {

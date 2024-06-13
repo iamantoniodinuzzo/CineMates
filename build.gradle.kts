@@ -14,6 +14,8 @@ buildscript {
 plugins {
     id(libs.plugins.hilt.plugin.get().pluginId) version libs.versions.hiltPlugin apply false
     id(libs.plugins.kotlin.android.get().pluginId) version libs.versions.kotlin apply false
+//    alias(libs.plugins.android.library) apply false
+//    alias(libs.plugins.kotlin.android) apply false
 
 }
 

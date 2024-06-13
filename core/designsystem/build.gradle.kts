@@ -1,16 +1,13 @@
 plugins {
-//    id("com.android.library")
-//    id("org.jetbrains.kotlin.android")
-//    id("kotlin-kapt")
-    id(libs.plugins.kotlin.android.get().pluginId)
-    id(libs.plugins.kotlin.kapt.get().pluginId)
     id(libs.plugins.android.library.get().pluginId)
-
+    id(libs.plugins.kotlin.android.get().pluginId)
 }
+
 apply<MainGradlePlugin>()
 
+
 android {
-    namespace = "com.indisparte.ui"
+    namespace = "com.indisparte.designsystem"
 
     buildFeatures {
         viewBinding = true
@@ -23,13 +20,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:util"))
-    implementation(project(":core:network"))
-    implementation(project(":core:model:person"))
-    implementation(project(":core:model:movie"))
-    implementation(project(":core:model:tv"))
-    implementation(project(":core:model:media_list"))
-    implementation(project(":core:navigation"))
 
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -48,10 +38,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.annotation.jvm)
     implementation(libs.bundles.androidX)
-
-    // Glide Image Loading Library for Android
-    implementation(libs.glide.core)
-    kapt(libs.glide.compiler)
-    implementation(libs.coil)
-
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso)
 }

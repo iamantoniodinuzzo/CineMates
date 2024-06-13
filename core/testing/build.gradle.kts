@@ -1,6 +1,9 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+//    id("com.android.library")
+//    id("org.jetbrains.kotlin.android")
+    id(libs.plugins.kotlin.android.get().pluginId)
+    id(libs.plugins.android.library.get().pluginId)
+
 }
 
 apply<MainGradlePlugin>()
@@ -11,16 +14,16 @@ android {
 }
 
 dependencies {
-    implementation(libs.junitTest)
+    implementation(libs.junit)
     implementation(libs.coroutines.test)
+    implementation(libs.junitAndroid)
 
     // Kotlin Extensions
-    implementation(libs.core.ktx)
+    implementation(libs.androidx.core.ktx)
 
     // Kotlin Coroutines
     implementation(libs.bundles.coroutines)
 
     //Timber
     implementation(libs.timber)
-    implementation(libs.junitAndroid)
 }

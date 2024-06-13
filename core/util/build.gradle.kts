@@ -1,7 +1,10 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+//    id("com.android.library")
+//    id("org.jetbrains.kotlin.android")
+//    id("kotlin-kapt")
+    id(libs.plugins.kotlin.android.get().pluginId)
+    id(libs.plugins.kotlin.kapt.get().pluginId)
+    id(libs.plugins.android.library.get().pluginId)
 
 }
 apply<MainGradlePlugin>()
@@ -12,6 +15,11 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        compose = true
+
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
 }
 

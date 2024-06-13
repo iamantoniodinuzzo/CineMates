@@ -1,6 +1,9 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+//    id("com.android.library")
+//    id("org.jetbrains.kotlin.android")
+    id(libs.plugins.kotlin.android.get().pluginId)
+    id(libs.plugins.android.library.get().pluginId)
+
 }
 
 apply<MainGradlePlugin>()
@@ -11,8 +14,8 @@ android {
 }
 
 dependencies {
-    implementation(libs.bundles.androidX)
-    testImplementation(libs.junitTest)
+//    implementation(libs.bundles.androidX)
+    testImplementation(libs.junit)
 
     // Retrofit
     implementation(libs.bundles.retrofit)

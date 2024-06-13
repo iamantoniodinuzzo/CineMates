@@ -52,18 +52,18 @@ fun setTitle(view: PosterView, title: String) {
     view.setTitle(title)
 }
 
-@BindingAdapter("app:isFavorite")
-fun updateFabIcon(fab: FloatingActionButton, isFavorite: Boolean) {
-    val drawableResId: Int =
-        if (isFavorite) R.drawable.ic_favorite_filled
-        else R.drawable.ic_favorite_border
-
-    val drawable = ContextCompat.getDrawable(
-        fab.context,
-        drawableResId
-    )
-    fab.setImageDrawable(drawable)
-}
+//@BindingAdapter("app:isFavorite")
+//fun updateFabIcon(fab: FloatingActionButton, isFavorite: Boolean) {
+//    val drawableResId: Int =
+//        if (isFavorite) R.drawable.ic_favorite_filled
+//        else R.drawable.ic_favorite_border
+//
+//    val drawable = ContextCompat.getDrawable(
+//        fab.context,
+//        drawableResId
+//    )
+//    fab.setImageDrawable(drawable)
+//}
 
 
 

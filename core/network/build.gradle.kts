@@ -2,14 +2,17 @@
 import java.util.Properties
 
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+//    id("com.android.library")
+//    id("org.jetbrains.kotlin.android")
+//    id("kotlin-kapt")
+
+    id(libs.plugins.kotlin.android.get().pluginId)
+    id(libs.plugins.kotlin.kapt.get().pluginId)
+    id(libs.plugins.android.library.get().pluginId)
 
 }
 apply<MainGradlePlugin>()
 
-//val key: String = gradleLocalProperties(rootDir).getProperty("TMDB_API_KEY")
 
 val apikeyPropertiesFile: File = rootProject.file("local.properties")
 val apikeyProperties = Properties().apply {
@@ -25,16 +28,16 @@ android {
 }
 
 dependencies {
-    implementation(libs.bundles.androidX)
-    testImplementation(libs.junitTest)
+//    implementation(libs.bundles.androidX)
+    testImplementation(libs.junit)
 
     // Retrofit
     implementation(libs.bundles.retrofit)
     testImplementation(libs.androidx.arch.core)
 
     // Dagger Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    implementation(libs.bundles.dagger)
+    kapt(libs.bundles.dagger.compiler)
 
     // Timber
     implementation(libs.timber)

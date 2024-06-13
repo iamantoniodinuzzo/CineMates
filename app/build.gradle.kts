@@ -1,14 +1,16 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("androidx.navigation.safeargs.kotlin")
-    id("com.google.dagger.hilt.android")
-    id("kotlin-kapt")
+
+    id(libs.plugins.android.application.get().pluginId)
+    id(libs.plugins.kotlin.android.get().pluginId)
+    id(libs.plugins.safeargs.get().pluginId)
+    id(libs.plugins.hilt.plugin.get().pluginId)
+    id(libs.plugins.kotlin.kapt.get().pluginId)
 
 }
 
 android {
     compileSdk = Configuration.compileSdk
+    namespace = "com.indisparte.cinemates"
 
     defaultConfig {
         applicationId = "com.indisparte.cinemates"
@@ -38,9 +40,13 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        compose = true
+        buildConfig = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
 
-    namespace = "com.indisparte.cinemates"
 }
 
 dependencies {
@@ -55,16 +61,21 @@ dependencies {
     implementation(project(":feature:person_details"))
     implementation(project(":feature:list_creation"))
 
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.constraintLayout)
-    implementation(libs.legacy)
-    implementation(libs.androidx.fragment)
-//    testImplementation(libs.junitTest)
-    androidTestImplementation(libs.bundles.androidTest)
-
-    // Kotlin Extensions
-    implementation(libs.core.ktx)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 
     // Kotlin Coroutines
     implementation(libs.bundles.coroutines)
@@ -73,16 +84,17 @@ dependencies {
     implementation(libs.bundles.navigation)
 
     // Dagger Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    implementation(libs.bundles.dagger)
+    kapt(libs.bundles.dagger.compiler)
 
     // Retrofit
     implementation(libs.bundles.retrofit)
 
-
     // Glide
     implementation(libs.glide.core)
     kapt(libs.glide.compiler)
+    implementation(libs.coil)
+
 
     // Youtube
     //implementation files('libs/YouTubeAndroidPlayerApi.jar')

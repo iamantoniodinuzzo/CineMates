@@ -1,6 +1,10 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+//    id("com.android.library")
+//    id("org.jetbrains.kotlin.android")
+    id(libs.plugins.kotlin.android.get().pluginId)
+    id(libs.plugins.android.library.get().pluginId)
+
+
 }
 
 
@@ -11,7 +15,7 @@ android {
 }
 
 dependencies {
-    testImplementation(libs.junitTest)
+    testImplementation(libs.junit)
     implementation(libs.bundles.androidX)
 }
 

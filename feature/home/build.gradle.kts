@@ -1,9 +1,16 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("androidx.navigation.safeargs.kotlin")
-    id("com.google.dagger.hilt.android")
+//    id("com.android.library")
+//    id("org.jetbrains.kotlin.android")
+//    id("kotlin-kapt")
+//    id("androidx.navigation.safeargs.kotlin")
+//    id("com.google.dagger.hilt.android")
+
+    id(libs.plugins.android.library.get().pluginId)
+    id(libs.plugins.kotlin.android.get().pluginId)
+    id(libs.plugins.safeargs.get().pluginId)
+    id(libs.plugins.hilt.plugin.get().pluginId)
+    id(libs.plugins.kotlin.kapt.get().pluginId)
+
 }
 
 apply<MainGradlePlugin>()
@@ -14,6 +21,10 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
 }
 
@@ -27,13 +38,29 @@ dependencies {
     implementation(project(":data:people"))
     implementation(project(":data:genre"))
 
-    testImplementation(libs.junitTest)
+    testImplementation(libs.junit)
     testImplementation(project(":core:testing"))
     testImplementation(libs.coroutines.test)
     testImplementation(libs.truth)
     testImplementation(project(":data:movie"))
     testImplementation(project(":data:tv"))
     testImplementation(project(":data:people"))
+
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -42,10 +69,9 @@ dependencies {
     implementation(libs.androidx.fragment)
     androidTestImplementation(libs.bundles.androidTest)
 
-    implementation(libs.core.ktx)
     implementation(libs.bundles.coroutines)
     implementation(libs.bundles.navigation)
 
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    implementation(libs.bundles.dagger)
+    kapt(libs.bundles.dagger.compiler)
 }

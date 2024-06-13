@@ -7,12 +7,13 @@ buildscript {
     dependencies {
         classpath(libs.agp)
         classpath(libs.kotlin.gradlePlugin)
-        classpath(libs.hilt.plugin)
         classpath(libs.navigation.safeargs)
     }
 }
 
-plugins{
-    alias(libs.plugins.hilt.plugin) apply false
+plugins {
+    id(libs.plugins.hilt.plugin.get().pluginId) version libs.versions.hiltPlugin apply false
+    id(libs.plugins.kotlin.android.get().pluginId) version libs.versions.kotlin apply false
+
 }
 

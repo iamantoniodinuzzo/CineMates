@@ -1,6 +1,7 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id(libs.plugins.kotlin.android.get().pluginId)
+    id(libs.plugins.android.library.get().pluginId)
+
 }
 
 apply<MainGradlePlugin>()
@@ -11,5 +12,5 @@ android {
 
 dependencies {
     implementation(project(":core:model:base"))
-    implementation(libs.bundles.androidX)
+//    implementation(libs.bundles.androidX)
 }

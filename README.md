@@ -1,4 +1,8 @@
+## Archived
 
+### This repository is no longer maintained, in favor of another project still under development.
+
+---
 
 <!-- PROJECT SHIELDS -->
 <!--
@@ -8,7 +12,7 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 -->
 
-# CineMates [⚒ Work in progress on [develop](https://github.com/iamantoniodinuzzo/CineMates/tree/develop) ⚒]
+# CineMates 
 ![GitHub last commit][last-commit-shield]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
